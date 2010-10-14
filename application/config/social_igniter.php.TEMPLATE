@@ -1,0 +1,87 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+* Name:		Social Igniter : Config
+* Author: 	Brennan Novak
+* 		  	brennan@reverseproductions.com
+*         	@brennannovak
+*          
+* Created by Brennan Novak
+*
+* Project:	http://social-igniter.com/
+* Source: 	http://github.com/socialigniter/
+*
+* Description: basic config file for site settings for Social Igniter
+*/
+
+// Site Settings
+$config['site_title']		   			= "Social-Igniter";	
+$config['site_slug']			  		= "socialigniter";	
+$config['admin_email']		   			= "contact@social-igniter.com";
+
+$config['site_theme']					= "site_default";
+$config['dashboard_theme']				= "dashboard_default";
+
+$config['site_type']					= "default";
+$config['site_id']						= 1;
+$config['default_group']       			= 'user';				// Default group, use name
+$config['admin_group']         			= 'admin';				// Default administrators group, use name
+
+// Social-Igniter Settings
+$config['social_connections']			= array("twitter","facebook");
+$config['home_greeting']				= array("There's no place like home.","Welcome home buddy.","Good news: you're home!","Sweet home, Interwebs!","Home again, home again, jigity jog...");
+$config['mobile_verify']				= array("borogoves","gyre","jabberwocky","jubjub","frumious","bandersnatch","vorpal","tumtum","tulgey","burbled","snicker","snack","galumph","callooh","brillig","slithy","gimble"); //dont use the word verified
+$config['status_length']				= "140";
+$config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian');
+$config['languages_default']			= 'en';
+
+// Columns in your meta table, id not required.
+$config['columns']             			= array('name','company','phone','phone_verify','phone_active','phone_search','location','url','bio','image','home_base','language','time_zone','geo_enabled','privacy','utc_offset');
+$config['identity']            			= 'email';				// A database column which is used to login with.		 
+$config['min_username_length'] 			= 3;					// Minimum Required Length of Username
+$config['max_username_length'] 			= 20;					// Maximum Allowed Length of Username
+$config['min_password_length'] 			= 8;					// Minimum Required Length of Password
+$config['max_password_length'] 			= 20;					// Maximum Allowed Length of Password
+$config['password_strength'] 			= 3;					// Maximum Allowed Length of Password
+$config['email_activation']    			= TRUE;					// Checks password strength for numbers. Current max score is 3 ADD MORE
+$config['remember_users']      			= TRUE;					// Allow users to be remembered and enable auto-login
+$config['user_expire']          		= 150000;				// How long to remember the user (seconds)
+$config['user_extend_on_login'] 		= TRUE;					// Extend the users cookies everytime they auto-login
+$config['salt_length'] 					= 10;					// Salt Length
+$config['store_salt'] 					= true;					// Should the salt be stored in the database	
+$config['message_start_delimiter'] 		= '<p>';				// Message Start Delimiter	
+$config['message_end_delimiter'] 		= '</p>';				// Message End Delimiter	
+$config['error_start_delimiter'] 		= '<p>';				// Error Start Delimiter	
+$config['error_end_delimiter'] 			= '</p>';				// Error End Delimiter
+
+// Email Templates
+$config['email_templates']     			= 'emails/';			// Folder where email templates are stored. Default : auth/
+$config['email_launch']  				= 'launch.php';			// Activate Account Email Template Default : activate.php
+$config['email_signup']					= 'signup.php';			// New user signup
+$config['email_activate']   			= 'activate.php';		// Activate Account Email Template Default : activate.php
+$config['email_forgot_password']   		= 'forgot_password.php';	// Forgot Password Email Template Default : forgot_password.php
+$config['email_forgot_password_complete']   = 'new_password.php'; 	// Forgot Password Complete Email Template Default : new_password.php
+$config['email_send']  					= 'send.php';			// Template for a message being sent as an email
+
+// Image Options
+$config['profile_images']				= "images/profile_images/";
+$config['profile_nopicture']			= "nopicture.jpg";
+
+$config['profile_raw_path']				= "./uploads/";  
+$config['profile_raw_width']  			= 750;
+$config['profile_raw_height']  			= 750;
+
+$config['profile_bigger_width']			= 175;
+$config['profile_bigger_height']		= 175;
+
+$config['profile_normal_width']			= 48;
+$config['profile_normal_height']		= 48;
+
+$config['profile_small_width']			= 25;
+$config['profile_small_height']			= 25;
+
+// Amazon S3
+$config['amazon_s3']					= FALSE;
+$config['amazon_s3_key']				= '';
+$config['amazon_s3_secret_key']			= '';
+
+

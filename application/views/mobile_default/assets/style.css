@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+body	{ background: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 1em; color: #333; margin: 1em; }
+
+h1			{ color: #333; font-size: 4em; font-weight: bold; }
+h2			{ color: #333; font-size: 3em; font-weight: bold; }
+h3			{ color: #333; font-size: 2em; font-weight: bold; }
+p 			{ margin: 0px 0px 15px 0px; font-size: 1em; }
+ul			{ margin: 0px 0px 15px 0px; font-size: 1em; }
+
+.clear 		{ clear: both; }
+.hide 		{ display: none; }
+
+.separator	{ width: 100%; height: 2px; background: #999; margin: 10px 0px; }
+
+a			{ text-decoration: none; }
+a:link		{ text-decoration: none; }
+a:visited	{ text-decoration: none; }
+a:active	{ text-decoration: none; }
+
+#name 		{ width: 234px; height: 45px; background: url(../images/mobile/name.png) 0px 0px no-repeat; }
+#name a 	{ width: 100%; height: 100%; display: block; }
+#name a h1 	{ display: none; }
+
+#header_avatar 			{ width: 48px; height: 48px; }
+
+#logged			{ margin: 0px; padding: 0px; list-style: none; }
+#logged li 		{ float: left; margin: 0px 15px 0px 0px; }
+
+#not_logged 	{ margin: 0px; padding: 0px; list-style: none; }
+#not_logged li 	{ float: left; margin: 0px 15px 0px 0px; }
+	
+#navigation 			{ margin: 0px; padding: 0px; list-style: none; }
+#navigataion li 		{ float: left; margin: 0px 15px 0px 0px; }
+
+#main 					{ margin: 15px 0px 15px 0px; text-align: left; }
+#main ul 				{ margin: 25px 0px 25px 0px; } 
+#main ul li 			{ margin: 10px 0px; }
+
+#sidebar 				{ margin: 15px 0px; text-align: left; }
+
+#footer ul 				{ margin: 0px; list-style: none;  }
+#footer li 				{ float: left; margin: 0px 15px 0px 0px; }
+
+/* Dashboard Style */
+#status_update 			{ width: 500px; height: 40px; }
+
+#timeline {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+li.status {
+	width: 500px;
+	margin: 0px;
+	padding: 10px 0px 10px 0px;
+	border-bottom: 2px solid #999;
+}
+span.status_thumbnail {
+	width: 32px;
+	height: 32px;
+	display: block;
+	margin: 0px 0px 10px 0px;
+	overflow: hidden;
+	float: left;
+}
+span.status_text {
+	width: 450px;
+	display: block;
+	min-height: 32px;
+	float:left;
+	margin: 0px 0px 0px 15px;
+	line-height: 1.25em;
+}
+span.status_meta {
+	display: block;
+	margin: 0px;
+	font-size: 12px; 
+	line-height: 18px;
+	color: #999;
+}
+
+ul.status_actions {
+	position: relative;
+	bottom: 12px;
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+	float: right;
+}
+ul.status_actions li {
+	float: left;
+	padding: 0px;
+	margin: 0px;	
+}

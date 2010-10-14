@@ -1,0 +1,7 @@
+*.DS_Store
+application/config/config.php
+application/config/database.php
+application/config/social_igniter.php
+application/config/email.php
+application/modules/
+images/profile_images/
