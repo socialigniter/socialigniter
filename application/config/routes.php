@@ -51,8 +51,8 @@ $route['comments']								= 'comments';
 $route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
 $route['home/(:any)/(:any)/(:any)'] 			= '$1/home/$2/$3';
 $route['home/(:any)/(:any)'] 					= '$1/home/$2';
-$route['home/(:any)'] 							= '$1/home/index';
-$route['home/replies'] 							= 'home/replies';
+$route['home/(:any)'] 							= 'home';
+$route['home/mentions'] 						= 'home/mentions';
 $route['home'] 									= 'home';
 
 $route['messages/drafts']						= 'messages/index';

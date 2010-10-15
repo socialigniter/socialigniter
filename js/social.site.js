@@ -24,10 +24,10 @@ $(document).ready(function()
 		var reply_to_id				= $('#reply_to_id').val();
 
 		if(comment_count_current == 'Write')	var comment_count_updated = 1;
-		else									var comment_count_updated = parseInt(comment_count_current)+1;		
+		else									var comment_count_updated = parseInt(comment_count_current) + 1;		
 
 		// Inject as reply or normal		
-		if (reply_to_id)	var append_to_where = '#comment-replies-'+reply_to_id;
+		if (reply_to_id)	var append_to_where = '#comment-replies-' + reply_to_id;
 		else				var append_to_where = '#comments_list';
 				
 		$.ajax(
@@ -76,10 +76,10 @@ $(document).ready(function()
 		var reply_to_id				= $('#reply_to_id').val();
 
 		if(comment_count_current == 'Write')	var comment_count_updated = 1;
-		else									var comment_count_updated = parseInt(comment_count_current)+1;		
+		else									var comment_count_updated = parseInt(comment_count_current) + 1;		
 		
 		// Inject as reply or normal
-		if (reply_to_id)	var append_to_where = '#comment-replies-'+reply_to_id;
+		if (reply_to_id)	var append_to_where = '#comment-replies-' + reply_to_id;
 		else				var append_to_where = '#comments_list';
 
 		// If fields are filled out		

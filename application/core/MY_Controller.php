@@ -82,7 +82,6 @@ class MY_Controller extends Controller
 			{
 				$this->social_checkin[] = $setting->module;
 			}
-			
 		}
 		
 		// Themes

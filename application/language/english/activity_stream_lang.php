@@ -28,14 +28,16 @@ $lang['verbs']['rsvp-maybe'] 	= 'might attend';
 $lang['verbs']['rsvp-no'] 		= 'is not going to attend';
 
 // Social Igniter Verbs
+$lang['verbs']['comment']		= 'commented';
 $lang['verbs']['purchase']		= 'purchased';
 $lang['verbs']['download']		= 'downloaded';
+
 
 // Object Articles
 $lang['object_articles']['article']		= 'an';
 $lang['object_articles']['audio']		= 'an';
 $lang['object_articles']['bookmark']	= 'a';
-$lang['object_articles']['comment']		= '';
+$lang['object_articles']['comment']		= 'on';
 $lang['object_articles']['file']		= 'uploaded a';
 $lang['object_articles']['folder']		= 'created the';
 $lang['object_articles']['group']		= 'the';

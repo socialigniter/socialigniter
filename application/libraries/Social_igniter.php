@@ -19,7 +19,7 @@ class Social_igniter
 		$this->ci =& get_instance();
 
 		$this->ci->load->model('settings_model');
-		$this->ci->load->model('site_model');		
+		$this->ci->load->model('sites_model');		
 		$this->ci->load->model('pages_model');
  		$this->ci->load->model('activity_model');
  		$this->ci->load->model('content_model');		
@@ -151,16 +151,16 @@ class Social_igniter
     }
     
     /* Item Types */
-    function render_item_default($object, $has_url, $has_thumb)
+    function render_item_default($object, $has_thumb)
     {
 	    // Has Thumbnail
 		if ($has_thumb) 
 		{
-			$content = '<a href="'.$url.'"><img src="'.$object->thumb.'" border="0"></a>';
+			$content = '<a href="'.$object->url.'"><img src="'.$object->thumb.'" border="0"></a>'.$object->description;
 		}
 		else
 		{
-			$content = '<a href="'.$url.'">'.$object->title.'</a>';
+			$content = '<span class="item_content_detail">"'.$object->description.'" <a href="'.$object->url.'">read</a></span>';
 		}
 	    
     	return $content;
@@ -168,7 +168,7 @@ class Social_igniter
     
     function render_item_page($object, $has_thumb)
     {
-    	return '<span class="item_content_detail">"'.$object->description.'"</span>';
+    	return '<span class="item_content_detail">"'.$object->description.'" <a href="'.$object->url.'">read</a>"</span>';
     }
     
     function render_item_photo($object, $has_thumb)
@@ -312,7 +312,7 @@ class Social_igniter
 	/* Site */
 	function get_site()
 	{
-		return $this->ci->site_model->get_site();
+		return $this->ci->sites_model->get_site();
 	}
 	
 	function get_themes($theme_type='site')
@@ -407,9 +407,12 @@ class Social_igniter
 
 	
 	/* Activity */
-	function get_timeline()
+	function get_timeline($limit, $module)
 	{
-		return $this->ci->activity_model->get_timeline();		
+		if ($module)	$where = array('module' => $module);
+		else			$where = array();
+	
+		return $this->ci->activity_model->get_timeline($limit, $where);		
 	}
 	
 	function get_activity($activity_id)

@@ -66,7 +66,6 @@
 <!--		<h2>Admin</h2> -->
 		<ul>
 			<?= $sidebar_admin ?>
-			<?= $modules_sidebar_admin ?>
 		</ul>
 		<?php endif; ?>
 		</div>

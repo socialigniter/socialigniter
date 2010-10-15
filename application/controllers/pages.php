@@ -55,13 +55,14 @@ class Pages extends Dashboard_Controller
 				'site_id'		=> config_item('site_id'),
 				'user_id'		=> $this->session->userdata('user_id'),
 				'verb'			=> 'update',
+				'module'		=> 'pages',
 				'type'			=> 'page'
 			);
 			$data = array(
 				'content_id'	=> $page->content_id,
 				'title'			=> $this->input->post('title'),
 				'url'			=> base_url().'pages/view/'.$page->content_id,
-				'description' 	=> character_limiter(strip_tags($this->input->post('content'), ''), 125)
+				'description' 	=> character_limiter(strip_tags($this->input->post('content'), ''), config_item('home_description_length'))
 			);
 		
 			$activity = $this->social_igniter->add_activity($info, $data);		    
@@ -71,8 +72,10 @@ class Pages extends Dashboard_Controller
 		}
 		else
 		{	
-			$this->data['page']				= $page;
 			$this->data['sub_title'] 		= 'Edit: '.$page->title;
+			$this->data['message']			= validation_errors();
+
+			$this->data['page']				= $page;
 			$this->data['layouts']			= $this->social_igniter->scan_layouts($this->config->item('site_theme'));
 			
 			$this->data['wysiwyg_name']		= 'content';
@@ -137,13 +140,14 @@ class Pages extends Dashboard_Controller
 				'site_id'		=> config_item('site_id'),
 				'user_id'		=> $this->session->userdata('user_id'),
 				'verb'			=> 'post',
+				'module'		=> 'pages',
 				'type'			=> 'page'
 			);
 			$data = array(
 				'content_id'	=> $page->content_id,
 				'title'			=> $this->input->post('title'),
 				'url'			=> base_url().'pages/view/'.$page->content_id,
-				'description' 	=> character_limiter(strip_tags($this->input->post('content'), ''), 125)
+				'description' 	=> character_limiter(strip_tags($this->input->post('content'), ''), config_item('home_description_length'))
 			);
 		
 			$activity = $this->social_igniter->add_activity($info, $data);			    

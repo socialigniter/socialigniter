@@ -1,23 +1,40 @@
 $(document).ready(function()
 {
+	// Highlights New Item
+	if ($.url.attr('anchor'))
+	{
+	    $('html, body').animate({scrollTop:0});
+	
+		var url_octothorpe = $.url.attr('anchor');
+		
+		markNewItem(url_octothorpe);
+	}
+	
 	// Generates Uniform
-	$(function(){
+	$(function()
+	{
 		$("select, input:checkbox, input:radio, input:file").uniform();
 	});
 
 	// Hide Things
 	$('.error').hide();
-	$('#content_message').oneTime(4000, function(){$('#content_message').hide('slow')});	
-	
-	
-	// Placeholders 
-	doPlaceholder('#status_update_text', "What's shaking?");		
+	$('#content_message').oneTime(4000, function()
+	{
+		$('#content_message').hide('slow')
+	});
 
-	// Char Counter
+	// Character Counter
 	$('#status_update_text').NobleCount('#character_count',
 	{
 		on_negative: 'color_red'
 	});
+	
+	// Placeholders 
+	doPlaceholder('#status_update_text', "What's shaking?");
+
+	// Gets count of new items with class="get_count_new" uses id="name_count_new" to make call to AJAX controller
+	$('.feed_count_new').oneTime(100, function() { getCountNew(this) });
+	$('.feed_count_new').everyTime(60000,function() { getCountNew(this); });		
 
 	// Status
 	$("#status_update").bind("submit", function(eve)
@@ -45,20 +62,19 @@ $(document).ready(function()
 				 	}
 				 	else
 				 	{
+				 		// Inject
 					 	$('#feed').prepend(html).show('slow');
-						$('#status_update_text').val('');
+						$('#status_update_text').val('');						
 						doPlaceholder('#status_update_text', "What's shaking?");
+
+						// Mark New Item		                 
+		                markNewItem($(html).attr('id'));				
 				 	}	
 			 	}
 			});
 		}
 	});	
 
-	// Gets count of new items with class="get_count_new" uses id="name_count_new" to make call to AJAX controller
-	$('.feed_count_new').oneTime(100, function() { getCountNew(this) });
-	$('.feed_count_new').everyTime(60000,function() { getCountNew(this); });
-	
-	
 	// Marks Feed Item not new
 	$('.item_new').live('click', function()
 	{
@@ -132,15 +148,9 @@ $(document).ready(function()
 			else if (html == 'deleted')
 			{			
 				$(item_element).hide('normal');
-			}
-			
-			console.log('html:' + html);
-						
-		});
-		
-		console.log('item: ' + item_element);
+			}						
+		});		
 	});	
-	
 	
 	// Add Category
 	$('.category_select').live('click', function(eve) 

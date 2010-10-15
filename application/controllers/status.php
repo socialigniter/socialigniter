@@ -50,6 +50,7 @@ class Status extends MY_Controller {
 					'site_id'		=> config_item('site_id'),
 					'user_id'		=> $this->session->userdata('user_id'),
 					'verb'			=> 'post',
+					'module'		=> 'core',
 					'type'			=> 'status'
 				);
 				

@@ -57,7 +57,7 @@ class Public_Controller extends MY_Controller
         
     }
     
-    function render($template='site')
+    function render($layout='site')
     {
      
       	// Is Module
@@ -83,7 +83,7 @@ class Public_Controller extends MY_Controller
             $this->data['content'] 		.= $this->load->view($content_path, $this->data, true);
         }
 
-        $this->load->view(config_item('site_theme').'/layouts/'.$template.'.php', $this->data);  //load the template   
+        $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);  //load the template   
 
     }
     

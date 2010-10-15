@@ -14,12 +14,12 @@ class Dashboard_Controller extends MY_Controller
 		$this->data['level']					= $this->session->userdata('user_level_id');
 	    
 	    // Load Values
-        $this->data['head']						= $this->load->view($this->config->item('dashboard_theme').'/partials/head.php', $this->data, true);
+        $this->data['head']						= $this->load->view(config_item('dashboard_theme').'/partials/head.php', $this->data, true);
         $this->data['navigation']				= '';
         $this->data['content']					= '';
-        $this->data['sidebar_messages']			= $this->load->view($this->config->item('dashboard_theme').'/partials/sidebar_messages.php', $this->data, true);
-        $this->data['sidebar_admin']			= $this->load->view($this->config->item('dashboard_theme').'/partials/sidebar_admin.php', $this->data, true);
-		$this->data['footer']					= $this->load->view($this->config->item('dashboard_theme').'/partials/footer.php', $this->data, true);
+        $this->data['sidebar_messages']			= $this->load->view(config_item('dashboard_theme').'/partials/sidebar_messages.php', $this->data, true);
+        $this->data['sidebar_admin']			= $this->load->view(config_item('dashboard_theme').'/partials/sidebar_admin.php', $this->data, true);
+		$this->data['footer']					= $this->load->view(config_item('dashboard_theme').'/partials/footer.php', $this->data, true);
 		$this->data['modules_assets']			= NULL;
 		$this->data['modules_head']   			= NULL;
 		$this->data['modules_navigation_core']	= NULL;
@@ -27,6 +27,8 @@ class Dashboard_Controller extends MY_Controller
         $this->data['modules_sidebar_tools']  	= NULL;
         $this->data['modules_sidebar_admin']  	= NULL;
 		$this->data['modules_footer']			= NULL;
+		
+		$this->data['message']					= NULL;
 		
     	// Set This Module Vars
        	if ($this->module_name) 
@@ -36,9 +38,9 @@ class Dashboard_Controller extends MY_Controller
 		}
 		
 		// Get Includes From All Modules
-		$modules_scan = $this->social_igniter->scan_modules();
+		$this->data['modules_scan'] = $this->social_igniter->scan_modules();
 		
-		foreach ($modules_scan as $module)
+		foreach ($this->data['modules_scan'] as $module)
 		{
 			if ($this->data['settings'][$module]['enabled'] == 'TRUE')
 			{	
@@ -67,35 +69,56 @@ class Dashboard_Controller extends MY_Controller
 			    {
 			    	$this->data['modules_sidebar_tools'] 	.= $this->load->view('..'.$module_sidebar_tools, $this->data, true);
 			    }
-			    if (file_exists(APPPATH.$module_sidebar_admin))
-			    {
-			    	$this->data['modules_sidebar_admin'] 	.= $this->load->view('..'.$module_sidebar_admin, $this->data, true);
-			    }
 			}
 		}
     }
     
-    function render($template='dashboard')
+    function render($layout='dashboard')
     {
-    	// Is Module
+    	// Is A Module
        	if ($this->module_name) 
     	{
-    		// Navigation extends or replaces core
+    		// Navigation extends / replaces core
 		    if (!file_exists(APPPATH.'/modules/'.$this->module_name.'/views/partials/navigation_'.$this->module_controller.'.php'))
 		    {
-				$navigation_path	= $this->config->item('dashboard_theme').'/partials/navigation_'.$this->module_controller.'.php'; 
+				$navigation_path	= config_item('dashboard_theme').'/partials/navigation_'.$this->module_controller.'.php'; 
 			}
 			else
 		    {
         		$navigation_path	= '../modules/'.$this->module_name.'/views/partials/navigation_'.$this->module_controller.'.php';        
 			}
+			
 			// Content Path
-    	    $content_path 			= '../modules/'.$this->module_name.'/views/'.$this->module_controller.'/'.$this->action_name.'.php';
+    	    $content_path 			= '../modules/'.$this->module_name.'/views/'.$this->module_controller.'/'.$this->action_name.'.php';			
 		}
+		// Is Module but uses home feed '/home/blog'
+		elseif (($this->ci->uri->segment(1) == 'home') && (in_array($this->ci->uri->segment(2), $this->data['modules_scan'])))
+		{
+			$first_name		= $this->ci->uri->segment(1);
+			$module_name 	= $this->ci->uri->segment(2);
+
+			$this->data['modules_assets'] = base_url().'application/modules/'.$module_name.'/assets/';
+
+    		// Navigation extends / replaces core
+		    if (!file_exists(APPPATH.'/modules/'.$module_name.'/views/partials/navigation_'.$first_name.'.php'))
+		    {
+				$navigation_path	= config_item('dashboard_theme').'/partials/navigation_'.first_name.'.php'; 
+			}
+			else
+		    {
+        		$navigation_path	= '../modules/'.$module_name.'/views/partials/navigation_'.$first_name.'.php';        
+			}		
+
+			// Content Path
+    	    //$content_path 		= '../modules/'.$module_name.'/views/'.$first_name.'/index.php';
+    	    $content_path 			= config_item('dashboard_theme').'/home/module.php';
+
+		}
+		// Not Module
 		else
 		{
-	        $navigation_path 	= $this->config->item('dashboard_theme').'/partials/navigation_'.$this->controller_name.'.php';        
-        	$content_path 		= $this->config->item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
+	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_'.$this->controller_name.'.php';        
+        	$content_path 		= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
 		}
 
 		// Load Partial Views
@@ -103,6 +126,6 @@ class Dashboard_Controller extends MY_Controller
         $this->data['content'] 		= $this->load->view($content_path, $this->data, true);
  		
  		// Load Main Template View
-        $this->load->view($this->config->item('dashboard_theme').'/layouts/'.$template.'.php', $this->data);  //load the template
+        $this->load->view(config_item('dashboard_theme').'/layouts/'.$layout.'.php', $this->data);  //load the template
     }    
 }

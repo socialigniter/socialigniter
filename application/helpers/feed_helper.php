@@ -40,8 +40,7 @@ function item_type_class($type)
 		return 'item_type';
 	}
 	
-	return 'item_type type_'.$type;
-	
+	return 'item_type type_'.$type;	
 }
 
 function item_linkify($text)

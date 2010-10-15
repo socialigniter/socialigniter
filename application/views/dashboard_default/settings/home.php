@@ -12,6 +12,10 @@
 	<?= form_dropdown('date_style', config_item('date_style_types'), $settings['home']['date_style']) ?>
 	</p>
 		
+	<p>Description<br>
+	<input type="text" size="4" name="description_length" value="<?= $settings['home']['description_length'] ?>" /> characters
+	</p>
+		
 </div>
 
 <span class="item_separator"></span>

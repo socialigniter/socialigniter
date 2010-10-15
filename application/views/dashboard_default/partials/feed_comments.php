@@ -2,7 +2,7 @@
 	<span class="item_thumbnail">
 		<a href="<?= $item_profile ?>"><img src="<?= $item_avatar ?>" /></a>
 	</span>
-	<span class="<?= $item_content_size ?>">
+	<span class="item_content_small">
 		<b><a href="<?= $item_profile ?>"><?= $item_contributor ?></a></b> <span class="item_verb"><?= $item_verb ?></span> <span class="feed_content_view"><a href="<?= $item_view ?>"><?= $item_object ?></a></span><br>
 		<?= $item_text ?>
 		<span class="item_meta"><?= $item_date ?></span>

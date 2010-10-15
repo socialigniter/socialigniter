@@ -44,6 +44,7 @@ CREATE TABLE `activity` (
   `site_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `verb` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `module` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `type` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `data` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,  
   `created_at` datetime NOT NULL,
@@ -287,6 +288,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'comments_allow', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'comments_per_page', '10');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'public_timeline', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'date_style', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'home', 'description_length', '110');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'share', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'like', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'comments_allow', 'TRUE');

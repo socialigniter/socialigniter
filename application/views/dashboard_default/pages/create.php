@@ -25,7 +25,6 @@
 	    <option value="S">Specify</option>
 	</select>
 	
-	
 	 <h3>Comments</h3>             
 	 <select name="comments_allow" id="comments_allow">
 	 	<option value="Y">Allow</option>

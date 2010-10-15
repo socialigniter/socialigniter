@@ -30,7 +30,7 @@ function ValidateEmailAddress(email)
 // Checks if field has content, handles placeholder
 function isFieldValid(id, placeholder, error)
 {
-	var value 	= $(id).val();
+	var value = $(id).val();
 	
 	if (value == placeholder)
 	{
@@ -60,6 +60,15 @@ function getCountNew(element)
 	});
 }
 
+// Marks Item In Feed New
+function markNewItem(item_id)
+{
+	$('#' + item_id).addClass('item_created');
+	$('#' + item_id).oneTime(3000, function()
+	{
+		$('#' + item_id).removeClass('item_created').addClass('item');
+	});
+}
 
 // For Geo Locating Updates, Posts, Etc...
 function initiate_geolocation()

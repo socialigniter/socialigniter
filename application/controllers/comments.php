@@ -18,7 +18,8 @@ class Comments extends Dashboard_Controller
 		$comments 					= $this->social_tools->get_comments($comment_module);		
 		$comments_view 				= NULL;
 		$this->data['feed_type']	= 'comments';
-		$this->data['item_verb']	= $this->lang->line('comment');
+    	$this->data['item_verb']	= item_type($this->lang->line('object_types'), 'comment');
+	
 		
 		if (empty($comments))
 		{
@@ -28,17 +29,21 @@ class Comments extends Dashboard_Controller
 	 	{
 			foreach ($comments as $item)
 			{
-				$this->data['item_viewed']			= item_viewed($item->viewed);
+				// Item
 				$this->data['item_id']				= $item->comment_id;
-				$this->data['item_type']			= item_type($item->type);
+				$this->data['item_type']			= item_type_class($item->type);
+				$this->data['item_viewed']			= item_viewed($item->viewed);
+				
+				// Contributor
 				$this->data['item_avatar']			= $this->social_igniter->profile_image($item->user_id, $item->image, $item->email);
-				$this->data['item_content_size']	= 'item_content_small';
 				$this->data['item_contributor']		= $item->name;
+				$this->data['item_profile']			= base_url().'profile/'.$item->username;
+
+				// Activity
 				$this->data['item_object']			= $item->title;
 				$this->data['item_text']			= $item->comment;
 				$this->data['item_date']			= human_date('SIMPLE', mysql_to_unix($item->created_at));
 				$this->data['item_approval']		= $item->approval;
-				$this->data['item_profile']			= base_url().'profile/'.$item->username;
 		
 		 		// Actions
 				$this->data['item_view'] 			= base_url().'comments/'.$item->type.'/view/'.$item->content_id.'/'.$item->comment_id;

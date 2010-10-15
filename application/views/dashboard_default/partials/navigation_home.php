@@ -2,7 +2,7 @@
 <ul class="content_navigation">
 	<?= navigation_list_btn('home', 'Public') ?>
 	<?= navigation_list_btn('home/friends', 'Friends') ?>
-	<?= navigation_list_btn('home/replies', '@ Replies') ?>
+	<?= navigation_list_btn('home/replies', '@ Mentions') ?>
 	<?= navigation_list_btn('home/likes', 'Likes') ?>
 	<?= $modules_navigation_core ?>	
 </ul>

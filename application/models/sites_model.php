@@ -1,6 +1,6 @@
 <?php
 
-class Site_model extends CI_Model {
+class Sites_model extends CI_Model {
     
 	function __construct()
 	{
@@ -20,7 +20,7 @@ class Site_model extends CI_Model {
 			$where = array('type' => 'additional', 'site_id' => $this->ci->config->item('site_id'));
 		}
  		
-		return $this->db->select('*')->where($where)->limit(1)->get('site')->row();	
+		return $this->db->select('*')->where($where)->limit(1)->get('sites')->row();	
  	}   
 
 }

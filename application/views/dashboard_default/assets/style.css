@@ -29,8 +29,8 @@ textarea:focus 				{ background: url(images/textarea_basic_focus.png) 0px 0px re
 
 .clear 						{ clear: both; }
 .hide 						{ display: none; }
-.color_red 					{ color: red; }
-.color_black				{ color: #333333; }
+.color_red 					{ color: #b54545 !important; }
+.color_black				{ color: #333333 !important; }
 .line_horiz 				{ height: 2px; background: url('images/line_horiz.png') 0 0 repeat-x;  }
 .line_vert					{ width: 2px; background: url('images/line_vert.png') 0 0 repeat-y;  }
 
@@ -141,10 +141,11 @@ span.msg_notification		{ display: block; padding: 6px; color: #f2edda; backgroun
 #status_post				{ float: right; margin: 0px 15px 0px 0px; }
 
 /* Feed */
-li.item						{ width: 645px; margin: 0px; padding: 0px; }
-li.item:hover ul.item_actions { visibility: visible; }
-li.item_new					{ width: 645px; margin: 0px; padding: 0px; }
-li.item_new:hover ul.item_actions { visibility: visible; }
+li.item								{ width: 645px; margin: 0px; padding: 0px; background: #ececec; }
+li.item:hover ul.item_actions		{ visibility: visible; }
+li.item_new							{ width: 645px; margin: 0px; padding: 0px; background: #ececec; }
+li.item_new:hover ul.item_actions	{ visibility: visible; }
+li.item_created						{ background: #f2e3af; }
 
 span.item_separator			{ width: 100%; height: 2px; display: block; background: url(images/item_separator.png) 0 0 repeat-x; }
 span.item_thumbnail 		{ width: 48px; height: 48px; display: block; position: relative; top: 12px; left: 0px; margin: 0px 20px 0px 15px; overflow: hidden; float: left; }
@@ -168,7 +169,7 @@ span.type_photo				{ background-position: 0px -105px; }
 span.type_audio				{ background-position: 0px -140px; }
 span.type_page				{ background-position: 0px -175px; }
 span.type_product			{ background-position: 0px -210px; }
-span.type_blog				{ background-position: 0px -245px; }
+span.type_article			{ background-position: 0px -245px; }
 span.type_like				{ background-position: 0px -280px; }
 span.type_link				{ background-position: 0px -315px; }
 span.type_location			{ background-position: 0px -350px; }

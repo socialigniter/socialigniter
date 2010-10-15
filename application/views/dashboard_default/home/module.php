@@ -1,5 +1,3 @@
-<?= $status_updater ?>
-
 <ol id="feed">
 	<?= $timeline_view ?>
 </ol>
