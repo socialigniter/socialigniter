@@ -8,10 +8,10 @@
 		<ul>
 			<li><h1><?= $name ?></h1></li>
 			<li><h3>@<?= $username ?></h3></li>
-			<?= display_value("li", "", "", "", $location); ?>
-			<?= display_value("li", "", "", "", $url, $url, "_blank"); ?>		
-			<?= display_value("li", "", "", "", $bio); ?>
-			<?= display_value("li", "", "", "", $home_base); ?>
+			<?= display_value("li", "", "", $location); ?>
+			<?= display_value("li", "", "", display_link("", "", $url, $url)); ?>		
+			<?= display_value("li", "", "", $bio); ?>
+			<?= display_value("li", "", "", $home_base); ?>
 		</ul>	
 	</div>
 	

@@ -7,20 +7,20 @@ class Profile extends Public_Controller {
 
 		if (!$this->uri->segment(2) || (config_item('users_profile') != 'TRUE')) redirect(base_url());	
 	
-		$user = $this->social_auth->get_user_by_username($this->uri->segment(2)); 
+		$this->user = $this->social_auth->get_user_by_username($this->uri->segment(2)); 
  	
-		if($user)
+		if($this->user)
 		{	
-			$this->data['user_id'] 		= $user->user_id;	
-			$this->data['username'] 	= $user->username;
-			$this->data['name'] 		= $user->name;
-			$this->data['company'] 		= $user->company;
-			$this->data['location'] 	= $user->location; 
-			$this->data['url'] 			= $user->url; 
-			$this->data['bio'] 			= $user->bio; 
-			$this->data['home_base'] 	= $user->home_base; 
-			$this->data['image'] 		= $user->image; 
-			$this->data['created_on'] 	= $user->created_on;
+			$this->data['user_id'] 		= $this->user->user_id;	
+			$this->data['username'] 	= $this->user->username;
+			$this->data['name'] 		= $this->user->name;
+			$this->data['company'] 		= $this->user->company;
+			$this->data['location'] 	= $this->user->location; 
+			$this->data['url'] 			= $this->user->url; 
+			$this->data['bio'] 			= $this->user->bio; 
+			$this->data['home_base'] 	= $this->user->home_base; 
+			$this->data['image'] 		= $this->user->image; 
+			$this->data['created_on'] 	= $this->user->created_on;
 
 			// Links
 	 		$this->data['follow_url'] = 'SDFsdf23@#$sfsfsdf';
@@ -40,8 +40,7 @@ class Profile extends Public_Controller {
     }
 
  	function index()
- 	{
- 	
+ 	{ 		
  		$this->data['page_title'] = $this->data['name']."'s profile"; 		
  		
 		$this->render('profile');

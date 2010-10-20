@@ -42,7 +42,7 @@ class Dashboard_Controller extends MY_Controller
 		
 		foreach ($this->data['modules_scan'] as $module)
 		{
-			if ($this->data['settings'][$module]['enabled'] == 'TRUE')
+			if (config_item($module.'_enabled') == 'TRUE')
 			{	
 				// Set Module Partials
 				$module_head 						= '/modules/'.$module.'/views/partials/head.php';

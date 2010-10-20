@@ -45,42 +45,53 @@ function navigation_list_btn($link, $word)
 	return $link;
 }
 
-function display_value($tag=false, $id=false, $class=false, $name=false, $value, $link=false, $target=false)
+function display_value($tag=false, $id=false, $class=false, $value=false)
 {
-	$tag_mid 	= "";
-	$tag_end 	= "";
-	$link_start = "";
-	$link_end	= "";
+	$tag_start	= '';
+	$tag_close 	= '';
+	$tag_end 	= '';
 	
 	if ($value) 
 	{
 		if ($tag) 
 		{
-			$tag_start	= "<".$tag;
-			$tag_mid 	= ">";
+			$tag_start	= '<'.$tag;
+			$tag_close 	= '>';
 			$tag_end 	= "</".$tag.">";
 
-			if ($id != false) $id = " id='".$id."'";
-			if ($class != false) $class = " class='".$class."'";
-		}
-		
-		if ($link) 
-		{
-			if ($target) $target = $target;
-
-			$link_start	= "<a href='".$value."' target='".$target."'>";
-			$link_end	= "</a>";
+			if ($id != false) $id = ' id="'.$id.'"';
+			if ($class != false) $class = ' class="'.$class.'"';
 		}
 	
-		$value = $tag_start.$id.$class.$tag_mid.$name.$link_start.$value.$link_end.$tag_end."\n"; 
+		$result = $tag_start.$id.$class.$tag_close.$value.$tag_end."\n"; 
 	}
 	else 
 	{
-		$value = "";	
-	}	
+		$result = '';	
+	}
 		
-	return $value;
+	return $result;
 }
+
+function display_link($id=false, $class=false, $link=false, $value=false, $target=false)
+{
+	if ($link) 
+	{
+		if ($id != false) 		$id		= ' id="'.$id.'" ';
+		if ($class != false)	$class	= " class='".$class."' ";
+		if ($target) 			$target = 'target="'.$target.'"';
+		if (!$value)			$value	= $link;
+		
+		$result = '<a '.$id.$class.' href="'.$link.'" '.$target.'>'.$value.'</a>'."\n";
+	}
+	else
+	{
+		$result = "";
+	}
+		
+	return $result;
+}
+
 
 // Works similar to display_value() except it's suited for images specify full path for $image_pre, $image_null 
 function display_image($id=false, $class=false, $image_pre, $image, $image_null=false, $alt=false)

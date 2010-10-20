@@ -813,7 +813,7 @@ class Auth_model extends CI_Model
 			$this->session->set_userdata($this->identity_column,  $user->{$this->identity_column});
 			$this->session->set_userdata('user_id',  $user->user_id);
 			$this->session->set_userdata('user_level_id',  $user->user_level_id);
-			$this->session->set_userdata('username',  $user->user_level_id);
+			$this->session->set_userdata('username',  $user->username);
 			$this->session->set_userdata('user_level',  $user->level);
 		    $this->session->set_userdata('name', $user->name);
 		    $this->session->set_userdata('image', $user->image);
@@ -822,7 +822,7 @@ class Auth_model extends CI_Model
 		    $this->session->set_userdata('geo_enabled', $user->geo_enabled);
 		    $this->session->set_userdata('privacy', $user->privacy);
 
-			$this->update_last_login($user->user_id);		    
+			$this->update_last_login($user->user_id);
 
 			// Extend the users cookies if enabled
 			if (config_item('user_extend_on_login'))
