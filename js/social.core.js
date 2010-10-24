@@ -1,4 +1,14 @@
-var base_url = 'http://' + document.domain + ':8890';
+if (jQuery.url.attr('port'))
+{
+	var url_port = ':' + jQuery.url.attr('port');
+}
+else
+{
+	var url_port = '';
+}
+var base_url = jQuery.url.attr('protocol') + '://' + jQuery.url.attr('host') + url_port;
+
+console.log('base_url: ' + base_url);
 
 // Renders placeholder
 function doPlaceholder(id, placeholder)
