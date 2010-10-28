@@ -525,6 +525,9 @@ class CI_Loader {
 	 */
 	function add_package_path($path)
 	{
+		// Add the trailing slash if it is missed out
+		$path .= substr($path, -1, 1) == '/' ? '' : '/';
+
 		array_unshift($this->_ci_library_paths, $path);
 		array_unshift($this->_ci_model_paths, $path);
 		array_unshift($this->_ci_helper_paths, $path);
@@ -534,6 +537,22 @@ class CI_Loader {
 		array_unshift($config->_config_paths, $path);
 	}
 
+	// --------------------------------------------------------------------
+
+	/**
+	 * Get Package Paths
+	 *
+	 * Get an array of package paths
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	void
+	 */
+	function get_package_paths($include_system = FALSE)
+	{
+		return $include_system === TRUE ? $this->_ci_library_paths : $this->_ci_model_paths;
+	}
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -935,12 +954,21 @@ class CI_Loader {
 	 * @return	void
 	 */
 	function _ci_autoloader()
-	{	
+	{
 		include_once(APPPATH.'config/autoload'.EXT);
 		
 		if ( ! isset($autoload))
 		{
 			return FALSE;
+		}
+
+		// Autoload packages
+		if (isset($autoload['packages']))
+		{
+			foreach ($autoload['packages'] as $package_path)
+			{
+				$this->add_package_path($package_path);
+			}
 		}
 		
 		// Load any custom config file

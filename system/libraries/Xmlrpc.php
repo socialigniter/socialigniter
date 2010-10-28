@@ -434,6 +434,7 @@ class XML_RPC_Response
 	var $errno = 0;
 	var $errstr = '';
 	var $headers = array();
+	var $xss_clean = TRUE;
 
 	function XML_RPC_Response($val, $code = 0, $fstr = '')
 	{	
@@ -503,6 +504,11 @@ class XML_RPC_Response
 	function decode($array=FALSE)
 	{
 		$CI =& get_instance();
+
+		if ($this->xss_clean && ! isset($CI->security))
+		{
+			$CI->load->library('security');
+		}
 
 		if ($array !== FALSE && is_array($array))
 		{
@@ -1118,6 +1124,11 @@ class XML_RPC_Message extends CI_Xmlrpc
 	{
 		$CI =& get_instance();	
 
+		if ($this->xss_clean && ! isset($CI->security))
+		{
+			$CI->load->library('security');
+		}
+		
 		if ($array !== FALSE && is_array($array))
 		{
 			while (list($key) = each($array))

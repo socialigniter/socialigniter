@@ -40,7 +40,7 @@ CREATE TABLE `access` (
 --
 
 CREATE TABLE `activity` (
-  `activity_id` int(32) NOT NULL,
+  `activity_id` int(32) NOT NULL AUTO_INCREMENT,
   `site_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `verb` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -395,7 +395,7 @@ CREATE TABLE `users` (
   `created_on` int(16) unsigned DEFAULT NULL,
   `last_login` int(16) unsigned DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `users`
@@ -449,7 +449,7 @@ CREATE TABLE `users_meta` (
   `privacy` tinyint(1) DEFAULT NULL,
   `utc_offset` varchar(8) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`user_meta_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `users_meta`

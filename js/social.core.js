@@ -8,8 +8,6 @@ else
 }
 var base_url = jQuery.url.attr('protocol') + '://' + jQuery.url.attr('host') + url_port;
 
-console.log('base_url: ' + base_url);
-
 // Renders placeholder
 function doPlaceholder(id, placeholder)
 {		

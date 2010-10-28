@@ -9,6 +9,7 @@ class Login extends Public_Controller {
     function index() 
     {
     	if ($this->social_auth->logged_in()) redirect(base_url()."home", 'refresh');
+    	if (config_item('users_login') == 'FALSE') redirect(base_url(), 'refresh');
     	        
         // Validate form input
     	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
@@ -109,7 +110,8 @@ class Login extends Public_Controller {
     
     function signup()
     {
-    	if ($this->social_auth->logged_in()) redirect(base_url()."home", 'refresh');     
+    	if ($this->social_auth->logged_in()) redirect(base_url()."home", 'refresh'); 
+    	if (config_item('users_signup') == 'FALSE') redirect(base_url(), 'refresh');    	    
     
         $this->data['page_title'] = "Signup";
               
