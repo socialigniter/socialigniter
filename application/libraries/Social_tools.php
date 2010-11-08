@@ -21,6 +21,7 @@ class Social_tools
 		// Load Models
 		$this->ci->load->model('categories_model');
 		$this->ci->load->model('comments_model');
+		$this->ci->load->model('locations_model');
 		$this->ci->load->model('messages_model');		
 		$this->ci->load->model('ratings_model');
 		$this->ci->load->model('tags_model');
@@ -178,6 +179,30 @@ class Social_tools
 		}
 			
 		return $this->view_comments;
+	}
+
+
+	/* Locations */
+	function get_location($key, $value)
+	{
+		return $this->ci->locations_model->get_location($key, $value);
+	}
+
+	function get_locations($key, $value)
+	{
+		return $this->ci->locations_model->get_locations($key, $value);
+	}
+
+	function get_locations_near($lat, $long)
+	{
+		return $this->ci->locations_model->get_locations_near($lat, $long);
+	}
+
+	function add_location($location_data, $site_id)
+	{
+		if (!$site_id) $site_id = $this->site_id;
+	
+		return $this->ci->locations_model->add_location($location_data, $site_id);
 	}
 
 		

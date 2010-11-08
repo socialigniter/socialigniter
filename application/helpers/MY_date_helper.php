@@ -41,19 +41,18 @@ if ( ! function_exists('standard_date'))
 	}
 }
 
-
 function human_date($fmt = 'DIGITS', $time = '')
 {
 	$formats = array(
-			'DIGITS'				=>  '%n / %j / %y',
-			'DIGITS_ZERO'			=>  '%m / %d / %Y',
-			'SLASHES'				=>  '%M / %j / %Y',
-			'SIMPLE'				=>  '%M %j%S, %Y',
-			'SIMPLE_TIME'			=>  '%M %j%S, %Y %g:%i %A',
-			'MONTH_DAY'				=>  '%F %j%S',
-			'MONTH_DAY_YEAR'		=>  '%F %j%S, %Y',
-			'MONTH_DAY_YEAR_TIME'	=>  '%F %j%S, %Y %g:%i %A'
-			);
+		'DIGITS'				=>  '%n / %j / %y',
+		'DIGITS_ZERO'			=>  '%m / %d / %Y',
+		'SLASHES'				=>  '%M / %j / %Y',
+		'SIMPLE'				=>  '%M %j%S, %Y',
+		'SIMPLE_TIME'			=>  '%M %j%S, %Y %g:%i %A',
+		'MONTH_DAY'				=>  '%F %j%S',
+		'MONTH_DAY_YEAR'		=>  '%F %j%S, %Y',
+		'MONTH_DAY_YEAR_TIME'	=>  '%F %j%S, %Y %g:%i %A'
+	);
 
 	if ( ! isset($formats[$fmt]))
 	{
@@ -62,6 +61,23 @@ function human_date($fmt = 'DIGITS', $time = '')
 
 	return mdate($formats[$fmt], $time);
 }
+
+function human_time($fmt='HOUR_MINUTE', $time = '')
+{
+	$formats = array(
+		'HOUR_MINUTE'	=>  '%g:%i %A',
+		'HOUR'			=>  '%g %A',
+		'MINUTE'		=>  '%i'
+	);
+
+	if ( ! isset($formats[$fmt]))
+	{
+		return FALSE;
+	}
+
+	return mdate($formats[$fmt], $time);
+}
+
 
 function elapsed_date($seconds='', $time='')
 {
@@ -102,6 +118,15 @@ function format_datetime($format, $date_time)
 	{
 		$return = human_date($format, $date_time);
 	}
+	
+	return $return;
+}
+
+
+function format_time($format, $time)
+{
+	$time	= mysql_to_unix('0000-00-00 '.$time);
+	$return = human_time($format, $time);
 	
 	return $return;
 }

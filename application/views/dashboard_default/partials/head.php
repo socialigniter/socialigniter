@@ -12,7 +12,6 @@
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.fancybox.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.jplayer.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.url.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/yqlgeo.js"></script>
 
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
 <script type="text/javascript" src="<?= $dashboard_assets ?>dashboard.js"></script>

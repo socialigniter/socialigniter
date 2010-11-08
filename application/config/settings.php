@@ -37,6 +37,12 @@ $config['date_style_types'] = array(
 	'ELAPSED'				=> '2 hours ago'
 );
 
+$config['time_style_types'] = array(
+	'HOUR_MINUTE'	=> '2:15 PM',
+	'HOUR' 			=> '2 PM',
+	'MINUTE'		=> '15'
+);
+
 $config['days_of_week']	= array(
 	'sunday'		=> 'Sunday',
 	'monday'		=> 'Monday',
