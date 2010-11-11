@@ -14,7 +14,7 @@ class Dashboard_Controller extends MY_Controller
 		$this->data['level']					= $this->session->userdata('user_level_id');
 	    
 	    // Load Values
-        $this->data['head']						= $this->load->view(config_item('dashboard_theme').'/partials/head.php', $this->data, true);
+        $this->data['head']						= $this->load->view(config_item('dashboard_theme').'/partials/head_dashboard.php', $this->data, true);
         $this->data['navigation']				= '';
         $this->data['content']					= '';
         $this->data['sidebar_messages']			= $this->load->view(config_item('dashboard_theme').'/partials/sidebar_messages.php', $this->data, true);
@@ -45,7 +45,7 @@ class Dashboard_Controller extends MY_Controller
 			if (config_item($module.'_enabled') == 'TRUE')
 			{	
 				// Set Module Partials
-				$module_head 						= '/modules/'.$module.'/views/partials/head.php';
+				$module_head 						= '/modules/'.$module.'/views/partials/head_dashboard.php';
 				$module_navigation_core 			= '/modules/'.$module.'/views/partials/navigation_'.$this->module_controller.'_core.php';
 				$module_sidebar_messages 			= '/modules/'.$module.'/views/partials/sidebar_messages.php';
 				$module_sidebar_tools 				= '/modules/'.$module.'/views/partials/sidebar_tools.php';

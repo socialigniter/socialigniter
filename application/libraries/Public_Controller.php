@@ -10,7 +10,7 @@ class Public_Controller extends MY_Controller
 		$this->data['navigation_menu']		= $this->social_igniter->get_menu();
 				               
         // Load Views                        
-        $this->data['head']					= $this->load->view(config_item('site_theme').'/partials/head.php', $this->data, true);     
+        $this->data['head']					= $this->load->view(config_item('site_theme').'/partials/head_site.php', $this->data, true);     
         $this->data['logged']				= $this->load->view(config_item('site_theme').'/partials/logged.php', $this->data, true);
         $this->data['navigation']			= $this->load->view(config_item('site_theme').'/partials/navigation.php', $this->data, true);
         $this->data['content']				= '';
@@ -28,7 +28,7 @@ class Public_Controller extends MY_Controller
 		
 		foreach ($modules_scan as $module):
 		
-			$module_header 						= '/modules/'.$module.'/views/partials/head.php';
+			$module_header 						= '/modules/'.$module.'/views/partials/head_site.php';
 			$module_navigation					= '/modules/'.$module.'/views/partials/navigation.php';
 			$module_sidebar 					= '/modules/'.$module.'/views/partials/sidebar.php';
 			$module_footer 						= '/modules/'.$module.'/views/partials/footer.php';
