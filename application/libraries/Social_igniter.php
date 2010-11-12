@@ -485,6 +485,13 @@ class Social_igniter
 		return $this->ci->content_model->get_content($content_id);
 	}
 	
+	function get_content_recent($limit=10)
+	{
+		$site_id = $this->site_id;
+		
+		return $this->ci->content_model->get_content_recent($site_id, $limit);
+	}
+	
 	function add_content($content_data, $site_id=NULL)
 	{
 		$check_content = $this->check_content_duplicate($content_data['user_id'], $content_data['title'], $content_data['content']);

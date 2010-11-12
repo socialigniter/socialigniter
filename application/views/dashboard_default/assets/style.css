@@ -76,12 +76,12 @@ div.content h3 				{ margin: 20px 0px 15px 0px; }
 div.content table 			{ margin: 20px 0px 15px 0px; }
 div.content p 				{ margin: 20px 0px 15px 0px; line-height: 21px; }
 div.content ul 				{ list-style-type: none; text-align: left; margin: 10px 0px 10px 0px; padding: 0px; }
-div.content li 				{ float: left; text-align: left; }
+div.content li 				{ text-align: left; }
 
 h2.content_title			{ float: left; clear: right;  position: relative; top: -6px; left: 5px; }
 h2.content_title img		{ position: relative; top: 5px; left: -5px; }
 ul.content_navigation		{ float: right; height: 29px; position: relative; top: 0px; right: 10px; }
-ul.content_navigation li 	{ margin: 0px 20px 0px 0px; }
+ul.content_navigation li 	{ float: left; margin: 0px 20px 0px 0px; }
 
 div.norm_top 				{ width: 700px; height: 12px; background: url('images/content_norm_top.png') 0 0 no-repeat; margin: 0px; }
 div.norm_mid 				{ width: 700px; background: url('images/content_norm_mid.png') 0 0 repeat-y; margin: 0px 0px; padding: 10px 0px; }
@@ -141,6 +141,7 @@ span.msg_notification		{ display: block; padding: 6px; color: #f2edda; backgroun
 #status_post				{ float: right; margin: 0px 15px 0px 0px; }
 
 /* Feed */
+#feed li							{ float: left; }
 li.item								{ width: 645px; margin: 0px; padding: 0px; background: #ececec; }
 li.item:hover ul.item_actions		{ visibility: visible; }
 li.item_new							{ width: 645px; margin: 0px; padding: 0px; background: #ececec; }
