@@ -485,11 +485,11 @@ class Social_igniter
 		return $this->ci->content_model->get_content($content_id);
 	}
 	
-	function get_content_recent($limit=10)
+	function get_content_recent($type, $limit=10)
 	{
 		$site_id = $this->site_id;
 		
-		return $this->ci->content_model->get_content_recent($site_id, $limit);
+		return $this->ci->content_model->get_content_recent($site_id, $type, $limit);
 	}
 	
 	function add_content($content_data, $site_id=NULL)

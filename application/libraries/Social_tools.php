@@ -91,6 +91,11 @@ class Social_tools
 		return $this->ci->comments_model->get_comments($this->site_id, $module);
 	}
 
+	function get_comments_recent($module, $limit=10)
+	{
+		return $this->ci->comments_model->get_comments_recent($this->site_id, $module, $limit);
+	}
+
 	function get_comment_children($reply_to_id)
 	{
 		return $this->ci->comments_model->get_comment_children($reply_to_id);
