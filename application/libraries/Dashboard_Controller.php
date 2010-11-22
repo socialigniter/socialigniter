@@ -6,9 +6,7 @@ class Dashboard_Controller extends MY_Controller
     {
         parent::__construct();
 
-		$this->ci =& get_instance();
-
-	    if (!$this->ci->social_auth->logged_in()) redirect('login', 'refresh');
+	    if (!$this->social_auth->logged_in()) redirect('login', 'refresh');
 	    
 		// Admin Levels
 		$this->data['level']					= $this->session->userdata('user_level_id');
@@ -92,10 +90,10 @@ class Dashboard_Controller extends MY_Controller
     	    $content_path 			= '../modules/'.$this->module_name.'/views/'.$this->module_controller.'/'.$this->action_name.'.php';			
 		}
 		// Is Module but uses home feed '/home/blog'
-		elseif (($this->ci->uri->segment(1) == 'home') && (in_array($this->ci->uri->segment(2), $this->data['modules_scan'])))
+		elseif (($this->uri->segment(1) == 'home') && (in_array($this->uri->segment(2), $this->data['modules_scan'])))
 		{
-			$first_name		= $this->ci->uri->segment(1);
-			$module_name 	= $this->ci->uri->segment(2);
+			$first_name		= $this->uri->segment(1);
+			$module_name 	= $this->uri->segment(2);
 
 			$this->data['modules_assets'] = base_url().'application/modules/'.$module_name.'/assets/';
 
@@ -110,7 +108,6 @@ class Dashboard_Controller extends MY_Controller
 			}		
 
 			// Content Path
-    	    //$content_path 		= '../modules/'.$module_name.'/views/'.$first_name.'/index.php';
     	    $content_path 			= config_item('dashboard_theme').'/home/module.php';
 
 		}

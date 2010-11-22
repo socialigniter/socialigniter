@@ -79,7 +79,7 @@ $autoload['config'] = array('social_igniter','email','settings');
 |
 */
 
-$autoload['language'] = array('social_igniter');
+$autoload['language'] = array();
 
 /*
 | -------------------------------------------------------------------

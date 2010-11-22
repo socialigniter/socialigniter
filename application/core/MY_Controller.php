@@ -1,8 +1,12 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
+/* The MX_Controller class is autoloaded as required */
 
-class MY_Controller extends Controller
+class MY_Controller extends MX_Controller
 {
-    protected $data = Array();
+    protected $data = array();
+    protected $social_connections	= array();
+	protected $social_post			= array();
+	protected $social_checkin		= array();	
     protected $controller_name;
     protected $action_name; 
     protected $page_title;
@@ -15,11 +19,9 @@ class MY_Controller extends Controller
 	function __construct()
 	{
         parent::__construct();
-        
-		$this->ci =& get_instance();        
-        
+                
         // Site Status or Error
-        if ($this->config->item('site_status') === FALSE)
+        if (config_item('site_status') === FALSE)
         {
             show_error('Sorry the site is shut for now.');
         }        
@@ -51,15 +53,10 @@ class MY_Controller extends Controller
 		$this->data['site_description'] 	= $site->description;
 		$this->data['site_keywords'] 		= $site->keywords;
 		
-		// Social Hooks
-		$this->social_conections			= array();
-		$this->social_post					= array();
-		$this->social_checkin				= array();
-		
 		// Create Settings
-		$this->settings	= $this->social_igniter->get_settings();
+		$settings	= $this->social_igniter->get_settings();
 
-		foreach ($this->settings as $setting)
+		foreach ($settings as $setting)
 		{
 			$this->data['settings'][$setting->module][$setting->setting] = $setting->value;
 			
@@ -100,7 +97,7 @@ class MY_Controller extends Controller
 
 
 		// Dashboard & Public values for logged
-		if ($this->ci->social_auth->logged_in())
+		if ($this->social_auth->logged_in())
 		{
 			
 			$this->data['logged_user_id']		= $this->session->userdata('user_id');

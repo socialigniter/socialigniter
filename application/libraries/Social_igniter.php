@@ -232,9 +232,10 @@ class Social_igniter
 	function get_social_post($user_id)
 	{
 		$post_to 			= NULL;
+		$social_post		= $this->get_settings_type('social_post');
 		$user_connections	= $this->ci->social_auth->get_connections_user($user_id);
 
-		foreach ($this->ci->social_post as $social)
+		foreach ($social_post as $social)
 		{
 			foreach($user_connections as $exists)
 			{
@@ -257,9 +258,10 @@ class Social_igniter
 	function get_social_checkin($user_id)
 	{
 		$checkin 			= NULL;
+		$social_checkin		= $this->get_settings_type('social_checkin');
 		$user_connections	= $this->ci->social_auth->get_connections_user($user_id);
 
-		foreach ($this->ci->social_checkin as $social)
+		foreach ($social_checkin as $social)
 		{
 			foreach($user_connections as $exists)
 			{
