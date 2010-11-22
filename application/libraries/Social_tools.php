@@ -22,7 +22,6 @@ class Social_tools
 		$this->ci->load->model('categories_model');
 		$this->ci->load->model('comments_model');
 		$this->ci->load->model('locations_model');
-		$this->ci->load->model('messages_model');		
 		$this->ci->load->model('ratings_model');
 		$this->ci->load->model('tags_model');
 		$this->ci->load->model('taxonomy_model');
@@ -209,31 +208,6 @@ class Social_tools
 	
 		return $this->ci->locations_model->add_location($location_data, $site_id);
 	}
-
-		
-	/* Messages */
-	function get_inbox($receiver_id)
-	{
-		return $this->ci->messages_model->get_inbox($receiver_id);
-	}
-
-	function get_inbox_new_count($receiver_id)
-	{
-		return $this->ci->messages_model->get_inbox_new_count($receiver_id);
-	}
-
-	function get_sent_or_drafts($sender_id, $status)
-	{
-		return $this->ci->messages_model->get_sent_or_drafts($sender_id, $status);
-	}
-
-	function add_message($message_data)
-	{
-		$result = $this->ci->messages_model->add_message($this->site_id, $message_data);
-		return $result;
-	}	
-
-
 
 
 	/* Ratings */

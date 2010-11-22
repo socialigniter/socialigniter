@@ -123,6 +123,6 @@ class Dashboard_Controller extends MY_Controller
         $this->data['content'] 		= $this->load->view($content_path, $this->data, true);
  		
  		// Load Main Template View
-        $this->load->view(config_item('dashboard_theme').'/layouts/'.$layout.'.php', $this->data);  //load the template
+        $this->load->view(config_item('dashboard_theme').'/layouts/'.$layout.'.php', $this->data); //load the template
     }    
 }

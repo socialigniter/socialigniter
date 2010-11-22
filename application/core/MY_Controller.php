@@ -4,6 +4,8 @@
 class MY_Controller extends MX_Controller
 {
     protected $data = array();
+    
+    // NEED TO LOOK INTO THIS WAY AS IT'S MORE EFFICIENT THAN QURIES
     protected $social_connections	= array();
 	protected $social_post			= array();
 	protected $social_checkin		= array();	

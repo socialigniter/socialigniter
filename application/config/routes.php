@@ -81,7 +81,6 @@ $route['settings/modules'] 						= 'settings/modules';
 $route['settings/pages']						= 'settings/pages';
 $route['settings/users']						= 'settings/users';
 $route['settings/home']							= 'settings/home';
-$route['settings/messages']						= 'settings/messages';
 $route['settings/comments']						= 'settings/comments';
 $route['settings/update']						= 'settings/update';
 $route['settings'] 								= 'settings';

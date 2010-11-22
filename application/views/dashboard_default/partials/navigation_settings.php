@@ -7,7 +7,7 @@
 	<?= navigation_list_btn('settings/mobile', 'Mobile') ?>
 	<?= navigation_list_btn('settings/connections', 'Connections') ?>
 </ul>
-<?php elseif (is_uri_value($this->uri->segment(2), array('pages', 'home', 'users', 'messages', 'comments'))): ?>
+<?php elseif (is_uri_value($this->uri->segment(2), config_item('core_modules'))): ?>
 <h2 class="content_title">
 	<img src="<?= $dashboard_assets.'icons/'.$this->uri->segment(2) ?>_32.png"> <?= ucwords($this->uri->segment(2)) ?> Settings
 </h2>
