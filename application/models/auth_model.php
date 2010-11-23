@@ -516,20 +516,11 @@ class Auth_model extends CI_Model
             
     		if ($user->password === $password)
     		{
+    			// Sets Various Userdata
         		$this->update_last_login($user->user_id);
-        		
-    		    $this->session->set_userdata($this->identity_column,  $user->{$this->identity_column});
-    		    $this->session->set_userdata('user_id',  $user->user_id);
-    		    $this->session->set_userdata('username',  $user->username); 
-       		    $this->session->set_userdata('user_level_id',  $user->user_level_id);
-    		    $this->session->set_userdata('user_level',  $user->level);
-    		    $this->session->set_userdata('name',  $user->name);
-    		    $this->session->set_userdata('image',  $user->image);
-    		    $this->session->set_userdata('language',  $user->language);
-    		    $this->session->set_userdata('time_zone',  $user->time_zone);
-    		    $this->session->set_userdata('geo_enabled',  $user->geo_enabled);
-    		    $this->session->set_userdata('privacy',  $user->privacy);
-    		    
+				$this->set_userdata($user);
+	 			$this->set_user_connections($user->user_id);
+   		    
     		    if ($remember && config_item('remember_users'))
     		    {
     		    	$this->remember_user($user->user_id);
@@ -560,25 +551,35 @@ class Auth_model extends CI_Model
 
 		if ($user)
 		{
-		    $this->session->set_userdata($this->identity_column, $user->{$this->identity_column});
-		    $this->session->set_userdata('user_id', $user->user_id);
-		    $this->session->set_userdata('username', $user->username);
-		    $this->session->set_userdata('user_level_id', $user->user_level_id);
-		    $this->session->set_userdata('user_level', $user->level);
-		    $this->session->set_userdata('name', $user->name);
-		    $this->session->set_userdata('image', $user->image);
-		    $this->session->set_userdata('language', $user->language);
-		    $this->session->set_userdata('time_zone', $user->time_zone);
-		    $this->session->set_userdata('geo_enabled', $user->geo_enabled);
-		    $this->session->set_userdata('privacy', $user->privacy);
-
+    		// Sets Various Userdata
     		$this->update_last_login($user->user_id);
+			$this->set_userdata($user);
+			$this->set_user_connections($user->user_id);
 
 		    return TRUE;
         }
         
 		return FALSE;
 	}
+	
+	function set_userdata($user)
+	{
+		$this->session->set_userdata($this->identity_column,  $user->{$this->identity_column});
+
+		foreach (config_item('user_data') as $item)
+		{	
+		    $this->session->set_userdata($item,  $user->{$item});	    
+	    }	    
+
+	}
+
+	function set_user_connections($user_id)
+	{	
+		$user_connections = $this->social_auth->get_connections_user($user_id);
+	
+		$this->session->set_userdata('user_connections', $user_connections);
+	}
+
 	
 	function get_users($group = false)
 	{
@@ -763,7 +764,6 @@ class Auth_model extends CI_Model
 	
 	function update_last_login($user_id)
 	{
-		
 		if (isset($this->social_auth->_extra_where))
 		{
 			$this->db->where($this->social_auth->_extra_where);
@@ -791,13 +791,13 @@ class Auth_model extends CI_Model
 		{
 			return FALSE;
 		}
-
+	
 		// Get User
         if (isset($this->social_auth->_extra_where))
 		{
 			$this->db->where($this->social_auth->_extra_where);
 		}					
-					
+	
 	    $this->db->select('*');
 		$this->db->from('users');
 		$this->db->join('users_meta', 'users_meta.user_id = users.user_id');
@@ -805,7 +805,7 @@ class Auth_model extends CI_Model
 		$this->db->where($this->identity_column, get_cookie('identity'));
 		$this->db->where('remember_code', get_cookie('remember_code'));
 		$this->db->limit(1);
- 		$user = $this->db->get()->row();		
+ 		$user = $this->db->get()->row(); 	 		
 					
 		if ($user)
 		{
@@ -823,7 +823,7 @@ class Auth_model extends CI_Model
 
 			$this->update_last_login($user->user_id);
 
-			// Extend the users cookies if enabled
+			// Extend Users Cookies If Enabled
 			if (config_item('user_extend_on_login'))
 			{
 				$this->remember_user($user->user_id);
@@ -831,6 +831,7 @@ class Auth_model extends CI_Model
 
 			return TRUE;
 		}
+		
 
 		return FALSE;
 	}

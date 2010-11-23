@@ -54,12 +54,10 @@ class Public_Controller extends MY_Controller
 			}
 			
 		endforeach;
-        
     }
     
     function render($layout='site')
     {
-     
       	// Is Module
        	if ($this->module_name) 
     	{
@@ -84,7 +82,5 @@ class Public_Controller extends MY_Controller
         }
 
         $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);  //load the template   
-
-    }
-    
+    }    
 }

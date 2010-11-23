@@ -47,15 +47,6 @@ $route['home/(:any)'] 							= 'home';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home'] 									= 'home';
 
-$route['pages/manage']							= 'pages/manage';
-$route['pages/create']							= 'pages/create';
-$route['pages/delete/(:num)']					= 'pages/delete';
-$route['pages/edit/(:num)']						= 'pages/edit';
-$route['pages/edit']							= 'pages/manage';
-$route['pages/users']							= 'pages/users';
-$route['pages/view/(:num)'] 					= 'index/view';
-$route['pages/(:any)']							= 'index/index';
-
 $route['profile/:any/image'] 					= 'profile/image';
 $route['profile/:any'] 							= 'profile/index';
 
@@ -66,12 +57,12 @@ $route['settings/password'] 					= 'settings/password';
 $route['settings/mobile'] 						= 'settings/mobile';
 $route['settings/connections'] 					= 'settings/connections';
 $route['settings/modules'] 						= 'settings/modules';
-$route['settings/pages']						= 'settings/pages';
 $route['settings/users']						= 'settings/users';
 $route['settings/home']							= 'settings/home';
-$route['settings/comments']						= 'settings/comments';
 $route['settings/update']						= 'settings/update';
 $route['settings'] 								= 'settings';
+
+$route['pages/(:any)']							= 'index/index';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

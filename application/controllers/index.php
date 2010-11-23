@@ -3,9 +3,7 @@ class Index extends Public_Controller
 { 
     function __construct() 
     {
-        parent::__construct();
-        
-        $this->load->library('social_tools');
+        parent::__construct();        
     }
     
 	function index() 
@@ -65,8 +63,6 @@ class Index extends Public_Controller
 			$this->data['comments_write']		= $this->load->view(config_item('site_theme').'/partials/comments_write', $this->data, true);
 		}
 		
-		$this->load->config('activity_stream');
-
 		$this->render();
 	}
 	

@@ -31,6 +31,7 @@ class MY_Controller extends MX_Controller
 		$site = $this->social_igniter->get_site();
 		
 		// Get Language		
+ 		$this->lang->load('social_igniter', 'english');
  		$this->lang->load('activity_stream', 'english'); 	
 
         // For Mobile Detection
@@ -55,9 +56,7 @@ class MY_Controller extends MX_Controller
 		$this->data['site_keywords'] 		= $site->keywords;
 		
 		// Create Settings
-		$settings = $this->social_igniter->get_settings();
-
-		foreach ($settings as $setting)
+		foreach ($this->social_igniter->get_settings() as $setting)
 		{
 			$this->data['settings'][$setting->module][$setting->setting] = $setting->value;
 			
@@ -122,7 +121,7 @@ class MY_Controller extends MX_Controller
 			$this->data['comments_write_form']	= 'comments_public_form';
 		}
 		
-		// Reusuable Site Paths
+		// Site Paths
 		$this->data['shared_images']		= base_url().'images/shared/';
 		$this->data['views']				= base_url().'application/views/';
 		$this->data['site_assets']			= base_url().'application/views/'.$this->data['settings']['theme']['site'].'/assets/';
@@ -130,7 +129,7 @@ class MY_Controller extends MX_Controller
 		$this->data['mobile_assets']		= base_url().'application/views/'.$this->data['settings']['theme']['mobile'].'/assets/';
 		$this->data['profiles']				= base_url().'profile/';
 		
-		// Set Previous Page
+		// Previous Page
 		if (isset($_SERVER['HTTP_REFERER']))
 		{
 			$this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']); 
@@ -149,6 +148,6 @@ class MY_Controller extends MX_Controller
         $this->module_controller 			= $this->router->fetch_class();
         
         // For Debugging  
-        $this->output->enable_profiler(TRUE);
+        $this->output->enable_profiler(FALSE);
 	}
 }

@@ -147,15 +147,12 @@ class Settings extends Dashboard_Controller {
        		}
        		else
        		{
-       		    $this->session->set_flashdata('message', "Unable To Update Settings");
-
-       		
+       		    $this->session->set_flashdata('message', "Unable To Update Settings");       		
        			redirect('settings/account', 'refresh');
        		}   
-       		
 		} 
-		else { 
-			
+		else
+		{ 	
 	        // Set the flash data error message if there is one
 	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -196,7 +193,6 @@ class Settings extends Dashboard_Controller {
 			);
             
  			$this->render();	
-
 		}
  	}
 
@@ -204,7 +200,6 @@ class Settings extends Dashboard_Controller {
  	// Change user password
 	function password() 
 	{
-
 	    $this->data['sub_title'] = "Password";
 		    
 	    $this->form_validation->set_rules('old_password', 'Old password', 'required');
@@ -213,26 +208,25 @@ class Settings extends Dashboard_Controller {
 	   	    
 	    if ($this->form_validation->run() == true) // false) 
 	    { 
-
 	        $identity = $this->session->userdata($this->config->item('identity'));
 	        
 	        $change = $this->social_auth->change_password($identity, $this->input->post('old_password'), $this->input->post('new_password'));
 		
 			// If the password was successfully changed
-    		if ($change) { 
-    		
+    		if ($change)
+    		{ 
     			$this->session->set_flashdata('message', 'Password Changed Successfully');
     			$this->social_auth->logout();
     			redirect('login');
     		}
-    		else {
+    		else
+    		{
     			$this->session->set_flashdata('message', 'Password Change Failed');
     			redirect('settings/password', 'refresh');
     		}
-	        
 	    }
-	    else {
-
+	    else
+	    {
 	        //set the flash data error message if there is one
 	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
         												 
@@ -242,13 +236,11 @@ class Settings extends Dashboard_Controller {
 	        
         	//render
  			$this->render();	
-
 	    }
 	}
 
   	function mobile()
  	{
- 	
  	    $this->data['sub_title'] = "Mobile";
  	    
  	   	$user_settings = $this->social_auth->get_user($this->session->userdata('user_id'));
@@ -300,7 +292,6 @@ class Settings extends Dashboard_Controller {
 			    'value'     => $user_settings->phone_search,
 			    'checked'   => $phone_search_checked,
 			);      
-												                
 		}	    
 
  		$this->data['phone']		    = is_empty($user_settings->phone);
@@ -315,20 +306,17 @@ class Settings extends Dashboard_Controller {
     		'id'        => 'phone_search',
 		    'value'     => $user_settings->phone_search,
 		    'checked'   => $phone_search_checked,
-		);        
+		);
     	
  		$this->render();	
- 	 	
  	}	
  	
  	function mobile_delete()
  	{
- 	
  	   	$user_settings = $this->social_auth->get_user($this->session->userdata('user_id'));
 
 		if ($user_settings->phone != "")
 		{
-
         	$update_data = array(
 	        	'phone'			=> "",
 	        	'phone_verify'	=> "",
@@ -361,9 +349,10 @@ class Settings extends Dashboard_Controller {
    
 	function modules()
 	{
-		$this->data['core_modules'] = config_item('core_modules');
-		$this->data['modules']		= $this->social_igniter->scan_modules();
-		$this->data['sub_title']	= 'Module';
+		$this->data['core_modules']		= config_item('core_modules');
+		$this->data['ignore_modules']	= config_item('ignore_modules');
+		$this->data['modules']			= $this->social_igniter->scan_modules();
+		$this->data['sub_title']		= 'Module';
 	
 		$this->render();
 	}
@@ -386,13 +375,6 @@ class Settings extends Dashboard_Controller {
 			redirect($this->session->userdata('previous_page'), 'refresh');
 		}
 	}
-	
-	function pages()
-	{
-		$this->data['sub_title'] = 'Pages';
-	
-    	$this->render();
-    }	
 
 	function users()
 	{

@@ -14,20 +14,18 @@ class Social_igniter
 {
 	protected $ci;
 
-
 	function __construct()
 	{
 		$this->ci =& get_instance();
+		
+		$this->ci->load->config('activity_stream');		
 
  		$this->ci->load->model('activity_model');
  		$this->ci->load->model('content_model');		
 		$this->ci->load->model('pages/pages_model');
 		$this->ci->load->model('settings_model');
-		$this->ci->load->model('sites_model');
-		
-		$this->site_id = config_item('site_id'); 			
+		$this->ci->load->model('sites_model');		
 	}	
-	
 	
     // Profile Picture	
 	function profile_image($user_id, $image, $email=NULL, $size='normal')
@@ -311,7 +309,6 @@ class Social_igniter
 		return $layouts;
 	}
 	
-	
 	/* Site */
 	function get_site()
 	{
@@ -338,12 +335,12 @@ class Social_igniter
 	/* Pages */
 	function get_index_page()
 	{
-		return $this->ci->pages_model->get_index_page($this->site_id);
+		return $this->ci->pages_model->get_index_page(config_item('site_id'));
 	}
 	
 	function get_page($title_url)
 	{
-		return $this->ci->pages_model->get_page($this->site_id, $title_url);
+		return $this->ci->pages_model->get_page(config_item('site_id'), $title_url);
 	}	
 
 	function get_page_id($page_id)
@@ -353,19 +350,19 @@ class Social_igniter
 
 	function get_pages()
 	{
-		return $this->ci->pages_model->get_pages($this->site_id);
+		return $this->ci->pages_model->get_pages(config_item('site_id'));
 	}
 	
 	function get_menu()
 	{
-		return $this->ci->pages_model->get_menu($this->site_id);	
+		return $this->ci->pages_model->get_menu(config_item('site_id'));	
 	}
 	
 	
 	/* Settings */	
 	function get_settings($module=NULL)
 	{
-		return $this->ci->settings_model->get_settings($this->site_id, $module);
+		return $this->ci->settings_model->get_settings(config_item('site_id'), $module);
 	}
 
 	function get_settings_type($setting)
@@ -407,7 +404,6 @@ class Social_igniter
 		}
 		return;	
 	}	
-
 	
 	/* Activity */
 	function get_timeline($limit, $module)
@@ -449,7 +445,6 @@ class Social_igniter
  			}
  		
  			return TRUE;
- 			
  		}
 
 		return FALSE;
@@ -490,7 +485,7 @@ class Social_igniter
 	
 	function get_content_recent($type, $limit=10)
 	{
-		$site_id = $this->site_id;
+		$site_id = config_item('site_id');
 		
 		return $this->ci->content_model->get_content_recent($site_id, $type, $limit);
 	}
@@ -501,7 +496,7 @@ class Social_igniter
 	
 		if ($check_content)
 		{
-			if (!$site_id) $site_id = $this->site_id;
+			if (!$site_id) $site_id = config_item('site_id');
 		
 			return $this->ci->content_model->add_content($site_id, $content_data);
 		}
@@ -526,7 +521,5 @@ class Social_igniter
 	function delete_content($content_id)
 	{
 		return $this->ci->content_model->delete_content($content_id);
-	}
-	
-		
+	}		
 }

@@ -25,7 +25,6 @@ class Dashboard_Controller extends MY_Controller
         $this->data['modules_sidebar_tools']  	= NULL;
         $this->data['modules_sidebar_admin']  	= NULL;
 		$this->data['modules_footer']			= NULL;
-		
 		$this->data['message']					= NULL;
 		
     	// Set This Module Vars

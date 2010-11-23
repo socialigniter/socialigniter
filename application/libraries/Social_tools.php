@@ -15,7 +15,6 @@ class Social_tools
 {
 	protected $ci;
 
-
 	function __construct()
 	{
 		$this->ci =& get_instance();
@@ -62,7 +61,6 @@ class Social_tools
 	}
 	
 
-
 	/* Categories */	
 	function get_categories()
 	{
@@ -78,7 +76,6 @@ class Social_tools
 	{
 		return $this->ci->categories_model->add_category($this->site_id, $category_data);
 	}
-	
 	
 	
 	/* Comments */

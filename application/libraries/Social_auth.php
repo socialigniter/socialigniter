@@ -49,6 +49,7 @@ class Social_auth
 		{
 			$this->ci->auth_model->login_remembered_user();
 		}
+	
 	}
 	
 	function activate($id, $code=false)
@@ -303,7 +304,7 @@ class Social_auth
 	function login($identity, $password, $remember=false)
 	{
 		if ($this->ci->auth_model->login($identity, $password, $remember))
-		{
+		{        				
 			$this->set_message('login_successful');
 			return TRUE;
 		}
@@ -329,18 +330,13 @@ class Social_auth
 	}	
 	
 	function logout()
-	{	    
+	{
 	    $this->ci->session->unset_userdata(config_item('identity'));
-	    $this->ci->session->unset_userdata('user_level');
-	    $this->ci->session->unset_userdata('user_id');
-	    $this->ci->session->unset_userdata('username');
-	    $this->ci->session->unset_userdata('user_level_id');
-	    $this->ci->session->unset_userdata('name');
-	    $this->ci->session->unset_userdata('image');
-	    $this->ci->session->unset_userdata('language');
-	    $this->ci->session->unset_userdata('time_zone');
-	    $this->ci->session->unset_userdata('geo_enabled');
-	    $this->ci->session->unset_userdata('privacy');
+
+		foreach (config_item('user_data') as $item)
+		{	
+		    $this->ci->session->unset_userdata($item);	    
+	    }		
 	    
 	    // Delete remember me cookies if they exist
 	    if (get_cookie('identity')) 
@@ -502,7 +498,6 @@ class Social_auth
 		 return $this->ci->auth_model->set_lang($lang);
 	}
 	
-	
 	/* Crazy function that allows extra where field to be used for user fetching/unique checking etc.
 	 * Basically this allows users to be unique based on one other thing than the identifier which is helpful
 	 * for sites using multiple domains on a single database.
@@ -575,7 +570,6 @@ class Social_auth
 		return $_output;
 	}
 	
-
 	
 	/* Connections Model */
 	function check_connection_auth($module, $auth_one, $auth_two)

@@ -1,6 +1,6 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class REST_Controller extends Controller
+class REST_Controller extends MX_Controller
 {
     // Set this in a controller to use a default format
     protected $rest_format = NULL;
@@ -25,10 +25,8 @@ class REST_Controller extends Controller
 	);
     
     // Constructor function
-    function __construct()
-    {
-        parent::Controller();
-        
+	function __construct()
+	{        
 	    // How is this request being made? POST, DELETE, GET, PUT?
 	    $this->_method = $this->_detect_method();	    
 	    

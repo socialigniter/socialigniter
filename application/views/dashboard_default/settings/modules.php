@@ -11,7 +11,8 @@
 	<span class="item_separator"></span>	
 </li>
 <?php endforeach; ?>
-<?php foreach($modules as $module): $module_icon = base_url().'application/modules/'.$module.'/assets/'.$module ?>
+
+<?php foreach($modules as $module): if (!in_array($module, $core_modules) && (!in_array($module, $ignore_modules))): $module_icon = base_url().'application/modules/'.$module.'/assets/'.$module ?>
 <li class="item" id="item-<?= $module ?>" rel="modules">
 	<span class="item_title">
 		<img src="<?= $module_icon ?>_24.png"> <?= ucwords($module) ?>
@@ -22,6 +23,6 @@
 	<div class="clear"></div>
 	<span class="item_separator"></span>	
 </li>
-<?php endforeach; ?>
+<?php endif; endforeach; ?>
 </ol>
 <div class="clear"></div>
