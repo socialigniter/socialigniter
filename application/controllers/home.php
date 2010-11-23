@@ -94,17 +94,5 @@ class Home extends Dashboard_Controller
 	
 	
 	}
-	
-	function blog()
-	{
-		echo 'sadasd';
-	}
-
-	function module()
-	{
-	
-		echo "jkhjkhjkh";
-	
-	}
 
 }

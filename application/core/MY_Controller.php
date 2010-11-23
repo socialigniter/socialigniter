@@ -4,8 +4,7 @@
 class MY_Controller extends MX_Controller
 {
     protected $data = array();
-    
-    // NEED TO LOOK INTO THIS WAY AS IT'S MORE EFFICIENT THAN QURIES
+    protected $social_logins		= array();
     protected $social_connections	= array();
 	protected $social_post			= array();
 	protected $social_checkin		= array();	
@@ -56,7 +55,7 @@ class MY_Controller extends MX_Controller
 		$this->data['site_keywords'] 		= $site->keywords;
 		
 		// Create Settings
-		$settings	= $this->social_igniter->get_settings();
+		$settings = $this->social_igniter->get_settings();
 
 		foreach ($settings as $setting)
 		{
@@ -64,24 +63,17 @@ class MY_Controller extends MX_Controller
 			
             $this->config->set_item($setting->module.'_'.$setting->setting, $setting->value);
 		
-			// Modules 'connections' enabled
-			if (($setting->setting == 'social_connection') && ($setting->value == 'TRUE'))
-			{
-				$this->social_connections[] = $setting->module;
-			}
-
-			// Modules 'post_to_social' enabled
-			if (($setting->setting == 'social_post') && ($setting->value == 'TRUE'))
-			{
-				$this->social_post[] = $setting->module;
-			}			
-
-			// Modules 'check_in' enabled
-			if (($setting->setting == 'social_checkin') && ($setting->value == 'TRUE'))
-			{
-				$this->social_checkin[] = $setting->module;
-			}
+			if (($setting->setting == 'social_login') && ($setting->value == 'TRUE')) $this->social_logins[] = $setting->module;
+			if (($setting->setting == 'social_connection') && ($setting->value == 'TRUE')) $this->social_connections[] = $setting->module;
+			if (($setting->setting == 'social_post') && ($setting->value == 'TRUE')) $this->social_post[] = $setting->module;
+			if (($setting->setting == 'social_checkin') && ($setting->value == 'TRUE')) $this->social_checkin[] = $setting->module;
 		}
+		
+		// Set Social Config Arrays
+		$this->config->set_item('social_logins', $this->social_logins);
+		$this->config->set_item('social_connections', $this->social_connections);
+		$this->config->set_item('social_post', $this->social_post);
+		$this->config->set_item('social_checkin', $this->social_checkin);
 		
 		// Themes
         if ($this->agent->is_mobile())
@@ -101,7 +93,6 @@ class MY_Controller extends MX_Controller
 		// Dashboard & Public values for logged
 		if ($this->social_auth->logged_in())
 		{
-			
 			$this->data['logged_user_id']		= $this->session->userdata('user_id');
 			$this->data['profile_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('email'));
 			$this->data['profile_name']			= $this->session->userdata('name');
@@ -111,7 +102,7 @@ class MY_Controller extends MX_Controller
 			$this->data['link_logout']			= base_url().'login/logout';
 			
 			// Action Paths
-			$this->data['comments_post']		= base_url().'actions/comment_logged';
+			$this->data['comments_post']		= base_url().'comments/actions/logged';
 			
 			// Site Forms	
 			$this->data['comments_write_form']	= 'comments_logged_form';
@@ -125,7 +116,7 @@ class MY_Controller extends MX_Controller
 			$this->data['profile_name']			= 'Your Name';
 
 			// Action Paths
-			$this->data['comments_post']		= base_url().'actions/comment_public';
+			$this->data['comments_post']		= base_url().'comments/actions/public';
 			
 			// Site Forms
 			$this->data['comments_write_form']	= 'comments_public_form';
@@ -158,6 +149,6 @@ class MY_Controller extends MX_Controller
         $this->module_controller 			= $this->router->fetch_class();
         
         // For Debugging  
-        $this->output->enable_profiler(FALSE);
+        $this->output->enable_profiler(TRUE);
 	}
 }

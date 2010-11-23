@@ -13,6 +13,8 @@
  
 class Social_tools
 {
+	protected $ci;
+
 
 	function __construct()
 	{
@@ -20,14 +22,14 @@ class Social_tools
 				
 		// Load Models
 		$this->ci->load->model('categories_model');
-		$this->ci->load->model('comments_model');
+		$this->ci->load->model('comments/comments_model');
 		$this->ci->load->model('locations_model');
 		$this->ci->load->model('ratings_model');
 		$this->ci->load->model('tags_model');
 		$this->ci->load->model('taxonomy_model');
 
 		// Define Variables
-		$this->site_id 			= $this->ci->config->item('site_id');
+		$this->site_id 			= config_item('site_id');
 		$this->view_comments	= NULL;
 	}
 	

@@ -12,17 +12,18 @@
  
 class Social_igniter
 {
-	public $social_connections;
+	protected $ci;
+
 
 	function __construct()
 	{
 		$this->ci =& get_instance();
 
-		$this->ci->load->model('settings_model');
-		$this->ci->load->model('sites_model');		
-		$this->ci->load->model('pages_model');
  		$this->ci->load->model('activity_model');
  		$this->ci->load->model('content_model');		
+		$this->ci->load->model('pages/pages_model');
+		$this->ci->load->model('settings_model');
+		$this->ci->load->model('sites_model');
 		
 		$this->site_id = config_item('site_id'); 			
 	}	
@@ -216,14 +217,14 @@ class Social_igniter
 	function get_social_logins($html_start, $html_end)
 	{
 		$social_logins 		= NULL;
-		$get_social_logins	= $this->get_settings_type('social_login');
-	
-		foreach ($get_social_logins as $login)
+		$available_logins	= config_item('social_logins');
+				
+		foreach ($available_logins as $login)
 		{
-			if (($login->value == 'TRUE') && (config_item($login->module.'_enabled')) == 'TRUE')
+			if (config_item($login.'_enabled') == 'TRUE')
 			{
-				$data['assets']	   = base_url().'application/modules/'.$login->module.'/assets/';
-				$social_logins 	  .= $html_start.$this->ci->load->view('../modules/'.$login->module.'/views/partials/social_login.php', $data, true).$html_end;
+				$data['assets']	   = base_url().'application/modules/'.$login.'/assets/';
+				$social_logins 	  .= $html_start.$this->ci->load->view('../modules/'.$login.'/views/partials/social_login.php', $data, true).$html_end;
 			}
 		}
 		return $social_logins;
@@ -232,9 +233,9 @@ class Social_igniter
 	function get_social_post($user_id)
 	{
 		$post_to 			= NULL;
-		$social_post		= $this->get_settings_type('social_post');
-		$user_connections	= $this->ci->social_auth->get_connections_user($user_id);
-
+		$social_post		= config_item('social_post');
+		$user_connections	= $this->ci->session->userdata('user_connections');
+		
 		foreach ($social_post as $social)
 		{
 			foreach($user_connections as $exists)
@@ -258,8 +259,8 @@ class Social_igniter
 	function get_social_checkin($user_id)
 	{
 		$checkin 			= NULL;
-		$social_checkin		= $this->get_settings_type('social_checkin');
-		$user_connections	= $this->ci->social_auth->get_connections_user($user_id);
+		$social_checkin		= config_item('social_checkin');
+		$user_connections	= $this->ci->session->userdata('user_connections');
 
 		foreach ($social_checkin as $social)
 		{

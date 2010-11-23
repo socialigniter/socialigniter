@@ -50,20 +50,16 @@
 		<p><a href="<?= $link_profile ?>"><img src="<?= $profile_image ?>" border="0" /></a></p>
 		<p><a href="<?= $link_profile ?>"><?= $profile_name; ?></a></p>		
 		<div class="sidebar_separator"></div>
-<!--		<h2>Messages</h2> -->
 		<ul>		
 			<?= $sidebar_messages ?>
 			<?= $modules_sidebar_messages ?>
 		</ul>
 		<div class="sidebar_separator"></div>
-<!--		<h2>Tools</h2> -->
 		<ul>
 			<?= $modules_sidebar_tools ?>
-			<li><a class="sidebar_icon" href="<?= base_url() ?>pages"><img src="<?= $dashboard_assets ?>icons/pages_24.png"><span>Pages</span></a></li>	
 		</ul>
 		<?php if ($level <= 2): ?>
 		<div class="sidebar_separator"></div>
-<!--		<h2>Admin</h2> -->
 		<ul>
 			<?= $sidebar_admin ?>
 		</ul>

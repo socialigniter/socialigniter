@@ -40,24 +40,12 @@ $route['connections/(:any)/(:any)/(:any)'] 		= '$1/connections/$2/$3';
 $route['connections/(:any)/(:any)'] 			= '$1/connections/$2';
 $route['connections/(:any)'] 					= '$1/connections/index';
 
-$route['comments/viewed/(:num)'] 				= 'comments/viewed';
-$route['comments/approve/(:num)'] 				= 'comments/approve';
-$route['comments/delete/(:num)'] 				= 'comments/delete';
-$route['comments/count_new'] 					= 'comments/count_new';
-$route['comments/pages'] 						= 'comments/index';
-$route['comments/(:any)'] 						= 'comments/index';
-$route['comments']								= 'comments';
-
 $route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
 $route['home/(:any)/(:any)/(:any)'] 			= '$1/home/$2/$3';
 $route['home/(:any)/(:any)'] 					= '$1/home/$2';
 $route['home/(:any)'] 							= 'home';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home'] 									= 'home';
-
-$route['messages/drafts']						= 'messages/index';
-$route['messages/sent']							= 'messages/index';
-$route['messages/count_new']					= 'messages/count_new';
 
 $route['pages/manage']							= 'pages/manage';
 $route['pages/create']							= 'pages/create';

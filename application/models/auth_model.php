@@ -18,7 +18,6 @@
 
 class Auth_model extends CI_Model
 {
-
 	public $tables = array();	
 	public $activation_code;	
 	public $forgotten_password_code;	

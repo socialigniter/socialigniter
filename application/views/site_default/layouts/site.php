@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html>
 <head>
 <title><?= $this->social_igniter->title($sub_title, $page_title, $site_title) ?></title>

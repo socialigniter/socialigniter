@@ -1,10 +1,13 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Ion Auth
+* Name:  Social Auth
 * 
-* Author: Ben Edmunds
-* 		  ben.edmunds@gmail.com
-*         @benedmunds
+* Modifier: Brennan Novak
+*			@brennannovak
+*
+* Author: 	Ben Edmunds
+* 		  	ben.edmunds@gmail.com
+*         	@benedmunds
 *          
 * Added Awesomeness: Phil Sturgeon
 * 
@@ -12,7 +15,7 @@
 *          
 * Created:  10.01.2009 
 * 
-* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.  Original redux license is below.
+* Description:  Modified auth system based on redux_auth with extensive customization. This is basically what Redux Auth 2 should be.  Original redux license is below.
 * Original Author name has been kept but that does not mean that the method has not been modified.
 * 
 * Requirements: PHP5 or above
@@ -32,10 +35,10 @@ class Social_auth
 	function __construct()
 	{
 		$this->ci =& get_instance();		
-		$this->message_start_delimiter = $this->ci->config->item('message_start_delimiter');
-		$this->message_end_delimiter   = $this->ci->config->item('message_end_delimiter');
-		$this->error_start_delimiter   = $this->ci->config->item('error_start_delimiter');
-		$this->error_end_delimiter     = $this->ci->config->item('error_end_delimiter');
+		$this->message_start_delimiter = config_item('message_start_delimiter');
+		$this->message_end_delimiter   = config_item('message_end_delimiter');
+		$this->error_start_delimiter   = config_item('error_start_delimiter');
+		$this->error_end_delimiter     = config_item('error_end_delimiter');
 		
 		// Load Models
 		$this->ci->load->model('auth_model');
@@ -97,18 +100,18 @@ class Social_auth
 			// Get User
 			$profile = $this->ci->auth_model->profile($email);
 
-			$data = array('identity'                => $profile->{$this->ci->config->item('identity')},
+			$data = array('identity'                => $profile->{config_item('identity')},
 						  'forgotten_password_code' => $profile->forgotten_password_code
 						 );
 
-			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password'), $data, true);
+			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password'), $data, true);
 			$this->ci->email->clear();
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
+			$this->ci->email->from(config_item('admin_email'), config_item('site_title'));
 			$this->ci->email->to($profile->email);
-			$this->ci->email->subject($this->ci->config->item('site_title') . ' - Forgotten Password Verification');
+			$this->ci->email->subject(config_item('site_title') . ' - Forgotten Password Verification');
 			$this->ci->email->message($message);
 			
 			if ($this->ci->email->send())
@@ -131,7 +134,7 @@ class Social_auth
 	
 	function forgotten_password_complete($code)
 	{
-	    $identity     = $this->ci->config->item('identity');
+	    $identity     = config_item('identity');
 	    $profile      = $this->ci->auth_model->profile($code);
 		
         if (!is_object($profile)) 
@@ -149,15 +152,15 @@ class Social_auth
 				'new_password' => $new_password
 			);
             
-			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password_complete'), $data, true);
+			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password_complete'), $data, true);
 				
 			$this->ci->email->clear();
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
+			$this->ci->email->from(config_item('admin_email'), config_item('site_title'));
 			$this->ci->email->to($profile->email);
-			$this->ci->email->subject($this->ci->config->item('site_title') . ' - New Password');
+			$this->ci->email->subject(config_item('site_title') . ' - New Password');
 			$this->ci->email->message($message);
 
 			if ($this->ci->email->send())
@@ -180,7 +183,7 @@ class Social_auth
 
 	function register($username, $password, $email, $additional_data, $group_name = false)
 	{
-	    $email_activation = $this->ci->config->item('email_activation');
+	    $email_activation = config_item('email_activation');
 
 		if ($email_activation == false)
 		{		
@@ -199,15 +202,15 @@ class Social_auth
 	        		'email'    => $email
 				);
 	            
-				$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_signup'), $data, true);
+				$message = $this->ci->load->view(config_item('email_templates').config_item('email_signup'), $data, true);
 	            
 				$this->ci->email->clear();
 				$config['mailtype'] = "html";
 				$this->ci->email->initialize($config);
 				$this->ci->email->set_newline("\r\n");
-				$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
+				$this->ci->email->from(config_item('admin_email'), config_item('site_title'));
 				$this->ci->email->to($email);
-				$this->ci->email->subject($this->ci->config->item('site_title') . ' thanks you for signing up');
+				$this->ci->email->subject(config_item('site_title') . ' thanks you for signing up');
 				$this->ci->email->message($message);
 				
 				if ($this->ci->email->send() == TRUE) 
@@ -220,15 +223,13 @@ class Social_auth
 					$this->set_error('activation_email_unsuccessful');
 					return FALSE;
 				}
-								
 			}
 			else 
 			{
 				$this->set_error('account_creation_unsuccessful');
 				return FALSE;
 			}
-		}
-		
+		}		
 		else
 		{
 			// Attempts to add User to database
@@ -249,24 +250,25 @@ class Social_auth
 			}
 
 			$activation_code = $this->ci->auth_model->activation_code;
-			$identity        = $this->ci->config->item('identity');
+			$identity        = config_item('identity');
 	    	$user            = $this->ci->auth_model->get_user($user_id);
 
-			$data = array('identity'   => $user->{$identity},
-						  'user_id'    => $user->user_id,
-        				  'email'      => $email,
-        				  'activation' => $activation_code,
-						 );
+			$data = array(
+				'identity'   => $user->{$identity},
+				'user_id'    => $user->user_id,
+				'email'      => $email,
+				'activation' => $activation_code,
+			);
             
-			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_activate'), $data, true);
+			$message = $this->ci->load->view(config_item('email_templates').config_item('email_activate'), $data, true);
             
 			$this->ci->email->clear();
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
+			$this->ci->email->from(config_item('admin_email'), config_item('site_title'));
 			$this->ci->email->to($email);
-			$this->ci->email->subject($this->ci->config->item('site_title') . ' - Account Activation');
+			$this->ci->email->subject(config_item('site_title') . ' - Account Activation');
 			$this->ci->email->message($message);
 			
 			if ($this->ci->email->send() == TRUE) 
@@ -328,7 +330,7 @@ class Social_auth
 	
 	function logout()
 	{	    
-	    $this->ci->session->unset_userdata($this->ci->config->item('identity'));
+	    $this->ci->session->unset_userdata(config_item('identity'));
 	    $this->ci->session->unset_userdata('user_level');
 	    $this->ci->session->unset_userdata('user_id');
 	    $this->ci->session->unset_userdata('username');
@@ -340,7 +342,7 @@ class Social_auth
 	    $this->ci->session->unset_userdata('geo_enabled');
 	    $this->ci->session->unset_userdata('privacy');
 	    
-	    //delete the remember me cookies if they exist
+	    // Delete remember me cookies if they exist
 	    if (get_cookie('identity')) 
 	    {
 	    	delete_cookie('identity');	
@@ -358,24 +360,23 @@ class Social_auth
 	
 	function logged_in()
 	{
-	    $identity = $this->ci->config->item('identity');
+	    $identity = config_item('identity');
 	    
 		return (bool) $this->ci->session->userdata($identity);
 	}
 	
 	function is_admin()
 	{
-		$super_admin	= $this->ci->config->item('super_admin_group');
-	    $admin_group 	= $this->ci->config->item('admin_group');
+		$super_admin	= config_item('super_admin_group');
+	    $admin_group 	= config_item('admin_group');
 	    $user_group  	= $this->ci->session->userdata('user_level');
 	    
 	    if (($user_group == $super_admin) || ($user_group == $admin_group))
 	    {
 	    	return true;
 	    }
-	    else
-	    	return false;
-	    
+
+	    return false;
 	}
 	
 	function is_group($check_group)
@@ -392,7 +393,7 @@ class Social_auth
 		
 	function profile()
 	{
-	    $session  = $this->ci->config->item('identity');
+	    $session  = config_item('identity');
 	    $identity = $this->ci->session->userdata($session);
 	    
 	    return $this->ci->auth_model->profile($identity);
@@ -466,7 +467,6 @@ class Social_auth
 	function get_groups_array($user_level_id=false)
 	{
 		return $this->ci->auth_model->get_groups_array($user_level_id);
-	
 	}
 
 	function update_user($user_id, $data)
