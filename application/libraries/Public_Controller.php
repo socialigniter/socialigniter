@@ -12,9 +12,9 @@ class Public_Controller extends MY_Controller
         // Load Views                        
         $this->data['head']					= $this->load->view(config_item('site_theme').'/partials/head_site.php', $this->data, true);     
         $this->data['logged']				= $this->load->view(config_item('site_theme').'/partials/logged.php', $this->data, true);
-        $this->data['navigation']			= $this->load->view(config_item('site_theme').'/partials/navigation.php', $this->data, true);
+        $this->data['navigation']			= $this->load->view(config_item('site_theme').'/partials/navigation_site.php', $this->data, true);
         $this->data['content']				= '';
-        $this->data['sidebar']				= $this->load->view(config_item('site_theme').'/partials/sidebar.php', $this->data, true);
+        $this->data['sidebar']				= $this->load->view(config_item('site_theme').'/partials/sidebar_site.php', $this->data, true);
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
 
         //handles module views
@@ -29,8 +29,8 @@ class Public_Controller extends MY_Controller
 		foreach ($modules_scan as $module):
 		
 			$module_header 						= '/modules/'.$module.'/views/partials/head_site.php';
-			$module_navigation					= '/modules/'.$module.'/views/partials/navigation.php';
-			$module_sidebar 					= '/modules/'.$module.'/views/partials/sidebar.php';
+			$module_navigation					= '/modules/'.$module.'/views/partials/navigation_site.php';
+			$module_sidebar 					= '/modules/'.$module.'/views/partials/sidebar_site.php';
 			$module_footer 						= '/modules/'.$module.'/views/partials/footer.php';
 
 			// Set Module Asset Path

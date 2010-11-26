@@ -809,21 +809,11 @@ class Auth_model extends CI_Model
 					
 		if ($user)
 		{
-			$this->session->set_userdata($this->identity_column,  $user->{$this->identity_column});
-			$this->session->set_userdata('user_id',  $user->user_id);
-			$this->session->set_userdata('user_level_id',  $user->user_level_id);
-			$this->session->set_userdata('username',  $user->username);
-			$this->session->set_userdata('user_level',  $user->level);
-		    $this->session->set_userdata('name', $user->name);
-		    $this->session->set_userdata('image', $user->image);
-		    $this->session->set_userdata('language', $user->language);
-		    $this->session->set_userdata('time_zone', $user->time_zone);
-		    $this->session->set_userdata('geo_enabled', $user->geo_enabled);
-		    $this->session->set_userdata('privacy', $user->privacy);
+			$this->update_last_login($user->user_id);	 
+			$this->set_userdata($user);
+	 		$this->set_user_connections($user->user_id);
 
-			$this->update_last_login($user->user_id);
-
-			// Extend Users Cookies If Enabled
+			// Extend Cookies If Enabled
 			if (config_item('user_extend_on_login'))
 			{
 				$this->remember_user($user->user_id);
@@ -832,13 +822,13 @@ class Auth_model extends CI_Model
 			return TRUE;
 		}
 		
-
 		return FALSE;
 	}
 		
 	function remember_user($user_id)
 	{
-		if (!$user_id) {
+		if (!$user_id)
+		{
 			return FALSE;
 		}
 		
@@ -849,22 +839,15 @@ class Auth_model extends CI_Model
 		if ($this->db->affected_rows() == 1) 
 		{
 			$user = $this->get_user($user_id);
-			
-			$identity = array('name'   => 'identity',
-	                   		  'value'  => $user->{$this->identity_column},
-	                   		  'expire' => config_item('user_expire'),
-	               			 );
-			set_cookie($identity); 
-			
-			$remember_code = array('name'   => 'remember_code',
-	                   		  	   'value'  => $salt,
-	                   		  	   'expire' => config_item('user_expire'),
-	               			 	  );
-			set_cookie($remember_code); 
+			$identity = array('name' => 'identity', 'value' => $user->{$this->identity_column},'expire' => config_item('user_expire'));			
+			$remember_code = array('name' => 'remember_code', 'value' => $salt,'expire' => config_item('user_expire'));
+
+			set_cookie($identity);			
+			set_cookie($remember_code);
 			
 			return TRUE;
 		}
 		
 		return FALSE;
-	}	
+	}
 }

@@ -35,6 +35,7 @@
 			<?= $content ?>
 		</div>
 		<div id="sidebar">
+				<?php echo modules::run('login/widgets_sidebar'); ?>
 			<?= $sidebar ?>
 		</div>
 	</div>

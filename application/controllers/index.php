@@ -62,6 +62,9 @@ class Index extends Public_Controller
 			
 			$this->data['comments_write']		= $this->load->view(config_item('site_theme').'/partials/comments_write', $this->data, true);
 		}
+
+		$this->data['sidebar'] 	.= modules::run('blog/widgets_sidebar');
+		$this->data['sidebar']	.= modules::run('events/widgets_sidebar');		
 		
 		$this->render();
 	}

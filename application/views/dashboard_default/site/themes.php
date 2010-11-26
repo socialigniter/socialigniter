@@ -1,6 +1,6 @@
 <form method="post" action="<?= base_url()."site/themes";?>">
 
-<h3>Theme</h3>
+<h3>Site Theme</h3>
 <?php foreach($site_themes as $theme): ?>
 
 	<p>
