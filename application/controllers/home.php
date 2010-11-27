@@ -10,27 +10,25 @@ class Home extends Dashboard_Controller
  	{	
 		if ($this->uri->total_segments() == 1)
 		{
-		
 	 	    $this->data['page_title'] 		= 'Home';	
  	    	$this->data['message']		 	= random_element($this->config->item('home_greeting'));
 
 	 	    // Social
-			$this->data['social_post']			= $this->social_igniter->get_social_post($this->session->userdata('user_id'));
-			$this->data['social_checkin']		= $this->social_igniter->get_social_checkin($this->session->userdata('user_id'));
+			$this->data['social_post']		= $this->social_igniter->get_social_post($this->session->userdata('user_id'));
+			$this->data['social_checkin']	= $this->social_igniter->get_social_checkin($this->session->userdata('user_id'));
 			
 			// Geo
-			$this->data['geo_locate']			= $this->session->userdata('geo_enabled');
+			$this->data['geo_locate']		= $this->session->userdata('geo_enabled');
 			
 			// Updater
-			$this->data['status_update']		= '';
-			$this->data['status_updater']		= $this->load->view($this->config->item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
+			$this->data['status_update']	= '';
+			$this->data['status_updater']	= $this->load->view($this->config->item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
  	    
  	    	$feed_module = NULL;
  	    }
  	    // Fix For MODULE Checking
  	    else
  	    {
- 	    	
 	 	    $this->data['page_title'] 		= ucwords($this->uri->segment(2));
  			$this->data['sub_title']		= 'Recent';
  

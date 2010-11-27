@@ -19,21 +19,7 @@ class Feed extends MY_Controller
 		$this->data['contents'] 	= $this->social_igniter->get_content_recent('all', 10);  
 
 	    $this->output->set_header('Content-type:application/rss+xml');
-        echo $this->load->view('feeds/rss', $this->data, true);
-  	}
-  	
-  	function comments()
-  	{
- 	 	$this->data['site_url']		= base_url();
- 	 	$this->data['site_feed']	= base_url().'feed';
-		$this->data['encoding']		= 'utf-8'; // the encoding  
-		$this->data['language'] 	= 'en-en'; // the language
-		$this->data['site_admin']	= config_item('admin_email').' ('.config_item('site_title').')';
-		
-		$this->data['comments'] 	= $this->social_tools->get_comments_recent('all', 10);  
-
-	    $this->output->set_header('Content-type:application/rss+xml');
-        echo $this->load->view('feeds/comments', $this->data, true);
+        echo $this->load->view('feed/rss', $this->data, true);
   	}
  	
 }

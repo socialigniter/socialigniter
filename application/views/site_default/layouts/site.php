@@ -9,9 +9,6 @@
 <meta name="google-site-verification" content="<?= $settings['site']['google_webmaster']; ?>" />
 <meta name="msvalidate.01" content="<?= $settings['site']['bing_webmaster']; ?>" />
 
-<link rel="alternate" type="application/rss+xml" title="<?= $site_title ?> RSS 2.0 Feed" href="<?= base_url() ?>feed" />
-<link rel="alternate" type="application/rss+xml" title="<?= $site_title ?> Comments Feed" href="<?= base_url() ?>feed/comments" />
-
 <link rel="icon" type="image/png" href="<?= base_url() ?>favicon.ico" />
 <?= $head ?>
 <?= $modules_head ?>

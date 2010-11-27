@@ -29,6 +29,7 @@ class Auth_model extends CI_Model
 		parent::__construct();
 
 		$this->columns 			= $this->config->item('columns');
+		$this->columns_allowed 	= $this->config->item('columns_allowed');
 		$this->identity_column 	= $this->config->item('identity');
 	    $this->store_salt      	= $this->config->item('store_salt');
 	    $this->salt_length     	= $this->config->item('salt_length');
@@ -519,7 +520,7 @@ class Auth_model extends CI_Model
     			// Sets Various Userdata
         		$this->update_last_login($user->user_id);
 				$this->set_userdata($user);
-	 			$this->set_user_connections($user->user_id);
+	 			$this->set_userdata_connections($user->user_id);
    		    
     		    if ($remember && config_item('remember_users'))
     		    {
@@ -554,7 +555,7 @@ class Auth_model extends CI_Model
     		// Sets Various Userdata
     		$this->update_last_login($user->user_id);
 			$this->set_userdata($user);
-			$this->set_user_connections($user->user_id);
+			$this->set_userdata_connections($user->user_id);
 
 		    return TRUE;
         }
@@ -570,10 +571,9 @@ class Auth_model extends CI_Model
 		{	
 		    $this->session->set_userdata($item,  $user->{$item});	    
 	    }	    
-
 	}
 
-	function set_user_connections($user_id)
+	function set_userdata_connections($user_id)
 	{	
 		$user_connections = $this->social_auth->get_connections_user($user_id);
 	
@@ -583,16 +583,15 @@ class Auth_model extends CI_Model
 	
 	function get_users($group = false)
 	{
-		$this->db->select(array('users.*', 'users_level.level AS `user_level`', 'users_level.description'));
-	    
-		if (!empty($this->columns))
+		$this->db->select(array('users.user_id', 'users.username'));
+
+        foreach ($this->columns_allowed as $field)
         {
-            foreach ($this->columns as $field)
-            {
-                $this->db->select('users_meta.'.$field);
-            }
+            $this->db->select('users_meta.'.$field);
         }
-        
+
+		$this->db->select(array('users.created_on', 'users.last_login'));
+		        
 		$this->db->join('users_meta', 'users.user_id = users_meta.user_id', 'left');
 		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id', 'left');
 
@@ -600,7 +599,7 @@ class Auth_model extends CI_Model
 		{
 			$this->db->where('users_level.level', $group);
 		}
-		else if (is_array($group))
+		elseif (is_array($group))
 		{
 			$this->db->where_in('users_level.level', $group);
 		}
@@ -792,11 +791,12 @@ class Auth_model extends CI_Model
 			return FALSE;
 		}
 	
-		// Get User
+		/*	Get User - Disabling to see if this solves the after time renew cookie issue. 
         if (isset($this->social_auth->_extra_where))
 		{
 			$this->db->where($this->social_auth->_extra_where);
-		}					
+		}
+		*/					
 	
 	    $this->db->select('*');
 		$this->db->from('users');
@@ -811,7 +811,7 @@ class Auth_model extends CI_Model
 		{
 			$this->update_last_login($user->user_id);	 
 			$this->set_userdata($user);
-	 		$this->set_user_connections($user->user_id);
+	 		$this->set_userdata_connections($user->user_id);
 
 			// Extend Cookies If Enabled
 			if (config_item('user_extend_on_login'))
@@ -827,10 +827,7 @@ class Auth_model extends CI_Model
 		
 	function remember_user($user_id)
 	{
-		if (!$user_id)
-		{
-			return FALSE;
-		}
+		if (!$user_id) return FALSE;
 		
 		$salt = sha1(md5(microtime()));
 		

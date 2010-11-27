@@ -246,6 +246,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'recaptcha', 'FALSE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'date_style', 'ELAPSED');
 INSERT INTO `settings` VALUES(NULL, 1, 'ratings', 'enabled', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'ratings', 'rate_type', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'enabled', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'ratings_allow', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'tags_display', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'comments_allow', 'TRUE');
