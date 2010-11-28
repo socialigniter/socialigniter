@@ -8,7 +8,6 @@ class Api extends Public_Controller
         $this->data['page_title'] = 'Api';
     }
     
-    
     function index()
     {
 	    $this->data['modules_apis'] = NULL;
@@ -26,8 +25,7 @@ class Api extends Public_Controller
 			
 		endforeach;
     		
-   
-    	$this->render();
+    	$this->render('site_wide');
     
     }
     

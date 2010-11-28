@@ -37,7 +37,10 @@ $route['default_controller'] 					= 'index';
 $route['feed/(:any)'] 							= '$1/feed';
 $route['feed']		 							= 'feed/index';
 
-$route['api/(:any)'] 							= '$1/api';
+$route['api/(:any)/(:any)/(:any)/(:any)'] 		= '$1/api/$2/$3/$4';
+$route['api/(:any)/(:any)/(:any)'] 				= '$1/api/$2/$3';
+$route['api/(:any)/(:any)'] 					= '$1/api/$2';
+$route['api/(:any)'] 							= 'api/index';
 $route['api']		 							= 'api/index';
 
 $route['connections/delete/(:num)']				= 'connections/delete';

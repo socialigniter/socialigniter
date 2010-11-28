@@ -30,6 +30,7 @@ class Auth_model extends CI_Model
 
 		$this->columns 			= $this->config->item('columns');
 		$this->columns_allowed 	= $this->config->item('columns_allowed');
+		$this->columns_allowed 	= $this->config->item('columns_allowe');
 		$this->identity_column 	= $this->config->item('identity');
 	    $this->store_salt      	= $this->config->item('store_salt');
 	    $this->salt_length     	= $this->config->item('salt_length');
@@ -791,18 +792,17 @@ class Auth_model extends CI_Model
 			return FALSE;
 		}
 	
-		/*	Get User - Disabling to see if this solves the after time renew cookie issue. 
+		//	Get User 
         if (isset($this->social_auth->_extra_where))
 		{
 			$this->db->where($this->social_auth->_extra_where);
-		}
-		*/					
+		}					
 	
 	    $this->db->select('*');
 		$this->db->from('users');
 		$this->db->join('users_meta', 'users_meta.user_id = users.user_id');
 		$this->db->join('users_level', 'users_level.user_level_id = users.user_level_id');
-		$this->db->where($this->identity_column, get_cookie('identity'));
+		$this->db->where('users.'.$this->identity_column, get_cookie('identity'));
 		$this->db->where('remember_code', get_cookie('remember_code'));
 		$this->db->limit(1);
  		$user = $this->db->get()->row(); 	 		
@@ -813,7 +813,6 @@ class Auth_model extends CI_Model
 			$this->set_userdata($user);
 	 		$this->set_userdata_connections($user->user_id);
 
-			// Extend Cookies If Enabled
 			if (config_item('user_extend_on_login'))
 			{
 				$this->remember_user($user->user_id);
@@ -836,8 +835,13 @@ class Auth_model extends CI_Model
 		if ($this->db->affected_rows() == 1) 
 		{
 			$user = $this->get_user($user_id);
-			$identity = array('name' => 'identity', 'value' => $user->{$this->identity_column},'expire' => config_item('user_expire'));			
-			$remember_code = array('name' => 'remember_code', 'value' => $salt,'expire' => config_item('user_expire'));
+			
+			$identity		= array('name' => 'identity', 'value' => $user->{$this->identity_column}, 'expire' => config_item('user_expire'));			
+			$remember_code	= array('name' => 'remember_code', 'value' => $salt, 'expire' => config_item('user_expire'));
+			
+			$this->update_last_login($user->user_id);	 
+			$this->set_userdata($user);
+	 		$this->set_userdata_connections($user->user_id);			
 
 			set_cookie($identity);			
 			set_cookie($remember_code);

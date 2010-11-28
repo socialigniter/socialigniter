@@ -47,7 +47,7 @@ class Social_auth
 		// Auto-login user if they're remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
-			$this->ci->auth_model->login_remembered_user();
+			$this->login_remembered_user();
 		}
 	
 	}
@@ -338,7 +338,6 @@ class Social_auth
 		    $this->ci->session->unset_userdata($item);	    
 	    }		
 	    
-	    // Delete remember me cookies if they exist
 	    if (get_cookie('identity')) 
 	    {
 	    	delete_cookie('identity');	
@@ -359,6 +358,11 @@ class Social_auth
 	    $identity = config_item('identity');
 	    
 		return (bool) $this->ci->session->userdata($identity);
+	}
+	
+	function login_remembered_user()
+	{
+		return $this->ci->auth_model->login_remembered_user();	
 	}
 	
 	function is_admin()

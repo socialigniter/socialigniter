@@ -32,9 +32,7 @@ class REST_Controller extends MX_Controller
 	    
         // Lets grab the config and get ready to party
         $this->load->config('rest');
-	    
-		$this->load->model('api_model');
-	    
+	    	    
         if($this->config->item('rest_auth') == 'basic')
         {
         	$this->_prepare_basic_auth();
