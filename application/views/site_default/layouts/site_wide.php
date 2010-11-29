@@ -22,13 +22,7 @@
 		</div>
 		<?= $logged ?>
 		<div class="clear"></div>
-		<ul id="main_nav">
-			<li><a class="nav" href="#">Download</a></li>
-			<li><a class="nav" href="#">About</a></li>
-			<li><a class="nav" href="#">Developers</a></li>
-			<li><a class="nav" href="#">Contact</a></li>
-			<?= $navigation ?>
-		</ul>
+		<?= $navigation ?>
 	</div>
 </div>
 

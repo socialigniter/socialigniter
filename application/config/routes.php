@@ -40,6 +40,7 @@ $route['feed']		 							= 'feed/index';
 $route['api/(:any)/(:any)/(:any)/(:any)'] 		= '$1/api/$2/$3/$4';
 $route['api/(:any)/(:any)/(:any)'] 				= '$1/api/$2/$3';
 $route['api/(:any)/(:any)'] 					= '$1/api/$2';
+$route['api/testing'] 							= 'api/testing';
 $route['api/(:any)'] 							= 'api/index';
 $route['api']		 							= 'api/index';
 

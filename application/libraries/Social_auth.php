@@ -399,12 +399,12 @@ class Social_auth
 	    return $this->ci->auth_model->profile($identity);
 	}
 	
-	function get_users($group_name = false)
+	function get_users($group_name=false)
 	{
 	    return $this->ci->auth_model->get_users($group_name)->result();
 	}
 	
-	function get_users_array($group_name = false)
+	function get_users_array($group_name=false)
 	{
 	    return $this->ci->auth_model->get_users($group_name)->result_array();
 	}
