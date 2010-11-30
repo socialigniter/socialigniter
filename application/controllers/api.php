@@ -36,15 +36,14 @@ class Api extends Public_Controller
 		$params = array(
         	'server' 	=> base_url().'api/',
         	'http_auth' => 'digest',
-        	'http_user' => 'admin',
-        	'http_pass' => '1234'
+        	'http_user' => 'site',
+        	'http_pass' => 'ff91fd16832111f1a5ffdb0f37e1a756'
         );    
     	
         $this->load->library('rest', $params);        
         
         if($_POST)
         {
-	        
 	        $method		= trim($this->input->post('method', TRUE));
 	        $uri		= trim($this->input->post('uri', TRUE));
 	        $format 	= trim($this->input->post('format', TRUE));

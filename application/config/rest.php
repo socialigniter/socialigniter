@@ -46,7 +46,7 @@ $config['rest_auth'] = 'digest';
 |	array('admin' => '1234')
 |
 */
-$config['rest_valid_logins'] = array('admin' => '1234');
+$config['rest_valid_logins'] = array('site' => 'ff91fd16832111f1a5ffdb0f37e1a756');
 
 /*
 |--------------------------------------------------------------------------
