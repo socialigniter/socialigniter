@@ -13,7 +13,7 @@
 	<div class="clear"></div>
 	<ul class="item_actions" rel="timeline">
 		<?php if (config_item('home_comments_allow') == 'TRUE') { ?>
-		<li><a href="<?= $item_comment ?>"><span class="item_actions action_comment"></span> Comment</a></li>
+		<li><a class="item_comment" href="<?= $item_comment ?>"><span class="item_actions action_comment"></span> Comment</a></li>
 		<?php } if (config_item('home_share') == 'TRUE') { ?>
 		<li><a href="#"><span class="item_actions action_share"></span> Share</a></li>
 		<?php } if (config_item('home_like') == 'TRUE') { ?>
@@ -23,5 +23,11 @@
 		<?php } ?>
 	</ul>
 	<div class="clear"></div>
+	<div class="comment_form">
+		<textarea></textarea><div class="clear"></div>
+		<input type="submit">
+		<div class="clear"></div>
+	</div>
 	<span class="item_separator"></span>
+	
 </li>

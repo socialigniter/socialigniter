@@ -152,6 +152,32 @@ $(document).ready(function()
 		});		
 	});	
 	
+	
+	/* Start the comment functionality */
+	//Cache common selectors.
+	$comment_form = $('.comment_form');
+	
+	//When the item comment link is clicked
+	$('.item_comment').live('click', function(eve)
+	{
+		//Hide the other comment forms that are visible.
+		$comment_form.hide();
+		//Get "this" link, go up and find the hidden comment_form and show it.
+		$(this)
+			.parent().parent().parent().find('.comment_form').show()
+			//Get the textarea, focus on it, and empty the existing value
+				.find('textarea').focus().val('');
+		return false;
+	});
+	
+	//If the user clicks anywhere inside the form, return false (so it doesn't close, see line below)
+	$comment_form.live('click', function(){ return false; });
+	
+	//Close the comment area if the user clicks outside of the form
+	$(window).click(function(){ $('.comment_form').hide() });
+	
+	/* End the comment functionality */
+	
 	// Add Category
 	$('.category_select').live('click', function(eve) 
 	{
