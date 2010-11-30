@@ -36,10 +36,10 @@ $(document).ready(function()
 			type: "POST",
 			dataType: "html",
 			data: $('#comments_logged_form').serialize(),
-			beforeSend: function(html) {},
-		  	success: function(html)
+			beforeSend: function(result) {},
+		  	success: function(result)
 		  	{
-				if(html == 'error')
+				if(result.status == 'error')
 				{
 				 	$('#comment_error').append("Oops we couldn't post your comment!").show('normal');
 			 	}

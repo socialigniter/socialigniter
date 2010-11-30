@@ -60,7 +60,7 @@ class Index extends Public_Controller
 				$this->data['recaptcha']		= '';
 			}
 			
-			$this->data['comments_write']		= $this->load->view(config_item('site_theme').'/partials/comments_write', $this->data, true);
+			$this->data['comments_write']		= $this->load->view('../modules/comments/views/partials/comments_write', $this->data, true);
 		}
 
 		$this->data['sidebar'] 	.= modules::run('blog/widgets_sidebar');

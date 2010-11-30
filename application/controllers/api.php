@@ -5,6 +5,8 @@ class Api extends Public_Controller
     {
         parent::__construct();
         
+		if (!$this->social_auth->logged_in()) redirect(base_url());        
+        
         $this->data['page_title'] = 'API';
     }
     
@@ -31,7 +33,7 @@ class Api extends Public_Controller
 
     function testing()
     {      
-        $data 			= array();
+        $data = array();
 
 		$params = array(
         	'server' 	=> base_url().'api/',
@@ -53,11 +55,7 @@ class Api extends Public_Controller
 	        $this->rest->api_key('foo');
 	        $this->rest->language('en-GB, pr');
 
-			if(in_array($method, array('put', 'post', 'get', 'delete')))
-			{
-				$data['result'] = $this->rest->{$method}($uri, $params);
-			}
-			
+			$data['result'] = $this->rest->{$method}($uri, $params);			
 			$data['debug'] = $this->rest->debug();
 		
         	$this->load->view(config_item('site_theme').'/api/testing', $data);

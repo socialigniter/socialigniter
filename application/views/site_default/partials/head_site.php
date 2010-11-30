@@ -6,7 +6,7 @@
 <link type="text/css" href="<?= base_url() ?>css/jplayer.css" rel="stylesheet" media="screen" charset="utf-8" />
 <link type="text/css" href="<?= base_url() ?>css/fancybox.css" rel="stylesheet" media="screen" charset="utf-8" />
 
-<script type="text/javascript" src="<?= base_url() ?>js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/jquery-1.4.4.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.uniform.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.timers.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.fancybox.js"></script>

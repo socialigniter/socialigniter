@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>API Testing | <?= $site_title ?></title>
+<title> Testing | API | <?= $site_title ?></title>
 <style type="text/css">
 body { background-color: #fff; font-family: Lucida Grande, Verdana, Sans-serif; font-size: 14px; color: #4F5155; }
 a { color: #003399; background-color: transparent; font-weight: normal; }

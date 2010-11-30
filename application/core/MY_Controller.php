@@ -101,7 +101,7 @@ class MY_Controller extends MX_Controller
 			$this->data['link_logout']			= base_url().'login/logout';
 			
 			// Action Paths
-			$this->data['comments_post']		= base_url().'comments/actions/logged';
+			$this->data['comments_post']		= base_url().'comments/logged';
 			
 			// Site Forms	
 			$this->data['comments_write_form']	= 'comments_logged_form';
@@ -115,7 +115,7 @@ class MY_Controller extends MX_Controller
 			$this->data['profile_name']			= 'Your Name';
 
 			// Action Paths
-			$this->data['comments_post']		= base_url().'comments/actions/public';
+			$this->data['comments_post']		= base_url().'comments/public';
 			
 			// Site Forms
 			$this->data['comments_write_form']	= 'comments_public_form';
