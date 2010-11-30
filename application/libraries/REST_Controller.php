@@ -2,20 +2,17 @@
 
 class REST_Controller extends MX_Controller
 {
-    protected $rest_format = NULL; // Set this in a controller to use a default format
+    protected $rest_format 	= NULL; // Set this in a controller to use a default format
+	protected $methods 		= array(); // contains a list of method properties such as limit, log and level
+	protected $request 		= NULL; // Stores accept, language, body, headers, etc
+	protected $rest 		= NULL; // Stores DB, keys, key level, etc
 
-	protected $methods = array(); // contains a list of method properties such as limit, log and level
-
-	protected $request = NULL; // Stores accept, language, body, headers, etc
-	protected $rest = NULL; // Stores DB, keys, key level, etc
-
-    private $_get_args = array();
-    private $_post_args = array();
-    private $_put_args = array();
-    private $_delete_args = array();
-    private $_args = array();
-
-	private $_allow = TRUE;
+    private $_get_args		= array();
+    private $_post_args 	= array();
+    private $_put_args 		= array();
+    private $_delete_args 	= array();
+    private $_args 			= array();
+	private $_allow 		= TRUE;
 
     // List all supported methods, the first will be the default format
     private $_supported_formats = array(
@@ -23,9 +20,7 @@ class REST_Controller extends MX_Controller
 		'rawxml' 	=> 'application/xml',
 		'json' 		=> 'application/json',
 		'serialize' => 'application/vnd.php.serialized',
-		'php' 		=> 'text/plain',
-//		'html' 		=> 'text/html',
-//		'csv' 		=> 'application/csv'
+		'php' 		=> 'text/plain'
 	);
 
     // Constructor function
@@ -749,59 +744,6 @@ class REST_Controller extends MX_Controller
 
 		// pass back as string. or simple xml object if you want!
 		return $structure->asXML();
-    }
-
-    // Format HTML for output
-    private function _format_html($data = array())
-    {
-		// Multi-dimentional array
-		if (isset($data[0]))
-		{
-			$headings = array_keys($data[0]);
-		}
-
-		// Single array
-		else
-		{
-			$headings = array_keys($data);
-			$data = array($data);
-		}
-
-		$this->load->library('table');
-
-		$this->table->set_heading($headings);
-
-		foreach($data as &$row)
-		{
-			$this->table->add_row($row);
-		}
-
-		return $this->table->generate();
-    }
-
-    // Format HTML for output
-    private function _format_csv($data = array())
-    {
-    	// Multi-dimentional array
-		if (isset($data[0]))
-		{
-			$headings = array_keys($data[0]);
-		}
-
-		// Single array
-		else
-		{
-			$headings = array_keys($data);
-			$data = array($data);
-		}
-
-		$output = implode(',', $headings)."\r\n";
-		foreach($data as &$row)
-		{
-			$output .= '"'.implode('","',$row)."\"\r\n";
-		}
-
-		return $output;
     }
 
     // Encode as JSON

@@ -390,6 +390,13 @@ class Settings extends Dashboard_Controller {
     	$this->render();
     }  
 
+	function api()
+	{
+		$this->data['sub_title'] = 'API';
+	
+    	$this->render();
+    }  
+
 	function messages()
 	{
 		$this->data['sub_title'] = 'Messages';

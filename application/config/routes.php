@@ -54,6 +54,8 @@ $route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
 $route['home/(:any)/(:any)/(:any)'] 			= '$1/home/$2/$3';
 $route['home/(:any)/(:any)'] 					= '$1/home/$2';
 $route['home/(:any)'] 							= 'home';
+$route['home/comments/(:any)'] 					= 'comments/home/$1';
+$route['home/comments'] 						= 'comments/home';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home'] 									= 'home';
 
@@ -69,6 +71,7 @@ $route['settings/connections'] 					= 'settings/connections';
 $route['settings/modules'] 						= 'settings/modules';
 $route['settings/users']						= 'settings/users';
 $route['settings/home']							= 'settings/home';
+$route['settings/api']							= 'settings/api';
 $route['settings/update']						= 'settings/update';
 $route['settings'] 								= 'settings';
 

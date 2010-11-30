@@ -119,10 +119,10 @@ class Social_tools
 		return $this->ci->comments_model->get_comments_content($content_id);
 	}
 	
-	function add_comment($user_id, $comment_data)
+	function add_comment($comment_data)
 	{
 		// Check User
-		$result = $this->ci->comments_model->add_comment($this->site_id, $user_id, $comment_data);
+		$result = $this->ci->comments_model->add_comment($this->site_id, $comment_data);
 		
 		// Update Comments Count
 		$this->ci->social_igniter->update_content_comments_count($comment_data['content_id']);

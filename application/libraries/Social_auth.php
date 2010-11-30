@@ -47,7 +47,7 @@ class Social_auth
 		// Auto-login user if they're remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
-			$this->login_remembered_user();
+			//$this->login_remembered_user();
 		}
 	
 	}

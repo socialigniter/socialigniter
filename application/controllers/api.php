@@ -5,7 +5,7 @@ class Api extends Public_Controller
     {
         parent::__construct();
         
-        $this->data['page_title'] = 'Api';
+        $this->data['page_title'] = 'API';
     }
     
     function index()
@@ -30,13 +30,20 @@ class Api extends Public_Controller
     
 
     function testing()
-    {        
+    {      
         $data 			= array();
-        $data['server']	= base_url().'api/';
+
+		$params = array(
+        	'server' 	=> base_url().'api/',
+        	'http_auth' => 'digest',
+        	'http_user' => 'admin',
+        	'http_pass' => '1234'
+        );    
+    	
+        $this->load->library('rest', $params);        
         
         if($_POST)
         {
-        	$this->load->library('rest', array('server' => $this->input->post('server')));
 	        
 	        $method		= trim($this->input->post('method', TRUE));
 	        $uri		= trim($this->input->post('uri', TRUE));
@@ -51,12 +58,15 @@ class Api extends Public_Controller
 			{
 				$data['result'] = $this->rest->{$method}($uri, $params);
 			}
+			
+			$data['debug'] = $this->rest->debug();
 		
         	$this->load->view(config_item('site_theme').'/api/testing', $data);
         }
         else
         {
         	$data['result'] = '';
+        	$data['debug']	= '';
         
         	$this->load->view(config_item('site_theme').'/api/testing', $data);
         }

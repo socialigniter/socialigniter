@@ -22,7 +22,7 @@ $config['rest_default_format'] = 'json';
 |	E.g: My Secret REST API
 |
 */
-$config['rest_realm'] = 'REST API';
+$config['rest_realm'] = 'Social Igniter REST API';
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ $config['rest_realm'] = 'REST API';
 |	'' = no login required, 'basic' = unsecure login, 'digest' = more secure login
 |
 */
-$config['rest_auth'] = '';
+$config['rest_auth'] = 'digest';
 
 /*
 |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ $config['rest_enable_keys'] = FALSE;
 |	Max: 40
 |
 */
-$config['rest_key_length'] = 32;
+$config['rest_key_length'] = 40;
 
 /*
 |--------------------------------------------------------------------------

@@ -12,7 +12,7 @@
 <?php if($response_string): ?>
 	<code><?= nl2br(htmlentities($response_string)) ?></code><br/>
 <?php else: ?>
-	No response<br/>
+	<code>No response</code><br/>
 <?php endif; ?>
 
 <div class="separator"></div>
@@ -23,7 +23,7 @@
 <div class="separator"></div>
 <?php endif; ?>
 
-<h3>Call details</h3>
+<h3>Response Details</h3>
 <pre>
 <?php print_r($info); ?>
 </pre>

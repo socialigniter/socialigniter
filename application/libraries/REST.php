@@ -6,7 +6,7 @@
 
 class REST
 {
-    private $ci;                // CodeIgniter instance
+    private $ci; // CodeIgniter instance
 
     private $rest_server;
 
@@ -15,7 +15,6 @@ class REST
 		'json' 				=> 'application/json',
 		'serialize' 		=> 'application/vnd.php.serialized',
 		'php' 				=> 'text/plain',
-  //  	'csv'				=> 'text/csv'
 	);
 
     private $auto_detect_formats = array(
@@ -23,8 +22,6 @@ class REST
 		'text/xml' 			=> 'xml',
 		'application/json' 	=> 'json',
 		'text/json' 		=> 'json',
-//		'text/csv' 			=> 'csv',
-//		'application/csv' 	=> 'csv',
     	'application/vnd.php.serialized' => 'serialize'
 	);
 
@@ -163,7 +160,7 @@ class REST
 		$data['error_code']			= $this->ci->curl->error_code;
 		$data['info'] 				= $this->ci->curl->info;
 
-		return $this->ci->load->view(config_item('site_theme').'/api/testing_results', $data);
+		return $this->ci->load->view(config_item('site_theme').'/api/testing_results', $data, true);
 	}
 
 
@@ -206,30 +203,6 @@ class REST
     private function _xml($string)
     {
     	return (array) simplexml_load_string($string);
-    }
-
-    // Format HTML for output
-    // This function is DODGY! Not perfect CSV support but works with my REST_Controller
-    private function _csv($string)
-    {
-		$data = array();
-
-		// Splits
-		$rows = explode("\n", trim($string));
-		$headings = explode(',', array_shift($rows));
-		foreach( $rows as $row )
-		{
-			// The substr removes " from start and end
-			$data_fields = explode('","', trim(substr($row, 1, -1)));
-
-			if(count($data_fields) == count($headings))
-			{
-				$data[] = array_combine($headings, $data_fields);
-			}
-
-		}
-
-		return $data;
     }
 
     // Encode as JSON

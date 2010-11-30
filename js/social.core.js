@@ -59,7 +59,7 @@ function getCountNew(element)
 	var current_class	= $(element).attr('class');
 	var type			= $(element).attr('rel');
 			
-	$.get(base_url + '/' + type + '/count_new', function(html)
+	$.get(base_url + '/home/' + type + '/count_new', function(html)
 	{
 		if(parseFloat(html))
 		{	// Adds msg_notifation class to feed_count_new

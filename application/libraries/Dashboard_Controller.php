@@ -43,7 +43,6 @@ class Dashboard_Controller extends MY_Controller
 			{	
 				// Set Module Partials
 				$module_head 						= '/modules/'.$module.'/views/partials/head_dashboard.php';
-				$module_navigation_core 			= '/modules/'.$module.'/views/partials/navigation_'.$this->module_controller.'_core.php';
 				$module_sidebar_messages 			= '/modules/'.$module.'/views/partials/sidebar_messages.php';
 				$module_sidebar_tools 				= '/modules/'.$module.'/views/partials/sidebar_tools.php';
 				$module_sidebar_admin 				= '/modules/'.$module.'/views/partials/sidebar_admin.php';
@@ -54,14 +53,12 @@ class Dashboard_Controller extends MY_Controller
 			    {	
 			    	$this->data['modules_head'] 			.= $this->load->view('..'.$module_head, $this->data, true);
 			    }
-			    if (file_exists(APPPATH.$module_navigation_core))
-			    {		    
-			    	$this->data['modules_navigation_core']	.= $this->load->view('..'.$module_navigation_core, $this->data, true);
-				}
+			    
 			    if (file_exists(APPPATH.$module_sidebar_messages))
 			    {
 			    	$this->data['modules_sidebar_messages'] .= $this->load->view('..'.$module_sidebar_messages, $this->data, true);
 			    }
+			    
 			    if (file_exists(APPPATH.$module_sidebar_tools))
 			    {
 			    	$this->data['modules_sidebar_tools'] 	.= $this->load->view('..'.$module_sidebar_tools, $this->data, true);

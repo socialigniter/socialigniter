@@ -792,12 +792,10 @@ class Auth_model extends CI_Model
 		}
 	
 		//	Get User 
-        /*
         if (isset($this->social_auth->_extra_where))
 		{
 			$this->db->where($this->social_auth->_extra_where);
-		}
-		*/					
+		}					
 	
 	    $this->db->select('*');
 		$this->db->from('users');
@@ -813,13 +811,11 @@ class Auth_model extends CI_Model
 			$this->update_last_login($user->user_id);	 
 			$this->set_userdata($user);
 	 		$this->set_userdata_connections($user->user_id);
-			
-			/*	
+				
 			if (config_item('user_extend_on_login'))
 			{
 				$this->remember_user($user->user_id);
 			}
-			*/
 
 			return TRUE;
 		}

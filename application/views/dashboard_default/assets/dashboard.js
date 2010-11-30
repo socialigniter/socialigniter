@@ -88,10 +88,10 @@ $(document).ready(function()
 		var current_new_count	= $(feed_count_new).html();
 		var updated_new_count	= current_new_count - 1;
 		
-		$.get(base_url + '/' + item_type + '/viewed/' + item_id, function(html)
+		$.get(base_url + '/home/' + item_type + '/viewed/' + item_id, function(html)
 		{		
 			if (html == 'viewed')
-			{				
+			{			
 				$('#item_alert_new_' + item_id).fadeOut('normal');
 				$('#item_' + item_id).removeClass('item_new').addClass('item');
 			

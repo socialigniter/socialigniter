@@ -156,9 +156,9 @@ CREATE TABLE `content` (
 -- Dumping data for table `content`
 --
 
-INSERT INTO `content` VALUES(1, 1, 0, 0, 'pages', 'index', '', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'site', 'S', 'A', 0, NULL, NULL, NULL, 'P', '2010-07-17 00:00:00', '2010-08-18 23:50:47');
-INSERT INTO `content` VALUES(2, 1, 0, 0, 'pages', 'page', '', 2, 1, 'Contact', 'contact', 'Please contact us', 'site', NULL, 'N', 0, NULL, NULL, NULL, 'P', '2010-07-17 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `content` VALUES(3, 1, 0, 0, 'pages', 'page', '', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site', 'S', 'A', 0, NULL, NULL, NULL, 'P', '2010-07-17 00:00:00', '2010-08-18 23:50:56');
+INSERT INTO `content` VALUES(1, 1, 0, 0, 'pages', 'page', '', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index', 'S', 'A', 0, NULL, NULL, NULL, 'P', '2010-07-17 00:00:00', '2010-08-18 23:50:47');
+INSERT INTO `content` VALUES(2, 1, 0, 0, 'pages', 'page', '', 2, 1, 'Contact', 'contact', 'Please contact us', '', NULL, 'N', 0, NULL, NULL, NULL, 'P', '2010-07-17 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `content` VALUES(3, 1, 0, 0, 'pages', 'page', '', 1, 1, 'About', 'about', 'Write what your website is about here!', '', 'S', 'A', 0, NULL, NULL, NULL, 'P', '2010-07-17 00:00:00', '2010-08-18 23:50:56');
 
 -- --------------------------------------------------------
 
