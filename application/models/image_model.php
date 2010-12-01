@@ -26,28 +26,28 @@ class Image_model extends CI_Model
 
 		$this->load->helper('file');
 				
-		make_folder('images/profile_images/'.$user_id);		
-		delete_files($this->config->item('profile_images').$user_id."/");
+		make_folder(config_item('profile_images').$user_id);		
+		delete_files(config_item('profile_images').$user_id."/");
 	    
-	    $raw_path 	= $this->config->item('profile_raw_path').$upload_file;
-	    $thumb_path = $this->config->item('profile_images').$user_id."/".$upload_file;
+	    $raw_path 	= config_item('profile_raw_path').$upload_file;
+	    $thumb_path = config_item('profile_images').$user_id."/".$upload_file;
 	    
 	    $original_width		= 0;
 	    $original_height	= 0;
 	    
 	    // Is raw width/height larger than allowed width/height
-		if ($upload_width >= $this->config->item('profile_raw_width'))
+		if ($upload_width >= config_item('profile_raw_width'))
 		{
-			$original_width = $this->config->item('profile_raw_width');
+			$original_width = config_item('profile_raw_width');
 		}
 		else
 		{
 			$original_width = $upload_width;
 		}
 
-		if ($upload_height >= $this->config->item('profile_raw_height'))
+		if ($upload_height >= config_item('profile_raw_height'))
 		{
-			$original_height = $this->config->item('profile_raw_height');
+			$original_height = config_item('profile_raw_height');
 		}
 		else
 		{
@@ -69,7 +69,7 @@ class Image_model extends CI_Model
 	    $resize_config['image_library'] 	= 'gd2';
 	    $resize_config['source_image'] 		= $raw_path;
 	    $resize_config['maintain_ratio'] 	= TRUE;
-	    $resize_config['new_image'] 		= $this->config->item('profile_images').$user_id."/original_".$upload_file;	    
+	    $resize_config['new_image'] 		= config_item('profile_images').$user_id."/original_".$upload_file;	    
 	    $resize_config['width'] 			= $res_width;
 	    $resize_config['height'] 			= $res_height;
 	    $resize_config['master_dim'] 		= $set_master_dim;
@@ -103,7 +103,7 @@ class Image_model extends CI_Model
 		$crop_config['image_library']	= 'gd2';
 	    $crop_config['source_image'] 	= $raw_path;
 	    $crop_config['maintain_ratio']	= FALSE;
-	    $crop_config['new_image'] 		= $this->config->item('profile_images').$user_id."/".$upload_file; 
+	    $crop_config['new_image'] 		= config_item('profile_images').$user_id."/".$upload_file; 
 	    $crop_config['x_axis']		 	= $x_axis;
 	    $crop_config['y_axis'] 			= $y_axis;
 	    $crop_config['width'] 			= $cropsize;
@@ -123,9 +123,9 @@ class Image_model extends CI_Model
 	    $thumb_config['image_library'] 		= 'gd2';
 	    $thumb_config['source_image'] 		= $thumb_path;
 	    $thumb_config['maintain_ratio'] 	= TRUE;
-	    $thumb_config['new_image']			= $this->config->item('profile_images').$user_id."/"."bigger_".$upload_file;
-	    $thumb_config['width'] 				= $this->config->item('profile_bigger_width');
-	    $thumb_config['height'] 			= $this->config->item('profile_bigger_height');
+	    $thumb_config['new_image']			= config_item('profile_images').$user_id."/"."bigger_".$upload_file;
+	    $thumb_config['width'] 				= config_item('profile_bigger_width');
+	    $thumb_config['height'] 			= config_item('profile_bigger_height');
 	    
 	    $this->image_lib->initialize($thumb_config);
 	    
@@ -141,9 +141,9 @@ class Image_model extends CI_Model
 	    $thumb2_config['image_library'] 	= 'gd2';
 	    $thumb2_config['source_image'] 		= $thumb_path;
 	    $thumb2_config['maintain_ratio'] 	= TRUE;
-	    $thumb2_config['new_image']			= $this->config->item('profile_images').$user_id."/"."normal_".$upload_file;
-	    $thumb2_config['width'] 			= $this->config->item('profile_normal_width');
-	    $thumb2_config['height'] 			= $this->config->item('profile_normal_height');
+	    $thumb2_config['new_image']			= config_item('profile_images').$user_id."/"."normal_".$upload_file;
+	    $thumb2_config['width'] 			= config_item('profile_normal_width');
+	    $thumb2_config['height'] 			= config_item('profile_normal_height');
 	    
 	    $this->image_lib->initialize($thumb2_config);
 	    
@@ -159,9 +159,9 @@ class Image_model extends CI_Model
 	    $thumb3_config['image_library'] 	= 'gd2';
 	    $thumb3_config['source_image'] 		= $thumb_path;
 	    $thumb3_config['maintain_ratio'] 	= TRUE;
-	    $thumb3_config['new_image']			= $this->config->item('profile_images').$user_id."/"."small_".$upload_file;
-	    $thumb3_config['width'] 			= $this->config->item('profile_small_width');
-	    $thumb3_config['height'] 			= $this->config->item('profile_small_height');
+	    $thumb3_config['new_image']			= config_item('profile_images').$user_id."/"."small_".$upload_file;
+	    $thumb3_config['width'] 			= config_item('profile_small_width');
+	    $thumb3_config['height'] 			= config_item('profile_small_height');
 	    
 	    $this->image_lib->initialize($thumb3_config);
 	    

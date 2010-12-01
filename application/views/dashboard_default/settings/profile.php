@@ -1,10 +1,10 @@
 <h3>Profile</h3>
 		
-<form method="post" action="<?= base_url()."settings/profile"; ?>" enctype="multipart/form-data">
+<form method="post" action="<?= base_url() ?>settings/profile" enctype="multipart/form-data">
 	<table border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td>Picture:</td>
-			<td><?= display_image("", "", asset_profiles().$this->session->userdata('user_id')."/small_", $image, asset_profiles()."small_nopicture.png", $name."'s profile picture") ?></td>
+			<td><img src="<?= $image ?>" border="0"></td>
 			<td><input type="file" size="20" name="userfile"></td>
 		</tr>
 		<?php if ($image != '') { ?>

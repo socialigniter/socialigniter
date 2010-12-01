@@ -1,7 +1,8 @@
 /**
- * WYSIWYG - jQuery plugin 0.92 (arigatou gozaimasu)
+ * WYSIWYG - jQuery plugin 0.93
+ * (koken)
  *
- * Copyright (c) 2008-2009 Juan M Martinez
+ * Copyright (c) 2008-2009 Juan M Martinez, 2010 Akzhan Abdulin and all contrbutors
  * http://plugins.jquery.com/project/jWYSIWYG
  *
  * Dual licensed under the MIT and GPL licenses:
@@ -70,7 +71,9 @@
                                 params[i - 1] = arguments[i];
                         }
 						var retValue = null;
-                        this.each(function()
+
+						// .filter('textarea') is a fix for bug 29 ( http://github.com/akzhan/jwysiwyg/issues/issue/29 )
+                        this.filter('textarea').each(function()
                         {
                                 $.data(this, 'wysiwyg').designMode();
                                 retValue = Wysiwyg[action].apply(this, params);
@@ -78,7 +81,7 @@
 						return retValue;
                 }
 
-                if (!(this.data('wysiwyg') === null))
+                if (this.data('wysiwyg'))
                 {
                         return this;
                 }
@@ -89,6 +92,7 @@
                  * If the user set custom controls, we catch it, and merge with the
                  * defaults controls later.
                  */
+
                 if (options && options.controls)
                 {
                         controls = options.controls;
@@ -120,8 +124,8 @@
                 html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">STYLE_SHEET</head><body style="margin: 0px;">INITIAL_CONTENT</body></html>',
                 formTableHtml: '<form class="wysiwyg"><fieldset><legend>Insert table</legend><label>Count of columns: <input type="text" name="colCount" value="3" /></label><label><br />Count of rows: <input type="text" name="rowCount" value="3" /></label><input type="submit" class="button" value="Insert table" /> <input type="reset" value="Cancel" /></fieldset></form>',
                 formImageHtml:'<form class="wysiwyg"><fieldset><legend>Insert Image</legend><label>Image URL: <input type="text" name="url" value="http://" /></label><label>Image Title: <input type="text" name="imagetitle" value="" /></label><label>Image Description: <input type="text" name="description" value="" /></label><input type="submit" class="button" value="Insert Image" /> <input type="reset" value="Cancel" /></fieldset></form>',
-                formWidth: 640,
-                formHeight: 300,
+                formWidth: 440,
+                formHeight: 270,
                 tableFiller: 'Lorem ipsum',
                 css: { },
                 debug: false,
@@ -130,14 +134,42 @@
                 rmUnwantedBr: true,
                 // http://code.google.com/p/jwysiwyg/issues/detail?id=15
                 brIE: true,
+				iFrameClass: null,
                 messages:
                 {
                         nonSelection: 'select the text you wish to link'
                 },
                 events: { },
                 controls: { },
-                resizeOptions: false
+                resizeOptions: false,
+                autoGrow: false,
+                maxHeight: 10000
         };
+
+		/**
+		 * Custom control support by Alec Gorge ( http://github.com/alecgorge )
+		 */
+		// need a global, static namespace
+		$.wysiwyg = {
+			addControl : function (name, settings) {
+				// sample settings
+				/*
+				var example = {
+					icon: '/path/to/icon',
+					tooltip: 'my custom item',
+					callback: function(selectedText, wysiwygInstance) {
+						//Do whatever you want to do in here.
+					}
+				};
+				*/
+
+				var custom = {};
+				custom[name] = {visible: false, custom: true, options: settings};
+
+				$.extend($.fn.wysiwyg.controls, $.fn.wysiwyg.controls, custom);
+			}
+		};
+
         $.fn.wysiwyg.controls = {
                 bold: {
                         visible: true,
@@ -513,8 +545,8 @@
 									    var $ed = $(this.editor);
                                         this.saveContent();
                                         $(this.original).css({
-                                                width: $ed.outerWidth(),
-												height: $ed.outerHeight(),
+                                                width:  $(this.element).outerWidth() - 6,
+												height: $(this.element).height() - $(this.panel).height() - 6,
 												resize: 'none'
 										}).show();
 										$ed.hide();
@@ -529,7 +561,7 @@
                          exec    : function()
                          {
                                  var selection = $(this.editor).documentSelection();
-                                 if ($("<div />").append(selection).children().length > 0) 
+                                 if ($("<div />").append(selection).children().length > 0)
                                  {
                                          selection = $(selection).attr("dir", "rtl");
                                  }
@@ -546,7 +578,7 @@
                         exec    : function()
                         {
                                 var selection = $(this.editor).documentSelection();
-                                if ($("<div />").append(selection).children().length > 0) 
+                                if ($("<div />").append(selection).children().length > 0)
                                 {
                                         selection = $(selection).attr("dir", "ltr");
                                 }
@@ -696,6 +728,7 @@
                 },
 
                 element: null,
+				rangeSaver: null,
                 editor: null,
 
                 removeFormat: function ()
@@ -710,6 +743,10 @@
                 },
                 destroy: function ()
                 {
+                        // Remove bindings
+                        var $form = $(this.element).closest('form');
+                        $form.unbind('submit', this.autoSaveFunction)
+                             .unbind('reset', this.resetFunction);
                         $(this.element).remove();
                         $.removeData(this.original, 'wysiwyg');
                         $(this.original).show();
@@ -729,6 +766,10 @@
                         this.options = options || {
                         };
 
+                        if ($.browser.msie && parseInt($.browser.version) < 8) {
+                                this.options.autoGrow = false;
+                        }
+
                         $.data(element, 'wysiwyg', this);
 
                         var newX = element.width || element.clientWidth || 0;
@@ -741,49 +782,76 @@
                                 if (newX === 0 && element.cols)
                                 {
                                         newX = (element.cols * 8) + 21;
+
+										// fix for issue 30 ( http://github.com/akzhan/jwysiwyg/issues/issue/30 )
+										element.cols = 1;
                                 }
                                 if (newY === 0 && element.rows)
                                 {
                                         newY = (element.rows * 16) + 16;
+
+										// fix for issue 30 ( http://github.com/akzhan/jwysiwyg/issues/issue/30 )
+										element.rows = 1;
                                 }
-                                this.editor = $(location.protocol == 'https:' ? '<iframe src="javascript:false;"></iframe>' : '<iframe></iframe>').css(
-                                {
+                                this.editor = $(location.protocol == 'https:' ? '<iframe src="javascript:false;"></iframe>' : '<iframe></iframe>').attr('frameborder', '0');
+								if (options.iFrameClass)
+								{
+									this.editor.addClass(options.iFrameClass);
+								}
+								else
+								{
+                                    this.editor.css({
                                         minHeight: (newY - 6).toString() + 'px',
-                                        width: (newX - 8).toString() + 'px'
-                                }).attr('frameborder', '0');
+
+										// fix for issue 12 ( http://github.com/akzhan/jwysiwyg/issues/issue/12 )
+                                        width: (newX > 50) ? (newX - 8).toString() + 'px' : ''
+                                    });
+                                    if ($.browser.msie && parseInt($.browser.version) < 7)
+                                    {
+                                        this.editor.css('height', newY.toString() + 'px');
+                                    }
+								}
 
                                 /**
                                  * http://code.google.com/p/jwysiwyg/issues/detail?id=96
                                  */
                                 this.editor.attr('tabindex', $(element).attr('tabindex'));
-
-                                if ($.browser.msie)
-                                {
-                                        this.editor.css('height', (newY).toString() + 'px');
-                                }
                         }
 
                         var panel = this.panel = $('<ul role="menu" class="panel"></ul>');
 
                         this.appendControls();
-                        this.element = $('<div></div>').css(
-                        {
-                                width: (newX > 0) ? (newX).toString() + 'px' : '100%'
-                        }).addClass('wysiwyg').append(panel).append($('<div><!-- --></div>').css(
-                        {
-                                clear: 'both'
+                        this.element = $('<div></div>').addClass('wysiwyg').append(panel).append($('<div><!-- --></div>').css({
+                            clear: 'both'
                         })).append(this.editor);
+
+						if (!options.iFrameClass)
+						{
+                            this.element.css({
+                               width: (newX > 0) ? newX.toString() + 'px' : '100%'
+                            });
+						}
 
                         $(element).hide().before(this.element);
 
                         this.viewHTML = false;
-                        this.initialHeight = newY - 8;
 
                         /**
                          * @link http://code.google.com/p/jwysiwyg/issues/detail?id=52
                          */
                         this.initialContent = $(element).val();
                         this.initFrame();
+
+                        this.autoSaveFunction = function ()
+                        {
+                                self.saveContent();
+                        };
+
+                        this.resetFunction = function()
+                        {
+                                self.setContent(self.initialContent);
+                                self.saveContent();
+                        }
 
                         if(this.options.resizeOptions && $.fn.resizable)
                         {
@@ -796,17 +864,10 @@
 
                         if (this.options.autoSave)
                         {
-                                $form.submit(function ()
-                                {
-                                        self.saveContent();
-                                });
+                                $form.submit(self.autoSaveFunction);
                         }
 
-                        $form.bind('reset', function ()
-                        {
-                                self.setContent(self.initialContent);
-                                self.saveContent();
-                        });
+                        $form.bind('reset', self.resetFunction);
                 },
 
                 initFrame: function ()
@@ -870,11 +931,26 @@
                                 self.focus();
                         });
 
+                        this.emptyContentRegex = /^<([\w]+)[^>]*>(<br\/?>)?<\/\1>/;
+                        $(this.editorDoc).keydown(function (event)
+                        {
+                                if (event.keyCode == 8) // backspace
+                                {
+                                        var content = self.getContent();
+                                        if (self.emptyContentRegex.test(content)) { // if content is empty
+                                                event.stopPropagation(); // prevent remove single empty tag
+                                                return false;
+                                        }
+                                }
+                                return true;
+                        });
+
                         if (!$.browser.msie)
                         {
                                 $(this.editorDoc).keydown(function (event)
                                 {
-                                        if (event.ctrlKey)
+                                        /* Meta for Macs. tom@punkave.com */
+			                                  if (event.ctrlKey || event.metaKey)
                                         {
                                                 switch (event.keyCode)
                                                 {
@@ -916,16 +992,22 @@
                                 /**
                                  * @link http://code.google.com/p/jwysiwyg/issues/detail?id=11
                                  */
-                                $(this.editorDoc).keydown(function ()
-                                {
-                                        self.saveContent();
-                                }).keyup(function ()
-                                {
-                                        self.saveContent();
-                                }).mousedown(function ()
-                                {
-                                        self.saveContent();
-                                });
+                                var handler = function () {
+                                    self.saveContent();
+                                };
+                                $(this.editorDoc).keydown(handler).keyup(handler).mousedown(handler).bind($.support.noCloneEvent ? "input" : "paste", handler);
+
+                        }
+
+                        if (this.options.autoGrow)
+                        {
+                                this.initialHeight = $(this.editorDoc).height();
+                                $(this.editorDoc).find('body').css('border', '1px solid white'); // cancel margin collapsing
+                                var growHandler = function () {
+                                        self.grow();
+                                };
+                                $(this.editorDoc).keyup(growHandler);
+                                self.grow();
                         }
 
                         if (this.options.css)
@@ -952,14 +1034,54 @@
 
                         if (this.initialContent.length === 0)
                         {
-                                this.setContent('');
+                                this.setContent('<p>initial content</p>');
                         }
 
                         $.each(this.options.events, function(key, handler)
                         {
                                 $(self.editorDoc).bind(key, handler);
                         });
+
+						// restores selection properly on focus
+						$(self.editor).blur(function() {
+							self.rangeSaver = self.getInternalRange();
+						});
+
+						$(this.editorDoc.body).addClass('wysiwyg');
+                        if(this.options.events && this.options.events.save) {
+                            var handler = this.options.events.save;
+                            $(self.editorDoc).bind('keyup', handler);
+                            $(self.editorDoc).bind('change', handler);
+                            if($.support.noCloneEvent) {
+                                $(self.editorDoc).bind("input", handler);
+                            } else {
+                                $(self.editorDoc).bind("paste", handler);
+                                $(self.editorDoc).bind("cut", handler);
+                            }
+                        }
                 },
+
+				focusEditor: function () {
+					//console.log(this.editorDoc.body.focus());//.focus();
+					if (this.rangeSaver != null) {
+						if (window.getSelection) { //non IE and there is already a selection
+							var s = window.getSelection();
+							if (s.rangeCount > 0) s.removeAllRanges();
+							s.addRange(savedRange);
+						}
+						else if (document.createRange) { //non IE and no selection
+							window.getSelection().addRange(savedRange);
+						}
+						else if (document.selection) { //IE
+							savedRange.select();
+						}
+					}
+				},
+
+				execute: function (command, arg) {
+					if(typeof(arg) == "undefined") arg = null;
+					this.editorDoc.execCommand(command, false, arg);
+				},
 
                 designMode: function ()
                 {
@@ -996,9 +1118,27 @@
                         return (window.getSelection) ? window.getSelection() : document.selection;
                 },
 
+
+                getInternalSelection: function ()
+                {
+                        return (this.editor[0].contentWindow.getSelection) ? this.editor[0].contentWindow.getSelection() : this.editor[0].contentDocument.selection;
+                },
+
                 getRange: function ()
                 {
                         var selection = this.getSelection();
+
+                        if (!selection)
+                        {
+                                return null;
+                        }
+
+                        return (selection.rangeCount > 0) ? selection.getRangeAt(0) : (selection.createRange ? selection.createRange() : null);
+                },
+
+                getInternalRange: function ()
+                {
+                        var selection = this.getInternalSelection();
 
                         if (!selection)
                         {
@@ -1077,8 +1217,27 @@
                                 }
 
                                 $(this.original).val(content);
+                                if(this.options.events && this.options.events.save) {
+                                    this.options.events.save.call(this);
+                                }
                         }
 						return this;
+                },
+
+                grow: function ()
+                {
+                        var innerBody = $(innerDocument(this.editor).body);
+                        var innerHeight = $.browser.msie ? innerBody[0].scrollHeight : innerBody.height() + 2 + 20; // 2 - borders, 20 - to prevent content jumping on grow
+
+                        var minHeight = this.initialHeight;
+                        var height = Math.max(innerHeight, minHeight);
+                        height = Math.min(height, this.options.maxHeight);
+
+                        this.editor.attr('scrolling', height < this.options.maxHeight ? 'no' : 'auto'); // hide scrollbar firefox
+                        innerBody.css('overflow', height < this.options.maxHeight ? 'hidden' : ''); // hide scrollbar chrome
+
+                        this.editor[0].height = height;
+                        return this;
                 },
 
                 withoutCss: function ()
@@ -1103,6 +1262,34 @@
 						return this;
                 },
 
+                appendMenuCustom: function (name, options)
+                {
+                        var self = this;
+
+						$(window).bind("wysiwyg-trigger-"+name, options.callback);
+
+                        return $('<li role="menuitem" UNSELECTABLE="on"><img src="' + options.icon + '" class="jwysiwyg-custom-icon" />' + (name) + '</li>')
+									.addClass("custom-command-"+name)
+									.addClass("jwysiwyg-custom-command")
+									.addClass(name)
+									.attr('title', options.tooltip)
+									.hover(addHoverClass, removeHoverClass)
+									.click(function () {
+										self.triggerCallback(name);
+									})
+									.appendTo(this.panel);
+                },
+
+				triggerCallback : function (name) {
+					$(window).trigger("wysiwyg-trigger-"+name, [
+						this.getInternalRange(),
+						this,
+						this.getInternalSelection()
+					]);
+					$(".custom-command-"+name, this.panel).blur();
+					this.focusEditor();
+				},
+
                 appendMenu: function (cmd, args, className, fn, tooltip)
                 {
                         var self = this;
@@ -1125,6 +1312,7 @@
                                         self.saveContent();
                                 }
                                 this.blur();
+								self.focusEditor();
                         }).appendTo(this.panel);
                 },
 
@@ -1132,16 +1320,21 @@
                 {
                         return $('<li role="separator" class="separator"></li>').appendTo(this.panel);
                 },
-
+                parseControls: function() {
+                    if(this.options.parseControls) {
+                        return this.options.parseControls.call(this);
+                    }
+                    return this.options.controls;
+                },
                 appendControls: function ()
                 {
-
+                        var controls = this.parseControls();
                         var currentGroupIndex  = 0;
                         var hasVisibleControls = true; // to prevent separator before first item
-                        for (var name in this.options.controls)
+                        for (var name in controls)
                         {
-                                var control = this.options.controls[name];
-                                if (control.groupIndex && currentGroupIndex != control.groupIndex)
+                                var control = controls[name];
+								if (control.groupIndex && currentGroupIndex != control.groupIndex)
                                 {
                                         currentGroupIndex = control.groupIndex;
                                         hasVisibleControls = false;
@@ -1152,16 +1345,22 @@
                                 }
                                 if (!hasVisibleControls)
                                 {
-                                     // this.appendMenuSeparator();
+                                        this.appendMenuSeparator();
                                         hasVisibleControls = true;
                                 }
-                                this.appendMenu(
-                                        control.command || name,
-                                        control['arguments'] || '',
-                                        control.className || control.command || name || 'empty',
-                                        control.exec,
-                                        control.tooltip || control.command || name || ''
-                                );
+
+								if(control.custom) {
+									this.appendMenuCustom(name, control.options);
+								}
+								else {
+									this.appendMenu(
+											control.command || name,
+											control['arguments'] || '',
+											control.className || control.command || name || 'empty',
+											control.exec,
+											control.tooltip || control.command || name || ''
+									);
+								}
                         }
                 },
 
@@ -1174,26 +1373,28 @@
 
                                 $('.' + className, this.panel).removeClass('active');
 
-                                if (control.tags)
+                                if (control.tags || (control.options && control.options.tags))
                                 {
+										var tags = control.tags || (control.options && control.options.tags);
                                         var elm = element;
                                         do
                                         {
-                                                if (elm.nodeType != 1)
+                                               if (elm.nodeType != 1)
                                                 {
                                                         break;
                                                 }
 
-                                                if ($.inArray(elm.tagName.toLowerCase(), control.tags) != -1)
+                                                if ($.inArray(elm.tagName.toLowerCase(), tags) != -1)
                                                 {
                                                         $('.' + className, this.panel).addClass('active');
                                                 }
                                         } while ((elm = elm.parentNode));
                                 }
 
-                                if (control.css)
+                                if (control.css || (control.options && control.options.css))
                                 {
-                                        var el = $(element);
+										var css = control.css || (control.options && control.options.css);
+                                       var el = $(element);
 
                                         do
                                         {
@@ -1202,9 +1403,9 @@
                                                         break;
                                                 }
 
-                                                for (var cssProperty in control.css)
+                                                for (var cssProperty in css)
                                                 {
-                                                        if (el.css(cssProperty).toString().toLowerCase() == control.css[cssProperty])
+                                                        if (el.css(cssProperty).toString().toLowerCase() == css[cssProperty])
                                                         {
                                                                 $('.' + className, this.panel).addClass('active');
                                                         }

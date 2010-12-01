@@ -105,7 +105,7 @@ class Settings extends Dashboard_Controller {
         $this->data['location'] 	= is_empty($user_settings->location);
         $this->data['url']      	= is_empty($user_settings->url);
         $this->data['bio']      	= is_empty($user_settings->bio);
- 	 	$this->data['image']		= is_empty($user_settings->image);
+ 	 	$this->data['image']		= $this->social_igniter->profile_image($user_settings->user_id, $user_settings->image, $user_settings->email, 'small');
  	 	
  		$this->render();	
  	} 

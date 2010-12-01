@@ -87,24 +87,32 @@ $(document).ready(function()
 		var feed_count_new		= '#' + item_type + '_count_new';
 		var current_new_count	= $(feed_count_new).html();
 		var updated_new_count	= current_new_count - 1;
-		
-		$.get(base_url + '/home/' + item_type + '/viewed/' + item_id, function(html)
-		{		
-			if (html == 'viewed')
-			{			
-				$('#item_alert_new_' + item_id).fadeOut('normal');
-				$('#item_' + item_id).removeClass('item_new').addClass('item');
-			
-				if (updated_new_count == 0)
-				{
-					$(feed_count_new).fadeOut('normal');
-				}
-				else
-				{
-					$(feed_count_new).html(updated_new_count);
-				}
-			}
-		});		
+
+		$.ajax(
+		{
+			url			: base_url + '/home/' + item_type + '/viewed/' + item_id,
+			type		: 'GET',
+			dataType	: 'html',
+			data		: $('#comments_logged_form').serialize(),
+		  	success		: function(result)
+		  	{
+				if (result == 'viewed')
+				{			
+					$('#item_alert_new_' + item_id).fadeOut('normal');
+					$('#item_' + item_id).removeClass('item_new').addClass('item');
+				
+					if (updated_new_count == 0)
+					{
+						$(feed_count_new).fadeOut('normal');
+					}
+					else
+					{
+						$(feed_count_new).html(updated_new_count);
+					}
+				}		  	
+		  	}		
+		});
+				
 	});
 	
 	// Approve Item

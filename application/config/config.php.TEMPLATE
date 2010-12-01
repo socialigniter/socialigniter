@@ -12,9 +12,6 @@
 |
 */
 $config['base_url']			= "http://localhost/";
-$config['asset_images']		= "images/";
-$config['asset_profiles']	= "images/profile_images/";
-$config['asset_external']	= "images/external/";
 
 /*
 |--------------------------------------------------------------------------

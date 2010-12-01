@@ -1,6 +1,4 @@
 <link rel="stylesheet" href="<?= base_url() ?>css/wysiwyg.css" type="text/css" />
-<link rel="stylesheet" href="<?= base_url() ?>js/ui/jquery.ui.all.css" type="text/css" />
-<link rel="stylesheet" href="<?= base_url() ?>js/ui/jquery.ui.dialog.css" type="text/css" />
 
 <div id="wysiwyg_media">
 	<a href="<?= base_url() ?>ajax/images" class="media_manager"><img src="<?= $dashboard_assets ?>icons/images_24.png" border="0" /></a>
@@ -11,12 +9,6 @@
 <textarea name="<?= $wysiwyg_name ?>" id="<?= $wysiwyg_id ?>" class="<?= $wysiwyg_class ?>"><?= $wysiwyg_value ?></textarea>
 
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.wysiwyg.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/ui/jquery.ui.core.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/ui/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/ui/jquery.ui.position.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/ui/jquery.ui.dialog.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/ui/jquery.ui.mouse.js"></script>  
-<script type="text/javascript" src="<?= base_url() ?>js/ui/jquery.ui.resizable.js"></script>
 <script type="text/javascript">
 
 $(function($)
@@ -28,11 +20,11 @@ $(function($)
 			maxWidth	: 640,
 			minWidth	: 640,
 			minHeight	: 340,
-			handles		: 's, se, sw'
 		},
 		
 		controls:
 		{
+			separator				: { visible : false },
 			strikeThrough			: { visible : true },
 			underline 				: { visible : true },
 			justifyLeft				: { visible : true },
