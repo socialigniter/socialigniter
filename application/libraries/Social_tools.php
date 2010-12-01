@@ -121,13 +121,19 @@ class Social_tools
 	
 	function add_comment($comment_data)
 	{
-		// Check User
-		$result = $this->ci->comments_model->add_comment($this->site_id, $comment_data);
+		// Add Comment
+		$comment = $this->ci->comments_model->add_comment($this->site_id, $comment_data);
 		
-		// Update Comments Count
-		$this->ci->social_igniter->update_content_comments_count($comment_data['content_id']);
+		if ($comment)
+		{			
+			// Get Comment
+			$comment = $this->get_comment($comment);
+
+			// Update Comments Count
+			$this->ci->social_igniter->update_content_comments_count($comment->content_id);		
+		}
 		
-		return $result;
+		return $comment;
 	}
 
 	function update_comment_viewed($comment_id)

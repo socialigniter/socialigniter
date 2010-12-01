@@ -15,25 +15,7 @@ $(document).ready(function()
 	doPlaceholder('#comment_email', 'your@email.com');
 	doPlaceholder('#comment_write_text', 'Write comment...');
 
-	// Templates	
-/*
-	$.template(
-	  	'comment_list',
-		'<li class="${sub}comment" id="comment-${comment_id}">
-		<a href="${username}"><span class="${sub}comment_thumbnail"><img src="${profile_image}" border="0" /></span></a>
-		<span class="${sub}comment">
-			<a href="${user_profile}">${name}</a> ${comment_text}
-			<span class="${sub}comment_date">${created_at}</span>
-			<ul class="comment_actions">
-				<li><a href="#${comments_write_form}" id="reply-${reply_id}" class="comment_reply"><span class="item_actions action_reply"></span> Reply</a></li>
-				<li><a href="${comment_delete}" id="delete-${comment_id}" class="comment_delete"><span class="item_actions action_delete"></span> Delete</a></li>
-			</ul>
-			<div class="clear"></div>
-		</span>
-		<div class="clear"></div>
-	</li>');	
-*/
-
+	// Comments On Site
 	$("#comments_logged_form").bind("submit", function(eve)
 	{
 		eve.preventDefault();
@@ -48,16 +30,13 @@ $(document).ready(function()
 		// Inject as reply or normal		
 		if (reply_to_id)	var append_to_where = '#comment-replies-' + reply_to_id;
 		else				var append_to_where = '#comments_list';
-				
-		console.log('head of stuff');		
-				
+								
 		$.ajax(
 		{
 			url			: comment_write_url,
 			type		: 'POST',
 			dataType	: 'json',
 			data		: $('#comments_logged_form').serialize(),
-			beforeSend	: console.log('sending'),
 		  	success		: function(result)
 		  	{
 		  		console.log(result.status);
@@ -67,21 +46,15 @@ $(document).ready(function()
 				 	$('#comment_error').append("Oops we couldn't post your comment!").show('normal');
 			 	}
 			 	else
-			 	{
-			 		// GET USER INFO FROM user_id
-			 	
-			 		// INJECT INTO TEMPLATE
-					var html = '<li class="' + result.data.comment + '" id="comment-' + result.data.comment_id + '"><a href="username"><span class="comment_thumbnail"><img src="profile_image" border="0" /></span></a><span class="' + result.data.sub + 'comment"><a href="${user_profile}">name</a> ' + result.data.comment + '<span class="' + result.data.sub + 'comment_date">' + result.data.created_at + '</span><div class="clear"></div></span><div class="clear"></div></li>'
-			 		
-			 		console.log(html);
-			 	
+			 	{			 	
+					var html = '<li class="' + result.data.comment + '" id="comment-' + result.data.comment_id + '"><a href="' + result.data.profile_link + '"><span class="comment_thumbnail"><img src="' + result.data.profile_image + '" border="0" /></span></a><span class="' + result.data.sub + 'comment"><a href="' + result.data.profile_link + '">' + result.data.name + '</a> ' + result.data.comment + '<span class="' + result.data.sub + 'comment_date">' + result.data.created_at + '</span><div class="clear"></div></span><div class="clear"></div></li>'
+			 					 	
 				 	$(append_to_where).append(html).show('slow');
 					$('#comment_write_text').val('');
 					$('#reply_to_id').val('');
 					$('#comments_count').html(comment_count_updated);
 			 	}	
-		 	},
-		 	error		: console.log('ooooppppsss')
+		 	}
 		});
 	});
 

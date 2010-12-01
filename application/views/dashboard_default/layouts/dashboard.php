@@ -18,7 +18,7 @@
 <div id="container">
 	<div id="header">
 		<div id="name">
-			<a id="name_img" href="<?= base_url() ?>"><img src="<?= asset_images(); ?>/site/small_social-igniter.png" border="0" /></a>
+			<a id="name_img" href="<?= base_url() ?>"><img src="<?= base_url(); ?>images/site/small_social-igniter.png" border="0" /></a>
 			<a id="name_text" href="<?= base_url() ?>"><h1><?= $site_title ?></h1></a>
 		</div>
 		<div id="nav">
