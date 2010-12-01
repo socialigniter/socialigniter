@@ -19,7 +19,7 @@ $(function($)
 		{
 			maxWidth	: 640,
 			minWidth	: 640,
-			minHeight	: 340,
+			minHeight	: 340
 		},
 		
 		controls:
