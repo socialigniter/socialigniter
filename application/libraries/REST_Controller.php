@@ -42,7 +42,6 @@ class REST_Controller extends MX_Controller
         {
         	$this->_prepare_basic_auth();
         }
-
         elseif ($this->config->item('rest_auth') == 'digest')
         {
         	$this->_prepare_digest_auth();

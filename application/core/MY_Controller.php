@@ -38,7 +38,7 @@ class MY_Controller extends MX_Controller
         $this->load->library('user_agent');
 		
 		$rest_params = array(
-        	'server' => base_url().'api/',
+        	'server' 	=> base_url().'api/',
         	'http_auth' => 'digest',
         	'http_user' => 'site',
         	'http_pass' => 'ff91fd16832111f1a5ffdb0f37e1a756'

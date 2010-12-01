@@ -38,9 +38,7 @@ $(document).ready(function()
 			dataType	: 'json',
 			data		: $('#comments_logged_form').serialize(),
 		  	success		: function(result)
-		  	{
-		  		console.log(result.status);
-		  	
+		  	{		  	
 				if(result.status == 'error')
 				{
 				 	$('#comment_error').append("Oops we couldn't post your comment!").show('normal');
@@ -160,15 +158,29 @@ $(document).ready(function()
 		{
 			var comment_count_updated	= parseInt(comment_count_current)-1;		
 		}
-				
-		$.get(comment_delete, function(html)
-		{				
-			if (html == 'deleted')
-			{			
-				$(comment_element).hide('normal');
-				$('#comments_count').html(comment_count_updated);
-			}
-		});
+
+		$.ajax(
+		{
+			url			: comment_delete,
+			type		: 'DELETE',
+			dataType	: 'json',
+		  	success		: function(result)
+		  	{		  	
+				if(result.status == 'error')
+				{
+				 	$('#comment_error').append(result.message).show('normal');
+			 	}
+			 	else
+			 	{			 	
+					$(comment_element).hide('normal');
+					$('#comments_count').html(comment_count_updated);
+			 	}	
+		 	}
+		});		
+		
+		
+		
+		
 	});
 
 });
