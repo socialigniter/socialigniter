@@ -22,8 +22,11 @@
 		<div class="clear"></div>
 		
 		<div class="comment_form">
-			<textarea></textarea><div class="clear"></div>
-			<input type="submit">
+			<form action="http://localhost/comments/logged/" method="post">
+				<textarea name="comment_write_text"></textarea><div class="clear"></div>
+				<input type="hidden" name="content_id" value="<?= $item_id; ?>">
+				<input type="submit" value="submit" name="submit">
+			</form>
 			<div class="clear"></div>
 		</div>
 		

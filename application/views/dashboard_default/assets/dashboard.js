@@ -178,12 +178,33 @@ $(document).ready(function()
 		return false;
 	});
 	
-	//If the user clicks anywhere inside the form, return false (so it doesn't close, see line below)
-	$comment_form.live('click', function(){ return false; });
+	
 	
 	//Close the comment area if the user clicks outside of the form
-	$(window).click(function(){ $('.comment_form').hide() });
+	//$(window).click(function(){ $('.comment_form').hide() });
 	
+	
+	//Submitting a comment
+	$('form').live('submit',function(eve){
+		eve.preventDefault();
+		//Set up the data for use in the POST request and thereafter (if needed)
+		var the_data = $(this).serialize();
+		$.ajax(
+		{
+			url:'http://localhost/comments/logged/',
+			type:'POST',
+			dataType:'json',
+			data:the_data,
+			success:function(result)
+			{
+				console.log(result);
+			}
+		});
+	});
+	
+	
+	//If the user clicks anywhere inside the form, return false (so it doesn't close, see line below)
+	//$comment_form.live('click', function(){ return false; });
 	/* End the comment functionality */
 	
 	// Add Category
