@@ -51,6 +51,7 @@ div.wysiwyg ul.panel li.h6 { background-position: -80px -32px; }
 div.wysiwyg ul.panel li.cut { background-position: -32px -64px; }
 div.wysiwyg ul.panel li.copy { background-position: -48px -64px; }
 div.wysiwyg ul.panel li.paste { background-position: -64px -64px; }
+div.wysiwyg ul.panel li.pasteFromWord { background:url(/images/shared/word_icon.png) }
 div.wysiwyg ul.panel li.insertTable { background-position: -64px -48px; }
 
 div.wysiwyg ul.panel li.increaseFontSize { background-position: -16px -80px; }

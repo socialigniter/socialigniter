@@ -171,6 +171,43 @@
 		};
 
         $.fn.wysiwyg.controls = {
+					 pasteFromWord:{
+								visible:true,
+								tooltip:'Paste from MS Word',
+								exec:function(){
+										  var convertWordChars = function(text) {
+												var s = text;
+												s = s.replace(/[\u2018|\u2019|\u201A]/g, "\'");
+												s = s.replace(/[\u201C|\u201D|\u201E]/g, "\"");
+												s = s.replace(/\u2026/g, "...");
+												s = s.replace(/[\u2013|\u2014]/g, "-");
+												s = s.replace(/\u02C6/g, "^");
+												s = s.replace(/\u2039/g, "<");
+												s = s.replace(/\u203A/g, ">");
+												s = s.replace(/[\u02DC|\u00A0]/g, " ");
+												return s;
+										  }
+										  
+										  $.fancybox({
+													 content:'<textarea cols="50" rows="10"></textarea><br><input style="float:right" type="submit" value="Cancel"> <input style="float:right" type="submit" value="Convert">'
+										  })
+										  $('#fancybox-inner').find('[value=Convert]').live('click',function(){
+													 $theTextarea = $(this).siblings('textarea');
+													 convertedText = convertWordChars($theTextarea.val());
+													 $theTextarea.val(convertedText).siblings('[value=Convert]').val('Insert');
+													 return false;
+										  }).end().find('[value=Cancel]').live('click',function(){
+													 $('#fancybox-close').click();
+										  });
+										  /*Propagation issue!*/
+										  $('#fancybox-inner [value=Insert]').live('click',function(){
+													 newText = '<p>'+$(this).siblings('textarea').val().replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>')+'</p>';
+													 $('.wysiwyg iframe').contents().find('body').append(newText);
+													 $('#fancybox-close').click();
+													 return false;
+										  });
+								}
+					 },
                 bold: {
                         visible: true,
                         tags: ['b', 'strong'],

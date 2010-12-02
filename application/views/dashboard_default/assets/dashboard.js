@@ -176,13 +176,36 @@ $(document).ready(function()
 		$(this)
 			.parent().parent().parent().find('.comment_form').show()
 			//Get the textarea, focus on it, and empty the existing value
+			//.find('textarea').focus();
 		return false;
 	});
 	
 	
 	//Close the comment area if the user clicks outside of the form
-	//$(window).click(function(){ $('.comment_form').hide() });
+	$('*').click(function(eve)
+	{
+		//Here we check if what the user clicked on was the form or children of it
+		if(!$(eve.target).is('.comment_form,.comment_form *'))
+		{
+			$comment_form.hide();
+		}
+	});
 	
+	//A generic function alert the user an error has occured. Use simply with:
+	//generic_error(), or you can manually specify different title's or messages
+	var generic_error = function(title,msg)
+	{
+		if(!title){ title= 'Oops!'; }
+		if(!msg) { msg = 'Something must have gone wrong, but no worries we\'re working on it!'; }
+		$.fancybox(
+		{
+			content:'\
+				<div class="error_alert">\
+					<h2>'+title+'</h2>\
+					<p>'+msg+'\
+				</div>'
+		});
+	}
 	
 	//Submitting a comment	
 	$(".item_comment_form").bind("submit", function(eve)
@@ -204,25 +227,22 @@ $(document).ready(function()
 			  	{		  	
 					if(result.status == 'error')
 					{
-					 	alert('fail');
+					 	generic_error();
 				 	}
 				 	else
-				 	{			 	
-						alert('success');
+				 	{
+						console.log(result);
 				 	}	
 			 	}
 			});			
 		}
 		else
 		{
-			alert('boo');
+			generic_error();
 		}
 	
 	});
 	
-	
-	//If the user clicks anywhere inside the form, return false (so it doesn't close, see line below)
-	//$comment_form.live('click', function(){ return false; });
 	/* End the comment functionality */
 	
 	// Add Category
