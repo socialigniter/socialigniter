@@ -69,9 +69,8 @@ class Social_igniter
     }	
     
     // Generate Item
-    function render_item($verb, $type, $data)
+    function render_item($verb, $type, $object)
     {
-    	$object 	= json_decode($data);
     	$has_url	= property_exists($object, 'url');
     	$has_title	= property_exists($object, 'title');
     	

@@ -49,7 +49,7 @@ class Dashboard_Controller extends MY_Controller
 				$this->data['this_module_assets'] 	= base_url().'application/modules/'.$module.'/assets/';
 				
 				// Load Views From All Modules
-			    if (file_exists(APPPATH.$module_head))
+			    if (($this->module_name == $module) && (file_exists(APPPATH.$module_head)))
 			    {	
 			    	$this->data['modules_head'] 			.= $this->load->view('..'.$module_head, $this->data, true);
 			    }

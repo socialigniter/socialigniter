@@ -22,10 +22,15 @@
 		<div class="clear"></div>
 		
 		<div class="comment_form">
-			<form action="http://localhost/comments/logged/" method="post">
-				<textarea name="comment_write_text"></textarea><div class="clear"></div>
-				<input type="hidden" name="content_id" value="<?= $item_id; ?>">
-				<input type="submit" value="submit" name="submit">
+			<form method="post" class="item_comment_form" name="item_comment_form" action="<?= base_url() ?>comments/logged/">
+				<textarea name="comment_write_text" class="comment_write_text"></textarea>
+				<div class="clear"></div>
+				<input type="hidden" name="reply_to_id" id="reply_to_id" value="0">
+				<input type="hidden" name="content_id" value="<?= $item_content_id; ?>">
+				<input type="hidden" name="geo_lat" id="geo_lat" value="">
+				<input type="hidden" name="geo_long" id="geo_long" value="">
+				<input type="hidden" name="geo_accuracy" id="geo_accuracy" value="">				
+				<input type="submit" id="comment_submit" value="Comment">		
 			</form>
 			<div class="clear"></div>
 		</div>

@@ -27,6 +27,7 @@ class REST_Controller extends MX_Controller
     function __construct()
     {
 		// Site Settings
+		// Added by Brennan Novak for Social Igniter
 		foreach ($this->social_igniter->get_settings() as $setting)
 		{			
             $this->config->set_item($setting->module.'_'.$setting->setting, $setting->value);

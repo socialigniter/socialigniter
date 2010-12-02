@@ -31,6 +31,8 @@ $(document).ready(function()
 	
 	// Placeholders 
 	doPlaceholder('#status_update_text', "What's shaking?");
+	doPlaceholder('.comment_write_text', 'Write comment...');
+		
 
 	// Gets count of new items with class="get_count_new" uses id="name_count_new" to make call to AJAX controller
 	$('.feed_count_new').oneTime(100, function() { getCountNew(this) });
@@ -174,32 +176,48 @@ $(document).ready(function()
 		$(this)
 			.parent().parent().parent().find('.comment_form').show()
 			//Get the textarea, focus on it, and empty the existing value
-				.find('textarea').focus().val('');
 		return false;
 	});
-	
 	
 	
 	//Close the comment area if the user clicks outside of the form
 	//$(window).click(function(){ $('.comment_form').hide() });
 	
 	
-	//Submitting a comment
-	$('form').live('submit',function(eve){
+	//Submitting a comment	
+	$(".item_comment_form").bind("submit", function(eve)
+	{
 		eve.preventDefault();
-		//Set up the data for use in the POST request and thereafter (if needed)
-		var the_data = $(this).serialize();
-		$.ajax(
-		{
-			url:'http://localhost/comments/logged/',
-			type:'POST',
-			dataType:'json',
-			data:the_data,
-			success:function(result)
+		
+		var this_textarea	= $(this).find('.comment_write_text');
+		var comment 		= isFieldValid(this_textarea, 'Write comment...', 'Please write something!');
+				
+		if (comment == true)
+		{	
+			$.ajax(
 			{
-				console.log(result);
-			}
-		});
+				url			: base_url + '/comments/logged',
+				type		: 'POST',
+				dataType	: 'html',
+				data		: $(this).serialize(),
+			  	success		: function(result)
+			  	{		  	
+					if(result.status == 'error')
+					{
+					 	alert('fail');
+				 	}
+				 	else
+				 	{			 	
+						alert('success');
+				 	}	
+			 	}
+			});			
+		}
+		else
+		{
+			alert('boo');
+		}
+	
 	});
 	
 	

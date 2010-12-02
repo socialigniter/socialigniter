@@ -43,6 +43,8 @@ class Home extends Dashboard_Controller
 		{
 			foreach ($timeline as $activity)
 			{
+			    $object 	= json_decode($activity->data);
+			
 				// Item
 				$this->data['item_id']				= $activity->activity_id;
 				$this->data['item_type']			= item_type_class($activity->type);
@@ -54,7 +56,8 @@ class Home extends Dashboard_Controller
 				$this->data['item_profile']			= base_url().'profile/'.$activity->username;
 				
 				// Activity
-				$this->data['item_content']			= $this->social_igniter->render_item($activity->verb, $activity->type, $activity->data);
+				$this->data['item_content']			= $this->social_igniter->render_item($activity->verb, $activity->type, $object);
+				$this->data['item_content_id']		= $object->content_id;
 				$this->data['item_date']			= format_datetime(config_item('home_date_style'), $activity->created_at);
 
 		 		// Actions
