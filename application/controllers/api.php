@@ -68,26 +68,6 @@ class Api extends Public_Controller
         	$this->load->view(config_item('site_theme').'/api/testing', $data);
         }
     }
-    
-    function call()
-    {
-		if ($this->social_auth->logged_in())
-		{
-		
-			$rest_params = array(
-	        	'server' 	=> base_url().'api/',
-	        	'http_auth' => 'digest',
-	        	'http_user' => 'site',
-	        	'http_pass' => 'ff91fd16832111f1a5ffdb0f37e1a756'
-	        );    
-	    	
-	        $this->load->library('rest', $rest_params);
 
-			echo = $this->rest->{$method}($uri, $params);			
-			
-        
-        }
-    
-    }
    
 }

@@ -94,11 +94,11 @@ $(document).ready(function()
 		{
 			url			: base_url + '/home/' + item_type + '/viewed/' + item_id,
 			type		: 'GET',
-			dataType	: 'html',
+			dataType	: 'json',
 			data		: $('#comments_logged_form').serialize(),
 		  	success		: function(result)
 		  	{
-				if (result == 'viewed')
+				if (result.status == 'success')
 				{			
 					$('#item_alert_new_' + item_id).fadeOut('normal');
 					$('#item_' + item_id).removeClass('item_new').addClass('item');
@@ -146,20 +146,27 @@ $(document).ready(function()
 		var item_attr_array		= item_attr_id.split('_');
 		var item_id				= item_attr_array[3];
 		var item_click_href		= $(this).attr('href');
-		var item_element		= '#item_' + item_id;	
-				
-		$.get(item_click_href, function(html)
-		{		
-			if (html == 'error')
-			{
-			 	$('#content_message').html("Oops we couldn't delete your item!").addClass('message_alert').show('normal');
-			 	$('#content_message').oneTime(2500, function(){$('#content_message').hide('fast')});				
+		var item_element		= '#item_' + item_id;
+	
+		$.ajax(
+		{
+			url			: item_click_href,
+			type		: 'DELETE',
+			dataType	: 'json',
+			data		: $('#comments_logged_form').serialize(),
+		  	success		: function(result)
+		  	{
+				if (result.status == 'success')
+				{			
+					$(item_element).hide('normal');
+				}			
+				else
+				{
+				 	$('#content_message').html("Oops we couldn't delete your item!").addClass('message_alert').show('normal');
+				 	$('#content_message').oneTime(2500, function(){$('#content_message').hide('fast')});				
+				}
 			}
-			else if (html == 'deleted')
-			{			
-				$(item_element).hide('normal');
-			}						
-		});		
+		});
 	});	
 	
 	
