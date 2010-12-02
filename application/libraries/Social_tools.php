@@ -33,7 +33,7 @@ class Social_tools
 	}
 	
 	/* Misc Tools */
-	function does_user_have_access($user_id, $content_id)
+	function does_user_have_access($type, $object_id)
 	{
 		// Is Super or Admin
 		if ($this->ci->session->userdata('user_level_id') <= 2)
@@ -41,20 +41,32 @@ class Social_tools
 			return TRUE;
 		}
 		
-		$content = $this->ci->social_igniter->get_content($content_id);
-		
-		// Is User Owner
-		if ($user_id == $content->user_id)
-		{
-			return TRUE;
+		if ($type == 'content')
+		{		
+			// Is User Owner
+			if ($this->ci->session->userdata('user_id') == $this->ci->social_igniter->get_content($object_id)->user_id)
+			{
+				return TRUE;
+			}
+			
+			// Does User Have Access
+			/*
+			$access = $this->get_content_access($this->ci->session->userdata('user_id'), $content_id);
+			
+			if ($access)
+			{
+				return TRUE;
+			}
+			*/
 		}
 		
-		$access = $this->get_content_access($user_id, $content_id);
-		
-		// Does user have access
-		if ($access)
+		if ($type == 'comment')
 		{
-			return TRUE;
+			// Is User Owner
+			if ($this->ci->session->userdata('user_id') == $this->ci->social_igniter->get_comment($object_id)->user_id)
+			{
+				return TRUE;
+			}				
 		}
 
 		return FALSE;
