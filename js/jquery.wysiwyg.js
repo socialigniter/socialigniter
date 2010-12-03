@@ -194,17 +194,16 @@
 										  $('#fancybox-inner').find('[value=Convert]').live('click',function(){
 													 $theTextarea = $(this).siblings('textarea');
 													 convertedText = convertWordChars($theTextarea.val());
-													 $theTextarea.val(convertedText).siblings('[value=Convert]').val('Insert');
+													 $theTextarea.val(convertedText).siblings('[value=Convert]').val('Insert')
+																.bind('click',function(){
+																		  newText = '<p>'+$(this).siblings('textarea').val().replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>')+'</p>';
+																		  $('.wysiwyg iframe').contents().find('body').append(newText);
+																		  $('#fancybox-close').click();
+																		  $(this).unbind();
+																});
 													 return false;
 										  }).end().find('[value=Cancel]').live('click',function(){
 													 $('#fancybox-close').click();
-										  });
-										  /*Propagation issue!*/
-										  $('#fancybox-inner [value=Insert]').live('click',function(){
-													 newText = '<p>'+$(this).siblings('textarea').val().replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>')+'</p>';
-													 $('.wysiwyg iframe').contents().find('body').append(newText);
-													 $('#fancybox-close').click();
-													 return false;
 										  });
 								}
 					 },

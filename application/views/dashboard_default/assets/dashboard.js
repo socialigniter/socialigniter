@@ -170,9 +170,38 @@ $(document).ready(function()
 	});	
 	
 	
+	
+	/* Geolocation */
+	function geo_get()
+	{
+		if (navigator.geolocation)
+		{
+			return navigator.geolocation.getCurrentPosition(geo_success);
+		}
+		else{
+			return false;
+		}
+	}
+	function geo_success(position)
+	{
+		//On success, if we have localStorage (IE8,Opera,FF,WebKit,iPhone,etc)
+		//we'll store their location in localStorage so we can get it whenever
+		if(localStorage)
+		{
+			localStorage.setItem('geo_lat',position.coords.latitude);
+			localStorage.setItem('geo_long',position.coords.longitude);
+			localStorage.setItem('geo_accuracy',position.coords.accuracy);
+		}
+	}
+	//Initial get, use it elsewhere to update location
+	geo_get();
+	/* End Geolocation stuff */
+	
+	
 	/* Start the comment functionality */
 	//Cache common selectors.
 	$comment_form = $('.comment_form');
+	$comment_list = $('#comment_list');
 	
 	//When the item comment link is clicked
 	$('.item_comment').live('click', function(eve)
@@ -184,6 +213,19 @@ $(document).ready(function()
 			.parent().parent().parent().find('.comment_form').show()
 			//Get the textarea, focus on it, and empty the existing value
 			//.find('textarea').focus();
+		
+		//Set the reply_to_id value by getting the parent #item_N and finding N and setting that as the id
+		$this_reply_to_id = $(this).parent().parent().parent().parent();
+		$this_reply_to_id.find('[name=reply_to_id]').val($this_reply_to_id.attr('id').split('_')[1]);
+		
+		//If we have their location...
+		if(localStorage && localStorage['geo_lat'])
+		{
+			//...get it from localStorage and put it in the hidden comment fields
+			$comment_form.find('[name=geo_lat]').val(localStorage['geo_lat']);
+			$comment_form.find('[name=geo_long]').val(localStorage['geo_long']);
+			$comment_form.find('[name=geo_accuracy]').val(localStorage['geo_accuracy']);
+		}
 		return false;
 	});
 	
@@ -219,6 +261,8 @@ $(document).ready(function()
 	{
 		eve.preventDefault();
 		
+		$(this).find('[type=submit]').attr('disabled','true');
+		
 		var this_textarea	= $(this).find('.comment_write_text');
 		var comment 		= isFieldValid(this_textarea, 'Write comment...', 'Please write something!');
 				
@@ -228,7 +272,7 @@ $(document).ready(function()
 			{
 				url			: base_url + '/comments/logged',
 				type		: 'POST',
-				dataType	: 'html',
+				dataType	: 'json',
 				data		: $(this).serialize(),
 			  	success		: function(result)
 			  	{		  	
@@ -238,7 +282,9 @@ $(document).ready(function()
 				 	}
 				 	else
 				 	{
-						console.log(result);
+						$comment_form.hide().find('textarea').val('')
+						.siblings('[type=submit]').removeAttr('disabled');
+						
 				 	}	
 			 	}
 			});			
