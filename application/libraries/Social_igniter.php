@@ -488,8 +488,15 @@ class Social_igniter
 		
 		return $this->ci->content_model->get_content_recent($site_id, $type, $limit);
 	}
+
+	function get_content_module($module, $limit=10)
+	{
+		$site_id = config_item('site_id');
+		
+		return $this->ci->content_model->get_content_module($site_id, $module, $limit);
+	}
 	
-	function add_content($content_data, $site_id=NULL)
+	function add_content($content_data, $tags=NULL, $site_id=NULL)
 	{
 		$check_content = $this->check_content_duplicate($content_data['user_id'], $content_data['title'], $content_data['content']);
 	
@@ -497,7 +504,19 @@ class Social_igniter
 		{
 			if (!$site_id) $site_id = config_item('site_id');
 		
-			return $this->ci->content_model->add_content($site_id, $content_data);
+			$content = $this->ci->content_model->add_content($site_id, $content_data);
+		
+			if ($content)
+			{	
+				if ($tags)
+				{
+					$this->ci->social_tools->process_tags($tags, $content->content_id);
+				}
+
+				return $content;
+			}
+			
+			return FALSE;		
 		}
 		else
 		{
