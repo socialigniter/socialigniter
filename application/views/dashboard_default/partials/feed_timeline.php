@@ -21,6 +21,10 @@
 		</ul>
 		<div class="clear"></div>
 		
+		<ol id="comment_list">
+			<!-- dynamically added -->
+		</ol>
+		
 		<div class="comment_form">
 			<form method="post" class="item_comment_form" name="item_comment_form" action="<?= base_url() ?>comments/logged/">
 				<textarea name="comment_write_text" class="comment_write_text"></textarea>
