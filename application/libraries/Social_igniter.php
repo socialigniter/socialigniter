@@ -496,7 +496,7 @@ class Social_igniter
 		return $this->ci->content_model->get_content_module($site_id, $module, $limit);
 	}
 	
-	function add_content($content_data, $tags=NULL, $site_id=NULL)
+	function add_content($content_data, $verb, $tags=NULL, $site_id=NULL)
 	{
 		$check_content = $this->check_content_duplicate($content_data['user_id'], $content_data['title'], $content_data['content']);
 	
@@ -512,8 +512,23 @@ class Social_igniter
 				{
 					$this->ci->social_tools->process_tags($tags, $content->content_id);
 				}
+				
+			    // Activity
+				$activity_data = array(
+					'site_id'		=> config_item('site_id'),
+					'user_id'		=> $content_data['user_id'],
+					'verb'			=> $verb,
+					'module'		=> $content_data['module'],
+					'type'			=> $content_data['type'],				
+					'content_id'	=> $content->content_id,
+					'title'			=> $content_data['title'],
+					'url'			=> base_url().$content_data['module'].'/view/'.$content->content_id,
+					'description' 	=> character_limiter(strip_tags($content_data['content'], ''), config_item('home_description_length'))
+				);
+			
+				$activity = $this->add_activity($activity_data);				
 
-				return $content;
+				return $activity;
 			}
 			
 			return FALSE;		

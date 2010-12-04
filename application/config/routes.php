@@ -56,6 +56,7 @@ $route['home/(:any)/(:any)'] 					= '$1/home/$2';
 $route['home/(:any)'] 							= 'home';
 $route['home/comments/(:any)'] 					= 'comments/home/$1';
 $route['home/comments'] 						= 'comments/home';
+$route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home'] 									= 'home';
 
