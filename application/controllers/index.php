@@ -95,7 +95,7 @@ class Index extends Public_Controller
 	
 		log_message('debug', 'oauth token: '.$access_tokens['token'].' token_secret '.$access_tokens['token_secret']);	
 
-
 	}		
+
 
 }

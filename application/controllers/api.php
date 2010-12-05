@@ -36,10 +36,7 @@ class Api extends Public_Controller
         $data = array();
 
 		$params = array(
-        	'server' 	=> base_url().'api/',
-        	'http_auth' => 'digest',
-        	'http_user' => 'site',
-        	'http_pass' => 'ff91fd16832111f1a5ffdb0f37e1a756'
+        	'server' 	=> base_url().'api/'
         );    
     	
         $this->load->library('rest', $params);        

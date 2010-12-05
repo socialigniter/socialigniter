@@ -34,7 +34,7 @@ $config['rest_realm'] = 'Social Igniter REST API';
 |	'' = no login required, 'basic' = unsecure login, 'digest' = more secure login
 |
 */
-$config['rest_auth'] = 'digest';
+$config['rest_auth'] = '';
 
 /*
 |--------------------------------------------------------------------------

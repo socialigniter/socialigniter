@@ -10,8 +10,14 @@ class OAuth
     {
         $this->ci =& get_instance();
         
-        OAuthStore::instance('MySQL', array('server' => 'localhost', 'username' => 'root', 'password' => 'flipshit10', 'database' => 'social-igniter'));
+        $database = array(
+        	'server'	=> $this->ci->db->hostname, 
+        	'username'	=> $this->ci->db->username, 
+        	'password'	=> $this->ci->db->password, 
+        	'database'	=> $this->ci->db->database
+        );
         
+        OAuthStore::instance('MySQL', $database);
     }
     
     function request_is_signed()
