@@ -29,8 +29,7 @@ class OAuth_Controller extends REST_Controller
         
         if ($this->rest_method_exists($authd_method))
         {
-		    log_message('debug', 'rest_method_exists is returning TRUE');	
-        
+                
             if (!$this->oauth->request_is_signed())
             {
 			    log_message('debug', 'request_is_signed returning TRUE');	
@@ -52,7 +51,7 @@ class OAuth_Controller extends REST_Controller
             $method = $authd_method;
         }
 
-		log_message('debug', 'passing off to parent _remap '.$method);	
+		log_message('debug', 'passing to parent _remap '.$method);	
         
         parent::_remap($method);
     }

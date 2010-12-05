@@ -51,7 +51,7 @@ $(document).ready(function()
 		{				
 			$.ajax(
 			{
-				url: base_url + '/status/add',
+				url: base_url + 'status/add',
 				type: 'POST',
 				dataType: 'html',
 				data: $('#status_update').serialize(),
@@ -84,6 +84,7 @@ $(document).ready(function()
 		var item_id 			= item.replace('item_','');		
 		var item_type			= $(this).attr('rel');
 		var item_alert_new		= '#item_alert_new_'+item_id;
+		var url_new				=  base_url + 'api/' + item_type + '/viewed/id/' + item_id;
 
 		// Updates feed_count_new on sidebar
 		var feed_count_new		= '#' + item_type + '_count_new';
@@ -92,10 +93,9 @@ $(document).ready(function()
 
 		$.ajax(
 		{
-			url			: base_url + '/home/' + item_type + '/viewed/' + item_id,
-			type		: 'GET',
+			url			: url_new,
+			type		: 'PUT',
 			dataType	: 'json',
-			data		: $('#comments_logged_form').serialize(),
 		  	success		: function(result)
 		  	{
 				if (result.status == 'success')
@@ -124,17 +124,23 @@ $(document).ready(function()
 		var item_attr_id		= $(this).attr('id');
 		var item_attr_array		= item_attr_id.split('_');
 		var item_id				= item_attr_array[3];
-		var item_click_href		= $(this).attr('href');
+		var item_url			= $(this).attr('href');
 		var item_alert_approve	= '#item_alert_approve_'+item_id;
 		var item_action_approve	= '#item_action_approve_'+item_id;
-
-		$.get(item_click_href, function(html)
-		{		
-			if (html == 'approved')
-			{
-				$(item_alert_approve).fadeOut('normal');
-				$(item_action_approve).parent().fadeOut('normal');
-			}
+		
+		$.ajax(
+		{
+			url			: item_url,
+			type		: 'PUT',
+			dataType	: 'json',
+		  	success		: function(result)
+		  	{
+				if (result.status == 'success')
+				{			
+					$(item_alert_approve).fadeOut('normal');
+					$(item_action_approve).parent().fadeOut('normal');
+				}		  	
+		  	}		
 		});
 	});	
 
@@ -145,15 +151,14 @@ $(document).ready(function()
 		var item_attr_id		= $(this).attr('id');
 		var item_attr_array		= item_attr_id.split('_');
 		var item_id				= item_attr_array[3];
-		var item_click_href		= $(this).attr('href');
+		var item_url			= $(this).attr('href');
 		var item_element		= '#item_' + item_id;
 	
 		$.ajax(
 		{
-			url			: item_click_href,
+			url			: item_url,
 			type		: 'DELETE',
 			dataType	: 'json',
-			data		: $('#comments_logged_form').serialize(),
 		  	success		: function(result)
 		  	{
 				if (result.status == 'success')
@@ -270,7 +275,7 @@ $(document).ready(function()
 		{	
 			$.ajax(
 			{
-				url			: base_url + '/comments/logged',
+				url			: base_url + 'comments/logged',
 				type		: 'POST',
 				dataType	: 'json',
 				data		: $(this).serialize(),

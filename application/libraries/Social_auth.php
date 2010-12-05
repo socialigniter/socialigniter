@@ -192,11 +192,18 @@ class Social_auth
 		
 			if ($user_id) 
 			{
-
-							
 				$this->set_message('account_creation_successful');
-
-	    		$user = $this->ci->auth_model->get_user($user_id)->row();
+			
+	    		$user = $this->ci->auth_model->get_user($user_id)->row();			
+			
+				// Make OAuth Tokens & debug msgs
+				$consumer = $this->oauth->create_or_update_consumer(array('requester_name' => $user->name, 'requester_email' => $user->email), 7);
+			
+				log_message('debug', 'oauth consumer_key: '.$consumer['consumer_key']);
+			
+				$access_tokens = $this->oauth->grant_access_token_to_consumer($consumer['consumer_key'], 7);
+			
+				log_message('debug', 'oauth token: '.$access_tokens['token'].' token_secret '.$access_tokens['token_secret']);
 
 				// Send Welcome Email				
 				$data = array(

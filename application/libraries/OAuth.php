@@ -10,6 +10,7 @@ class OAuth
     {
         $this->ci =& get_instance();
         
+  		// Pulls In DB settings from SI
         $database = array(
         	'server'	=> $this->ci->db->hostname, 
         	'username'	=> $this->ci->db->username, 

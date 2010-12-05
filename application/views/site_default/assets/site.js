@@ -20,7 +20,9 @@ $(document).ready(function()
 	{
 		eve.preventDefault();
 		
-		var comment_write_url 		= $('#comment_write_url').val();
+		var url_create = base_url + 'api/comments/create/id/' + $('#content_id').val();
+		var url_delete = base_url + 'api/comments/destroy/id/';
+		
 		var comment_count_current	= $('#comments_count').html();
 		var reply_to_id				= $('#reply_to_id').val();
 
@@ -30,10 +32,10 @@ $(document).ready(function()
 		// Inject as reply or normal		
 		if (reply_to_id)	var append_to_where = '#comment-replies-' + reply_to_id;
 		else				var append_to_where = '#comments_list';
-								
+										
 		$.ajax(
 		{
-			url			: comment_write_url,
+			url			: url_create,
 			type		: 'POST',
 			dataType	: 'json',
 			data		: $('#comments_logged_form').serialize(),
@@ -41,11 +43,11 @@ $(document).ready(function()
 		  	{		  	
 				if(result.status == 'error')
 				{
-				 	$('#comment_error').append("Oops we couldn't post your comment!").show('normal');
+				 	$('#comment_error').append(result.message).show('normal');
 			 	}
 			 	else
 			 	{			 	
-					var html = '<li class="' + result.data.comment + '" id="comment-' + result.data.comment_id + '"><a href="' + result.data.profile_link + '"><span class="comment_thumbnail"><img src="' + result.data.profile_image + '" border="0" /></span></a><span class="' + result.data.sub + 'comment"><a href="' + result.data.profile_link + '">' + result.data.name + '</a> ' + result.data.comment + '<span class="' + result.data.sub + 'comment_date">' + result.data.created_at + '</span><div class="clear"></div></span><div class="clear"></div></li>'
+					var html = '<li class="' + result.data.sub + 'comment" id="comment-' + result.data.comment_id + '"><a href="' + result.data.profile_link + '"><span class="comment_thumbnail"><img src="' + result.data.profile_image + '" border="0" /></span></a><span class="' + result.data.sub + 'comment"><a href="' + result.data.profile_link + '">' + result.data.name + '</a> ' + result.data.comment + '<span class="comment_date ' + result.data.sub + '">' + result.data.created_at + '</span><ul class="comment_actions"><li><a href="' + url_delete + result.data.comment_id + '" id="delete-' + result.data.comment_id + '" class="comment_delete"><span class="item_actions action_delete"></span> Delete</a></li></ul><div class="clear"></div></span><div class="clear"></div></li>';
 			 					 	
 				 	$(append_to_where).append(html).show('slow');
 					$('#comment_write_text').val('');

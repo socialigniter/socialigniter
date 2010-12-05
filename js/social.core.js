@@ -6,7 +6,7 @@ else
 {
 	var url_port = '';
 }
-var base_url = jQuery.url.attr('protocol') + '://' + jQuery.url.attr('host') + url_port;
+var base_url = jQuery.url.attr('protocol') + '://' + jQuery.url.attr('host') + url_port + '/';
 
 // Renders placeholder
 function doPlaceholder(id, placeholder)
@@ -59,7 +59,7 @@ function getCountNew(element)
 	var current_class	= $(element).attr('class');
 	var type			= $(element).attr('rel');
 			
-	$.get(base_url + '/home/' + type + '/count_new', function(html)
+	$.get(base_url + 'home/' + type + '/count_new', function(html)
 	{
 		if(parseFloat(html))
 		{	// Adds msg_notifation class to feed_count_new
