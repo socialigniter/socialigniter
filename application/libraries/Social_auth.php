@@ -194,7 +194,7 @@ class Social_auth
 			{
 				$this->set_message('account_creation_successful');
 			
-	    		$user = $this->ci->auth_model->get_user($user_id)->row();			
+	    		$user = $this->ci->auth_model->get_user_row($user_id);			
 			
 				// Make OAuth Tokens & debug msgs
 				$consumer = $this->oauth->create_or_update_consumer(array('requester_name' => $user->name, 'requester_email' => $user->email), 7);
