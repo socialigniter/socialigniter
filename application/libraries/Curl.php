@@ -12,7 +12,7 @@
 
 class Curl
 {
-    private $_ci;                // CodeIgniter instance
+    private $_ci;               // CodeIgniter instance
 
     private $response;          // Contains the cURL response for debug
 
