@@ -133,6 +133,7 @@ class REST_Controller extends MX_Controller
 		// Sure it exists, but can they do anything with it?
 		if ( ! method_exists($this, $controller_method))
 		{
+			log_message('debug', 'method not found:'.$controller_method);
 			$this->response(array('status' => 0, 'error' => 'Unknown method.'), 404);
 			return;
 		}

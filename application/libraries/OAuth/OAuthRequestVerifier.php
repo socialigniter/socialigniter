@@ -239,7 +239,8 @@ class OAuthRequestVerifier extends OAuthRequest
 						'oauth_nonce',
 						'oauth_signature'
 					);
-
+					
+		log_message('debug', 'verifying with consumer secret '.$consumer_secret.' and token secret '.$token_secret);
 		if ($token_type !== false)
 		{
 			$required[] = 'oauth_token';
@@ -249,6 +250,7 @@ class OAuthRequestVerifier extends OAuthRequest
 		{
 			if (!isset($this->param[$req]))
 			{
+				log_message('debug', 'Can\'t verify request signature, missing parameter "'.$req.'"');
 				throw new OAuthException2('Can\'t verify request signature, missing parameter "'.$req.'"');
 			}
 		}
@@ -256,6 +258,8 @@ class OAuthRequestVerifier extends OAuthRequest
 		$this->checks();
 
 		$base = $this->signatureBaseString();
+		
+		log_message('debug', 'base string: '.$base);
 		$this->verifyDataSignature($base, $consumer_secret, $token_secret, $this->param['oauth_signature_method'], $this->param['oauth_signature']);
 	}
 
