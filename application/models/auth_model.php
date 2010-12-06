@@ -718,6 +718,7 @@ class Auth_model extends CI_Model
 	        $this->db->update('users_meta');
 	    }
 	    
+	    // Only does Users Tables
         if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data)) 
         {
 	        if (array_key_exists('password', $data))

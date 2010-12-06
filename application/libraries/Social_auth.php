@@ -197,13 +197,22 @@ class Social_auth
 	    		$user = $this->ci->auth_model->get_user($user_id);			
 			
 				// Make OAuth Tokens & debug msgs
-				$consumer = $this->ci->oauth->create_or_update_consumer(array('requester_name' => $user->name, 'requester_email' => $user->email), $user->user_id);
+				$consumer_keys	= $this->ci->oauth->create_or_update_consumer(array('requester_name' => $user->name, 'requester_email' => $user->email), $user->user_id);
+				$access_tokens	= $this->ci->oauth->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user->user_id);
 			
-				log_message('debug', 'oauth consumer_key: '.$consumer['consumer_key']);
-			
-				$access_tokens = $this->ci->oauth->grant_access_token_to_consumer($consumer['consumer_key'], $user->user_id);
-			
-				log_message('debug', 'oauth token: '.$access_tokens['token'].' token_secret '.$access_tokens['token_secret']);
+				//log_message('debug', 'consumer_key: '.$consumer_keys['consumer_key'].' consumer_secret: '.$consumer_keys['consumer_secret']);			
+				//log_message('debug', 'oauth token: '.$access_tokens['token'].' token_secret '.$access_tokens['token_secret']);
+
+		    	$update_data = array(
+		        	'consumer_key'		=> $consumer_keys['consumer_key'],
+		        	'consumer_secret'	=> $consumer_keys['consumer_secret'],
+		        	'token'				=> $access_tokens['token'],
+		        	'token_secret'		=> $access_tokens['token_secret']
+				);
+		    	
+		    	// Update the user with tokens
+		    	$this->update_user($user->user_id, $update_data);
+		    	
 
 				// Send Welcome Email				
 				$data = array(

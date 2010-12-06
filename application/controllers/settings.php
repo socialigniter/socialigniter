@@ -55,13 +55,13 @@ class Settings extends Dashboard_Controller {
 			}	
 	
 	    	$update_data = array(
-				        	'name'		=> $this->input->post('name'),
-				        	'company'	=> $this->input->post('company'),
-				        	'location'	=> $this->input->post('location'),
-				        	'url'		=> $this->input->post('url'),
-				        	'bio'		=> $this->input->post('bio'),
-				        	'image'		=> $user_picture 
-	    					);
+	        	'name'		=> $this->input->post('name'),
+	        	'company'	=> $this->input->post('company'),
+	        	'location'	=> $this->input->post('location'),
+	        	'url'		=> $this->input->post('url'),
+	        	'bio'		=> $this->input->post('bio'),
+	        	'image'		=> $user_picture 
+			);
 	    	
 	    	// Update the user
 	    	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
