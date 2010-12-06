@@ -72,22 +72,23 @@ class Social_tools
 		return FALSE;
 	}
 	
-
+	
 	/* Categories */	
 	function get_categories()
 	{
 		return $this->ci->categories_model->get_categories($this->site_id);
 	}
-	
-	function get_categories_type($module)
+
+	function get_categories_type($parameter, $value)
 	{
-		return $this->ci->categories_model->get_categories_type($this->site_id, $module);
+		return $this->ci->categories_model->get_categories_by($parameter, $value);
 	}
-	
+
 	function add_category($category_data)
 	{
 		return $this->ci->categories_model->add_category($this->site_id, $category_data);
 	}
+		
 	
 	
 	/* Comments */

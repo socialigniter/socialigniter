@@ -63,12 +63,12 @@ CREATE TABLE `categories` (
   `category_sub_id` int(11) DEFAULT NULL,
   `site_id` int(11) DEFAULT NULL,
   `permission` char(32) DEFAULT NULL,
-  `module` char(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `module` char(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `category` varchar(128) DEFAULT NULL,
   `category_url` varchar(128) DEFAULT NULL,
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `categories`

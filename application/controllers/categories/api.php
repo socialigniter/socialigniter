@@ -10,11 +10,11 @@ class Api extends REST_Controller
     /* GET types */
     function all_get()
     {
-        $categories = array('blog' => 'Kitties', 'media' => 'Doggies', 'cart' => 'T-Shirts', 'discussions' => 'Jackets For Winter'); //$this->social_tools->get_comments();
+    	$categories = $this->categories_model->get_categories();
         
         if($categories)
         {
-            $this->response($categories, 200); // 200 being the HTTP response code
+            $this->response($categories, 200);
         }
 
         else
@@ -25,26 +25,18 @@ class Api extends REST_Controller
 
 
     /* GET types */
-    function index_get()
+    function search_get()
     {
-        //$categories = array('blog' => 'Kitties', 'media' => 'Doggies', 'cart' => 'T-Shirts', 'discussions' => 'Jackets For Winter'); //$this->social_tools->get_comments();
-        
-    	$categories = array(
-			'blog' => array('module' => 1, 'name' => 'Some Guy', 'email' => 'example1@example.com', 'fact' => 'Loves swimming'),
-			'cart' => array('module' => 2, 'name' => 'Person Face', 'email' => 'example2@example.com', 'fact' => 'Has a huge face'),
-			'blog' => array('module' => 3, 'name' => 'Scotty', 'email' => 'example3@example.com', 'fact' => 'Is a Scott!'),
-		);
-		
-    	$categories = @$categories[$this->get('module')];        
-        
+    	$search_by	= $this->uri->segment(4);
+    	$categories = $this->categories_model->get_categories_by($search_by, $this->get($search_by));
+    	
         if($categories)
         {
-            $this->response($categories, 200); // 200 being the HTTP response code
+            $this->response($categories, 200);
         }
-
         else
         {
-            $this->response(array('error' => 'Could not find any categories for that '), 404);
+            $this->response(array('error' => 'Could not find any '.$search_by.' categories for '.$this->get($search_by)), 404);
         }
     }
 

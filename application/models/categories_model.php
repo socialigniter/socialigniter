@@ -6,7 +6,7 @@ class Categories_model extends CI_Model {
         parent::__construct();
     }
     
-    function get_categories($permission=FALSE)
+    function get_categories()
     {
  		$this->db->select('*');
  		$this->db->from('categories');    
@@ -15,12 +15,11 @@ class Categories_model extends CI_Model {
  		return $result->result();	      
     }
 
-    function get_categories_type($site_id, $module)
+    function get_categories_by($parameter, $value)
     {
  		$this->db->select('*');
  		$this->db->from('categories'); 
- 		$this->db->where('site_id', $site_id);
- 		$this->db->where('module', $module);
+ 		$this->db->where($parameter, $value);
  		$this->db->order_by('created_at', 'desc'); 
  		$result = $this->db->get();	
  		return $result->result();	      
