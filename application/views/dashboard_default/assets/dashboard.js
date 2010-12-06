@@ -76,6 +76,23 @@ $(document).ready(function()
 			});
 		}
 	});	
+	
+	// Test AuthD
+	$("#do_poopie").click(function()
+	{	
+		// Load Image
+		$("#do_poopie").oauthAjax(
+		{ 
+			type	: "GET", 
+			url		: base_url + "api/comments/oauthtest", 
+			data	: { message: 'ass' },
+			success	: function(data) 
+			{ 
+				alert(data['message']);
+			} 
+		});	
+	});
+	
 
 	// Marks Feed Item not new
 	$('.item_new').live('click', function()
@@ -91,7 +108,7 @@ $(document).ready(function()
 		var current_new_count	= $(feed_count_new).html();
 		var updated_new_count	= current_new_count - 1;
 
-		$.ajax(
+		$(this).oauthAjax(
 		{
 			url			: url_new,
 			type		: 'PUT',
@@ -114,7 +131,6 @@ $(document).ready(function()
 				}		  	
 		  	}		
 		});
-				
 	});
 	
 	// Approve Item
@@ -128,7 +144,7 @@ $(document).ready(function()
 		var item_alert_approve	= '#item_alert_approve_'+item_id;
 		var item_action_approve	= '#item_action_approve_'+item_id;
 		
-		$.ajax(
+		$(this).oauthAjax(
 		{
 			url			: item_url,
 			type		: 'PUT',
@@ -154,7 +170,7 @@ $(document).ready(function()
 		var item_url			= $(this).attr('href');
 		var item_element		= '#item_' + item_id;
 	
-		$.ajax(
+		$(this).oauthAjax(
 		{
 			url			: item_url,
 			type		: 'DELETE',

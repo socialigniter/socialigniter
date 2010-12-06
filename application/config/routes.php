@@ -72,7 +72,6 @@ $route['settings/password'] 					= 'settings/password';
 $route['settings/mobile'] 						= 'settings/mobile';
 $route['settings/connections'] 					= 'settings/connections';
 $route['settings/modules'] 						= 'settings/modules';
-$route['settings/users']						= 'settings/users';
 $route['settings/home']							= 'settings/home';
 $route['settings/api']							= 'settings/api';
 $route['settings/update']						= 'settings/update';

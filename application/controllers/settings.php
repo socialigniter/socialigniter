@@ -376,13 +376,6 @@ class Settings extends Dashboard_Controller {
 		}
 	}
 
-	function users()
-	{
-		$this->data['sub_title'] = 'Users';
-	
-    	$this->render();
-    }
-
 	function home()
 	{
 		$this->data['sub_title'] = 'Home';
@@ -396,19 +389,5 @@ class Settings extends Dashboard_Controller {
 	
     	$this->render();
     }  
-
-	function messages()
-	{
-		$this->data['sub_title'] = 'Messages';
-	
-    	$this->render();
-    }
-    
-	function comments()
-	{
-		$this->data['sub_title'] = 'Comments';
-	
-    	$this->render();
-    }    
     
 }

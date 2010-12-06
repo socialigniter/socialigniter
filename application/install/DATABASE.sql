@@ -83,7 +83,7 @@ CREATE TABLE `categories` (
 CREATE TABLE `comments` (
   `comment_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `site_id` int(6) NOT NULL,
-  `parent_id` int(11) DEFAULT NULL,
+  `reply_to_id` int(11) DEFAULT NULL,
   `content_id` int(11) DEFAULT NULL,
   `module` char(16) DEFAULT NULL,
   `type` char(16) DEFAULT NULL,
@@ -258,6 +258,18 @@ INSERT INTO `settings` VALUES(NULL, 1, 'home', 'share', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'like', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'comments_allow', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'comments_per_page', '2');
+
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_sizes_large', 'yes');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_sizes_medium', 'yes');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_sizes_small', 'yes');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_large_width', '800');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_large_height', '600');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_medium_width', '600');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_medium_height', '400');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_small_width', '300');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_small_height', '200');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_formats', 'gif|jpg|jpeg|png');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_max_size', '25600');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'signup', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'signup_recaptcha', 'FALSE');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'login', 'TRUE');
