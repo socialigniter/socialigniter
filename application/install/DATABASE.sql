@@ -108,17 +108,17 @@ CREATE TABLE `comments` (
 -- Table structure for table `connections`
 --
 
-CREATE TABLE `connections` (
-  `connection_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned DEFAULT NULL,
-  `type` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `token_one` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `token_two` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `connection_user_id` int(11) DEFAULT NULL,
-  `connection_username` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `connection_password` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`connection_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+CREATE TABLE IF NOT EXISTS `connections` (
+  `connection_id` int(11) unsigned NOT NULL auto_increment,
+  `user_id` int(11) unsigned default NULL,
+  `module` char(32) NOT NULL,
+  `type` char(32) character set utf8 collate utf8_unicode_ci default NULL,
+  `connection_user_id` int(64) default NULL,
+  `connection_username` varchar(128) character set utf8 collate utf8_unicode_ci default NULL,
+  `auth_one` varchar(255) default NULL,
+  `auth_two` varchar(255) default NULL,
+  PRIMARY KEY  (`connection_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 -- --------------------------------------------------------
 
@@ -258,7 +258,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'home', 'share', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'like', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'comments_allow', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'comments_per_page', '2');
-INSERT INTO `settings` VALUES(NULL, 1, 'users', 'signup', 'FALSE');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'signup', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'signup_recaptcha', 'FALSE');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'login', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'login_recaptcha', 'TRUE');

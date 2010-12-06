@@ -20,7 +20,7 @@ class Social_tools
 		$this->ci =& get_instance();
 				
 		// Load Models
-		$this->ci->load->model('categories/categories_model');
+		$this->ci->load->model('categories_model');
 		$this->ci->load->model('comments/comments_model');
 		$this->ci->load->model('locations/locations_model');
 		$this->ci->load->model('ratings_model');
