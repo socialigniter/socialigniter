@@ -1,5 +1,5 @@
 <?php
-class Api extends Public_Controller 
+class Index extends Public_Controller 
 { 
     function __construct() 
     {
@@ -28,11 +28,21 @@ class Api extends Public_Controller
     	$this->render('site_wide');
     }
     
-    function testing()
-    {      
-        $data = array();
-    	
-        $this->load->library('rest', array('server' => base_url().'api/'));
+    function sandbox()
+    {   
+       	$this->load->view(config_item('site_theme').'/api/sandbox');    
+    }
+
+	function sandbox_results()
+	{
+		
+        $this->load->library('rest', array('server' => base_url().'api/')); 
+        
+        $this->data['request_url']		= base_url().'api/'.$this->input->post('uri', TRUE);
+        $this->data['response_string']	= '';
+        $this->data['error_string']		= '';
+        $this->data['info']				= '';
+
         
         if($_POST)
         {
@@ -44,20 +54,21 @@ class Api extends Public_Controller
 	        $this->rest->format($format);
 	        $this->rest->api_key('foo');
 	        $this->rest->language('en-GB, pr');
+	        
 
-			$data['result'] = $this->rest->{$method}($uri, $params);			
-			$data['debug'] = $this->rest->debug();
+			$this->data['result']	= $this->rest->{$method}($uri, $params);
+			$this->data['debug'] 	= $this->rest->debug();	        
+
+			$this->load->view(config_item('site_theme').'/api/sandbox_results', $this->data);
 		
-        	$this->load->view(config_item('site_theme').'/api/testing', $data);
         }
-        else
-        {
-        	$data['result'] = '';
-        	$data['debug']	= '';
-        
-        	$this->load->view(config_item('site_theme').'/api/testing', $data);
-        }
-    }
+		else
+		{
+			echo 'Opps, something went wrong with your tonka truck. Better stay in the sandbox';			
+		
+		}        	
+	
+	}    
     
-   
+       
 }

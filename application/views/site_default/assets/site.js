@@ -40,7 +40,9 @@ $(document).ready(function()
 			dataType	: 'json',
 			data		: $('#comments_logged_form').serialize(),
 		  	success		: function(result)
-		  	{		  	
+		  	{
+		  		console.log(result);
+		  				  	
 				if(result.status == 'error')
 				{
 				 	$('#comment_error').append(result.message).show('normal');
