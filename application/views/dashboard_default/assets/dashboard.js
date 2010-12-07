@@ -378,6 +378,84 @@ $(document).ready(function()
 	});
 
 
+
+	/* Start Blog Section */
+	
+	$('[name=category_id]').change(function()
+	{	
+		if($(this).val() == 'add_category')
+		{
+			$('[name=category_id]').find('option:first').attr('selected','selected');
+			$.uniform.update('[name=category_id]');
+			$.fancybox(
+			{
+				content:'\
+				<div class="modal_wrap" style="opacity:0;">\
+					<h2>Add Category</h2>\
+					<form id="new_category">\
+						<label for="category_name">Name</label>\
+						<input id="category_name" type="text" value="">\
+						<p class="slug_url">'+base_url+current_module+'/<span></span></p>\
+						<!--<label for="category_slug">Slug</label>\
+						<input id="category_slug" type="text" value="">-->\
+						<label for="category_parent">Parent Category</label>\
+						<select id="category_parent">\
+							<option>--None--</option>\
+							<option>Cool Stuff</option>\
+							<option>Media Downloads</option>\
+							<option>Photography</option>\
+						</select>\
+						<label for="category_access">Access</label>\
+						<select id="category_access">\
+							'+$('[name=access]').html()+'\
+						</select>\
+						<br>\
+						<input type="submit">\
+					</form>\
+				</div>',
+				onComplete:function(e)
+				{
+					$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
+					function convert_to_slug(str){
+						//This line converts to lowercase and then makes spaces into dahes
+						slug_val = str.replace(/ /g,'-').toLowerCase();
+						//This line strips special characters
+						slug_val = slug_val.match(/[\w\d\-]/g).toString().replace(/,/g,'');
+						return slug_val;
+					}
+					function update_slug()
+					{
+						slug_val = convert_to_slug($('#category_name').val());
+						//Set the new value
+						$('.slug_url span').text(slug_val).live('click',function()
+						{
+							$(this).replaceWith('<input class="slug_url_edit" type="text" value="'+$(this).text()+'">');
+							$('.slug_url_edit').select().blur(function()
+							{
+								$(this).replaceWith('<span class="modified">'+$(this).val()+'</span>');
+							});
+						});
+					}
+					$('#category_name').live('keyup',function()
+					{
+						if($('#category_name').val() !== '' && !$('.slug_url span').hasClass('modified'))
+						{
+							update_slug();
+						}
+						else
+						{
+							//If the category name field is null, make the slug blank
+							$('#category_slug').val('');
+						}
+					});
+				}
+			});
+			
+		}
+	});
+	
+	/* End Blog Section */
+
 	// Handles Checkboxes
 	$('#geo_enabled').live('click', function() {
 		if ($('#geo_enabled') == '1') 

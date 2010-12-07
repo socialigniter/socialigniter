@@ -226,3 +226,15 @@ span.item_right a:hover		{ text-decoration: underline; }
 #feed .item .comment_form  { width:290px; margin:0 0 0 0; display:none; }
 #feed .item textarea{ width:278px; font-size:12px; font-family:inherit; padding:5px; }
 #feed .item [type=submit] { float:right; margin:0 0 10px 0; height:25px; font-size:12px; border-radius:7px; }
+
+.modal_wrap {padding:17px;}
+	#new_category {width:410px;height:280px}
+		#new_category label {display:block;padding:10px 0 7px;}
+		#new_category .selector {margin:0 0 0 0 !important;}
+		#new_category h2 {display:block;padding:0 0 10px 0;}
+		#new_category > input[type=text] {width:375px;}
+		#new_category > input[type=submit] {float:right;}
+		.slug_url {font-style:italic;height:22px;line-height:22px;}
+			.slug_url span {border-bottom:1px dashed #aaa;}
+			.slug_url span:hover {border-bottom:1px dashed #dddd00;cursor:pointer;background:#ffff00}
+		.slug_url_edit {width:100px;height:15px !important;padding:3px !important;}
