@@ -16,7 +16,7 @@ $(document).ready(function()
 	doPlaceholder('#comment_write_text', 'Write comment...');
 
 	// Comments On Site
-	$("#comments_logged_form").bind("submit", function(eve)
+	$('#comments_logged_form').bind('submit', function(eve)
 	{
 		eve.preventDefault();
 		
@@ -33,14 +33,16 @@ $(document).ready(function()
 		if (reply_to_id)	var append_to_where = '#comment-replies-' + reply_to_id;
 		else				var append_to_where = '#comments_list';
 										
-		$.ajax(
+		$(this).oauthAjax(
 		{
 			url			: url_create,
 			type		: 'POST',
 			dataType	: 'json',
 			data		: $('#comments_logged_form').serialize(),
 		  	success		: function(result)
-		  	{		  	
+		  	{
+		  		console.log(result);
+		  				  	
 				if(result.status == 'error')
 				{
 				 	$('#comment_error').append(result.message).show('normal');
@@ -161,7 +163,7 @@ $(document).ready(function()
 			var comment_count_updated	= parseInt(comment_count_current)-1;		
 		}
 
-		$.ajax(
+		$(this).oauthAjax(
 		{
 			url			: comment_delete,
 			type		: 'DELETE',

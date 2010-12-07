@@ -19,6 +19,21 @@
 <p>To change the format of an API call (default is JSON) append <b>/format/type</b> to end of url.<br>
 Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank"><?= base_url() ?>api/users/format/xml</a></p>
 
+
+<h2>Core</h2>
+
+<ul>
+	<li><h3>Categories</h3></li>
+	<li>Get <a href="<?= base_url() ?>api/categories/recent" target="_blank"><?= base_url() ?>api/categories/recent</a></li>
+	<li>Content <a href="<?= base_url() ?>api/categories/content/id/1" target="_blank"><?= base_url() ?>api/categories/content/id/1</a> (1 represents content_id)</li>
+	<li>Create <a href="<?= base_url() ?>api/categories/create/id/1" target="_blank"><?= base_url() ?>api/categories/create/id/1</a> (1 represents content_id)</li>
+	<li>Delete <a href="<?= base_url() ?>api/categories/destroy/id/1" target="_blank"><?= base_url() ?>api/categories/destroy/id/1</a> (1 represents comment_id)</li>
+</ul>
+
+<hr>
+
+<h2>Modules</h2>
+
 <ul>
 <?= $modules_apis ?>
 </ul>

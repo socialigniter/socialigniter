@@ -15,8 +15,7 @@ class OAuth_Controller extends REST_Controller
     
     function rest_method_exists($method)
     {
-    
-        return in_array($method.$this->request->method, get_class_methods(get_class($this)));
+        return in_array($method.'_'.$this->request->method, get_class_methods(get_class($this)));
     }
     
     function _remap($method)
@@ -25,16 +24,15 @@ class OAuth_Controller extends REST_Controller
         // if so, ensure authentication and pass "foo_authd" to REST controller
         // otherwise pass the method name unchanged to REST controller for normal processing
         // (including 404)
-        $authd_method = $method . "_authd_";
+        $authd_method = $method . "_authd";
         
         if ($this->rest_method_exists($authd_method))
         {
-                
             if (!$this->oauth->request_is_signed())
             {
 			    log_message('debug', 'request_is_signed returning TRUE');	
 
-                $this->response(array("error" => "Request is not signed."), 401);
+                $this->response(array('status' => 'error', 'message' => 'Request is not signed.'), 401);
                 return;
             }
 
@@ -42,9 +40,7 @@ class OAuth_Controller extends REST_Controller
 
             if (!$this->oauth_user_id)
             {
-			    log_message('debug', 'oauth_user_id returning '.$this->oauth_user_id);	
-            
-                $this->response(array("error" => "Invalid OAuth signature."), 401);
+                $this->response(array('status' => 'error', 'message' => 'Invalid OAuth signature!'), 401);
                 return;
             }
             

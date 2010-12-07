@@ -40,9 +40,11 @@ $route['feed']		 							= 'feed/index';
 $route['api/(:any)/(:any)/(:any)/(:any)'] 		= '$1/api/$2/$3/$4';
 $route['api/(:any)/(:any)/(:any)'] 				= '$1/api/$2/$3';
 $route['api/(:any)/(:any)'] 					= '$1/api/$2';
-$route['api/testing'] 							= 'api/testing';
 $route['api/(:any)'] 							= 'api/index';
+$route['api/sandbox_results']				 	= 'api/index/sandbox_results';
+$route['api/sandbox'] 							= 'api/index/sandbox';
 $route['api']		 							= 'api/index';
+
 
 $route['connections/delete/(:num)']				= 'connections/delete';
 $route['connections/delete']					= 'connections/delete';
@@ -70,7 +72,6 @@ $route['settings/password'] 					= 'settings/password';
 $route['settings/mobile'] 						= 'settings/mobile';
 $route['settings/connections'] 					= 'settings/connections';
 $route['settings/modules'] 						= 'settings/modules';
-$route['settings/users']						= 'settings/users';
 $route['settings/home']							= 'settings/home';
 $route['settings/api']							= 'settings/api';
 $route['settings/update']						= 'settings/update';

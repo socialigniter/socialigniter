@@ -328,7 +328,7 @@ class Social_igniter
 		}
 	
 		return $theme_array;
-	}	
+	}
 	
 	
 	/* Pages */

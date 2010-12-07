@@ -92,9 +92,18 @@ class MY_Controller extends MX_Controller
 		// Dashboard & Public values for logged
 		if ($this->social_auth->logged_in())
 		{
+			// OAuth Tokens
+			$this->data['oauth_consumer_key'] 		= $this->session->userdata('consumer_key');
+			$this->data['oauth_consumer_secret'] 	= $this->session->userdata('consumer_secret');
+			$this->data['oauth_token'] 				= $this->session->userdata('token');
+			$this->data['oauth_token_secret'] 		= $this->session->userdata('token_secret');
+				
+			// Various Values	
 			$this->data['logged_user_id']		= $this->session->userdata('user_id');
 			$this->data['profile_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('email'));
 			$this->data['profile_name']			= $this->session->userdata('name');
+			
+			// Various Links
 			$this->data['link_home']			= base_url()."home";
 			$this->data['link_profile']			= base_url()."profile/".$this->session->userdata('username');
 			$this->data['link_settings']		= base_url()."settings/profile";
@@ -111,6 +120,7 @@ class MY_Controller extends MX_Controller
 		}
 		else
 		{
+			// Various Values		
 			$this->data['profile_image'] 		= base_url().config_item('profile_images').'normal_'.config_item('profile_nopicture');
 			$this->data['profile_name']			= 'Your Name';
 

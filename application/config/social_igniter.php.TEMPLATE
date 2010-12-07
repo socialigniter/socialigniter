@@ -40,9 +40,9 @@ $config['social_post']					= array();
 $config['social_checkins']				= array();
 
 // Columns in your meta table, id not required.
-$config['columns']             			= array('name','company','phone','phone_verify','phone_active','phone_search','location','url','bio','image','home_base','language','time_zone','geo_enabled','privacy','utc_offset');
+$config['columns']             			= array('name','company','phone','phone_verify','phone_active','phone_search','location','url','bio','image','home_base','language','time_zone','geo_enabled','privacy','utc_offset','consumer_key','consumer_secret','token','token_secret');
 $config['columns_allowed']				= array('name','image','location','language','time_zone','geo_enabled','privacy');
-$config['user_data']					= array('user_id','username','user_level_id','name','image','location','language','time_zone','geo_enabled','privacy');	
+$config['user_data']					= array('user_id','username','user_level_id','consumer_key','consumer_secret','token','token_secret','name','image','location','language','time_zone','geo_enabled','privacy');	
 $config['identity']            			= 'email';				// A database column which is used to login with.		 
 $config['super_admin_group']         	= 'superadmin';			// Super administrators group, use name
 $config['default_group']       			= 'user';				// Default group, use name
@@ -53,7 +53,7 @@ $config['max_username_length'] 			= 20;					// Maximum Allowed Length of Usernam
 $config['min_password_length'] 			= 8;					// Minimum Required Length of Password
 $config['max_password_length'] 			= 20;					// Maximum Allowed Length of Password
 $config['password_strength'] 			= 3;					// Maximum Allowed Length of Password
-$config['email_activation']    			= TRUE;					// Checks password strength for numbers. Current max score is 3 ADD MORE
+$config['email_activation']    			= FALSE;				// Checks password strength for numbers. Current max score is 3 ADD MORE
 $config['remember_users']      			= TRUE;					// Allow users to be remembered and enable auto-login
 $config['user_expire']          		= 150000;				// How long to remember the user (seconds)
 $config['user_extend_on_login'] 		= TRUE;					// Extend the users cookies everytime they auto-login
