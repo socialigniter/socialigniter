@@ -17,12 +17,19 @@ class Categories_model extends CI_Model {
 
     function get_categories_by($parameter, $value)
     {
- 		$this->db->select('*');
- 		$this->db->from('categories'); 
- 		$this->db->where($parameter, $value);
- 		$this->db->order_by('created_at', 'desc'); 
- 		$result = $this->db->get();	
- 		return $result->result();	      
+    	if (in_array($parameter, array('site_id', 'module', 'type', 'category_url')))
+    	{
+	 		$this->db->select('*');
+	 		$this->db->from('categories'); 
+	 		$this->db->where($parameter, $value);
+	 		$this->db->order_by('created_at', 'desc'); 
+	 		$result = $this->db->get();	
+	 		return $result->result();	      
+		}
+		else
+		{
+			return FALSE;
+		}
     }
     
     function add_category($category_data)

@@ -25,22 +25,26 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 <ul>
 	<li><h3>Activity</h3></li>
 	<li>Recent <a href="<?= base_url() ?>api/activity/recent" target="_blank"><?= base_url() ?>api/activity/recent</a></li>
+	<li>Create <a href="<?= base_url() ?>api/activity/create/id/1" target="_blank"><?= base_url() ?>api/activity/create/id/1</a> (1 represents activity_id)</li>
+	<li>Delete <a href="<?= base_url() ?>api/activity/destroy/id/1" target="_blank"><?= base_url() ?>api/activity/destroy/id/1</a> (1 represents activity_id)</li>
 </ul>
 
 <ul>
 	<li><h3>Content</h3></li>
 	<li>Recent <a href="<?= base_url() ?>api/content/recent" target="_blank"><?= base_url() ?>api/content/recent</a></li>
-	<li>Content <a href="<?= base_url() ?>api/content/content/id/1" target="_blank"><?= base_url() ?>api/content/content/id/1</a> (1 represents content_id)</li>
+	<li>View <a href="<?= base_url() ?>api/content/content/id/1" target="_blank"><?= base_url() ?>api/content/view/id/1</a> (1 represents content_id)</li>
 	<li>Create <a href="<?= base_url() ?>api/content/create/id/1" target="_blank"><?= base_url() ?>api/content/create/id/1</a> (1 represents content_id)</li>
-	<li>Delete <a href="<?= base_url() ?>api/content/destroy/id/1" target="_blank"><?= base_url() ?>api/content/destroy/id/1</a> (1 represents comment_id)</li>
+	<li>Update <a href="<?= base_url() ?>api/content/update/id/1" target="_blank"><?= base_url() ?>api/content/update/id/1</a> (1 represents content_id)</li>
+	<li>Delete <a href="<?= base_url() ?>api/content/destroy/id/1" target="_blank"><?= base_url() ?>api/content/destroy/id/1</a> (1 represents content_id)</li>
 </ul>
 
 <ul>
 	<li><h3>Categories</h3></li>
 	<li>All <a href="<?= base_url() ?>api/categories/recent" target="_blank"><?= base_url() ?>api/categories/all</a></li>
-	<li>Content <a href="<?= base_url() ?>api/categories/content/id/1" target="_blank"><?= base_url() ?>api/categories/module/id/1</a> (1 represents content_id)</li>
-	<li>Create <a href="<?= base_url() ?>api/categories/create/id/1" target="_blank"><?= base_url() ?>api/categories/create/id/1</a> (1 represents content_id)</li>
-	<li>Delete <a href="<?= base_url() ?>api/categories/destroy/id/1" target="_blank"><?= base_url() ?>api/categories/destroy/id/1</a> (1 represents comment_id)</li>
+	<li>Search <a href="<?= base_url() ?>api/categories/content/id/1" target="_blank"><?= base_url() ?>api/categories/search/module/pages</a> ('search' accepts module, type, category_url, site_id as a paramter)</li>
+	<li>Create <a href="<?= base_url() ?>api/categories/create" target="_blank"><?= base_url() ?>api/categories/create</a> </li>
+	<li>Update <a href="<?= base_url() ?>api/categories/update/id/1" target="_blank"><?= base_url() ?>api/categories/update/id/1</a> (1 represents category_id)</li>
+	<li>Delete <a href="<?= base_url() ?>api/categories/destroy/id/1" target="_blank"><?= base_url() ?>api/categories/destroy/id/1</a> (1 represents category_id)</li>
 </ul>
 
 <hr>

@@ -85,7 +85,7 @@ class Categories extends REST_Controller
     }
     
     /* PUT types */
-    function viewed_put()
+    function update_put()
     {
 		$viewed = $this->social_tools->update_comment_viewed($this->get('id'));			
     	

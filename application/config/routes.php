@@ -43,6 +43,7 @@ $route['api/(:any)/(:any)'] 					= '$1/api/$2';
 $route['api/(:any)'] 							= 'api/index';
 
 $route['api/categories/search/(:any)']			= 'api/categories/search';
+$route['api/categories/all']					= 'api/categories/all';
 
 $route['api/sandbox_results']				 	= 'api/index/sandbox_results';
 $route['api/sandbox'] 							= 'api/index/sandbox';
