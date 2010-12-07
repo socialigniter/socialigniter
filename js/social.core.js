@@ -7,6 +7,7 @@ else
 	var url_port = '';
 }
 var base_url = jQuery.url.attr('protocol') + '://' + jQuery.url.attr('host') + url_port + '/';
+var current_module = jQuery.url.segment(1);
 
 // Renders placeholder
 function doPlaceholder(id, placeholder)
