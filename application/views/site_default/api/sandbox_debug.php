@@ -8,8 +8,6 @@
 <div class="separator"></div>
 
 
-
-
 <h3>Response</h3>
 
 <?php if($response_string): ?>
@@ -26,8 +24,6 @@
 	<strong>Message:</strong> <?= $error_string ?><br/>
 <div class="separator"></div>
 <?php endif; ?>
-
-
 
 
 <h3>Response Details</h3>

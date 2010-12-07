@@ -44,70 +44,40 @@ class Categories extends REST_Controller
 
 	/* POST types */
     function create_post()
-    {   
-		$content = $this->social_igniter->check_content_comments($this->get('id'));
+    {
+    	$user_id = $this->session->userdata('user_id');   
+    
+		$access = $this->social_igniter->has_access_to_create('category', $user_id);
 		
-		if ($content)
+		if ($access)
 		{
-        	$comment_data = array(
-    			'reply_to_id'	=> $this->input->post('reply_to_id'),
-    			'content_id'	=> $content->content_id,        			
-				'module'		=> $content->module,
-    			'type'			=> $content->type,
-    			'user_id'		=> $this->input->post('user_id'),
-    			'comment'		=> $this->input->post('comment'),
-    			'geo_lat'		=> $this->input->post('geo_lat'),
-    			'geo_long'		=> $this->input->post('geo_long'),
-    			'geo_accuracy'	=> $this->input->post('geo_accuracy'),
-    			'approval'		=> $content->comments_allow
+        	$category_data = array(
+        		'parent_id'		=> $this->input->post('parent_id'),
+    			'site_id'		=> config_item('site_id'),		
+    			'permission'	=> $this->input->post('permission'),
+				'module'		=> $this->input->post('module'),
+    			'type'			=> $this->input->post('type'),
+    			'category'		=> $this->input->post('category'),
+    			'category_url'	=> $this->input->post('category_url')
         	);
 
 			// Insert
-		    $comment = $this->social_tools->add_comment($comment_data);
+		    $category = $this->categories_model->add_category($category_data);
 
-			if ($comment)
-			{	
-				$comment_data['comment_id']		= $comment->comment_id;
-				$comment_data['created_at']		= format_datetime(config_item('comments_date_style'), $comment->created_at);
-				$comment_data['name']			= $comment->name;
-				$comment_data['username']		= $comment->username;
-				$comment_data['profile_link']	= base_url().'profiles/'.$comment->username;
-				$comment_data['profile_image']	= $this->social_igniter->profile_image($comment->user_id, $comment->image, $comment->email);;
-			
-				// Set Reply Id For Comments
-				if ($comment->reply_to_id)
-				{
-					$comment_data['sub']			= 'sub_';
-					$comment_data['reply_id']		= $comment->reply_to_id;
-				}
-				else
-				{
-					$comment_data['sub']			= '';
-					$comment_data['reply_id']		= $comment->comment_id;			
-				}
-
-				// Set Display Comment
-				if ($content->comments_allow == 'A')
-				{
-					$comment_data['comment_text']	= '<i>Your comment is awaiting approval!</i>';
-				}
-				else
-				{
-					$comment_data['comment_text']	= $comment->comment;
-				}
-
-	        	$message	= array('status' => 'success', 'data' => $comment_data);
+			if ($category)
+			{
+	        	$message	= array('status' => 'success', 'data' => $category);
 	        	$response	= 200;
 	        }
 	        else
 	        {
-		        $message	= array('status' => 'error', 'message' => 'Oops unable to post your comment');
+		        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
 		        $response	= 400;		        
 	        }
 		}
 		else
 		{
-	        $message	= array('status' => 'error', 'message' => 'Oops unable to post your comment');
+	        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
 	        $response	= 400;
 		}	
 
@@ -133,7 +103,7 @@ class Categories extends REST_Controller
     function destroy_delete()
     {		
 		// Make sure user has access to do this func
-		$access = $this->social_tools->does_user_have_access('comment', $this->get('id'));
+		$access = $this->social_tools->has_access_to_delete('comment', $this->get('id'));
     	
     	// Move this up to result of "user_has_access"
     	if ($access)

@@ -75,22 +75,6 @@ $(document).ready(function()
 			 	}
 			});
 		}
-	});	
-	
-	// Test AuthD
-	$("#do_poopie").click(function()
-	{	
-		// Load Image
-		$("#do_poopie").oauthAjax(
-		{ 
-			type	: "GET", 
-			url		: base_url + "api/comments/oauthtest", 
-			data	: { message: 'ass' },
-			success	: function(data) 
-			{ 
-				alert(data['message']);
-			} 
-		});	
 	});
 	
 

@@ -30,6 +30,7 @@ class Categories_model extends CI_Model {
  		$data = array(
  			'parent_id'		=> $category_data['parent_id'],
 			'site_id' 	 	=> $category_data['site_id'],
+			'permission'	=> $category_data['permission'],
 			'module'		=> $category_data['module'],
 			'type'			=> $category_data['type'],
 			'category'  	=> $category_data['category'],

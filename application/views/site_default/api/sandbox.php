@@ -78,9 +78,7 @@ $(document).ready(function()
 			dataType	: 'html',
 			data		: $('#sandbox_form').serialize(),
 		  	success		: function(result)
-		  	{
-		  		console.log(result);
-		  				  	
+		  	{		  				  	
 				if(result.status == 'error')
 				{
 					$('#sandbox_result').html(result);

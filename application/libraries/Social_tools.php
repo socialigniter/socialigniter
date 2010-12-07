@@ -32,8 +32,13 @@ class Social_tools
 		$this->view_comments	= NULL;
 	}
 	
-	/* Misc Tools */
-	function does_user_have_access($type, $object_id)
+	/* Access Tools */
+	function has_access_to_create($type, $user_id, $object_id=NULL)
+	{
+	
+	}
+	
+	function has_access_to_delete($type, $object_id)
 	{
 		// Is Super or Admin
 		if ($this->ci->session->userdata('user_level_id') <= 2)

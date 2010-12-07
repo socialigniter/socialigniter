@@ -2,10 +2,10 @@
 
 <p><?= $site_title ?> has a standard REST API that supports GET, POST, PUT, and DELETE methods.</p>
 
-<h3>Testing</h3>
+<h3>Sandbox</h3>
 
 <p>To test <?= $site_title ?> API calls or any RESTful request we suggest using our testing tool<br>
-<a href="<?= base_url() ?>api/testing" target="_blank"><?= base_url() ?>api/testing</a>
+<a href="<?= base_url() ?>api/sandbox" target="_blank"><?= base_url() ?>api/sandbox</a>
 </p>
 
 <ul>
@@ -23,9 +23,22 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 <h2>Core</h2>
 
 <ul>
+	<li><h3>Activity</h3></li>
+	<li>Recent <a href="<?= base_url() ?>api/activity/recent" target="_blank"><?= base_url() ?>api/activity/recent</a></li>
+</ul>
+
+<ul>
+	<li><h3>Content</h3></li>
+	<li>Recent <a href="<?= base_url() ?>api/content/recent" target="_blank"><?= base_url() ?>api/content/recent</a></li>
+	<li>Content <a href="<?= base_url() ?>api/content/content/id/1" target="_blank"><?= base_url() ?>api/content/content/id/1</a> (1 represents content_id)</li>
+	<li>Create <a href="<?= base_url() ?>api/content/create/id/1" target="_blank"><?= base_url() ?>api/content/create/id/1</a> (1 represents content_id)</li>
+	<li>Delete <a href="<?= base_url() ?>api/content/destroy/id/1" target="_blank"><?= base_url() ?>api/content/destroy/id/1</a> (1 represents comment_id)</li>
+</ul>
+
+<ul>
 	<li><h3>Categories</h3></li>
-	<li>Get <a href="<?= base_url() ?>api/categories/recent" target="_blank"><?= base_url() ?>api/categories/recent</a></li>
-	<li>Content <a href="<?= base_url() ?>api/categories/content/id/1" target="_blank"><?= base_url() ?>api/categories/content/id/1</a> (1 represents content_id)</li>
+	<li>All <a href="<?= base_url() ?>api/categories/recent" target="_blank"><?= base_url() ?>api/categories/all</a></li>
+	<li>Content <a href="<?= base_url() ?>api/categories/content/id/1" target="_blank"><?= base_url() ?>api/categories/module/id/1</a> (1 represents content_id)</li>
 	<li>Create <a href="<?= base_url() ?>api/categories/create/id/1" target="_blank"><?= base_url() ?>api/categories/create/id/1</a> (1 represents content_id)</li>
 	<li>Delete <a href="<?= base_url() ?>api/categories/destroy/id/1" target="_blank"><?= base_url() ?>api/categories/destroy/id/1</a> (1 represents comment_id)</li>
 </ul>

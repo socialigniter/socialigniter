@@ -163,7 +163,6 @@ class REST
 		return $this->ci->load->view(config_item('site_theme').'/api/sandbox_debug', $data, true);
 	}
 
-
 	private function _set_headers()
 	{
 		$this->ci->curl->http_header('Accept: '.$this->mime_type);

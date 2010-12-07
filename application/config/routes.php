@@ -41,10 +41,12 @@ $route['api/(:any)/(:any)/(:any)/(:any)'] 		= '$1/api/$2/$3/$4';
 $route['api/(:any)/(:any)/(:any)'] 				= '$1/api/$2/$3';
 $route['api/(:any)/(:any)'] 					= '$1/api/$2';
 $route['api/(:any)'] 							= 'api/index';
+
+$route['api/categories/search/(:any)']			= 'api/categories/search';
+
 $route['api/sandbox_results']				 	= 'api/index/sandbox_results';
 $route['api/sandbox'] 							= 'api/index/sandbox';
 $route['api']		 							= 'api/index';
-
 
 $route['connections/delete/(:num)']				= 'connections/delete';
 $route['connections/delete']					= 'connections/delete';
