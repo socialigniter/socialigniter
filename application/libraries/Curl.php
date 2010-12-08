@@ -240,7 +240,7 @@ class Curl
         }
 
         $this->url = $url;
-        $this->session = curl_init($this->url);
+	    $this->session = curl_init($this->url);
 
         return $this;
     }

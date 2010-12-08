@@ -26,8 +26,8 @@
 		</ol>
 		
 		<div class="comment_form">
-			<form method="post" class="item_comment_form" name="item_comment_form" action="<?= base_url() ?>comments/logged/">
-				<textarea name="comment_write_text" class="comment_write_text"></textarea>
+			<form method="post" class="item_comment_form" name="item_comment_form" action="<?= base_url() ?>api/comments/write">
+				<textarea name="comment" class="comment_write_text"></textarea>
 				<div class="clear"></div>
 				<input type="hidden" name="reply_to_id" id="reply_to_id" value="0">
 				<input type="hidden" name="content_id" value="<?= $item_content_id; ?>">

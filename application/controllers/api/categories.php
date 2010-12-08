@@ -7,6 +7,7 @@ class Categories extends REST_Controller
         parent::__construct();      
 	}
 	
+	
     /* GET types */
     function all_get()
     {
@@ -39,7 +40,6 @@ class Categories extends REST_Controller
             $this->response(array('error' => 'Could not find any '.$search_by.' categories for '.$this->get($search_by)), 404);
         }
     }
-
 
 
 	/* POST types */
@@ -103,7 +103,7 @@ class Categories extends REST_Controller
     function destroy_delete()
     {		
 		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_delete('comment', $this->get('id'));
+		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
     	
     	// Move this up to result of "user_has_access"
     	if ($access)

@@ -97,7 +97,7 @@ $(document).ready(function()
 
 <div id="sandbox_submit">
 	<h1><?= $site_title ?> | API Sandbox</h1>
-	<form id="sandbox_form" action="<?= base_url(); ?>api/sandbox/results" method="POST">	
+	<form id="sandbox_form" action="<?= base_url(); ?>api/sandbox_results" method="POST">	
 		<p><?= base_url() ?>api/ <input type="text" name="uri" id="req_uri" value="<?= $this->input->post('uri') ?>" size="40"></p>
 		<p><label>Params (query string): </label><input type="text" name="params" id="req_params" value="<?= $this->input->post('params') ?>" size="50"></p>
 		<br style="clear:both" />

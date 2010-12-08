@@ -38,7 +38,7 @@ class Social_tools
 	
 	}
 	
-	function has_access_to_delete($type, $object_id)
+	function has_access_to_modify($type, $object_id)
 	{
 		// Is Super or Admin
 		if ($this->ci->session->userdata('user_level_id') <= 2)
@@ -139,13 +139,13 @@ class Social_tools
 	
 	function add_comment($comment_data)
 	{
-		// Add Comment
-		$comment = $this->ci->comments_model->add_comment($this->site_id, $comment_data);
+		$comment = FALSE;
 		
-		if ($comment)
+		// Add Comment		
+		if ($comment_id = $this->ci->comments_model->add_comment($this->site_id, $comment_data))
 		{			
 			// Get Comment
-			$comment = $this->get_comment($comment);
+			$comment = $this->get_comment($comment_id);
 
 			// Update Comments Count
 			$this->ci->social_igniter->update_content_comments_count($comment->content_id);		

@@ -11,20 +11,22 @@ $(document).ready(function()
 	// Placeholders 
 	doPlaceholder('#login_email', 'your@email.com');
 	doPlaceholder('#login_password', 'password');
-	doPlaceholder('#comment_name', 'Your Name');
-	doPlaceholder('#comment_email', 'your@email.com');
-	doPlaceholder('#comment_write_text', 'Write comment...');
+//	doPlaceholder('#comment_name', 'Your Name');
+//	doPlaceholder('#comment_email', 'your@email.com');
+//	doPlaceholder('#comment_write_text', 'Write comment...');
 
 	// Comments On Site
 	$('#comments_logged_form').bind('submit', function(eve)
 	{
 		eve.preventDefault();
 		
-		var url_create = base_url + 'api/comments/create/id/' + $('#content_id').val();
+		var url_create = base_url + 'api/comments/create';
 		var url_delete = base_url + 'api/comments/destroy/id/';
 		
 		var comment_count_current	= $('#comments_count').html();
 		var reply_to_id				= $('#reply_to_id').val();
+		
+		var comment 				= isFieldValid('#comment_write_text', 'Write comment...', 'Please write something!');		
 
 		if(comment_count_current == 'Write')	var comment_count_updated = 1;
 		else									var comment_count_updated = parseInt(comment_count_current) + 1;		
@@ -32,32 +34,38 @@ $(document).ready(function()
 		// Inject as reply or normal		
 		if (reply_to_id)	var append_to_where = '#comment-replies-' + reply_to_id;
 		else				var append_to_where = '#comments_list';
-										
-		$(this).oauthAjax(
-		{
-			url			: url_create,
-			type		: 'POST',
-			dataType	: 'json',
-			data		: $('#comments_logged_form').serialize(),
-		  	success		: function(result)
-		  	{
-		  		console.log(result);
-		  				  	
-				if(result.status == 'error')
-				{
-				 	$('#comment_error').append(result.message).show('normal');
+		
+		// If fields are filled out		
+		if (comment == true)
+		{										
+			$(this).oauthAjax(
+			{
+				url			: url_create,
+				type		: 'POST',
+				dataType	: 'json',
+				data		: $('#comments_logged_form').serialize(),
+			  	success		: function(result)
+			  	{				  		  				  	
+					if(result.status == 'error')
+					{
+					 	$('#comment_error').append(result.message).show('normal');
+				 	}
+				 	else
+				 	{			 	
+						var html = '<li class="' + result.data.sub + 'comment" id="comment-' + result.data.comment_id + '"><a href="' + result.data.profile_link + '"><span class="comment_thumbnail"><img src="' + result.data.profile_image + '" border="0" /></span></a><span class="' + result.data.sub + 'comment"><a href="' + result.data.profile_link + '">' + result.data.name + '</a> ' + result.data.comment + '<span class="comment_date ' + result.data.sub + '">' + result.data.created_at + '</span><ul class="comment_actions"><li><a href="' + url_delete + result.data.comment_id + '" id="delete-' + result.data.comment_id + '" class="comment_delete"><span class="item_actions action_delete"></span> Delete</a></li></ul><div class="clear"></div></span><div class="clear"></div></li>';
+				 					 	
+					 	$(append_to_where).append(html).show('slow');
+						$('#comment_write_text').val('');
+						$('#reply_to_id').val('');
+						$('#comments_count').html(comment_count_updated);
+				 	}	
 			 	}
-			 	else
-			 	{			 	
-					var html = '<li class="' + result.data.sub + 'comment" id="comment-' + result.data.comment_id + '"><a href="' + result.data.profile_link + '"><span class="comment_thumbnail"><img src="' + result.data.profile_image + '" border="0" /></span></a><span class="' + result.data.sub + 'comment"><a href="' + result.data.profile_link + '">' + result.data.name + '</a> ' + result.data.comment + '<span class="comment_date ' + result.data.sub + '">' + result.data.created_at + '</span><ul class="comment_actions"><li><a href="' + url_delete + result.data.comment_id + '" id="delete-' + result.data.comment_id + '" class="comment_delete"><span class="item_actions action_delete"></span> Delete</a></li></ul><div class="clear"></div></span><div class="clear"></div></li>';
-			 					 	
-				 	$(append_to_where).append(html).show('slow');
-					$('#comment_write_text').val('');
-					$('#reply_to_id').val('');
-					$('#comments_count').html(comment_count_updated);
-			 	}	
-		 	}
-		});
+			});
+		}
+		else
+		{
+			eve.preventDefault();
+		}	
 	});
 
 	$('#comments_public_form').bind('submit', function(eve)
@@ -69,7 +77,7 @@ $(document).ready(function()
 		{	
 			Recaptcha.reload();
 		}
-	
+		
 		var name					= isFieldValid('#comment_name', 'Your Name', 'Please enter your name');
 		var email					= isFieldValid('#comment_email', 'your@email.com', 'Please enter your email', 'email');	
 		var comment 				= isFieldValid('#comment_write_text', 'Write comment...', 'Please write something!');
@@ -77,7 +85,9 @@ $(document).ready(function()
 		var email_valid				= ValidateEmailAddress(email_address);
 
 		// Key Info
-		var comment_write_url 		= $('#comment_write_url').val();
+		var url_create = base_url + 'api/comments/public';
+		var url_delete = base_url + 'api/comments/destroy/id/';
+		
 		var comment_count_current	= $('#comments_count').html();
 		var reply_to_id				= $('#reply_to_id').val();
 
@@ -89,26 +99,20 @@ $(document).ready(function()
 		else				var append_to_where = '#comments_list';
 
 		// If fields are filled out		
-		if (name == true && email == true && email_valid == true && comment == true)
-		{
+//		if (name == true && email == true && email_valid == true && comment == true)
+//		{
 			$.ajax(
 			{
-				url			: comment_write_url,
+				url			: url_create,
 				type		: "POST",
-				dataType	: "html",
-				data		: $('#comments_public_form').serialize(),
-				beforeSend	: function(html)
-				{			
-					$('#busy').show('slow');
-				},	
-			  	success: function(html)
-			  	{		  	
-					$('#busy').hide('slow');
-					$('#errors').hide('slow');	
-										
-					if(html == 'error')
+				dataType	: "json",
+				data		: $('#comments_public_form').serialize(),	
+			  	success		: function(result)
+			  	{				  		  				  	
+					if(result.status == 'error')
 					{
-				 		$('#comment_error').append("Oops we couldn't post your comment!").show('normal');
+						$('#comment_error').html('');	
+					 	$('#comment_error').append(result.message).show('normal');
 				 	}
 				 	else
 				 	{			 	
@@ -125,7 +129,7 @@ $(document).ready(function()
 				 	}	
 			 	}
 			});		
-		}
+/*		}
 		else if (name == true && email == true && email_valid == false && comment == true)
 		{
 			$('#comment_email_error').html('That email address is not valid').show('normal');
@@ -135,18 +139,18 @@ $(document).ready(function()
 		{
 			eve.preventDefault();
 		}
-					
+*/					
 		return false;
 	});
 
 		
-	$('.comment_reply').bind('click', function()	
+	$('.comment_reply').live('click', function()	
 	{
 		var reply_id = $(this).attr('id').split('-');		
 		$('#reply_to_id').val(reply_id[1]);
 	});
 	
-	$('.comment_delete').bind('click', function(eve)
+	$('.comment_delete').live('click', function(eve)
 	{
 		eve.preventDefault();
 		var comment_id 				= $(this).attr('id').split('-');

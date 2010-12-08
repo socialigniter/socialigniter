@@ -2,10 +2,23 @@
 
 class OAuth_Controller extends REST_Controller
 {
+	public $authenticated_user_id;
     
     function __construct($config = array())
     {
-        parent::__construct();        
+        parent::__construct();
+        
+        // Ugly Hack to make Sandbox work until Ben helps me figure out glitch
+        // with getting user_id from OAuth interaction
+        if ($this->session->userdata('user_id'))
+        {
+        	$this->authenticated_user_id = $this->session->userdata('user_id');
+        }
+        else
+        {
+        	$this->authenticated_user_id = $this->input->post('user_id');
+        }
+                
     }
 
     function string_begins_with($string, $search)
