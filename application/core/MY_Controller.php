@@ -93,10 +93,10 @@ class MY_Controller extends MX_Controller
 		if ($this->social_auth->logged_in())
 		{
 			// OAuth Tokens
-			$this->data['oauth_consumer_key'] 		= $this->session->userdata('consumer_key');
-			$this->data['oauth_consumer_secret'] 	= $this->session->userdata('consumer_secret');
-			$this->data['oauth_token'] 				= $this->session->userdata('token');
-			$this->data['oauth_token_secret'] 		= $this->session->userdata('token_secret');
+			$this->data['oauth_consumer_key'] 	= $this->session->userdata('consumer_key');
+			$this->data['oauth_consumer_secret']= $this->session->userdata('consumer_secret');
+			$this->data['oauth_token'] 			= $this->session->userdata('token');
+			$this->data['oauth_token_secret'] 	= $this->session->userdata('token_secret');
 				
 			// Various Values	
 			$this->data['logged_user_id']		= $this->session->userdata('user_id');
@@ -120,6 +120,12 @@ class MY_Controller extends MX_Controller
 		}
 		else
 		{
+			// OAuth Tokens
+			$this->data['oauth_consumer_key'] 	= '';
+			$this->data['oauth_consumer_secret']= '';
+			$this->data['oauth_token'] 			= '';
+			$this->data['oauth_token_secret'] 	= '';
+			
 			// Various Values		
 			$this->data['profile_image'] 		= base_url().config_item('profile_images').'normal_'.config_item('profile_nopicture');
 			$this->data['profile_name']			= 'Your Name';

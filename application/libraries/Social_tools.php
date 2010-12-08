@@ -21,7 +21,7 @@ class Social_tools
 				
 		// Load Models
 		$this->ci->load->model('categories_model');
-		$this->ci->load->model('comments/comments_model');
+		$this->ci->load->model('comments_model');
 		$this->ci->load->model('locations/locations_model');
 		$this->ci->load->model('ratings_model');
 		$this->ci->load->model('tags_model');
@@ -198,7 +198,7 @@ class Social_tools
 				$this->data['comment_id']		= $child->comment_id;
 				$this->data['comment_text']		= $child->comment;
 				$this->data['reply_id']			= $child->comment_id;
-				$this->view_comments  	       .= $this->ci->load->view('../modules/comments/views/partials/comments_list', $this->data, true);
+				$this->view_comments  	       .= $this->ci->load->view(config_item('site_theme').'/partials/comments_list', $this->data, true);
 				
 				// Recursive Call
 				$this->render_children_comments($comments, $child->comment_id);

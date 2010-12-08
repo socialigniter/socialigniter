@@ -29,7 +29,8 @@ class Categories extends REST_Controller
     function search_get()
     {
     	$search_by	= $this->uri->segment(4);
-    	$categories = $this->categories_model->get_categories_by($search_by, $this->get($search_by));
+    	$search_for	= $this->uri->segment(5);
+    	$categories = $this->categories_model->get_categories_by($search_by, $search_for);
     	
         if($categories)
         {
@@ -37,7 +38,7 @@ class Categories extends REST_Controller
         }
         else
         {
-            $this->response(array('error' => 'Could not find any '.$search_by.' categories for '.$this->get($search_by)), 404);
+            $this->response(array('error' => 'Could not find any '.$search_by.' categories for '.$search_for), 404);
         }
     }
 
