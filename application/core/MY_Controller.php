@@ -106,7 +106,7 @@ class MY_Controller extends MX_Controller
 			$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('email'));
 			$this->data['logged_location']		= $this->session->userdata('location');
 			$this->data['logged_geo_enabled']	= $this->session->userdata('geo_enabled');
-			$this->data['logged_privacy']		= $this->session->userdata('geo_privacy');
+			$this->data['logged_privacy']		= $this->session->userdata('privacy');
 						
 			// Various Links
 			$this->data['link_home']			= base_url()."home";
