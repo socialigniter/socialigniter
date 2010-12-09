@@ -21,8 +21,21 @@
 		</ul>
 		<div class="clear"></div>
 		
-		<ol id="comment_list">
+		<ol class="comment_list">
 			<!-- dynamically added -->
+			<li id="comment_1">
+				<div class="comment">
+					<p><span class="comment_author"><a href="#link-to-userprofile">Brennan Novak</a></span> You are so dumb, you are really dumb</p>
+				</div>
+				<p class="comment_meta"><span class="comment_date">2 minutes ago</span></p>
+			</li>
+			<li id="comment_2">
+				<div class="comment">
+					<p><span class="comment_author"><a href="#link-to-userprofile">Oscar Godson</a></span> I'm gunna to find you! I'm gunna to find you! I'm gunna to find you! I'm gunna to find you! I'm gunna to find you! </p>
+					<p>I'm gunna to find you! I'm gunna to find you! I'm gunna to find you! I'm gunna to find you! I'm gunna to find you! </p>
+				</div>
+				<p class="comment_meta"><span class="comment_date">16 seconds ago</span></p>
+			</li>
 		</ol>
 		
 		<div class="comment_form">
