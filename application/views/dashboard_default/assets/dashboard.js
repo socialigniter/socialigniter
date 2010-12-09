@@ -191,17 +191,24 @@ $(document).ready(function()
 	{
 		//On success, if we have localStorage (IE8,Opera,FF,WebKit,iPhone,etc)
 		//we'll store their location in localStorage so we can get it whenever
-		if(localStorage)
+		current_time = new Date().getTime();
+		hours_ago = (current_time/1000/60/60)-(localStorage.getItem('geo_date')/1000/60/60);
+		//If it's been more than 3hrs save it, otherwise, nevermind.
+		if(hours_ago >= 3)
 		{
-			localStorage.setItem('geo_lat',position.coords.latitude);
-			localStorage.setItem('geo_long',position.coords.longitude);
-			localStorage.setItem('geo_accuracy',position.coords.accuracy);
+			if(localStorage)
+			{
+				localStorage.setItem('geo_lat',position.coords.latitude);
+				localStorage.setItem('geo_long',position.coords.longitude);
+				localStorage.setItem('geo_accuracy',position.coords.accuracy);
+				localStorage.setItem('geo_date',current_time);
+			}
 		}
 	}
 	//Initial get, use it elsewhere to update location
 	geo_get();
-	/* End Geolocation stuff */
 	
+	/* End Geolocation stuff */
 	
 	/* Start the comment functionality */
 	//Cache common selectors.
@@ -231,6 +238,24 @@ $(document).ready(function()
 			$comment_form.find('[name=geo_long]').val(localStorage['geo_long']);
 			$comment_form.find('[name=geo_accuracy]').val(localStorage['geo_accuracy']);
 		}
+		
+		//Here we are going to get the comments:
+		content_id = $(this).parent().parent().parent().find('.comment_form [name=content_id]').val();
+		$comment_list = $(this).parent().parent().parent().find('.comment_list');
+		//if($comment_list.children().length < 1){
+			$.get('api/comments/content/id/'+content_id,function(json){
+				for(x in json){
+					$comment_list.append('\
+						<li id="comment_'+json[x].comment_id+'">\
+							<div class="comment">\
+								<p><span class="comment_author"><a href="#link-to-userprofile">'+json[x].name+'</a></span> '+json[x].comment+'</p>\
+							</div>\
+							<p class="comment_meta"><span class="comment_date">'+json[x].created_at+'</span></p>\
+						</li>\
+					');
+				}
+			});
+		//}
 		return false;
 	});
 	
@@ -301,6 +326,10 @@ $(document).ready(function()
 	
 	});
 	
+	
+	/*
+	
+	*/
 	/* End the comment functionality */
 	
 	// Add Category

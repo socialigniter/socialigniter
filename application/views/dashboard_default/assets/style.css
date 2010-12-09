@@ -238,3 +238,9 @@ span.item_right a:hover		{ text-decoration: underline; }
 			.slug_url span {border-bottom:1px dashed #aaa;}
 			.slug_url span:hover {border-bottom:1px dashed #dddd00;cursor:pointer;background:#ffff00}
 		.slug_url_edit {width:100px;height:15px !important;padding:3px !important;}
+		
+.comment_list { border-radius:5px; }
+	.comment_list li:first-child {border-top:none;}
+	.comment_list li { padding:0px 10px 10px; margin:0 0 0 0; display:block;float:none !important; border-top:1px solid #ccc; }
+			.comment_list li .comment p{ margin:10px 0 0 0; font-size:12px; line-height:16px; }
+		.comment_list li .comment_meta { margin:0;font-size:11px;color:#666; }
