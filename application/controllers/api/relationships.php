@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Categories extends REST_Controller
+class Relationships extends REST_Controller
 {
     function __construct()
     {
@@ -9,27 +9,9 @@ class Categories extends REST_Controller
 	
 	
     /* GET types */
-    function all_get()
-    {
-    	$categories = $this->categories_model->get_categories();
-        
-        if($categories)
-        {
-            $this->response($categories, 200);
-        }
-
-        else
-        {
-            $this->response(array('error' => 'Could not find any categories'), 404);
-        }
-    }
-
-
-    /* GET types */
-    function search_get()
+    function follows_get()
     {
     	$search_by	= $this->uri->segment(4);
-    	$search_for	= $this->uri->segment(5);
     	$categories = $this->categories_model->get_categories_by($search_by, $search_for);
     	
         if($categories)
@@ -44,7 +26,7 @@ class Categories extends REST_Controller
 
 
 	/* POST types */
-    function create_post()
+    function follow_post()
     {
     	$user_id = $this->session->userdata('user_id');   
     
@@ -101,7 +83,7 @@ class Categories extends REST_Controller
     }  
 
     /* DELETE types */
-    function destroy_delete()
+    function unfollow_delete()
     {		
 		// Make sure user has access to do this func
 		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));

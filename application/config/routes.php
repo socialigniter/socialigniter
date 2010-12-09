@@ -34,16 +34,31 @@
 
 $route['default_controller'] 					= 'index';
 
+/* Feeds */
 $route['feed/(:any)'] 							= '$1/feed';
+$route['feed/comments']							= 'feed/comments';
 $route['feed']		 							= 'feed/index';
+
+/* Categories */
+$route['api/categories/search/(:any)/(:any)']	= 'api/categories/search';
+$route['api/categories/search']					= 'api/categories/search';
+$route['api/categories/all']					= 'api/categories/all';
+
+/* Comments */
+$route['api/comments/content/(:any)/(:any)']	= 'api/comments/content/$1/$2';
+$route['api/comments/viewed/(:any)/(:any)']		= 'api/comments/viewed/$1/$2';
+$route['api/comments/approve/(:any)/(:any)']	= 'api/comments/approve/$1/$2';
+$route['api/comments/destroy/(:any)/(:any)']	= 'api/comments/destroy/$1/$2';
+$route['api/comments/content']					= 'api/comments/content';
+$route['api/comments/recent']					= 'api/comments/recent';
+$route['api/comments/create']					= 'api/comments/create';
+$route['api/comments/public']					= 'api/comments/public';
+$route['api/comments/new']						= 'api/comments/new';
 
 $route['api/(:any)/(:any)/(:any)/(:any)'] 		= '$1/api/$2/$3/$4';
 $route['api/(:any)/(:any)/(:any)'] 				= '$1/api/$2/$3';
 $route['api/(:any)/(:any)'] 					= '$1/api/$2';
 $route['api/(:any)'] 							= 'api/index';
-
-$route['api/categories/search/(:any)']			= 'api/categories/search';
-$route['api/categories/all']					= 'api/categories/all';
 
 $route['api/sandbox_results']				 	= 'api/index/sandbox_results';
 $route['api/sandbox'] 							= 'api/index/sandbox';
@@ -59,8 +74,8 @@ $route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
 $route['home/(:any)/(:any)/(:any)'] 			= '$1/home/$2/$3';
 $route['home/(:any)/(:any)'] 					= '$1/home/$2';
 $route['home/(:any)'] 							= 'home';
-$route['home/comments/(:any)'] 					= 'comments/home/$1';
-$route['home/comments'] 						= 'comments/home';
+$route['home/comments/(:any)'] 					= 'home/comments/$1';
+$route['home/comments'] 						= 'home/comments';
 $route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home'] 									= 'home';

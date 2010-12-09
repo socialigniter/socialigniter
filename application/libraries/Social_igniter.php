@@ -38,9 +38,9 @@ class Social_igniter
 			$picture = base_url().config_item('profile_images').$user_id.'/'.$size.'_'.$image;
 		}
 		elseif (config_item('site_gravatar_enabled') == 'TRUE')
-		{
+		{		
 			$this->ci->load->helper('gravatar');
-			$picture = gravatar($email, "X", config_item('profile_normal_width'), $nopicture);
+			$picture = gravatar($email, "X", config_item('profile_'.$size.'_width'), $nopicture);
 		}
 		else
 		{
@@ -398,10 +398,10 @@ class Social_igniter
 					break;
 				}
 			}
-			next($settings_update_array);
 			
+			next($settings_update_array);
 		}
-		return;	
+		return;
 	}	
 	
 	/* Activity */
@@ -418,9 +418,14 @@ class Social_igniter
 		return $this->ci->activity_model->get_activity($activity_id);
 	}
 	
-	function add_activity($info, $data)
+	function add_activity($activity_data, $content_data)
 	{
-		return $this->ci->activity_model->add_activity($info, json_encode($data));
+		if ($activity_id = $this->ci->activity_model->add_activity($activity_data, $content_data))
+		{
+			return $this->ci->activity_model->get_activity($activity_id);
+		}
+		
+		return FALSE;
 	}
 	
 	function delete_activity($activity_id)
@@ -496,6 +501,7 @@ class Social_igniter
 		return $this->ci->content_model->get_content_module($site_id, $module, $limit);
 	}
 	
+	// Adds Content & Activity
 	function add_content($content_data, $verb, $tags=NULL, $site_id=NULL)
 	{
 		$check_content = $this->check_content_duplicate($content_data['user_id'], $content_data['title'], $content_data['content']);
@@ -521,17 +527,23 @@ class Social_igniter
 					'module'		=> $content_data['module'],
 					'type'			=> $content_data['type'],				
 					'content_id'	=> $content->content_id,
+				);
+				
+				$content_data = array(
 					'title'			=> $content_data['title'],
 					'url'			=> base_url().$content_data['module'].'/view/'.$content->content_id,
 					'description' 	=> character_limiter(strip_tags($content_data['content'], ''), config_item('home_description_length'))
 				);
 			
-				$activity = $this->add_activity($activity_data);				
-
-				return $activity;
+				if ($activity = $this->add_activity($activity_data, $content_data))
+				{
+					return $activity;
+				}
+				
+				return array('status' => 'success', 'message' => 'Content was successfully added, but could not add activity.');
 			}
 			
-			return FALSE;		
+			return array('status' => 'error', 'message' => 'Could not add content');		
 		}
 		else
 		{

@@ -25,7 +25,7 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 <ul>
 	<li><h3>Activity</h3></li>
 	<li>Recent <a href="<?= base_url() ?>api/activity/recent" target="_blank"><?= base_url() ?>api/activity/recent</a></li>
-	<li>Create <a href="<?= base_url() ?>api/activity/create/id/1" target="_blank"><?= base_url() ?>api/activity/create/id/1</a> (1 represents activity_id)</li>
+	<li>Create <a href="<?= base_url() ?>api/activity/create" target="_blank"><?= base_url() ?>api/activity/create</a> (1 represents activity_id)</li>
 	<li>Delete <a href="<?= base_url() ?>api/activity/destroy/id/1" target="_blank"><?= base_url() ?>api/activity/destroy/id/1</a> (1 represents activity_id)</li>
 </ul>
 
@@ -36,6 +36,14 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 	<li>Create <a href="<?= base_url() ?>api/content/create/id/1" target="_blank"><?= base_url() ?>api/content/create/id/1</a> (1 represents content_id)</li>
 	<li>Update <a href="<?= base_url() ?>api/content/update/id/1" target="_blank"><?= base_url() ?>api/content/update/id/1</a> (1 represents content_id)</li>
 	<li>Delete <a href="<?= base_url() ?>api/content/destroy/id/1" target="_blank"><?= base_url() ?>api/content/destroy/id/1</a> (1 represents content_id)</li>
+</ul>
+
+<ul>
+	<li><h3>Comments</h3></li>
+	<li>Recent <a href="<?= base_url() ?>api/comments/recent" target="_blank"><?= base_url() ?>api/comments/recent</a></li>
+	<li>Content <a href="<?= base_url() ?>api/comments/content/id/1" target="_blank"><?= base_url() ?>api/comments/content/id/1</a> (1 represents content_id)</li>
+	<li>Create <a href="<?= base_url() ?>api/comments/create" target="_blank"><?= base_url() ?>api/comments/create</a></li>
+	<li>Delete <a href="<?= base_url() ?>api/comments/destroy/id/1" target="_blank"><?= base_url() ?>api/comments/destroy/id/1</a> (1 represents comment_id)</li>
 </ul>
 
 <ul>

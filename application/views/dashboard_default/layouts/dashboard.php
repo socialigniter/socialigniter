@@ -47,8 +47,8 @@
 	<div id="sidebar">
 		<div class="sidebar_top"></div>	
 		<div class="sidebar_mid">
-		<p><a href="<?= $link_profile ?>"><img src="<?= $profile_image ?>" border="0" /></a></p>
-		<p><a href="<?= $link_profile ?>"><?= $profile_name; ?></a></p>		
+		<p><a href="<?= $link_profile ?>"><img src="<?= $logged_image ?>" border="0" /></a></p>
+		<p><a href="<?= $link_profile ?>"><?= $logged_name; ?></a></p>		
 		<div class="sidebar_separator"></div>
 		<ul>		
 			<?= $sidebar_messages ?>

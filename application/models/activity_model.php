@@ -50,21 +50,27 @@ class Activity_model extends CI_Model {
  		return $result; 
     }
     
-    function add_activity($info, $data)
+    function add_activity($activity_data, $content_data)
     {
  		$data = array(
-			'site_id' 	 			=> $info['site_id'],
-			'user_id' 	 			=> $info['user_id'],
-			'verb'					=> $info['verb'],
-			'module'				=> $info['module'],
-			'type'					=> $info['type'],
-			'data'  	 			=> $data,
+			'site_id' 	 			=> $activity_info['site_id'],
+			'user_id' 	 			=> $activity_info['user_id'],
+			'verb'					=> $activity_info['verb'],
+			'module'				=> $activity_info['module'],
+			'type'					=> $activity_info['type'],
+			'content_id' 	 		=> $activity_info['content_id'],
+			'data'  	 			=> json_encode($content_data),
 			'created_at' 			=> unix_to_mysql(now())
 		);
 		
-		$insert			= $this->db->insert('activity', $data);
-		$activity_id	= $this->db->insert_id();
-		return $this->db->get_where('activity', array('activity_id' => $activity_id))->row();
+		$insert = $this->db->insert('activity', $data);
+		
+		if ($activity_id = $this->db->insert_id())
+		{
+			return $activity_id;
+		}
+		
+		return FALSE;
     }
     
     function delete_activity($activity_id)

@@ -1,3 +1,4 @@
+
 <?= $status_updater ?>
 
 <ol id="feed">

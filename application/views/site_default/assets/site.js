@@ -86,7 +86,6 @@ $(document).ready(function()
 
 		// Key Info
 		var url_create = base_url + 'api/comments/public';
-		var url_delete = base_url + 'api/comments/destroy/id/';
 		
 		var comment_count_current	= $('#comments_count').html();
 		var reply_to_id				= $('#reply_to_id').val();

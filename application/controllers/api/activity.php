@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Categories extends REST_Controller
+class Activity extends REST_Controller
 {
     function __construct()
     {
@@ -9,9 +9,9 @@ class Categories extends REST_Controller
 	
 	
     /* GET types */
-    function all_get()
+    function recent_get()
     {
-    	$categories = $this->categories_model->get_categories();
+    	$categories = $this->categories_model->get_timeline();
         
         if($categories)
         {
@@ -24,8 +24,6 @@ class Categories extends REST_Controller
         }
     }
 
-
-    /* GET types */
     function search_get()
     {
     	$search_by	= $this->uri->segment(4);

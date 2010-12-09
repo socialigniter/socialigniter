@@ -375,6 +375,12 @@ class Settings extends Dashboard_Controller {
 			redirect($this->session->userdata('previous_page'), 'refresh');
 		}
 	}
+	
+	function comments()
+	{	
+		$this->data['sub_title'] = 'Comments';
+    	$this->render();
+    }	
 
 	function home()
 	{
