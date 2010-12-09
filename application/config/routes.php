@@ -91,6 +91,7 @@ $route['settings/mobile'] 						= 'settings/mobile';
 $route['settings/connections'] 					= 'settings/connections';
 $route['settings/modules'] 						= 'settings/modules';
 $route['settings/home']							= 'settings/home';
+$route['settings/comments']						= 'settings/comments';
 $route['settings/api']							= 'settings/api';
 $route['settings/update']						= 'settings/update';
 $route['settings'] 								= 'settings';

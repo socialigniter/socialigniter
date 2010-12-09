@@ -57,7 +57,7 @@ class Home extends Dashboard_Controller
 				
 				// Activity
 				$this->data['item_content']			= $this->social_igniter->render_item($activity->verb, $activity->type, $object);
-				$this->data['item_content_id']		= $activity->content_id;
+				$this->data['item_content_id']		= $object->content_id; //FIX TO NEW $activity->content_id;
 				$this->data['item_date']			= format_datetime(config_item('home_date_style'), $activity->created_at);
 
 		 		// Actions
