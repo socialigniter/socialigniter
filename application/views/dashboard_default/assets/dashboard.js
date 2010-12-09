@@ -241,6 +241,7 @@ $(document).ready(function()
 		
 		//Here we are going to get the comments:
 		content_id = $(this).parent().parent().parent().find('.comment_form [name=content_id]').val();
+		console.log(content_id);
 		$comment_list = $(this).parent().parent().parent().find('.comment_list');
 		//if($comment_list.children().length < 1){
 			$.get('api/comments/content/id/'+content_id,function(json){

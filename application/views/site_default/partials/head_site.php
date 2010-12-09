@@ -16,17 +16,6 @@
 <script type="text/javascript" src="<?= base_url() ?>js/oauth.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/sha1.js"></script>
 <script type="text/javascript">
-//Global User Data:
-var user_data = {
-	 "user_id":"<?= $logged_user_id ?>",
-	 "username":"<?= $logged_username ?>",
-	 "user_level_id":"<?= $logged_user_level_id ?>",
-	 "name":"<?= $logged_name ?>",
-	 "image":"<?= $logged_image ?>",
-	 "location":"<?= $logged_location ?>",
-	 "geo_enabled":"<?= $logged_geo_enabled ?>",
-	 "privacy":"<?= $logged_privacy ?>"
-}
 // oauthAjax plugin allows ajax request to be signed with oauth token
 (function($)
 {
@@ -72,6 +61,18 @@ var user_data = {
 	};
 })(jQuery);
 </script>
-
+<script>
+//Global User Data:
+var user_data = {
+	 "user_id":"<?= $logged_user_id ?>",
+	 "username":"<?= $logged_username ?>",
+	 "user_level_id":"<?= $logged_user_level_id ?>",
+	 "name":"<?= $logged_name ?>",
+	 "image":"<?= $logged_image ?>",
+	 "location":"<?= $logged_location ?>",
+	 "geo_enabled":"<?= $logged_geo_enabled ?>",
+	 "privacy":"<?= $logged_privacy ?>"
+}
+</script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
 <script type="text/javascript" src="<?= $site_assets ?>site.js"></script>
