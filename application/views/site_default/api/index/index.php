@@ -29,8 +29,6 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 	<li>Delete <a href="<?= base_url() ?>api/activity/destroy/id/1" target="_blank"><?= base_url() ?>api/activity/destroy/id/1</a> (1 represents activity_id)</li>
 </ul>
 
-
-
 <ul>
 	<li><h3>Content</h3></li>
 	<li>Recent <a href="<?= base_url() ?>api/content/recent" target="_blank"><?= base_url() ?>api/content/recent</a></li>

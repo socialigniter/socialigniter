@@ -8,6 +8,7 @@ class Comments extends OAuth_Controller
 	}
 	
     /* GET types */
+    // Recent Comments
     function recent_get()
     {
         $comments = $this->social_tools->get_comments();
@@ -34,7 +35,7 @@ class Comments extends OAuth_Controller
 		$this->response(array('message' => $message), 200);
 	}
 
-
+	// Comments for a piece of content
 	function content_get()
     {
    		 	
@@ -55,8 +56,16 @@ class Comments extends OAuth_Controller
             $this->response(array('status' => 'error', 'message' => 'No comments could be found'), 404);
         }
     }
+    
+    // New Comments for a user
+	function new_get()
+	{
+         $this->response($this->social_tools->get_comments_new_count(), 200);	
+	}
+	
 
 	/* POST types */
+	// Creates Comment
     function create_post()
     {
 		$this->form_validation->set_rules('comment', 'Comment', 'required');
@@ -130,7 +139,7 @@ class Comments extends OAuth_Controller
     }
     
 
-	function createpublic_post()
+	function public_post()
 	{	
 		
 	 	// Validation Rules

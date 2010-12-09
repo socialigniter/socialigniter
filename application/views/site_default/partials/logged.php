@@ -1,6 +1,6 @@
 <?php if ($this->social_auth->logged_in()): ?>
 <div id="header_avatar">	
-	<a href="<?= $link_profile ?>"><img src="<?= $profile_image ?>" border="0" /></a> 
+	<a href="<?= $link_profile ?>"><img src="<?= $logged_image ?>" border="0" /></a> 
 </div>
 <ul id="header_logged">
 	<li><a class="dark_nav" href="<?= $link_home ?>">Home</a></li>	

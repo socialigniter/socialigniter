@@ -1,10 +1,10 @@
 <form action="<?= $comments_post ?>" method="post" name="comments_write_form" id="<?= $comments_write_form ?>">
 	<?php if($this->social_auth->logged_in()): ?>
-	<a href="<?= $link_profile ?>"><span class="comment_thumbnail"><img src="<?= $profile_image ?>" border="0" /></span></a>
+	<a href="<?= $link_profile ?>"><span class="comment_thumbnail"><img src="<?= $logged_image ?>" border="0" /></span></a>
 	<span class="comment_write">
-		<a href="<?= $link_profile ?>"><?= $profile_name; ?></a> says:
+		<a href="<?= $link_profile ?>"><?= $logged_name; ?></a> says:
 	<?php else: ?>
-	<span class="comment_thumbnail"><img src="<?= $profile_image ?>" border="0" /></span>
+	<span class="comment_thumbnail"><img src="<?= $logged_image ?>" border="0" /></span>
 	<span class="comment_write">
 		<span id="comment_name_email">
 		<input type="text" name="comment_name" id="comment_name" value="<?= $comment_name; ?>">

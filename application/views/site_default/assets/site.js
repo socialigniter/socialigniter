@@ -85,8 +85,7 @@ $(document).ready(function()
 		var email_valid				= ValidateEmailAddress(email_address);
 
 		// Key Info
-		var url_create = base_url + 'api/comments/createpublic';
-		var url_delete = base_url + 'api/comments/destroy/id/';
+		var url_create = base_url + 'api/comments/public';
 		
 		var comment_count_current	= $('#comments_count').html();
 		var reply_to_id				= $('#reply_to_id').val();

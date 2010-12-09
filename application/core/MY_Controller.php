@@ -98,11 +98,16 @@ class MY_Controller extends MX_Controller
 			$this->data['oauth_token'] 			= $this->session->userdata('token');
 			$this->data['oauth_token_secret'] 	= $this->session->userdata('token_secret');
 				
-			// Various Values	
+			// Logged Values	
 			$this->data['logged_user_id']		= $this->session->userdata('user_id');
-			$this->data['profile_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('email'));
-			$this->data['profile_name']			= $this->session->userdata('name');
-			
+			$this->data['logged_user_level_id']	= $this->session->userdata('user_level_id');
+			$this->data['logged_username']		= $this->session->userdata('username');
+			$this->data['logged_name']			= $this->session->userdata('name');
+			$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('email'));
+			$this->data['logged_location']		= $this->session->userdata('location');
+			$this->data['logged_geo_enabled']	= $this->session->userdata('geo_enabled');
+			$this->data['logged_privacy']		= $this->session->userdata('geo_privacy');
+						
 			// Various Links
 			$this->data['link_home']			= base_url()."home";
 			$this->data['link_profile']			= base_url()."profile/".$this->session->userdata('username');
@@ -126,10 +131,16 @@ class MY_Controller extends MX_Controller
 			$this->data['oauth_token'] 			= '';
 			$this->data['oauth_token_secret'] 	= '';
 			
-			// Various Values		
-			$this->data['profile_image'] 		= base_url().config_item('profile_images').'normal_'.config_item('profile_nopicture');
-			$this->data['profile_name']			= 'Your Name';
-
+			// Logged Values	
+			$this->data['logged_user_id']		= '';	
+			$this->data['logged_user_level_id']	= '';
+			$this->data['logged_username']		= '';
+			$this->data['logged_image'] 		= base_url().config_item('profile_images').'normal_'.config_item('profile_nopicture');
+			$this->data['logged_name']			= 'Your Name';
+			$this->data['logged_location']		= '';
+			$this->data['logged_geo_enabled']	= '';
+			$this->data['logged_privacy']		= '';			
+						
 			// Action Paths
 			$this->data['comments_post']		= base_url().'comments/public';
 			

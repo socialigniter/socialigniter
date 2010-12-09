@@ -13,6 +13,7 @@ class Profile extends Public_Controller {
 		{	
 			$this->data['user_id'] 		= $this->user->user_id;	
 			$this->data['username'] 	= $this->user->username;
+			$this->data['email'] 		= $this->user->email;
 			$this->data['name'] 		= $this->user->name;
 			$this->data['company'] 		= $this->user->company;
 			$this->data['location'] 	= $this->user->location; 
@@ -23,7 +24,9 @@ class Profile extends Public_Controller {
 			$this->data['created_on'] 	= $this->user->created_on;
 
 			// Links
-	 		$this->data['follow_url'] = 'SDFsdf23@#$sfsfsdf';
+	 		$this->data['follow_url'] 	= base_url().'api/relationships/follow/'.$this->user->user_id;
+	 		$this->data['message_url'] 	= base_url().'api/message/send/'.$this->user->user_id;
+
 			
 			// Sidebar
 			$this->data['sidebar_profile'] = $this->load->view(config_item('site_theme').'/partials/sidebar_profile.php', $this->data, true);

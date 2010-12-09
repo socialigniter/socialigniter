@@ -57,7 +57,7 @@ class Home extends Dashboard_Controller
 				
 				// Activity
 				$this->data['item_content']			= $this->social_igniter->render_item($activity->verb, $activity->type, $object);
-				$this->data['item_content_id']		= $object->content_id;
+				$this->data['item_content_id']		= $activity->content_id;
 				$this->data['item_date']			= format_datetime(config_item('home_date_style'), $activity->created_at);
 
 		 		// Actions
@@ -141,7 +141,7 @@ class Home extends Dashboard_Controller
 				$this->data['item_alerts']			= item_alerts($item->comment_id, $item->viewed, $item->approval, $this->data['item_approve']);
 
 				// Load Partial For Items
-				$comments_view 				   	   .= $this->load->view('partials/home_comments.php', $this->data, true);
+				$comments_view 				   	   .= $this->load->view(config_item('dashboard_theme').'/partials/feed_comments.php', $this->data, true);
 	 		}
  		}
 		
