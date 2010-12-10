@@ -9,18 +9,17 @@ class Relationships extends REST_Controller
 	
 	
     /* GET types */
-    function follows_get()
+    function followers_get()
     {
-    	$search_by	= $this->uri->segment(4);
-    	$categories = $this->categories_model->get_categories_by($search_by, $search_for);
+    	$followers = $this->relantionships_model->get_relationships_user('follows', $this->get('id'));
     	
-        if($categories)
+        if($followers)
         {
-            $this->response($categories, 200);
+            $this->response($followers, 200);
         }
         else
         {
-            $this->response(array('error' => 'Could not find any '.$search_by.' categories for '.$search_for), 404);
+            $this->response(array('error' => 'User does not have followers'), 404);
         }
     }
 
@@ -67,6 +66,7 @@ class Relationships extends REST_Controller
         $this->response($message, $response); // 200 being the HTTP response code
     }
     
+    
     /* PUT types */
     function update_put()
     {
@@ -81,6 +81,7 @@ class Relationships extends REST_Controller
             $this->response(array('status' => 'error', 'message' => 'Could not mark as viewed'), 404);
         }    
     }  
+    
 
     /* DELETE types */
     function unfollow_delete()
