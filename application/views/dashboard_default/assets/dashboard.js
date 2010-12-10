@@ -241,7 +241,6 @@ $(document).ready(function()
 		
 		//Here we are going to get the comments:
 		content_id = $(this).parent().parent().parent().find('.comment_form [name=content_id]').val();
-		console.log(content_id);
 		$comment_list = $(this).parent().parent().parent().find('.comment_list');
 		//if($comment_list.children().length < 1){
 			$.get('api/comments/content/id/'+content_id,function(json){
@@ -293,21 +292,22 @@ $(document).ready(function()
 		eve.preventDefault();
 		
 		$(this).find('[type=submit]').attr('disabled','true');
+		$this_form = $(this);
 		
+		content_id = $(this).parent().parent().find('.comment_form [name=content_id]').val();
 		var this_textarea	= $(this).find('.comment_write_text');
 		var comment 		= isFieldValid(this_textarea, 'Write comment...', 'Please write something!');
-				
 		if (comment == true)
 		{	
 			$.ajax(
 			{
-				url			: base_url + 'comments/logged',
+				url			: base_url + 'api/comments/create',
 				type		: 'POST',
 				dataType	: 'json',
 				data		: $(this).serialize(),
-			  	success		: function(result)
+			  	success		: function(json)
 			  	{		  	
-					if(result.status == 'error')
+					if(json.status == 'error')
 					{
 					 	generic_error();
 				 	}
@@ -315,7 +315,14 @@ $(document).ready(function()
 				 	{
 						$comment_form.hide().find('textarea').val('')
 						.siblings('[type=submit]').removeAttr('disabled');
-						
+						$this_form.parent().parent().find('.comment_list').append('\
+							<li id="comment_'+json.data.comment_id+'">\
+								<div class="comment">\
+									<p><span class="comment_author"><a href="#link-to-userprofile">'+json.data.name+'</a></span> '+json.data.comment+'</p>\
+								</div>\
+								<p class="comment_meta"><span class="comment_date">'+json.data.created_at+'</span></p>\
+							</li>\
+						');
 				 	}	
 			 	}
 			});			
@@ -411,6 +418,20 @@ $(document).ready(function()
 
 	/* Start Blog Section */
 	
+	function update_category_select(where_to)
+	{
+		$.get(base_url+'api/categories/search/module/blog',function(json)
+		{
+			for(x in json)
+			{
+				$(where_to).append('<option value="'+json[x].category_id+'">'+json[x].category+'</option>');
+			}
+			$.uniform.update(where_to);
+		});
+	}
+	
+	update_category_select('[name=category_id]');
+	
 	$('[name=category_id]').change(function()
 	{	
 		if($(this).val() == 'add_category')
@@ -431,9 +452,6 @@ $(document).ready(function()
 						<label for="category_parent">Parent Category</label>\
 						<select id="category_parent">\
 							<option>--None--</option>\
-							<option>Cool Stuff</option>\
-							<option>Media Downloads</option>\
-							<option>Photography</option>\
 						</select>\
 						<label for="category_access">Access</label>\
 						<select id="category_access">\
@@ -445,14 +463,8 @@ $(document).ready(function()
 				</div>',
 				onComplete:function(e)
 				{
+					update_category_select('.modal_wrap select');
 					$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
-					function convert_to_slug(str){
-						//This line converts to lowercase and then makes spaces into dahes
-						slug_val = str.replace(/ /g,'-').toLowerCase();
-						//This line strips special characters
-						slug_val = slug_val.match(/[\w\d\-]/g).toString().replace(/,/g,'');
-						return slug_val;
-					}
 					function update_slug()
 					{
 						slug_val = convert_to_slug($('#category_name').val());
@@ -478,6 +490,30 @@ $(document).ready(function()
 							$('#category_slug').val('');
 						}
 					});
+					$('#new_category').live('submit',function()
+					{
+						$.ajax(
+						{
+							url		: base_url + 'api/categories/create',
+							type		: 'POST',
+							dataType	: 'json',
+							data		: $(this).serialize(),
+							success	: function(json)
+							{		  	
+								if(json.status == 'error')
+								{
+									generic_error();
+								}
+								else
+								{
+									console.log('went through');
+									console.log(json);
+								}	
+							}
+						});
+						return false;
+					});
+					
 				}
 			});
 			

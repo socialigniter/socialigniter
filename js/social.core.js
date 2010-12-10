@@ -143,7 +143,17 @@ function handle_geolocation_query(position)
 	jQuery("#status_find_location").css("background-image", "url(../images/dashboard_default/icons/location_24.png) 0px 0px no-repeat").html('<span>'+position.address.city+', '+position.address.region+'</span>');  
  */
 
-}  
+}
+
+//Converts string to a valid "sluggable" URL.
+function convert_to_slug(str)
+{
+	//This line converts to lowercase and then makes spaces into dahes
+	slug_val = str.replace(/ /g,'-').toLowerCase();
+	//This line strips special characters
+	slug_val = slug_val.match(/[\w\d\-]/g).toString().replace(/,/g,'');
+	return slug_val;
+}
 
 jQuery(window).ready(function(){
 	jQuery(".find_location").click(initiate_geolocation);
