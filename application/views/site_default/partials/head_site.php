@@ -19,20 +19,18 @@
 <script type="text/javascript">
 //Global User Data:
 var user_data = {
-	 "user_id":"<?= $logged_user_id ?>",
-	 "username":"<?= $logged_username ?>",
-	 "user_level_id":"<?= $logged_user_level_id ?>",
-	 "name":"<?= $logged_name ?>",
-	 "image":"<?= $logged_image ?>",
-	 "location":"<?= $logged_location ?>",
-	 "geo_enabled":"<?= $logged_geo_enabled ?>",
-	 "privacy":"<?= $logged_privacy ?>"	 
-}
-var oauth_credentials = {
-	"consumer_key" 		: "<?= $oauth_consumer_key ?>",
-	"consumer_secret" 	: "<?= $oauth_consumer_secret ?>",
-	"token"				: "<?= $oauth_token ?>",
-	"token_secret" 		: "<?= $oauth_token_secret ?>"
+	"user_id":"<?= $logged_user_id ?>",
+	"username":"<?= $logged_username ?>",
+	"user_level_id":"<?= $logged_user_level_id ?>",
+	"name":"<?= $logged_name ?>",
+	"image":"<?= $logged_image ?>",
+	"location":"<?= $logged_location ?>",
+	"geo_enabled":"<?= $logged_geo_enabled ?>",
+	"privacy":"<?= $logged_privacy ?>",	 
+	"consumer_key": "<?= $oauth_consumer_key ?>",
+	"consumer_secret": "<?= $oauth_consumer_secret ?>",
+	"token": "<?= $oauth_token ?>",
+	"token_secret": "<?= $oauth_token_secret ?>"
 }
 </script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>

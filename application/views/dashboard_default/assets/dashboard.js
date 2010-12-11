@@ -95,6 +95,7 @@ $(document).ready(function()
 
 		$(this).oauthAjax(
 		{
+			oauth 		: user_data,		
 			url			: url_new,
 			type		: 'PUT',
 			dataType	: 'json',
@@ -131,6 +132,7 @@ $(document).ready(function()
 		
 		$(this).oauthAjax(
 		{
+			oauth 		: user_data,		
 			url			: item_url,
 			type		: 'PUT',
 			dataType	: 'json',
@@ -157,6 +159,7 @@ $(document).ready(function()
 	
 		$(this).oauthAjax(
 		{
+			oauth 		: user_data,		
 			url			: item_url,
 			type		: 'DELETE',
 			dataType	: 'json',
@@ -300,8 +303,9 @@ $(document).ready(function()
 		var comment 		= isFieldValid(this_textarea, 'Write comment...', 'Please write something!');
 		if (comment == true)
 		{	
-			$.ajax(
+			$(this).oauthAjax(
 			{
+				oauth 		: user_data,			
 				url			: base_url + 'api/comments/create',
 				type		: 'POST',
 				dataType	: 'json',

@@ -40,7 +40,7 @@ $(document).ready(function()
 		{												
 			$(this).oauthAjax(
 			{
-				oauth 		: oauth_credentials,
+				oauth 		: user_data,
 				url			: url_create,
 				type		: 'POST',
 				dataType	: 'json',
@@ -169,6 +169,7 @@ $(document).ready(function()
 
 		$(this).oauthAjax(
 		{
+			oauth 		: user_data,
 			url			: comment_delete,
 			type		: 'DELETE',
 			dataType	: 'json',
