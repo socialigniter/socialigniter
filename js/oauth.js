@@ -97,6 +97,7 @@ OAuth.setProperties(OAuth, // utility functions
             return e;
         }
         s = encodeURIComponent(s);
+                
         // Now replace the values which encodeURIComponent doesn't do
         // encodeURIComponent ignores: - _ . ! ~ * ' ( )
         // OAuth dictates the only ones you can ignore are: - _ . ~
@@ -106,6 +107,8 @@ OAuth.setProperties(OAuth, // utility functions
         s = s.replace(/\'/g, "%27");
         s = s.replace(/\(/g, "%28");
         s = s.replace(/\)/g, "%29");
+        // added by bvanderveen - compatibility with jquery. see: http://bugs.jquery.com/ticket/3400
+        s = s.replace(/\%20/g, "%2B");
         return s;
     }
 ,
@@ -365,6 +368,7 @@ OAuth.setProperties(OAuth.SignatureMethod.prototype, // instance members
     /** Add a signature to the message. */
     sign: function sign(message) {
         var baseString = OAuth.SignatureMethod.getBaseString(message);
+        //console.log("base string = " + baseString);
         var signature = this.getSignature(baseString);
         OAuth.setParameter(message, "oauth_signature", signature);
         return signature; // just in case someone's interested

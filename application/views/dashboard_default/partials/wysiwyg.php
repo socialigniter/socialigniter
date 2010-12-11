@@ -1,10 +1,12 @@
 <link rel="stylesheet" href="<?= base_url() ?>css/wysiwyg.css" type="text/css" />
 
+<?php if ($wysiwyg_media): ?>
 <div id="wysiwyg_media">
 	<a href="<?= base_url() ?>ajax/images" class="media_manager"><img src="<?= $dashboard_assets ?>icons/images_24.png" border="0" /></a>
 	<a href="<?= base_url() ?>ajax/music" class="media_manager"><img src="<?= $dashboard_assets ?>icons/music_24.png" border="0" /></a>
 	<a href="<?= base_url() ?>ajax/video" class="media_manager"><img src="<?= $dashboard_assets ?>icons/video_24.png" border="0" /></a>
 </div>
+<?php endif; ?>
 
 <textarea name="<?= $wysiwyg_name ?>" id="<?= $wysiwyg_id ?>" class="<?= $wysiwyg_class ?>"><?= $wysiwyg_value ?></textarea>
 
@@ -22,7 +24,6 @@ $(function($)
 			maxWidth	: 640,
 			minWidth	: 640,
 			minHeight	: 340
-			
 		},
 		
 		controls:

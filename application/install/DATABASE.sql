@@ -461,3 +461,68 @@ CREATE TABLE `users_sessions` (
 --
 -- Dumping data for table `users_sessions`
 --
+
+
+# OAUTH TABLES TEMPORARY UNTIL MERGED INTO Social  Igniter
+CREATE TABLE IF NOT EXISTS oauth_server_registry (
+    osr_id                      int(11) not null auto_increment,
+    osr_usa_id_ref              int(11),
+    osr_consumer_key            varchar(64) binary not null,
+    osr_consumer_secret         varchar(64) binary not null,
+    osr_enabled                 tinyint(1) not null default '1',
+    osr_status                  varchar(16) not null,
+    osr_requester_name          varchar(64) not null,
+    osr_requester_email         varchar(64) not null,
+    osr_callback_uri            varchar(255) not null,
+    osr_application_uri         varchar(255) not null,
+    osr_application_title       varchar(80) not null,
+    osr_application_descr       text not null,
+    osr_application_notes       text not null,
+    osr_application_type        varchar(20) not null,
+    osr_application_commercial  tinyint(1) not null default '0',
+    osr_issue_date              datetime not null,
+    osr_timestamp               timestamp not null default current_timestamp,
+
+    primary key (osr_id),
+    unique key (osr_consumer_key),
+    key (osr_usa_id_ref)
+) engine=InnoDB default charset=utf8;
+
+#--SPLIT--
+CREATE TABLE IF NOT EXISTS oauth_server_nonce (
+    osn_id                  int(11) not null auto_increment,
+    osn_consumer_key        varchar(64) binary not null,
+    osn_token               varchar(64) binary not null,
+    osn_timestamp           bigint not null,
+    osn_nonce               varchar(80) binary not null,
+
+    primary key (osn_id),
+    unique key (osn_consumer_key, osn_token, osn_timestamp, osn_nonce)
+) engine=InnoDB default charset=utf8;
+
+#--SPLIT--
+CREATE TABLE IF NOT EXISTS oauth_server_token (
+    ost_id                  int(11) not null auto_increment,
+    ost_osr_id_ref          int(11) not null,
+    ost_usa_id_ref          int(11) not null,
+    ost_token               varchar(64) binary not null,
+    ost_token_secret        varchar(64) binary not null,
+    ost_token_type          enum('request','access'),
+    ost_authorized          tinyint(1) not null default '0',
+	ost_referrer_host       varchar(128) not null default '',
+	ost_token_ttl           datetime not null default '9999-12-31',
+    ost_timestamp           timestamp not null default current_timestamp,
+    ost_verifier            char(10),
+    ost_callback_url        varchar(512),
+
+	primary key (ost_id),
+    unique key (ost_token),
+    key (ost_osr_id_ref),
+	key (ost_token_ttl),
+
+	foreign key (ost_osr_id_ref) references oauth_server_registry (osr_id)
+        on update cascade
+        on delete cascade
+) engine=InnoDB default charset=utf8;
+
+

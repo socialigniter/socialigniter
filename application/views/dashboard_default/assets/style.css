@@ -27,8 +27,20 @@ input[type=submit]:hover, input[type=reset]:hover 	{ height: 29px; background: u
 textarea 					{ background: url(images/textarea_basic.png) 0px 0px repeat-x #ffffff; font-size: 14px; padding: 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 textarea:focus 				{ background: url(images/textarea_basic_focus.png) 0px 0px repeat-x #ffffff; }
 
+input.input_small			{ width: 100px; }
+input.input_medium			{ width: 225px; }
+input.input_large			{ width: 450px; }
+input.input_full			{ width: 640px; }
+
+textarea.textarea_small		{ width: 100px; }
+textarea.textarea_medium	{ width: 225px; }
+textarea.textarea_large		{ width: 450px; }
+textarea.textarea_full		{ width: 625px; }
+
 .clear 						{ clear: both; }
 .hide 						{ display: none; }
+.left						{ float: left; }
+.right						{ float: right; }
 .color_red 					{ color: #b54545 !important; }
 .color_black				{ color: #333333 !important; }
 .line_horiz 				{ height: 2px; background: url('images/line_horiz.png') 0 0 repeat-x;  }
@@ -102,6 +114,9 @@ div.content_line			{ width: 645px; background: url(images/content_norm_line.png)
 div.content_wrap_inner		{ margin: 0px 15px 25px 15px; }
 div.content_inner_top_right	{ width: 200px; float: right; position: relative; right: 0px; top: -20px; }
 
+div.content_col_two			{ width: 300px; float: left; margin: 0 25px 0 0; }
+
+
 /* Sidebar */
 #sidebar 					{ float: left; width: 235px; margin: 0px; padding: 0px; text-align: left; }
 #sidebar h2					{ margin: 0px 22px 15px 25px; }
@@ -123,12 +138,38 @@ a.sidebar_icon span 		{ width: 150px; display: block; position: relative; top: -
 
 span.msg_notification		{ display: block; padding: 6px; color: #f2edda; background: #b54545; font-size: 11px; font-weight: bold; float: right; position: relative; top: -38px; right: 65px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #333333; }
 
+/* Wide Stuff */
+#content_wide_content {
+	float: left; width: 675px; margin: 0px; padding: 0px;
+}
+
+#content_wide_sidebar { 
+	float: left; width: 175px; margin: 0px 0px 0px 25px; padding: 0px; text-align: left;
+}
+
+#create_stages {
+	margin: 8px 0 30px 15px;
+}
+
+div.create_stage { width: 150px; height: 35px; margin: 0 0 10px 0; }
+
+div.create_stage a { display: block; color: #555555; float:left; position: relative; top: 7px; left: 15px; }
+div.create_stage a:visited { color: #555555; }
+div.create_stage a:hover { color: #555555; }
+
+div.stage_marker { width: 25px; height: 25px; float: left; background: url(images/transparent_gradient_top_small.png) 0 0 repeat-x #ffffff; border: 1px solid #777777; color: #555555; text-shadow:1px 1px 1px #999999; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px;	text-align: center; }
+div.stage_marker span { position: relative; top: 6px; }
+
+div.stage_marker_on { background: url(images/button_basic.png) 0 0 repeat-x; display: block; color: #efefef; text-shadow:1px 1px 1px #555555; }
+
+span.stage_marker { display: block; border: 1px solid #666666; color: #efefef; text-shadow:1px 1px 1px #555555; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; }
+
+
 /* Publisher */
 #status_update_text 		{ width: 615px; height: 45px; font-size: 14px; line-height: 18px; padding: 12px; }
-
 #status_update_options		{ width: 400px; height: 70px; float: left; margin: 0; }
-
 #status_update_geo			{ width: 130px; float: left; }
+
 #status_find_location		{ width: 24px; height: 24px; display: block; margin: 0px 0px 0px 0px; background: url(icons/location_gray_24.png) 0px 0px no-repeat; position: relative; top: -6px; left: 0px; } 
 #status_find_location span	{ width: 110px; display: block; position: relative; top: 4px; left: 30px; }
 

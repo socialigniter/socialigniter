@@ -66,7 +66,7 @@ class Comments extends OAuth_Controller
 
 	/* POST types */
 	// Creates Comment
-    function create_post()
+    function create_authd_post()
     {
 		$this->form_validation->set_rules('comment', 'Comment', 'required');
 
@@ -80,7 +80,7 @@ class Comments extends OAuth_Controller
 	    			'content_id'	=> $content->content_id,		
 					'module'		=> $content->module,
 	    			'type'			=> $content->type,
-	    			'user_id'		=> $this->authenticated_user_id,
+	    			'user_id'		=> $this->oauth_user_id,
 	    			'comment'		=> $this->input->post('comment'),
 	    			'geo_lat'		=> $this->input->post('geo_lat'),
 	    			'geo_long'		=> $this->input->post('geo_long'),

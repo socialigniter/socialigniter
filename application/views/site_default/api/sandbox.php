@@ -76,7 +76,7 @@ $(document).ready(function()
 			url			: base_url + 'api/sandbox_results',
 			type		: 'POST',
 			dataType	: 'html',
-			data		: $('#sandbox_form').serialize(),
+			data		: $('#sandbox_form').serializeArray(),
 		  	success		: function(result)
 		  	{		  				  	
 				if(result.status == 'error')

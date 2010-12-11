@@ -157,8 +157,7 @@ function convert_to_slug(str)
 
 jQuery(window).ready(function(){
 	jQuery(".find_location").click(initiate_geolocation);
-})  
-
+})
 
 
 /*

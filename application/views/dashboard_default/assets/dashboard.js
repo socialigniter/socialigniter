@@ -32,6 +32,7 @@ $(document).ready(function()
 	// Placeholders 
 	doPlaceholder('#status_update_text', "What's shaking?");
 	doPlaceholder('.comment_write_text', 'Write comment...');
+	doPlaceholder('#tags', 'Blogging, Internet, Web Design');
 		
 
 	// Gets count of new items with class="get_count_new" uses id="name_count_new" to make call to AJAX controller
@@ -304,7 +305,7 @@ $(document).ready(function()
 				url			: base_url + 'api/comments/create',
 				type		: 'POST',
 				dataType	: 'json',
-				data		: $(this).serialize(),
+				data		: $(this).serializeArray(),
 			  	success		: function(json)
 			  	{		  	
 					if(json.status == 'error')
