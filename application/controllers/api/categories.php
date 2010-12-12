@@ -48,42 +48,57 @@ class Categories extends REST_Controller
 
 	/* POST types */
     function create_post()
-    {
-    	$user_id = $this->session->userdata('user_id');   
-    
-		$access = $this->social_igniter->has_access_to_create('category', $user_id);
-		
-		if ($access)
-		{
-        	$category_data = array(
-        		'parent_id'		=> $this->input->post('parent_id'),
-    			'site_id'		=> config_item('site_id'),		
-    			'permission'	=> $this->input->post('permission'),
-				'module'		=> $this->input->post('module'),
-    			'type'			=> $this->input->post('type'),
-    			'category'		=> $this->input->post('category'),
-    			'category_url'	=> $this->input->post('category_url')
-        	);
+    {    
+		$this->form_validation->set_rules('category', 'Category', 'required');
+		$this->form_validation->set_rules('category_url', 'Category URL', 'required');
+		$this->form_validation->set_rules('module', 'Module', 'required');
+		$this->form_validation->set_rules('type', 'type', 'required');
+		$this->form_validation->set_rules('category_access', 'Access', 'required');
 
-			// Insert
-		    $category = $this->categories_model->add_category($category_data);
-
-			if ($category)
+		// Validation
+		if ($this->form_validation->run() == true)
+		{    
+			$access = TRUE; //$this->social_igniter->has_access_to_create('category', $user_id);
+			
+			if ($access)
 			{
-	        	$message	= array('status' => 'success', 'data' => $category);
-	        	$response	= 200;
-	        }
-	        else
-	        {
-		        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-		        $response	= 400;		        
-	        }
+	        	$category_data = array(
+	        		'parent_id'		=> $this->input->post('parent_id'),
+	    			'site_id'		=> config_item('site_id'),		
+	    			'permission'	=> $this->input->post('permission'),
+					'module'		=> $this->input->post('module'),
+	    			'type'			=> $this->input->post('type'),
+	    			'category'		=> $this->input->post('category'),
+	    			'category_url'	=> $this->input->post('category_url')
+	        	);
+	
+				// Insert
+			    $category = $this->categories_model->add_category($category_data);
+	
+				if ($category)
+				{
+		        	$message	= array('status' => 'success', 'data' => $category);
+		        	$response	= 200;
+		        }
+		        else
+		        {
+			        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
+			        $response	= 400;		        
+		        }
+			}
+			else
+			{
+		        $message	= array('status' => 'error', 'message' => 'Oops you do not have access to add a category');
+		        $response	= 400;
+			}
 		}
-		else
-		{
-	        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-	        $response	= 400;
-		}	
+		// Not Valid
+		else 
+		{	
+	        $message	= array('status' => 'error', 'message' => validation_errors());
+	        $response	= 200;
+		}			
+				
 
         $this->response($message, $response); // 200 being the HTTP response code
     }

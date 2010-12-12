@@ -44,7 +44,7 @@ class Categories_model extends CI_Model {
 			'category_url'  => $category_data['category_url'],
 			'created_at' 	=> unix_to_mysql(now())
 		);	
-		$insert 		= $this->db->insert('status', $data);
+		$insert 		= $this->db->insert('categories', $data);
 		$category_id 	= $this->db->insert_id();
 		return $this->db->get_where('categories', array('category_id' => $category_id))->row();	
     }
