@@ -1,5 +1,7 @@
-
 <?= $status_updater ?>
+
+<div class="clear"></div>
+
 
 <ol id="feed">
 	<?= $timeline_view ?>

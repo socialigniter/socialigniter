@@ -192,19 +192,20 @@ li.item_created						{ background: #f2e3af; }
 span.item_separator			{ width: 100%; height: 2px; display: block; background: url(images/item_separator.png) 0 0 repeat-x; }
 span.item_thumbnail 		{ width: 48px; height: 48px; display: block; position: relative; top: 12px; left: 0px; margin: 0px 20px 0px 15px; overflow: hidden; float: left; }
 span.item_verb				{ color: #999999; }
-div.item_content 			{ width: 450px; display: block; line-height: 21px; margin: 0 0 10px 0; position: relative; top: 8px; left: 0px; float: left; }
-span.item_content_small 	{ width: 400px; display: block; line-height: 21px; margin: 0 0 10px 0; position: relative; top: 8px; left: 0px; float: left; }
+div.item_content 			{ width: 550px; display: block; line-height: 21px; margin: 0 0 10px 0; position: relative; top: 5px; left: 0px; float: left; }
+span.item_content_small 	{ width: 400px; display: block; line-height: 21px; margin: 0 0 10px 0; position: relative; top: 5px; left: 0px; float: left; }
+span.item_content_body		{ width: 450px; float: left; }
 img.item_content_thumb		{ width: 125px; display: block; float: left; margin: 0 15px 0 0; }
-span.item_content_detail	{ width: 350px; display: block; float: left; margin: 0 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }
+span.item_content_detail	{ width: 350px; display: block; float: left; margin: 8px 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }
 span.item_content_detail_sm	{ width: 250px; display: block; float: left; margin: 0 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }
 
-span.item_meta 				{ height: 12px; display: block; margin: 10px 0 0 0; font-size: 12px; line-height: 12px; color: #999; width: 100px; float: left; }
+span.item_meta 				{ height: 12px; display: block; margin: 5px 0 0 0; font-size: 12px; line-height: 12px; color: #999; width: 100px; float: left; }
 
 span.item_alert_new			{ display: block; padding: 6px; cursor: pointer; color: #f2edda; background: #b54545; font-size: 11px; font-weight: bold; float: right; position: relative; top: 13px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #333333; }
 a.item_alert_approve 		{ display: block; padding: 6px; color: #2078CE; background: #f2e3af; font-size: 11px; font-weight: bold; float: right; position: relative; top: 13px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #d6d6d6; }
 a.item_alert_approve:visited { color: #2078CE; background: #f2e3af; }
 
-span.item_type				{ width: 32px; height: 32px; display: block; float: right; background-image: url(images/item_type_icons.png); position: relative; right: 0px; top: 10px; margin: 0px 10px 0px 0px; }
+span.item_type				{ width: 32px; height: 32px; display: block; float: right; background-image: url(images/item_type_icons.png); position: relative; right: 0px; top: 0px; margin: 0px 0px 0px 0px; }
 span.type_comment			{ background-position: 0px -35px; }
 span.type_event				{ background-position: 0px -70px; }
 span.type_photo				{ background-position: 0px -105px; }
@@ -218,7 +219,7 @@ span.type_location			{ background-position: 0px -350px; }
 span.type_approve			{ background-position: 0px -385px; }
 span.type_file				{ background-position: 0px -420px; }
 
-ul.item_actions 			{ margin: 0; padding: 0px; position: relative; bottom: 5px; right: 18px; list-style: none; float: right; visibility: hidden; }
+ul.item_actions 			{ margin: 0; padding: 0px; position: relative; bottom: 5px; right: 5px; list-style: none; float: right; visibility: hidden; }
 ul.item_actions li			{ float: left; margin: 0px 0px 0px 20px; }
 ul.item_actions li a 		{ color: #999999; font-size: 12px; }
 ul.item_actions li a:visited{ color: #999999; font-size: 12px; }
@@ -264,9 +265,9 @@ span.item_right a:hover		{ text-decoration: underline; }
 
 /* Oscar's Temp Styles */
 /* After being finalized ill move into the categories above. */
-#feed .item .comment_form  { width:290px; margin:0 0 0 0; display:none; }
-#feed .item textarea{ width:278px; font-size:12px; font-family:inherit; padding:5px; }
-#feed .item [type=submit] { float:right; margin:0 0 10px 0; height:25px; font-size:12px; border-radius:7px; }
+#feed .item .comment_form  { width:335px; margin:0 0 0 0; display:none; }
+#feed .item textarea { width:278px; font-size:12px; font-family:inherit; padding:5px; margin: 0 0 5px 0; float: left;  }
+#feed .item [type=submit] { float:right; margin: 4px 0 10px 0; height:25px; font-size:12px; border-radius:7px; }
 
 .modal_wrap {padding:17px;}
 	#new_category {width:410px;height:280px}
@@ -276,12 +277,15 @@ span.item_right a:hover		{ text-decoration: underline; }
 		#new_category > input[type=text] {width:375px;}
 		#new_category > input[type=submit] {float:right;}
 		.slug_url {font-style:italic;height:22px;line-height:22px;}
-			.slug_url span {border-bottom:1px dashed #aaa;}
-			.slug_url span:hover {border-bottom:1px dashed #dddd00;cursor:pointer;background:#ffff00}
-		.slug_url_edit {width:100px;height:15px !important;padding:3px !important;}
+		.slug_url span {border-bottom:1px dashed #aaa;}
+		.slug_url span:hover {border-bottom:1px dashed #dddd00;cursor:pointer;background:#ffff00}
+		.slug_url_edit {width:100px;height:15px !important;padding:3px !important; }
 		
-.comment_list { border-radius:5px; background: #e2e2e2; margin: 0px 0 15px 0; }
-	.comment_list li:first-child {border-top:none;}
-	.comment_list li { padding:5px 10px 10px 15px; margin:0 0 0 0; display:block;float:none !important; border-top:1px solid #ccc; }
-			.comment_list li .comment p{ margin:10px 0 0 0; font-size:12px; line-height:16px; }
-		.comment_list li .comment_meta { margin:0;font-size:11px;color:#666; }
+.comment_list { width: 450px; border-radius:5px; background: #e2e2e2; margin: 0 0 10px 0; display: none; }
+	.comment_list li:first-child { border-top:none; padding: 10px 10px 5px 15px; }
+	.comment_list li { padding: 0 10px 5px 15px; margin: 0; display:block;float:none !important; }
+	.comment_list li div.comment { border-bottom:1px solid #ccc; margin: 5px 0 0 0; }
+	.comment_list li div.comment p { margin: 0; color: #555555; text-shadow: #eeeeee; font-size:12px; line-height:16px; }
+	.comment_list li p.comment_meta span { margin: 10px 0 0 0; font-size:11px; color:#999999; }
+	.comment_list li img.comment_thumb { width: 34px; display: block; float: left; margin: 0px 10px 10px 0; }
+	.comment_list #comment_write { margin: 5px 0 0 0; }

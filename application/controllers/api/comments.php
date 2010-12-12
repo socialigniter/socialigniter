@@ -24,16 +24,6 @@ class Comments extends OAuth_Controller
         }
     }
 
-	function oauthtest_authd_get()
-	{
-		$this->response(array('message' => 'You are such a fucking a brainiac.'), 200);
-	}
-	
-	function oauthechotest_authd_post()
-	{
-		$message = $this->input->post('message');
-		$this->response(array('message' => $message), 200);
-	}
 
 	// Comments for a piece of content
 	function content_get()
@@ -58,9 +48,16 @@ class Comments extends OAuth_Controller
     }
     
     // New Comments for a user
-	function new_get()
+	function new_authd_get()
 	{
-         $this->response($this->social_tools->get_comments_new_count(), 200);	
+		if ($new_comments = $this->social_tools->get_comments_new_count())
+		{
+         	$this->response(array('status' => 'success', 'message' => $new_comments), 200);	
+		}
+		else
+		{
+         	$this->response(array('status' => 'error', 'message' => 0), 200);			
+		}
 	}
 	
 

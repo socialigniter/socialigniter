@@ -521,7 +521,7 @@ class Social_igniter
 				
 			    // Activity
 				$activity_data = array(
-					'site_id'		=> config_item('site_id'),
+					'site_id'		=> $site_id,
 					'user_id'		=> $content_data['user_id'],
 					'verb'			=> $verb,
 					'module'		=> $content_data['module'],

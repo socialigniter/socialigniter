@@ -50,13 +50,14 @@ $(document).ready(function()
 		// If isn't empty		
 		if (status_update_valid == true)
 		{				
-			$.ajax(
+			$(this).oauthAjax(
 			{
-				url: base_url + 'status/add',
-				type: 'POST',
-				dataType: 'html',
-				data: $('#status_update').serialize(),
-			  	success: function(html)
+				oauth 		: user_data,
+				url			: base_url + 'status/add',
+				type		: 'POST',
+				dataType	: 'html',
+				data		: $('#status_update').serialize(),
+			  	success		: function(html)
 			  	{			  	
 					if(html == 'error')
 					{
@@ -191,6 +192,7 @@ $(document).ready(function()
 			return false;
 		}
 	}
+	
 	function geo_success(position)
 	{
 		//On success, if we have localStorage (IE8,Opera,FF,WebKit,iPhone,etc)
@@ -211,17 +213,19 @@ $(document).ready(function()
 	}
 	//Initial get, use it elsewhere to update location
 	geo_get();
-	
 	/* End Geolocation stuff */
+	
+	
 	
 	/* Start the comment functionality */
 	//Cache common selectors.
-	$comment_form = $('.comment_form');
 	$comment_list = $('#comment_list');
+	$comment_form = $('.comment_form');
 	
 	//When the item comment link is clicked
 	$('.item_comment').live('click', function(eve)
 	{
+		$(this).parent().parent().parent().find('.comment_list').show();
 		//Hide the other comment forms that are visible.
 		$comment_form.hide();
 		//Get "this" link, go up and find the hidden comment_form and show it.
@@ -249,12 +253,14 @@ $(document).ready(function()
 		//if($comment_list.children().length < 1){
 			$.get('api/comments/content/id/'+content_id,function(json){
 				for(x in json){
-					$comment_list.append('\
+					$comment_list.prepend('\
 						<li id="comment_'+json[x].comment_id+'">\
 							<div class="comment">\
-								<p><span class="comment_author"><a href="#link-to-userprofile">'+json[x].name+'</a></span> '+json[x].comment+'</p>\
+								<a href="' + base_url + 'profiles/' + json[x].username + '"><img class="comment_thumb" src="'+ base_url + 'media/profiles/' + json[x].user_id + '/normal_' + json[x].image+'"></a>\
+								<p><span class="comment_author"><a href="' + base_url + 'profiles/' + json[x].username + '">'+json[x].name+'</a></span> '+json[x].comment+'</p>\
+								<p class="comment_meta"><span class="comment_date">'+json[x].created_at+'</span></p>\
+								<div class="clear"></div>\
 							</div>\
-							<p class="comment_meta"><span class="comment_date">'+json[x].created_at+'</span></p>\
 						</li>\
 					');
 				}

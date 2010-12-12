@@ -15,6 +15,9 @@ class Categories extends REST_Controller
         
         if($categories)
         {
+        	
+        
+        
             $this->response($categories, 200);
         }
 

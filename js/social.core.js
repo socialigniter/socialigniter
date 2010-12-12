@@ -59,7 +59,8 @@ function getCountNew(element)
 	var request 		= $(element).attr('id');
 	var current_class	= $(element).attr('class');
 	var type			= $(element).attr('rel');
-			
+
+/*			
 	$.get(base_url + 'api/' + type + '/new', function(html)
 	{
 		if(parseFloat(html))
@@ -67,6 +68,23 @@ function getCountNew(element)
 			$('#' + request).html(html).addClass(current_class + ' msg_notification');
 		}
 	});
+*/
+	
+	$(this).oauthAjax(
+	{
+		oauth 		: user_data,		
+		url			: base_url + 'api/' + type + '/new',
+		type		: 'GET',
+		dataType	: 'json',
+	  	success		: function(result)
+	  	{	  	
+			if(result.status == 'success')
+			{	// Adds msg_notifation class to feed_count_new
+				$('#' + request).html(result.message).addClass(current_class + ' msg_notification');
+			}		  	
+	  	}		
+	});	
+	
 }
 
 // Marks Item In Feed New
