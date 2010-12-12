@@ -21,8 +21,8 @@ table td 	{ padding: 10px 10px 5px 0px; text-align: left; vertical-align: top; }
 input[type=text], input[type=password], input[type=email], input[type=url] { height: 28px; background: url(images/input_basic.png) 0px 0px repeat-x #fff; font-size: 13px; padding: 0px 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=url]:focus { height: 28px; background: url(images/input_basic_focus.png) 0px 0px repeat-x #fff; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 
-input[type=submit], input[type=reset] 				{ height: 29px; background: url(images/button_basic.png) 0px 0px repeat-x; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0px 12px; }
-input[type=submit]:hover, input[type=reset]:hover 	{ height: 29px; background: url(images/button_basic_hover.png) 0px 0px repeat-x; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0px 12px; }
+input[type=submit], input[type=reset], button[type=button] { height: 29px; background: url(images/button_basic.png) 0px 0px repeat-x; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0px 12px; }
+input[type=submit]:hover, input[type=reset]:hover, button[type=button]:hover { height: 29px; background: url(images/button_basic_hover.png) 0px 0px repeat-x; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0px 12px; }
 
 textarea 					{ background: url(images/textarea_basic.png) 0px 0px repeat-x #ffffff; font-size: 14px; padding: 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 textarea:focus 				{ background: url(images/textarea_basic_focus.png) 0px 0px repeat-x #ffffff; }
@@ -30,7 +30,7 @@ textarea:focus 				{ background: url(images/textarea_basic_focus.png) 0px 0px re
 input.input_small			{ width: 100px; }
 input.input_medium			{ width: 225px; }
 input.input_large			{ width: 450px; }
-input.input_full			{ width: 640px; }
+input.input_full			{ width: 625px; }
 
 textarea.textarea_small		{ width: 100px; }
 textarea.textarea_medium	{ width: 225px; }
@@ -77,20 +77,19 @@ a.button_basic_link span	{ position: relative; top: 6px; left: 0px; }
 /* Content */
 #content 					{ width: 700px; min-height: 350px; float: left; margin: 0px 15px 0px 0px; padding: 0px; text-align: left; }
 #content_wide 				{ width: 950px; min-height: 350px; float: left; margin: 0px 15px 0px 0px; padding: 0px; text-align: left; }
+
 #content_message			{ width: 615px; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; font-size: 14px; }
 
 div.message_normal			{ padding: 0; }
 div.message_error			{ padding: 12px 15px; background: #b54545; color: #f2edda; text-shadow:1px 1px 1px #333333; }
 div.message_alert			{ padding: 12px 15px; background: #f2e3af; color: #2078CE; text-shadow:1px 1px 1px #d6d6d6; }
 
-div.content h2 				{ margin: 0px 0px 0px 30px; }
-div.content h3 				{ margin: 20px 0px 15px 0px; }
 div.content table 			{ margin: 20px 0px 15px 0px; }
 div.content p 				{ margin: 20px 0px 15px 0px; line-height: 21px; }
 div.content ul 				{ list-style-type: none; text-align: left; margin: 10px 0px 2px 0px; padding: 0px; }
 div.content li 				{ text-align: left; }
 
-h2.content_title			{ float: left; clear: right;  position: relative; top: -6px; left: 5px; }
+h2.content_title			{ float: left; clear: right;  position: relative; top: -6px; left: 30px; }
 h2.content_title img		{ position: relative; top: 5px; left: -5px; }
 ul.content_navigation		{ float: right; height: 29px; position: relative; top: 0px; right: 10px; }
 ul.content_navigation li 	{ float: left; margin: 0px 20px 0px 0px; }
@@ -106,6 +105,7 @@ div.wide_bot 				{ width: 950px; height: 12px; background: url('images/content_w
 div.wide_separator			{ width: 927px; height: 18px; margin: 6px auto 12px auto; background: url(images/content_wide_separator.png) 0 0 no-repeat; }
 
 div.content_wrap 			{ margin: 15px 25px 15px 25px; }
+div.content_wrap h3 		{ margin: 20px 0px 15px 0px; }
 div.content_wrap a 			{ color: #2078ce; text-decoration: none; }
 div.content_wrap a:visited	{ color: #2078ce; text-decoration: underline; }
 div.content_wrap a:hover	{ color: #2078ce; text-decoration: underline; }
@@ -114,12 +114,11 @@ div.content_line			{ width: 645px; background: url(images/content_norm_line.png)
 div.content_wrap_inner		{ margin: 0px 15px 25px 15px; }
 div.content_inner_top_right	{ width: 200px; float: right; position: relative; right: 0px; top: -20px; }
 
-div.content_col_two			{ width: 300px; float: left; margin: 0 25px 0 0; }
+div.content_col_two			{ width: 300px; float: left; margin: 0 25px 0 0; padding: 0; }
 
 
 /* Sidebar */
 #sidebar 					{ float: left; width: 235px; margin: 0px; padding: 0px; text-align: left; }
-#sidebar h2					{ margin: 0px 22px 15px 25px; }
 #sidebar ul 				{ list-style-type: none; text-align: left; margin: 0px 0px 20px 25px; }
 #sidebar li 				{ text-align: left; margin: 0px 10px 0px 0px; }
 #sidebar p 					{ margin: 0px 0px 12px 25px; }
@@ -139,28 +138,22 @@ a.sidebar_icon span 		{ width: 150px; display: block; position: relative; top: -
 span.msg_notification		{ display: block; padding: 6px; color: #f2edda; background: #b54545; font-size: 11px; font-weight: bold; float: right; position: relative; top: -38px; right: 65px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #333333; }
 
 /* Wide Stuff */
-#content_wide_content {
-	float: left; width: 675px; margin: 0px; padding: 0px;
-}
+#content_wide_content { float: left; width: 675px; margin: 0px; padding: 0px; }
+#content_wide_content h3 { margin: 0px 0 15px 0; }
 
-#content_wide_sidebar { 
-	float: left; width: 175px; margin: 0px 0px 0px 25px; padding: 0px; text-align: left;
-}
+#content_wide_sidebar { float: left; width: 175px; margin: -15px 0px 0px 25px; padding: 0px; text-align: left; }
 
-#create_stages {
-	margin: 8px 0 30px 15px;
-}
-
+#create_stages { margin: 8px 0 30px 15px; }
 div.create_stage { width: 150px; height: 35px; margin: 0 0 10px 0; }
 
-div.create_stage a { display: block; color: #555555; float:left; position: relative; top: 7px; left: 15px; }
+div.create_stage a { display: block; color: #555555; float:left; position: relative; top: 6px; left: 15px; }
 div.create_stage a:visited { color: #555555; }
 div.create_stage a:hover { color: #555555; }
 
-div.stage_marker { width: 25px; height: 25px; float: left; background: url(images/transparent_gradient_top_small.png) 0 0 repeat-x #ffffff; border: 1px solid #777777; color: #555555; text-shadow:1px 1px 1px #999999; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px;	text-align: center; }
+div.stage_marker { width: 25px; height: 25px; float: left; color: #555555; text-shadow:1px 1px 1px #fff; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; text-align: center; }
 div.stage_marker span { position: relative; top: 6px; }
 
-div.stage_marker_on { background: url(images/button_basic.png) 0 0 repeat-x; display: block; color: #efefef; text-shadow:1px 1px 1px #555555; }
+div.stage_marker_on { background: url(images/button_basic.png) 0 0 repeat-x; border: 1px solid #666666; display: block; color: #efefef; text-shadow:1px 1px 1px #555555; }
 
 span.stage_marker { display: block; border: 1px solid #666666; color: #efefef; text-shadow:1px 1px 1px #555555; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; }
 

@@ -10,8 +10,13 @@ class Home extends Dashboard_Controller
  	{	
 		if ($this->uri->total_segments() == 1)
 		{
-	 	    $this->data['page_title'] 		= 'Home';	
- 	    	$this->data['message']		 	= random_element($this->config->item('home_greeting'));
+	 	    $this->data['page_title'] 		= 'Home';
+ 	    	
+ 	    	if (!$this->session->userdata('home_greeting'))
+ 	    	{
+ 	    		$this->data['message']		 = random_element($this->config->item('home_greeting'));
+				$this->session->set_userdata('home_greeting', TRUE);
+			}
 
 	 	    // Social
 			$this->data['social_post']		= $this->social_igniter->get_social_post($this->session->userdata('user_id'));
