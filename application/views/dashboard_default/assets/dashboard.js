@@ -443,6 +443,9 @@ $(document).ready(function()
 	
 	update_category_select('[name=category_id]');
 	
+	
+	var select_starting_contents = $('.content [name=category_id]').html();
+	
 	$('[name=category_id]').change(function()
 	{	
 		if($(this).val() == 'add_category')
@@ -456,30 +459,33 @@ $(document).ready(function()
 					<h2>Add Category</h2>\
 					<form id="new_category">\
 						<label for="category_name">Name</label>\
-						<input id="category_name" type="text" value="">\
+						<input id="category_name" type="text" value="" name="category">\
 						<p class="slug_url">'+base_url+current_module+'/<span></span></p>\
-						<!--<label for="category_slug">Slug</label>\
-						<input id="category_slug" type="text" value="">-->\
 						<label for="category_parent">Parent Category</label>\
-						<select id="category_parent">\
-							<option>--None--</option>\
+						<select name="parent_id" id="category_parent">\
+							<option value="0">--None--</option>\
 						</select>\
 						<label for="category_access">Access</label>\
-						<select id="category_access">\
+						<select name="access" id="category_access">\
 							'+$('[name=access]').html()+'\
 						</select>\
+						<input type="hidden" name="site_id" value="1">\
+						<input type="hidden" name="module" value="blog">\
+						<input type="hidden" name="type" value="article">\
+						<input type="hidden" name="category_url" value="">\
 						<br>\
 						<input type="submit">\
 					</form>\
 				</div>',
 				onComplete:function(e)
 				{
-					update_category_select('.modal_wrap select');
+					update_category_select('.modal_wrap select:first');
 					$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
 					function update_slug()
 					{
 						slug_val = convert_to_slug($('#category_name').val());
 						//Set the new value
+						$('[name=category_url]').val(slug_val);
 						$('.slug_url span').text(slug_val).live('click',function()
 						{
 							$(this).replaceWith('<input class="slug_url_edit" type="text" value="'+$(this).text()+'">');
@@ -501,8 +507,10 @@ $(document).ready(function()
 							$('#category_slug').val('');
 						}
 					});
-					$('#new_category').live('submit',function()
+					$('#new_category').bind('submit',function(e)
 					{
+						e.preventDefault();
+						e.stopPropagation();
 						$.ajax(
 						{
 							url		: base_url + 'api/categories/create',
@@ -517,8 +525,10 @@ $(document).ready(function()
 								}
 								else
 								{
-									console.log('went through');
-									console.log(json);
+									$('.content [name=category_id]').empty();
+									update_category_select('[name=category_id]');
+									$('.content [name=category_id]').prepend(select_starting_contents);
+									$.fancybox.close();
 								}	
 							}
 						});
