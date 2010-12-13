@@ -65,7 +65,7 @@ class Categories extends REST_Controller
 	        	$category_data = array(
 	        		'parent_id'		=> $this->input->post('parent_id'),
 	    			'site_id'		=> config_item('site_id'),		
-	    			'permission'	=> $this->input->post('permission'),
+	    			'permission'	=> $this->input->post('access'),
 					'module'		=> $this->input->post('module'),
 	    			'type'			=> $this->input->post('type'),
 	    			'category'		=> $this->input->post('category'),
