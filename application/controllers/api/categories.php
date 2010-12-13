@@ -53,7 +53,7 @@ class Categories extends REST_Controller
 		$this->form_validation->set_rules('category_url', 'Category URL', 'required');
 		$this->form_validation->set_rules('module', 'Module', 'required');
 		$this->form_validation->set_rules('type', 'type', 'required');
-		$this->form_validation->set_rules('category_access', 'Access', 'required');
+		$this->form_validation->set_rules('access', 'Access', 'required');
 
 		// Validation
 		if ($this->form_validation->run() == true)
