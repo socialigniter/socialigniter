@@ -21,7 +21,7 @@ div.checker span,
 div.radio span, 
 div.uploader, 
 div.uploader span.action {
-  background-image: url(/images/shared/form_elements_sprite.png);
+  background-image: url(../images/shared/form_elements_sprite.png);
   background-repeat: no-repeat;
 }
 
