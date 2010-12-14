@@ -2,7 +2,7 @@
 
 require_once(APPPATH.'libraries/OAuth/OAuthRequestVerifier.php');
 
-class OAuth
+class Oauth
 {
     private $ci;
     

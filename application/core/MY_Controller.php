@@ -62,10 +62,10 @@ class MY_Controller extends MX_Controller
 			
             $this->config->set_item($setting->module.'_'.$setting->setting, $setting->value);
 		
-			if (($setting->setting == 'social_login') && ($setting->value == 'TRUE')) $this->social_logins[] = $setting->module;
-			if (($setting->setting == 'social_connection') && ($setting->value == 'TRUE')) $this->social_connections[] = $setting->module;
-			if (($setting->setting == 'social_post') && ($setting->value == 'TRUE')) $this->social_post[] = $setting->module;
-			if (($setting->setting == 'social_checkin') && ($setting->value == 'TRUE')) $this->social_checkin[] = $setting->module;
+			if (($setting->setting == 'social_login') 		&& ($setting->value == 'TRUE')) $this->social_logins[] 		= $setting->module;
+			if (($setting->setting == 'social_connection')	&& ($setting->value == 'TRUE')) $this->social_connections[] = $setting->module;
+			if (($setting->setting == 'social_post') 		&& ($setting->value == 'TRUE')) $this->social_post[] 		= $setting->module;
+			if (($setting->setting == 'social_checkin') 	&& ($setting->value == 'TRUE')) $this->social_checkin[] 	= $setting->module;
 		}
 		
 		// Set Social Config Arrays
