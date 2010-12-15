@@ -308,6 +308,25 @@ class Social_igniter
 		return $layouts;
 	}
 	
+	function scan_media_manager()
+	{
+		$modules 		= $this->scan_modules();
+		$media_manager	= NULL;
+		
+		foreach ($modules as $module)
+		{
+			$manager_path = '/modules/'.$module.'/views/partials/media_manager.php';
+		
+		    if (file_exists(APPPATH.$manager_path))
+		    {
+		    	$media_manager .= $this->ci->load->view('..'.$manager_path, '', true);
+		    }
+		}
+	
+		return $media_manager;
+	}
+	
+	
 	/* Site */
 	function get_site()
 	{

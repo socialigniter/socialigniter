@@ -2,9 +2,7 @@
 
 <?php if ($wysiwyg_media): ?>
 <div id="wysiwyg_media">
-	<a href="<?= base_url() ?>ajax/images" class="media_manager"><img src="<?= $dashboard_assets ?>icons/images_24.png" border="0" /></a>
-	<a href="<?= base_url() ?>ajax/music" class="media_manager"><img src="<?= $dashboard_assets ?>icons/music_24.png" border="0" /></a>
-	<a href="<?= base_url() ?>ajax/video" class="media_manager"><img src="<?= $dashboard_assets ?>icons/video_24.png" border="0" /></a>
+	<?= $this->social_igniter->scan_media_manager(); ?>
 </div>
 <?php endif; ?>
 
