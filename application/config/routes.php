@@ -81,6 +81,9 @@ $route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home'] 									= 'home';
 
+$route['manager/(:any)']						= '$1/manager';
+$route['manager']								= 'manager';
+
 $route['profile/:any/image'] 					= 'profile/image';
 $route['profile/:any'] 							= 'profile/index';
 

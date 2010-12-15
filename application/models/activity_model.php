@@ -50,8 +50,19 @@ class Activity_model extends CI_Model {
  		return $result; 
     }
     
-    function add_activity($activity_data, $content_data)
+    function add_activity($activity_data)
     {
+    	$content_data = NULL;
+    
+    	if ($activity_info['content_id'])
+    	{
+	    	$content_data = array(
+				'title'			=> $activity_data['title'],
+				'url'			=> base_url().$activity_data['module'].'/view/'.$activity_data['content_id'],
+				'description' 	=> character_limiter(strip_tags($activity_data['content'], ''), config_item('home_description_length'))
+	    	);
+		}
+    
  		$data = array(
 			'site_id' 	 			=> $activity_info['site_id'],
 			'user_id' 	 			=> $activity_info['user_id'],

@@ -418,9 +418,9 @@ class Social_igniter
 		return $this->ci->activity_model->get_activity($activity_id);
 	}
 	
-	function add_activity($activity_data, $content_data)
+	function add_activity($activity_data)
 	{
-		if ($activity_id = $this->ci->activity_model->add_activity($activity_data, $content_data))
+		if ($activity_id = $this->ci->activity_model->add_activity($activity_data))
 		{
 			return $this->ci->activity_model->get_activity($activity_id);
 		}
@@ -502,7 +502,7 @@ class Social_igniter
 	}
 	
 	// Adds Content & Activity
-	function add_content($content_data, $verb, $tags=NULL, $site_id=NULL)
+	function add_content($content_data, $site_id=NULL)
 	{
 		$check_content = $this->check_content_duplicate($content_data['user_id'], $content_data['title'], $content_data['content']);
 	
@@ -513,37 +513,11 @@ class Social_igniter
 			$content = $this->ci->content_model->add_content($site_id, $content_data);
 		
 			if ($content)
-			{	
-				if ($tags)
-				{
-					$this->ci->social_tools->process_tags($tags, $content->content_id);
-				}
-				
-			    // Activity
-				$activity_data = array(
-					'site_id'		=> $site_id,
-					'user_id'		=> $content_data['user_id'],
-					'verb'			=> $verb,
-					'module'		=> $content_data['module'],
-					'type'			=> $content_data['type'],				
-					'content_id'	=> $content->content_id,
-				);
-				
-				$content_data = array(
-					'title'			=> $content_data['title'],
-					'url'			=> base_url().$content_data['module'].'/view/'.$content->content_id,
-					'description' 	=> character_limiter(strip_tags($content_data['content'], ''), config_item('home_description_length'))
-				);
-			
-				if ($activity = $this->add_activity($activity_data, $content_data))
-				{
-					return $activity;
-				}
-				
-				return array('status' => 'success', 'message' => 'Content was successfully added, but could not add activity.');
+			{
+				return $this->get_content($content->content_id);
 			}
 			
-			return array('status' => 'error', 'message' => 'Could not add content');		
+			return FALSE;		
 		}
 		else
 		{

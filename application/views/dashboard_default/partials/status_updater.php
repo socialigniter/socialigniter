@@ -5,10 +5,9 @@
 		<?php if ($geo_locate): ?>
 		<div id="status_update_geo">
 			<a href="#" class="find_location" id="status_find_location"><span>Get Location</span></a>
-			<?= $social_checkin ?>
 		</div>
 		<?php endif; ?>
-		<?= $social_post ?>
+		<?= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>'); ?>
 		<div class="clear"></div>
 	</div>
 

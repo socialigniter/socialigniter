@@ -32,7 +32,7 @@ class Comments extends OAuth_Controller
     	// If No ID return error
         if(!$this->get('id'))
         {
-        	$this->response('yaaaay', 200);
+            $this->response(array('status' => 'error', 'message' => 'Specify a content_id'), 200);
         }
 
         $comments = $this->social_tools->get_comments_content($this->get('id'));

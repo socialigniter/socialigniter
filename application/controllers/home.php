@@ -17,10 +17,6 @@ class Home extends Dashboard_Controller
  	    		$this->data['message']		 = random_element($this->config->item('home_greeting'));
 				$this->session->set_userdata('home_greeting', TRUE);
 			}
-
-	 	    // Social
-			$this->data['social_post']		= $this->social_igniter->get_social_post($this->session->userdata('user_id'));
-			$this->data['social_checkin']	= $this->social_igniter->get_social_checkin($this->session->userdata('user_id'));
 			
 			// Geo
 			$this->data['geo_locate']		= $this->session->userdata('geo_enabled');
