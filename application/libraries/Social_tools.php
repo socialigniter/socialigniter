@@ -84,9 +84,9 @@ class Social_tools
 		return $this->ci->categories_model->get_categories($this->site_id);
 	}
 
-	function get_categories_type($parameter, $value)
+	function get_categories_view($parameter, $value)
 	{
-		return $this->ci->categories_model->get_categories_by($parameter, $value);
+		return $this->ci->categories_model->get_categories_view($parameter, $value);
 	}
 
 	function add_category($category_data)

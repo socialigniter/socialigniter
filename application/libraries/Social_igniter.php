@@ -521,7 +521,7 @@ class Social_igniter
 	}
 	
 	// Adds Content & Activity
-	function add_content($content_data, $site_id=NULL)
+	function add_content($content_data, $tags=NULL, $site_id=NULL)
 	{
 		$check_content = $this->check_content_duplicate($content_data['user_id'], $content_data['title'], $content_data['content']);
 	
@@ -529,11 +529,29 @@ class Social_igniter
 		{
 			if (!$site_id) $site_id = config_item('site_id');
 		
-			$content = $this->ci->content_model->add_content($site_id, $content_data);
+			$content_id = $this->ci->content_model->add_content($content_data, $site_id);
 		
-			if ($content)
+			if ($content_id)
 			{
-				return $this->get_content($content->content_id);
+				// Add Tags if exist
+				if ($tags) $this->ci->social_tools->process_tags($tags, $content_id);	
+			
+				$activity_data = array(
+					'site_id'		=> $site_id,
+					'user_id'		=> $content_data['user_id'],
+					'verb'			=> 'post',
+					'module'		=> $content_data['module'],
+					'type'			=> $content_data['type'],				
+					'content_id'	=> $content_id,
+					'title'			=> $content_data['title'],
+					'url'			=> base_url().$content_data['module'].'/view/'.$content_id,
+					'description' 	=> strip_tags($content_data['content'], '')
+				);
+			
+				// Add Activity
+				$this->add_activity($activity_data);			
+			
+				return $this->get_content($content_id);
 			}
 			
 			return FALSE;		

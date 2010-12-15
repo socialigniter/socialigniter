@@ -54,22 +54,23 @@ class Activity_model extends CI_Model {
     {
     	$content_data = NULL;
     
-    	if ($activity_info['content_id'])
+    	if ($activity_data['content_id'])
     	{
 	    	$content_data = array(
 				'title'			=> $activity_data['title'],
 				'url'			=> base_url().$activity_data['module'].'/view/'.$activity_data['content_id'],
-				'description' 	=> character_limiter(strip_tags($activity_data['content'], ''), config_item('home_description_length'))
+				'description' 	=> character_limiter($activity_data['description'], config_item('home_description_length'))
 	    	);
 		}
+		// Make Other Conditions for Other Types Of 'data' like (friends add, joined group, etc...)
     
  		$data = array(
-			'site_id' 	 			=> $activity_info['site_id'],
-			'user_id' 	 			=> $activity_info['user_id'],
-			'verb'					=> $activity_info['verb'],
-			'module'				=> $activity_info['module'],
-			'type'					=> $activity_info['type'],
-			'content_id' 	 		=> $activity_info['content_id'],
+			'site_id' 	 			=> $activity_data['site_id'],
+			'user_id' 	 			=> $activity_data['user_id'],
+			'verb'					=> $activity_data['verb'],
+			'module'				=> $activity_data['module'],
+			'type'					=> $activity_data['type'],
+			'content_id' 	 		=> $activity_data['content_id'],
 			'data'  	 			=> json_encode($content_data),
 			'created_at' 			=> unix_to_mysql(now())
 		);

@@ -29,11 +29,11 @@ class Categories extends REST_Controller
 
 
     /* GET types */
-    function search_get()
+    function view_get()
     {
     	$search_by	= $this->uri->segment(4);
     	$search_for	= $this->uri->segment(5);
-    	$categories = $this->categories_model->get_categories_by($search_by, $search_for);
+    	$categories = $this->categories_model->get_categories_view($search_by, $search_for);
     	
         if($categories)
         {

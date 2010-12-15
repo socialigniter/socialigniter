@@ -64,6 +64,24 @@ class Content_model extends CI_Model {
  		$result = $this->db->get();	
  		return $result->result();
     }
+    
+    function get_content_view($parameter, $value)
+    {
+    	if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id')))
+    	{
+	 		$this->db->select('*');
+	 		$this->db->from('categories'); 
+	 		$this->db->where($parameter, $value);
+	 		$this->db->order_by('created_at', 'desc'); 
+	 		$result = $this->db->get();	
+	 		return $result->result();	      
+		}
+		else
+		{
+			return FALSE;
+		}
+    }
+    
 
     function get_content_user($content_id)
     {
@@ -77,35 +95,22 @@ class Content_model extends CI_Model {
  		return $result;      
     }
     
-    function add_content($site_id, $content_data)
+    function add_content($content_data, $site_id)
     {
- 		$data = array(
+ 		$content_data = array(
 			'site_id' 	 		=> $site_id,
-			'parent_id'			=> $content_data['parent_id'],
-			'category_id'		=> $content_data['category_id'],
-			'module'			=> $content_data['module'],
-			'type'				=> $content_data['type'],
-			'source'			=> $content_data['source'],
-			'order'				=> $content_data['order'],
-			'user_id'			=> $content_data['user_id'],
-			'title'  	 		=> $content_data['title'],
-			'title_url'  	 	=> $content_data['title_url'],
-			'content'			=> $content_data['content'],
-			'details'			=> $content_data['details'],
-			'access'			=> $content_data['access'],
-			'comments_allow'	=> $content_data['comments_allow'],
 			'comments_count'  	=> 0,
-			'geo_lat'			=> $content_data['geo_lat'],
-			'geo_long'			=> $content_data['geo_long'],
-			'geo_accuracy'		=> $content_data['geo_accuracy'],
-			'status'			=> $content_data['status'],
 			'created_at' 		=> unix_to_mysql(now()),
 			'updated_at' 		=> '0000-00-00 00:00:00'
 		);
 		
-		$insert 	= $this->db->insert('content', $data);
-		$content_id = $this->db->insert_id();
-		return $this->db->get_where('content', array('content_id' => $content_id))->row();	
+		$insert = $this->db->insert('content', $content_data);
+		if ($content_id = $this->db->insert_id())
+		{
+			return $content_id;	
+    	}
+    	
+    	return FALSE;
     }
 
     function update_content($content_id, $content_data)

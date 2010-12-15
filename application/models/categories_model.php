@@ -15,9 +15,9 @@ class Categories_model extends CI_Model {
  		return $result->result();	      
     }
 
-    function get_categories_by($parameter, $value)
+    function get_categories_view($parameter, $value)
     {
-    	if (in_array($parameter, array('site_id', 'module', 'type', 'category_url')))
+    	if (in_array($parameter, array('parent_id','site_id','module','type','category_url')))
     	{
 	 		$this->db->select('*');
 	 		$this->db->from('categories'); 
