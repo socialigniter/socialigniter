@@ -217,7 +217,7 @@ ul.item_actions li			{ float: left; margin: 0px 0px 0px 20px; }
 ul.item_actions li a 		{ color: #999999; font-size: 12px; }
 ul.item_actions li a:visited{ color: #999999; font-size: 12px; }
 ul.item_actions li a:hover 	{ color: #2078ce; font-size: 12px; }
-span.item_actions			{ width: 25px; height: 18px; display: block; float: left; background-image: url(images/item_actions_icons.png); position: relative; left: 0px; top: 2px; }
+span.actions			{ width: 25px; height: 18px; display: block; float: left; background-image: url(images/item_actions_icons.png); position: relative; left: 0px; top: 2px; }
 span.action_reply	 		{ background-position: 0px 0px; }
 span.action_delete 			{ background-position: -25px 0px; }
 span.action_share 			{ background-position: -50px 0px; margin: 0px 6px 0px 0px; }
@@ -226,6 +226,9 @@ span.action_comment 		{ background-position: -100px 0px; }
 span.action_get_location	{ background-position: -125px 0px; }
 span.action_link			{ background-position: -150px 0px; }
 span.action_approve			{ background-position: -175px 0px; }
+
+span.action_see		{ background-position: -225px 0px; }
+span.action_edit		{ background-position: -200px 0px; }
 
 /* Feed Specific */
 span.item_comment_left		{ width: 24px; height: 32px; display: block; float: left; background: url(images/item_type_icons.png) 0px -455px; position: relative; left: 0px; top: 4px; }

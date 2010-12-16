@@ -12,12 +12,12 @@
 	<?= $item_alerts ?>	
 	<div class="clear"></div>
 	<ul class="item_actions" rel="<?= $feed_type ?>">
-		<li><a href="<?= $item_view ?>"><span class="item_actions action_link"></span> View</a></li>
-		<li><a href="<?= $item_reply ?>"><span class="item_actions action_reply"></span> Reply</a></li>
+		<li><a href="<?= $item_view ?>"><span class="actions action_link"></span> View</a></li>
+		<li><a href="<?= $item_reply ?>"><span class="actions action_reply"></span> Reply</a></li>
 		<?php if ($item_approval == 'A'): ?>
-		<li><a class="item_approve" href="<?= $item_approve; ?>" id="item_action_approve_<?= $item_id ?>"><span class="item_actions action_approve"></span> Approve</a></li>
+		<li><a class="item_approve" href="<?= $item_approve; ?>" id="item_action_approve_<?= $item_id ?>"><span class="actions action_approve"></span> Approve</a></li>
 		<?php endif; ?>
-		<li><a class="item_delete" href="<?= $item_delete; ?>" id="item_action_delete_<?= $item_id ?>"><span class="item_actions action_delete"></span> Delete</a></li>
+		<li><a class="item_delete" href="<?= $item_delete; ?>" id="item_action_delete_<?= $item_id ?>"><span class="actions action_delete"></span> Delete</a></li>
 	</ul>
 	<div class="clear"></div>
 	<span class="item_separator"></span>
