@@ -56,7 +56,7 @@ $(document).ready(function()
 				url			: base_url + 'status/add',
 				type		: 'POST',
 				dataType	: 'html',
-				data		: $('#status_update').serialize(),
+				data		: $('#status_update').serializeArray(),
 			  	success		: function(html)
 			  	{			  	
 					if(html == 'error')
@@ -70,8 +70,6 @@ $(document).ready(function()
 					 	$('#feed').prepend(html).show('slow');
 						$('#status_update_text').val('');						
 						doPlaceholder('#status_update_text', "What's shaking?");
-
-						// Mark New Item		                 
 		                markNewItem($(html).attr('id'));				
 				 	}	
 			 	}

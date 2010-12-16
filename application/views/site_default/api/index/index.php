@@ -19,7 +19,6 @@
 <p>To change the format of an API call (default is JSON) append <b>/format/type</b> to end of url.<br>
 Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank"><?= base_url() ?>api/users/format/xml</a></p>
 
-
 <h2>Core</h2>
 
 <ul>

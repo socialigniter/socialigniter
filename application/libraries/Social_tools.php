@@ -218,7 +218,6 @@ class Social_tools
 		return $this->ci->ratings_model->add_rating();
 	}
 	
-	
 
 	/* Tags */
 	function get_tag($tag)

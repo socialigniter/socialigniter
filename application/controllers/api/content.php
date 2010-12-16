@@ -93,7 +93,7 @@ class Content extends Oauth_Controller
 		    if ($content)
 		    {	
 				// API Response
-	        	$message	= array('status' => 'success', 'data' => $content);
+	        	$message	= array('status' => 'success', 'message' => 'Awesome we posted that article', 'data' => $content);
 	        	$response	= 200;
 	        }
 	        else

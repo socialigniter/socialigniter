@@ -7,7 +7,6 @@ class Categories extends Oauth_Controller
         parent::__construct();      
 	}
 	
-	
     /* GET types */
     function all_get()
     {
@@ -26,7 +25,6 @@ class Categories extends Oauth_Controller
         
         $this->response($message, $response);        
     }
-
 
     /* GET types */
     function view_get()
@@ -48,7 +46,6 @@ class Categories extends Oauth_Controller
 
         $this->response($message, $response);
     }
-
 
 	/* POST types */
     function create_post()
@@ -92,7 +89,7 @@ class Categories extends Oauth_Controller
 			}
 			else
 			{
-		        $message	= array('status' => 'error', 'message' => 'Oops you do not have access to add a category');
+		        $message	= array('status' => 'error', 'message' => 'You do not have access to add a category');
 		        $response	= 400;
 			}
 		}
@@ -127,24 +124,18 @@ class Categories extends Oauth_Controller
 		// Make sure user has access to do this func
 		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
     	
-    	// Move this up to result of "user_has_access"
     	if ($access)
-        {
-			//$comment = $this->social_tools->get_comment($this->get('id'));
-        
+        {   
         	$this->social_tools->delete_comment($this->get('id'));
         
 			// Reset comments with this reply_to_id
-			$this->social_tools->update_comment_orphaned_children($this->get('id'));
-			
-			// Update Content
-			$this->social_igniter->update_content_comments_count($this->get('id'));
+			//$this->social_igniter->update_content_comments_count($this->get('id'));
         
         	$this->response(array('status' => 'success', 'message' => 'Comment deleted'), 200);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 404);
+            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment'), 404);
         }
         
     }
