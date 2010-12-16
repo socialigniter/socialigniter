@@ -1070,7 +1070,7 @@
 
                         if (this.initialContent.length === 0)
                         {
-                                this.setContent('<p>initial content</p>');
+                                this.setContent('');
                         }
 
                         $.each(this.options.events, function(key, handler)

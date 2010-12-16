@@ -18,8 +18,10 @@ class Social_igniter
 	{
 		$this->ci =& get_instance();
 		
+		// Configs
 		$this->ci->load->config('activity_stream');		
 
+		// Models
  		$this->ci->load->model('activity_model');
  		$this->ci->load->model('content_model');		
 		$this->ci->load->model('pages/pages_model');
@@ -493,12 +495,12 @@ class Social_igniter
 	
 	function check_content_duplicate($user_id, $title, $content)
 	{
-		if (!$this->ci->content_model->check_content_duplicate($user_id, $title, $content))
+		if ($this->ci->content_model->check_content_duplicate($user_id, $title, $content))
 		{
-			return TRUE;
+			return FALSE;
 		}
 		
-		return FALSE;
+		return TRUE;
 	}
 	
 	function get_content($content_id)

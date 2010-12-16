@@ -31,3 +31,16 @@ function form_submit_publish($publish, $save)
 
 	return $status;
 }
+
+
+function form_title_url($title, $title_url)
+{
+	if ($title_url)
+	{
+		return $title_url;
+	}
+	else
+	{
+		return url_username($title, 'dash', TRUE);
+	}
+}

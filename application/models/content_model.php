@@ -99,12 +99,31 @@ class Content_model extends CI_Model {
     {
  		$content_data = array(
 			'site_id' 	 		=> $site_id,
+			'parent_id'			=> $content_data['parent_id'],
+			'category_id'		=> $content_data['category_id'],
+			'module'			=> $content_data['module'],
+			'type'				=> $content_data['type'],
+			'source'			=> $content_data['source'],
+			'order'				=> $content_data['order'],
+			'title'				=> $content_data['title'],
+			'title_url'			=> $content_data['title_url'],
+			'content'			=> $content_data['content'],
+			'details'			=> $content_data['details'],
+			'access'			=> $content_data['access'],
+			'comments_allow'  	=> $content_data['comments_allow'],
 			'comments_count'  	=> 0,
+			'geo_lat'			=> $content_data['geo_lat'],
+			'geo_long'			=> $content_data['geo_long'],
+			'geo_accuracy'		=> $content_data['geo_accuracy'],
+			'viewed'			=> $content_data['viewed'],
+			'approval'			=> $content_data['approval'],
+			'status'			=> $content_data['status'],
 			'created_at' 		=> unix_to_mysql(now()),
 			'updated_at' 		=> '0000-00-00 00:00:00'
 		);
 		
 		$insert = $this->db->insert('content', $content_data);
+		
 		if ($content_id = $this->db->insert_id())
 		{
 			return $content_id;	

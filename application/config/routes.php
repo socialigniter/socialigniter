@@ -58,7 +58,7 @@ $route['api/comments/new']						= 'api/comments/new';
 
 /* Content */
 $route['api/content/recent']					= 'api/content/recent';
-$route['api/content/view/id/(:any)']			= 'api/content/view/id/$1';
+$route['api/content/view/(:any)/(:any)']		= 'api/content/view/$1/$2';
 $route['api/content/create']					= 'api/content/create';
 
 /* API For Modules */

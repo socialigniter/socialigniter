@@ -31,8 +31,13 @@ class Social_tools
 	}
 	
 	/* Access Tools */
-	function has_access_to_create($type, $user_id, $object_id=NULL)
+	function has_access_to_create($type, $user_id)
 	{
+		// Is Super or Admin
+		if ($this->ci->session->userdata('user_level_id') <= 2)
+		{
+			return 'A';
+		}	
 	
 	}
 	

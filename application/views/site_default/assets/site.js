@@ -37,14 +37,18 @@ $(document).ready(function()
 		
 		// If fields are filled out		
 		if (comment == true)
-		{												
+		{
+			var comment_post_data = $('#comments_logged_form').serializeArray();
+			
+			console.log(comment_post_data);			
+					
 			$(this).oauthAjax(
-			{
+			{			
 				oauth 		: user_data,
 				url			: url_create,
 				type		: 'POST',
 				dataType	: 'json',
-				data		: $('#comments_logged_form').serializeArray(),
+				data		: comment_post_data,
 			  	success		: function(result)
 			  	{				  		  				  	
 					if(result.status == 'error')
