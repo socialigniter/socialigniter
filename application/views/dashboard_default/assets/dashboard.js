@@ -431,13 +431,16 @@ $(document).ready(function()
 	
 	function update_category_select(where_to)
 	{
-		$.get(base_url+'api/categories/search/module/blog',function(json)
+		$.get(base_url+'api/categories/view/module/blog',function(json)
 		{
-			for(x in json)
+			if (json.status == 'success')
 			{
-				$(where_to).append('<option value="'+json[x].category_id+'">'+json[x].category+'</option>');
+				for(x in json.data)
+				{
+					$(where_to).append('<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>');
+				}
+				$.uniform.update(where_to);
 			}
-			$.uniform.update(where_to);
 		});
 	}
 	

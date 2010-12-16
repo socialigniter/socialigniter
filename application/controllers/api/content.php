@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Content extends OAuth_Controller
+class Content extends Oauth_Controller
 {
     function __construct()
     {

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Relationships extends REST_Controller
+class Relationships extends Oauth_Controller
 {
     function __construct()
     {

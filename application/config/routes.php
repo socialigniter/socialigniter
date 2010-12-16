@@ -40,8 +40,8 @@ $route['feed/comments']							= 'feed/comments';
 $route['feed']		 							= 'feed/index';
 
 /* Categories */
-$route['api/categories/search/(:any)/(:any)']	= 'api/categories/search';
-$route['api/categories/search']					= 'api/categories/search';
+$route['api/categories/view/(:any)/(:any)']		= 'api/categories/view';
+$route['api/categories/view']					= 'api/categories/view';
 $route['api/categories/all']					= 'api/categories/all';
 $route['api/categories/create']					= 'api/categories/create';
 

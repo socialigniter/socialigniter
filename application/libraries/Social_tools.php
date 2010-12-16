@@ -22,14 +22,12 @@ class Social_tools
 		// Load Models
 		$this->ci->load->model('categories_model');
 		$this->ci->load->model('comments_model');
-		$this->ci->load->model('locations/locations_model');
 		$this->ci->load->model('ratings_model');
 		$this->ci->load->model('tags_model');
 		$this->ci->load->model('taxonomy_model');
 
 		// Define Variables
-		$this->site_id 			= config_item('site_id');
-		$this->view_comments	= NULL;
+		$this->view_comments = NULL;
 	}
 	
 	/* Access Tools */
@@ -81,7 +79,7 @@ class Social_tools
 	/* Categories */	
 	function get_categories()
 	{
-		return $this->ci->categories_model->get_categories($this->site_id);
+		return $this->ci->categories_model->get_categories(config_item('site_id'));
 	}
 
 	function get_categories_view($parameter, $value)
@@ -91,7 +89,7 @@ class Social_tools
 
 	function add_category($category_data)
 	{
-		return $this->ci->categories_model->add_category($this->site_id, $category_data);
+		return $this->ci->categories_model->add_category(config_item('site_id'), $category_data);
 	}
 		
 	
@@ -104,12 +102,12 @@ class Social_tools
 	
 	function get_comments($module='all')
 	{
-		return $this->ci->comments_model->get_comments($this->site_id, $module);
+		return $this->ci->comments_model->get_comments(config_item('site_id'), $module);
 	}
 
 	function get_comments_recent($module, $limit=10)
 	{
-		return $this->ci->comments_model->get_comments_recent($this->site_id, $module, $limit);
+		return $this->ci->comments_model->get_comments_recent(config_item('site_id'), $module, $limit);
 	}
 
 	function get_comment_children($reply_to_id)
@@ -119,7 +117,7 @@ class Social_tools
 
 	function get_comments_count()
 	{
-		return $this->ci->comments_model->get_comments_count($this->site_id);
+		return $this->ci->comments_model->get_comments_count(config_item('site_id'));
 	}
 
 	function get_comments_content_count($content_id, $approval='Y')
@@ -129,7 +127,7 @@ class Social_tools
 
 	function get_comments_new_count()
 	{
-		return $this->ci->comments_model->get_comments_new_count($this->site_id);
+		return $this->ci->comments_model->get_comments_new_count(config_item('site_id'));
 	}
 	
 	function get_comments_content($content_id)
@@ -142,7 +140,7 @@ class Social_tools
 		$comment = FALSE;
 		
 		// Add Comment		
-		if ($comment_id = $this->ci->comments_model->add_comment($this->site_id, $comment_data))
+		if ($comment_id = $this->ci->comments_model->add_comment(config_item('site_id'), $comment_data))
 		{			
 			// Get Comment
 			$comment = $this->get_comment($comment_id);
@@ -206,30 +204,6 @@ class Social_tools
 		}
 			
 		return $this->view_comments;
-	}
-
-
-	/* Locations */
-	function get_location($key, $value)
-	{
-		return $this->ci->locations_model->get_location($key, $value);
-	}
-
-	function get_locations($key, $value)
-	{
-		return $this->ci->locations_model->get_locations($key, $value);
-	}
-
-	function get_locations_near($lat, $long)
-	{
-		return $this->ci->locations_model->get_locations_near($lat, $long);
-	}
-
-	function add_location($location_data, $site_id)
-	{
-		if (!$site_id) $site_id = $this->site_id;
-	
-		return $this->ci->locations_model->add_location($location_data, $site_id);
 	}
 
 

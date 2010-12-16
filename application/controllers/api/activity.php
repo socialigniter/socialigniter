@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Activity extends REST_Controller
+class Activity extends Oauth_Controller
 {
     function __construct()
     {

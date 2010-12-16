@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Comments extends OAuth_Controller
+class Comments extends Oauth_Controller
 {
     function __construct()
     {

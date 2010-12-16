@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Categories extends REST_Controller
+class Categories extends Oauth_Controller
 {
     function __construct()
     {
@@ -15,16 +15,16 @@ class Categories extends REST_Controller
         
         if($categories)
         {
-        	
-        
-        
-            $this->response($categories, 200);
+            $message 	= array('status' => 'success', 'data' => $categories);
+            $response	= 200;
         }
-
         else
         {
-            $this->response(array('error' => 'Could not find any categories'), 404);
+            $message 	= array('status' => 'error', 'message' => 'Could not find any categories');
+            $response	= 404;
         }
+        
+        $this->response($message, $response);        
     }
 
 
@@ -37,12 +37,16 @@ class Categories extends REST_Controller
     	
         if($categories)
         {
-            $this->response($categories, 200);
+            $message 	= array('status' => 'success', 'data' => $categories);
+            $response	= 200;
         }
         else
         {
-            $this->response(array('error' => 'Could not find any '.$search_by.' categories for '.$search_for), 404);
+            $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' categories for '.$search_for);
+            $response	= 404;        
         }
+
+        $this->response($message, $response);
     }
 
 
@@ -98,9 +102,8 @@ class Categories extends REST_Controller
 	        $message	= array('status' => 'error', 'message' => validation_errors());
 	        $response	= 200;
 		}			
-				
 
-        $this->response($message, $response); // 200 being the HTTP response code
+        $this->response($message, $response);
     }
     
     /* PUT types */
