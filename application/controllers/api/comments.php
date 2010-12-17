@@ -17,18 +17,15 @@ class Comments extends Oauth_Controller
         {
             $this->response($comments, 200);
         }
-
         else
         {
             $this->response(array('status' => 'error', 'data' => 'Could not find any comments'), 404);
         }
     }
 
-
-	// Comments for a piece of content
+	// Comments for Content
 	function content_get()
     {
-   		 	
     	// If No ID return error
         if(!$this->get('id'))
         {

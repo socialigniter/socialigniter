@@ -81,8 +81,8 @@ a.button_basic_link span	{ position: relative; top: 6px; left: 0px; }
 #content_message			{ width: 615px; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; font-size: 14px; }
 
 div.message_normal			{ padding: 0; }
-div.message_error			{ padding: 12px 15px; background: #b54545; color: #f2edda; text-shadow:1px 1px 1px #333333; }
-div.message_alert			{ padding: 12px 15px; background: #f2e3af; color: #2078CE; text-shadow:1px 1px 1px #d6d6d6; }
+div.message_error			{ padding: 12px 15px; background: #b54545; color: #f2edda; text-shadow:1px 1px 1px #fff; }
+div.message_alert			{ padding: 12px 15px; background: #f2e3af; color: #666666; text-shadow:1px 1px 1px #d6d6d6; }
 
 div.content table 			{ margin: 20px 0px 15px 0px; }
 div.content p 				{ margin: 20px 0px 15px 0px; line-height: 21px; }

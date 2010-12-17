@@ -8,10 +8,20 @@ class Index extends Public_Controller
     
 	function index() 
 	{
+		// Index
 		if (!$this->uri->segment(1))
 		{
 			$page = $this->social_igniter->get_index_page();
 		}
+		// View Redirect
+		elseif (($this->uri->segment(1) == 'pages') && ($this->uri->segment(2) == 'view'))
+		{
+			$page = $this->social_igniter->get_page_id($this->uri->segment(3));
+			
+			if ($page->details == 'index')	redirect();
+			else							redirect(base_url().'pages/'.$page->title_url, 'refresh');
+		}
+		// Pages
 		elseif ($this->uri->segment(1) == 'pages')
 		{
 			$page = $this->social_igniter->get_page($this->uri->segment(2));
@@ -20,7 +30,7 @@ class Index extends Public_Controller
 		$this->data['content_id']			= $page->content_id;		
 		$this->data['page'] 				= $page;
 		
-		if ($page->type != 'index')
+		if ($page->details != 'index')
 		{
 			$this->data['page_title'] 		= $page->title;
 		}

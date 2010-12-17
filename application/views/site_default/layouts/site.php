@@ -12,7 +12,6 @@
 <link rel="icon" type="image/png" href="<?= base_url() ?>favicon.ico" />
 <?= $head ?>
 <?= $modules_head ?>
-
 </head>
 <body>
 <div id="header">

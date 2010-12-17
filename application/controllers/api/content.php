@@ -8,7 +8,6 @@ class Content extends Oauth_Controller
 	}
 	
     /* GET types */
-    // Recent Blog
     function recent_get()
     {
         $content = $this->social_igniter->get_content_recent('all');
@@ -48,23 +47,22 @@ class Content extends Oauth_Controller
 
 
 	/* POST types */
-	// Creates Content
-	// If Content Module has more funky aspects, write an API controller in that module
+	// Create Content - if module needs content to do more funky things, write an API controller in that module
 	function create_authd_post()
 	{
-			// Validation Rules
+		// Validation Rules
 	   	$this->form_validation->set_rules('module', 'Module', 'required');
 	   	$this->form_validation->set_rules('type', 'Type', 'required');
 	   	$this->form_validation->set_rules('title', 'Title', 'required');	
 	   	$this->form_validation->set_rules('content', 'Content', 'required');
-	   	$this->form_validation->set_rules('comments_allow', 'Comments', 'required');
 	
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
 	    {	    	
-	    	$viewed		= 'Y';
-	    	$approval	= 'A'; // $this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id); 
-	   		$status 	= 'P'; //form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'));
+	    	$viewed			= 'Y';
+	    	$approval		= 'A'; // $this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id); 
+	   		$status 		= 'P'; //form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'));
+	   		$comments_allow	= $this->input->post('comments_allow');
 	   	
 	    	$content_data = array(				
 				'parent_id'			=> $this->input->post('parent_id'),
@@ -73,20 +71,20 @@ class Content extends Oauth_Controller
 				'type'				=> $this->input->post('type'),
 				'source'			=> $this->input->post('source'),
 				'order'				=> $this->input->post('order'),
-				'user_id'			=> $this->oauth_user_id,
+	    		'user_id'			=> $this->oauth_user_id,
 				'title'				=> $this->input->post('title'),
 				'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url')),
 				'content'			=> $this->input->post('content'),
 				'details'			=> $this->input->post('details'),
 				'access'			=> $this->input->post('access'),
-				'comments_allow'	=> $this->input->post('comments_allow'),
+				'comments_allow'	=> $comments_allow,
 				'geo_lat'			=> $this->input->post('geo_lat'),
 				'geo_long'			=> $this->input->post('geo_long'),
 				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
 				'viewed'			=> $viewed,
 				'approval'			=> $approval,				
 				'status'			=> $status  			
-	    	);		
+	    	);
 	    									
 			// Insert
 			$content = $this->social_igniter->add_content($content_data, $this->input->post('tags'), '');
@@ -103,9 +101,9 @@ class Content extends Oauth_Controller
 		        $response	= 200;		        
 	        }	
 		}
-		// Does Not Pass Validation
 		else 
 		{
+			// Does Not Pass Validation
 	        $message	= array('status' => 'error', 'message' => validation_errors());
 	        $response	= 200;
 		}
