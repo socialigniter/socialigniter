@@ -36,7 +36,7 @@ $(document).ready(function()
 
 	// Status
 	$("#status_update").bind("submit", function(eve)
-	{
+	{j
 		eve.preventDefault();
 		
 		var status_update		= $('#status_update_text').val();
@@ -50,7 +50,7 @@ $(document).ready(function()
 				oauth 		: user_data,
 				url			: base_url + 'status/add',
 				type		: 'POST',
-				dataType	: 'json',
+				dataType	: 'html',
 				data		: $('#status_update').serializeArray(),
 			  	success		: function(html)
 			  	{			  	
