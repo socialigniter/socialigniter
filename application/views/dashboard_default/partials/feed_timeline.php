@@ -14,13 +14,13 @@
 			
 		<ul class="item_actions" rel="timeline">
 			<?php if (config_item('home_comments_allow') == 'TRUE') { ?>
-			<li><a class="item_comment" href="<?= $item_comment ?>"><span class="item_actions action_comment"></span> Comment</a></li>
+			<li><a class="item_comment" href="<?= $item_comment ?>"><span class="actions action_comment"></span> Comment</a></li>
 			<?php } if (config_item('home_share') == 'TRUE') { ?>
-			<li><a href="#"><span class="item_actions action_share"></span> Share</a></li>
+			<li><a href="#"><span class="actions action_share"></span> Share</a></li>
 			<?php } if (config_item('home_like') == 'TRUE') { ?>
-			<li><a href="#"><span class="item_actions action_like"></span> Like</a></li>
+			<li><a href="#"><span class="actions action_like"></span> Like</a></li>
 			<?php } if ($item_user_id == $logged_user_id) { ?>
-			<li><a class="item_delete" href="<?= $item_delete; ?>" id="item_action_delete_<?= $item_id ?>"><span class="item_actions action_delete"></span> Delete</a></li>
+			<li><a class="item_delete" href="<?= $item_delete; ?>" id="item_action_delete_<?= $item_id ?>"><span class="actions action_delete"></span> Delete</a></li>
 			<?php } ?>
 		</ul>
 		<div class="clear"></div>
