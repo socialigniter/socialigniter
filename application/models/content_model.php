@@ -105,6 +105,7 @@ class Content_model extends CI_Model {
 			'type'				=> $content_data['type'],
 			'source'			=> $content_data['source'],
 			'order'				=> $content_data['order'],
+			'user_id'			=> $content_data['user_id'],
 			'title'				=> $content_data['title'],
 			'title_url'			=> $content_data['title_url'],
 			'content'			=> $content_data['content'],

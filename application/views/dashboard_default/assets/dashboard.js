@@ -55,7 +55,7 @@ $(document).ready(function()
 				oauth 		: user_data,
 				url			: base_url + 'status/add',
 				type		: 'POST',
-				dataType	: 'html',
+				dataType	: 'json',
 				data		: $('#status_update').serializeArray(),
 			  	success		: function(html)
 			  	{			  	
