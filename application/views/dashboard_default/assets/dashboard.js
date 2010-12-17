@@ -18,11 +18,6 @@ $(document).ready(function()
 
 	// Hide Things
 	$('.error').hide();
-	$('#content_message').oneTime(4000, function()
-	{
-		$('#content_message').hide('slow')
-	});
-
 	// Character Counter
 	$('#status_update_text').NobleCount('#character_count',
 	{
@@ -61,8 +56,7 @@ $(document).ready(function()
 			  	{			  	
 					if(html == 'error')
 					{
-					 	$('#content_message').html("Oops we couldn't update your status!").addClass('message_alert').show('normal');
-					 	$('#content_message').oneTime(2500, function(){$('#content_message').hide('fast')});	
+						$('#content_message').notify({message:'Oops we couldn\'t update your status!'});
 				 	}
 				 	else
 				 	{
@@ -170,8 +164,7 @@ $(document).ready(function()
 				}			
 				else
 				{
-				 	$('#content_message').html("Oops we couldn't delete your item!").addClass('message_alert').show('normal');
-				 	$('#content_message').oneTime(2500, function(){$('#content_message').hide('fast')});				
+					$('#content_message').notify({message:'Oops we couldn\'t delete your item!'});
 				}
 			}
 		});
