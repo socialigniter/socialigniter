@@ -22,12 +22,48 @@ $(document).ready(function()
 	$('#status_update_text').NobleCount('#character_count',
 	{
 		on_negative: 'color_red'
-	});
-	
-	
+	});		
+
 	// Gets count of new items with class="get_count_new" uses id="name_count_new" to make call to AJAX controller
 	$('.feed_count_new').oneTime(100, function() { getCountNew(this) });
-	$('.feed_count_new').everyTime(60000,function() { getCountNew(this); });
+	$('.feed_count_new').everyTime(60000,function() { getCountNew(this); });		
+
+	// Status
+	$("#status_update").bind("submit", function(eve)
+	{
+		eve.preventDefault();
+		
+		var status_update		= $('#status_update_text').val();
+		var status_update_valid = isFieldValid('#status_update_text', "What's shaking?", 'Please write something');
+
+		// If isn't empty		
+		if (status_update_valid == true)
+		{				
+			$(this).oauthAjax(
+			{
+				oauth 		: user_data,
+				url			: base_url + 'status/add',
+				type		: 'POST',
+				dataType	: 'html',
+				data		: $('#status_update').serializeArray(),
+			  	success		: function(html)
+			  	{			  	
+					if(html == 'error')
+					{
+						$('#content_message').notify({message:'Oops we couldn\'t update your status!'});
+				 	}
+				 	else
+				 	{
+				 		// Inject
+					 	$('#feed').prepend(html).show('slow');
+						$('#status_update_text').val('');						
+						doPlaceholder('#status_update_text', "What's shaking?");
+		                markNewItem($(html).attr('id'));				
+				 	}	
+			 	}
+			});
+		}
+	});
 	
 
 	// Marks Feed Item not new
@@ -391,10 +427,7 @@ $(document).ready(function()
 				$.uniform.update(where_to);
 			}
 		});
-	}
-	
-	update_category_select('[name=category_id]');
-	
+	}	
 	
 	var select_starting_contents = $('.content [name=category_id]').html();
 	
@@ -404,92 +437,96 @@ $(document).ready(function()
 		{
 			$('[name=category_id]').find('option:first').attr('selected','selected');
 			$.uniform.update('[name=category_id]');
-			$.fancybox(
-			{
-				content:'\
-				<div class="modal_wrap" style="opacity:0;">\
-					<h2>Add Category</h2>\
-					<form id="new_category">\
-						<label for="category_name">Name</label>\
-						<input id="category_name" type="text" value="" name="category">\
-						<p class="slug_url">'+base_url+current_module+'/<span></span></p>\
-						<label for="category_parent">Parent Category</label>\
-						<select name="parent_id" id="category_parent">\
-							<option value="0">--None--</option>\
-						</select>\
-						<label for="category_access">Access</label>\
-						<select name="access" id="category_access">\
-							'+$('[name=access]').html()+'\
-						</select>\
-						<input type="hidden" name="site_id" value="1">\
-						<input type="hidden" name="module" value="blog">\
-						<input type="hidden" name="type" value="article">\
-						<input type="hidden" name="category_url" value="">\
-						<br>\
-						<input type="submit">\
-					</form>\
-				</div>',
-				onComplete:function(e)
+			
+			
+			$.get(base_url+'/home/add_category',{},function(html){
+				
+				var category_parents = '';
+				$.get(base_url+'api/categories/view/module/blog',function(json)
 				{
-					update_category_select('.modal_wrap select:first');
-					$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
-					function update_slug()
+					if (json.status == 'success')
 					{
-						slug_val = convert_to_slug($('#category_name').val());
-						//Set the new value
-						$('[name=category_url]').val(slug_val);
-						$('.slug_url span').text(slug_val).live('click',function()
+						for(x in json.data)
 						{
-							$(this).replaceWith('<input class="slug_url_edit" type="text" value="'+$(this).text()+'">');
-							$('.slug_url_edit').select().blur(function()
-							{
-								$(this).replaceWith('<span class="modified">'+$(this).val()+'</span>');
-							});
-						});
+							category_parents = category_parents+'<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>';
+						}
 					}
-					$('#category_name').live('keyup',function()
+				});
+				
+				//Update the returned HTML
+				html = $(html)
+							//Update the slug_url to have the base path (i.e. http://localhost/home...)
+							.find('.slug_url').prepend(base_url+current_module+'/').end()
+							//Grab the category values from the main DOM and "uniform" the select field
+							.find('#category_access').html($('[name=access]').html()).uniform().end()
+							//Uniform the parent select field
+							.find('#category_parent').append(category_parents).uniform().end()
+						.html();
+				
+				$.fancybox(
+				{
+					content:html,
+					onComplete:function(e)
 					{
-						if($('#category_name').val() !== '' && !$('.slug_url span').hasClass('modified'))
+						update_category_select('.modal_wrap select:first');
+						$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
+						function update_slug()
 						{
-							update_slug();
-						}
-						else
-						{
-							//If the category name field is null, make the slug blank
-							$('#category_slug').val('');
-						}
-					});
-					$('#new_category').bind('submit',function(e)
-					{
-						e.preventDefault();
-						e.stopPropagation();
-						$.ajax(
-						{
-							url		: base_url + 'api/categories/create',
-							type		: 'POST',
-							dataType	: 'json',
-							data		: $(this).serialize(),
-							success	: function(json)
-							{		  	
-								if(json.status == 'error')
+							slug_val = convert_to_slug($('#category_name').val());
+							//Set the new value
+							$('[name=category_url]').val(slug_val);
+							$('.slug_url span').text(slug_val).live('click',function()
+							{
+								$(this).replaceWith('<input class="slug_url_edit" type="text" value="'+$(this).text()+'">');
+								$('.slug_url_edit').select().blur(function()
 								{
-									generic_error();
-								}
-								else
-								{
-									$('.content [name=category_id]').empty();
-									update_category_select('[name=category_id]');
-									$('.content [name=category_id]').prepend(select_starting_contents);
-									$.fancybox.close();
-								}	
+									$(this).replaceWith('<span class="modified">'+$(this).val()+'</span>');
+								});
+							});
+						}
+						$('#category_name').live('keyup',function()
+						{
+							if($('#category_name').val() !== '' && !$('.slug_url span').hasClass('modified'))
+							{
+								update_slug();
+							}
+							else
+							{
+								//If the category name field is null, make the slug blank
+								$('#category_slug').val('');
 							}
 						});
-						return false;
-					});
-					
-				}
+						$('#new_category').bind('submit',function(e)
+						{
+							e.preventDefault();
+							e.stopPropagation();
+							$.ajax(
+							{
+								url		: base_url + 'api/categories/create',
+								type		: 'POST',
+								dataType	: 'json',
+								data		: $(this).serialize(),
+								success	: function(json)
+								{		  	
+									if(json.status == 'error')
+									{
+										generic_error();
+									}
+									else
+									{
+										$('.content [name=category_id]').empty();
+										update_category_select('[name=category_id]');
+										$('.content [name=category_id]').prepend(select_starting_contents);
+										$.fancybox.close();
+									}	
+								}
+							});
+							return false;
+						});
+						
+					}
+				});
 			});
-			
 		}
 	});
 	
