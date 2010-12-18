@@ -71,32 +71,32 @@ class Social_igniter
     }	
     
     // Generate Item
-    function render_item($verb, $type, $object)
+    function render_item($activity)
     {
-    	$has_url	= property_exists($object, 'url');
-    	$has_title	= property_exists($object, 'title');
+    	$data 		= json_decode($activity->data);
+    	$has_url	= property_exists($data, 'url');
+    	$has_title	= property_exists($data, 'title');
+    	$item 		= $this->render_item_status($activity, $data, $has_url, $has_title);
     	
-    	$item 		= $this->render_item_status($verb, $type, $object, $has_url, $has_title);
-    	
-    	if ($type != 'status')
+    	if ($activity->type != 'status')
     	{
-    		$item .= $this->render_item_content($type, $object);
+    		$item .= $this->render_item_content($activity->type, $data);
     	}
    
     	return $item;
     }
     
     // Generate Status
-    function render_item_status($verb, $type, $object, $has_url, $has_title)
+    function render_item_status($activity, $data, $has_url, $has_title)
     {
     	// Status
-    	if ($type == 'status')
+    	if ($activity->type == 'status')
     	{
-    		return $this->get_content($object->content_id)->content;
+    		return $this->get_content($activity->content_id)->content;
 		}
 				
 		// Has Status
-    	$has_status = property_exists($object, 'status');
+    	$has_status = property_exists($data, 'status');
 
 		if ($has_status)
 		{
@@ -105,15 +105,15 @@ class Social_igniter
 		// Makes 'posted an article'
        	else
     	{
-    		$verb		= item_verb($this->ci->lang->line('verbs'), $verb);
-    		$article	= item_type($this->ci->lang->line('object_articles'), $type);
-    		$type		= item_type($this->ci->lang->line('object_types'), $type);
+    		$verb		= item_verb($this->ci->lang->line('verbs'), $activity->verb);
+    		$article	= item_type($this->ci->lang->line('object_articles'), $activity->type);
+    		$type		= item_type($this->ci->lang->line('object_types'), $activity->type);
     		$action 	= '<span class="item_verb">'.$verb.' '.$article.'</span> ';
     		
     		// Has Title
     		if ($has_title)
     		{
-    			$title 	= $object->title;
+    			$title 	= $data->title;
     		}
     		else
     		{
@@ -122,7 +122,7 @@ class Social_igniter
     		}
     		
     		// Has URL
-    		if ($has_url)	$link = ' <a href="'.$object->url.'">'.$title.'</a>';
+    		if ($has_url)	$link = ' <a href="'.$data->url.'">'.$title.'</a>';
     		else			$link = $title;    		
     		
     		return '<span class="item_verb">'.$verb.' '.$article.' '.$type.' '.$link.'</span>';
@@ -520,6 +520,11 @@ class Social_igniter
 		$site_id = config_item('site_id');
 		
 		return $this->ci->content_model->get_content_module($site_id, $module, $limit);
+	}
+	
+	function get_content_view($parameter, $value)
+	{
+		return $this->ci->content_model->get_content_view($parameter, $value);	
 	}
 	
 	// Adds Content & Activity

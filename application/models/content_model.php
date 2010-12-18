@@ -20,12 +20,14 @@ class Content_model extends CI_Model {
     
     function get_content($content_id)
     {
- 		$this->db->select('*');
+ 		$this->db->select('content.*, users_meta.name, users_meta.image, users_meta.url, users.username, users.email');
  		$this->db->from('content');  
+  		$this->db->join('users_meta', 'users_meta.user_id = content.user_id');		  
+ 		$this->db->join('users', 'users.user_id = content.user_id'); 
  		$this->db->where('content_id', $content_id);
 		$this->db->limit(1);    
  		$result = $this->db->get()->row();	
- 		return $result; 
+ 		return $result;
     }
 
     function get_content_recent($site_id, $type, $limit)
@@ -70,7 +72,7 @@ class Content_model extends CI_Model {
     	if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id')))
     	{
 	 		$this->db->select('*');
-	 		$this->db->from('categories'); 
+	 		$this->db->from('content'); 
 	 		$this->db->where($parameter, $value);
 	 		$this->db->order_by('created_at', 'desc'); 
 	 		$result = $this->db->get();	

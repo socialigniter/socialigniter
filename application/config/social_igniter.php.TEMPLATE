@@ -59,10 +59,10 @@ $config['user_expire']          		= 150000;				// How long to remember the user 
 $config['user_extend_on_login'] 		= TRUE;					// Extend the users cookies everytime they auto-login
 $config['salt_length'] 					= 10;					// Salt Length
 $config['store_salt'] 					= true;					// Should the salt be stored in the database	
-$config['message_start_delimiter'] 		= '<p>';				// Message Start Delimiter	
-$config['message_end_delimiter'] 		= '</p>';				// Message End Delimiter	
-$config['error_start_delimiter'] 		= '<p>';				// Error Start Delimiter	
-$config['error_end_delimiter'] 			= '</p>';				// Error End Delimiter
+$config['message_start_delimiter'] 		= '';					// Message Start Delimiter	
+$config['message_end_delimiter'] 		= '';					// Message End Delimiter	
+$config['error_start_delimiter'] 		= '';					// Error Start Delimiter	
+$config['error_end_delimiter'] 			= '';					// Error End Delimiter
 
 // Email Templates
 $config['email_templates']     			= 'emails/';			// Folder where email templates are stored. Default : auth/

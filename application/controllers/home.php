@@ -22,7 +22,6 @@ class Home extends Dashboard_Controller
 			$this->data['geo_locate']		= $this->session->userdata('geo_enabled');
 			
 			// Updater
-			$this->data['status_update']	= '';
 			$this->data['status_updater']	= $this->load->view($this->config->item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
  	    
  	    	$feed_module = NULL;
@@ -43,9 +42,7 @@ class Home extends Dashboard_Controller
 		if (!empty($timeline))
 		{
 			foreach ($timeline as $activity)
-			{
-			    $object 	= json_decode($activity->data);
-			
+			{			
 				// Item
 				$this->data['item_id']				= $activity->activity_id;
 				$this->data['item_type']			= item_type_class($activity->type);
@@ -57,12 +54,13 @@ class Home extends Dashboard_Controller
 				$this->data['item_profile']			= base_url().'profile/'.$activity->username;
 				
 				// Activity
-				$this->data['item_content']			= $this->social_igniter->render_item($activity->verb, $activity->type, $object);
+				$this->data['item_content']			= $this->social_igniter->render_item($activity);
 				$this->data['item_content_id']		= $activity->content_id;
 				$this->data['item_date']			= format_datetime(config_item('home_date_style'), $activity->created_at);
 
 		 		// Actions
 			 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
+				$this->data['item_edit']			= base_url().'home/'.$activity->module.'/edit/'.$activity->content_id;
 				$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
 
 				// View
@@ -149,6 +147,12 @@ class Home extends Dashboard_Controller
 		$this->data['comments_view'] = $comments_view;	
 				
 		$this->render();
+	}
+	
+	/* Partials */
+	function add_category()
+	{
+		$this->load->view(config_item('dashboard_theme').'/partials/add_category');
 	}
 
 }

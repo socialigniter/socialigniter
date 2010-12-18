@@ -30,9 +30,14 @@ function is_uri_value($uri_segment, $value_array)
 	return FALSE;
 }
 
-function navigation_list_btn($link, $word)
+function navigation_list_btn($link, $word, $wildcard=NULL)
 {
 	$link = base_url().$link;
+
+	if ($wildcard)
+	{
+		$link .= '/'.$wildcard;
+	}
 
 	if (current_url() == $link)
 	{

@@ -25,51 +25,11 @@ $(document).ready(function()
 	});
 	
 	// Placeholders 
-	doPlaceholder('#status_update_text', "What's shaking?");
-	doPlaceholder('.comment_write_text', 'Write comment...');
-	doPlaceholder('#tags', 'Blogging, Internet, Web Design');
-		
+	doPlaceholder('.comment_write_text', 'Write comment...');		
 
 	// Gets count of new items with class="get_count_new" uses id="name_count_new" to make call to AJAX controller
 	$('.feed_count_new').oneTime(100, function() { getCountNew(this) });
-	$('.feed_count_new').everyTime(60000,function() { getCountNew(this); });		
-
-	// Status
-	$("#status_update").bind("submit", function(eve)
-	{
-		eve.preventDefault();
-		
-		var status_update		= $('#status_update_text').val();
-		var status_update_valid = isFieldValid('#status_update_text', "What's shaking?", 'Please write something');
-
-		// If isn't empty		
-		if (status_update_valid == true)
-		{				
-			$(this).oauthAjax(
-			{
-				oauth 		: user_data,
-				url			: base_url + 'status/add',
-				type		: 'POST',
-				dataType	: 'html',
-				data		: $('#status_update').serializeArray(),
-			  	success		: function(html)
-			  	{			  	
-					if(html == 'error')
-					{
-						$('#content_message').notify({message:'Oops we couldn\'t update your status!'});
-				 	}
-				 	else
-				 	{
-				 		// Inject
-					 	$('#feed').prepend(html).show('slow');
-						$('#status_update_text').val('');						
-						doPlaceholder('#status_update_text', "What's shaking?");
-		                markNewItem($(html).attr('id'));				
-				 	}	
-			 	}
-			});
-		}
-	});
+	$('.feed_count_new').everyTime(60000,function() { getCountNew(this); });
 	
 
 	// Marks Feed Item not new
