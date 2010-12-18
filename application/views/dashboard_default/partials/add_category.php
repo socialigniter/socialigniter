@@ -1,4 +1,4 @@
-<div class="modal_wrap" style="opacity:0;">
+<div class="modal_wrap">
 	<h2>Add Category</h2>
 	<form id="new_category">
 		<label for="category_name">Name</label>

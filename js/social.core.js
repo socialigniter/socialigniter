@@ -9,6 +9,12 @@ else
 var base_url = jQuery.url.attr('protocol') + '://' + jQuery.url.attr('host') + url_port + '/';
 var current_module = jQuery.url.segment(1);
 
+//This is for local installs which are just folders... (temporary!)
+if(jQuery.url.segment(0) == 'socialigniter')
+{
+	base_url = base_url + 'socialigniter/';
+}
+
 // Renders placeholder
 function doPlaceholder(id, placeholder)
 {		

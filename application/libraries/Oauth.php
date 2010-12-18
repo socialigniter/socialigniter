@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-require_once(APPPATH.'libraries/OAuth/OAuthRequestVerifier.php');
+require_once(APPPATH.'libraries/Oauth/OAuthRequestVerifier.php');
 
 class Oauth
 {
