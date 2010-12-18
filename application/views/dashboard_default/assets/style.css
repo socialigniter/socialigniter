@@ -160,7 +160,7 @@ span.stage_marker { display: block; border: 1px solid #666666; color: #efefef; t
 
 /* Publisher */
 #status_update_text 		{ width: 615px; height: 45px; font-size: 14px; line-height: 18px; padding: 12px; }
-#status_update_options		{ width: 400px; height: 70px; float: left; margin: 0; }
+#status_update_options		{ width: 400px; height: 60px; float: left; margin: 0; }
 #status_update_geo			{ width: 130px; float: left; }
 
 #status_find_location		{ width: 24px; height: 24px; display: block; margin: 0px 0px 0px 0px; background: url(icons/location_gray_24.png) 0px 0px no-repeat; position: relative; top: -6px; left: 0px; } 
@@ -175,6 +175,7 @@ span.stage_marker { display: block; border: 1px solid #666666; color: #efefef; t
 #status_post				{ float: right; margin: 0px 15px 0px 0px; }
 
 /* Feed */
+#feed								{ margin: 0; }
 #feed li							{ float: left; }
 li.item								{ width: 645px; margin: 0px; padding: 0px; background: #ececec; }
 li.item:hover ul.item_actions		{ visibility: visible; }
@@ -182,21 +183,19 @@ li.item_new							{ width: 645px; margin: 0px; padding: 0px; background: #ececec
 li.item_new:hover ul.item_actions	{ visibility: visible; }
 li.item_created						{ background: #f2e3af; }
 
-span.item_separator			{ width: 100%; height: 2px; display: block; background: url(images/item_separator.png) 0 0 repeat-x; }
-span.item_thumbnail 		{ width: 48px; height: 48px; display: block; position: relative; top: 12px; left: 0px; margin: 0px 20px 0px 15px; overflow: hidden; float: left; }
+div.item_thumbnail 			{ width: 48px; height: 48px; display: block; position: relative; top: 12px; left: 0px; margin: 0 20px 18px 15px; overflow: hidden; float: left; }
+div.item_content 			{ width: 550px; display: block; line-height: 21px; margin: 2px 0 0px 0; position: relative; top: 5px; left: 0px; float: left; }
+div.item_content_small 		{ width: 400px; display: block; line-height: 21px; margin: 0 0 10px 0; position: relative; top: 5px; left: 0px; float: left; }
+span.item_separator			{ width: 100%; height: 2px; display: block; background: url(images/item_separator.png) 0 0 repeat-x; margin: 6px 0 0 0; }
 span.item_verb				{ color: #999999; }
-div.item_content 			{ width: 550px; display: block; line-height: 21px; margin: 0 0 10px 0; position: relative; top: 5px; left: 0px; float: left; }
-span.item_content_small 	{ width: 400px; display: block; line-height: 21px; margin: 0 0 10px 0; position: relative; top: 5px; left: 0px; float: left; }
 span.item_content_body		{ width: 450px; float: left; }
 img.item_content_thumb		{ width: 125px; display: block; float: left; margin: 0 15px 0 0; }
-span.item_content_detail	{ width: 350px; display: block; float: left; margin: 8px 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }
+span.item_content_detail	{ width: 350px; display: block; float: left; margin: 4px 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }
 span.item_content_detail_sm	{ width: 250px; display: block; float: left; margin: 0 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }
-
 span.item_meta 				{ height: 12px; display: block; margin: 5px 0 0 0; font-size: 12px; line-height: 12px; color: #999; width: 100px; float: left; }
-
 span.item_alert_new			{ display: block; padding: 6px; cursor: pointer; color: #f2edda; background: #b54545; font-size: 11px; font-weight: bold; float: right; position: relative; top: 13px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #333333; }
 a.item_alert_approve 		{ display: block; padding: 6px; color: #2078CE; background: #f2e3af; font-size: 11px; font-weight: bold; float: right; position: relative; top: 13px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #d6d6d6; }
-a.item_alert_approve:visited { color: #2078CE; background: #f2e3af; }
+a.item_alert_approve:visited{ color: #2078CE; background: #f2e3af; }
 
 span.item_type				{ width: 32px; height: 32px; display: block; float: right; background-image: url(images/item_type_icons.png); position: relative; right: 0px; top: 0px; margin: 0px 0px 0px 0px; }
 span.type_comment			{ background-position: 0px -35px; }
@@ -212,12 +211,12 @@ span.type_location			{ background-position: 0px -350px; }
 span.type_approve			{ background-position: 0px -385px; }
 span.type_file				{ background-position: 0px -420px; }
 
-ul.item_actions 			{ margin: 0; padding: 0px; position: relative; bottom: 5px; right: 5px; list-style: none; float: right; visibility: hidden; }
+ul.item_actions 			{ margin: 0; padding: 0px; position: relative; bottom: 8px; right: 5px; list-style: none; float: right; visibility: hidden; }
 ul.item_actions li			{ float: left; margin: 0px 0px 0px 20px; }
 ul.item_actions li a 		{ color: #999999; font-size: 12px; }
 ul.item_actions li a:visited{ color: #999999; font-size: 12px; }
 ul.item_actions li a:hover 	{ color: #2078ce; font-size: 12px; }
-span.actions			{ width: 25px; height: 18px; display: block; float: left; background-image: url(images/item_actions_icons.png); position: relative; left: 0px; top: 2px; }
+span.actions				{ width: 25px; height: 18px; display: block; float: left; background-image: url(images/item_actions_icons.png); position: relative; left: 0px; top: 2px; }
 span.action_reply	 		{ background-position: 0px 0px; }
 span.action_delete 			{ background-position: -25px 0px; }
 span.action_share 			{ background-position: -50px 0px; margin: 0px 6px 0px 0px; }
@@ -226,9 +225,8 @@ span.action_comment 		{ background-position: -100px 0px; }
 span.action_get_location	{ background-position: -125px 0px; }
 span.action_link			{ background-position: -150px 0px; }
 span.action_approve			{ background-position: -175px 0px; }
-
-span.action_see		{ background-position: -225px 0px; }
-span.action_edit		{ background-position: -200px 0px; }
+span.action_see				{ background-position: -225px 0px; }
+span.action_edit			{ background-position: -200px 0px; }
 
 /* Feed Specific */
 span.item_comment_left		{ width: 24px; height: 32px; display: block; float: left; background: url(images/item_type_icons.png) 0px -455px; position: relative; left: 0px; top: 4px; }

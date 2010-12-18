@@ -60,6 +60,8 @@ class Home extends Dashboard_Controller
 
 		 		// Actions
 			 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
+			 	
+			 	$this->data['item_can_edit']		= $this->social_tools->has_access_to_modify($activity->type, $activity->activity_id);
 				$this->data['item_edit']			= base_url().'home/'.$activity->module.'/edit/'.$activity->content_id;
 				$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
 
@@ -150,6 +152,11 @@ class Home extends Dashboard_Controller
 	}
 	
 	/* Partials */
+	function feed_item()
+	{
+		$this->load->view(config_item('dashboard_theme').'/partials/feed_timeline');
+	}
+	
 	function add_category()
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/add_category');

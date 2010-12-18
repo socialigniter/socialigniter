@@ -24,9 +24,7 @@ $(document).ready(function()
 		on_negative: 'color_red'
 	});
 	
-	// Placeholders 
-	doPlaceholder('.comment_write_text', 'Write comment...');		
-
+	
 	// Gets count of new items with class="get_count_new" uses id="name_count_new" to make call to AJAX controller
 	$('.feed_count_new').oneTime(100, function() { getCountNew(this) });
 	$('.feed_count_new').everyTime(60000,function() { getCountNew(this); });

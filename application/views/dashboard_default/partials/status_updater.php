@@ -1,4 +1,4 @@
-<form method="post" id="status_update" action="<?= base_url() ?>status/add">
+<form method="post" id="status_update" action="<?= base_url() ?>api/content/create">
 	<p><textarea id="status_update_text" name="content"></textarea></p>
 	<div id="status_update_options">
 		<?php if ($geo_locate): ?>
@@ -30,11 +30,11 @@ $("#status_update").bind("submit", function(eve)
 	var status_update		= $('#status_update_text').val();
 	var valid_status_update = isFieldValid('#status_update_text', "What's shaking?", 'Please write something');
 
-	// If isn't empty		
+	// Valid		
 	if (valid_status_update == true)
 	{		
 		var status_data	= $('#status_update').serializeArray();
-		status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'title','value':'d'});
+		status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'});
 
 		$(this).oauthAjax(
 		{
@@ -44,15 +44,13 @@ $("#status_update").bind("submit", function(eve)
 			dataType	: 'json',
 			data		: status_data,
 		  	success		: function(result)
-		  	{		
-		  		console.log(result);
-		  		  	
+		  	{		  		  	
 				if (result.status == 'success')
 				{
-				 	$('#feed').prepend(result.data).show('slow');
+				 	$('#feed').prepend(result.message).show('slow');
 					$('#status_update_text').val('');						
 					doPlaceholder('#status_update_text', "What's shaking?");
-	                markNewItem($(html).attr('id'));				
+	                markNewItem($(result.message).attr('id'));				
 			 	}
 			 	else
 			 	{

@@ -1,14 +1,12 @@
 <li class="item" id="item_<?= $item_id; ?>" rel="timeline">
-	<span class="item_thumbnail">
+	<div class="item_thumbnail">
 		<a href="<?= $item_profile ?>"><img src="<?= $item_avatar ?>" /></a>
-	</span>
-	
+	</div>
 	<div class="item_content">
 		<span class="item_content_body">
 			<b><a href="<?= $item_profile ?>"><?= $item_contributor ?></a></b> <?= $item_content ?>		
 		</span>
-		<span class="<?= $item_type ?>"></span>
-		
+		<?php if ($item_type): ?><span class="item_type<?= $item_type ?>"></span><?php endif; ?>
 		<div class="clear"></div>
 		<span class="item_meta"><?= $item_date ?></span>
 			
@@ -22,7 +20,7 @@
 			<?php if (config_item('home_like') == 'TRUE'): ?>
 			<li><a href="#"><span class="actions action_like"></span> Like</a></li>
 			<?php endif; ?>
-			<?php if (($item_user_id == $logged_user_id) && ($item_content_id)): ?>
+			<?php if ($item_can_edit): ?>
 			<li><a class="item_edit" href="<?= $item_edit; ?>" id="item_action_edit_<?= $item_id ?>"><span class="actions action_edit"></span> Edit</a></li>
 			<?php endif; ?>
 			<?php if ($item_user_id == $logged_user_id): ?>
@@ -50,9 +48,6 @@
 			</li>
 		</ol>		
 	</div>
-	
-	<div class="clear"></div>
-	
+	<div class="clear"></div>	
 	<span class="item_separator"></span>
-	
 </li>

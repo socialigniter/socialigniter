@@ -54,7 +54,6 @@ class Content extends Oauth_Controller
 		// Validation Rules
 	   	$this->form_validation->set_rules('module', 'Module', 'required');
 	   	$this->form_validation->set_rules('type', 'Type', 'required');
-	   	$this->form_validation->set_rules('title', 'Title', 'required');	
 	   	$this->form_validation->set_rules('content', 'Content', 'required');
 	   	
 	   	//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);

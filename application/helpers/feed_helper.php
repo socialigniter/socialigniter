@@ -35,12 +35,12 @@ function item_type($type_array, $type)
 
 function item_type_class($type)
 {
-	if ($type == 'status')
+	if ($type != 'status')
 	{
-		return 'item_type';
+		return ' type_'.$type;
 	}
 	
-	return 'item_type type_'.$type;	
+	return NULL;
 }
 
 function item_linkify($text)
@@ -105,6 +105,8 @@ function item_alerts($item_id, $viewed, $approval=NULL, $approve_link)
 	return $item_status;
 }
 
+
+/* Event Item Types */
 function events_location($object, $allowed)
 {
 	$result 		= NULL;
