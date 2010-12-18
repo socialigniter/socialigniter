@@ -7,23 +7,19 @@
 <?php endif; ?>
 
 <textarea name="<?= $wysiwyg_name ?>" id="<?= $wysiwyg_id ?>" class="<?= $wysiwyg_class ?>"><?= $wysiwyg_value ?></textarea>
-
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.wysiwyg.js"></script>
 <script type="text/javascript">
-
 $(function($)
 {
-	$('#<?= $wysiwyg_id ?>').wysiwyg({
-		
+	$('#<?= $wysiwyg_id ?>').wysiwyg(
+	{	
 		autoGrow: true,
-	
 		resizeOptions:
 		{
 			maxWidth	: 640,
 			minWidth	: 640,
 			minHeight	: 340
 		},
-		
 		controls:
 		{
 			separator				: { visible : false },

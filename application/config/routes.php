@@ -87,6 +87,7 @@ $route['home/comments/(:any)'] 					= 'home/comments/$1';
 $route['home/comments'] 						= 'home/comments';
 $route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
+$route['home/add_category']						= 'home/add_category';
 $route['home'] 									= 'home';
 
 $route['manager/(:any)']						= '$1/manager';

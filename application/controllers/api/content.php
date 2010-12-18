@@ -4,7 +4,9 @@ class Content extends Oauth_Controller
 {
     function __construct()
     {
-        parent::__construct();      
+        parent::__construct(); 
+    
+    	$this->form_validation->set_error_delimiters('', '');
 	}
 	
     /* GET types */
@@ -23,26 +25,25 @@ class Content extends Oauth_Controller
     }
 
 
-	// Content by ID
+	// Content by various
 	function view_get()
     {
+    	$search_by	= $this->uri->segment(4);
+    	$search_for	= $this->uri->segment(5);
+    	$content	= $this->social_igniter->get_content_view($search_by, $search_for);    
    		 	
-    	// If No ID return error
-        if(!$this->get('id'))
-        {
-            $this->response(array('status' => 'error', 'message' => 'Specify a content_id'), 200);
-        }
-
-        $content = $this->social_igniter->get_content($this->get('id'));
-    	
         if($content)
         {
-            $this->response($content, 200);
+            $message 	= array('status' => 'success', 'data' => $content);
+            $response	= 200;
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'No comments could be found'), 404);
+            $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' content for '.$search_for);
+            $response	= 404;        
         }
+
+        $this->response($message, $response);
     }
 
 
@@ -63,8 +64,7 @@ class Content extends Oauth_Controller
 	    {	    	
 	    	$viewed			= 'Y';
 	    	$approval		= 'A'; // $this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id); 
-	   		$status 		= 'P'; //form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'));
-	   		$comments_allow	= $this->input->post('comments_allow');
+	   		$status 		= form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'));
 	   	
 	    	$content_data = array(				
 				'parent_id'			=> $this->input->post('parent_id'),
@@ -79,7 +79,7 @@ class Content extends Oauth_Controller
 				'content'			=> $this->input->post('content'),
 				'details'			=> $this->input->post('details'),
 				'access'			=> $this->input->post('access'),
-				'comments_allow'	=> $comments_allow,
+				'comments_allow'	=> $this->input->post('comments_allow'),
 				'geo_lat'			=> $this->input->post('geo_lat'),
 				'geo_long'			=> $this->input->post('geo_long'),
 				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
@@ -118,12 +118,11 @@ class Content extends Oauth_Controller
     function modify_put()
     {
 		// Validation Rules
-	   	$this->form_validation->set_rules('module', 'Module', 'required');
-	   	$this->form_validation->set_rules('type', 'Type', 'required');
 	   	$this->form_validation->set_rules('title', 'Title', 'required');	
 	   	$this->form_validation->set_rules('content', 'Content', 'required');
 	   	
-	   	//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
+	   	// Does User Have Access
+	   	//$this->social_tools->has_access_to_modidy($this->get('id'), $this->oauth_user_id);
 	
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
@@ -131,7 +130,6 @@ class Content extends Oauth_Controller
 	    	$viewed			= 'Y';
 	    	$approval		= 'A'; // $this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id); 
 	   		$status 		= 'P'; //form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'));
-	   		$comments_allow	= $this->input->post('comments_allow');
 	   	
 	    	$content_data = array(				
 				'parent_id'			=> $this->input->post('parent_id'),
@@ -146,7 +144,7 @@ class Content extends Oauth_Controller
 				'content'			=> $this->input->post('content'),
 				'details'			=> $this->input->post('details'),
 				'access'			=> $this->input->post('access'),
-				'comments_allow'	=> $comments_allow,
+				'comments_allow'	=> $this->input->post('comments_allow'),
 				'geo_lat'			=> $this->input->post('geo_lat'),
 				'geo_long'			=> $this->input->post('geo_long'),
 				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
@@ -156,12 +154,12 @@ class Content extends Oauth_Controller
 	    	);
 	    									
 			// Insert
-			$content = $this->social_igniter->add_content($content_data, $this->input->post('tags'), '');
+			$content = $this->social_igniter->update_content($content_data, $this->input->post('tags'), '');
 			     		
 		    if ($content)
 		    {	
 				// API Response
-	        	$message	= array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $content);
+	        	$message	= array('status' => 'success', 'message' => 'Awesome we update your '.$content_data['type'], 'data' => $content);
 	        	$response	= 200;
 	        }
 	        else

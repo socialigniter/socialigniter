@@ -1,4 +1,5 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Index extends Public_Controller 
 { 
     function __construct() 
@@ -35,14 +36,12 @@ class Index extends Public_Controller
 
 	function sandbox_results()
 	{
-		
         $this->load->library('rest', array('server' => base_url().'api/')); 
         
         $this->data['request_url']		= base_url().'api/'.$this->input->post('uri', TRUE);
         $this->data['response_string']	= '';
         $this->data['error_string']		= '';
         $this->data['info']				= '';
-
         
         if($_POST)
         {
@@ -60,15 +59,11 @@ class Index extends Public_Controller
 			$this->data['debug'] 	= $this->rest->debug();	        
 
 			$this->load->view(config_item('site_theme').'/api/sandbox_results', $this->data);
-		
         }
 		else
 		{
 			echo 'Opps, something went wrong with your tonka truck. Better stay in the sandbox';			
-		
-		}        	
-	
-	}    
-    
+		}
+	}
        
 }

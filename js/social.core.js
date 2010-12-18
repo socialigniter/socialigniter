@@ -12,7 +12,12 @@ var current_module = jQuery.url.segment(1);
 // Renders placeholder
 function doPlaceholder(id, placeholder)
 {		
-	if ($(id).length && $(this).val() == '')
+	var value_length = $(id).length;
+	var value_text = $(this).val();
+
+	console.log(id + ' length: ' + value_length + ' value: ' + value_text); 
+
+	if (value_length && value_text == '')
 	{
 		$(id).val(placeholder).css('color', '#999999');
 		
@@ -34,7 +39,7 @@ function doPlaceholder(id, placeholder)
 	Use like:
 	$('#content_message).notify({message:'Something has been updated!'});
 */
-(function( $ )
+(function($)
 {
 	$.fn.notify = function(options)
 	{
@@ -82,6 +87,22 @@ function ValidateEmailAddress(email)
 }
 
 // Checks if field has content, handles placeholder
+function isFieldValid(id, placeholder, error)
+{
+	var value = $(id).val();
+	
+	if (value == placeholder)
+	{
+		$(id).val(error).css('color', '#bd0b0b');		
+		$(id).oneTime(1350, function(){$(id).val(placeholder)});
+		$(id).oneTime(1350, function(){$(id).css('color', '#999999')});
+		
+		return false;
+	}
+	
+	return true;
+}
+
 function isFieldValid(id, placeholder, error)
 {
 	var value = $(id).val();
