@@ -113,9 +113,12 @@ $(document).ready(function()
 		var item_attr_id		= $(this).attr('id');
 		var item_attr_array		= item_attr_id.split('_');
 		var item_id				= item_attr_array[3];
-		var item_url			= $(this).attr('href');
+		var item_type			= $(this).attr('rel');		
+		var item_url			= base_url + 'api/' + item_type + '/approve/id/' + item_id;
 		var item_alert_approve	= '#item_alert_approve_'+item_id;
 		var item_action_approve	= '#item_action_approve_'+item_id;
+		
+		console.log(item_url);
 		
 		$(this).oauthAjax(
 		{

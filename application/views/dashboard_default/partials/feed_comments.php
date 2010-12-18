@@ -3,21 +3,15 @@
 		<a href="<?= $item_profile ?>"><img src="<?= $item_avatar ?>" /></a>
 	</div>
 	<div class="item_content">
-		<span class="item_content_small">
-			<b><a href="<?= $item_profile ?>"><?= $item_contributor ?></a></b> <span class="item_verb"><?= $item_verb ?></span> <span class="feed_content_view"><a href="<?= $item_view ?>"><?= $item_object ?></a></span><br>
-			
+		<span class="item_content_body">
+			<b><a href="<?= $item_profile ?>"><?= $item_contributor ?></a></b> <span class="item_verb"><?= $item_verb ?></span> <span class="feed_content_view"><a href="<?= $item_view ?>"><?= $item_object ?></a></span><br>			
 			<?= $item_text ?>
-			
-			<span class="item_meta"><?= $item_date ?></span>
-			
-			<div class="clear"></div>
-		
 		</span>
-		
-		<span class="<?= $item_type ?>"></span>
-		
-		<?= $item_alerts ?>	
-		
+		<?php if ($item_type): ?><span class="item_type<?= $item_type ?>"></span><?php endif; ?>
+		<?= $item_alerts ?>			
+		<div class="clear"></div>	
+		<span class="item_meta"><?= $item_date ?></span>
+									
 		<div class="clear"></div>
 		<ul class="item_actions" rel="<?= $feed_type ?>">
 			<li><a href="<?= $item_view ?>"><span class="actions action_link"></span> View</a></li>

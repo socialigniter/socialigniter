@@ -88,7 +88,7 @@ function item_viewed($viewed)
 	return $status;
 }
 
-function item_alerts($item_id, $viewed, $approval=NULL, $approve_link)
+function item_alerts($item_id, $viewed, $approval=NULL)
 {
 	$item_status = NULL;
 
@@ -99,7 +99,7 @@ function item_alerts($item_id, $viewed, $approval=NULL, $approve_link)
 
 	if ($approval == 'A') 
 	{
-		$item_status .= '<a href="'.$approve_link.'" class="item_alert_approve item_approve" id="item_alert_approve_'.$item_id.'">Approve</a>';
+		$item_status .= '<span class="item_approve item_alert_approve" id="item_alert_approve_'.$item_id.'">Approve</span>';
 	}
 
 	return $item_status;

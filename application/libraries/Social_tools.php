@@ -80,7 +80,6 @@ class Social_tools
 		return FALSE;
 	}
 	
-	
 	/* Categories */	
 	function get_categories()
 	{
@@ -89,14 +88,31 @@ class Social_tools
 
 	function get_categories_view($parameter, $value)
 	{
-		return $this->ci->categories_model->get_categories_view($parameter, $value);
+		return $this->ci->categories_model->get_categories_view($parameter, $value);	
+	}
+	
+	function get_categories_dropdown($parameter, $value, $user_level_id)
+	{
+		$categories_query	= $this->get_categories_view($parameter, $value);
+		$categories 		= array(0 => '---select---');
+		
+		foreach ($categories_query as $category)
+		{
+			$categories[$category->category_id] = $category->category;
+		}
+		
+		if ($user_level_id <= 2)
+		{
+			$categories['add_category'] = '+ Add Category';
+		}
+		
+		return $categories;	
 	}
 
 	function add_category($category_data)
 	{
 		return $this->ci->categories_model->add_category(config_item('site_id'), $category_data);
 	}
-		
 	
 	
 	/* Comments */

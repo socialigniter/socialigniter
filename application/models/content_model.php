@@ -135,9 +135,9 @@ class Content_model extends CI_Model {
     	return FALSE;
     }
 
-    function update_content($content_id, $content_data)
+    function update_content($content_data)
     {
- 		$data = array(
+ 		$content_data = array(
 			'parent_id'			=> $content_data['parent_id'],
 			'category_id'		=> $content_data['category_id'],
 			'order'				=> $content_data['order'],
@@ -147,12 +147,13 @@ class Content_model extends CI_Model {
 			'details'			=> $content_data['details'],
 			'access'			=> $content_data['access'],
 			'comments_allow'  	=> $content_data['comments_allow'],
+			'approval'			=> $content_data['approval'],			
 			'status'			=> $content_data['status'],
 			'updated_at' 		=> unix_to_mysql(now())
 		);
 
-		$this->db->where('content_id', $content_id);
-		$this->db->update('content', $data);
+		$this->db->where('content_id', $content_data['content_id']);
+		$this->db->update('content', $content_data);
 		
 		return TRUE;
     }    
