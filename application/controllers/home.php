@@ -114,32 +114,32 @@ class Home extends Dashboard_Controller
 	 	}
 	 	else
 	 	{
-			foreach ($comments as $item)
+			foreach ($comments as $comment)
 			{
 				// Item
-				$this->data['item_id']				= $item->comment_id;
-				$this->data['item_type']			= item_type_class($item->type);
-				$this->data['item_viewed']			= item_viewed($item->viewed);
+				$this->data['item_id']				= $comment->comment_id;
+				$this->data['item_type']			= item_type_class($comment->type);
+				$this->data['item_viewed']			= item_viewed($comment->viewed);
 				
 				// Contributor
-				$this->data['item_avatar']			= $this->social_igniter->profile_image($item->user_id, $item->image, $item->email);
-				$this->data['item_contributor']		= $item->name;
-				$this->data['item_profile']			= base_url().'profile/'.$item->username;
+				$this->data['item_avatar']			= $this->social_igniter->profile_image($comment->user_id, $comment->image, $comment->email);
+				$this->data['item_contributor']		= $comment->name;
+				$this->data['item_profile']			= base_url().'profile/'.$comment->username;
 
 				// Activity
-				$this->data['item_object']			= $item->title;
-				$this->data['item_text']			= $item->comment;
-				$this->data['item_date']			= human_date('SIMPLE', mysql_to_unix($item->created_at));
-				$this->data['item_approval']		= $item->approval;
+				$this->data['item_object']			= $comment->title;
+				$this->data['item_text']			= $comment->comment;
+				$this->data['item_date']			= human_date('SIMPLE', mysql_to_unix($comment->created_at));
+				$this->data['item_approval']		= $comment->approval;
 		
 		 		// Actions
-				$this->data['item_view'] 			= base_url().'comments/'.$item->type.'/view/'.$item->content_id.'/'.$item->comment_id;
-				$this->data['item_reply'] 			= base_url().'comments/'.$item->type.'/reply/id/'.$item->content_id.'/'.$item->comment_id;
-				$this->data['item_approve']			= base_url().'api/comments/approve/id/'.$item->comment_id;
-				$this->data['item_delete']			= base_url().'api/comments/destroy/id/'.$item->comment_id;
+				$this->data['item_view'] 			= base_url().'comments/'.$comment->type.'/view/'.$comment->content_id.'/'.$comment->comment_id;
+				$this->data['item_reply'] 			= base_url().'comments/'.$comment->type.'/reply/id/'.$comment->content_id.'/'.$comment->comment_id;
+				$this->data['item_approve']			= base_url().'api/comments/approve/id/'.$comment->comment_id;
+				$this->data['item_delete']			= base_url().'api/comments/destroy/id/'.$comment->comment_id;
 
 				// Alerts
-				$this->data['item_alerts']			= item_alerts($item->comment_id, $item->viewed, $item->approval, $this->data['item_approve']);
+				$this->data['item_alerts']			= comment_alerts($comment);
 
 				// Load Partial For Items
 				$comments_view 				   	   .= $this->load->view(config_item('dashboard_theme').'/partials/feed_comments.php', $this->data, true);

@@ -59,12 +59,12 @@ class Activity_model extends CI_Model {
 	    	$content_data = array(
 				'title'			=> $activity_data['title'],
 				'url'			=> base_url().$activity_data['module'].'/view/'.$activity_data['content_id'],
-				'description' 	=> character_limiter($activity_data['description'], config_item('home_description_length'))
+				'description' 	=> character_limiter(strip_tags($activity_data['description'], ''), config_item('home_description_length'))
 	    	);
 		}
 		// Make Other Conditions for Other Types Of 'data' like (friends add, joined group, etc...)
     
- 		$data = array(
+ 		$activity_data = array(
 			'site_id' 	 			=> $activity_data['site_id'],
 			'user_id' 	 			=> $activity_data['user_id'],
 			'verb'					=> $activity_data['verb'],
@@ -75,7 +75,7 @@ class Activity_model extends CI_Model {
 			'created_at' 			=> unix_to_mysql(now())
 		);
 		
-		$insert = $this->db->insert('activity', $data);
+		$insert = $this->db->insert('activity', $activity_data);
 		
 		if ($activity_id = $this->db->insert_id())
 		{

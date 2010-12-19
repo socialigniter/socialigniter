@@ -42,7 +42,7 @@ class Oauth
         }
         catch (OAuthException2 $e)
         {
-        	log_message('debug', 'Exception while verifying request: '.$e->getMessage());
+        	//log_message('debug', 'Exception while verifying request: '.$e->getMessage());
             return FALSE;
         }
     }

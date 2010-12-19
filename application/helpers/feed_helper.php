@@ -88,21 +88,40 @@ function item_viewed($viewed)
 	return $status;
 }
 
-function item_alerts($item_id, $viewed, $approval=NULL)
+// Alerts for 'activity' feed items
+function item_alerts($item)
 {
-	$item_status = NULL;
+	$item_alerts = NULL;
 
-	if ($viewed == 'N') 
+	if ($item->viewed == 'N') 
 	{
-		$item_status .= '<span class="item_alert_new" id="item_alert_new_'.$item_id.'">New</span>';
+		$item_status .= '<span class="item_alert_new" id="item_alert_new_'.$item->activity_id.'">New</span>';
 	}
 
-	if ($approval == 'A') 
+	if ($item->approval == 'A') 
 	{
-		$item_status .= '<span class="item_approve item_alert_approve" id="item_alert_approve_'.$item_id.'">Approve</span>';
+		$item_status .= '<span class="item_approve item_alert_approve" rel="'.$item->type.'" id="item_alert_approve_'.$item->activity_id.'">Approve</span>';
 	}
 
-	return $item_status;
+	return $item_alerts;
+}
+
+// Alerts for just comments
+function comment_alerts($comment)
+{
+	$comment_alerts = NULL;
+
+	if ($comment->viewed == 'N') 
+	{
+		$comment_alerts .= '<span class="item_alert_new" id="item_alert_new_'.$comment->comment_id.'">New</span>';
+	}
+
+	if ($comment->approval == 'A') 
+	{
+		$comment_alerts .= '<span class="item_approve item_alert_approve" rel="comments" id="item_alert_approve_'.$comment->comment_id.'">Approve</span>';
+	}
+
+	return $comment_alerts;
 }
 
 

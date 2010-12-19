@@ -6,11 +6,10 @@ else
 {
 	var url_port = '';
 }
-var base_url = jQuery.url.attr('protocol') + '://' + jQuery.url.attr('host') + url_port + '/';
-var current_module = jQuery.url.segment(1);
+var base_url 		= jQuery.url.attr('protocol') + '://' + jQuery.url.attr('host') + url_port + '/';
+var current_module	= jQuery.url.segment(1);
 
-
-// Renders placeholder
+// Makes a Placeholder for form module
 function doPlaceholder(id, placeholder)
 {		
 	var value_length = $(id).length;
@@ -32,12 +31,8 @@ function doPlaceholder(id, placeholder)
 	}
 }
 
-/*
-	Allows for easy user notifications and if "how" the notifiy ever works
-	it'll be site wide.
-	Use like:
-	$('#content_message).notify({message:'Something has been updated!'});
-*/
+// Allows for easy user notifications and if "how" the notifiy ever works it'll be site wide.
+// Use like: $('#content_message).notify({message:'Something has been updated!'});
 (function($)
 {
 	$.fn.notify = function(options)
@@ -68,7 +63,7 @@ function doPlaceholder(id, placeholder)
 
 
 //Converts string to a valid "sluggable" URL.
-function convert_to_slug(str)
+function convertToSlug(str)
 {
 	//This line converts to lowercase and then makes spaces into dahes
 	slug_val = str.replace(/ /g,'-').toLowerCase();
@@ -78,7 +73,7 @@ function convert_to_slug(str)
 }
 
 // Validate email address
-function ValidateEmailAddress(email)
+function validateEmailAddress(email)
 {
 	var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 
@@ -102,7 +97,7 @@ function isFieldValid(id, placeholder, error)
 	return true;
 }
 
-function isFieldValid(id, placeholder, error)
+function isWysiwygValid(id, placeholder, error)
 {
 	var value = $(id).val();
 	

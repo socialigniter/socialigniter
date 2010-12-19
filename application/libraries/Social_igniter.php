@@ -549,7 +549,7 @@ class Social_igniter
 					'content_id'	=> $content_id,
 					'title'			=> $content_data['title'],
 					'url'			=> base_url().$content_data['module'].'/view/'.$content_id,
-					'description' 	=> strip_tags($content_data['content'], '')
+					'description' 	=> $content_data['content']
 				);
 			
 				// Add Activity
@@ -566,27 +566,27 @@ class Social_igniter
 		}
 	}
 	
-	function update_content($content_data, $update_user_id)
-	{
-		if (!$site_id) $site_id = config_item('site_id');
+	function update_content($content_id, $content_data, $user_id)
+	{		
+		$update = $this->ci->content_model->update_content($content_id, $content_data);
 	
-		if ($this->ci->content_model->update_content($content_data))
+		if ($update)
 		{
 			$activity_data = array(
-				'site_id'		=> $site_id,
-				'user_id'		=> $update_user_id,
-				'verb'			=> 'post',
+				'site_id'		=> config_item('site_id'),
+				'user_id'		=> $user_id,
+				'verb'			=> 'update',
 				'module'		=> $content_data['module'],
 				'type'			=> $content_data['type'],				
 				'content_id'	=> $content_id,
 				'title'			=> $content_data['title'],
 				'url'			=> base_url().$content_data['module'].'/view/'.$content_id,
-				'description' 	=> strip_tags($content_data['content'], '')
+				'description' 	=> $content_data['content']
 			);
 		
 			// Add Activity
 			$this->add_activity($activity_data);			
-		
+
 			return $this->get_content($content_id);
 		}
 		

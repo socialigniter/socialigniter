@@ -115,11 +115,7 @@ $(document).ready(function()
 		var item_id				= item_attr_array[3];
 		var item_type			= $(this).attr('rel');		
 		var item_url			= base_url + 'api/' + item_type + '/approve/id/' + item_id;
-		var item_alert_approve	= '#item_alert_approve_'+item_id;
-		var item_action_approve	= '#item_action_approve_'+item_id;
-		
-		console.log(item_url);
-		
+				
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,		
@@ -130,8 +126,8 @@ $(document).ready(function()
 		  	{
 				if (result.status == 'success')
 				{			
-					$(item_alert_approve).fadeOut('normal');
-					$(item_action_approve).parent().fadeOut('normal');
+					$('#item_alert_approve_'+item_id).fadeOut('normal');
+					$('#item_action_approve_'+item_id).parent().fadeOut('normal');
 				}		  	
 		  	}		
 		});
@@ -475,7 +471,7 @@ $(document).ready(function()
 						$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
 						function update_slug()
 						{
-							slug_val = convert_to_slug($('#category_name').val());
+							slug_val = convertToSlug($('#category_name').val());
 							//Set the new value
 							$('[name=category_url]').val(slug_val);
 							$('.slug_url span').text(slug_val).live('click',function()

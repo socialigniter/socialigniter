@@ -80,7 +80,7 @@ $(document).ready(function()
 		var email					= isFieldValid('#comment_email', 'your@email.com', 'Please enter your email', 'email');	
 		var comment 				= isFieldValid('#comment_write_text', 'Write comment...', 'Please write something!');
 		var email_address 			= $('#comment_email').val();
-		var email_valid				= ValidateEmailAddress(email_address);
+		var email_valid				= validateEmailAddress(email_address);
 
 		// Key Info
 		var url_create = base_url + 'api/comments/public';

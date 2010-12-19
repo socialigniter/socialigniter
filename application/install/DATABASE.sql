@@ -41,13 +41,13 @@ CREATE TABLE `access` (
 
 CREATE TABLE `activity` (
   `activity_id` int(32) NOT NULL AUTO_INCREMENT,
-  `site_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `verb` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `module` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `site_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `verb` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `module` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `data` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,  
-  `created_at` datetime NOT NULL,
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`activity_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -131,9 +131,9 @@ CREATE TABLE `content` (
   `site_id` int(6) DEFAULT '0',
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `category_id` int(3) DEFAULT '0',
-  `module` char(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `type` char(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `source` char(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `module` char(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` char(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `source` char(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `order` int(4) DEFAULT NULL,
   `user_id` int(11) DEFAULT '0',
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,

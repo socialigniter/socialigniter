@@ -135,28 +135,15 @@ class Content_model extends CI_Model {
     	return FALSE;
     }
 
-    function update_content($content_data)
+    function update_content($content_id, $content_data)
     {
- 		$content_data = array(
-			'parent_id'			=> $content_data['parent_id'],
-			'category_id'		=> $content_data['category_id'],
-			'order'				=> $content_data['order'],
-			'title'				=> $content_data['title'],
-			'title_url'			=> $content_data['title_url'],
-			'content'			=> $content_data['content'],
-			'details'			=> $content_data['details'],
-			'access'			=> $content_data['access'],
-			'comments_allow'  	=> $content_data['comments_allow'],
-			'approval'			=> $content_data['approval'],			
-			'status'			=> $content_data['status'],
-			'updated_at' 		=> unix_to_mysql(now())
-		);
+ 		$content_data['updated_at'] = unix_to_mysql(now());
 
-		$this->db->where('content_id', $content_data['content_id']);
+		$this->db->where('content_id', $content_id);
 		$this->db->update('content', $content_data);
 		
 		return TRUE;
-    }    
+    }
 
     function update_content_comments_count($content_id, $comments_count)
     {

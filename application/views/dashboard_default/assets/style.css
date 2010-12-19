@@ -80,7 +80,7 @@ a.button_basic_link span	{ position: relative; top: 6px; left: 0px; }
 
 #content_message			{ width: 615px; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; font-size: 14px; margin:0 0 10px 0; }
 
-div.message_normal			{ padding: 0; }
+div.message_normal			{ padding:.. 0; }
 div.message_error			{ padding: 12px 15px; background: #b54545; color: #f2edda; text-shadow:1px 1px 1px #fff; }
 div.message_alert			{ padding: 12px 15px; background: #f2e3af; color: #666666; text-shadow:1px 1px 1px #d6d6d6; }
 
@@ -115,7 +115,6 @@ div.content_wrap_inner		{ margin: 0px 15px 25px 15px; }
 div.content_inner_top_right	{ width: 200px; float: right; position: relative; right: 0px; top: -20px; }
 
 div.content_col_two			{ width: 300px; float: left; margin: 0 25px 0 0; padding: 0; }
-
 
 /* Sidebar */
 #sidebar 					{ float: left; width: 235px; margin: 0px; padding: 0px; text-align: left; }
@@ -186,6 +185,7 @@ div.item_content_small 		{ width: 400px; display: block; line-height: 21px; marg
 span.item_separator			{ width: 100%; height: 2px; display: block; background: url(images/item_separator.png) 0 0 repeat-x; margin: 6px 0 0 0; }
 span.item_verb				{ color: #999999; }
 span.item_content_body		{ width: 450px; float: left; }
+span.item_content_body_small{ width: 375px; float: left; }
 img.item_content_thumb		{ width: 125px; display: block; float: left; margin: 0 15px 0 0; }
 span.item_content_detail	{ width: 350px; display: block; float: left; margin: 4px 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }
 span.item_content_detail_sm	{ width: 250px; display: block; float: left; margin: 0 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }

@@ -22,23 +22,20 @@ class Oauth_Controller extends REST_Controller
     function _remap($method)
     {
         // if CI gives us "foo", we need to check if "foo_authd_<request_method>" exists. 
-        // if so, ensure authentication and pass "foo_authd" to REST controller
-        // otherwise pass the method name unchanged to REST controller for normal processing
-        // (including 404)
+        // if so, ensure authentication and pass "foo_authd" to REST controller otherwise
+        // pass the method name unchanged to REST controller for normal processing (including 404)
         $authd_method = $method . "_authd";
         
         if ($this->rest_method_exists($authd_method))
         {
             if (!$this->oauth->request_is_signed())
             {
-			    log_message('debug', 'request_is_signed returning TRUE');	
-
+			    //log_message('debug', 'request_is_signed returning TRUE');	
                 return $this->response(array('status' => 'error', 'message' => 'Request is not signed.'), 401);
             }
 
 	        $this->oauth_user_id = $this->oauth->get_oauth_user_id();
-
-			log_message('debug', 'oauth_user_id is '.$this->oauth_user_id);	
+			//log_message('debug', 'oauth_user_id is '.$this->oauth_user_id);	
 
             if (!$this->oauth_user_id)
             {
@@ -48,8 +45,7 @@ class Oauth_Controller extends REST_Controller
             $method = $authd_method;
         }
 
-		log_message('debug', 'passing to parent _remap '.$method);	
-        
+		//log_message('debug', 'passing to parent _remap '.$method);	
         parent::_remap($method);
     }
 }

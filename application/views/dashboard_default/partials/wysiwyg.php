@@ -14,12 +14,7 @@ $(function($)
 	$('#<?= $wysiwyg_id ?>').wysiwyg(
 	{	
 		autoGrow: true,
-		resizeOptions:
-		{
-			maxWidth	: 640,
-			minWidth	: 640,
-			minHeight	: 340
-		},
+		resizeOptions: { maxWidth : 640, minWidth : 640, minHeight : 340 },
 		controls:
 		{
 			separator				: { visible : false },

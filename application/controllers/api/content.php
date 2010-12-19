@@ -117,65 +117,52 @@ class Content extends Oauth_Controller
         
     
     /* PUT types */
-    function modify_put()
+    function modify_authd_post()
     {
-		// Validation Rules
-	   	$this->form_validation->set_rules('content', 'Content', 'required');
-	   	
+		// Access Rules
 	   	//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
-	
-		// Passes Validation
-	    if ($this->form_validation->run() == true)
-	    {    	
-	    	$viewed			= 'Y';
-	    	$approval		= 'A'; // $this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id); 
-	   		$status 		= 'P'; //form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'));
 	   	
-	    	$content_data = array(
-	    		'content_id'		=> $this->get('id'),	
-				'parent_id'			=> $this->input->post('parent_id'),
-				'category_id'		=> $this->input->post('category_id'),
-				'source'			=> $this->input->post('source'),
-				'order'				=> $this->input->post('order'),
-				'title'				=> $this->input->post('title'),
-				'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url')),
-				'content'			=> $this->input->post('content'),
-				'details'			=> $this->input->post('details'),
-				'access'			=> $this->input->post('access'),
-				'comments_allow'	=> $this->input->post('comments_allow'),
-				'geo_lat'			=> $this->input->post('geo_lat'),
-				'geo_long'			=> $this->input->post('geo_long'),
-				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
-				'viewed'			=> $viewed,
-				'approval'			=> $approval,				
-				'status'			=> $status  			
-	    	);
-	    									
-			// Insert
-			$content = $this->social_igniter->update_content($content_data, $this->oauth_user_id);     		
-			 
-			// Process Tags
-			//$this->input->post('tags');			 
-			     		
-		    if ($content)
-		    {
-				// API Response
-	        	$message	= array('status' => 'success', 'message' => 'Awesome we updated your '.$content_data['type'], 'data' => $content);
-	        	$response	= 200;
-	        }
-	        else
-	        {
-		        $message	= array('status' => 'error', 'message' => 'Oops we were unable to post your '.$content_data['type']);
-		        $response	= 200;		        
-	        }	
-		}
-		else 
-		{
-			// Does Not Pass Validation
-	        $message	= array('status' => 'error', 'message' => 'You need: '.$this->input->post('content').validation_errors());
-	        $response	= 200;
-		}
-	
+    	$viewed			= 'Y';
+    	$approval		= 'A'; // $this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id); 
+   		$status 		= 'P'; // form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'));
+   
+    	$content_data = array(
+			'parent_id'			=> $this->input->post('parent_id'),
+			'category_id'		=> $this->input->post('category_id'),
+			'module'			=> $this->input->post('module'),
+			'type'				=> $this->input->post('type'),
+			'order'				=> $this->input->post('order'),
+			'title'				=> $this->input->post('title'),
+			'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url')),
+			'content'			=> $this->input->post('content'),
+			'details'			=> $this->input->post('details'),
+			'access'			=> $this->input->post('access'),
+			'comments_allow'	=> $this->input->post('comments_allow'),
+			'geo_lat'			=> $this->input->post('geo_lat'),
+			'geo_long'			=> $this->input->post('geo_long'),
+			'geo_accuracy'		=> $this->input->post('geo_accuracy'),
+			'viewed'			=> $viewed,
+			'approval'			=> $approval,
+			'status'			=> $status
+    	);
+    									
+		// Insert
+		$update = $this->social_igniter->update_content($this->get('id'), $content_data, $this->oauth_user_id);     		
+		 
+		// Process Tags
+		//$this->input->post('tags');	 
+		     		
+	    if ($update)
+	    {
+        	$message	= array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
+        	$response	= 200;
+        }
+        else
+        {
+	        $message	= array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
+	        $response	= 200;		        
+        }
+
 	    $this->response($message, $response);
     } 
 
