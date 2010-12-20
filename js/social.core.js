@@ -146,3 +146,24 @@ function markNewItem(item_id)
 	});
 }
 
+
+// Text for State of Content
+function displayContentStatus(status)
+{
+	if (status == 'P')
+	{
+		status = 'Published';
+	}
+	else if (status == 'S')
+	{
+		status = 'Saved';
+	}
+	else
+	{
+		status = 'Unpublished';
+	}
+
+	return status;
+}
+
+

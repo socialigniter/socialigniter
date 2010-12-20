@@ -33,14 +33,27 @@ function form_submit_publish($publish, $save)
 }
 
 
-function form_title_url($title, $title_url)
+function form_title_url($title, $title_url, $existing_url)
 {
-	if ($title_url)
+	if (($title_url != '') && ($title_url != $existing_url))
 	{
 		return $title_url;
 	}
 	else
 	{
 		return url_username($title, 'dash', TRUE);
+	}
+}
+
+
+function form_content_viewed($site_id)
+{
+	if ($site_id == config_item('site_id'))
+	{
+		return 'Y';
+	}
+	else
+	{
+		return 'N';
 	}
 }

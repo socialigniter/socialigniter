@@ -78,7 +78,7 @@ a.button_basic_link span	{ position: relative; top: 6px; left: 0px; }
 #content 					{ width: 700px; min-height: 350px; float: left; margin: 0px 15px 0px 0px; padding: 0px; text-align: left; }
 #content_wide 				{ width: 950px; min-height: 350px; float: left; margin: 0px 15px 0px 0px; padding: 0px; text-align: left; }
 
-#content_message			{ width: 615px; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; font-size: 14px; margin:0 0 10px 0; }
+#content_message			{ width: 615px; border-radius: 8px; float: left; clear: right; -webkit-border-radius: 8px; -moz-border-radius: 8px; font-size: 14px; margin:0 0 10px 0; }
 
 div.message_normal			{ padding:.. 0; }
 div.message_error			{ padding: 12px 15px; background: #b54545; color: #f2edda; text-shadow:1px 1px 1px #fff; }

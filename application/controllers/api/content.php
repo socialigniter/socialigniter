@@ -119,6 +119,8 @@ class Content extends Oauth_Controller
     /* PUT types */
     function modify_authd_post()
     {
+    	$content = $this->social_igniter->get_content($this->get('id'));
+    
 		// Access Rules
 	   	//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
 	   	
@@ -133,7 +135,7 @@ class Content extends Oauth_Controller
 			'type'				=> $this->input->post('type'),
 			'order'				=> $this->input->post('order'),
 			'title'				=> $this->input->post('title'),
-			'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url')),
+			'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
 			'content'			=> $this->input->post('content'),
 			'details'			=> $this->input->post('details'),
 			'access'			=> $this->input->post('access'),

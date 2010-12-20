@@ -113,3 +113,23 @@ function display_image($id=false, $class=false, $image_pre, $image, $image_null=
 		
 	return $image;
 }
+
+
+
+function display_content_status($status)
+{
+	if ($status == 'P')
+	{
+		$status = 'Published';
+	}
+	elseif ($status == 'S')
+	{
+		$status = 'Saved';
+	}
+	else
+	{
+		$status = 'Unpublished';
+	}
+
+	return $status;
+}
