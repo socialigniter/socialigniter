@@ -6,6 +6,7 @@ class Home extends Dashboard_Controller
         parent::__construct();
     }
  
+ 	// Home Feed
  	function index()
  	{	
 		if ($this->uri->total_segments() == 1)
@@ -79,31 +80,35 @@ class Home extends Dashboard_Controller
 		$this->render();
  	}   
 
- 	function mentions()
+ 	function friends()
  	{ 	
-		$user_connections 				= $this->connections_model->get_user_connections_array($this->session->userdata('user_id'));
+ 	    $this->data['page_title'] 		= "Friends";
+		 	 	
+		$this->render();
+ 	}
 
+ 	function mentions()
+ 	{
  	    $this->data['page_title'] 		= "@ Replies";
-		$this->data['timeline'] 		= $this->status_model->get_status_timeline(18);
-		$this->data['post_to_social']	= $this->social_igniter->post_to_social($this->session->userdata('user_id'), $user_connections);
 		 	 	
 		$this->render();
  	}
 
 	function likes()
 	{
-		
+ 	    $this->data['page_title'] 		= "Likes";		
 	
-	
+		$this->render();
 	}
 
-
+	// Dashboard Comments Section
  	function comments()
- 	{ 		
- 		if ($this->uri->segment(3)) $comment_module = $this->uri->segment(3);
- 		else						$comment_module = 'all';
- 	
-		$comments 					= $this->social_tools->get_comments($comment_module);		
+ 	{
+ 	    $this->data['page_title'] 	= "Comments";
+ 	    $this->data['sub_title'] 	= "Recent";
+ 		$this->data['navigation']	= $this->load->view(config_item('dashboard_theme').'/partials/navigation_comments.php', $this->data, true);
+
+		$comments 					= $this->social_tools->get_comments($this->uri->segment(3));		
 		$comments_view 				= NULL;
 		$this->data['feed_type']	= 'comments';
     	$this->data['item_verb']	= item_type($this->lang->line('object_types'), 'comment');
@@ -133,8 +138,8 @@ class Home extends Dashboard_Controller
 				$this->data['item_approval']		= $comment->approval;
 		
 		 		// Actions
-				$this->data['item_view'] 			= base_url().'comments/'.$comment->type.'/view/'.$comment->content_id.'/'.$comment->comment_id;
-				$this->data['item_reply'] 			= base_url().'comments/'.$comment->type.'/reply/id/'.$comment->content_id.'/'.$comment->comment_id;
+				$this->data['item_view'] 			= base_url().$comment->module.'/view/'.$comment->content_id.'/'.$comment->comment_id;
+				$this->data['item_reply'] 			= base_url().$comment->module.'/reply/id/'.$comment->content_id.'/'.$comment->comment_id;
 				$this->data['item_approve']			= base_url().'api/comments/approve/id/'.$comment->comment_id;
 				$this->data['item_delete']			= base_url().'api/comments/destroy/id/'.$comment->comment_id;
 
@@ -150,6 +155,7 @@ class Home extends Dashboard_Controller
 				
 		$this->render();
 	}
+	
 	
 	/* Partials */
 	function feed_item()

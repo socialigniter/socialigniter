@@ -14,6 +14,13 @@
 <ul class="content_navigation">
 	 <?= navigation_list_btn('settings/modules', 'Back To Modules') ?>
 </ul>
+<?php elseif ($this->uri->segment(2) == 'api'): ?>
+<h2 class="content_title">
+	<img src="<?= $dashboard_assets ?>icons/api_32.png"> Api Settings
+</h2>
+<ul class="content_navigation">
+	 <?= navigation_list_btn('settings/modules', 'Back To Modules') ?>
+</ul>
 <?php elseif ($this->uri->segment(2) != 'modules'): ?>
 <h2 class="content_title">
 	<img src="<?= $modules_assets.$this_module ?>_32.png"> <?= ucwords($this_module) ?> Settings

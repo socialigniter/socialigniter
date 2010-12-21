@@ -27,7 +27,7 @@ $config['default_group']       			= 'user';				// Default group, use name
 $config['admin_group']         			= 'admin';				// Default administrators group, use name
 
 // Settings
-$config['core_modules']					= array('api', 'users', 'home', 'pages', 'messages', 'comments','locations');
+$config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','locations');
 $config['ignore_modules']				= array('login');
 $config['home_greeting']				= array("There's no place like home.","Welcome home buddy.","Good news: you're home!","Sweet home, Interwebs!","Home again, home again, jigity jog...");
 $config['mobile_verify']				= array("borogoves","gyre","jabberwocky","jubjub","frumious","bandersnatch","vorpal","tumtum","tulgey","burbled","snicker","snack","galumph","callooh","brillig","slithy","gimble"); //dont use the word verified

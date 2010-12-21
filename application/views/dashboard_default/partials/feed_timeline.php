@@ -12,7 +12,7 @@
 			
 		<ul class="item_actions" rel="timeline">
 			<?php if (config_item('home_comments_allow') == 'TRUE'): ?>
-			<li><a class="item_comment" href="<?= $item_comment ?>"><span class="actions action_comment"></span> Comment</a></li>
+			<li><a class="item_comment" href="#"><span class="actions action_comment"></span> Comment</a></li>
 			<?php endif; ?>
 			<?php if (config_item('home_share') == 'TRUE'): ?>
 			<li><a href="#"><span class="actions action_share"></span> Share</a></li>

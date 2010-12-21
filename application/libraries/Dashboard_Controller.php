@@ -20,7 +20,6 @@ class Dashboard_Controller extends MY_Controller
 		$this->data['footer']					= $this->load->view(config_item('dashboard_theme').'/partials/footer.php', $this->data, true);
 		$this->data['modules_assets']			= NULL;
 		$this->data['modules_head']   			= NULL;
-		$this->data['modules_navigation_core']	= NULL;
         $this->data['modules_sidebar_messages'] = NULL;
         $this->data['modules_sidebar_tools']  	= NULL;
         $this->data['modules_sidebar_admin']  	= NULL;
@@ -35,9 +34,9 @@ class Dashboard_Controller extends MY_Controller
 		}
 		
 		// Get Includes From All Modules
-		$this->data['modules_scan'] = $this->social_igniter->scan_modules();
+		$this->modules_scan = $this->social_igniter->scan_modules();
 		
-		foreach ($this->data['modules_scan'] as $module)
+		foreach ($this->modules_scan as $module)
 		{
 			if (config_item($module.'_enabled') == 'TRUE')
 			{	
@@ -69,49 +68,51 @@ class Dashboard_Controller extends MY_Controller
     
     function render($layout='dashboard')
     {
-    	// Is A Module
+    	// Module
        	if ($this->module_name) 
     	{
-    		// Navigation extends / replaces core
+    		// Navigation extends / replaces core navigation
+    		// If this changes it breaks 'settings' navigations
 		    if (!file_exists(APPPATH.'/modules/'.$this->module_name.'/views/partials/navigation_'.$this->module_controller.'.php'))
 		    {
 				$navigation_path	= config_item('dashboard_theme').'/partials/navigation_'.$this->module_controller.'.php'; 
 			}
+			// Does URLS like 'home/blog/write'
 			else
 		    {
-        		$navigation_path	= '../modules/'.$this->module_name.'/views/partials/navigation_'.$this->module_controller.'.php';        
+        		$navigation_path	= '../modules/'.$this->module_name.'/views/partials/navigation_home.php';        
 			}
 			
 			// Content Path
     	    $content_path 			= '../modules/'.$this->module_name.'/views/'.$this->module_controller.'/'.$this->action_name.'.php';			
 		}
-		// Is Module but uses home feed '/home/blog'
-		elseif (($this->uri->segment(1) == 'home') && (in_array($this->uri->segment(2), $this->data['modules_scan'])))
+		// Module but uses 'home activity feed' like '/home/blog'
+		elseif (($this->uri->segment(1) == 'home') && (in_array($this->uri->segment(2), $this->modules_scan)))
 		{
 			$first_name		= $this->uri->segment(1);
 			$module_name 	= $this->uri->segment(2);
 
 			$this->data['modules_assets'] = base_url().'application/modules/'.$module_name.'/assets/';
 
-    		// Navigation extends / replaces core
-		    if (!file_exists(APPPATH.'/modules/'.$module_name.'/views/partials/navigation_'.$first_name.'.php'))
-		    {
-				$navigation_path	= config_item('dashboard_theme').'/partials/navigation_'.first_name.'.php'; 
-			}
-			else
-		    {
-        		$navigation_path	= '../modules/'.$module_name.'/views/partials/navigation_'.$first_name.'.php';        
-			}		
-
-			// Content Path
+        	$navigation_path		= '../modules/'.$module_name.'/views/partials/navigation_home.php';
     	    $content_path 			= config_item('dashboard_theme').'/home/module.php';
-
+		}
+		// Comments
+		// This is a kind of nasty solution but works
+		// Should perhaps be rethought in the future
+		elseif ($this->uri->segment(2) == 'comments')
+		{
+			// Need to add a way to drilldown through
+			// Comments. One idea is a dropdown menu... but breaks nav style
+			// Without dropdown runs the risk of being too many modules and totally ruining the nav		
+	        $navigation_path 		= config_item('dashboard_theme').'/partials/navigation_comments.php';        
+        	$content_path 			= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
 		}
 		// Not Module
 		else
 		{
-	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_'.$this->controller_name.'.php';        
-        	$content_path 		= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
+	        $navigation_path 		= config_item('dashboard_theme').'/partials/navigation_'.$this->controller_name.'.php';        
+        	$content_path 			= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
 		}
 
 		// Load Partial Views

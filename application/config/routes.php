@@ -82,12 +82,13 @@ $route['connections/(:any)'] 					= '$1/connections/index';
 
 $route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
 $route['home/(:any)/(:any)/(:any)'] 			= '$1/home/$2/$3';
+$route['home/comments/(:any)'] 					= 'home/comments/$1';
 $route['home/(:any)/(:any)'] 					= '$1/home/$2';
 $route['home/(:any)'] 							= 'home';
-$route['home/comments/(:any)'] 					= 'home/comments/$1';
 $route['home/comments'] 						= 'home/comments';
 $route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
+$route['home/likes']							= 'home/likes';
 $route['home/add_category']						= 'home/add_category';
 $route['home'] 									= 'home';
 
