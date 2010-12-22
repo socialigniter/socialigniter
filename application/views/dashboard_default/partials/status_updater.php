@@ -1,7 +1,7 @@
 <form method="post" id="status_update" action="<?= base_url() ?>api/content/create">
 	<p><textarea id="status_update_text" name="content"></textarea></p>
 	<div id="status_update_options">
-		<?php if ($geo_locate): ?>
+		<?php if ($logged_geo_enabled): ?>
 		<div id="status_update_geo">
 			<a href="#" class="find_location" id="status_find_location"><span>Get Location</span></a>
 		</div>

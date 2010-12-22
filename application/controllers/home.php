@@ -19,10 +19,6 @@ class Home extends Dashboard_Controller
 				$this->session->set_userdata('home_greeting', TRUE);
 			}
 			
-			// Geo
-			$this->data['geo_locate']		= $this->session->userdata('geo_enabled');
-			
-			// Updater
 			$this->data['status_updater']	= $this->load->view($this->config->item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
  	    
  	    	$feed_module = NULL;
@@ -62,7 +58,7 @@ class Home extends Dashboard_Controller
 		 		// Actions
 			 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
 			 	
-			 	$this->data['item_can_edit']		= $this->social_tools->has_access_to_modify($activity->type, $activity->activity_id);
+			 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify($activity->type, $activity->activity_id);
 				$this->data['item_edit']			= base_url().'home/'.$activity->module.'/edit/'.$activity->content_id;
 				$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
 
@@ -158,9 +154,30 @@ class Home extends Dashboard_Controller
 	
 	
 	/* Partials */
-	function feed_item()
+	function feed_timeline()
 	{
-		$this->load->view(config_item('dashboard_theme').'/partials/feed_timeline');
+		$this->data['item_id']				= '{ITEM_ID}';
+		$this->data['item_type']			= '{ACTIVITY_TYPE}';
+		
+		// Contributor
+		$this->data['item_user_id']			= '{ITEM_USER_ID}';
+		$this->data['item_avatar']			= '{ITEM_AVATAR}';
+		$this->data['item_contributor']		= '{ITEM_CONTRIBUTOR}';
+		$this->data['item_profile']			= base_url().'profiles/{ITEM_PROFILE}';
+		
+		// Activity
+		$this->data['item_content']			= '{ITEM_CONTENT}';
+		$this->data['item_content_id']		= '{ITEM_CONTENT_ID}';
+		$this->data['item_date']			= '{ITEM_DATE}';
+
+ 		// Actions
+	 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
+	 	
+	 	$this->data['item_can_edit']		= $this->social_tools->has_access_to_modify($activity->type, $activity->activity_id);
+		$this->data['item_edit']			= base_url().'home/'.$activity->module.'/edit/'.$activity->content_id;
+		$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;			
+	
+		$this->load->view(config_item('dashboard_theme').'/partials/feed_timeline', $this->data);
 	}
 	
 	function add_category()

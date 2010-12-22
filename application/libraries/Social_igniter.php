@@ -528,20 +528,18 @@ class Social_igniter
 	}
 	
 	// Adds Content & Activity
-	function add_content($content_data, $site_id)
+	function add_content($content_data)
 	{
 		$check_content = $this->check_content_duplicate($content_data['user_id'], $content_data['title'], $content_data['content']);
 	
 		if ($check_content)
-		{
-			if (!$site_id) $site_id = config_item('site_id');
-		
-			$content_id = $this->ci->content_model->add_content($content_data, $site_id);
+		{		
+			$content_id = $this->ci->content_model->add_content($content_data);
 		
 			if ($content_id)
 			{
 				$activity_data = array(
-					'site_id'		=> $site_id,
+					'site_id'		=> $content_data['site_id'],
 					'user_id'		=> $content_data['user_id'],
 					'verb'			=> 'post',
 					'module'		=> $content_data['module'],

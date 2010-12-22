@@ -97,10 +97,10 @@ class Content_model extends CI_Model {
  		return $result;      
     }
     
-    function add_content($content_data, $site_id)
+    function add_content($content_data)
     {
  		$content_data = array(
-			'site_id' 	 		=> $site_id,
+			'site_id' 	 		=> $content_data['site_id'],
 			'parent_id'			=> $content_data['parent_id'],
 			'category_id'		=> $content_data['category_id'],
 			'module'			=> $content_data['module'],

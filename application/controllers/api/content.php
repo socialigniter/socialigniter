@@ -24,7 +24,6 @@ class Content extends Oauth_Controller
         }
     }
 
-
 	// Content by various
 	function view_get()
     {
@@ -62,10 +61,11 @@ class Content extends Oauth_Controller
 	    if ($this->form_validation->run() == true)
 	    {	    	
 	    	$viewed			= 'Y';
-	    	$approval		= 'A'; // $this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id); 
+	    	$approval		= 'A'; 
 	   		$status 		= form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'));
 	   	
-	    	$content_data = array(				
+	    	$content_data = array(
+	    		'site_id'			=> config_item('site_id'),
 				'parent_id'			=> $this->input->post('parent_id'),
 				'category_id'		=> $this->input->post('category_id'),
 				'module'			=> $this->input->post('module'),
@@ -83,12 +83,12 @@ class Content extends Oauth_Controller
 				'geo_long'			=> $this->input->post('geo_long'),
 				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
 				'viewed'			=> $viewed,
-				'approval'			=> $approval,				
+				'approval'			=> $approval,
 				'status'			=> $status  			
 	    	);
 	    									
 			// Insert
-			$content = $this->social_igniter->add_content($content_data, '');
+			$content = $this->social_igniter->add_content($content_data);
 			     		
 		    if ($content)
 		    {
@@ -150,12 +150,12 @@ class Content extends Oauth_Controller
     									
 		// Insert
 		$update = $this->social_igniter->update_content($this->get('id'), $content_data, $this->oauth_user_id);     		
-		 
-		// Process Tags
-		//$this->input->post('tags');	 
-		     		
+		 		     		
 	    if ($update)
 	    {
+			// Process Tags    
+			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);
+	    
         	$message	= array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
         	$response	= 200;
         }
@@ -172,7 +172,7 @@ class Content extends Oauth_Controller
     function destroy_authd_delete()
     {		
 		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
+		$access = $this->social_tools->has_access_to_modify('content', $this->get('id'), $this->oauth_user_id);
     	
     	// Move this up to result of "user_has_access"
     	if ($access)

@@ -93,5 +93,6 @@ class Index extends Public_Controller
 		
 		redirect($page_link.$page_comment);			
 	}
-
+	
+	
 }

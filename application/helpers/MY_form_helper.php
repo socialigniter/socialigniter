@@ -33,7 +33,7 @@ function form_submit_publish($publish, $save)
 }
 
 
-function form_title_url($title, $title_url, $existing_url)
+function form_title_url($title, $title_url, $existing_url=NULL)
 {
 	if (($title_url != '') && ($title_url != $existing_url))
 	{
