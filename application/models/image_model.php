@@ -2,8 +2,6 @@
 
 class Image_model extends CI_Model 
 {
-
-
 	function get_external_image($image, $image_path)
 	{	
 	    $ch = curl_init ($image);
@@ -23,7 +21,6 @@ class Image_model extends CI_Model
 
 	function make_profile_images($upload_file, $upload_width, $upload_height, $user_id)
 	{
-
 		$this->load->helper('file');
 				
 		make_folder(config_item('profile_images').$user_id);		
@@ -55,11 +52,14 @@ class Image_model extends CI_Model
 		}
 	       
 	    // Is horizontal or vertical picture	    
-	    if($upload_width > $upload_height) {
+	    if($upload_width > $upload_height)
+	    {
 	        $res_width 		= $original_width; 
 	        $res_height 	= $original_height; 
 	        $set_master_dim = 'width';
-	    } else {
+	    }
+	    else
+	    {
 	        $res_width 		= $original_width;
 	        $res_height 	= $original_height;
 	        $set_master_dim = 'height';
@@ -76,7 +76,8 @@ class Image_model extends CI_Model
 	    
 	    $this->load->library('image_lib', $resize_config);
 	    
-	    if (!$this->image_lib->resize()) {
+	    if (!$this->image_lib->resize())
+	    {
 	        echo "error first resize";
 	        echo $this->image_lib->display_errors();
 	        return false;
@@ -85,7 +86,8 @@ class Image_model extends CI_Model
 	    $this->image_lib->clear();
 		     
 	    // Calculate offset
-	    if($upload_width > $upload_height) {
+	    if($upload_width > $upload_height)
+	    {
 	    // Horizontal picture
 	        $diff = $upload_width - $upload_height;
 	        $cropsize = $upload_height - 1;
@@ -111,7 +113,8 @@ class Image_model extends CI_Model
 	        
 	    $this->image_lib->initialize($crop_config);
 	
-	    if (!$this->image_lib->crop()) {
+	    if (!$this->image_lib->crop())
+	    {
 	        echo "error croping";
 	        echo $this->image_lib->display_errors();
 	        return false;
@@ -129,7 +132,8 @@ class Image_model extends CI_Model
 	    
 	    $this->image_lib->initialize($thumb_config);
 	    
-	    if (!$this->image_lib->resize()) {
+	    if (!$this->image_lib->resize())
+	    {
 	        echo "error resize croping";
 	        echo $this->image_lib->display_errors();
 	        return false;
@@ -147,7 +151,8 @@ class Image_model extends CI_Model
 	    
 	    $this->image_lib->initialize($thumb2_config);
 	    
-	    if (!$this->image_lib->resize()) {
+	    if (!$this->image_lib->resize())
+	    {
 	        echo "error resize croping";
 	        echo $this->image_lib->display_errors();
 	        return false;
@@ -165,7 +170,8 @@ class Image_model extends CI_Model
 	    
 	    $this->image_lib->initialize($thumb3_config);
 	    
-	    if (!$this->image_lib->resize()) {
+	    if (!$this->image_lib->resize())
+	    {
 	        echo "error resize croping";
 	        echo $this->image_lib->display_errors();
 	        return false;
@@ -174,7 +180,5 @@ class Image_model extends CI_Model
 	    unlink($thumb_path);
 	    
 	    return true;    
-	    	    
-	}
-	
+	}	
 }

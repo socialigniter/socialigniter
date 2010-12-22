@@ -137,7 +137,7 @@ a.sidebar_icon span 		{ width: 150px; display: block; position: relative; top: -
 span.msg_notification		{ display: block; padding: 6px; color: #f2edda; background: #b54545; font-size: 11px; font-weight: bold; float: right; position: relative; top: -38px; right: 65px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #333333; }
 
 /* Wide Stuff */
-#content_wide_content 		{ float: left; width: 675px; margin: -20px 0 0 0px; padding: 0px; }
+#content_wide_content 		{ float: left; width: 675px; margin: 0px 0 0 0px; padding: 0px; }
 #content_wide_content h3 	{ margin: 20px 0 15px 0; }
 
 #content_wide_sidebar 		{ float: left; width: 175px; margin: -15px 0px 0px 25px; padding: 0px; text-align: left; }
@@ -267,9 +267,9 @@ span.item_right a:hover		{ text-decoration: underline; }
 		#new_category h2 {display:block;padding:0 0 10px 0;}
 		#new_category > input[type=text] {width:375px;}
 		#new_category > input[type=submit] {float:right;}
-		.slug_url {font-style:italic;height:22px;line-height:22px;}
+		.slug_url { font-style:italic; height:22px; line-height:22px; color:#999999; margin: 6px 0 6px 4px; }
 		.slug_url span {border-bottom:1px dashed #aaa;}
-		.slug_url span:hover {border-bottom:1px dashed #dddd00;cursor:pointer;background:#ffff00}
+		.slug_url span:hover {border-bottom:1px dashed #dddd00;cursor:pointer;background:#f2e3af}
 		.slug_url_edit {width:100px;height:15px !important;padding:3px !important; }
 		
 .comment_list { width: 450px; border-radius:5px; background: #e2e2e2; margin: 0 0 10px 0; display: none; }

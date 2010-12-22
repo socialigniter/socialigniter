@@ -54,15 +54,14 @@ class Content extends Oauth_Controller
 	   	$this->form_validation->set_rules('module', 'Module', 'required');
 	   	$this->form_validation->set_rules('type', 'Type', 'required');
 	   	$this->form_validation->set_rules('content', 'Content', 'required');
-	   	
-	   	//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
-	
+	   		
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
-	    {	    	
+	    {	
+	   		//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
+	        	
 	    	$viewed			= 'Y';
 	    	$approval		= 'A'; 
-	   		$status 		= form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'));
 	   	
 	    	$content_data = array(
 	    		'site_id'			=> config_item('site_id'),
@@ -84,7 +83,7 @@ class Content extends Oauth_Controller
 				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
 				'viewed'			=> $viewed,
 				'approval'			=> $approval,
-				'status'			=> $status  			
+				'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))  			
 	    	);
 	    									
 			// Insert
@@ -126,7 +125,6 @@ class Content extends Oauth_Controller
 	   	
     	$viewed			= 'Y';
     	$approval		= 'A'; // $this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id); 
-   		$status 		= 'P'; // form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'));
    
     	$content_data = array(
 			'parent_id'			=> $this->input->post('parent_id'),
@@ -145,7 +143,7 @@ class Content extends Oauth_Controller
 			'geo_accuracy'		=> $this->input->post('geo_accuracy'),
 			'viewed'			=> $viewed,
 			'approval'			=> $approval,
-			'status'			=> $status
+			'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))
     	);
     									
 		// Insert
