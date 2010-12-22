@@ -31,6 +31,9 @@ function doPlaceholder(id, placeholder)
 	}
 }
 
+//For God's sake, disable autocomplete!
+$(function(){ $('input').attr('autocomplete','off'); });
+
 // Allows for easy user notifications and if "how" the notifiy ever works it'll be site wide.
 // Use like: $('#content_message).notify({message:'Something has been updated!'});
 (function($)
@@ -57,6 +60,52 @@ function doPlaceholder(id, placeholder)
 				{//Cleanup by removing the added classes, then empty contents
 					$this.removeClass(options.classes).empty();
 				});
+		});
+	};
+})( jQuery );
+
+//Allows for easy dynamic "sluggable" urls to be previewed to the user based
+//on an input field and the current URL
+
+(function($)
+{
+	$.fn.slugify = function(options)
+	{
+		var settings =
+		{
+			"slug":"", //The location in which you want slugify to replace the slug text with on keypress
+			"url":window.location.href+'/' //the base url i.e. mysite.com/blog/ and then slugify will add "hello world" like: mysite.com/blog/hello-world
+		};
+		return this.each(function()
+		{	//Merge the options and settings
+			options = $.extend({},settings,options);
+			//Save "this"
+			var $this = $(this);
+			
+			//Converts string to a valid "sluggable" URL (private function tho!)
+			function _convertToSlug(str)
+			{
+				//This line converts to lowercase and then makes spaces into dahes
+				slug_val = str.replace(/ /g,'-').toLowerCase();
+				//This line strips special characters
+				slug_val = slug_val.match(/[\w\d\-]/g).toString().replace(/,/g,'');
+				return slug_val;
+			}
+			
+			//Give it the default value on load
+			$(options.slug).text(options.url);
+			
+			//update on each keyup
+			$this.bind('keyup',function()
+			{
+				var _sluggedURL = '';
+				if($this.val())
+				{ //If there's a value, convert it to a slug
+					_sluggedURL = _convertToSlug($this.val());
+				}
+				//Actually add the new slug, then, rejoice!
+				$(options.slug).text(options.url+_sluggedURL)
+			});
 		});
 	};
 })( jQuery );
