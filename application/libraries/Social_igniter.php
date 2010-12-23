@@ -33,16 +33,16 @@ class Social_igniter
 	function profile_image($user_id, $image, $email=NULL, $size='normal')
 	{
 		$picture 	 = '';	
-		$nopicture	 = base_url().config_item('profile_images').$size.'_'.config_item('profile_nopicture');
+		$nopicture	 = base_url().config_item('users_images_folder').$size.'_'.config_item('profile_nopicture');
 		
 		if ($image)
 		{
-			$picture = base_url().config_item('profile_images').$user_id.'/'.$size.'_'.$image;
+			$picture = base_url().config_item('users_images_folder').$user_id.'/'.$size.'_'.$image;
 		}
 		elseif (config_item('site_gravatar_enabled') == 'TRUE')
 		{		
 			$this->ci->load->helper('gravatar');
-			$picture = gravatar($email, "X", config_item('profile_'.$size.'_width'), $nopicture);
+			$picture = gravatar($email, "X", config_item('users_images_'.$size.'_width'), $nopicture);
 		}
 		else
 		{

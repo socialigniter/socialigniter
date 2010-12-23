@@ -15,42 +15,48 @@ class Settings extends Dashboard_Controller {
 
  	function profile()
  	{	
-		$user_settings		= $this->social_auth->get_user($this->session->userdata('user_id')); 
-		$user_picture 		= $user_settings->image; 
+		$user = $this->social_auth->get_user($this->session->userdata('user_id')); 
 
    		$this->form_validation->set_rules('name', 'Name', 'required');
 
-        if ($this->form_validation->run() == true) {
-        
+        if ($this->form_validation->run() == true)
+        {
+        	// Delete Image
         	if ($this->input->post('delete_pic') == 1)
         	{
 				$this->load->helper('file');
-        		delete_files($this->config->item('profile_images').$user_settings->user_id."/");
-        		$user_picture = '';
+        		delete_files($this->config->item('profile_images').$user->user_id."/");
+        		$new_image = '';
         	}
-	           
+	        
+	        // New Image   
 			if (!$this->input->post('userfile'))
 			{
-				$config['upload_path'] 		= "./uploads/";
-				$config['allowed_types'] 	= 'gif|jpg|jpeg|png|GIF|JPG|JPEG|PNG';		
+				$config['upload_path'] 		= config_item('uploads_folder');
+				$config['allowed_types'] 	= config_item('users_images_formats');		
 				$config['overwrite']		= true;
-				$config['max_size']			= '2500';
-				$config['max_width']  		= '2200';
-				$config['max_height']  		= '2200';
+				$config['max_size']			= config_item('users_images_max_size');
+				$config['max_width']  		= config_item('users_images_max_dimensions');
+				$config['max_height']  		= config_item('users_images_max_dimensions');
 			
 				$this->load->library('upload',$config);
 				
 				if (!$this->upload->do_upload())
-				{
-					$error = array('error' => $this->upload->display_errors());
+				{					
+					$new_image = $this->upload->display_errors();
 				}	
 				else
 				{
 					$data = array('upload_data' => $this->upload->data());
-					$this->load->model('image_model');			
+					
+					$this->load->model('image_model');
 					$this->image_model->make_profile_images($data['upload_data']['file_name'], $data['upload_data']['image_width'], $data['upload_data']['image_height'], $this->session->userdata('user_id'));										
-					$data['deleted'] = unlink("uploads/".$data['upload_data']['file_name']);
-					$user_picture = $data['upload_data']['file_name'];		
+					
+					// Delete
+					unlink("uploads/".$data['upload_data']['file_name']);
+					
+					// New Image Update
+					$new_image = $data['upload_data']['file_name'];		
 				}	
 			}	
 	
@@ -60,23 +66,19 @@ class Settings extends Dashboard_Controller {
 	        	'location'	=> $this->input->post('location'),
 	        	'url'		=> $this->input->post('url'),
 	        	'bio'		=> $this->input->post('bio'),
-	        	'image'		=> $user_picture 
+	        	'image'		=> $new_image 
 			);
 	    	
 	    	// Update the user
 	    	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
-	    	{
-	    		$this->session->set_flashdata('message', "Profile Updated");
-		        $this->session->set_userdata('name',  $update_data['name']);   		
-		        $this->session->set_userdata('image', $update_data['image']);
-	   		
-	   			redirect('settings/profile', 'refresh');
-	   		}
+			{
+	   			redirect('settings/profile', 'refresh');			
+			}
 	   		else
 	   		{
 	   			redirect('settings/profile', 'refresh');
 	   		}
-		} 
+		}
 		else 
 		{ 
 	        // Set the flash data error message if there is one
@@ -100,22 +102,22 @@ class Settings extends Dashboard_Controller {
 		}	    
 
  	    $this->data['sub_title'] 	= "Profile";
- 		$this->data['name'] 		= is_empty($user_settings->name);
-        $this->data['company'] 		= is_empty($user_settings->company);
-        $this->data['location'] 	= is_empty($user_settings->location);
-        $this->data['url']      	= is_empty($user_settings->url);
-        $this->data['bio']      	= is_empty($user_settings->bio);
- 	 	$this->data['image']		= $this->social_igniter->profile_image($user_settings->user_id, $user_settings->image, $user_settings->email, 'small');
+ 		$this->data['name'] 		= is_empty($user->name);
+        $this->data['company'] 		= is_empty($user->company);
+        $this->data['location'] 	= is_empty($user->location);
+        $this->data['url']      	= is_empty($user->url);
+        $this->data['bio']      	= is_empty($user->bio);
+ 	 	$this->data['image']		= $this->social_igniter->profile_image($user->user_id, $user->image, $user->email, 'small');
  	 	
  		$this->render();	
  	} 
- 	
+ 	 	
  	
 	function account()
  	{
 	    $this->data['sub_title'] = "Account";
 	    
-	    $user_settings = $this->social_auth->get_user($this->session->userdata('user_id')); 
+	    $user = $this->social_auth->get_user($this->session->userdata('user_id')); 
 	    
     	$this->form_validation->set_rules('username', 'Username', 'required|min_length['.$this->config->item('min_username_length').']|max_length['.$this->config->item('max_username_length').']');
     	$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -165,30 +167,30 @@ class Settings extends Dashboard_Controller {
 			  $home_base_array[$connection] = $connection;
 			}	        
 
-			$this->data['username']      	= $user_settings->username;			    
-			$this->data['email']      		= $user_settings->email;
+			$this->data['username']      	= $user->username;			    
+			$this->data['email']      		= $user->email;
 			$this->data['home_base_array']	= $home_base_array;
-			$this->data['home_base']		= $user_settings->home_base;
-			$this->data['language']			= $user_settings->language;
-			$this->data['time_zone']		= $user_settings->time_zone;
+			$this->data['home_base']		= $user->home_base;
+			$this->data['language']			= $user->language;
+			$this->data['time_zone']		= $user->time_zone;
 
-			if ($user_settings->geo_enabled) { $geo_enabled_checked = true; }
+			if ($user->geo_enabled) { $geo_enabled_checked = true; }
 			else { $geo_enabled_checked = false; }	
 
 			$this->data['geo_enabled'] = array(
 			    'name'		=> 'geo_enabled',
 			 	'id'        => 'geo_enabled',   
-			    'value'     => $user_settings->geo_enabled,
+			    'value'     => $user->geo_enabled,
 			    'checked'	=> $geo_enabled_checked,
 			);
 											    
-			if ($user_settings->privacy) { $privacy_checked = true; }
+			if ($user->privacy) { $privacy_checked = true; }
 			else { $privacy_checked = false; }	
 										    
 			$this->data['privacy'] = array(
 			    'name'      => 'privacy',
 	    		'id'        => 'privacy',
-			    'value'     => $user_settings->privacy,
+			    'value'     => $user->privacy,
 			    'checked'   => $privacy_checked,
 			);
             
@@ -243,16 +245,16 @@ class Settings extends Dashboard_Controller {
  	{
  	    $this->data['sub_title'] = "Mobile";
  	    
- 	   	$user_settings = $this->social_auth->get_user($this->session->userdata('user_id'));
+ 	   	$user = $this->social_auth->get_user($this->session->userdata('user_id'));
 
    		$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
 
         if ($this->form_validation->run() == true) { //check to see if we are updating user
 
-        if ($user_settings->phone_verify == 'verified') { $phone = $user_settings->phone; }
+        if ($user->phone_verify == 'verified') { $phone = $user->phone; }
         else { $phone = ereg_replace("[^0-9]", "", $this->input->post('phone')); }
                 
-        if ($user_settings->phone_verify == 'verified') { $phone_verify = $user_settings->phone_verify; }
+        if ($user->phone_verify == 'verified') { $phone_verify = $user->phone_verify; }
         else { $phone_verify = random_element($this->config->item('mobile_verify')); }
 
 	    	$update_data = array(
@@ -283,28 +285,28 @@ class Settings extends Dashboard_Controller {
 	 		$this->data['phone_active_array'] 	= array('1'=>'Yes','0'=>'No');
 	 		$this->data['phone_active']     	= $this->input->post('phone_active');
 
-			if ($user_settings->phone_search) { $phone_search_checked = true; }
+			if ($user->phone_search) { $phone_search_checked = true; }
 			else { $phone_search_checked = false; }	
 	    
 			$this->data['phone_search'] = array(
 			    'name'      => 'phone_search',
 	    		'id'        => 'phone_search',
-			    'value'     => $user_settings->phone_search,
+			    'value'     => $user->phone_search,
 			    'checked'   => $phone_search_checked,
 			);      
 		}	    
 
- 		$this->data['phone']		    = is_empty($user_settings->phone);
-        $this->data['phone_verify']     = $user_settings->phone_verify;
-        $this->data['phone_active']     = $user_settings->phone_active;
+ 		$this->data['phone']		    = is_empty($user->phone);
+        $this->data['phone_verify']     = $user->phone_verify;
+        $this->data['phone_active']     = $user->phone_active;
 
-		if ($user_settings->phone_search) { $phone_search_checked = true; }
+		if ($user->phone_search) { $phone_search_checked = true; }
 		else { $phone_search_checked = false; }	
     
 		$this->data['phone_search'] = array(
 		    'name'      => 'phone_search',
     		'id'        => 'phone_search',
-		    'value'     => $user_settings->phone_search,
+		    'value'     => $user->phone_search,
 		    'checked'   => $phone_search_checked,
 		);
     	
@@ -313,9 +315,9 @@ class Settings extends Dashboard_Controller {
  	
  	function mobile_delete()
  	{
- 	   	$user_settings = $this->social_auth->get_user($this->session->userdata('user_id'));
+ 	   	$user = $this->social_auth->get_user($this->session->userdata('user_id'));
 
-		if ($user_settings->phone != "")
+		if ($user->phone != "")
 		{
         	$update_data = array(
 	        	'phone'			=> "",
@@ -347,6 +349,7 @@ class Settings extends Dashboard_Controller {
  		$this->render();	
  	}		
    
+    // Display Modules Settings
 	function modules()
 	{
 		$this->data['core_modules']		= config_item('core_modules');
@@ -357,6 +360,7 @@ class Settings extends Dashboard_Controller {
 		$this->render();
 	}
 
+	// Module Settings Update
 	function update()
 	{
 		// If not Super or Admin redirect

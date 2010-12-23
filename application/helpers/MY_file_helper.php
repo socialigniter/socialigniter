@@ -15,13 +15,11 @@
 */
 function make_folder($folder_name)
 {
-
 	if(!is_dir($folder_name))
 	{
-
 		mkdir($folder_name, 0777);
-		chmod($folder_name, 0777);
-	
+		chmod($folder_name, 0777);	
 	}
 	
+	return FALSE;
 }
