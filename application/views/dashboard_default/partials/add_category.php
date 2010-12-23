@@ -3,7 +3,7 @@
 	<form id="new_category">
 		<label for="category_name">Name</label>
 		<input id="category_name" type="text" value="" name="category">
-		<p class="slug_url"><!--'+base_url+current_module+'/--><span></span></p>
+		<p id="category_slug" class="slug_url"></p>
 		<label for="category_parent">Parent Category</label>
 		<select name="parent_id" id="category_parent">
 			<option value="0">--None--</option>

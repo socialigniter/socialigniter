@@ -71,10 +71,35 @@ $(function(){ $('input').attr('autocomplete','off'); });
 {
 	$.fn.slugify = function(options)
 	{
+		/*
+		 Settings:
+		 slug [default='']:
+			Where the "slug" is previewed at. For example it could be .slug-preview
+			& "http://mysite.com/" will be injected to it when the plugin is called
+		 
+		 url [default=your current url plus a leading slash]:
+			The base url i.e. mysite.com/blog/ and then slugify will add "hello
+			world" like: mysite.com/blog/hello-world
+			
+		name [default='slug']:
+			This is the name you want to give the hidden input field. For example:
+			name:'slug' then <input name="slug"... will be added to the DOM ready
+			for your form's submission.
+		
+		classPrefix [default='slugify']
+			This is prepended to the class names in the plugin, so, for example if
+			change the default to slugger, you could do .slugger-input in your CSS
+			and style the generated input
+		 
+		*/
 		var settings =
 		{
-			"slug":"", //The location in which you want slugify to replace the slug text with on keypress
-			"url":window.location.href+'/' //the base url i.e. mysite.com/blog/ and then slugify will add "hello world" like: mysite.com/blog/hello-world
+			"slug":"",
+			"url":window.location.href+'/',
+			"name":'slug',
+			"classPrefix":"slugify",
+			"slugTag":"span",
+			"inputType":"text"
 		};
 		return this.each(function()
 		{	//Merge the options and settings
@@ -93,18 +118,43 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			}
 			
 			//Give it the default value on load
-			$(options.slug).text(options.url);
+			$(options.slug).html(options.url+'<'+options.slugTag+' class="'+options.classPrefix+'-preview"></'+options.slugTag+'><input class="'+options.classPrefix+'-input" type="'+options.inputType+'" name="'+name+'">')
+				.find('.'+options.classPrefix+'-input').hide()
+				.end().find('.'+options.classPrefix+'-preview').bind('click',function(){
+					$this.addClass(options.classPrefix+'-modified');
+					$(this).hide();
+					$(options.slug+' .'+options.classPrefix+'-input').show().focus().select()
+					.blur(function(){
+						if($(this).val()==''){
+							_revertedValue = _convertToSlug($this.val());
+							$(this).val(_revertedValue);
+							$(options.slug+' .'+options.classPrefix+'-preview').text(_revertedValue);
+							$this.removeClass(options.classPrefix+'-modified');
+						}
+						else{
+							$(this).val(_convertToSlug($(this).val())).hide();
+							$(options.slug+' .'+options.classPrefix+'-preview').text(_convertToSlug($(this).val())).show();
+						}
+					})
+					.bind('keyup',function(){
+						$(options.slug+' .'+options.classPrefix+'-preview').text($(this).val());
+					});
+				})
 			
 			//update on each keyup
 			$this.bind('keyup',function()
 			{
-				var _sluggedURL = '';
-				if($this.val())
-				{ //If there's a value, convert it to a slug
-					_sluggedURL = _convertToSlug($this.val());
+				if(!$this.hasClass(options.classPrefix+'-modified'))
+				{
+					var _sluggedURL = '';
+					if($this.val())
+					{ //If there's a value, convert it to a slug
+						_sluggedURL = _convertToSlug($this.val());
+					}
+					//Actually add the new slug, then, rejoice!
+					$(options.slug+' .'+options.classPrefix+'-preview').text(_sluggedURL);
+					$(options.slug+' .'+options.classPrefix+'-input').val(_sluggedURL);
 				}
-				//Actually add the new slug, then, rejoice!
-				$(options.slug).text(options.url+_sluggedURL)
 			});
 		});
 	};

@@ -469,32 +469,10 @@ $(document).ready(function()
 					{
 						update_category_select('.modal_wrap select:first');
 						$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
-						function update_slug()
-						{
-							slug_val = convertToSlug($('#category_name').val());
-							//Set the new value
-							$('[name=category_url]').val(slug_val);
-							$('.slug_url span').text(slug_val).live('click',function()
-							{
-								$(this).replaceWith('<input class="slug_url_edit" type="text" value="'+$(this).text()+'">');
-								$('.slug_url_edit').select().blur(function()
-								{
-									$(this).replaceWith('<span class="modified">'+$(this).val()+'</span>');
-								});
-							});
-						}
-						$('#category_name').live('keyup',function()
-						{
-							if($('#category_name').val() !== '' && !$('.slug_url span').hasClass('modified'))
-							{
-								update_slug();
-							}
-							else
-							{
-								//If the category name field is null, make the slug blank
-								$('#category_slug').val('');
-							}
-						});
+						
+						
+						$('#category_name').slugify({slug:'#category_slug',url:base_url+current_module+'/',name:'category_url'});
+						
 						$('#new_category').bind('submit',function(e)
 						{
 							e.preventDefault();
