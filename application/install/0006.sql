@@ -14,3 +14,6 @@ VALUES (NULL ,  '1',  'users',  'images_folder',  'media/profiles/');
 
 INSERT INTO  `social-igniter`.`settings` (`settings_id` ,`site_id` ,`module` ,`setting` ,`value`)
 VALUES (NULL ,  '1',  'users',  'images_max_dimensions',  '3000');
+
+INSERT INTO  `social-igniter`.`settings` (`settings_id` ,`site_id` ,`module` ,`setting` ,`value`)
+VALUES (NULL ,  '1',  'users',  'images_sizes_original',  '0');

@@ -69,10 +69,10 @@ class Settings_model extends CI_Model {
 		return $this->db->get_where('status', array('status_id' => $status_id))->row();	
     }   
 
-    function update_setting($setting_id, $setting, $value)
+    function update_setting($setting_id, $update_data)
     {
 		$this->db->where('settings_id', $setting_id);
-		$this->db->update('settings', array('setting' => $setting, 'value' => $value));
+		$this->db->update('settings', $update_data);
     }
     
 }

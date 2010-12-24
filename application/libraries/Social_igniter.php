@@ -402,11 +402,13 @@ class Social_igniter
 
 	function update_settings($module, $settings_update_array)
 	{
+		// Get settings for module
 		$settings_current = $this->get_settings($module);
 	
-		// Loop through all settings submitted
+		// Loop through all settings posted
 		foreach ($settings_update_array as $setting_update)
 		{
+			// Form element name
 			$name = key($settings_update_array);
 
 			// Loops through all current settings
@@ -415,15 +417,34 @@ class Social_igniter
 				// If matches update it
 				if ($setting_current->setting == $name)
 				{
-					$this->ci->settings_model->update_setting($setting_current->settings_id, $name, $setting_update);
+					if (!$setting_update) $setting_update = '7';
+					
+					log_message('debug', 'settings_test '.$name.': '.$setting_update);
+				
+					$update_data = array('setting' => $name, 'value' => $setting_update);
+				
+					$this->ci->settings_model->update_setting($setting_current->settings_id, $update_data);
 					break;
 				}
 			}
 			
+			// Makes Un Viewables
+/*			foreach ($viewables as $viewable)
+			{
+				if (!in_array($viewable, $post_array))
+				{
+					$$viewable = 0;
+		
+					// DEBUG
+					//$post_out[$viewable] = 0;
+				}
+			}			
+*/			
 			next($settings_update_array);
 		}
+		
 		return;
-	}	
+	}
 	
 	/* Activity */
 	function get_timeline($limit, $module)
