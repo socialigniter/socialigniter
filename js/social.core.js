@@ -168,8 +168,8 @@ $(function(){ $('input').attr('autocomplete','off'); });
 (function($){
 	$.fn.nullify = function(options) {
 		var defaults = {
-			on:'yes',
-			off:'no',
+			on:'yes', //The value you want when it's "on"
+			off:'no', //The value you want when it's "off"
 			afterToggle:function(){}
 		};
 		
@@ -178,27 +178,41 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			
 			$this = $(this);
 			
-			//Set the default values
+			//Set the default values on call
 			if($this.val()==options.on){
+				//If it's set to "on", make the checkbox checked
 				$this.attr('checked','checked')
 			}
 			else{
+				//Otherwise remove any preset checkboxes
 				$this.removeAttr('checked');
 			}
 			
+			//Here we generate the input. The input takes the checkboxes name and value
+			//It's an exact duplicate so you dont need to build your form, API, or backend any differently
 			$this.after('<input style="display:none;" type="text" class="nullified-input" value="'+$this.val()+'" name="'+$this.attr('name')+'">')
+			//Then we change the value of checkbox to be prepended with "nullify-", so it doesn't conflict
 			.val('nullify-'+$this.val())
+			//Same as the the value change, but name
 			.attr('name','nullify-'+$this.attr('name'))
+			//Now, we'll bind a click event to each checkbox
 			.bind('click',function(){
+				//This strips out the nullify on the checkbox so we can find the matching
+				//input in case some other JS modifiyng the DOM (like Uniform)
 				_matchingInput = $(this).attr('name').split('nullify-')[1];
+				//If, on click, this item is checked...
 				if($(this).attr('checked')){
+					//Check it and change the value of the hidden input
 					$(this).attr('checked','checked');
 					$('[name='+_matchingInput+']').val(options.on);
 				}
 				else{
+					//To reverse of above, remove check and change value
 					$(this).removeAttr('checked');
 					$('[name='+_matchingInput+']').val(options.off);
 				}
+				//This is a anon function to be called if the user wants after the
+				//checkbox is toggled.
 				options.afterToggle();
 			});
 		});
@@ -206,8 +220,60 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	};
 })(jQuery);
 
+
+
+/*
+	Takes care of making upload forms work via AJAX, just add water
+*/
+/*
+(function($){
+	$.fn.uploadify = function(options) {
+		var defaults = {
+			type:'text',
+			onUpload:function(){},
+			afterUpload:function(){}
+		};
+		return this.each(function(i) {
+			options = $.extend(true, defaults, options);
+			
+			$this = $(this);
+			
+			//Make sure the form is set to send binary, and if not fix that
+			if($this.attr('enctype')!=='multipart/form-data'){
+				$this.attr('enctype','multipart/form-data');
+			}
+			//Make sure the form is set to POST the data, if not, fix that
+			if($this.attr('method')!=='post'){
+				$this.attr('method','post');
+			}
+			
+			
+			$this.attr('target','upload_target_'+i).append('<iframe style="display:none;" src="" id="upload_target_'+i+'" class="uploadify-iframe"></iframe>');
+			
+			
+			$this.bind('submit',function(){
+				options.onUpload();
+				$('#upload_target_'+i).load(function(){
+					
+					_returnValue = $(this).contents().find('body').html();
+					
+					if(options.type == 'json'){
+						_returnValue = JSON.parse(_returnValue);
+					}
+					
+					options.afterUpload.call(this,_returnValue);
+					
+				})
+				
+			});
+			
+		});
+	};
+})(jQuery);
+*/
+
 $(function(){
-	//New way to handle checkboxes!
+	//New way  to handle checkboxes!
 	$('.nullify').nullify({
 		//This allows us to do something AFTER we toggle, which in this case
 		//updates uniform, however, this could be anything.
@@ -215,7 +281,23 @@ $(function(){
 			$.uniform.update();
 		}
 	});
+	
+	
+	//Uploader
+	/*
+	$('#media_gallery form').uploadify({
+		type:'json',
+		onUpload:function(){
+			$.fancybox({content:'<h2>Loading...</h2>',width:'200px',height:'300px'});
+		},
+		afterUpload:function(json){
+			$.fancybox.close();
+			$('#media_gallery ul').append('<li><img src="/media/images/1/small_'+json.data.content+'"></li>');
+		}
+	});
+	*/
 });
+
 
 //Converts string to a valid "sluggable" URL.
 function convertToSlug(str)
