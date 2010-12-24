@@ -30,7 +30,7 @@ class Social_igniter
 	}	
 	
     // Profile Picture	
-	function profile_image($user_id, $image, $email=NULL, $size='normal')
+	function profile_image($user_id, $image, $email=NULL, $size='medium')
 	{
 		$picture 	 = '';	
 		$nopicture	 = base_url().config_item('users_images_folder').$size.'_'.config_item('profile_nopicture');
@@ -416,9 +416,7 @@ class Social_igniter
 			{
 				// If matches update it
 				if ($setting_current->setting == $name)
-				{
-					if (!$setting_update) $setting_update = '7';
-					
+				{					
 					log_message('debug', 'settings_test '.$name.': '.$setting_update);
 				
 					$update_data = array('setting' => $name, 'value' => $setting_update);
@@ -427,19 +425,7 @@ class Social_igniter
 					break;
 				}
 			}
-			
-			// Makes Un Viewables
-/*			foreach ($viewables as $viewable)
-			{
-				if (!in_array($viewable, $post_array))
-				{
-					$$viewable = 0;
 		
-					// DEBUG
-					//$post_out[$viewable] = 0;
-				}
-			}			
-*/			
 			next($settings_update_array);
 		}
 		

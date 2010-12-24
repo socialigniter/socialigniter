@@ -1,7 +1,7 @@
 <div id="profile_user_head">
 	
 	<div id="profile_user_thumb">
-		<img src="<?= $this->social_igniter->profile_image($user_id, $image, $email, 'bigger'); ?>" border="0">
+		<img src="<?= $this->social_igniter->profile_image($user_id, $image, $email, 'large'); ?>" border="0">
 	</div>
 	
 	<div id="profile_user_info">

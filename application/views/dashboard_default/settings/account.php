@@ -1,6 +1,6 @@
 <h3>Account</h3>
 	
-<form method="post" action="<?= base_url()."settings/account"; ?>">
+<form method="post" action="<?= base_url() ?>settings/account">
 	<table border="0" cellpadding="0" cellspacing="0">
     <tr>
 		<td>Username:</td>
@@ -16,7 +16,7 @@
 	</tr>
 	<tr>
 		<td>Geo Enable:</td>
-		<td><?= form_checkbox($geo_enabled); ?> Add my geographic location to updates</td>
+		<td><input type="checkbox" name="geo_enabled" value="<?= $geo_enabled ?>"> Add my location to content</td>
 	</tr>
 	<tr>
 		<td class="txt_right">Language</td>
@@ -28,7 +28,7 @@
 	</tr>	
   	<tr>
   		<td>Privacy:</td>
-  		<td><?= form_checkbox($privacy); ?> Keep my updates and messages private</td>
+  		<td><input type="checkbox" name="privacy" value="<?= $privacy ?>"> Keep my feeds private</td>
   	</tr>
     <tr>		
 		<td colspan="2"><input type="submit" value="Save" /></td>
