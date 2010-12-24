@@ -510,6 +510,8 @@ $(document).ready(function()
 	/* End Blog Section */
 
 	// Handles Checkboxes
+	
+	
 	$('#geo_enabled').live('click', function() {
 		if ($('#geo_enabled') == '1') 
 		{
