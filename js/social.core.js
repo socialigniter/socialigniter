@@ -161,6 +161,62 @@ $(function(){ $('input').attr('autocomplete','off'); });
 })( jQuery );
 
 
+/*
+	Returns null on a form submit if unchecked rather than browser default of nothing.
+*/
+
+(function($){
+	$.fn.nullify = function(options) {
+		var defaults = {
+			on:'yes',
+			off:'no',
+			afterToggle:function(){}
+		};
+		
+		return this.each(function() {
+			options = $.extend(true, defaults, options);
+			
+			$this = $(this);
+			
+			//Set the default values
+			if($this.val()==options.on){
+				$this.attr('checked','checked')
+			}
+			else{
+				$this.removeAttr('checked');
+			}
+			
+			$this.after('<input style="display:none;" type="text" class="nullified-input" value="'+$this.val()+'" name="'+$this.attr('name')+'">')
+			.val('nullify-'+$this.val())
+			.attr('name','nullify-'+$this.attr('name'))
+			.bind('click',function(){
+				_matchingInput = $(this).attr('name').split('nullify-')[1];
+				if($(this).attr('checked')){
+					$(this).attr('checked','checked');
+					$('[name='+_matchingInput+']').val(options.on);
+				}
+				else{
+					$(this).removeAttr('checked');
+					$('[name='+_matchingInput+']').val(options.off);
+				}
+				options.afterToggle();
+			});
+		});
+		
+	};
+})(jQuery);
+
+$(function(){
+	//New way to handle checkboxes!
+	$('.nullify').nullify({
+		//This allows us to do something AFTER we toggle, which in this case
+		//updates uniform, however, this could be anything.
+		afterToggle:function(){
+			$.uniform.update();
+		}
+	});
+});
+
 //Converts string to a valid "sluggable" URL.
 function convertToSlug(str)
 {
