@@ -3,7 +3,6 @@
 class Image_model extends CI_Model 
 {
 
-
 	function get_external_image($image, $image_path)
 	{	
 	    $ch = curl_init ($image);
@@ -20,22 +19,21 @@ class Image_model extends CI_Model
 	    fclose($fp);
 	}
 
-
 	function make_profile_images($upload_file, $upload_width, $upload_height, $user_id)
 	{
-
 		$this->load->helper('file');
+	    $this->load->library('image_lib');		
 				
 		make_folder(config_item('users_images_folder').$user_id);		
 		delete_files(config_item('users_images_folder').$user_id."/");
 	    
-	    $raw_path 	= config_item('uploads_folder').$upload_file;
-	    $thumb_path = config_item('users_images_folder').$user_id."/".$upload_file;
+	    $raw_path 		= config_item('uploads_folder').$upload_file;
+	    $thumb_path 	= config_item('users_images_folder').$user_id."/".$upload_file;
 	    
 	    $original_width		= 0;
 	    $original_height	= 0;
 	    
-	    // Is raw width/height larger than allowed width/height
+	    // Raw width larger than allowed
 		if ($upload_width >= config_item('users_images_full_width'))
 		{
 			$original_width = config_item('users_images_full_width');
@@ -45,6 +43,7 @@ class Image_model extends CI_Model
 			$original_width = $upload_width;
 		}
 
+	    // Raw height larger than allowed
 		if ($upload_height >= config_item('users_images_full_height'))
 		{
 			$original_height = config_item('users_images_full_height');
@@ -55,44 +54,31 @@ class Image_model extends CI_Model
 		}
 	       
 	    // Is horizontal or vertical picture	    
-	    if($upload_width > $upload_height) {
+	    if($upload_width > $upload_height)
+	    {
 	        $res_width 		= $original_width; 
 	        $res_height 	= $original_height; 
 	        $set_master_dim = 'width';
-	    } else {
+	    }
+	    else
+	    {
 	        $res_width 		= $original_width;
 	        $res_height 	= $original_height;
 	        $set_master_dim = 'height';
 	    }
 	    
-	    // Resizing the uploaded image
-	    $resize_config['image_library'] 	= 'gd2';
-	    $resize_config['source_image'] 		= $raw_path;
-	    $resize_config['maintain_ratio'] 	= TRUE;
-	    $resize_config['new_image'] 		= config_item('users_images_folder').$user_id."/original_".$upload_file;	    
-	    $resize_config['width'] 			= $res_width;
-	    $resize_config['height'] 			= $res_height;
-	    $resize_config['master_dim'] 		= $set_master_dim;
-	    
-	    $this->load->library('image_lib', $resize_config);
-	    
-	    if (!$this->image_lib->resize()) {
-	        echo "error first resize";
-	        echo $this->image_lib->display_errors();
-	        return false;
-	    }
-	    
-	    $this->image_lib->clear();
-		     
-	    // Calculate offset
-	    if($upload_width > $upload_height) {
-	    // Horizontal picture
+	    // Calculate Offset
+	    if($upload_width > $upload_height)
+	    {
+	    	// Horizontal picture
 	        $diff = $upload_width - $upload_height;
 	        $cropsize = $upload_height - 1;
 	        $x_axis = round($diff / 2);
 	        $y_axis = 0;
-	    } else {
-	    // Vertical picture
+	    }
+	    else
+	    {
+	    	// Vertical picture
 	        $cropsize = $upload_width - 1;
 	        $diff = $upload_height - $upload_width;
 	        $x_axis = 0;
@@ -111,65 +97,103 @@ class Image_model extends CI_Model
 	        
 	    $this->image_lib->initialize($crop_config);
 	
-	    if (!$this->image_lib->crop()) {
+	    if (!$this->image_lib->crop())
+	    {
 	        echo "error croping";
 	        echo $this->image_lib->display_errors();
 	        return false;
 	    }	    
   
-  	    $this->image_lib->clear();
+  	    $this->image_lib->clear();  	    
+  	    
 
-	    // Bigger image crop resize
-	    $thumb_config['image_library'] 		= 'gd2';
-	    $thumb_config['source_image'] 		= $thumb_path;
-	    $thumb_config['maintain_ratio'] 	= TRUE;
-	    $thumb_config['new_image']			= config_item('users_images_folder').$user_id."/"."bigger_".$upload_file;
-	    $thumb_config['width'] 				= config_item('users_images_large_width');
-	    $thumb_config['height'] 			= config_item('users_images_large_height');
-	    
-	    $this->image_lib->initialize($thumb_config);
-	    
-	    if (!$this->image_lib->resize()) {
-	        echo "error resize croping";
-	        echo $this->image_lib->display_errors();
-	        return false;
-	    }
+		// Full image crop resize
+		if (config_item('users_images_sizes_medium') == 'yes')
+		{  	    
+		    $resize_config['image_library'] 	= 'gd2';
+		    $resize_config['source_image'] 		= $raw_path;
+		    $resize_config['maintain_ratio'] 	= TRUE;
+		    $resize_config['new_image'] 		= config_item('users_images_folder').$user_id."/full_".$upload_file;	    
+		    $resize_config['width'] 			= $res_width;
+		    $resize_config['height'] 			= $res_height;
+		    $resize_config['master_dim'] 		= $set_master_dim;
+		    	   
+		   	$this->image_lib->initialize($resize_config);
+		    
+		    if (!$this->image_lib->resize())
+		    {
+		        echo "error first resize";
+		        echo $this->image_lib->display_errors();
+		        return false;
+		    }
+		    
+		    $this->image_lib->clear();
+	  	}
 
-	    $this->image_lib->clear();
 
-	    // Normal image crop resize	    
-	    $thumb2_config['image_library'] 	= 'gd2';
-	    $thumb2_config['source_image'] 		= $thumb_path;
-	    $thumb2_config['maintain_ratio'] 	= TRUE;
-	    $thumb2_config['new_image']			= config_item('users_images_folder').$user_id."/"."normal_".$upload_file;
-	    $thumb2_config['width'] 			= config_item('users_images_medium_width');
-	    $thumb2_config['height'] 			= config_item('users_images_medium_height');
-	    
-	    $this->image_lib->initialize($thumb2_config);
-	    
-	    if (!$this->image_lib->resize()) {
-	        echo "error resize croping";
-	        echo $this->image_lib->display_errors();
-	        return false;
-	    }
+		// Large image crop resize
+		if (config_item('users_images_sizes_medium') == 'yes')
+		{
+		    $thumb_config['image_library'] 		= 'gd2';
+		    $thumb_config['source_image'] 		= $thumb_path;
+		    $thumb_config['maintain_ratio'] 	= TRUE;
+		    $thumb_config['new_image']			= config_item('users_images_folder').$user_id."/"."large_".$upload_file;
+		    $thumb_config['width'] 				= config_item('users_images_large_width');
+		    $thumb_config['height'] 			= config_item('users_images_large_height');
+		    
+		    $this->image_lib->initialize($thumb_config);
+		    
+		    if (!$this->image_lib->resize()) {
+		        echo "error resize croping";
+		        echo $this->image_lib->display_errors();
+		        return false;
+		    }
+	
+		    $this->image_lib->clear();
+		}
 
-	    $this->image_lib->clear();
 
-	    // Small image crop resize	    
-	    $thumb3_config['image_library'] 	= 'gd2';
-	    $thumb3_config['source_image'] 		= $thumb_path;
-	    $thumb3_config['maintain_ratio'] 	= TRUE;
-	    $thumb3_config['new_image']			= config_item('users_images_folder').$user_id."/"."small_".$upload_file;
-	    $thumb3_config['width'] 			= config_item('users_images_small_width');
-	    $thumb3_config['height'] 			= config_item('users_images_small_height');
-	    
-	    $this->image_lib->initialize($thumb3_config);
-	    
-	    if (!$this->image_lib->resize()) {
-	        echo "error resize croping";
-	        echo $this->image_lib->display_errors();
-	        return false;
-	    }
+		// Medium image crop resize
+		if (config_item('users_images_sizes_medium') == 'yes')
+		{
+		    $thumb2_config['image_library'] 	= 'gd2';
+		    $thumb2_config['source_image'] 		= $thumb_path;
+		    $thumb2_config['maintain_ratio'] 	= TRUE;
+		    $thumb2_config['new_image']			= config_item('users_images_folder').$user_id."/"."medium_".$upload_file;
+		    $thumb2_config['width'] 			= config_item('users_images_medium_width');
+		    $thumb2_config['height'] 			= config_item('users_images_medium_height');
+		    
+		    $this->image_lib->initialize($thumb2_config);
+		    
+		    if (!$this->image_lib->resize()) {
+		        echo "error resize croping";
+		        echo $this->image_lib->display_errors();
+		        return false;
+		    }
+	
+		    $this->image_lib->clear();
+		}
+		
+
+		// Small image crop resize
+		if (config_item('users_images_sizes_small') == 'yes')
+		{
+		    $thumb3_config['image_library'] 	= 'gd2';
+		    $thumb3_config['source_image'] 		= $thumb_path;
+		    $thumb3_config['maintain_ratio'] 	= TRUE;
+		    $thumb3_config['new_image']			= config_item('users_images_folder').$user_id."/"."small_".$upload_file;
+		    $thumb3_config['width'] 			= config_item('users_images_small_width');
+		    $thumb3_config['height'] 			= config_item('users_images_small_height');
+		    
+		    $this->image_lib->initialize($thumb3_config);
+		    
+		    if (!$this->image_lib->resize())
+		    {
+		        echo "error resize croping";
+		        echo $this->image_lib->display_errors();
+		        return false;
+		    }
+		}
 	    
 	    unlink($thumb_path);
 	    

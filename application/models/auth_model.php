@@ -710,7 +710,6 @@ class Auth_model extends CI_Model
 	        	if (is_array($data) && isset($data[$field])) 
 	        	{
 	            	$this->db->set($field, $data[$field]);
-
 	            	unset($data[$field]);
 	        	}
 	        }
@@ -727,10 +726,10 @@ class Auth_model extends CI_Model
 			}
 	
 			$this->db->where($this->social_auth->_extra_where);
-	
 			$this->db->update('users', $data, array('user_id' => $user_id));
         }
-            
+         
+        // Finishes    
 		if ($this->db->trans_status() === FALSE)
 		{
 		    $this->db->trans_rollback();

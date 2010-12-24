@@ -4,13 +4,13 @@
 	<table border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td>Picture:</td>
-			<td><img src="<?= $image ?>" border="0"></td>
+			<td><img src="<?= $thumbnail ?>" border="0"></td>
 			<td><input type="file" size="20" name="userfile"></td>
 		</tr>
 		<?php if ($image != '') { ?>
 		<tr>
 			<td></td>
-			<td colspan="2"><?= form_checkbox($delete_pic); ?> Delete picture</td>
+			<td colspan="2"><input type="checkbox" name="delete_pic" id="delete_pic" value="1"> Delete picture</td>
 		</tr>
 		<?php } ?>
 		<tr>
