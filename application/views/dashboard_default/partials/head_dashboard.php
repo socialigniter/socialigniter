@@ -18,22 +18,6 @@
 <script type="text/javascript" src="<?= base_url() ?>js/oauth.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/sha1.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.oauthajax.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/swfobject.js""></script>
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.uploadify.v2.1.4.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#file_upload').uploadify({
-		  'uploader'  : '/js/uploadify.swf',
-		  'script'    : '/application/modules/media/models/uploadify.php',
-		  'cancelImg' : '/images/cancel.png',
-		  'folder'    : '/media/images/1',
-		  'auto'      : true,
-		  'multi'     : true,
-		  'wmode'     : 'transparent',
-		  'removeCompleted':false
-		});
-	 });
-</script>
 <script type="text/javascript">
 //Global User Data:
 var user_data = {

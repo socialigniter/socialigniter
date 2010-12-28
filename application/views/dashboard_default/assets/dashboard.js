@@ -13,7 +13,7 @@ $(document).ready(function()
 	// Generates Uniform
 	$(function()
 	{
-		$("select, input:checkbox, input:radio").uniform();
+		$("select, input:checkbox, input:radio, input:file").uniform();
 	});
 
 	// Hide Things
