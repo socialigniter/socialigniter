@@ -11,10 +11,8 @@ $(document).ready(function()
 	}
 	
 	// Generates Uniform
-	$(function()
-	{
-		$("select, input:checkbox, input:radio, input:file").uniform();
-	});
+	$("select, input:checkbox, input:radio, input:file").uniform();
+
 
 	// Hide Things
 	$('.error').hide();
