@@ -7,6 +7,7 @@ class Content_model extends CI_Model {
         parent::__construct();
     }
 
+	/* The 'content' Table */
     function check_content_duplicate($user_id, $title, $content)
     {
  		$this->db->select('*');
@@ -122,7 +123,7 @@ class Content_model extends CI_Model {
 			'approval'			=> $content_data['approval'],
 			'status'			=> $content_data['status'],
 			'created_at' 		=> unix_to_mysql(now()),
-			'updated_at' 		=> '0000-00-00 00:00:00'
+			'updated_at' 		=> unix_to_mysql(now())
 		);
 		
 		$insert = $this->db->insert('content', $content_data);
@@ -157,6 +158,56 @@ class Content_model extends CI_Model {
     	$this->db->where('content_id', $content_id);
     	$this->db->delete('content'); 
 		return TRUE;
-    }    
+    }   
+    
+	/* The 'content_meta' Table */
+    function get_meta($content_meta_id)
+    {
+ 		$this->db->select('*');
+ 		$this->db->from('content_meta');  
+ 		$this->db->where('content_meta_id', $content_meta_id);
+		$this->db->limit(1);
+ 		$result = $this->db->get()->row();	
+ 		return $result;
+    }
+    
+    function get_meta_content($content_id)
+    {    		
+ 		$this->db->select('*');
+ 		$this->db->from('content_meta');  
+ 		$this->db->where('content_id', $content_id);
+ 		$result = $this->db->get();
+ 		return $result->result();
+    }
+	
+	
+    function add_meta($meta_data)
+    {
+ 		$meta_data['created_at'] = unix_to_mysql(now());
+		$meta_data['updated_at'] = unix_to_mysql(now());
+		
+		$this->db->insert('content_meta', $meta_data);
+		
+		if ($content_meta_id = $this->db->insert_id())
+		{
+			return $content_meta_id;	
+    	}
+    	
+    	return FALSE;
+    }
+    
+    function update_meta($content_meta_id, $update_data)
+    {
+		$this->db->where('content_meta_id', $content_meta_id);
+		$this->db->update('content_meta', $update_data);
+		return TRUE;
+    }
+
+    function delete_meta($content_meta_id)
+    {
+    	$this->db->where('content_meta_id', $content_meta_id);
+    	$this->db->delete('content_meta'); 
+		return TRUE;
+    }
     
 }

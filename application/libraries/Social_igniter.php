@@ -608,5 +608,6 @@ class Social_igniter
 	function delete_content($content_id)
 	{
 		return $this->ci->content_model->delete_content($content_id);
-	}		
+	}	
+	
 }

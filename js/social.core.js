@@ -383,3 +383,25 @@ function markNewItem(item_id)
 	});
 }
 
+// Makes Word From content.status
+function displayContentStatus(status)
+{
+	var result = '';
+	
+    if (status == 'P')
+    {
+    	result = 'Published'; 
+    }
+    else if (status == 'S') 	
+    {
+    	result = 'Saved';
+	}
+	else if (status == 'U')
+	{
+		result = 'Unpublished';	        
+	}
+
+	return result;
+}
+
+

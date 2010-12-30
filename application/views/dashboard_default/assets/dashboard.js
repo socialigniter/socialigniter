@@ -44,11 +44,11 @@ $(document).ready(function()
 				type		: 'POST',
 				dataType	: 'html',
 				data		: $('#status_update').serializeArray(),
-			  	success		: function(html)
-			  	{			  	
-					if(html == 'error')
+			  	success		: function(result)
+			  	{		
+					if(result.status == 'error')
 					{
-						$('#content_message').notify({message:'Oops we couldn\'t update your status!'});
+						//$('#content_message').notify({result.message});
 				 	}
 				 	else
 				 	{
@@ -57,7 +57,7 @@ $(document).ready(function()
 						$('#status_update_text').val('');						
 						doPlaceholder('#status_update_text', "What's shaking?");
 		                markNewItem($(html).attr('id'));				
-				 	}	
+				 	}
 			 	}
 			});
 		}

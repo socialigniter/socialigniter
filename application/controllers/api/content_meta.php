@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Content extends Oauth_Controller
+class Content_meta extends Oauth_Controller
 {
     function __construct()
     {
@@ -51,9 +51,9 @@ class Content extends Oauth_Controller
 	function create_authd_post()
 	{
 		// Validation Rules
-	   	$this->form_validation->set_rules('module', 'Module', 'required');
-	   	$this->form_validation->set_rules('type', 'Type', 'required');
-	   	$this->form_validation->set_rules('content', 'Content', 'required');
+	   	$this->form_validation->set_rules('content_id', 'content_id', 'required');
+	   	$this->form_validation->set_rules('key', 'Key', 'required');
+	   	$this->form_validation->set_rules('value', 'Value', 'required');
 	   		
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
@@ -64,37 +64,17 @@ class Content extends Oauth_Controller
 	    	$approval		= 'A'; 
 	   	
 	    	$content_data = array(
-	    		'site_id'			=> config_item('site_id'),
-				'parent_id'			=> $this->input->post('parent_id'),
-				'category_id'		=> $this->input->post('category_id'),
-				'module'			=> $this->input->post('module'),
-				'type'				=> $this->input->post('type'),
-				'source'			=> $this->input->post('source'),
-				'order'				=> $this->input->post('order'),
-	    		'user_id'			=> $this->oauth_user_id,
-				'title'				=> $this->input->post('title'),
-				'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url')),
-				'content'			=> $this->input->post('content'),
-				'details'			=> $this->input->post('details'),
-				'access'			=> $this->input->post('access'),
-				'comments_allow'	=> $this->input->post('comments_allow'),
-				'geo_lat'			=> $this->input->post('geo_lat'),
-				'geo_long'			=> $this->input->post('geo_long'),
-				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
-				'viewed'			=> $viewed,
-				'approval'			=> $approval,
-				'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))  			
+	    		'site_id'		=> config_item('site_id'),
+				'content_id'	=> $this->input->post('content_id'),
+				'key'			=> $this->input->post('key'),
+				'value'			=> $this->input->post('value')
 	    	);
 	    									
 			// Insert
-			$content = $this->social_igniter->add_content($content_data);
+			$content_meta = $this->content_model->add_meta($meta_data);
 			     		
-		    if ($content)
-		    {
-		    	// Process Tags if exist
-				if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);	
-		    
-				// API Response
+		    if ($content_meta)
+		    {		    
 	        	$message	= array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $content);
 	        	$response	= 200;
 	        }
