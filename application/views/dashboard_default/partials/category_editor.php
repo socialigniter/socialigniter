@@ -8,7 +8,7 @@
 		<label for="category_description">Description</label>
 		<textarea name="description" id="category_description" rows="2"></textarea>
 		<label for="category_parent">Parent</label>
-		<select name="parent_id" id="category_parent">
+		<select name="parent_id" id="category_parent_id">
 			<option value="0">--None--</option>
 		</select>
 		<label for="category_access">Access</label>

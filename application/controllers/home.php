@@ -180,9 +180,9 @@ class Home extends Dashboard_Controller
 		$this->load->view(config_item('dashboard_theme').'/partials/feed_timeline', $this->data);
 	}
 	
-	function add_category()
+	function category_editor()
 	{
-		$this->load->view(config_item('dashboard_theme').'/partials/add_category');
+		$this->load->view(config_item('dashboard_theme').'/partials/category_editor');
 	}
 
 }

@@ -410,7 +410,6 @@ $(document).ready(function()
 
 
 	/* Start Blog Section */
-	
 	function update_category_select(where_to)
 	{
 		$.get(base_url+'api/categories/view/module/blog',function(json)
@@ -424,53 +423,91 @@ $(document).ready(function()
 				$.uniform.update(where_to);
 			}
 		});
-	}	
+	}
 	
-	var select_starting_contents = $('.content [name=category_id]').html();
-	
-	$('[name=category_id]').change(function()
-	{	
-		if($(this).val() == 'add_category')
+	(function($)
+	{
+		$.blobify = function(options)
 		{
-			$('[name=category_id]').find('option:first').attr('selected','selected');
-			$.uniform.update('[name=category_id]');
+			var settings = {
+				parameter 	: '',
+				value 		: '',
+				after 		: function(){}
+			};
 			
-			
-			$.get(base_url+'/home/add_category',{},function(html){
-				
+			options = $.extend({},settings,options);
+		
+			// Gets the HTML template
+			$.get(base_url+'/home/category_editor',{},function(category_editor)
+			{				
 				var category_parents = '';
-				$.get(base_url+'api/categories/view/module/blog',function(json)
+	
+				// API call to get categories for module/type
+				$.get(base_url+'api/categories/view/' + options.parameter + '/' + options.value,function(json)
 				{
+					// If categories exist
 					if (json.status == 'success')
 					{
+						// Make HTML for for 'parent' dropdown
 						for(x in json.data)
 						{
 							category_parents = category_parents+'<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>';
 						}
 					}
+							
+					// Update the returned HTML
+					html = $(category_editor)
+								
+								//Update the slug_url to have the base path (i.e. http://localhost/home...)
+								.find('.slug_url').prepend(base_url+current_module+'/').end()
+								
+								//Grab the category values from the main DOM and "uniform" the select field
+								.find('#category_access').html($('[name=access]').html()).uniform().end()
+								
+								//Uniform the parent select field
+								.find('#category_parent_id').append(category_parents).uniform().end()
+							
+							.html();				
+					
+					options.after.call(this, html)
 				});
-				
-				//Update the returned HTML
-				html = $(html)
-							//Update the slug_url to have the base path (i.e. http://localhost/home...)
-							.find('.slug_url').prepend(base_url+current_module+'/').end()
-							//Grab the category values from the main DOM and "uniform" the select field
-							.find('#category_access').html($('[name=access]').html()).uniform().end()
-							//Uniform the parent select field
-							.find('#category_parent').append(category_parents).uniform().end()
-						.html();
-				
+			});	
+
+		};
+	})( jQuery );	
+	
+		
+	$('[name=category_id]').change(function()
+	{	
+		var select_starting_contents = $('.content [name=category_id]').html();
+	
+		// If select category is on 'add_category' then run
+		if($(this).val() == 'add_category')
+		{
+			$('[name=category_id]').find('option:first').attr('selected','selected');
+			$.uniform.update('[name=category_id]');
+
+			$.blobify(
+			{
+				parameter: 'module',
+				value: 'blog',	
+				after:function(html)
+			{										
 				$.fancybox(
 				{
 					content:html,
 					onComplete:function(e)
 					{
-						update_category_select('.modal_wrap select:first');
+						$('#category_parent_id').live('change', function(){
+							$.uniform.update(this);
+						});
+						
+						// Calls Func Above
 						$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
 						
-						
 						$('#category_name').slugify({slug:'#category_slug',url:base_url+current_module+'/',name:'category_url'});
-						
+													
+						// Create Category via AJAX
 						$('#new_category').bind('submit',function(e)
 						{
 							e.preventDefault();
@@ -498,10 +535,9 @@ $(document).ready(function()
 							});
 							return false;
 						});
-						
 					}
 				});
-			});
+			}})			
 		}
 	});
 	

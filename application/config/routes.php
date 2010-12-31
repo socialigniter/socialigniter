@@ -89,7 +89,7 @@ $route['home/comments'] 						= 'home/comments';
 $route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home/likes']							= 'home/likes';
-$route['home/add_category']						= 'home/add_category';
+$route['home/category_editor']					= 'home/category_editor';
 $route['home'] 									= 'home';
 
 $route['manager/(:any)']						= '$1/manager';
