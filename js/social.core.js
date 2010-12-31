@@ -221,11 +221,10 @@ $(function(){ $('input').attr('autocomplete','off'); });
 })(jQuery);
 
 
-
 /*
 	Takes care of making upload forms work via AJAX, just add water
 */
-/*
+
 (function($){
 	$.fn.uploadify = function(options) {
 		var defaults = {
@@ -237,6 +236,7 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			options = $.extend(true, defaults, options);
 			
 			$this = $(this);
+			
 			
 			//Make sure the form is set to send binary, and if not fix that
 			if($this.attr('enctype')!=='multipart/form-data'){
@@ -251,10 +251,9 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			$this.attr('target','upload_target_'+i).append('<iframe style="display:none;" src="" id="upload_target_'+i+'" class="uploadify-iframe"></iframe>');
 			
 			
-			$this.bind('submit',function(){
+			$this.bind('submit',function(e){
 				options.onUpload();
 				$('#upload_target_'+i).load(function(){
-					
 					_returnValue = $(this).contents().find('body').html();
 					
 					if(options.type == 'json'){
@@ -262,15 +261,71 @@ $(function(){ $('input').attr('autocomplete','off'); });
 					}
 					
 					options.afterUpload.call(this,_returnValue);
-					
-				})
+					$(this).replaceWith($(this).clone());
+				});
 				
 			});
 			
 		});
 	};
 })(jQuery);
+
+/*
+	This plugin allows you to trim a line and add ellipsis after a string passes
+	the max amount of characters you specify
 */
+(function($){
+	$.fn.ellipsify = function(options) {
+		var defaults = {
+			max:140
+		};
+		return this.each(function() {
+			options = $.extend(true, defaults, options);
+			
+			$this = $(this);
+			
+			if(typeof options.max == 'number'){
+				$this.attr('title',$this.html()).html($this.html().slice(0,options.max)+'&hellip;');
+			}
+			else{
+				//To do
+				//$this.attr('title',$this.html()).css({width:options.max,overflow:'hidden'}).wrap('<div></div>').parent().find('div').append('XXX');
+			}
+			
+		});
+	};
+})(jQuery);
+
+/*
+	Takes a DOM element and then converts it to an editable text/textarea field
+*/
+(function($){
+	$.fn.editify = function(options) {
+		var defaults = {
+			type:'input',
+			autoWidth:'auto',
+			autoHeight:'auto',
+			content:'auto'
+		};
+		return this.each(function() {
+			options = $.extend(true, defaults, options);
+			
+			$this = $(this);
+			
+			$this.bind('click',function(){
+				
+				if(options.type == 'input'){
+					$this.replaceWith('<input type="text" value="'+$this.html()+'">');
+				}
+				else if(options.type == 'textarea'){
+					$this.replaceWith('<textarea>'+$this.html()+'</textarea>');
+				}
+				
+			});
+			
+		});
+	};
+})(jQuery);
 
 $(function(){
 	//New way  to handle checkboxes!
@@ -284,18 +339,25 @@ $(function(){
 	
 	
 	//Uploader
-	/*
+	
 	$('#media_gallery form').uploadify({
 		type:'json',
 		onUpload:function(){
-			$.fancybox({content:'<h2>Loading...</h2>',width:'200px',height:'300px'});
+			$.fancybox({href:'http://localhost/images/shared/loader.gif',type:'image',showCloseButton:false});
 		},
 		afterUpload:function(json){
 			$.fancybox.close();
-			$('#media_gallery ul').append('<li><img src="/media/images/1/small_'+json.data.content+'"></li>');
+			$('#media_gallery .drag_wrap > ul').append('\
+				<li class="media_item" style="cursor:pointer">\
+					<a href="#fancybox"><img width="125" height="125" src="/media/images/1/small_'+json.data.content+'"></a>\
+					<ul class="media_actions">\
+						<li style="cursor: pointer; "><a href=""><span class="actions action_see"></span> View</a></li>\
+						<li style="cursor: pointer; "><a href=""><span class="actions action_edit"></span> Edit</a></li>\
+					</ul>\
+				</li>');
 		}
 	});
-	*/
+	
 });
 
 
