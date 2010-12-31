@@ -353,6 +353,7 @@ class Social_auth
 	    {
 	    	delete_cookie('identity');	
 	    }
+	    
 		if (get_cookie('remember_code')) 
 	    {
 	    	delete_cookie('remember_code');	
@@ -366,15 +367,9 @@ class Social_auth
 	
 	function logged_in()
 	{
-	    $identity = config_item('identity');
-		return (bool) $this->ci->session->userdata($identity);
+		return (bool) $this->ci->session->userdata(config_item('identity'));
 	}
 
-	function login_remembered_user()
-	{
-		return $this->ci->auth_model->login_remembered_user();
-	}
-	
 	function is_admin()
 	{
 		$super_admin	= config_item('super_admin_group');

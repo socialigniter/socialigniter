@@ -53,7 +53,7 @@
 		<ul>
 			<?= $sidebar_tools ?>
 		</ul>
-		<?php if ($level <= 2): ?>
+		<?php if ($logged_user_level_id <= 2): ?>
 		<div class="sidebar_separator"></div>
 		<ul>
 			<?= $sidebar_admin ?>

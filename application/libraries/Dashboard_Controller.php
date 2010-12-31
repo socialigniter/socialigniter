@@ -21,9 +21,6 @@ class Dashboard_Controller extends MY_Controller
 
 	    if (!$this->social_auth->logged_in()) redirect('login', 'refresh');
 
-		// Admin Levels
-		$this->data['level']					= $this->session->userdata('user_level_id');
-
 	    // Load Values
         $this->data['head']						= $this->load->view(config_item('dashboard_theme').'/partials/head_dashboard.php', $this->data, true);
         $this->data['navigation']				= '';
@@ -100,8 +97,7 @@ class Dashboard_Controller extends MY_Controller
     	// Module
        	if ($this->module_name) 
     	{
-    		// Navigation extends / replaces core navigation
-    		// If this changes it breaks 'settings' navigations
+    		// Navigation extends / replaces core navigation If this changes it breaks 'settings' navigations
 		    if (!file_exists(APPPATH.'/modules/'.$this->module_name.'/views/partials/navigation_'.$this->module_controller.'.php'))
 		    {
 				$navigation_path	= config_item('dashboard_theme').'/partials/navigation_'.$this->module_controller.'.php';

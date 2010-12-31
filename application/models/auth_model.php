@@ -756,11 +756,12 @@ class Auth_model extends CI_Model
 	
 	function update_last_login($user_id)
 	{
+	/*
 		if (isset($this->social_auth->_extra_where))
 		{
 			$this->db->where($this->social_auth->_extra_where);
 		}
-		
+	*/	
 		$this->db->update('users', array('last_login' => now()), array('user_id' => $user_id));
 		
 		return $this->db->affected_rows() == 1;
@@ -786,12 +787,15 @@ class Auth_model extends CI_Model
 		}
 
 		// Get User
+		/*
         if (isset($this->social_auth->_extra_where))
 		{
 			$this->db->where($this->social_auth->_extra_where);
 		}
+		*/
 
-	    $query = $this->db->select($this->identity_column.', user_id, user_level_id, remember_code, active')
+	    $query = $this->db->select('*')
+				  ->join('users_meta', 'users.user_id = users_meta.user_id')
 			      ->where($this->identity_column, get_cookie('identity'))
 			      ->where('remember_code', get_cookie('remember_code'))
 			      ->limit(1)
@@ -800,19 +804,22 @@ class Auth_model extends CI_Model
 	    if ($query->num_rows() == 1)
 	    {
 			$user = $query->row();
-			//$this->update_last_login($user->user_id);
-			//$this->set_userdata($user);
-	 		//$this->set_userdata_connections($user->user_id);
-
-			/*
+			
+			log_message('debug', 'inside user exists username, user_id: '.$user->email.' and '.$user->user_id);
+			
+			$this->update_last_login($user->user_id);
+			$this->set_userdata($user);
+	 		$this->set_userdata_connections($user->user_id);
+/*
 			if (config_item('user_extend_on_login'))
 			{
 				$this->remember_user($user->user_id);
 			}
-			*/
-
+*/
 			return TRUE;
 		}
+		
+		log_message('debug', 'user does not exist');
 
 		return FALSE;
 	}

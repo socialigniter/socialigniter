@@ -29,7 +29,7 @@ class Public_Controller extends MY_Controller
         $this->data['sidebar']				= $this->load->view(config_item('site_theme').'/partials/sidebar_site.php', $this->data, true);
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
 
-		$modules_scan 		= $this->social_igniter->scan_modules();
+		$modules_scan = $this->social_igniter->scan_modules();
 		
 		foreach ($modules_scan as $module):
 		
