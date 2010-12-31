@@ -99,7 +99,8 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			"name":'slug',
 			"classPrefix":"slugify",
 			"slugTag":"span",
-			"inputType":"text"
+			"inputType":"text",
+			"slugValue":""
 		};
 		return this.each(function()
 		{	//Merge the options and settings
@@ -117,22 +118,38 @@ $(function(){ $('input').attr('autocomplete','off'); });
 				return slug_val;
 			}
 			
-			//Give it the default value on load
-			$(options.slug).html(options.url+'<'+options.slugTag+' class="'+options.classPrefix+'-preview"></'+options.slugTag+'><input class="'+options.classPrefix+'-input" type="'+options.inputType+'" name="'+name+'">')
+			//This line add line add the default url into the element specified by the user
+			//then creates a span by default and puts the default value of the slug on load, if there is one
+			//it also creates the input element and gives it the same value as the span
+			$(options.slug).html(options.url+'<'+options.slugTag+' class="'+options.classPrefix+'-preview">'+options.slugValue+'</'+options.slugTag+'><input class="'+options.classPrefix+'-input" type="'+options.inputType+'" value="'+options.slugValue+'" name="'+options.name+'">')
+				//hide the input element that was just created
 				.find('.'+options.classPrefix+'-input').hide()
+				//bind a click event to make the span editable that's holding the edited slug
 				.end().find('.'+options.classPrefix+'-preview').bind('click',function(){
+					//Add a class to the original selected element that says the element has been modified
 					$this.addClass(options.classPrefix+'-modified');
+					//Hide the span
 					$(this).hide();
+					//Show the input, focus on it, and highlight the text
 					$(options.slug+' .'+options.classPrefix+'-input').show().focus().select()
+					//When the user clicks outside of it...
 					.blur(function(){
+						//If the value is blank...
 						if($(this).val()==''){
+							//Convert the value to the input box again
 							_revertedValue = _convertToSlug($this.val());
 							$(this).val(_revertedValue);
+							//Also update the span
 							$(options.slug+' .'+options.classPrefix+'-preview').text(_revertedValue);
+							//Make it as if it was never editied.
+							//This will make any mods to the input show up here in the span again
 							$this.removeClass(options.classPrefix+'-modified');
 						}
+						//If there is a value...
 						else{
+							//Take the value of the input and convert it to a URL safe value
 							$(this).val(_convertToSlug($(this).val())).hide();
+							//Do the same to the span
 							$(options.slug+' .'+options.classPrefix+'-preview').text(_convertToSlug($(this).val())).show();
 						}
 					})
@@ -313,12 +330,11 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			$this = $(this);
 			
 			$this.bind('click',function(){
-				
 				if(options.type == 'input'){
 					$this.replaceWith('<input type="text" value="'+$this.html()+'">');
 				}
 				else if(options.type == 'textarea'){
-					$this.replaceWith('<textarea>'+$this.html()+'</textarea>');
+					$this.after('<textarea style="width:'+$this.width()+'px" class="editify editify-textarea">'+$this.html()+'</textarea>').siblings('.editify').select();
 				}
 				
 			});
@@ -444,26 +460,4 @@ function markNewItem(item_id)
 		$('#' + item_id).removeClass('item_created').addClass('item');
 	});
 }
-
-// Makes Word From content.status
-function displayContentStatus(status)
-{
-	var result = '';
-	
-    if (status == 'P')
-    {
-    	result = 'Published'; 
-    }
-    else if (status == 'S') 	
-    {
-    	result = 'Saved';
-	}
-	else if (status == 'U')
-	{
-		result = 'Unpublished';	        
-	}
-
-	return result;
-}
-
 
