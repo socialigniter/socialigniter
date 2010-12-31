@@ -322,28 +322,50 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			type:'input',
 			autoWidth:'auto',
 			autoHeight:'auto',
-			content:'auto'
+			content:'auto',
+			on:'click'
 		};
 		return this.each(function() {
 			options = $.extend(true, defaults, options);
 			
 			$this = $(this);
 			
-			$this.bind('click',function(){
+			
+			_convertToEditableField = function(_$this){
+				_displaType = _$this.css('display');
 				if(options.type == 'input'){
-					$this.replaceWith('<input type="text" value="'+$this.html()+'">');
+					_$this.after('<input style="width:'+-$this.width()+'px" type="text" class="editify editify-input" value="'+_$this.html()+'">')
+						.siblings('.editify').select().focus().blur(function(){
+							_$this.css({display:_displaType}).text($(this).val());
+							$(this).remove();
+						})
+					.end().css({display:'none'});
 				}
 				else if(options.type == 'textarea'){
-					$this.after('<textarea style="width:'+$this.width()+'px" class="editify editify-textarea">'+$this.html()+'</textarea>').siblings('.editify').select();
+					_$this.after('<textarea style="width:'+_$this.width()+'px" class="editify editify-textarea">'+_$this.html()+'</textarea>').siblings('.editify').select();
 				}
-				
-			});
+			}
+			
+			if(options.on == 'load'){
+				_convertToEditableField($this);
+			}
+			else{
+				$this.bind(options.on,function(){
+					_convertToEditableField($this)
+				});
+			}
 			
 		});
 	};
 })(jQuery);
 
 $(function(){
+	
+	$('#fancybox-title').live('click',function(){
+		$(this).editify({on:'load'});
+	});
+	
+	
 	//New way  to handle checkboxes!
 	$('.nullify').nullify({
 		//This allows us to do something AFTER we toggle, which in this case
