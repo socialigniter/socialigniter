@@ -90,6 +90,28 @@ class Social_tools
 	{
 		return $this->ci->categories_model->get_categories_view($parameter, $value);	
 	}
+
+	function get_category_default_user($parameter, $value, $user_id, $make=FALSE)
+	{
+		$category = $this->ci->categories_model->get_category_default_user($parameter, $value, $user_id);
+	
+		if ((!$category) && ($make))
+		{
+			$category_data = array(
+        		'parent_id'		=> 0,
+    			'site_id'		=> config_item('site_id'),		
+    			'permission'	=> 'E',
+				'module'		=> $this->input->post('module'),
+    			'type'			=> $this->input->post('type'),
+    			'category'		=> $this->input->post('category'),
+    			'category_url'	=> $this->input->post('category_url')
+        	);	
+		
+			$this->add_category($category_data);	
+		}
+		
+		return $category;
+	}
 	
 	function get_categories_dropdown($parameter, $value, $user_level_id)
 	{

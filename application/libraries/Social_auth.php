@@ -1,5 +1,5 @@
-<?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+/*
 * Name:  Social_Auth Library
 * 
 * Modified: Brennan Novak
@@ -20,7 +20,6 @@
 * 
 * Requirements: PHP5 or above
 */
- 
 class Social_auth
 {
 	protected $ci;
@@ -34,7 +33,7 @@ class Social_auth
 
 	function __construct()
 	{
-		$this->ci =& get_instance();		
+		$this->ci =& get_instance();
 		$this->message_start_delimiter = config_item('message_start_delimiter');
 		$this->message_end_delimiter   = config_item('message_end_delimiter');
 		$this->error_start_delimiter   = config_item('error_start_delimiter');
@@ -42,12 +41,12 @@ class Social_auth
 		
 		// Load Models
 		$this->ci->load->model('auth_model');
-		$this->ci->load->model('connections_model');		
+		$this->ci->load->model('connections_model');
 		
 		// Auto-login user if they're remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
-			//$this->ci->auth_model->login_remembered_user();
+			$this->ci->auth_model->login_remembered_user();
 		}
 	}
 	
@@ -61,7 +60,7 @@ class Social_auth
 		else 
 		{
 			$this->set_error('activate_unsuccessful');
-			return FALSE;	
+			return FALSE;
 		}
 	}
 	
@@ -75,7 +74,7 @@ class Social_auth
 		else 
 		{
 			$this->set_error('deactivate_unsuccessful');
-			return FALSE;	
+			return FALSE;
 		}
 	}
 	
@@ -100,9 +99,7 @@ class Social_auth
 			// Get User
 			$profile = $this->ci->auth_model->profile($email);
 
-			$data = array('identity'                => $profile->{config_item('identity')},
-						  'forgotten_password_code' => $profile->forgotten_password_code
-						 );
+			$data = array('identity' => $profile->{config_item('identity')}, 'forgotten_password_code' => $profile->forgotten_password_code);
 
 			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password'), $data, true);
 			$this->ci->email->clear();
@@ -131,29 +128,26 @@ class Social_auth
 			return FALSE;
 		}
 	}
-	
+
 	function forgotten_password_complete($code)
 	{
 	    $identity     = config_item('identity');
 	    $profile      = $this->ci->auth_model->profile($code);
-		
+
         if (!is_object($profile)) 
         {
             $this->set_error('password_change_unsuccessful');
             return FALSE;
         }
-		
+
 		$new_password = $this->ci->auth_model->forgotten_password_complete($code, $profile->salt);
 
 		if ($new_password) 
 		{
-			$data = array(
-				'identity'     => $profile->{$identity},
-				'new_password' => $new_password
-			);
+			$data = array('identity'     => $profile->{$identity}, 'new_password' => $new_password);
             
 			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password_complete'), $data, true);
-				
+
 			$this->ci->email->clear();
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
@@ -373,13 +367,12 @@ class Social_auth
 	function logged_in()
 	{
 	    $identity = config_item('identity');
-	    
 		return (bool) $this->ci->session->userdata($identity);
 	}
 
 	function login_remembered_user()
 	{
-		return $this->ci->auth_model->login_remembered_user();	
+		return $this->ci->auth_model->login_remembered_user();
 	}
 	
 	function is_admin()
@@ -622,5 +615,5 @@ class Social_auth
 	{
 		return  $this->ci->connections_model->delete_connection($connection_id);
 	}
-	
+
 }

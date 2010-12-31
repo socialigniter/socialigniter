@@ -10,7 +10,6 @@
 <meta name="msvalidate.01" content="<?= $settings['site']['bing_webmaster']; ?>" />
 <link rel="icon" type="image/png" href="<?= base_url() ?>favicon.ico" />
 <?= $head ?>
-<?= $modules_head ?>
 </head>
 <body>
 <div id="header">
@@ -30,7 +29,6 @@
 			<?= $content ?>
 		</div>
 		<div id="sidebar">
-				<?php echo modules::run('login/widgets_sidebar'); ?>
 			<?= $sidebar ?>
 		</div>
 	</div>

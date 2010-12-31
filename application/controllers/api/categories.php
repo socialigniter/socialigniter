@@ -65,12 +65,14 @@ class Categories extends Oauth_Controller
 			{
 	        	$category_data = array(
 	        		'parent_id'		=> $this->input->post('parent_id'),
-	    			'site_id'		=> config_item('site_id'),		
+	    			'site_id'		=> config_item('site_id'),
+	    			'user_id'		=> 		
 	    			'permission'	=> $this->input->post('access'),
 					'module'		=> $this->input->post('module'),
 	    			'type'			=> $this->input->post('type'),
 	    			'category'		=> $this->input->post('category'),
 	    			'category_url'	=> $this->input->post('category_url')
+	    			'description'	=> $this->input->post('description')
 	        	);
 	
 				// Insert
