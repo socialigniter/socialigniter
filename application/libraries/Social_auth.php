@@ -46,7 +46,11 @@ class Social_auth
 		// Auto-login user if they're remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
-			$this->ci->auth_model->login_remembered_user();
+			if ($user = $this->ci->auth_model->login_remembered_user())
+			{
+				$this->set_userdata($user);
+	 			$this->set_userdata_connections($user->user_id);
+			}
 		}
 	}
 	
@@ -501,6 +505,23 @@ class Social_auth
 		 	return FALSE;
 		 }
 	}
+
+	// Sets Userdate
+	function set_userdata($user)
+	{
+		$this->ci->session->set_userdata(config_item('identity'),  $user->{config_item('identity')});
+
+		foreach (config_item('user_data') as $item)
+		{
+		    $this->ci->session->set_userdata($item,  $user->{$item});
+	    }
+	}
+
+	function set_userdata_connections($user_id)
+	{	
+		$this->ci->session->set_userdata('user_connections', $this->get_connections_user($user_id));
+	}	
+	
 	
 	function set_lang($lang='en')
 	{
