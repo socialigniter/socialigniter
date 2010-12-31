@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Social Igniter Library
 *
@@ -50,25 +50,7 @@ class Social_igniter
 		}
 				
 		return $picture;
-	}
-
-	// Page Title 
-    function title($sub_title, $page_title=FALSE, $site_title=FALSE)
-    {
-    	$title = NULL;
-	
-    	if($sub_title != '')
-    	{
-    		$title .= $sub_title.' '.config_item('site_title_delimiter').' ';
-    	}
-
-    	if($page_title != '')
-    	{
-    		$title .= $page_title.' '.config_item('site_title_delimiter').' ';
-    	}	
-    	    	
-    	return $title.$site_title;
-    }	
+	}	
     
     // Generate Item
     function render_item($activity)
@@ -233,17 +215,19 @@ class Social_igniter
 	{
 		$post_to 			= NULL;
 		$social_post		= config_item('social_post');
-		$user_connections	= $this->ci->session->userdata('user_connections');
 		
-		foreach ($social_post as $social)
+		if ($user_connections = $this->ci->session->userdata('user_connections'))
 		{
-			foreach($user_connections as $exists)
+			foreach ($social_post as $social)
 			{
-				if ($exists->module == $social)
+				foreach($user_connections as $exists)
 				{
-					$post_to .= '<li><input type="checkbox" value="1" id="post_'.$social.'" checked="checked" name="post_'.$social.'" /> '.ucwords($social).'</li>';
-				}
-			}		
+					if ($exists->module == $social)
+					{
+						$post_to .= '<li><input type="checkbox" value="1" id="post_'.$social.'" checked="checked" name="post_'.$social.'" /> '.ucwords($social).'</li>';
+					}
+				}		
+			}
 		}
 		
 		if ($post_to)

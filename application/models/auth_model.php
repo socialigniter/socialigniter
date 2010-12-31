@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name: 		Auth Model
 * 
@@ -15,7 +15,6 @@
 * 
 * Description:  Modified auth system based on redux_auth with extensive customization.
 */ 
-
 class Auth_model extends CI_Model
 {
 	public $tables = array();	
@@ -575,6 +574,8 @@ class Auth_model extends CI_Model
 
 	function set_userdata_connections($user_id)
 	{	
+		log_message('debug', 'inside set_userdata_connections user_id: '.$user_id);
+	
 		$user_connections = $this->social_auth->get_connections_user($user_id);
 	
 		$this->session->set_userdata('user_connections', $user_connections);
@@ -685,16 +686,10 @@ class Auth_model extends CI_Model
 			$id = $this->session->userdata('user_id');
 		}
 		
-	    $query = $this->db->select('user_level_id')
-						  ->where('user_id', $id)
-						  ->get('users');
-
-		$user = $query->row();
+	    $query	= $this->db->select('user_level_id')->where('user_id', $id)->get('users');
+		$user	= $query->row();
 		
-		return $this->db->select('level, level_name, description')
-						->where('user_level_id', $user->user_level_id)
-						->get('users_level')
-						->row();
+		return $this->db->select('level, level_name, description')->where('user_level_id', $user->user_level_id)->get('users_level')->row();
 	}
 
 	function update_user($user_id, $data)
@@ -786,36 +781,42 @@ class Auth_model extends CI_Model
 
 	function login_remembered_user()
 	{
+		// If all three cookies exist
 		if (!get_cookie('identity') || !get_cookie('remember_code') || !$this->identity_check(get_cookie('identity')))
 		{
 			return FALSE;
 		}
+		
+		log_message('debug', 'inside login_remembered_user identity cookie: '.get_cookie('identity'));
 	
 		//	Get User 
         if (isset($this->social_auth->_extra_where))
 		{
 			$this->db->where($this->social_auth->_extra_where);
-		}					
-	
-	    $this->db->select('*');
-		$this->db->from('users');
-		$this->db->join('users_meta', 'users_meta.user_id = users.user_id');
-		$this->db->join('users_level', 'users_level.user_level_id = users.user_level_id');
-		$this->db->where('users.'.$this->identity_column, get_cookie('identity'));
-		$this->db->where('users.remember_code', get_cookie('remember_code'));
-		$this->db->limit(1);
- 		$user = $this->db->get()->row(); 	 		
+		}
+ 		
+	    $query = $this->db->select($this->identity_column.', user_id, user_level_id, remember_code, active')
+			      ->where($this->identity_column, get_cookie('identity'))
+			      ->where('remember_code', get_cookie('remember_code'))
+			      ->limit(1)
+			      ->get('users'); 		
 					
-		if ($user)
-		{
-			$this->update_last_login($user->user_id);	 
-			$this->set_userdata($user);
-	 		$this->set_userdata_connections($user->user_id);
-				
+	    if ($query->num_rows() == 1)
+	    {
+			$user = $query->row();
+			
+			log_message('debug', 'inside login_remembered_user user_id: '.$user->user_id);		
+		
+			//$this->update_last_login($user->user_id);	 
+			//$this->set_userdata($user);
+	 		//$this->set_userdata_connections($user->user_id);
+			
+			/*	
 			if (config_item('user_extend_on_login'))
 			{
 				$this->remember_user($user->user_id);
 			}
+			*/
 
 			return TRUE;
 		}

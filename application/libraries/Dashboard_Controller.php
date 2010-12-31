@@ -1,4 +1,18 @@
-<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
+<?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+* Name:		Dashboard_Controller Library
+* 
+* Author:	Brennan Novak
+* 		  	contact@social-igniter.com
+*         	@brennannovak
+* 
+* Location: http://github.com/socialigniter
+* 
+* Created:  06-01-2010
+* 
+* Description: Library that is extended by all "Dashboard" facing 'home' controllers
+* that requires user authentication and access
+*/
 
 class Dashboard_Controller extends MY_Controller
 {
@@ -67,7 +81,7 @@ class Dashboard_Controller extends MY_Controller
     }
     
     function render($layout='dashboard')
-    {
+    {    
     	// Module
        	if ($this->module_name) 
     	{

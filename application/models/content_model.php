@@ -178,19 +178,32 @@ class Content_model extends CI_Model {
  		$this->db->where('content_id', $content_id);
  		$result = $this->db->get();
  		return $result->result();
-    }
+    } 
 	
 	
-    function add_meta($meta_data)
+    function add_meta($site_id, $content_id, $meta_data)
     {
- 		$meta_data['created_at'] = unix_to_mysql(now());
-		$meta_data['updated_at'] = unix_to_mysql(now());
+    	$content_meta_id = array();
+    
+    	foreach ($meta_data as $key => $value)
+    	{
+	    	$insert_data = array(
+	    		'site_id'		=> $site_id,
+	    		'content_id'	=> $content_id,
+	    		'key'			=> $key,
+	    		'value'			=> $value,
+		 		'created_at' 	=> unix_to_mysql(now()),
+				'updated_at' 	=> unix_to_mysql(now())
+	    	);
+			
+			$this->db->insert('content_meta', $insert_data);
+			
+			$content_meta_id[] = $this->db->insert_id();
+		}	
 		
-		$this->db->insert('content_meta', $meta_data);
-		
-		if ($content_meta_id = $this->db->insert_id())
+		if ($content_meta_id)
 		{
-			return $content_meta_id;	
+			return TRUE;	
     	}
     	
     	return FALSE;

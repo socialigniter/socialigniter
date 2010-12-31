@@ -1,4 +1,17 @@
-<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
+<?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+* Name:		Public_Controller Library
+* 
+* Author:	Brennan Novak
+* 		  	contact@social-igniter.com
+*         	@brennannovak
+* 
+* Location: http://github.com/socialigniter
+* 
+* Created:  06-01-2010
+* 
+* Description: Library that is extended by all "Public" facing site controllers
+*/
 
 class Public_Controller extends MY_Controller
 {
@@ -57,7 +70,7 @@ class Public_Controller extends MY_Controller
     }
     
     function render($layout='site')
-    {
+    {    
       	// Is Module
        	if ($this->module_name) 
     	{

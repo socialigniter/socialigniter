@@ -8,6 +8,23 @@
 * @link			http://social-igniter.com
 *
 */
+// Page Title 
+function site_title($sub_title, $page_title=FALSE, $site_title=FALSE)
+{
+	$title = NULL;
+
+	if($sub_title != '')
+	{
+		$title .= $sub_title.' '.config_item('site_title_delimiter').' ';
+	}
+
+	if($page_title != '')
+	{
+		$title .= $page_title.' '.config_item('site_title_delimiter').' ';
+	}	
+	    	
+	return $title.$site_title;
+}
 
 function is_empty($value)
 {

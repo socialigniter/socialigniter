@@ -45,51 +45,33 @@ class Content_meta extends Oauth_Controller
         $this->response($message, $response);
     }
 
-
 	/* POST types */
 	// Create Content - if module needs content to do more funky things, write an API controller in that module
 	function create_authd_post()
 	{
-		// Validation Rules
-	   	$this->form_validation->set_rules('content_id', 'content_id', 'required');
-	   	$this->form_validation->set_rules('key', 'Key', 'required');
-	   	$this->form_validation->set_rules('value', 'Value', 'required');
-	   		
-		// Passes Validation
-	    if ($this->form_validation->run() == true)
-	    {	
-	   		//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
-	        	
-	    	$viewed			= 'Y';
-	    	$approval		= 'A'; 
-	   	
-	    	$content_data = array(
-	    		'site_id'		=> config_item('site_id'),
-				'content_id'	=> $this->input->post('content_id'),
-				'key'			=> $this->input->post('key'),
-				'value'			=> $this->input->post('value')
-	    	);
-	    									
-			// Insert
-			$content_meta = $this->content_model->add_meta($meta_data);
-			     		
-		    if ($content_meta)
-		    {		    
-	        	$message	= array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $content);
-	        	$response	= 200;
-	        }
-	        else
-	        {
-		        $message	= array('status' => 'error', 'message' => 'Oops we were unable to post your '.$content_data['type']);
-		        $response	= 200;		        
-	        }	
-		}
-		else 
-		{
-			// Does Not Pass Validation
-	        $message	= array('status' => 'error', 'message' => validation_errors());
-	        $response	= 200;
-		}
+	
+   		//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
+   	
+		// Process Content Meta
+		// MAKE INTO A $_POST loop that gets all elements sent over
+		$meta_data = array(
+			'excerpt' => $this->input->post('excerpt')
+		);
+
+		$content_meta = $this->content_model->add_meta(config_item('site_id'), $this->input->post('content_id'), $meta_data);
+			
+		     		
+	    if ($content_meta)
+	    {		    
+        	$message	= array('status' => 'success', 'message' => 'Posted your content', 'data' => $content);
+        	$response	= 200;
+        }
+        else
+        {
+	        $message	= array('status' => 'error', 'message' => 'Oops we were unable to post your content');
+	        $response	= 200;		        
+        }	
+
 	
 	    $this->response($message, $response);
 	}
@@ -102,28 +84,12 @@ class Content_meta extends Oauth_Controller
     
 		// Access Rules
 	   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
-	   	
-    	$viewed			= 'Y';
-    	$approval		= 'A'; 
    
-    	$content_data = array(
-			'parent_id'			=> $this->input->post('parent_id'),
-			'category_id'		=> $this->input->post('category_id'),
-			'module'			=> $this->input->post('module'),
-			'type'				=> $this->input->post('type'),
-			'order'				=> $this->input->post('order'),
-			'title'				=> $this->input->post('title'),
-			'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
-			'content'			=> $this->input->post('content'),
-			'details'			=> $this->input->post('details'),
-			'access'			=> $this->input->post('access'),
-			'comments_allow'	=> $this->input->post('comments_allow'),
-			'geo_lat'			=> $this->input->post('geo_lat'),
-			'geo_long'			=> $this->input->post('geo_long'),
-			'geo_accuracy'		=> $this->input->post('geo_accuracy'),
-			'viewed'			=> $viewed,
-			'approval'			=> $approval,
-			'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))
+    	$meta_data = array(
+    		'site_id'		=> config_item('site_id'),
+			'content_id'	=> $this->input->post('content_id'),
+			'key'			=> $this->input->post('key'),
+			'value'			=> $this->input->post('value')
     	);
     									
 		// Insert

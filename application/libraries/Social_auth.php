@@ -1,8 +1,8 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Social Auth
+* Name:  Social_Auth Library
 * 
-* Modifier: Brennan Novak
+* Modified: Brennan Novak
 *			@brennannovak
 *
 * Author: 	Ben Edmunds
@@ -11,7 +11,7 @@
 *          
 * Added Awesomeness: Phil Sturgeon
 * 
-* Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
+* Original: http://github.com/benedmunds/CodeIgniter-Ion-Auth
 *          
 * Created:  10.01.2009 
 * 
@@ -47,9 +47,8 @@ class Social_auth
 		// Auto-login user if they're remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
-			//$this->login_remembered_user();
+			//$this->ci->auth_model->login_remembered_user();
 		}
-	
 	}
 	
 	function activate($id, $code=false)
@@ -377,7 +376,7 @@ class Social_auth
 	    
 		return (bool) $this->ci->session->userdata($identity);
 	}
-	
+
 	function login_remembered_user()
 	{
 		return $this->ci->auth_model->login_remembered_user();	

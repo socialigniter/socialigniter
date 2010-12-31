@@ -1,6 +1,19 @@
-<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
-/* The MX_Controller class is autoloaded as required */
+<?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+* Name:		MY_Controller Library
+* 
+* Author:	Brennan Novak
+* 		  	contact@social-igniter.com
+*         	@brennannovak
+* 
+* Location: http://github.com/socialigniter
+* 
+* Created:  06-01-2010
+* 
+* Description: Library that is extended by all "Public" facing site controllers
+*/
 
+/* The MX_Controller class is autoloaded as required */
 class MY_Controller extends MX_Controller
 {
     protected $data = array();
@@ -135,7 +148,7 @@ class MY_Controller extends MX_Controller
 			$this->data['logged_user_id']		= '';	
 			$this->data['logged_user_level_id']	= '';
 			$this->data['logged_username']		= '';
-			$this->data['logged_image'] 		= base_url().config_item('profile_images').'normal_'.config_item('profile_nopicture');
+			$this->data['logged_image'] 		= base_url().config_item('users_images_folder').'normal_'.config_item('profile_nopicture');
 			$this->data['logged_name']			= 'Your Name';
 			$this->data['logged_location']		= '';
 			$this->data['logged_geo_enabled']	= '';
