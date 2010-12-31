@@ -331,7 +331,6 @@ class Auth_model extends CI_Model
 
 	function register($username, $password, $email, $additional_data=false, $group_name=false)
 	{
-	
 	    if ($this->identity_column == 'email' && $this->email_check($email))
 	    {
 			$this->social_auth->set_error('account_creation_duplicate_email');
@@ -518,8 +517,8 @@ class Auth_model extends CI_Model
     		{
     			// Sets Various Userdata
         		$this->update_last_login($user->user_id);
-				$this->set_userdata($user);
-	 			$this->set_userdata_connections($user->user_id);
+				$this->social_auth->set_userdata($user);
+	 			$this->social_auth->set_userdata_connections($user->user_id);
    		    
     		    if ($remember && config_item('remember_users'))
     		    {
@@ -553,32 +552,14 @@ class Auth_model extends CI_Model
 		{
     		// Sets Various Userdata
     		$this->update_last_login($user->user_id);
-			$this->set_userdata($user);
-			$this->set_userdata_connections($user->user_id);
+			$this->social_auth->set_userdata($user);
+			$this->social_auth->set_userdata_connections($user->user_id);
 
 		    return TRUE;
         }
         
 		return FALSE;
 	}
-	
-	function set_userdata($user)
-	{
-		$this->session->set_userdata($this->identity_column,  $user->{$this->identity_column});
-
-		foreach (config_item('user_data') as $item)
-		{
-		    $this->session->set_userdata($item,  $user->{$item});
-	    }
-	}
-
-	function set_userdata_connections($user_id)
-	{
-		$user_connections = $this->social_auth->get_connections_user($user_id);
-	
-		$this->session->set_userdata('user_connections', $user_connections);
-	}
-
 	
 	function get_users($group=false)
 	{
@@ -756,12 +737,6 @@ class Auth_model extends CI_Model
 	
 	function update_last_login($user_id)
 	{
-	/*
-		if (isset($this->social_auth->_extra_where))
-		{
-			$this->db->where($this->social_auth->_extra_where);
-		}
-	*/	
 		$this->db->update('users', array('last_login' => now()), array('user_id' => $user_id));
 		
 		return $this->db->affected_rows() == 1;
@@ -787,16 +762,9 @@ class Auth_model extends CI_Model
 		}
 
 		// Get User
-		/*
-        if (isset($this->social_auth->_extra_where))
-		{
-			$this->db->where($this->social_auth->_extra_where);
-		}
-		*/
-
 	    $query = $this->db->select('*')
 				  ->join('users_meta', 'users.user_id = users_meta.user_id')
-			      ->where($this->identity_column, get_cookie('identity'))
+			      ->where(config_item('identity'), get_cookie('identity'))
 			      ->where('remember_code', get_cookie('remember_code'))
 			      ->limit(1)
 			      ->get('users');
@@ -804,23 +772,20 @@ class Auth_model extends CI_Model
 	    if ($query->num_rows() == 1)
 	    {
 			$user = $query->row();
-			
-			log_message('debug', 'inside user exists username, user_id: '.$user->email.' and '.$user->user_id);
-			
+						
 			$this->update_last_login($user->user_id);
-			$this->set_userdata($user);
-	 		$this->set_userdata_connections($user->user_id);
-/*
+			
+			/* BORKEN for now
+			*  Still causes that compression header 
 			if (config_item('user_extend_on_login'))
 			{
 				$this->remember_user($user->user_id);
 			}
-*/
-			return TRUE;
+			*/			
+
+			return $user;
 		}
 		
-		log_message('debug', 'user does not exist');
-
 		return FALSE;
 	}
 
@@ -836,7 +801,7 @@ class Auth_model extends CI_Model
 		{
 			$user = $this->get_user($user_id);
 
-			$identity = array('name' => 'identity', 'value' => $user->{$this->identity_column}, 'expire' => config_item('user_expire'));
+			$identity = array('name' => 'identity', 'value' => $user->{config_item('identity')}, 'expire' => config_item('user_expire'));
 			$remember_code = array('name' => 'remember_code', 'value' => $salt, 'expire' => config_item('user_expire'));
 
 			set_cookie($identity);
