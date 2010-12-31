@@ -1,25 +1,25 @@
-<?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+/*
 * Name: 		Auth Model
 * 
 * Author:  		Brennan Novak severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2
 * 		   		contact@social-igniter.com
-				@brennannovak
-* 
+*				@brennannovak
+*
 * Added Awesomeness: Phil Sturgeon
-* 
+*
 * Location: http://github.com/socialigniter/core
 *          
 * Created:  10.01.2009 
 * Modified: 04.01.2010 Brennan Novak
-* 
+*
 * Description:  Modified auth system based on redux_auth with extensive customization.
 */ 
 class Auth_model extends CI_Model
 {
 	public $tables = array();	
 	public $activation_code;	
-	public $forgotten_password_code;	
+	public $forgotten_password_code;
 	public $new_password;	
 	public $identity;
 	
@@ -33,7 +33,7 @@ class Auth_model extends CI_Model
 	    $this->store_salt      	= $this->config->item('store_salt');
 	    $this->salt_length     	= $this->config->item('salt_length');
 	}
-	
+
 	/* Hash password : Hashes the password to be stored in the database.
      * Hash password db : This function takes a password and validates it
      * against an entry in the users table.
@@ -539,7 +539,7 @@ class Auth_model extends CI_Model
 	    {
 	        return FALSE;
 	    }
-	    
+
 	    $this->db->select('*');
 		$this->db->from('users');
 		$this->db->join('users_meta', 'users_meta.user_id = users.user_id');
@@ -567,15 +567,13 @@ class Auth_model extends CI_Model
 		$this->session->set_userdata($this->identity_column,  $user->{$this->identity_column});
 
 		foreach (config_item('user_data') as $item)
-		{	
-		    $this->session->set_userdata($item,  $user->{$item});	    
-	    }	    
+		{
+		    $this->session->set_userdata($item,  $user->{$item});
+	    }
 	}
 
 	function set_userdata_connections($user_id)
-	{	
-		log_message('debug', 'inside set_userdata_connections user_id: '.$user_id);
-	
+	{
 		$user_connections = $this->social_auth->get_connections_user($user_id);
 	
 		$this->session->set_userdata('user_connections', $user_connections);
@@ -592,7 +590,7 @@ class Auth_model extends CI_Model
         }
 
 		$this->db->select(array('users.created_on', 'users.last_login'));
-		        
+
 		$this->db->join('users_meta', 'users.user_id = users_meta.user_id', 'left');
 		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id', 'left');
 
@@ -610,7 +608,7 @@ class Auth_model extends CI_Model
 			$this->db->where($this->social_auth->_extra_where);
 		}
 
-		return $this->db->get('users');		
+		return $this->db->get('users');
 	}
 
 	function get_user_row()
@@ -711,7 +709,7 @@ class Auth_model extends CI_Model
 
 	        $this->db->update('users_meta');
 	    }
-	    
+
 	    // Only does Users Tables
         if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data)) 
         {
@@ -758,11 +756,12 @@ class Auth_model extends CI_Model
 	
 	function update_last_login($user_id)
 	{
+	/*
 		if (isset($this->social_auth->_extra_where))
 		{
 			$this->db->where($this->social_auth->_extra_where);
 		}
-		
+	*/	
 		$this->db->update('users', array('last_login' => now()), array('user_id' => $user_id));
 		
 		return $this->db->affected_rows() == 1;
@@ -786,65 +785,66 @@ class Auth_model extends CI_Model
 		{
 			return FALSE;
 		}
-		
-		log_message('debug', 'inside login_remembered_user identity cookie: '.get_cookie('identity'));
-	
-		//	Get User 
+
+		// Get User
+		/*
         if (isset($this->social_auth->_extra_where))
 		{
 			$this->db->where($this->social_auth->_extra_where);
 		}
- 		
-	    $query = $this->db->select($this->identity_column.', user_id, user_level_id, remember_code, active')
+		*/
+
+	    $query = $this->db->select('*')
+				  ->join('users_meta', 'users.user_id = users_meta.user_id')
 			      ->where($this->identity_column, get_cookie('identity'))
 			      ->where('remember_code', get_cookie('remember_code'))
 			      ->limit(1)
-			      ->get('users'); 		
-					
+			      ->get('users');
+
 	    if ($query->num_rows() == 1)
 	    {
 			$user = $query->row();
 			
-			log_message('debug', 'inside login_remembered_user user_id: '.$user->user_id);		
-		
-			//$this->update_last_login($user->user_id);	 
-			//$this->set_userdata($user);
-	 		//$this->set_userdata_connections($user->user_id);
+			log_message('debug', 'inside user exists username, user_id: '.$user->email.' and '.$user->user_id);
 			
-			/*	
+			$this->update_last_login($user->user_id);
+			$this->set_userdata($user);
+	 		$this->set_userdata_connections($user->user_id);
+/*
 			if (config_item('user_extend_on_login'))
 			{
 				$this->remember_user($user->user_id);
 			}
-			*/
-
+*/
 			return TRUE;
 		}
 		
+		log_message('debug', 'user does not exist');
+
 		return FALSE;
 	}
-		
+
 	function remember_user($user_id)
 	{
 		if (!$user_id) return FALSE;
-		
+
 		$salt = sha1(md5(microtime()));
-		
+
 		$this->db->update('users', array('remember_code' => $salt), array('user_id' => $user_id));
-		
-		if ($this->db->affected_rows() == 1) 
+
+		if ($this->db->affected_rows() == 1)
 		{
 			$user = $this->get_user($user_id);
-			
-			$identity		= array('name' => 'identity', 'value' => $user->{$this->identity_column}, 'expire' => config_item('user_expire'));			
-			$remember_code	= array('name' => 'remember_code', 'value' => $salt, 'expire' => config_item('user_expire'));			
+
+			$identity = array('name' => 'identity', 'value' => $user->{$this->identity_column}, 'expire' => config_item('user_expire'));
+			$remember_code = array('name' => 'remember_code', 'value' => $salt, 'expire' => config_item('user_expire'));
 
 			set_cookie($identity);
 			set_cookie($remember_code);
-			
+
 			return TRUE;
 		}
-		
+
 		return FALSE;
 	}
 }

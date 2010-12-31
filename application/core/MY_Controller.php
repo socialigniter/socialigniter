@@ -1,5 +1,5 @@
-<?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
+<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
+/*
 * Name:		MY_Controller Library
 * 
 * Author:	Brennan Novak
@@ -33,33 +33,33 @@ class MY_Controller extends MX_Controller
 	function __construct()
 	{
         parent::__construct();
-                
+
         // Site Status or Error
         if (config_item('site_status') === FALSE)
         {
             show_error('Sorry the site is shut for now.');
-        }        
-        
-        // Get Site		
+        }
+
+        // Get Site
 		$site = $this->social_igniter->get_site();
-		
-		// Get Language		
+
+		// Get Language
  		$this->lang->load('social_igniter', 'english');
  		$this->lang->load('activity_stream', 'english'); 	
 
         // Load Libraries
         $this->load->library('user_agent');
-                
+
         // Disable IE7's constant caching
         $this->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
         $this->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
         $this->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
-        $this->output->set_header('Pragma: no-cache');        
-				
+        $this->output->set_header('Pragma: no-cache');
+
 		// Site Values
 		$this->config->set_item('site_url', $site->url);
-		
+
 		$this->data['site_title'] 			= $site->title;
 		$this->data['site_tagline'] 		= $site->tagline;
 		$this->data['site_url']				= $site->url;
@@ -67,12 +67,12 @@ class MY_Controller extends MX_Controller
 		$this->data['sub_title']			= NULL;
 		$this->data['site_description'] 	= $site->description;
 		$this->data['site_keywords'] 		= $site->keywords;
-		
+
 		// Create Settings
 		foreach ($this->social_igniter->get_settings() as $setting)
 		{
 			$this->data['settings'][$setting->module][$setting->setting] = $setting->value;
-			
+
             $this->config->set_item($setting->module.'_'.$setting->setting, $setting->value);
 		
 			if (($setting->setting == 'social_login') 		&& ($setting->value == 'TRUE')) $this->social_logins[] 		= $setting->module;
@@ -80,13 +80,13 @@ class MY_Controller extends MX_Controller
 			if (($setting->setting == 'social_post') 		&& ($setting->value == 'TRUE')) $this->social_post[] 		= $setting->module;
 			if (($setting->setting == 'social_checkin') 	&& ($setting->value == 'TRUE')) $this->social_checkin[] 	= $setting->module;
 		}
-		
+
 		// Set Social Config Arrays
 		$this->config->set_item('social_logins', $this->social_logins);
 		$this->config->set_item('social_connections', $this->social_connections);
 		$this->config->set_item('social_post', $this->social_post);
 		$this->config->set_item('social_checkin', $this->social_checkin);
-		
+
 		// Themes
         if ($this->agent->is_mobile())
         {
@@ -96,11 +96,10 @@ class MY_Controller extends MX_Controller
         else
         {
 			$this->config->set_item('site_theme', $this->data['settings']['theme']['site']);
-			$this->config->set_item('dashboard_theme', $this->data['settings']['theme']['dashboard']);        
+			$this->config->set_item('dashboard_theme', $this->data['settings']['theme']['dashboard']);
         }
 
 		$this->config->set_item('mobile_theme', $this->data['settings']['theme']['mobile']);
-
 
 		// Dashboard & Public values for logged
 		if ($this->social_auth->logged_in())
@@ -110,8 +109,8 @@ class MY_Controller extends MX_Controller
 			$this->data['oauth_consumer_secret']= $this->session->userdata('consumer_secret');
 			$this->data['oauth_token'] 			= $this->session->userdata('token');
 			$this->data['oauth_token_secret'] 	= $this->session->userdata('token_secret');
-				
-			// Logged Values	
+
+			// Logged Values
 			$this->data['logged_user_id']		= $this->session->userdata('user_id');
 			$this->data['logged_user_level_id']	= $this->session->userdata('user_level_id');
 			$this->data['logged_username']		= $this->session->userdata('username');
@@ -120,21 +119,18 @@ class MY_Controller extends MX_Controller
 			$this->data['logged_location']		= $this->session->userdata('location');
 			$this->data['logged_geo_enabled']	= $this->session->userdata('geo_enabled');
 			$this->data['logged_privacy']		= $this->session->userdata('privacy');
-						
+
 			// Various Links
 			$this->data['link_home']			= base_url()."home";
 			$this->data['link_profile']			= base_url()."profile/".$this->session->userdata('username');
 			$this->data['link_settings']		= base_url()."settings/profile";
 			$this->data['link_logout']			= base_url().'login/logout';
-			
+
 			// Action Paths
 			$this->data['comments_post']		= base_url().'api/comments/create/id';
-			
-			// Site Forms	
+
+			// Site Forms
 			$this->data['comments_write_form']	= 'comments_logged_form';
-			
-			// Message
-			$this->data['message']				= '';
 		}
 		else
 		{
@@ -143,7 +139,7 @@ class MY_Controller extends MX_Controller
 			$this->data['oauth_consumer_secret']= '';
 			$this->data['oauth_token'] 			= '';
 			$this->data['oauth_token_secret'] 	= '';
-			
+
 			// Logged Values	
 			$this->data['logged_user_id']		= '';	
 			$this->data['logged_user_level_id']	= '';
@@ -152,15 +148,15 @@ class MY_Controller extends MX_Controller
 			$this->data['logged_name']			= 'Your Name';
 			$this->data['logged_location']		= '';
 			$this->data['logged_geo_enabled']	= '';
-			$this->data['logged_privacy']		= '';			
-						
+			$this->data['logged_privacy']		= '';
+
 			// Action Paths
 			$this->data['comments_post']		= base_url().'comments/public';
-			
+
 			// Site Forms
 			$this->data['comments_write_form']	= 'comments_public_form';
 		}
-		
+
 		// Site Paths
 		$this->data['shared_images']		= base_url().'images/shared/';
 		$this->data['views']				= base_url().'application/views/';
@@ -168,26 +164,16 @@ class MY_Controller extends MX_Controller
 		$this->data['dashboard_assets']		= base_url().'application/views/'.$this->data['settings']['theme']['dashboard'].'/assets/';	
 		$this->data['mobile_assets']		= base_url().'application/views/'.$this->data['settings']['theme']['mobile'].'/assets/';
 		$this->data['profiles']				= base_url().'profile/';
-		
-		// Previous Page
-		if (isset($_SERVER['HTTP_REFERER']))
-		{
-			$this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']); 
-		}
-		else
-		{
-			$this->session->set_userdata('previous_page', ''); 		
-		}
-		
+
         // Set the current controller and action name
         $this->controller_name 				= $this->router->fetch_directory().$this->router->fetch_class();
         $this->action_name     				= $this->router->fetch_method();
 
-		// For rendering pages in a modeule 
+		// For rendering pages in a modeule
       	$this->module_name     				= $this->router->fetch_module();
         $this->module_controller 			= $this->router->fetch_class();
-        
-        // For Debugging  
+
+        // For Debugging
         $this->output->enable_profiler(FALSE);
 	}
 }

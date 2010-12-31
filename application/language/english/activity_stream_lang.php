@@ -32,7 +32,6 @@ $lang['verbs']['comment']		= 'commented';
 $lang['verbs']['purchase']		= 'purchased';
 $lang['verbs']['download']		= 'downloaded';
 
-
 // Object Articles
 $lang['object_articles']['article']		= 'an';
 $lang['object_articles']['audio']		= 'an';
@@ -78,3 +77,6 @@ $lang['object_types']['status']			= '';
 $lang['object_types']['video']			= 'video';
 $lang['object_types']['event']			= 'event';
 $lang['object_types']['page'] 			= 'page';
+
+// Social Igniter Types
+$lang['object_types']['class'] 			= 'a class';

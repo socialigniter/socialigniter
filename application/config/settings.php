@@ -90,8 +90,8 @@ $config['amount_increments_five'] = array(
 /* Misc Form Options */
 $config['access'] = array(
 	'E' => 'Everyone',
-	'M' => 'Only Me',
-	'S' => 'Specify'
+	'F' => 'Friends',
+	'M' => 'Only Me'
 );
 
 $config['comments_allow'] = array(

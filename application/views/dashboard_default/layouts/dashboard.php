@@ -8,13 +8,10 @@
 <meta name="keywords" content="<?= $site_keywords ?>" />
 <meta name="google-site-verification" content="<?= $settings['site']['google_webmaster']; ?>" />
 <meta name="msvalidate.01" content="<?= $settings['site']['bing_webmaster']; ?>" />
-	
 <link rel="icon" type="image/png" href="<?= base_url() ?>favicon.ico" />
 <?= $head ?>
-<?= $modules_head ?>
 </head>
 <body>
-
 <div id="container">
 	<div id="header">
 		<div id="name">
@@ -30,7 +27,6 @@
 		</ul>
 		</div>
 	</div>	
-
 	<div id="content">
 		<div class="content norm_top"></div>	
 		<div class="content norm_mid">			
@@ -52,13 +48,12 @@
 		<div class="sidebar_separator"></div>
 		<ul>		
 			<?= $sidebar_messages ?>
-			<?= $modules_sidebar_messages ?>
 		</ul>
 		<div class="sidebar_separator"></div>
 		<ul>
-			<?= $modules_sidebar_tools ?>
+			<?= $sidebar_tools ?>
 		</ul>
-		<?php if ($level <= 2): ?>
+		<?php if ($logged_user_level_id <= 2): ?>
 		<div class="sidebar_separator"></div>
 		<ul>
 			<?= $sidebar_admin ?>
@@ -71,11 +66,9 @@
 	<div id="footer">
 		<ul>
 			<?= $footer ?>
-			<?= $modules_footer ?>
 		</ul>
 	</div>
 </div>
-
 <?= $settings['site']['google_analytics'] ?>
 </body>
 </html>

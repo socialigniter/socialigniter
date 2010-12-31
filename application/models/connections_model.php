@@ -1,5 +1,5 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
+/*
 * Name:		Connections Model
 * 
 * Author:	Brennan Novak
@@ -66,24 +66,24 @@ class Connections_model extends CI_Model
  		
 		return $result;
  	}
- 	
+
  	function get_connection($connection_id)
  	{
  	 	$this->db->select('*');
  		$this->db->from('connections');    
- 		$this->db->where('connection_id', $connection_id); 				
+ 		$this->db->where('connection_id', $connection_id);
  		$result = $this->db->get()->row();
  		return $result;
  	}
- 	
+
  	function get_connections_user($user_id)
-	{	
+	{
  		$this->db->select('*');
  		$this->db->from('connections');
 		$this->db->where('user_id', $user_id);
  		$result = $this->db->get();	
- 		return $result->result();  		
-	}    
+ 		return $result->result();
+	}
  	
 	function add_connection($connection_data)
 	{
@@ -100,7 +100,7 @@ class Connections_model extends CI_Model
 
 	function delete_connection($connection_id)
 	{
-		$this->db->delete('connections', array('connection_id' => $connection_id));		
+		$this->db->delete('connections', array('connection_id' => $connection_id));
 	}
 	
 }

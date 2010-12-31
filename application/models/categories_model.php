@@ -31,6 +31,24 @@ class Categories_model extends CI_Model {
 			return FALSE;
 		}
     }
+
+    function get_category_default_user($parameter, $value, $user_id)
+    {
+    	if (in_array($parameter, array('parent_id','site_id','module','type','category_url')))
+    	{
+	 		$this->db->select('*');
+	 		$this->db->from('categories'); 
+	 		$this->db->where($parameter, $value);
+	 		$this->db->where('user_id', $user_id);
+	 		$this->db->order_by('created_at', 'desc'); 
+	 		$result = $this->db->get();	
+	 		return $result->result();	      
+		}
+		else
+		{
+			return FALSE;
+		}
+    }
     
     function add_category($category_data)
     {
@@ -42,6 +60,7 @@ class Categories_model extends CI_Model {
 			'type'			=> $category_data['type'],
 			'category'  	=> $category_data['category'],
 			'category_url'  => $category_data['category_url'],
+			'description'	=> $category_data['description'],
 			'created_at' 	=> unix_to_mysql(now())
 		);	
 		$insert 		= $this->db->insert('categories', $data);

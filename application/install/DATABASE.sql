@@ -27,7 +27,7 @@ CREATE TABLE `access` (
   `type` char(16) NOT NULL,
   `level_id` char(1) NOT NULL,
   PRIMARY KEY (`access_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `access`
@@ -49,7 +49,7 @@ CREATE TABLE `activity` (
   `data` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,  
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`activity_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 
 -- --------------------------------------------------------
@@ -62,13 +62,15 @@ CREATE TABLE `categories` (
   `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `category_sub_id` int(11) DEFAULT NULL,
   `site_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `permission` char(32) DEFAULT NULL,
   `module` char(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `category` varchar(128) DEFAULT NULL,
   `category_url` varchar(128) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `categories`
@@ -96,7 +98,7 @@ CREATE TABLE `comments` (
   `approval` char(1) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `comments`
@@ -118,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `connections` (
   `auth_one` varchar(255) default NULL,
   `auth_two` varchar(255) default NULL,
   PRIMARY KEY  (`connection_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 -- --------------------------------------------------------
 
@@ -150,7 +152,7 @@ CREATE TABLE `content` (
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
   `updated_at` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`content_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `content`
@@ -186,7 +188,7 @@ CREATE TABLE `ratings` (
   `rating` char(3) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`rating_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `ratings`
@@ -206,7 +208,7 @@ CREATE TABLE `relationships` (
   `status` char(1) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`relationship_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=0 ;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `relationships`
@@ -226,7 +228,7 @@ CREATE TABLE `settings` (
   `setting` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `value` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`settings_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `settings`
@@ -317,7 +319,7 @@ CREATE TABLE `sites` (
   `keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `favicon` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`site_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `sites`
@@ -337,7 +339,7 @@ CREATE TABLE `tags` (
   `tag_url` varchar(128) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`tag_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `tags`
@@ -355,7 +357,7 @@ CREATE TABLE `tags_link` (
   `content_id` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`tag_link_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `tags_link`
@@ -374,7 +376,7 @@ CREATE TABLE `taxonomy` (
   `taxonomy` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `count` int(5) NOT NULL,
   PRIMARY KEY (`taxonomy_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `taxonomy`
@@ -401,7 +403,7 @@ CREATE TABLE `users` (
   `created_on` int(16) unsigned DEFAULT NULL,
   `last_login` int(16) unsigned DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `users`
@@ -418,7 +420,7 @@ CREATE TABLE `users_level` (
   `level` varchar(20) NOT NULL,
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`user_level_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users_level`
@@ -455,7 +457,7 @@ CREATE TABLE `users_meta` (
   `privacy` tinyint(1) DEFAULT NULL,
   `utc_offset` varchar(8) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`user_meta_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `users_meta`
@@ -473,7 +475,7 @@ CREATE TABLE `users_sessions` (
   `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
   `user_data` text NOT NULL,
   PRIMARY KEY (`session_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users_sessions`

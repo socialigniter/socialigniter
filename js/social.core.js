@@ -359,13 +359,13 @@ $(function(){
 	$('#media_gallery form').uploadify({
 		type:'json',
 		onUpload:function(){
-			$.fancybox({href:'http://localhost/images/shared/loader.gif',type:'image',showCloseButton:false});
+			$.fancybox({href:base_url + 'images/shared/loader.gif',type:'image',showCloseButton:false});
 		},
 		afterUpload:function(json){
 			$.fancybox.close();
 			$('#media_gallery .drag_wrap > ul').append('\
 				<li class="media_item" style="cursor:pointer">\
-					<a href="#fancybox"><img width="125" height="125" src="/media/images/1/small_'+json.data.content+'"></a>\
+					<a href="#fancybox"><img width="125" height="125" src="'+base_url+' media/images/'+json.data.category_id+'/small_'+json.data.content+'"></a>\
 					<ul class="media_actions">\
 						<li style="cursor: pointer; "><a href=""><span class="actions action_see"></span> View</a></li>\
 						<li style="cursor: pointer; "><a href=""><span class="actions action_edit"></span> Edit</a></li>\
