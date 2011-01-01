@@ -43,10 +43,10 @@ $(function(){ $('input').attr('autocomplete','off'); });
 		var settings =
 		{
 			message : 'Content has been saved', //The message
-			appendTo: '.content_wrap', //Where to add the message
-			classes : 'message_alert', //Classes you want to add to the selected item,
-			timeout : 5000, //How long to wait before hiding,
-			speed   : 'normal' //animation speed
+			appendTo: '.content_wrap', 			//Where to add the message
+			classes : 'message_alert', 			//Classes you want to add to the selected item,
+			timeout : 5000, 					//How long to wait before hiding,
+			speed   : 'normal' 					//animation speed
 		};
 		return this.each(function()
 		{//Merge the options and settings
@@ -64,9 +64,8 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	};
 })( jQuery );
 
-//Allows for easy dynamic "sluggable" urls to be previewed to the user based
-//on an input field and the current URL
 
+/* Allows for easy dynamic "sluggable" urls to be previewed to the user based on an input field and the current URL */
 (function($)
 {
 	$.fn.slugify = function(options)
@@ -74,86 +73,81 @@ $(function(){ $('input').attr('autocomplete','off'); });
 		/*
 		 Settings:
 		 slug [default='']:
-			Where the "slug" is previewed at. For example it could be .slug-preview
-			& "http://mysite.com/" will be injected to it when the plugin is called
+			Element where "slug" preview is. Can be .slug-preview & "http://mysite.com/" will be injected to it when the plugin is called
 		 
 		 url [default=your current url plus a leading slash]:
-			The base url i.e. mysite.com/blog/ and then slugify will add "hello
-			world" like: mysite.com/blog/hello-world
+			The base url i.e. mysite.com/blog/ and then slugify will add "hello world" like: mysite.com/blog/hello-world
 			
 		name [default='slug']:
-			This is the name you want to give the hidden input field. For example:
-			name:'slug' then <input name="slug"... will be added to the DOM ready
-			for your form's submission.
+			This is the name you want to give the hidden input field. For example: name:'slug' then <input name="slug"... will be added to the DOM read for your form's submission.
 		
 		classPrefix [default='slugify']
-			This is prepended to the class names in the plugin, so, for example if
-			change the default to slugger, you could do .slugger-input in your CSS
-			and style the generated input
-		 
+			Is prepended to the class names in the plugin, so, for example if change the default to slugger, you could do .slugger-input in your CSS and style the generated input
 		*/
 		var settings =
 		{
-			"slug":"",
-			"url":window.location.href+'/',
-			"name":'slug',
-			"classPrefix":"slugify",
-			"slugTag":"span",
-			"inputType":"text",
-			"slugValue":""
+			"slug"			: '',
+			"url"			: '',
+			"name"			: 'slug',
+			"classPrefix"	: 'slugify',
+			"slugTag"		: 'span',
+			"inputType"		: 'text',
+			"slugValue"		: ''
 		};
 		return this.each(function()
-		{	//Merge the options and settings
-			options = $.extend({},settings,options);
-			//Save "this"
-			var $this = $(this);
+		{	
+			options = $.extend({},settings,options);	//Merge the options and settings
+			var $this = $(this);						//Save "this"
 			
-			//Converts string to a valid "sluggable" URL (private function tho!)
+			// Converts string to valid "sluggable" URL (private function tho!)
 			function _convertToSlug(str)
 			{
-				//This line converts to lowercase and then makes spaces into dahes
-				slug_val = str.replace(/ /g,'-').toLowerCase();
-				//This line strips special characters
-				slug_val = slug_val.match(/[\w\d\-]/g).toString().replace(/,/g,'');
+				slug_val = str.replace(/ /g,'-').toLowerCase();						//Converts to lowercase then makes spaces into dahes
+				slug_val = slug_val.match(/[\w\d\-]/g).toString().replace(/,/g,'');	// Strips special characters
 				return slug_val;
 			}
 			
-			//This line add line add the default url into the element specified by the user
-			//then creates a span by default and puts the default value of the slug on load, if there is one
-			//it also creates the input element and gives it the same value as the span
+			// This add line the default url into the element specified by uset, creates span by default and puts the default value of the slug on load, if exists
+			// Also creates the input element and gives it the same value as the span
 			$(options.slug).html(options.url+'<'+options.slugTag+' class="'+options.classPrefix+'-preview">'+options.slugValue+'</'+options.slugTag+'><input class="'+options.classPrefix+'-input" type="'+options.inputType+'" value="'+options.slugValue+'" name="'+options.name+'">')
-				//hide the input element that was just created
-				.find('.'+options.classPrefix+'-input').hide()
-				//bind a click event to make the span editable that's holding the edited slug
-				.end().find('.'+options.classPrefix+'-preview').bind('click',function(){
-					//Add a class to the original selected element that says the element has been modified
-					$this.addClass(options.classPrefix+'-modified');
-					//Hide the span
-					$(this).hide();
-					//Show the input, focus on it, and highlight the text
-					$(options.slug+' .'+options.classPrefix+'-input').show().focus().select()
-					//When the user clicks outside of it...
-					.blur(function(){
-						//If the value is blank...
-						if($(this).val()==''){
-							//Convert the value to the input box again
-							_revertedValue = _convertToSlug($this.val());
+				
+				.find('.'+options.classPrefix+'-input').hide()	// hide input element that was just created
+
+				// bind a click event to make span editable that's holding the edited slug
+				.end().find('.'+options.classPrefix+'-preview').bind('click',function()
+				{	
+					$(this).addClass(options.classPrefix+'-modified');	//Add class to original selected element that says element has been modified
+					$(this).hide();										//Hide the span
+					$(options.slug+' .'+options.classPrefix+'-input').show().focus().select()	//Show the input, focus on it, and highlight the text
+					
+					// When user clicks outside
+					.blur(function()
+					{	
+						// If value is blank
+						if($(this).val() == '')
+						{
+							// Convert the value to the input box again
+							_revertedValue = _convertToSlug($(this).val());
+							
 							$(this).val(_revertedValue);
-							//Also update the span
+							
+							// Update the span
 							$(options.slug+' .'+options.classPrefix+'-preview').text(_revertedValue);
-							//Make it as if it was never editied.
-							//This will make any mods to the input show up here in the span again
+							
+							// Make as if it wasn't editied. This will make any mods to the input show up here in the span again
 							$this.removeClass(options.classPrefix+'-modified');
 						}
-						//If there is a value...
-						else{
-							//Take the value of the input and convert it to a URL safe value
+						else
+						{
+							// Take value of input and convert it to a URL safe value
 							$(this).val(_convertToSlug($(this).val())).hide();
-							//Do the same to the span
-							$(options.slug+' .'+options.classPrefix+'-preview').text(_convertToSlug($(this).val())).show();
+							
+							// Do the same to the span
+							$(options.slug + ' .' + options.classPrefix + '-preview').text(_convertToSlug($(this).val())).show();
 						}
 					})
-					.bind('keyup',function(){
+					.bind('keyup',function()
+					{
 						$(options.slug+' .'+options.classPrefix+'-preview').text($(this).val());
 					});
 				})
@@ -164,13 +158,14 @@ $(function(){ $('input').attr('autocomplete','off'); });
 				if(!$this.hasClass(options.classPrefix+'-modified'))
 				{
 					var _sluggedURL = '';
-					if($this.val())
+					
+					if($(this).val())
 					{ //If there's a value, convert it to a slug
-						_sluggedURL = _convertToSlug($this.val());
+						_sluggedURL = _convertToSlug($(this).val());
 					}
 					//Actually add the new slug, then, rejoice!
-					$(options.slug+' .'+options.classPrefix+'-preview').text(_sluggedURL);
-					$(options.slug+' .'+options.classPrefix+'-input').val(_sluggedURL);
+					$(options.slug + ' .' + options.classPrefix + '-preview').text(_sluggedURL);
+					$(options.slug + ' .' + options.classPrefix + '-input').val(_sluggedURL);
 				}
 			});
 		});
@@ -178,10 +173,7 @@ $(function(){ $('input').attr('autocomplete','off'); });
 })( jQuery );
 
 
-/*
-	Returns null on a form submit if unchecked rather than browser default of nothing.
-*/
-
+/* Returns null on a form submit if unchecked rather than browser default of nothing. */
 (function($){
 	$.fn.nullify = function(options) {
 		var defaults = {

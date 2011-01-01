@@ -41,31 +41,34 @@ class Categories extends Oauth_Controller
         else
         {
             $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' categories for '.$search_for);
-            $response	= 404;        
+            $response	= 200;        
         }
 
         $this->response($message, $response);
     }
 
 	/* POST types */
-    function create_post()
-    {    
+    function create_authd_post()
+    {
 		$this->form_validation->set_rules('category', 'Category', 'required');
 		$this->form_validation->set_rules('category_url', 'Category URL', 'required');
 		$this->form_validation->set_rules('module', 'Module', 'required');
-		$this->form_validation->set_rules('type', 'type', 'required');
+		$this->form_validation->set_rules('type', 'Type', 'required');
 		$this->form_validation->set_rules('access', 'Access', 'required');
 
 		// Validation
 		if ($this->form_validation->run() == true)
-		{    
+		{
 			$access = TRUE; //$this->social_igniter->has_access_to_create('category', $user_id);
+			
+			if (!$this->input->post('site_id')) $site_id = config_item('site_id');
+			else $site_id = $this->input->post('site_id');
 			
 			if ($access)
 			{
 	        	$category_data = array(
 	        		'parent_id'		=> $this->input->post('parent_id'),
-	    			'site_id'		=> config_item('site_id'),
+	    			'site_id'		=> $site_id,
 	    			'user_id'		=> $this->oauth_user_id,	
 	    			'permission'	=> $this->input->post('access'),
 					'module'		=> $this->input->post('module'),
@@ -80,25 +83,27 @@ class Categories extends Oauth_Controller
 	
 				if ($category)
 				{
+					
+				
 		        	$message	= array('status' => 'success', 'data' => $category);
 		        	$response	= 200;
 		        }
 		        else
 		        {
 			        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-			        $response	= 400;		        
+			        $response	= 200;		        
 		        }
 			}
 			else
 			{
 		        $message	= array('status' => 'error', 'message' => 'You do not have access to add a category');
-		        $response	= 400;
+		        $response	= 200;
+	
 			}
 		}
-		// Not Valid
 		else 
 		{	
-	        $message	= array('status' => 'error', 'message' => validation_errors());
+	        $message	= array('status' => 'error', 'message' => 'hrmm'.validation_errors());
 	        $response	= 200;
 		}			
 

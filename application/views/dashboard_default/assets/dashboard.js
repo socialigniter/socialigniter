@@ -326,14 +326,11 @@ $(document).ready(function()
 		}
 	
 	});
-	
-	
-	/*
-	
-	*/
 	/* End the comment functionality */
 	
-	// Add Category
+	
+	
+	/* Add Category */
 	$('.category_select').live('click', function(eve) 
 	{
 		eve.preventDefault();		
@@ -341,46 +338,7 @@ $(document).ready(function()
 		parent.$("#what option[value='value']").attr('selected', 'selected');        
 		parent.$.fancybox.close();	
 	});
-	
-	
-	// Media Manager
-	$(".media_manager").fancybox({
-		'autoDimensions'		: false,
-		'width'					: 500,
-		'height'				: 600,
-		'padding'				: 20,
-		'scrolling'				: 'auto',
-		'transitionIn'			: 'none',
-		'transitionOut'			: 'none',
-		'hideOnOverlayClick'	: true,
-		'overlayColor'			: '#000000',
-		'overlayOpacity'		: 0.7,
-		'type'					: 'iframe'
-	});	
-	
-	
-	embed_video = function(vidURL)
-	{
-		var embed = '<object width="500" height="375"><param name="allowfullscreen" value="true"><param name="wmode" value="opaque"><param name="allowscriptaccess" value="always"><param name="movie" value="' + vidURL + '"><embed src="' + vidURL + '" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" height="375" width="500" wmode="opaque"></object>';
-		return embed;
-	};
 		
-	$('.insert_image').live('click', function()
-	{
-		var insertedImageUrl = $(this).attr('rel');		
-			
-		parent.$().wysiwyg('insertImage', insertedImageUrl);
-		parent.$.fancybox.close();
-	});	
-	
-	$('.insert_video').live('click', function()
-	{
-		var insertVideoUrl = $(this).attr('rel');
-		var embedVideo = embed_video(insertVideoUrl);
-		
-		parent.$().wysiwyg('insertHtml', embedVideo);
-		parent.$.fancybox.close();
-	});		
 	
 	
 	/* More Pannels */
@@ -409,41 +367,48 @@ $(document).ready(function()
 
 
 
-	/* Start Blog Section */
-	function update_category_select(where_to)
-	{
-		$.get(base_url+'api/categories/view/module/blog',function(json)
-		{
-			if (json.status == 'success')
-			{
-				for(x in json.data)
-				{
-					$(where_to).append('<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>');
-				}
-				$.uniform.update(where_to);
-			}
-		});
-	}
-	
+	/* Category Editor Plugin */
 	(function($)
 	{
-		$.blobify = function(options)
+		$.categoryEditor = function(options)
 		{
 			var settings = {
-				parameter 	: '',
-				value 		: '',
+				url_api		: '',
+				url_pre		: '',
+				module		: '',
+				type		: '',
+				title		: '',
+				slug_value	: '',
+				trigger		: '',
 				after 		: function(){}
 			};
 			
 			options = $.extend({},settings,options);
+
+
+			function update_category_select(where_to)
+			{
+				$.get(options.url_api, function(json)
+				{
+					if (json.status == 'success')
+					{
+						for(x in json.data)
+						{
+							$(where_to).append('<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>');
+						}
+						$.uniform.update(where_to);
+					}
+				});
+			}					
 		
 			// Gets the HTML template
-			$.get(base_url+'/home/category_editor',{},function(category_editor)
+			$.get(base_url + 'home/category_editor',{},function(category_editor)
 			{				
-				var category_parents = '';
+				var category_parents 	= '';
+				var slug_url			= options.url_pre + '/';
 	
-				// API call to get categories for module/type
-				$.get(base_url+'api/categories/view/' + options.parameter + '/' + options.value,function(json)
+				// API call to get categories for parent
+				$.get(options.url_api, function(json)
 				{
 					// If categories exist
 					if (json.status == 'success')
@@ -457,137 +422,69 @@ $(document).ready(function()
 							
 					// Update the returned HTML
 					html = $(category_editor)
-								
-								//Update the slug_url to have the base path (i.e. http://localhost/home...)
-								.find('.slug_url').prepend(base_url+current_module+'/').end()
-								
-								//Grab the category values from the main DOM and "uniform" the select field
-								.find('#category_access').html($('[name=access]').html()).uniform().end()
-								
-								//Uniform the parent select field
-								.find('#category_parent_id').append(category_parents).uniform().end()
-							
-							.html();				
-					
-					options.after.call(this, html)
-				});
-			});	
-
-		};
-	})( jQuery );	
-	
-		
-	$('[name=category_id]').change(function()
-	{	
-		var select_starting_contents = $('.content [name=category_id]').html();
-	
-		// If select category is on 'add_category' then run
-		if($(this).val() == 'add_category')
-		{
-			$('[name=category_id]').find('option:first').attr('selected','selected');
-			$.uniform.update('[name=category_id]');
-
-			$.blobify(
-			{
-				parameter: 'module',
-				value: 'blog',	
-				after:function(html)
-			{										
-				$.fancybox(
-				{
-					content:html,
-					onComplete:function(e)
+							.find('#editor_title').html(options.title).end()
+							//Grab the category values from the main DOM and "uniform" the select field
+							.find('#category_access').uniform().end()
+							//Uniform the parent select field
+							.find('#category_parent_id').append(category_parents).uniform().end()
+						.html();
+										
+					$.fancybox(
 					{
-						$('#category_parent_id').live('change', function(){
-							$.uniform.update(this);
-						});
-						
-						// Calls Func Above
-						$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
-						
-						$('#category_name').slugify({slug:'#category_slug',url:base_url+current_module+'/',name:'category_url'});
-													
-						// Create Category via AJAX
-						$('#new_category').bind('submit',function(e)
+						content:html,
+						onComplete:function(e)
 						{
-							e.preventDefault();
-							e.stopPropagation();
-							$.ajax(
-							{
-								url		: base_url + 'api/categories/create',
-								type		: 'POST',
-								dataType	: 'json',
-								data		: $(this).serialize(),
-								success	: function(json)
-								{		  	
-									if(json.status == 'error')
-									{
-										generic_error();
-									}
-									else
-									{
-										$('.content [name=category_id]').empty();
-										update_category_select('[name=category_id]');
-										$('.content [name=category_id]').prepend(select_starting_contents);
-										$.fancybox.close();
-									}	
-								}
+							$('#category_parent_id').live('change', function(){
+								$.uniform.update(this);
 							});
-							return false;
-						});
-					}
+							
+							// Calls Func Above
+							$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
+							
+							$('#category_name').slugify({slug:'#category_slug', url:options.url_pre, name:'category_url', slugValue:options.slug_value });
+														
+							// Create Category via AJAX
+							$('#new_category').bind('submit',function(e)
+							{
+								e.preventDefault();
+								e.stopPropagation();
+								
+								var category_data = $('#new_category').serializeArray();
+								category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type});			
+							
+								$(this).oauthAjax(
+								{
+									oauth 		: user_data,
+									url			: base_url + 'api/categories/create',
+									type		: 'POST',
+									dataType	: 'json',
+									data		: category_data,
+									success		: function(json)
+									{
+										console.log(json);
+										  	
+										if(json.status == 'error')
+										{
+											generic_error();
+										}
+										else
+										{
+											$('.content [name=category_id]').empty();
+											update_category_select('[name=category_id]');
+											$('.content [name=category_id]').prepend(options.trigger);
+											$.fancybox.close();
+										}	
+									}
+								});
+								
+								return false;
+							});
+						}
+					});					
 				});
-			}})			
-		}
-	});
+			});
+		};
+	})( jQuery );
 	
-	/* End Blog Section */
-
-	// Handles Checkboxes
-	
-	
-	$('#geo_enabled').live('click', function() {
-		if ($('#geo_enabled') == '1') 
-		{
-			$('#geo_enabled').val('0')
-		}
-		else
-		{
-			$('#geo_enabled').val('1')
-		}		
-	});	
-
-	$('#privacy').live('click', function() {
-		if ($('#privacy') == '1') 
-		{
-			$('#privacy').val('0')
-		}
-		else
-		{
-			$('#privacy').val('1')
-		}		
-	});			
-
-	$('#phone_search').live('click', function() {
-		if ($('#phone_search') == '1') 
-		{
-			$('#phone_search').val('0')
-		}
-		else
-		{
-			$('#phone_search').val('1')
-		}		
-	});		
-	
-	$('#delete_pic').live('click', function() {
-		if ($('#delete_pic') == '1') 
-		{
-			$('#delete_pic').val('0')
-		}
-		else
-		{
-			$('#delete_pic').val('1')
-		}		
-	});
 
 });
