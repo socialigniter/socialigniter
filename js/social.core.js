@@ -72,14 +72,9 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	{
 		/*
 		 Settings:
-		 slug [default='']:
-			Element where "slug" preview is. Can be .slug-preview & "http://mysite.com/" will be injected to it when the plugin is called
-		 
-		 url [default=your current url plus a leading slash]:
-			The base url i.e. mysite.com/blog/ and then slugify will add "hello world" like: mysite.com/blog/hello-world
-			
-		name [default='slug']:
-			This is the name you want to give the hidden input field. For example: name:'slug' then <input name="slug"... will be added to the DOM read for your form's submission.
+		 slug	: Element where "slug" preview is. Can be .slug-preview & "http://mysite.com/" will be injected to it when the plugin is called
+		 url	: The base url i.e. mysite.com/blog/ and then slugify will add "hello world" like: mysite.com/blog/hello-world
+		name	: This is the name you want to give the hidden input field. For example: name:'slug' then <input name="slug"... will be added to the DOM read for your form's submission.
 		
 		classPrefix [default='slugify']
 			Is prepended to the class names in the plugin, so, for example if change the default to slugger, you could do .slugger-input in your CSS and style the generated input
@@ -230,51 +225,53 @@ $(function(){ $('input').attr('autocomplete','off'); });
 })(jQuery);
 
 
-/*
-	Takes care of making upload forms work via AJAX, just add water
-*/
-
+/* Uploadigy - makes upload forms work via AJAX, just add water */
 (function($){
-	$.fn.uploadify = function(options) {
+	$.fn.uploadify = function(options)
+	{
 		var defaults = {
-			type:'text',
-			onUpload:function(){},
-			afterUpload:function(){}
+			type		:'text',
+			onUpload	:function(){},
+			afterUpload	:function(){}
 		};
-		return this.each(function(i) {
+		
+		return this.each(function(i)
+		{
 			options = $.extend(true, defaults, options);
 			
 			$this = $(this);
 			
-			
 			//Make sure the form is set to send binary, and if not fix that
-			if($this.attr('enctype')!=='multipart/form-data'){
+			if($this.attr('enctype')!=='multipart/form-data')
+			{
 				$this.attr('enctype','multipart/form-data');
 			}
+			
 			//Make sure the form is set to POST the data, if not, fix that
-			if($this.attr('method')!=='post'){
+			if($this.attr('method')!=='post')
+			{
 				$this.attr('method','post');
 			}
 			
+			$this.attr('target','upload_target_'+i).append('<iframe style="display:none;" src="" id="upload_target_'+i+'" class="uploadify-iframe"></iframe>');			
 			
-			$this.attr('target','upload_target_'+i).append('<iframe style="display:none;" src="" id="upload_target_'+i+'" class="uploadify-iframe"></iframe>');
-			
-			
-			$this.bind('submit',function(e){
+			$this.bind('submit',function(e)
+			{
 				options.onUpload();
-				$('#upload_target_'+i).load(function(){
+				
+				$('#upload_target_'+i).load(function()
+				{
 					_returnValue = $(this).contents().find('body').html();
 					
-					if(options.type == 'json'){
+					if(options.type == 'json')
+					{
 						_returnValue = JSON.parse(_returnValue);
 					}
 					
 					options.afterUpload.call(this,_returnValue);
 					$(this).replaceWith($(this).clone());
 				});
-				
 			});
-			
 		});
 	};
 })(jQuery);
@@ -284,23 +281,26 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	the max amount of characters you specify
 */
 (function($){
-	$.fn.ellipsify = function(options) {
+	$.fn.ellipsify = function(options)
+	{
 		var defaults = {
 			max:140
 		};
-		return this.each(function() {
+		return this.each(function()
+		{
 			options = $.extend(true, defaults, options);
 			
 			$this = $(this);
 			
-			if(typeof options.max == 'number'){
+			if(typeof options.max == 'number')
+			{
 				$this.attr('title',$this.html()).html($this.html().slice(0,options.max)+'&hellip;');
 			}
-			else{
+			else
+			{
 				//To do
 				//$this.attr('title',$this.html()).css({width:options.max,overflow:'hidden'}).wrap('<div></div>').parent().find('div').append('XXX');
 			}
-			
 		});
 	};
 })(jQuery);
@@ -309,7 +309,8 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	Takes a DOM element and then converts it to an editable text/textarea field
 */
 (function($){
-	$.fn.editify = function(options) {
+	$.fn.editify = function(options) 
+	{
 		var defaults = {
 			type:'input',
 			autoWidth:'auto',
@@ -317,11 +318,11 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			content:'auto',
 			on:'click'
 		};
-		return this.each(function() {
+		return this.each(function() 
+		{
 			options = $.extend(true, defaults, options);
 			
-			$this = $(this);
-			
+			$this = $(this);	
 			
 			_convertToEditableField = function(_$this){
 				_displaType = _$this.css('display');
@@ -338,15 +339,16 @@ $(function(){ $('input').attr('autocomplete','off'); });
 				}
 			}
 			
-			if(options.on == 'load'){
+			if(options.on == 'load')
+			{
 				_convertToEditableField($this);
 			}
-			else{
+			else
+			{
 				$this.bind(options.on,function(){
 					_convertToEditableField($this)
 				});
 			}
-			
 		});
 	};
 })(jQuery);
@@ -364,27 +366,6 @@ $(function(){
 		//updates uniform, however, this could be anything.
 		afterToggle:function(){
 			$.uniform.update();
-		}
-	});
-	
-	
-	//Uploader
-	
-	$('#media_gallery form').uploadify({
-		type:'json',
-		onUpload:function(){
-			$.fancybox({href:base_url + 'images/shared/loader.gif',type:'image',showCloseButton:false});
-		},
-		afterUpload:function(json){
-			$.fancybox.close();
-			$('#media_gallery .drag_wrap > ul').append('\
-				<li class="media_item" style="cursor:pointer">\
-					<a href="#fancybox"><img width="125" height="125" src="'+base_url+' media/images/'+json.data.category_id+'/small_'+json.data.content+'"></a>\
-					<ul class="media_actions">\
-						<li style="cursor: pointer; "><a href=""><span class="actions action_see"></span> View</a></li>\
-						<li style="cursor: pointer; "><a href=""><span class="actions action_edit"></span> Edit</a></li>\
-					</ul>\
-				</li>');
 		}
 	});
 	

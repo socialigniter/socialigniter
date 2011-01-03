@@ -375,6 +375,7 @@ $(document).ready(function()
 			var settings = {
 				url_api		: '',
 				url_pre		: '',
+				url_sub		: '',
 				module		: '',
 				type		: '',
 				title		: '',
@@ -384,8 +385,8 @@ $(document).ready(function()
 			};
 			
 			options = $.extend({},settings,options);
-
-
+			
+			// Repopulates trigger dropdown
 			function update_category_select(where_to)
 			{
 				$.get(options.url_api, function(json)
@@ -397,6 +398,9 @@ $(document).ready(function()
 							$(where_to).append('<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>');
 						}
 						$.uniform.update(where_to);
+						
+						$(where_to).prepend('<option value="0">---select---</option>');
+						$(where_to).append('<option value="add_category">+ Add Category</option>');
 					}
 				});
 			}					
@@ -420,12 +424,10 @@ $(document).ready(function()
 						}
 					}
 							
-					// Update the returned HTML
+					// Update returned HTML
 					html = $(category_editor)
 							.find('#editor_title').html(options.title).end()
-							//Grab the category values from the main DOM and "uniform" the select field
 							.find('#category_access').uniform().end()
-							//Uniform the parent select field
 							.find('#category_parent_id').append(category_parents).uniform().end()
 						.html();
 										
@@ -434,16 +436,11 @@ $(document).ready(function()
 						content:html,
 						onComplete:function(e)
 						{
-							$('#category_parent_id').live('change', function(){
-								$.uniform.update(this);
-							});
-							
-							// Calls Func Above
+							$('#category_parent_id').live('change', function(){$.uniform.update(this);});							
 							$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
-							
 							$('#category_name').slugify({slug:'#category_slug', url:options.url_pre, name:'category_url', slugValue:options.slug_value });
 														
-							// Create Category via AJAX
+							// Create Category
 							$('#new_category').bind('submit',function(e)
 							{
 								e.preventDefault();
@@ -455,23 +452,20 @@ $(document).ready(function()
 								$(this).oauthAjax(
 								{
 									oauth 		: user_data,
-									url			: base_url + 'api/categories/create',
+									url			: options.url_sub,
 									type		: 'POST',
 									dataType	: 'json',
 									data		: category_data,
 									success		: function(json)
-									{
-										console.log(json);
-										  	
+									{										  	
 										if(json.status == 'error')
 										{
 											generic_error();
 										}
 										else
 										{
-											$('.content [name=category_id]').empty();
-											update_category_select('[name=category_id]');
-											$('.content [name=category_id]').prepend(options.trigger);
+											$(options.trigger).empty();
+											update_category_select(options.trigger);
 											$.fancybox.close();
 										}	
 									}
