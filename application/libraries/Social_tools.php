@@ -86,6 +86,11 @@ class Social_tools
 		return $this->ci->categories_model->get_categories(config_item('site_id'));
 	}
 
+	function get_category($category_id)
+	{
+		return $this->ci->categories_model->get_category($category_id);	
+	}
+
 	function get_categories_view($parameter, $value)
 	{
 		return $this->ci->categories_model->get_categories_view($parameter, $value);	
@@ -113,20 +118,26 @@ class Social_tools
 		return $category;
 	}
 	
-	function get_categories_dropdown($parameter, $value, $user_level_id)
+	function get_categories_dropdown($parameter, $value, $user_id, $user_level_id)
 	{
 		$categories_query	= $this->get_categories_view($parameter, $value);
 		$categories 		= array(0 => '---select---');
 		
 		foreach ($categories_query as $category)
 		{
-			$categories[$category->category_id] = $category->category;
+			if ($user_level_id <= 2)
+			{
+				$categories[$category->category_id] = $category->category;
+			}
+			elseif ($category->user_id == $user_id)
+			{
+				$categories[$category->category_id] = $category->category;				
+			}
+		
 		}
 		
-		if ($user_level_id <= 2)
-		{
-			$categories['add_category'] = '+ Add Category';
-		}
+		// Add Category
+		$categories['add_category'] = '+ Add Category';
 		
 		return $categories;	
 	}

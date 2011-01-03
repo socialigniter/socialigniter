@@ -379,7 +379,6 @@ $(document).ready(function()
 				module		: '',
 				type		: '',
 				title		: '',
-				slug_value	: '',
 				trigger		: '',
 				after 		: function(){}
 			};
@@ -411,13 +410,11 @@ $(document).ready(function()
 				var category_parents 	= '';
 				var slug_url			= options.url_pre + '/';
 	
-				// API call to get categories for parent
+				// API to get categories for parent
 				$.get(options.url_api, function(json)
 				{
-					// If categories exist
 					if (json.status == 'success')
 					{
-						// Make HTML for for 'parent' dropdown
 						for(x in json.data)
 						{
 							category_parents = category_parents+'<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>';

@@ -19,5 +19,5 @@ function convert_comment_settings($value)
 	else
 	{
 		return 'N';
-	]
+	}
 }

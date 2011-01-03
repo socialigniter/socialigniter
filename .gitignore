@@ -4,5 +4,5 @@ application/config/database.php
 application/config/social_igniter.php
 application/config/email.php
 application/modules/
-images/profile_images/
+media/
 system/logs/

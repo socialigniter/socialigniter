@@ -70,12 +70,13 @@ class Categories extends Oauth_Controller
 	        		'parent_id'		=> $this->input->post('parent_id'),
 	    			'site_id'		=> $site_id,
 	    			'user_id'		=> $this->oauth_user_id,	
-	    			'permission'	=> $this->input->post('access'),
+	    			'access'		=> $this->input->post('access'),
 					'module'		=> $this->input->post('module'),
 	    			'type'			=> $this->input->post('type'),
 	    			'category'		=> $this->input->post('category'),
 	    			'category_url'	=> $this->input->post('category_url'),
-	    			'description'	=> $this->input->post('description')
+	    			'description'	=> $this->input->post('description'),
+	    			'details'		=> $this->input->post('details')	    			
 	        	);
 	
 				// Insert
@@ -83,8 +84,6 @@ class Categories extends Oauth_Controller
 	
 				if ($category)
 				{
-					
-				
 		        	$message	= array('status' => 'success', 'data' => $category);
 		        	$response	= 200;
 		        }
@@ -98,7 +97,6 @@ class Categories extends Oauth_Controller
 			{
 		        $message	= array('status' => 'error', 'message' => 'You do not have access to add a category');
 		        $response	= 200;
-	
 			}
 		}
 		else 
@@ -111,20 +109,46 @@ class Categories extends Oauth_Controller
     }
     
     /* PUT types */
-    function update_put()
+    function modify_authd_post()
     {
-		$viewed = $this->social_tools->update_comment_viewed($this->get('id'));			
-    	
-        if($viewed)
-        {
-            $this->response(array('status' => 'success', 'message' => 'Comment viewed'), 200);
+    	$content = $this->social_igniter->get_content($this->get('id'));
+    
+		// Access Rules
+	   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
+	   	
+    	$viewed			= 'Y';
+    	$approval		= 'A'; 
+   
+    	$content_data = array(
+			'parent_id'			=> $this->input->post('parent_id'),
+			'access'			=> $this->input->post('access'),
+			'category'			=> $this->input->post('category'),
+			'category_url'		=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
+			'content'			=> $this->input->post('content'),
+			'details'			=> $this->input->post('details'),
+			'viewed'			=> $viewed,
+			'approval'			=> $approval,
+    	);
+    									
+		// Insert
+		$update = $this->social_tools->update_category($this->get('id'), $category_data, $this->oauth_user_id);     		
+		 		     		
+	    if ($update)
+	    {
+			// Process Tags    
+			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);
+	    
+        	$message	= array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
+        	$response	= 200;
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not mark as viewed'), 404);
-        }    
-    }  
+	        $message	= array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
+	        $response	= 200;		        
+        }
 
+	    $this->response($message, $response);
+    }
     /* DELETE types */
     function destroy_delete()
     {		

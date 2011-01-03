@@ -63,12 +63,14 @@ CREATE TABLE `categories` (
   `category_sub_id` int(11) DEFAULT NULL,
   `site_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `permission` char(32) DEFAULT NULL,
+  `access` char(1) DEFAULT NULL,
   `module` char(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `category` varchar(128) DEFAULT NULL,
   `category_url` varchar(128) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
+  `details` varchar(128) DEFAULT NULL,
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
+  `updated_at` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`category_id`)
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

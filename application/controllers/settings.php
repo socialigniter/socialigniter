@@ -322,7 +322,7 @@ class Settings extends Dashboard_Controller {
 	function update()
 	{
 		// If not Super or Admin redirect
-		if ($this->data['level'] > 1) redirect('home');
+		if ($this->data['logged_user_level_id'] > 1) redirect('home');
 
 		$settings_update = $_POST;
 	

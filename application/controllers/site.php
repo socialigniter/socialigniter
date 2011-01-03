@@ -7,7 +7,7 @@ class Site extends Dashboard_Controller
 		parent::__construct();	
 		
 		// If not Super redirect
-		if ($this->data['level'] > 1) redirect('home');		
+		if ($this->data['logged_user_level_id'] > 1) redirect('home');		
 
 		$this->data['page_title'] = 'Site';
 	}	

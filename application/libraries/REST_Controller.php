@@ -20,7 +20,8 @@ class REST_Controller extends MX_Controller
 		'rawxml' 	=> 'application/xml',
 		'json' 		=> 'application/json',
 		'serialize' => 'application/vnd.php.serialized',
-		'php' 		=> 'text/plain'
+		'php' 		=> 'text/plain',
+		'html'		=> 'text/html'
 	);
 
     // Constructor function
@@ -770,4 +771,11 @@ class REST_Controller extends MX_Controller
     {
     	return var_export($data, TRUE);
     }
+
+    // Encode simple HTML text
+    private function _format_html($data = array())
+    {
+    	return $data;
+    }
+
 }

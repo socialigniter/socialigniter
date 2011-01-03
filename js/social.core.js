@@ -263,6 +263,8 @@ $(function(){ $('input').attr('autocomplete','off'); });
 				{
 					_returnValue = $(this).contents().find('body').html();
 					
+					console.log(_returnValue);
+					
 					if(options.type == 'json')
 					{
 						_returnValue = JSON.parse(_returnValue);
@@ -276,10 +278,8 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	};
 })(jQuery);
 
-/*
-	This plugin allows you to trim a line and add ellipsis after a string passes
-	the max amount of characters you specify
-*/
+
+/* Ellipsify - allows you to trim a line and add ellipsis after a string passes the max amount of characters you specify */
 (function($){
 	$.fn.ellipsify = function(options)
 	{
