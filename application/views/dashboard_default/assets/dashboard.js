@@ -214,7 +214,7 @@ $(document).ready(function()
 		$(this)
 			.parent().parent().parent().find('.comment_form').show()
 			//Get the textarea, focus on it, and empty the existing value
-			//.find('textarea').focus();
+			.find('textarea').focus();
 		
 		//Set the reply_to_id value by getting the parent #item_N and finding N and setting that as the id
 		$this_reply_to_id = $(this).parent().parent().parent().parent();
@@ -234,17 +234,20 @@ $(document).ready(function()
 		$comment_list = $(this).parent().parent().parent().find('.comment_list');
 		//if($comment_list.children().length < 1){
 			$.get('api/comments/content/id/'+content_id,function(json){
-				for(x in json){
-					$comment_list.prepend('\
-						<li id="comment_'+json[x].comment_id+'">\
-							<div class="comment">\
-								<a href="' + base_url + 'profiles/' + json[x].username + '"><img class="comment_thumb" src="'+ base_url + 'media/profiles/' + json[x].user_id + '/normal_' + json[x].image+'"></a>\
-								<p><span class="comment_author"><a href="' + base_url + 'profiles/' + json[x].username + '">'+json[x].name+'</a></span> '+json[x].comment+'</p>\
-								<p class="comment_meta"><span class="comment_date">'+json[x].created_at+'</span></p>\
-								<div class="clear"></div>\
-							</div>\
-						</li>\
-					');
+				if(json.status !== 'error'){
+					$comment_list.find('li:not(#comment_write)').remove();
+					for(x in json){
+						$comment_list.prepend('\
+							<li id="comment_'+json[x].comment_id+'">\
+								<div class="comment">\
+									<a href="' + base_url + 'profiles/' + json[x].username + '"><img class="comment_thumb" src="http://www.gravatar.com/avatar/'+md5(json[x].email)+'"></a>\
+									<p><span class="comment_author"><a href="' + base_url + 'profiles/' + json[x].username + '">'+json[x].name+'</a></span> '+json[x].comment+'</p>\
+									<p class="comment_meta"><span class="comment_date">'+json[x].created_at+'</span></p>\
+									<div class="clear"></div>\
+								</div>\
+							</li>\
+						');
+					}
 				}
 			});
 		//}
@@ -302,18 +305,20 @@ $(document).ready(function()
 			  	{		  	
 					if(json.status == 'error')
 					{
-					 	generic_error();
+					 	generic_error('Error',json.message);
 				 	}
 				 	else
 				 	{
 						$comment_form.hide().find('textarea').val('')
 						.siblings('[type=submit]').removeAttr('disabled');
-						$this_form.parent().parent().find('.comment_list').append('\
+						$this_form.closest('.comment_list').prepend('\
 							<li id="comment_'+json.data.comment_id+'">\
 								<div class="comment">\
-									<p><span class="comment_author"><a href="#link-to-userprofile">'+json.data.name+'</a></span> '+json.data.comment+'</p>\
+									<a href="' + base_url + 'profiles/' + json.data.username + '"><img class="comment_thumb" src="'+json.data.profile_image+'"></a>\
+									<p><span class="comment_author"><a href="' + base_url + 'profiles/' + json.data.username + '">'+json.data.name+'</a></span> '+json.data.comment+'</p>\
+									<p class="comment_meta"><span class="comment_date">'+json.data.created_at+'</span></p>\
+									<div class="clear"></div>\
 								</div>\
-								<p class="comment_meta"><span class="comment_date">'+json.data.created_at+'</span></p>\
 							</li>\
 						');
 				 	}	
