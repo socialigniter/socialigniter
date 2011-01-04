@@ -518,7 +518,7 @@ class Social_igniter
 	
     function get_content_category_count($category_id)
 	{
-		return $this->ci->content_model->get_content_category_count($content_id, $approval);
+		return $this->ci->content_model->get_content_category_count($category_id);
 	}
 	
 	// Adds Content & Activity

@@ -95,10 +95,10 @@ class Categories_model extends CI_Model {
 		return TRUE;
     }
     
-    function update_category_comments_count($category_id, $contents_count)
+    function update_category_contents_count($category_id, $contents_count)
     {
 		$this->db->where('category_id', $category_id);
-		$this->db->update('category', array('contents_count' => $contents_count));
+		$this->db->update('categories', array('contents_count' => $contents_count));
 		return TRUE;
     }       
 

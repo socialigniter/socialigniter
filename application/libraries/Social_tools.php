@@ -123,7 +123,7 @@ class Social_tools
 		return $category;
 	}
 	
-	function get_categories_dropdown($parameter, $value, $user_id, $user_level_id)
+	function get_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label=NULL)
 	{
 		$categories_query	= $this->get_categories_view($parameter, $value);
 		$categories 		= array(0 => '---select---');
@@ -138,11 +138,17 @@ class Social_tools
 			{
 				$categories[$category->category_id] = $category->category;				
 			}
-		
 		}
 		
 		// Add Category
-		$categories['add_category'] = '+ Add Category';
+		if (!$add_label)
+		{
+			$categories['add_category'] = '+ Add Category';	
+		}
+		else
+		{
+			$categories['add_category'] = $add_label;
+		}
 		
 		return $categories;	
 	}
@@ -182,13 +188,20 @@ class Social_tools
 		
 		return FALSE;
 	}
-	
+		
 	function update_category_contents_count($category_id)
 	{
 		$contents_count = $this->ci->social_igniter->get_content_category_count($category_id);
 	
-		return $this->ci->category_model->update_category_contents_count($category_id, $contents_count);
-	}	
+		return $this->ci->categories_model->update_category_contents_count($category_id, $contents_count);
+	}
+	
+	function update_category_comments_count($content_id)
+	{
+		$comments_count = $this->ci->social_tools->get_comments_content_count($content_id);
+	
+		return $this->ci->content_model->update_content_comments_count($content_id, $comments_count);
+	}		
 	
 	
 	/* Comments */
