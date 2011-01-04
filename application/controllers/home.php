@@ -12,14 +12,8 @@ class Home extends Dashboard_Controller
 		if ($this->uri->total_segments() == 1)
 		{
 	 	    $this->data['page_title'] 		= 'Home';
- 	    	
- 	    	if (!$this->session->userdata('home_greeting'))
- 	    	{
- 	    		$this->data['message']		 = random_element($this->config->item('home_greeting'));
-				$this->session->set_userdata('home_greeting', TRUE);
-			}
-			
-			$this->data['status_updater']	= $this->load->view($this->config->item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
+			$this->data['home_greeting']	= random_element(config_item('home_greeting'));
+			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
  	    
  	    	$feed_module = NULL;
  	    }
@@ -63,7 +57,7 @@ class Home extends Dashboard_Controller
 				$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
 
 				// View
-				$timeline_view .= $this->load->view($this->config->item('dashboard_theme').'/partials/feed_timeline.php', $this->data, true);
+				$timeline_view .= $this->load->view(config_item('dashboard_theme').'/partials/feed_timeline.php', $this->data, true);
 	 		}
 	 	}
 	 	else

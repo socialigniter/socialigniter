@@ -516,6 +516,11 @@ class Social_igniter
 		return $this->ci->content_model->get_content_view($parameter, $value);	
 	}
 	
+    function get_content_category_count($category_id)
+	{
+		return $this->ci->content_model->get_content_category_count($content_id, $approval);
+	}
+	
 	// Adds Content & Activity
 	function add_content($content_data, $activity_data=FALSE)
 	{
@@ -523,6 +528,8 @@ class Social_igniter
 
 		if ($content_id)
 		{
+			if ($content_data['category_id']) $this->ci->social_tools->update_category_contents_count($content_data['category_id']);
+		
 			$activity_info = array(
 				'site_id'		=> $content_data['site_id'],
 				'user_id'		=> $content_data['user_id'],

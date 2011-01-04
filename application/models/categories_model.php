@@ -76,6 +76,7 @@ class Categories_model extends CI_Model {
 			'category_url'  => $category_data['category_url'],
 			'description'	=> $category_data['description'],
 			'details'		=> $category_data['details'],
+			'contents_count'=> 0,
 			'created_at' 	=> unix_to_mysql(now()),
 			'updated_at' 	=> unix_to_mysql(now())
 		);	
@@ -92,6 +93,13 @@ class Categories_model extends CI_Model {
 		$this->db->update('categories', $category_data);
 		
 		return TRUE;
-    }    
+    }
+    
+    function update_category_comments_count($category_id, $contents_count)
+    {
+		$this->db->where('category_id', $category_id);
+		$this->db->update('category', array('contents_count' => $contents_count));
+		return TRUE;
+    }       
 
 }

@@ -69,6 +69,7 @@ CREATE TABLE `categories` (
   `category_url` varchar(128) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `details` varchar(255) DEFAULT NULL,
+  `contents_count` int(6) DEFAULT NULL,
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
   `updated_at` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`category_id`)
@@ -146,7 +147,7 @@ CREATE TABLE `content` (
   `details` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `access` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `comments_allow` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'Y',
-  `comments_count` int(11) DEFAULT NULL,
+  `comments_count` int(6) DEFAULT NULL,
   `geo_lat` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `geo_long` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `geo_accuracy` varchar(8) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,

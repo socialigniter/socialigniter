@@ -1,0 +1,1 @@
+ALTER TABLE  `categories` ADD  `contents_count` INT( 6 ) NULL AFTER  `details`

@@ -104,7 +104,7 @@ class Comments_model extends CI_Model
     		$where = array('content_id' => $content_id, 'approval' => 'Y');
     	}
     
- 		$this->db->from('comments')->where($where);
+ 		$this->db->select('content_id, approval')->from('comments')->where($where);
  		return $this->db->count_all_results();
     }
     

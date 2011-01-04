@@ -91,6 +91,11 @@ class Social_tools
 		return $this->ci->categories_model->get_category($category_id);	
 	}
 
+	function get_category_contents_count($content_id, $approval='Y')
+	{
+		return $this->ci->categoryies_model->get_comments_content_count($content_id, $approval);
+	}
+
 	function get_categories_view($parameter, $value)
 	{
 		return $this->ci->categories_model->get_categories_view($parameter, $value);	
@@ -177,6 +182,13 @@ class Social_tools
 		
 		return FALSE;
 	}
+	
+	function update_category_contents_count($category_id)
+	{
+		$contents_count = $this->ci->social_igniter->get_content_category_count($category_id);
+	
+		return $this->ci->category_model->update_category_contents_count($category_id, $contents_count);
+	}	
 	
 	
 	/* Comments */

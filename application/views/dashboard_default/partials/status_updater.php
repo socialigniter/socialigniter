@@ -20,7 +20,7 @@
 </form>
 <script type="text/javascript">
 // Placeholder
-doPlaceholder('#status_update_text', "What's shaking?");
+doPlaceholder('#status_update_text', "<?= $home_greeting ?>");
 
 // Status
 $("#status_update").bind("submit", function(eve)
@@ -28,13 +28,13 @@ $("#status_update").bind("submit", function(eve)
 	eve.preventDefault();
 
 	var status_update		= $('#status_update_text').val();
-	var valid_status_update = isFieldValid('#status_update_text', "What's shaking?", 'Please write something');
+	var valid_status_update = isFieldValid('#status_update_text', "<?= $home_greeting ?>", 'Please write something');
 
 	// Valid		
 	if (valid_status_update == true)
 	{		
 		var status_data	= $('#status_update').serializeArray();
-		status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'});
+		status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
 
 		$(this).oauthAjax(
 		{
