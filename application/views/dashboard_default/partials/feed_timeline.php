@@ -11,16 +11,16 @@
 		<span class="item_meta"><?= $item_date ?></span>
 			
 		<ul class="item_actions" rel="timeline">
-			<?php if (config_item('home_comments_allow') == 'TRUE'): ?>
+			<?php if ((config_item('home_comments_allow') == 'TRUE') && ($item_content_id)): ?>
 			<li><a class="item_comment" href="#"><span class="actions action_comment"></span> Comment</a></li>
 			<?php endif; ?>
 			<?php if (config_item('home_share') == 'TRUE'): ?>
 			<li><a href="#"><span class="actions action_share"></span> Share</a></li>
 			<?php endif; ?>
-			<?php if (config_item('home_like') == 'TRUE'): ?>
+			<?php if ((config_item('home_like') == 'TRUE') && ($item_content_id)): ?>
 			<li><a href="#"><span class="actions action_like"></span> Like</a></li>
 			<?php endif; ?>
-			<?php if ($item_can_modify): ?>
+			<?php if (($item_can_modify) && ($item_content_id)): ?>
 			<li><a class="item_edit" href="<?= $item_edit; ?>" id="item_action_edit_<?= $item_id ?>"><span class="actions action_edit"></span> Edit</a></li>
 			<li><a class="item_delete" href="<?= $item_delete; ?>" id="item_action_delete_<?= $item_id ?>"><span class="actions action_delete"></span> Delete</a></li>
 			<?php endif; ?>
