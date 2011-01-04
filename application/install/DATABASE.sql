@@ -68,7 +68,7 @@ CREATE TABLE `categories` (
   `category` varchar(128) DEFAULT NULL,
   `category_url` varchar(128) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `details` varchar(128) DEFAULT NULL,
+  `details` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
   `updated_at` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`category_id`)
