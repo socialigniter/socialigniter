@@ -11,7 +11,7 @@
 * Description:  English language file for Social Feed
 * 
 */
-// Verbs
+// ActivitySteams Verbs
 $lang['verbs']['favorite'] 		= 'favorited';
 $lang['verbs']['follow'] 		= 'started following';
 $lang['verbs']['like'] 			= 'liked';
@@ -32,10 +32,11 @@ $lang['verbs']['comment']		= 'commented';
 $lang['verbs']['purchase']		= 'purchased';
 $lang['verbs']['download']		= 'downloaded';
 
-// Object Articles
+// Social Igniter Object Articles
 $lang['object_articles']['article']		= 'an';
 $lang['object_articles']['audio']		= 'an';
 $lang['object_articles']['bookmark']	= 'a';
+$lang['object_articles']['category']	= 'a';
 $lang['object_articles']['comment']		= 'on';
 $lang['object_articles']['file']		= 'uploaded a';
 $lang['object_articles']['folder']		= 'created the';
@@ -45,6 +46,8 @@ $lang['object_articles']['note']		= 'a';
 $lang['object_articles']['person']		= '';
 $lang['object_articles']['photo']		= 'a';
 $lang['object_articles']['photo-album']	= 'the';
+$lang['object_articles']['image']		= 'an';
+$lang['object_articles']['image-album']	= 'an';
 $lang['object_articles']['place']		= 'a';
 $lang['object_articles']['playlist']	= 'the';
 $lang['object_articles']['product']		= 'a';
@@ -55,7 +58,8 @@ $lang['object_articles']['video']		= 'a';
 $lang['object_articles']['event']		= 'an';
 $lang['object_articles']['page'] 		= 'the';
 
-// Object Types
+
+// ActivitySteams Object Types
 $lang['object_types']['article']		= 'article';
 $lang['object_types']['audio']			= 'audio file';
 $lang['object_types']['bookmark']		= 'link';
@@ -79,4 +83,7 @@ $lang['object_types']['event']			= 'event';
 $lang['object_types']['page'] 			= 'page';
 
 // Social Igniter Types
+$lang['object_types']['category'] 		= 'category';
 $lang['object_types']['class'] 			= 'a class';
+$lang['object_types']['image']			= 'image';
+$lang['object_types']['image-album']	= 'album';

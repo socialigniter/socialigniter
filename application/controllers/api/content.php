@@ -85,15 +85,15 @@ class Content extends Oauth_Controller
 				'approval'			=> $approval,
 				'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))  			
 	    	);
-	    									
+	    	
 			// Insert
-			$content = $this->social_igniter->add_content($content_data);
-			     		
-		    if ($content)
+			$content = $this->social_igniter->add_content($content_data);	    	
+	    									
+	    	if ($content)
 		    {
 		    	// Process Tags if exist
 				if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);	
-		    
+
 				// API Response
 	        	$message	= array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $content);
 	        	$response	= 200;
@@ -127,6 +127,7 @@ class Content extends Oauth_Controller
     	$approval		= 'A'; 
    
     	$content_data = array(
+    		'content_id'		=> $this->get('id'),
 			'parent_id'			=> $this->input->post('parent_id'),
 			'category_id'		=> $this->input->post('category_id'),
 			'module'			=> $this->input->post('module'),
@@ -147,8 +148,8 @@ class Content extends Oauth_Controller
     	);
     									
 		// Insert
-		$update = $this->social_igniter->update_content($this->get('id'), $content_data, $this->oauth_user_id);     		
-		 		     		
+		$update = $this->social_igniter->update_content($content_data, $this->oauth_user_id); 
+				 		     		
 	    if ($update)
 	    {
 			// Process Tags    

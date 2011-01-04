@@ -50,32 +50,23 @@ class Activity_model extends CI_Model {
  		return $result; 
     }
     
-    function add_activity($activity_data)
+    function add_activity($activity_info, $activity_data)
     {
-    	$content_data = NULL;
-    
-    	if ($activity_data['content_id'])
-    	{
-	    	$content_data = array(
-				'title'			=> $activity_data['title'],
-				'url'			=> base_url().$activity_data['module'].'/view/'.$activity_data['content_id'],
-				'description' 	=> character_limiter(strip_tags($activity_data['description'], ''), config_item('home_description_length'))
-	    	);
-		}
-		// Make Other Conditions for Other Types Of 'data' like (friends add, joined group, etc...)
-    
- 		$activity_data = array(
-			'site_id' 	 			=> $activity_data['site_id'],
-			'user_id' 	 			=> $activity_data['user_id'],
-			'verb'					=> $activity_data['verb'],
-			'module'				=> $activity_data['module'],
-			'type'					=> $activity_data['type'],
-			'content_id' 	 		=> $activity_data['content_id'],
-			'data'  	 			=> json_encode($content_data),
-			'created_at' 			=> unix_to_mysql(now())
+		if (array_key_exists('content_id', $activity_info)) $content_id = $activity_info['content_id'];
+		else $content_id = 0;
+
+ 		$insert_data = array(
+			'site_id' 	 		=> $activity_info['site_id'],
+			'user_id' 	 		=> $activity_info['user_id'],
+			'verb'				=> $activity_info['verb'],
+			'module'			=> $activity_info['module'],
+			'type'				=> $activity_info['type'],
+			'content_id' 	 	=> $content_id,
+			'data'  	 		=> json_encode($activity_data),
+			'created_at' 		=> unix_to_mysql(now())
 		);
 		
-		$insert = $this->db->insert('activity', $activity_data);
+		$insert = $this->db->insert('activity', $insert_data);
 		
 		if ($activity_id = $this->db->insert_id())
 		{

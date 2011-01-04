@@ -56,9 +56,7 @@ class Social_igniter
     function render_item($activity)
     {
     	$data 		= json_decode($activity->data);
-    	$has_url	= property_exists($data, 'url');
-    	$has_title	= property_exists($data, 'title');
-    	$item 		= $this->render_item_status($activity, $data, $has_url, $has_title);
+    	$item 		= $this->render_item_status($activity, $data);
     	
     	if ($activity->type != 'status')
     	{
@@ -69,8 +67,11 @@ class Social_igniter
     }
     
     // Generate Status
-    function render_item_status($activity, $data, $has_url, $has_title)
+    function render_item_status($activity, $data)
     {
+    	$has_url	= property_exists($data, 'url');
+    	$has_title	= property_exists($data, 'title');    
+    
     	// Status
     	if ($activity->type == 'status')
     	{
@@ -90,24 +91,20 @@ class Social_igniter
     		$verb		= item_verb($this->ci->lang->line('verbs'), $activity->verb);
     		$article	= item_type($this->ci->lang->line('object_articles'), $activity->type);
     		$type		= item_type($this->ci->lang->line('object_types'), $activity->type);
-    		$action 	= '<span class="item_verb">'.$verb.' '.$article.'</span> ';
     		
     		// Has Title
-    		if ($has_title)
-    		{
-    			$title 	= $data->title;
+    		if (($has_title) && ($data->title))
+    		{	    		
+	    		if ($has_url)	$title_link = $type.' <a href="'.$data->url.'">'.$data->title.'</a>';
+	    		else			$title_link = $data->title; 	
     		}
     		else
     		{
-    			$title 	= $type;
-    			$type	= '';
+	    		if ($has_url)	$title_link = ' <a href="'.$data->url.'">'.$type.'</a>';
+	    		else			$title_link = $type;
     		}
     		
-    		// Has URL
-    		if ($has_url)	$link = ' <a href="'.$data->url.'">'.$title.'</a>';
-    		else			$link = $title;    		
-    		
-    		return '<span class="item_verb">'.$verb.' '.$article.' '.$type.' '.$link.'</span>';
+    		return '<span class="item_verb">'.$verb.' '.$article.' '.$title_link.'</span>';
     	}    	
     }
 
@@ -138,11 +135,11 @@ class Social_igniter
 	    // Has Thumbnail
 		if ($has_thumb) 
 		{
-			$content = '<a href="'.$object->url.'"><img src="'.$object->thumb.'" border="0"></a>'.$object->description;
+			$content = '<a href="'.$object->url.'"><img src="'.$object->thumb.'" border="0"></a>'.$object->content;
 		}
 		else
 		{
-			$content = '<span class="item_content_detail">"'.$object->description.'" <a href="'.$object->url.'">read</a></span>';
+			$content = '<span class="item_content_detail">"'.$object->content.'" <a href="'.$object->url.'">read</a></span>';
 		}
 	    
     	return $content;
@@ -150,12 +147,12 @@ class Social_igniter
     
     function render_item_page($object, $has_thumb)
     {
-    	return '<span class="item_content_detail">"'.$object->description.'" <a href="'.$object->url.'">read</a>"</span>';
+    	return '<span class="item_content_detail">"'.$object->content.'" <a href="'.$object->url.'">read</a>"</span>';
     }
     
-    function render_item_photo($object, $has_thumb)
+    function render_item_image($object, $has_thumb)
     {    
-    	return '<a href="'.$object->url.'"><img src="'.$object->thumb.'" border="0"></a>';
+    	return '<span class="item_content_detail"><a href="'.$object->url.'"><img src="'.$object->thumb.'" border="0"></a></span>';
     }
     
     function render_item_event($object, $has_thumb)
@@ -187,12 +184,13 @@ class Social_igniter
 		// Description
 		if (property_exists($object, 'description'))
 		{		
-			$details .= $object->description;
+			$details .= $object->content;
     	}
     	    
     	return $thumb.$title.$details;    
     }
    
+		
 		
 	/* Social */
 	function get_social_logins($html_start, $html_end)
@@ -430,9 +428,9 @@ class Social_igniter
 		return $this->ci->activity_model->get_activity($activity_id);
 	}
 	
-	function add_activity($activity_data)
+	function add_activity($activity_info, $activity_data)
 	{
-		if ($activity_id = $this->ci->activity_model->add_activity($activity_data))
+		if ($activity_id = $this->ci->activity_model->add_activity($activity_info, $activity_data))
 		{
 			return $this->ci->activity_model->get_activity($activity_id);
 		}
@@ -519,66 +517,73 @@ class Social_igniter
 	}
 	
 	// Adds Content & Activity
-	function add_content($content_data)
+	function add_content($content_data, $activity_data=FALSE)
 	{
-		$check_content = $this->check_content_duplicate($content_data['user_id'], $content_data['title'], $content_data['content']);
-	
-		if ($check_content)
-		{		
-			$content_id = $this->ci->content_model->add_content($content_data);
-		
-			if ($content_id)
-			{
-				$activity_data = array(
-					'site_id'		=> $content_data['site_id'],
-					'user_id'		=> $content_data['user_id'],
-					'verb'			=> 'post',
-					'module'		=> $content_data['module'],
-					'type'			=> $content_data['type'],				
-					'content_id'	=> $content_id,
-					'title'			=> $content_data['title'],
-					'url'			=> base_url().$content_data['module'].'/view/'.$content_id,
-					'description' 	=> $content_data['content']
-				);
-			
-				// Add Activity
-				$this->add_activity($activity_data);			
-			
-				return $this->get_content($content_id);
-			}
-			
-			return FALSE;		
-		}
-		else
+		$content_id = $this->ci->content_model->add_content($content_data);
+
+		if ($content_id)
 		{
-			return FALSE;
-		}
-	}
-	
-	function update_content($content_id, $content_data, $user_id)
-	{		
-		$update = $this->ci->content_model->update_content($content_id, $content_data);
-	
-		if ($update)
-		{
-			$activity_data = array(
-				'site_id'		=> config_item('site_id'),
-				'user_id'		=> $user_id,
-				'verb'			=> 'update',
+			$activity_info = array(
+				'site_id'		=> $content_data['site_id'],
+				'user_id'		=> $content_data['user_id'],
+				'verb'			=> 'post',
 				'module'		=> $content_data['module'],
-				'type'			=> $content_data['type'],				
-				'content_id'	=> $content_id,
-				'title'			=> $content_data['title'],
-				'url'			=> base_url().$content_data['module'].'/view/'.$content_id,
-				'description' 	=> $content_data['content']
+				'type'			=> $content_data['type'],
+				'content_id'	=> $content_id
 			);
-		
+
+			if (!$activity_data)
+			{			
+				$activity_data = array(
+					'title'		=> $content_data['title'],
+					'content' 	=> character_limiter(strip_tags($content_data['content'], ''), config_item('home_description_length'))			
+				);
+			}
+				
+			// Permalink
+			$activity_data['url'] = base_url().$content_data['module'].'/view/'.$content_id;
+
 			// Add Activity
-			$this->add_activity($activity_data);			
+			$this->add_activity($activity_info, $activity_data);			
 
 			return $this->get_content($content_id);
 		}
-		
+
+		return FALSE;
+	}
+
+	function update_content($content_data, $user_id, $activity_data=FALSE)
+	{		
+		$update = $this->ci->content_model->update_content($content_data);
+
+		if ($update)
+		{
+			$activity_info = array(
+				'site_id'		=> $update->site_id,
+				'user_id'		=> $update->user_id,
+				'verb'			=> 'update',
+				'module'		=> $update->module,
+				'type'			=> $update->type,
+				'content_id'	=> $update->content_id
+			);
+
+			if (!$activity_data)
+			{			
+				$activity_data = array(
+					'title'		=> $content_data['title'],
+					'content' 	=> character_limiter(strip_tags($content_data['content'], ''), config_item('home_description_length'))			
+				);
+			}
+				
+			// Permalink
+			$activity_data['url'] = base_url().$content_data['module'].'/view/'.$update->content_id;
+
+			// Add Activity
+			$this->add_activity($activity_info, $activity_data);		
+
+			return $update;
+		}
+
 		return FALSE;
 	}
 

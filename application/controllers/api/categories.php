@@ -78,9 +78,9 @@ class Categories extends Oauth_Controller
 	    			'description'	=> $this->input->post('description'),
 	    			'details'		=> $this->input->post('details')	    			
 	        	);
-	
+	        	
 				// Insert
-			    $category = $this->categories_model->add_category($category_data);
+			    $category = $this->social_tools->add_category($category_data);
 	
 				if ($category)
 				{

@@ -50,4 +50,9 @@ $config['object_types']['service']		= 'http://activitystrea.ms/schema/1.0/servic
 $config['object_types']['status']		= 'http://activitystrea.ms/schema/1.0/status';
 $config['object_types']['video']		= 'http://activitystrea.ms/schema/1.0/video';
 $config['object_types']['event']		= 'http://activitystrea.ms/schema/1.0/event';
+
+// Social Igniter Object Types
 $config['object_types']['page'] 		= '';
+$config['object_types']['class'] 		= '';
+$config['object_types']['image']		= '';
+$config['object_types']['image-album']	= '';

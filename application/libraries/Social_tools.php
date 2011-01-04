@@ -142,9 +142,40 @@ class Social_tools
 		return $categories;	
 	}
 
-	function add_category($category_data)
+	// Add Category & Activity
+	function add_category($category_data, $activity_data=FALSE)
 	{
-		return $this->ci->categories_model->add_category(config_item('site_id'), $category_data);
+		$category = $this->ci->categories_model->add_category($category_data);
+
+		if ($category)
+		{
+			$activity_info = array(
+				'site_id'	=> $category->site_id,
+				'user_id'	=> $category->user_id,
+				'verb'		=> 'post',
+				'module'	=> $category->module,
+				'type'		=> $category->type
+			);		
+		
+			if (!$activity_data)
+			{
+				$activity_data = array(
+					'title'			=> $category->category,
+					'content' 		=> character_limiter(strip_tags($category->description, ''), config_item('home_description_length')),
+					'category_id'	=> $category->category_id
+				);
+			}
+
+			// Permalink
+			$activity_data['url'] = base_url().$category->module.'/category/'.$category->category_url;
+
+			// Add Activity
+			$this->ci->social_igniter->add_activity($activity_info, $activity_data);		
+	
+			return $category;	
+		}
+		
+		return FALSE;
 	}
 	
 	

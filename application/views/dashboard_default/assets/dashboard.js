@@ -444,7 +444,9 @@ $(document).ready(function()
 								e.stopPropagation();
 								
 								var category_data = $('#new_category').serializeArray();
-								category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type});			
+								category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type});
+								
+								console.log(category_data)
 							
 								$(this).oauthAjax(
 								{
@@ -454,7 +456,9 @@ $(document).ready(function()
 									dataType	: 'json',
 									data		: category_data,
 									success		: function(json)
-									{										  	
+									{
+										console.log(json)
+																		  	
 										if(json.status == 'error')
 										{
 											generic_error();

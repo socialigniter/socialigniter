@@ -6,7 +6,6 @@
 <link type="text/css" href="<?= base_url() ?>css/uniform.default.css" rel="stylesheet" media="screen" charset="utf-8" />
 <link type="text/css" href="<?= base_url() ?>css/jplayer.css" rel="stylesheet" media="screen" charset="utf-8" />
 <link type="text/css" href="<?= base_url() ?>css/fancybox.css" rel="stylesheet" media="screen" charset="utf-8" />
-<link type="text/css" href="<?= base_url() ?>css/uploadify.css" rel="stylesheet" media="screen" charset="utf-8" />
 
 <script type="text/javascript" src="<?= base_url() ?>js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.NobleCount.min.js"></script>  
