@@ -19,7 +19,7 @@ class Comments extends Oauth_Controller
         }
         else
         {
-            $this->response(array('status' => 'error', 'data' => 'Could not find any comments'), 404);
+            $this->response(array('status' => 'error', 'message' => 'Could not find any comments'), 200);
         }
     }
 
@@ -40,7 +40,7 @@ class Comments extends Oauth_Controller
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'No comments could be found'), 404);
+            $this->response(array('status' => 'error', 'message' => 'No comments could be found'), 200);
         }
     }
     
@@ -107,7 +107,7 @@ class Comments extends Oauth_Controller
 						$comment_data['comment']	= '<i>Your comment is awaiting approval!</i>';
 					}
 				
-		        	$message	= array('status' => 'success', 'data' => $comment_data);
+		        	$message	= array('status' => 'success', 'message' => 'Comment posted successfully', 'data' => $comment_data);
 		        	$response	= 200;
 		        }
 		        else
