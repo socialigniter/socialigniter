@@ -478,6 +478,58 @@ function displayContentStatus(status)
 	return result;
 }
 
+/**
+ * Checks for for a user image in the DB, if none
+ * checks gravatar, if no image on gravatar either
+ * sets a default image.
+ *
+ * @requires utf8_encode() required for md5()
+ * @requires md5() required to get Gravatar image
+ *
+ * @param json {obj} json object containing json.image and json.email
+ * @param size {string} Can be either "small", "medium", or "large"
+ *
+ * @returns {string} URL to image
+ **/
+
+function getUserImageSrc(json,size){
+	
+	//Sets the default size, medium and then changes the name to be easier to use.
+	//instead of small, normal, and bigger, it changes it to small, medium, and large
+	if(!size){size='medium';} //if no size was specified
+	if(size == 'large'){
+		_localImgSize = 'bigger'
+	}
+	else if(size == 'small'){
+		_localImgSize = 'small' 
+	}
+	else{
+		_localImgSize = 'normal'
+	}
+	
+	//Default gravatar size is "medium", or, 48px
+	//if you change it, this modifies the gravatar size from small, medium, or large
+	//to the px sizes 35, 48, and 175
+	_gravatarSize = '48'
+	
+	if(size == 'large'){
+		_gravatarSize = '175'
+	}
+	else if(size == 'small'){
+		_gravatarSize = '35'
+	}
+	
+	//If the user uploaded his own image
+	if(json.image !== "0"){
+		_imgSrcOutput = '/media/profiles/'+json.user_id+'/'+_localImgSize+'_'+json.image
+	}
+	//Otherwise check gravatar, and/or return the default "no image" image
+	else {
+		_imgSrcOutput = 'http://gravatar.com/avatar.php?gravatar_id='+md5(json.email)+'&s='+_gravatarSize+'&d=//localhost/media/profiles/'+_localImgSize+'_nopicture.png';
+	}
+	return _imgSrcOutput;
+}
+
 
 function utf8_encode ( argString ) {
     var string = (argString+''); // .replace(/\r\n/g, "\n").replace(/\r/g, "\n");
@@ -515,6 +567,10 @@ function utf8_encode ( argString ) {
     return utftext;
 }
 
+/**
+ * @returns {string} a MD5 hash of the string you give it
+ * @requires utf8_encode()
+ **/
 function md5 (str) {
     var xl;
 
@@ -689,3 +745,16 @@ function md5 (str) {
 
     return temp.toLowerCase();
 }
+
+/**
+ *Converts a date to a ISO8601 format
+ *@returns {string} Something like 2009-09-28T19:03:12Z
+ **/
+function ISODateString(d){
+ function pad(n){return n<10 ? '0'+n : n}
+ return d.getUTCFullYear()+'-'
+      + pad(d.getUTCMonth()+1)+'-'
+      + pad(d.getUTCDate())+'T'
+      + pad(d.getUTCHours())+':'
+      + pad(d.getUTCMinutes())+':'
+      + pad(d.getUTCSeconds())+'Z'}
