@@ -12,6 +12,7 @@
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.uniform.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.timers.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.fancybox.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/jquery.timeago.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.jplayer.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.url.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/oauth.js"></script>
