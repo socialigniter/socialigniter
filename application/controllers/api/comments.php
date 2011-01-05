@@ -90,8 +90,8 @@ class Comments extends Oauth_Controller
 					$comment_data['created_at']		= format_datetime(config_item('comments_date_style'), $comment->created_at);
 					$comment_data['name']			= $comment->name;
 					$comment_data['username']		= $comment->username;
-					$comment_data['profile_link']	= base_url().'profiles/'.$comment->username;
-					$comment_data['profile_image']	= $this->social_igniter->profile_image($comment->user_id, $comment->image, $comment->email);;
+					$comment_data['email']			= $comment->email;
+					$comment_data['image']			= $comment->image;
 					$comment_data['sub']			= '';
 				
 					// Set Reply Id For Comments

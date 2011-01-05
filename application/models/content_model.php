@@ -84,7 +84,24 @@ class Content_model extends CI_Model {
 			return FALSE;
 		}
     }
-    
+
+    function get_content_view_recent($parameter, $value)
+    {
+    	if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id')))
+    	{
+	 		$this->db->select('*');
+	 		$this->db->from('content'); 
+	 		$this->db->where($parameter, $value);
+	 		$this->db->order_by('created_at', 'desc'); 
+			$this->db->limit(1);    
+	 		$result = $this->db->get()->row();	
+	 		return $result;      
+		}
+		else
+		{
+			return FALSE;
+		}
+    }    
 
     function get_content_user($content_id)
     {

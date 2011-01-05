@@ -85,7 +85,7 @@ class Categories_model extends CI_Model {
 		return $this->db->get_where('categories', array('category_id' => $category_id))->row();	
     }
     
-    function update_category($categories_id, $category_data)
+    function update_category($category_id, $category_data)
     {
  		$category_data['updated_at'] = unix_to_mysql(now());
 
@@ -100,6 +100,13 @@ class Categories_model extends CI_Model {
 		$this->db->where('category_id', $category_id);
 		$this->db->update('categories', array('contents_count' => $contents_count));
 		return TRUE;
-    }       
+    }
+    
+    function update_category_details($category_id, $details)
+    {
+		$this->db->where('category_id', $category_id);
+		$this->db->update('categories', array('details' => $details));
+		return TRUE;
+    }           
 
 }

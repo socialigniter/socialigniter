@@ -127,7 +127,7 @@ class Social_tools
 	{
 		$categories_query	= $this->get_categories_view($parameter, $value);
 		$categories 		= array(0 => '---select---');
-		
+
 		foreach ($categories_query as $category)
 		{
 			if ($user_level_id <= 2)
@@ -136,7 +136,7 @@ class Social_tools
 			}
 			elseif ($category->user_id == $user_id)
 			{
-				$categories[$category->category_id] = $category->category;				
+				$categories[$category->category_id] = $category->category;
 			}
 		}
 		
@@ -195,12 +195,15 @@ class Social_tools
 	
 		return $this->ci->categories_model->update_category_contents_count($category_id, $contents_count);
 	}
-	
-	function update_category_comments_count($content_id)
+
+	function update_category_details($category_id, $details)
 	{
-		$comments_count = $this->ci->social_tools->get_comments_content_count($content_id);
+		return $this->ci->categories_model->update_category_details($category_id, $details);
+	}
 	
-		return $this->ci->content_model->update_content_comments_count($content_id, $comments_count);
+	function update_category($category_id, $category_data)
+	{	
+		return $this->ci->content_model->update_category($content_id, $category_data);
 	}		
 	
 	

@@ -122,7 +122,17 @@ class Home extends Dashboard_Controller
 				$this->data['item_profile']			= base_url().'profile/'.$comment->username;
 
 				// Activity
-				$this->data['item_object']			= $comment->title;
+				if ($comment->title)
+				{
+					$this->data['item_article']		= '';
+					$this->data['item_object']		= $comment->title;
+				}
+				else
+				{
+					$this->data['item_article']		= item_type($this->lang->line('object_articles'), $comment->type);
+					$this->data['item_object']		= $comment->type;
+				}
+				
 				$this->data['item_text']			= $comment->comment;
 				$this->data['item_date']			= human_date('SIMPLE', mysql_to_unix($comment->created_at));
 				$this->data['item_approval']		= $comment->approval;

@@ -4,7 +4,7 @@
 	</div>
 	<div class="item_content">
 		<span class="item_content_body_small">
-			<b><a href="<?= $item_profile ?>"><?= $item_contributor ?></a></b> <span class="item_verb"><?= $item_verb ?></span> <span class="feed_content_view"><a href="<?= $item_view ?>"><?= $item_object ?></a></span><br>			
+			<b><a href="<?= $item_profile ?>"><?= $item_contributor ?></a></b> <span class="item_verb"><?= $item_verb ?> <?= $item_article ?></span> <span class="feed_content_view"><a href="<?= $item_view ?>"><?= $item_object ?></a></span><br>			
 			<?= $item_text ?>
 		</span>
 		<?php if ($item_type): ?><span class="item_type<?= $item_type ?>"></span><?php endif; ?>
