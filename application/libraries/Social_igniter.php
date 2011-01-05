@@ -611,4 +611,29 @@ class Social_igniter
 		return $this->ci->content_model->delete_content($content_id);
 	}	
 	
+	/* Content Meta */
+	// Feed this function a content specific query of meta_content data and return specified
+	function find_meta_content_value($key, $meta_query)
+	{
+		foreach($meta_query as $meta)
+		{
+			if ($meta->key == $key)
+			{
+				return $meta->value;
+			}
+		}
+		
+		return FALSE;
+	}
+	
+	function get_meta($content_meta_id)
+	{
+		return $this->ci->content_model->get_meta($content_meta_id);
+	}
+	
+	function get_meta_content($content_id)
+	{
+		return $this->ci->content_model->get_meta_content($content_id);
+	}
+	
 }
