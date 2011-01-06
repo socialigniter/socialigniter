@@ -398,9 +398,7 @@ class Social_igniter
 			{
 				// If matches update it
 				if ($setting_current->setting == $name)
-				{					
-					log_message('debug', 'settings_test '.$name.': '.$setting_update);
-				
+				{				
 					$update_data = array('setting' => $name, 'value' => $setting_update);
 				
 					$this->ci->settings_model->update_setting($setting_current->settings_id, $update_data);
@@ -588,7 +586,7 @@ class Social_igniter
 			}
 				
 			// Permalink
-			$activity_data['url'] = base_url().$content_data['module'].'/view/'.$update->content_id;
+			$activity_data['url'] = base_url().$update->module.'/view/'.$update->content_id;
 
 			// Add Activity
 			$this->add_activity($activity_info, $activity_data);		
@@ -617,7 +615,7 @@ class Social_igniter
 	{
 		foreach($meta_query as $meta)
 		{
-			if ($meta->key == $key)
+			if ($meta->meta == $key)
 			{
 				return $meta->value;
 			}
@@ -635,5 +633,48 @@ class Social_igniter
 	{
 		return $this->ci->content_model->get_meta_content($content_id);
 	}
+	
+    function add_meta($site_id, $content_id, $meta_data)
+    {
+    	return $this->ci->content_model->add_meta($site_id, $content_id, $meta_data);
+    }
+
+    function update_meta($content_id, $meta_data_array)
+    {
+		// Get meta for content
+		$meta_current = $this->get_meta_content($content_id);
+	
+		// Loop through all meta_array
+		foreach ($meta_data_array as $meta_data)
+		{
+			log_message('debug', 'metaaaadebug $meta_data: '.$meta_data);
+		
+			// Form element name
+			$name = key($meta_data_array);
+
+			// Loops through all current settings
+			foreach ($meta_current as $meta)
+			{
+				log_message('debug', 'metaaaadebug $meta: '.$meta->meta. ' => '.$meta->value);
+							
+				// If matches update it
+				if ($meta->meta == $name)
+				{				
+					log_message('debug', 'metaaaadebug $name: '.$name);
+					
+					$update_data = array('meta' => $name, 'value' => $meta_data);
+				
+					$this->ci->content_model->update_meta($meta->content_meta_id, $update_data);
+					break;
+				}
+			}
+		
+			next($meta_data_array);
+		}
+		
+		return;    
+    
+    	return $this->ci->content_model->add_meta($site_id, $content_id, $meta_data);
+    }
 	
 }

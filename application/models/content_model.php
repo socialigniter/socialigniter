@@ -208,12 +208,12 @@ class Content_model extends CI_Model {
     {
     	$content_meta_id = array();
     
-    	foreach ($meta_data as $key => $value)
+    	foreach ($meta_data as $meta => $value)
     	{
 	    	$insert_data = array(
 	    		'site_id'		=> $site_id,
 	    		'content_id'	=> $content_id,
-	    		'key'			=> $key,
+	    		'meta'			=> $meta,
 	    		'value'			=> $value,
 		 		'created_at' 	=> unix_to_mysql(now()),
 				'updated_at' 	=> unix_to_mysql(now())
@@ -226,7 +226,7 @@ class Content_model extends CI_Model {
 		
 		if ($content_meta_id)
 		{
-			return TRUE;	
+			return $content_meta_id;	
     	}
     	
     	return FALSE;
