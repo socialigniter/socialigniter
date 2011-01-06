@@ -330,7 +330,7 @@ class Settings extends Dashboard_Controller {
         {
 			$this->social_igniter->update_settings($this->input->post('module'), $settings_update);
 														
-			redirect($this->session->userdata('previous_page'), 'refresh');
+			redirect(base_url().'settings/'.$this->input->post('module'), 'refresh');
 		}
 		else
 		{

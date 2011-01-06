@@ -49,20 +49,21 @@ function is_uri_value($uri_segment, $value_array)
 
 function navigation_list_btn($link, $word, $wildcard=NULL)
 {
-	$link = base_url().$link;
+	$link		= base_url().$link;
+	$url_link	= $link;
 
 	if ($wildcard)
 	{
 		$link .= '/'.$wildcard;
-	}
+	}	
 
 	if (current_url() == $link)
 	{
-		$link = '<li class="button_basic_on"><span>'.$word.'</span></li>';
+		$link = '<li class="button_basic_on"><a href="'.$url_link.'"><span>'.$word.'</span></a></li>';
 	}
 	else
 	{
-		$link = '<li><a href="'.$link.'">'.$word.'</a></li>';
+		$link = '<li><a href="'.$url_link.'">'.$word.'</a></li>';
 	}
 	return $link;
 }
