@@ -263,8 +263,6 @@ $(function(){ $('input').attr('autocomplete','off'); });
 				{
 					_returnValue = $(this).contents().find('body').html();
 					
-					console.log(_returnValue);
-					
 					if(options.type == 'json')
 					{
 						_returnValue = JSON.parse(_returnValue);
@@ -353,7 +351,84 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	};
 })(jQuery);
 
-$(function(){
+/**
+ * @requires jQuery
+ * Takes a MySQL timestamp and renders it into a "relative" time like "2 days ago"
+ * @todo make it notice "moments ago"
+ * @todo make it accept unix timestamps
+ * @todo make it accept just a string like $.relativetime('10-10-10...')
+ * @todo make it accept future dates
+ * @todo have it auto update times
+ **/
+(function($){
+	$.relativetime = function(options) {
+		var defaults = {
+			time:new Date(),
+			suffix:'ago',
+			prefix:''
+		};
+
+		options = $.extend(true, defaults, options);
+		
+		//Time object with all the times that can be used throughout
+		//the plugin and for later extensions.
+		time = {
+			unmodified:options.time, //the original time put in
+			original:new Date(options.time).getTime(), //time that was given in UNIX time
+			current:new Date().getTime(), //time right now
+			displayed:'' //what will be shown
+		}
+		//The difference in the unix timestamps
+		time.diff = time.current-time.original;
+		
+		//Here we save a JSON object with all the different measurements
+		//of time. "week" is not yet in use.
+		time.segments = {
+			second:time.diff/1000,
+			minute:time.diff/1000/60,
+			hour:time.diff/1000/60/60,
+			day:time.diff/1000/60/60/24,
+			week:time.diff/1000/60/60/24/7,
+			month:time.diff/1000/60/60/24/30,
+			year:time.diff/1000/60/60/24/365
+		}
+		
+		//Takes a string and adds the prefix and suffix options around it
+		_uffixWrap = function(str){
+			return options.prefix+' '+str+' '+options.suffix;
+		}
+		
+		//Converts the time to a rounded int and adds an "s" if it's plural
+		_niceDisplayDate = function(str,date){
+			_roundedDate = Math.round(date);
+			s='';
+			if(_roundedDate !== 1){ s='s'; }
+			return _uffixWrap(_roundedDate+' '+str+s)
+		}
+		
+		//Now we loop through all the times and find out which one is
+		//the right one. The time "days", "minutes", etc that gets
+		//shown is based on the JSON time.segments object's keys
+		for(x in time.segments){
+			if(time.segments[x] >= 1){
+				time.displayed = _niceDisplayDate(x,time.segments[x])
+			}
+			else{
+				break;
+			}
+		}
+		
+		//If time.displayed is still blank (a bad date, future date, etc)
+		//just return the original, unmodified date.
+		if(time.displayed == ''){time.displayed = time.unmodified;}
+		
+		//Give it to em!
+		return time.displayed;
+
+	};
+})(jQuery);
+
+$(function(){	
 	
 	$('#fancybox-title').live('click',function(){
 		$(this).editify({on:'load'});
