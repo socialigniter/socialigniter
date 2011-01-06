@@ -237,13 +237,12 @@ $(document).ready(function()
 				if(json.status !== 'error'){
 					$comment_list.find('li:not(#comment_write)').remove();
 					for(x in json){
-						console.log(ISODateString(new Date(json[x].created_at)));
 						$comment_list.prepend('\
 							<li id="comment_'+json[x].comment_id+'">\
 								<div class="comment">\
 									<a href="' + base_url + 'profiles/' + json[x].username + '"><img class="comment_thumb" src="'+getUserImageSrc(json[x],'small')+'"></a>\
 									<p><span class="comment_author"><a href="' + base_url + 'profiles/' + json[x].username + '">'+json[x].name+'</a></span> '+json[x].comment+'</p>\
-									<p class="comment_meta"><span class="comment_date">'+$.timeago(ISODateString(new Date(json[x].created_at)))+'</span></p>\
+									<p class="comment_meta"><span class="comment_date">'+$.relativetime({time:json[x].created_at})+'</span></p>\
 									<div class="clear"></div>\
 								</div>\
 							</li>\
@@ -317,7 +316,7 @@ $(document).ready(function()
 								<div class="comment">\
 									<a href="' + base_url + 'profiles/' + json.data.username + '"><img class="comment_thumb" src="'+getUserImageSrc(json.data,'small')+'"></a>\
 									<p><span class="comment_author"><a href="' + base_url + 'profiles/' + json.data.username + '">'+json.data.name+'</a></span> '+json.data.comment+'</p>\
-									<p class="comment_meta"><span class="comment_date">'+$.timeago(json.data.created_at)+'</span></p>\
+									<p class="comment_meta"><span class="comment_date">just now</span></p>\
 									<div class="clear"></div>\
 								</div>\
 							</li>\
