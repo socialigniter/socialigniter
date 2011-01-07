@@ -554,11 +554,10 @@ class Social_igniter
 			$activity_data['url'] = base_url().$content_data['module'].'/view/'.$content_id;
 
 			// Add Activity
-			$activity = $this->add_activity($activity_info, $activity_data);	
+			$activity	= $this->add_activity($activity_info, $activity_data);
+			$content	= $this->get_content($content_id);
 			
-			//log_message('debug', 'activity_id from the lib: '.$activity->activity_id);		
-
-			return array('content_id' => $content_id, 'activity' => $activity);
+			return array('content' => $content, 'activity' => $activity);
 		}
 
 		return FALSE;
