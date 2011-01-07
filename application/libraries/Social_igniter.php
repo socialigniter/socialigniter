@@ -646,33 +646,36 @@ class Social_igniter
 
     function update_meta($site_id, $content_id, $meta_data_array)
     {	
-		// Loop through meta_data_array
-		// Key / value array of form submitted
+    	$update_total = count($meta_data_array);
+    	$update_count = 0;
+    	    
+		// Loop through meta_data_array Key / Value array of form submitted
 		foreach ($meta_data_array as $meta_data)
 		{		
 			// Form element name
 			$name		= key($meta_data_array);		
 			$current	= $this->get_meta_content_meta($content_id, $name);
-
-			log_message('debug', 'iiiinside main loop $name: '.$name.' $meta_data: '.$meta_data);
 			
 			if ($current)
-			{
-				log_message('debug', 'IF $current->meta: '.$current->meta.' $meta_data: '.$meta_data);
-				
+			{	
 				$this->ci->content_model->update_meta($current->content_meta_id, array('value' => $meta_data));
+				$update_count++;
 			}
 			else
-			{
-				log_message('debug', 'ELSE $name: '.$name.' $meta_data: '.$meta_data);
-			
+			{			
 				$this->ci->content_model->add_meta($site_id, $content_id, array($name => $meta_data));			
+				$update_count++;
 			}
 		
 			next($meta_data_array);
 		}
-		    
-    	return;
+		
+		if ($update_total == $update_count)
+		{
+			return TRUE;
+		}
+		
+    	return FALSE;
     }
 	
 }

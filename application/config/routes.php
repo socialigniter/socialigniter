@@ -89,6 +89,7 @@ $route['home/comments'] 						= 'home/comments';
 $route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home/likes']							= 'home/likes';
+$route['home/feed_timeline']					= 'home/feed_timeline';
 $route['home/category_editor']					= 'home/category_editor';
 $route['home'] 									= 'home';
 

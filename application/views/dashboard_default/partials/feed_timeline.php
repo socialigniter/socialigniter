@@ -31,7 +31,7 @@
 			<li id="comment_write">
 				<div class="comment_form">
 					<form method="post" class="item_comment_form" name="item_comment_form" action="<?= base_url() ?>api/comments/write">
-						<img class="comment_thumb" src="<?= $logged_image; ?>">
+						<img class="comment_thumb" src="<?= $item_comment_avatar; ?>">
 						<textarea name="comment" class="comment_write_text"></textarea>
 						<div class="clear"></div>
 						<input type="hidden" name="reply_to_id" id="reply_to_id" value="0">

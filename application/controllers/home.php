@@ -51,9 +51,10 @@ class Home extends Dashboard_Controller
 
 		 		// Actions
 			 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
+			 	$this->data['item_comment_avatar']	= $this->data['logged_image'];
 			 	
 			 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify($activity->type, $activity->activity_id);
-				$this->data['item_edit']			= base_url().'home/'.$activity->module.'/edit/'.$activity->content_id;
+				$this->data['item_edit']			= base_url().'home/'.$activity->module.'/manage/'.$activity->content_id;
 				$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
 
 				// View
@@ -175,11 +176,13 @@ class Home extends Dashboard_Controller
 		$this->data['item_date']			= '{ITEM_DATE}';
 
  		// Actions
-	 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
+		$this->data['item_comment']			= base_url().'comment/item/{ACTIVITY_ID}';
+		$this->data['item_comment_avatar']	= '{ITEM_COMMENT_AVATAR}';
+		
 	 	
-	 	$this->data['item_can_edit']		= $this->social_tools->has_access_to_modify($activity->type, $activity->activity_id);
-		$this->data['item_edit']			= base_url().'home/'.$activity->module.'/edit/'.$activity->content_id;
-		$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;			
+	 	$this->data['item_can_modify']		= '{ITEM_CAN EDIT}';
+		$this->data['item_edit']			= base_url().'home/{ACTIVITY_MODULE}/manage/{ITEM_CONTENT_ID}';
+		$this->data['item_delete']			= base_url().'status/delete/{ACTIVITY_ID}';			
 	
 		$this->load->view(config_item('dashboard_theme').'/partials/feed_timeline', $this->data);
 	}
