@@ -350,7 +350,7 @@ $(function(){ $('input').attr('autocomplete','off'); });
 		});
 	};
 })(jQuery);
-
+//Comment for Brennan
 /**
  * @requires jQuery
  * Takes a MySQL timestamp and renders it into a "relative" time like "2 days ago"
