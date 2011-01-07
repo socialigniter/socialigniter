@@ -350,7 +350,6 @@ $(function(){ $('input').attr('autocomplete','off'); });
 		});
 	};
 })(jQuery);
-//Comment for Brennan
 /**
  * @requires jQuery
  * Takes a MySQL timestamp and renders it into a "relative" time like "2 days ago"
@@ -370,17 +369,23 @@ $(function(){ $('input').attr('autocomplete','off'); });
 
 		options = $.extend(true, defaults, options);
 		
+		//Fixes NaN in some browsers by removing dashes...
+		_dateStandardizer = function(dateString){
+			modded_date = options.time.toString().replace(/-/g,' ');
+			return new Date(modded_date)
+		}
+
 		//Time object with all the times that can be used throughout
 		//the plugin and for later extensions.
 		time = {
 			unmodified:options.time, //the original time put in
-			original:new Date(options.time).getTime(), //time that was given in UNIX time
+			original:_dateStandardizer(options.time).getTime(), //time that was given in UNIX time
 			current:new Date().getTime(), //time right now
 			displayed:'' //what will be shown
 		}
 		//The difference in the unix timestamps
 		time.diff = time.current-time.original;
-		
+
 		//Here we save a JSON object with all the different measurements
 		//of time. "week" is not yet in use.
 		time.segments = {
