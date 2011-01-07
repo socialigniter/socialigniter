@@ -54,15 +54,15 @@ class Content extends Oauth_Controller
 	   	$this->form_validation->set_rules('module', 'Module', 'required');
 	   	$this->form_validation->set_rules('type', 'Type', 'required');
 	   	$this->form_validation->set_rules('content', 'Content', 'required');
-	   		
+
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
 	    {	
 	   		//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
-	        	
+
 	    	$viewed			= 'Y';
 	    	$approval		= 'A'; 
-	   	
+
 	    	$content_data = array(
 	    		'site_id'			=> config_item('site_id'),
 				'parent_id'			=> $this->input->post('parent_id'),
@@ -85,17 +85,19 @@ class Content extends Oauth_Controller
 				'approval'			=> $approval,
 				'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))  			
 	    	);
-	    	
+
 			// Insert
-			$content = $this->social_igniter->add_content($content_data);	    	
-	    									
-	    	if ($content)
+			$result = $this->social_igniter->add_content($content_data);	    	
+
+	    	if ($result)
 		    {
 		    	// Process Tags if exist
-				if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);	
+				if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $result['content_id']);	
 
+				$content	= $this->social_igniter->get_content($result['content_id']);				
+				
 				// API Response
-	        	$message	= array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $content);
+	        	$message	= array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $content, 'activity' => $result['activity']);
 	        	$response	= 200;
 	        }
 	        else
@@ -110,9 +112,10 @@ class Content extends Oauth_Controller
 	        $message	= array('status' => 'error', 'message' => validation_errors());
 	        $response	= 200;
 		}
-	
+
 	    $this->response($message, $response);
 	}
+        
         
     
     /* PUT types */

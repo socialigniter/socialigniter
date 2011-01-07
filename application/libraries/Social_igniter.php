@@ -532,7 +532,7 @@ class Social_igniter
 		if ($content_id)
 		{
 			if ($content_data['category_id']) $this->ci->social_tools->update_category_contents_count($content_data['category_id']);
-		
+
 			$activity_info = array(
 				'site_id'		=> $content_data['site_id'],
 				'user_id'		=> $content_data['user_id'],
@@ -549,14 +549,16 @@ class Social_igniter
 					'content' 	=> character_limiter(strip_tags($content_data['content'], ''), config_item('home_description_length'))			
 				);
 			}
-				
+
 			// Permalink
 			$activity_data['url'] = base_url().$content_data['module'].'/view/'.$content_id;
 
 			// Add Activity
-			$this->add_activity($activity_info, $activity_data);			
+			$activity = $this->add_activity($activity_info, $activity_data);	
+			
+			//log_message('debug', 'activity_id from the lib: '.$activity->activity_id);		
 
-			return $this->get_content($content_id);
+			return array('content_id' => $content_id, 'activity' => $activity);
 		}
 
 		return FALSE;

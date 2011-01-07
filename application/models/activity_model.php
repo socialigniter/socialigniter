@@ -66,9 +66,10 @@ class Activity_model extends CI_Model {
 			'created_at' 		=> unix_to_mysql(now())
 		);
 		
-		$insert = $this->db->insert('activity', $insert_data);
+		$this->db->insert('activity', $insert_data);
+		$activity_id = $this->db->insert_id();
 		
-		if ($activity_id = $this->db->insert_id())
+		if ($activity_id)
 		{
 			return $activity_id;
 		}
