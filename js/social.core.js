@@ -350,6 +350,7 @@ $(function(){ $('input').attr('autocomplete','off'); });
 		});
 	};
 })(jQuery);
+
 /**
  * @requires jQuery
  * Takes a MySQL timestamp and renders it into a "relative" time like "2 days ago"
@@ -609,6 +610,20 @@ function getUserImageSrc(json,size){
 	}
 	return _imgSrcOutput;
 }
+
+/**
+ * Takes a string and JSON of a list of template tags and what to replace with
+ * and returns a new string with all the replacements
+ **/
+(function($){
+	$.template = function(str,json,callback) {
+		for(x in json){
+			pattern = new RegExp('{'+x+'}','g');
+			str = str.replace(pattern,json[x]);
+		}
+		return str;
+	};
+})(jQuery);
 
 
 function utf8_encode ( argString ) {
