@@ -245,7 +245,7 @@ $(document).ready(function()
 	}
 	
 	//Submitting a comment	
-	$(".item_comment_form").bind("submit", function(eve)
+	$(".item_comment_form").live("submit", function(eve)
 	{
 		eve.preventDefault();
 		

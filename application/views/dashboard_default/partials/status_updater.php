@@ -48,18 +48,18 @@ $("#status_update").bind("submit", function(eve)
 				if (result.status == 'success')
 				{
 					
-					console.log(result);
-					
-					
 					$.get('/home/feed_timeline',function(html){
 						var newHTML = $.template(html,{
 							'ITEM_ID':result.activity.activity_id,
 							'ITEM_AVATAR':getUserImageSrc(result.data),
+							'ITEM_COMMENT_AVATAR':getUserImageSrc(result.data),
 							'ITEM_PROFILE':result.data.username,
 							'ITEM_CONTRIBUTOR':result.data.name,
 							'ITEM_CONTENT':result.data.content,
 							'ACTIVITY_TYPE':result.activity.type,
-							'ITEM_DATE':result.data.created_at
+							'ITEM_DATE':'just now',
+							'ACTIVITY_MODULE':result.activity.module,
+							'ITEM_CONTENT_ID':result.data.content_id
 						});
 						
 						$('#feed').prepend(newHTML);
