@@ -614,12 +614,12 @@ class Social_igniter
 	function find_meta_content_value($key, $meta_query)
 	{
 		foreach($meta_query as $meta)
-		{
+		{			
 			if ($meta->meta == $key)
 			{
 				return $meta->value;
-			}
-		}
+			}			
+		}		
 		
 		return FALSE;
 	}
@@ -633,48 +633,46 @@ class Social_igniter
 	{
 		return $this->ci->content_model->get_meta_content($content_id);
 	}
+
+	function get_meta_content_meta($content_id, $meta)
+	{
+		return $this->ci->content_model->get_meta_content_meta($content_id, $meta);
+	}
 	
     function add_meta($site_id, $content_id, $meta_data)
     {
     	return $this->ci->content_model->add_meta($site_id, $content_id, $meta_data);
     }
 
-    function update_meta($content_id, $meta_data_array)
-    {
-		// Get meta for content
-		$meta_current = $this->get_meta_content($content_id);
-	
-		// Loop through all meta_array
+    function update_meta($site_id, $content_id, $meta_data_array)
+    {	
+		// Loop through meta_data_array
+		// Key / value array of form submitted
 		foreach ($meta_data_array as $meta_data)
-		{
-			log_message('debug', 'metaaaadebug $meta_data: '.$meta_data);
-		
+		{		
 			// Form element name
-			$name = key($meta_data_array);
+			$name		= key($meta_data_array);		
+			$current	= $this->get_meta_content_meta($content_id, $name);
 
-			// Loops through all current settings
-			foreach ($meta_current as $meta)
+			log_message('debug', 'iiiinside main loop $name: '.$name.' $meta_data: '.$meta_data);
+			
+			if ($current)
 			{
-				log_message('debug', 'metaaaadebug $meta: '.$meta->meta. ' => '.$meta->value);
-							
-				// If matches update it
-				if ($meta->meta == $name)
-				{				
-					log_message('debug', 'metaaaadebug $name: '.$name);
-					
-					$update_data = array('meta' => $name, 'value' => $meta_data);
+				log_message('debug', 'IF $current->meta: '.$current->meta.' $meta_data: '.$meta_data);
 				
-					$this->ci->content_model->update_meta($meta->content_meta_id, $update_data);
-					break;
-				}
+				$this->ci->content_model->update_meta($current->content_meta_id, array('value' => $meta_data));
+			}
+			else
+			{
+				log_message('debug', 'ELSE $name: '.$name.' $meta_data: '.$meta_data);
+			
+				$this->ci->content_model->add_meta($site_id, $content_id, array($name => $meta_data));			
 			}
 		
 			next($meta_data_array);
 		}
-		
-		return;    
-    
-    	return $this->ci->content_model->add_meta($site_id, $content_id, $meta_data);
+		    
+    	return;
     }
 	
 }

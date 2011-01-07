@@ -202,7 +202,15 @@ class Content_model extends CI_Model {
  		$result = $this->db->get();
  		return $result->result();
     } 
-	
+
+    function get_meta_content_meta($content_id, $meta)
+    {    		
+ 		$this->db->select('*');
+ 		$this->db->from('content_meta');  
+ 		$this->db->where(array('content_id' => $content_id, 'meta' => $meta));
+ 		$result = $this->db->get()->row();	
+ 		return $result;
+    } 	
 	
     function add_meta($site_id, $content_id, $meta_data)
     {

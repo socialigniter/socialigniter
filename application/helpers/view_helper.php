@@ -32,6 +32,8 @@ function is_empty($value)
 	{
 		return $value;
 	}
+	
+	return NULL;
 }
 
 function is_uri_value($uri_segment, $value_array)
@@ -46,6 +48,7 @@ function is_uri_value($uri_segment, $value_array)
 	
 	return FALSE;
 }
+
 
 function navigation_list_btn($link, $word, $wildcard=NULL)
 {
@@ -65,6 +68,37 @@ function navigation_list_btn($link, $word, $wildcard=NULL)
 	{
 		$link = '<li><a href="'.$url_link.'">'.$word.'</a></li>';
 	}
+	
+	return $link;
+}
+
+function navigation_list_btn_manage($link, $link_array, $word, $uri_segment3, $wildcard=NULL)
+{
+	$url_link = base_url().$link.'manage';
+
+	if (in_array($uri_segment3, $link_array))
+	{
+		$link = base_url().$link.$uri_segment3;	
+	}
+	else
+	{
+		$link = base_url().$link.'manage';	
+	}
+
+	if ($wildcard)
+	{
+		$link .= '/'.$wildcard;
+	}	
+
+	if (current_url() == $link)
+	{
+		$link = '<li class="button_basic_on"><a href="'.$url_link.'"><span>'.$word.'</span></a></li>';
+	}
+	else
+	{
+		$link = '<li><a href="'.$url_link.'">'.$word.'</a></li>';
+	}
+	
 	return $link;
 }
 
@@ -115,7 +149,6 @@ function display_link($id=false, $class=false, $link=false, $value=false, $targe
 	return $result;
 }
 
-
 // Works similar to display_value() except it's suited for images specify full path for $image_pre, $image_null 
 function display_image($id=false, $class=false, $image_pre, $image, $image_null=false, $alt=false)
 {
@@ -131,8 +164,6 @@ function display_image($id=false, $class=false, $image_pre, $image, $image_null=
 		
 	return $image;
 }
-
-
 
 function display_content_status($status)
 {
