@@ -49,6 +49,8 @@ function human_date($fmt = 'DIGITS', $time = '')
 		'SLASHES'				=>  '%M / %j / %Y',
 		'SIMPLE'				=>  '%M %j%S, %Y',
 		'SIMPLE_TIME'			=>  '%M %j%S, %Y %g:%i %A',
+		'SIMPLE_ABBR'			=>  '%M %j%S, %Y',
+		'SIMPLE_TIME_ABBR'		=>  '%M %j%S, %Y %g:%i %A',
 		'MONTH_DAY'				=>  '%F %j%S',
 		'MONTH_DAY_YEAR'		=>  '%F %j%S, %Y',
 		'MONTH_DAY_YEAR_TIME'	=>  '%F %j%S, %Y %g:%i %A'

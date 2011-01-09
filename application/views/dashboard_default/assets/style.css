@@ -27,8 +27,12 @@ input[type=submit]:hover, input[type=reset]:hover, button[type=button]:hover { h
 textarea 					{ background: url(images/textarea_basic.png) 0px 0px repeat-x #ffffff; font-size: 14px; padding: 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 textarea:focus 				{ background: url(images/textarea_basic_focus.png) 0px 0px repeat-x #ffffff; }
 
+input.input_itty			{ width: 20px; }
+input.input_tiny			{ width: 30px; }
+input.input_mini			{ width: 70px; }
 input.input_small			{ width: 100px; }
 input.input_medium			{ width: 225px; }
+input.input_bigger			{ width: 350px; }
 input.input_large			{ width: 450px; }
 input.input_full			{ width: 625px; }
 
@@ -198,7 +202,8 @@ span.item_alert_approve 	{ display: block; padding: 3px 8px; cursor: pointer; co
 
 span.item_type				{ width: 32px; height: 32px; display: block; float: right; background-image: url(images/item_type_icons.png); position: relative; right: 0px; top: 0px; margin: 0px 0px 0px 0px; }
 span.type_comment			{ background-position: 0px -35px; }
-span.type_event				{ background-position: 0px -70px; }
+span.type_event				{ background-position: 42px -38px; }
+span.type_events			{ background-position: 42px -70px; }
 span.type_image				{ background-position: 0px -105px; }
 span.type_audio				{ background-position: 0px -140px; }
 span.type_page				{ background-position: 0px -175px; }

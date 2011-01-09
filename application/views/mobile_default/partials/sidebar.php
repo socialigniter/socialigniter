@@ -1,7 +1,7 @@
 <?php if($this->social_auth->logged_in()) { ?>
 	
 <div class="sidebar_section">
-	<p><a href="<?= base_url()."profile/".$this->session->userdata('username'); ?>"><?= display_image("", "",  asset_profiles().$this->session->userdata('user_id')."/normal_", $this->session->userdata('image'), asset_profiles()."normal_nopicture.png", "") ?></a></p>
+	<p><a href="<?= base_url()."profile/".$this->session->userdata('username'); ?>"><?= display_image("", "",  asset_profiles().$this->session->userdata('user_id')."/medium_", $this->session->userdata('image'), asset_profiles()."medium_nopicture.png", "") ?></a></p>
 	<p><a href="<?= base_url()."profile/".$this->session->userdata('username'); ?>"><?= $this->session->userdata('name'); ?></a></p>
 </div>
 
