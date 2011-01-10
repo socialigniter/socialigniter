@@ -204,17 +204,18 @@ span.item_meta 				{ height: 12px; display: block; margin: 5px 0 0 0; font-size:
 li.item_manage				{ width: 720px; margin: 0px; padding: 0px; }
 li.item_manage:hover ul.item_actions{ visibility: visible; }
 
-div.item_manage				{ width: 720px; height: 48px; }
+div.item_manage				{ width: 720px; height: 48px; line-height: 21px; }
 span.item_manage_title		{ width: 400px; float: left; margin: 10px 0 0 0; font-size: 16px; }
 span.item_manage_meta		{ font-size: 12px; color: #999999; }
 
 span.item_manage_comments	{ display: block; width: 90px; float: left; margin: 10px 0 0 0; }
 span.item_manage_publish	{ display: block; width: 175px; float: left; margin: 10px 0 0 0; }
 
+
 span.item_alert_new			{ display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #b54545; font-size: 11px; font-weight: bold; float: right; position: relative; top: 4px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #333333; }
 span.item_alert_approve 	{ display: block; padding: 3px 8px; cursor: pointer; color: #2078CE; background: #f2e3af; font-size: 11px; font-weight: bold; float: right; position: relative; top: 4px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #d6d6d6; }
-span.item_alert_published 	{ display: block; padding: 3px 8px; cursor: pointer; color: #2078CE; background: #f2e3af; font-size: 11px; font-weight: bold; float: right; position: relative; top: 4px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #d6d6d6; }
-span.item_alert_saved 		{ display: block; padding: 3px 8px; cursor: pointer; color: #b54545; background: #f2edda; font-size: 11px; font-weight: bold; float: right; position: relative; top: 4px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #d6d6d6; }
+span.item_alert_published 	{ display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #4fa74d; font-size: 11px; font-weight: bold; float: right; position: relative; top: 4px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #777777; }
+span.item_alert_saved 		{ display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #2078CE; font-size: 11px; font-weight: bold; float: right; position: relative; top: 4px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #888888; }
 
 
 span.item_type				{ width: 32px; height: 32px; display: block; float: right; background-image: url(images/item_type_icons.png); position: relative; right: 0px; top: 0px; margin: 0px 0px 0px 0px; }
