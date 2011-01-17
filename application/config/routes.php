@@ -82,6 +82,7 @@ $route['connections/(:any)'] 					= '$1/connections/index';
 
 $route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
 $route['home/(:any)/(:any)/(:any)'] 			= '$1/home/$2/$3';
+$route['home/(:any)/manage'] 					= 'home/manage/$1';
 $route['home/comments/(:any)'] 					= 'home/comments/$1';
 $route['home/(:any)/(:any)'] 					= '$1/home/$2';
 $route['home/(:any)'] 							= 'home';
@@ -89,7 +90,8 @@ $route['home/comments'] 						= 'home/comments';
 $route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home/likes']							= 'home/likes';
-$route['home/feed_timeline']					= 'home/feed_timeline';
+$route['home/item_timeline']					= 'home/item_timeline';
+$route['home/item_manage']						= 'home/item_manage';
 $route['home/category_editor']					= 'home/category_editor';
 $route['home'] 									= 'home';
 

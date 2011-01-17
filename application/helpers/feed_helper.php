@@ -29,7 +29,7 @@ function item_type($type_array, $type)
 		if ($object_type == $type)
 		{
 			return $type_display;
-		}	
+		}
 	}	
 }
 
@@ -41,6 +41,18 @@ function item_type_class($type)
 	}
 	
 	return NULL;
+}
+
+function item_title($title, $type)
+{
+	if ($title)
+	{
+		return $title;
+	}
+	else
+	{
+		return ucwords($type);
+	}
 }
 
 function item_linkify($text)
@@ -159,4 +171,36 @@ function comments_count($count)
 
 	return 'none';
 }
+
+
+/* Manage Section */
+function manage_comments_count($comments_count)
+{
+	if ($comments_count)
+	{
+		$count = $comments_count.' Comments';
+	}
+	else
+	{
+		$count = 'No Comments';
+	}
+	
+	return $count;
+	
+}
+
+function manage_published_date($created_at, $updated_at)
+{
+	if ($updated_at == $created_at)
+	{
+		$published = 'Created at '.format_datetime('SIMPLE_TIME_ABBR', $created_at);
+	}
+	else
+	{
+		$published = 'Updated at '.format_datetime('SIMPLE_TIME_ABBR', $updated_at);	
+	}
+	
+	return $published;
+}
+
 

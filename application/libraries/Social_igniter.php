@@ -598,6 +598,16 @@ class Social_igniter
 		return FALSE;
 	}
 
+	function update_content_value($content_data)
+	{
+		if ($update = $this->ci->content_model->update_content($content_data))
+		{
+			return $update;
+		}
+
+		return FALSE;	
+	}
+
 	function update_content_comments_count($content_id)
 	{
 		$comments_count = $this->ci->social_tools->get_comments_content_count($content_id);
