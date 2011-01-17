@@ -31,9 +31,9 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 <ul>
 	<li><h3>Content</h3></li>
 	<li>Recent <a href="<?= base_url() ?>api/content/recent" target="_blank"><?= base_url() ?>api/content/recent</a></li>
-	<li>View <a href="<?= base_url() ?>api/content/content/user_id/1" target="_blank"><?= base_url() ?>api/content/view/user_id/1</a> (accepts <b>site_id, parent_id, category_id, module, type, user_id</b>)</li>
+	<li>View <a href="<?= base_url() ?>api/content/view/user_id/1" target="_blank"><?= base_url() ?>api/content/view/user_id/1</a> (accepts <b>site_id, parent_id, category_id, module, type, user_id</b>)</li>
 	<li>Create <a href="<?= base_url() ?>api/content/create" target="_blank"><?= base_url() ?>api/content/create</a></li>
-	<li>Modify <a href="<?= base_url() ?>api/content/update/id/1" target="_blank"><?= base_url() ?>api/content/modify/id/1</a> (1 represents <b>content_id</b>)</li>
+	<li>Modify <a href="<?= base_url() ?>api/content/modify/id/1" target="_blank"><?= base_url() ?>api/content/modify/id/1</a> (1 represents <b>content_id</b>)</li>
 	<li>Delete <a href="<?= base_url() ?>api/content/destroy/id/1" target="_blank"><?= base_url() ?>api/content/destroy/id/1</a> (1 represents <b>content_id</b>)</li>
 </ul>
 

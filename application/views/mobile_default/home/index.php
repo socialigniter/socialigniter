@@ -20,7 +20,7 @@
 		?>
 		<li class="status <?= $status->username ?>" id="status_<?= $status->status_id; ?>">
 			<span class="status_thumbnail">
-				<a href="<?= base_url()."profile/".$status->username ?>"><?= display_image("", "", asset_profiles().$status->user_id."/normal_", $status->image, asset_profiles()."normal_nopicture.png", "") ?> </a>
+				<a href="<?= base_url()."profile/".$status->username ?>"><?= display_image("", "", asset_profiles().$status->user_id."/medium_", $status->image, asset_profiles()."medium_nopicture.png", "") ?> </a>
 			</span>
 			<span class="status_text">
 				<b><a href="<?= base_url()."profile/".$status->username ?>"><?= $status->name ?></a></b> <?= text_linkify($status->text) ?>

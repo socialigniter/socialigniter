@@ -585,7 +585,7 @@ function getUserImageSrc(json,size){
 		_localImgSize = 'small' 
 	}
 	else{
-		_localImgSize = 'normal'
+		_localImgSize = 'medium'
 	}
 	
 	//Default gravatar size is "medium", or, 48px

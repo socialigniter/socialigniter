@@ -6,7 +6,7 @@
 		?>
 		<li class="status <?= $username ?>" id="status_<?= $status->status_id; ?>">
 			<span class="status_thumbnail">
-				<a href="<?= base_url()."profile/".$username ?>"><?= display_image("", "", asset_profiles().$user_id."/normal_", $image, asset_profiles()."normal_nopicture.png", "") ?> </a>
+				<a href="<?= base_url()."profile/".$username ?>"><?= display_image("", "", asset_profiles().$user_id."/medium_", $image, asset_profiles()."medium_nopicture.png", "") ?> </a>
 			</span>
 			<span class="status_text">
 				<b><a href="<?= base_url()."profile/".$username ?>"><?= $name ?></a></b> <?= text_linkify($status->text)  ?>
@@ -27,7 +27,7 @@
 </div>
 <div id="sidebar">
 	<div class="mainInfo">
-		<?= display_image("", "", asset_profiles().$user_id."/bigger_", $image, asset_profiles()."bigger_nopicture.png", $name."'s profile picture") ?> 
+		<?= display_image("", "", asset_profiles().$user_id."/large_", $image, asset_profiles()."large_nopicture.png", $name."'s profile picture") ?> 
 		<ul>
 			<?= display_value("li", "", "", "", $name); ?>
 			<?= display_value("li", "", "", "Location: ", $location); ?>

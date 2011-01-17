@@ -166,7 +166,58 @@ class Content extends Oauth_Controller
         }
 
 	    $this->response($message, $response);
-    } 
+    }
+    
+
+    /* PUT types */
+    function viewed_authd_put()
+    {    
+        if ($this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'viewed' => 'Y')))
+        {
+            $this->response(array('status' => 'success', 'message' => 'Content viewed'), 200);
+        }
+        else
+        {
+            $this->response(array('status' => 'error', 'message' => 'Could not mark as viewed'), 200);
+        }    
+    }   
+    
+    function approve_authd_put()
+    {
+        if ($this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'approval' => 'Y')))
+        {
+            $this->response(array('status' => 'success', 'message' => 'Comment approved'), 200);
+        }
+        else
+        {
+            $this->response(array('status' => 'error', 'message' => 'Could not be approved'), 200);
+        }
+    }
+    
+    function save_authd_put()
+    {
+        if ($this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'S')))
+        {
+            $this->response(array('status' => 'success', 'message' => 'Comment approved'), 200);
+        }
+        else
+        {
+            $this->response(array('status' => 'error', 'message' => 'Could not be approved'), 200);
+        }
+    }       
+
+    function publish_authd_put()
+    {
+        if($this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'P')))
+        {
+            $this->response(array('status' => 'success', 'message' => 'Comment approved'), 200);
+        }
+        else
+        {
+            $this->response(array('status' => 'error', 'message' => 'Could not be approved'), 200);
+        }
+    }       
+
 
     /* DELETE types */
     function destroy_authd_delete()
@@ -191,12 +242,12 @@ class Content extends Oauth_Controller
 	        }
 	        else
 	        {
-	            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 404);
+	            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 200);
 	        }
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 404);
+            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 200);
         }
         
     }   

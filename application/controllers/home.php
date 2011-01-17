@@ -58,7 +58,7 @@ class Home extends Dashboard_Controller
 				$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
 
 				// View
-				$timeline_view .= $this->load->view(config_item('dashboard_theme').'/partials/feed_timeline.php', $this->data, true);
+				$timeline_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_timeline.php', $this->data, true);
 	 		}
 	 	}
 	 	else
@@ -148,7 +148,7 @@ class Home extends Dashboard_Controller
 				$this->data['item_alerts']			= comment_alerts($comment);
 
 				// Load Partial For Items
-				$comments_view 				   	   .= $this->load->view(config_item('dashboard_theme').'/partials/feed_comments.php', $this->data, true);
+				$comments_view 				   	   .= $this->load->view(config_item('dashboard_theme').'/partials/item_comments.php', $this->data, true);
 	 		}
  		}
 		
@@ -157,9 +157,44 @@ class Home extends Dashboard_Controller
 		$this->render();
 	}
 	
+	function manage()
+	{
+		$content_module				= $this->social_igniter->get_content_view('module', $this->uri->segment(2));
+		$manage_view 				= NULL;
+
+		$this->data['sub_title']	= 'Manage';
+		 
+		foreach($content_module as $content):
+		
+			$this->data['item_id'] 				= $content->content_id;
+			$this->data['item_type']			= $content->type;
+			$this->data['title']				= item_title($content->title, $content->type);
+			$this->data['title_link']			= base_url().$content->module.'/view/'.$content->content_id;
+			$this->data['comments_count']		= manage_comments_count($content->comments_count);
+			$this->data['publish_date']			= manage_published_date($content->created_at, $content->updated_at);
+			$this->data['status']				= display_content_status($content->status);
+			
+			$this->data['item_approval']		= $content->approval;
+			
+			// Actions
+			$this->data['item_approve']			= base_url().'api/content/approve/id/'.$content->content_id;
+			$this->data['item_edit']			= base_url().'home/classes/manage/'.$content->content_id;
+			$this->data['item_delete']			= base_url().'home/classes/manage/'.$content->content_id;
+			
+			// View
+			$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);			
+
+		endforeach;	
+
+		// Final Output
+		$this->data['timeline_view'] 	= $manage_view;				
+		
+		$this->render('dashboard_wide');
+	}
+	
 	
 	/* Partials */
-	function feed_timeline()
+	function item_timeline()
 	{
 		$this->data['item_id']				= '{ITEM_ID}';
 		$this->data['item_type']			= '{ACTIVITY_TYPE}';
@@ -184,7 +219,27 @@ class Home extends Dashboard_Controller
 		$this->data['item_edit']			= base_url().'home/{ACTIVITY_MODULE}/manage/{ITEM_CONTENT_ID}';
 		$this->data['item_delete']			= base_url().'status/delete/{ACTIVITY_ID}';			
 	
-		$this->load->view(config_item('dashboard_theme').'/partials/feed_timeline', $this->data);
+		$this->load->view(config_item('dashboard_theme').'/partials/item_timeline', $this->data);
+	}
+	
+	function item_manage()
+	{
+		$this->data['item_id'] 				= '{ITEM_ID}';
+		$this->data['comments_count']		= '{COMMENTS_COUNT}';
+		$this->data['item_type']			= '{ACTIVITY_TYPE}';
+		$this->data['title']				= '{ITEM_TITLE}';
+		$this->data['title_link']			= base_url().'{MODULE}/view/{ITEM_ID}';
+		$this->data['publish_date']			= '{PUBLISHED_DATE}';
+		$this->data['status']				= '{ITEM_STATUS}';
+		
+		$this->data['item_approval']		= '{ITEM_APPROVAL}';
+	
+		// Actions
+		$this->data['item_approve']			= base_url().'api/content/approve/id/{ITEM_ID}';
+		$this->data['item_edit']			= base_url().'home/{MODULE}/manage/{ITEM_ID}';
+		$this->data['item_delete']			= base_url().'home/{MODULE}/manage/{ITEM_ID}';	
+	
+		$this->load->view(config_item('dashboard_theme').'/partials/item_manage', $this->data);
 	}
 	
 	function category_editor()

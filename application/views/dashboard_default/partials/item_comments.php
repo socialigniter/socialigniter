@@ -10,8 +10,9 @@
 		<?php if ($item_type): ?><span class="item_type<?= $item_type ?>"></span><?php endif; ?>
 		<?= $item_alerts ?>			
 		<div class="clear"></div>	
+		
 		<span class="item_meta"><?= $item_date ?></span>
-		<div class="clear"></div>
+		
 		<ul class="item_actions" rel="<?= $feed_type ?>">
 			<li><a href="<?= $item_view ?>"><span class="actions action_link"></span> View</a></li>
 			<li><a href="<?= $item_reply ?>"><span class="actions action_reply"></span> Reply</a></li>

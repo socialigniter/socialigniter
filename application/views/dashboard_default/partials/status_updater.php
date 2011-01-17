@@ -46,9 +46,8 @@ $("#status_update").bind("submit", function(eve)
 		  	success		: function(result)
 		  	{		  		  	
 				if (result.status == 'success')
-				{
-					
-					$.get('/home/feed_timeline',function(html){
+				{					
+					$.get(base_url + 'home/item_timeline',function(html){
 						var newHTML = $.template(html,{
 							'ITEM_ID':result.activity.activity_id,
 							'ITEM_AVATAR':getUserImageSrc(result.data),
