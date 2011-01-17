@@ -624,7 +624,30 @@ function getUserImageSrc(json,size){
 		return str;
 	};
 })(jQuery);
-
+ 
+ 
+/**
+ * Fancy date stuff...
+ * getTime returns a time like: 6:00pm or, 7:00am instead of 24hr time.
+ * getDate returns a date like: 12/12/2012 or, 12/12/12 depending on what string you give it
+ * @param str {string} Give it a MySQL formatted date string.
+ **/
+var mysqlDateParser = {
+	getTime: function(str){
+		m = str.match(/([0-9])+/gi)
+		pmOrAm = 'am';
+		if(m[3]>12){
+			m[3] = m[3]-12;
+			pmOrAm = 'pm';
+		}
+		
+		return m[3]+':'+m[4]+pmOrAm;
+	},
+	getDate: function(str){
+		m = str.match(/([0-9])+/gi);
+		return m[1]+'/'+m[2]+'/'+m[0];
+	}
+}
 
 function utf8_encode ( argString ) {
     var string = (argString+''); // .replace(/\r\n/g, "\n").replace(/\r/g, "\n");
