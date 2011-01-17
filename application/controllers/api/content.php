@@ -228,17 +228,9 @@ class Content extends Oauth_Controller
     	// Move this up to result of "user_has_access"
     	if ($access)
         {
-			if ($comment = $this->social_tools->get_comment($this->get('id')))
-			{        
-	        	$this->social_tools->delete_comment($comment->comment_id);
-	        
-				// Reset comments with this reply_to_id
-				$this->social_tools->update_comment_orphaned_children($comment->comment_id);
-				
-				// Update Content
-				$this->social_igniter->update_content_comments_count($comment->comment_id);
-	        
-	        	$this->response(array('status' => 'success', 'message' => 'Comment deleted'), 200);
+			if ($delete = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'D')))
+			{						        
+	        	$this->response(array('status' => 'success', 'message' => 'Content deleted'), 200);
 	        }
 	        else
 	        {

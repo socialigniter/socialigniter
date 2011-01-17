@@ -71,7 +71,7 @@ class Social_tools
 		if ($type == 'comment')
 		{
 			// Is User Owner
-			if ($this->ci->session->userdata('user_id') == $this->ci->social_igniter->get_comment($object_id)->user_id)
+			if ($this->ci->session->userdata('user_id') == $this->get_comment($object_id)->user_id)
 			{
 				return TRUE;
 			}				

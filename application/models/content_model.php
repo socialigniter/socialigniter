@@ -54,7 +54,7 @@ class Content_model extends CI_Model {
  		return $result->result();
     }
     
-    function get_content_view($parameter, $value)
+    function get_content_view($parameter, $value, $limit)
     {
     	if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id')))
     	{
@@ -63,7 +63,9 @@ class Content_model extends CI_Model {
   			$this->db->join('users_meta', 'users_meta.user_id = content.user_id');
  			$this->db->join('users', 'users.user_id = content.user_id');
 	 		$this->db->where('content.'.$parameter, $value);
-	 		$this->db->order_by('created_at', 'desc'); 
+	 		$this->db->where('content.status !=', 'D');
+	 		$this->db->order_by('created_at', 'desc');
+			$this->db->limit($limit);	 		 
 	 		$result = $this->db->get();	
 	 		return $result->result();	      
 		}
@@ -89,7 +91,22 @@ class Content_model extends CI_Model {
 		{
 			return FALSE;
 		}
-    }    
+    } 
+
+    function get_content_title_url($type, $title_url)
+    {
+ 		$this->db->select('content.*, users_meta.name, users_meta.image, users_meta.url, users.username');
+ 		$this->db->from('content');
+		$this->db->join('users_meta', 'users_meta.user_id = content.user_id');
+		$this->db->join('users', 'users.user_id = content.user_id');
+ 		$this->db->where('content.type', $type);
+ 		$this->db->where('content.title_url', $title_url);
+ 		$this->db->where('content.status !=', 'D');
+ 		$this->db->order_by('created_at', 'desc');
+		$this->db->limit(1);	 		 
+	 	$result = $this->db->get()->row();	
+	 	return $result; 
+    }       
 
     function get_content_user($content_id)
     {

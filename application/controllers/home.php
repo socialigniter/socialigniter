@@ -159,14 +159,17 @@ class Home extends Dashboard_Controller
 	
 	function manage()
 	{
-		$content_module				= $this->social_igniter->get_content_view('module', $this->uri->segment(2));
-		$manage_view 				= NULL;
+		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2));
+		$manage_view 		= NULL;
 
+		// Title Stuff
+		$this->data['page_title']	= ucwords($this->uri->segment(2));
 		$this->data['sub_title']	= 'Manage';
 		 
 		foreach($content_module as $content):
 		
 			$this->data['item_id'] 				= $content->content_id;
+			$this->data['item_module']			= $content->module;
 			$this->data['item_type']			= $content->type;
 			$this->data['title']				= item_title($content->title, $content->type);
 			$this->data['title_link']			= base_url().$content->module.'/view/'.$content->content_id;
@@ -178,8 +181,8 @@ class Home extends Dashboard_Controller
 			
 			// Actions
 			$this->data['item_approve']			= base_url().'api/content/approve/id/'.$content->content_id;
-			$this->data['item_edit']			= base_url().'home/classes/manage/'.$content->content_id;
-			$this->data['item_delete']			= base_url().'home/classes/manage/'.$content->content_id;
+			$this->data['item_edit']			= base_url().'home/'.$content->module.'/manage/'.$content->content_id;
+			$this->data['item_delete']			= base_url().'api/content/destroy/id/'.$content->content_id;
 			
 			// View
 			$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);			

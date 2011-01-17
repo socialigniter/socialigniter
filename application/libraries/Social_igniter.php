@@ -509,10 +509,15 @@ class Social_igniter
 		return $this->ci->content_model->get_content_module($site_id, $module, $limit);
 	}
 	
-	function get_content_view($parameter, $value)
+	function get_content_view($parameter, $value, $limit=10)
 	{
-		return $this->ci->content_model->get_content_view($parameter, $value);	
+		return $this->ci->content_model->get_content_view($parameter, $value, $limit);	
 	}
+	
+	function get_content_title_url($type, $title_url)
+	{
+		return $this->ci->content_model->get_content_title_url($type, $title_url);
+	} 
 	
 	function get_content_view_recent($parameter, $value)
 	{
@@ -617,8 +622,15 @@ class Social_igniter
 	
 	function delete_content($content_id)
 	{
-		return $this->ci->content_model->delete_content($content_id);
-	}	
+		if ($content = $this->get_content($content_id))
+		{
+			return $this->ci->content_model->delete_content($content_id);	
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 	
 	/* Content Meta */
 	// Feed this function a content specific query of meta_content data and return specified
