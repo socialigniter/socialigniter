@@ -73,7 +73,12 @@ class Index extends Public_Controller
 			$this->data['comments_write']		= $this->load->view(config_item('site_theme').'/partials/comments_write', $this->data, true);
 		}
 
-		$this->data['sidebar'] .= modules::run('login/widgets_sidebar');
+		// Load Login Is Enabled
+		if (config_item('users_login') == 'TRUE')
+		{
+			$this->data['sidebar'] .= $this->load->view(config_item('site_theme').'/partials/widget_login', $this->data, true);	
+		}
+		
 		$this->data['sidebar'] .= modules::run('blog/widgets_sidebar');
 		$this->data['sidebar'] .= modules::run('events/widgets_sidebar');
 
