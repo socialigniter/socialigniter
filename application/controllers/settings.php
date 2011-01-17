@@ -349,7 +349,13 @@ class Settings extends Dashboard_Controller {
 		$this->data['sub_title'] = 'Home';
 	
     	$this->render();
-    }  
+    }
+
+	function users()
+	{	
+		$this->data['sub_title'] = 'Users';
+    	$this->render();
+    }    
 
 	function api()
 	{

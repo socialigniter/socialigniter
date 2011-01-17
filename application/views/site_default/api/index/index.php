@@ -54,6 +54,14 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 	<li>Delete <a href="<?= base_url() ?>api/categories/destroy/id/1" target="_blank"><?= base_url() ?>api/categories/destroy/id/1</a> (1 represents <b>category_id</b>)</li>
 </ul>
 
+<ul>
+	<li><h3>Users</h3></li>
+	<li>Recent <a href="<?= base_url() ?>api/users/recent" target="_blank"><?= base_url() ?>api/users/recent</a></li>
+	<li>Single <a href="<?= base_url() ?>api/users/view/id/1" target="_blank"><?= base_url() ?>api/users/view/id/1</a></li>
+	<li>Create <a href="<?= base_url() ?>api/users/create" target="_blank"><?= base_url() ?>api/users/create</a></li>
+	<li>Update <a href="<?= base_url() ?>api/users/update/id/1" target="_blank"><?= base_url() ?>api/users/update/id/1</a></li>
+</ul>
+
 <hr>
 
 <h2>Modules</h2>

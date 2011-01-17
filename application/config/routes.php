@@ -112,6 +112,7 @@ $route['settings/home']							= 'settings/home';
 $route['settings/comments']						= 'settings/comments';
 $route['settings/api']							= 'settings/api';
 $route['settings/update']						= 'settings/update';
+$route['settings/users']						= 'settings/users';
 $route['settings'] 								= 'settings';
 
 $route['pages/(:any)']							= 'index/index';
