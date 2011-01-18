@@ -203,6 +203,8 @@ span.item_meta 				{ height: 12px; display: block; margin: 5px 0 0 0; font-size:
 
 li.item_manage				{ width: 100%; margin: 0px; padding: 0px; }
 li.item_manage:hover ul.item_actions{ visibility: visible; }
+li.item_manage_new						 { width: 645px; margin: 0px; padding: 0px; background: #ececec; }
+li.item_manage_new:hover ul.item_actions { visibility: visible; }
 
 div.item_manage				{ width: 100%; line-height: 21px; margin: 0; padding: 0; }
 div.item_manage_content		{ width: 70%; border: 1px solid blue; }

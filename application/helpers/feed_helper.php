@@ -88,13 +88,13 @@ function who_is_contributor($name, $session_name, $username=NULL)
 	return $display;
 }
 
-function item_viewed($viewed)
+function item_viewed($class, $viewed)
 {
-	$status = 'item';
+	$status = $class;
 
 	if ($viewed == 'N')
 	{
-		$status = 'item_new';
+		$status = $class.'_new';
 	}
 	
 	return $status;

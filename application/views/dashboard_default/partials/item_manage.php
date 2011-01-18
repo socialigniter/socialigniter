@@ -1,4 +1,4 @@
-<li class="item_manage" id="item_<?= $item_id; ?>" rel="manage">
+<li class="<?= $item_viewed ?>" id="item_<?= $item_id; ?>" rel="manage">
 	
 		<span class="item_manage_type type_<?= $item_type ?>"></span>
 		<span class="item_manage_title"><a href="<?= $title_link ?>"><?= $title ?></a></span>

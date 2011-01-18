@@ -115,7 +115,7 @@ class Home extends Dashboard_Controller
 				// Item
 				$this->data['item_id']				= $comment->comment_id;
 				$this->data['item_type']			= item_type_class($comment->type);
-				$this->data['item_viewed']			= item_viewed($comment->viewed);
+				$this->data['item_viewed']			= item_viewed('item', $comment->viewed);
 				
 				// Contributor
 				$this->data['item_avatar']			= $this->social_igniter->profile_image($comment->user_id, $comment->image, $comment->email);
@@ -171,6 +171,8 @@ class Home extends Dashboard_Controller
 			$this->data['item_id'] 				= $content->content_id;
 			$this->data['item_module']			= $content->module;
 			$this->data['item_type']			= $content->type;
+			$this->data['item_viewed']			= item_viewed('item_manage', $content->viewed);
+
 			$this->data['title']				= item_title($content->title, $content->type);
 			$this->data['title_link']			= base_url().$content->module.'/view/'.$content->content_id;
 			$this->data['comments_count']		= manage_comments_count($content->comments_count);
