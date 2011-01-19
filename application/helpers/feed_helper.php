@@ -101,25 +101,30 @@ function item_viewed($class, $viewed)
 }
 
 // Alerts for 'activity' feed items
-function item_alerts($item)
+function item_alerts_content($item)
 {
 	$item_alerts = NULL;
 
 	if ($item->viewed == 'N') 
 	{
-		$item_status .= '<span class="item_alert_new" id="item_alert_new_'.$item->activity_id.'">New</span>';
+		$item_alerts .= '<span class="item_alert_new" id="item_alert_new_'.$item->content_id.'">New</span>';
 	}
 
 	if ($item->approval == 'A') 
 	{
-		$item_status .= '<span class="item_approve item_alert_approve" rel="'.$item->type.'" id="item_alert_approve_'.$item->activity_id.'">Approve</span>';
+		$item_alerts .= '<span class="item_approve item_alert_approve" rel="'.$item->type.'" id="item_alert_approve_'.$item->content_id.'">Approve</span>';
+	}
+
+	if ($item->approval == 'S') 
+	{
+		$item_alerts .= '<span class="item_alert_'.strtolower($item->status).'" id="item_alert_new_'.$item->content_id.'">'.$item->status.'</span>';
 	}
 
 	return $item_alerts;
 }
 
 // Alerts for just comments
-function comment_alerts($comment)
+function item_alerts_comment($comment)
 {
 	$comment_alerts = NULL;
 

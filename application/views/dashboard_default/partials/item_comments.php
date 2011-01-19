@@ -8,6 +8,7 @@
 			<?= $item_text ?>
 		</span>
 		<?php if ($item_type): ?><span class="item_type<?= $item_type ?>"></span><?php endif; ?>
+
 		<?= $item_alerts ?>			
 		<div class="clear"></div>	
 		

@@ -36,6 +36,16 @@ function is_empty($value)
 	return NULL;
 }
 
+function is_empty_price($price)
+{
+	if ($price != 0.00)
+	{
+		return '$'.$price;
+	}
+
+	return NULL;
+}
+
 function is_uri_value($uri_segment, $value_array)
 {
 	foreach ($value_array as $value)

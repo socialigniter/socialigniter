@@ -1,11 +1,9 @@
 <li class="<?= $item_viewed ?>" id="item_<?= $item_id; ?>" rel="manage">
-	
+
 		<span class="item_manage_type type_<?= $item_type ?>"></span>
 		<span class="item_manage_title"><a href="<?= $title_link ?>"><?= $title ?></a></span>
 		
-		<span class="item_approve item_alert_approve" rel="content" id="item_alert_approve_1">Approve</span>
-		<span class="item_alert_new" id="item_alert_new_1">New</span>
-		<span class="item_alert_<?= strtolower($status) ?>" id="item_alert_new_1"><?= $status ?></span>
+		<?= $item_alerts ?>
 		<div class="clear"></div>
 		
 		<span class="item_manage_meta">
