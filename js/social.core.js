@@ -506,7 +506,7 @@ function isWysiwygValid(id, placeholder, error)
 
 // Gets Count of Feed Items
 function getCountNew(element)
-{	
+{
 	var request 		= $(element).attr('id');
 	var current_class	= $(element).attr('class');
 	var type			= $(element).attr('rel');
@@ -518,9 +518,7 @@ function getCountNew(element)
 		type		: 'GET',
 		dataType	: 'json',
 	  	success		: function(result)
-	  	{
-	  		console.log(result);
-	  	  	
+	  	{	  	  	
 			if(result.status == 'success')
 			{	// Adds msg_notifation class to feed_count_new
 				$('#' + request).html(result.message).addClass(current_class + ' msg_notification');

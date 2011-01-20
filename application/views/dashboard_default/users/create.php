@@ -9,7 +9,7 @@
 	<td>Level:</td>
 	<td><select name="level">
 		<?php foreach ($users_levels as $level) : ?>
-		<option value="<?= $level->level ?>"><?= $level->level_name ?></option>
+		<option value="<?= $level->level ?>"><?= $level->name ?></option>
 		<?php endforeach; ?>
 	</select>
 	</td>    	

@@ -26,9 +26,13 @@ $(document).ready(function()
 	$('.feed_count_new').oneTime(100, function() { getCountNew(this) });
 	$('.feed_count_new').everyTime(60000,function() { getCountNew(this); });		
 	
-
+	/* Item Events (activity, content, comments, etc...)
+	 *
+	 * These are used to interact with feed items of any type, but currently for (activity, content, comments)
+	 * You can extend your module to hit a custom API event (new, approve, publish, save, delete) 
+	 */
 	// Marks Feed Item not new
-	$('.item_new').live('click', function()
+	$('.item_new, .item_manage_new').live('click', function()
 	{
 		var item				= $(this).attr('id');
 		var item_id 			= item.replace('item_','');		
@@ -49,6 +53,8 @@ $(document).ready(function()
 			dataType	: 'json',
 		  	success		: function(result)
 		  	{
+		  		console.log(result);
+		  	
 				if (result.status == 'success')
 				{			
 					$('#item_alert_new_' + item_id).fadeOut('normal');
@@ -68,7 +74,7 @@ $(document).ready(function()
 	});
 	
 	// Approve Item
-	$('.item_approve').live('click', function(eve)
+	$('.item_alert, .item_alert_approve').live('click', function(eve)
 	{
 		eve.preventDefault();
 		var item_attr_id		= $(this).attr('id');
@@ -92,6 +98,63 @@ $(document).ready(function()
 				}		  	
 		  	}		
 		});
+	});	
+	
+	// Published Item (content) will be Saved
+	$('.item_published').live('click', function(eve)
+	{
+		eve.preventDefault();
+		var item_attr_id		= $(this).attr('id');
+		var item_attr_array		= item_attr_id.split('_');
+		var item_id				= item_attr_array[3];
+		var item_url			= base_url + 'api/content/save/id/' + item_id;
+				
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,		
+			url			: item_url,
+			type		: 'PUT',
+			dataType	: 'json',
+		  	success		: function(result)
+		  	{
+		  		console.log(result);
+		  	
+				if (result.status == 'success')
+				{	
+					$('#item_alerts_'+item_id).append('<span class="item_alert_saved" rel="content" id="item_alert_saved_'+item_id+'">Saved</span>').fadeIn('normal');
+					$('#item_action_published_'+item_id).replaceWith('<a class="item_saved" href="saved" rel="content" id="item_action_saved_'+item_id+'"><span class="actions action_saved"></span> Saved</a>');					
+				}		  	
+		  	}		
+		});		
+		
+	});
+
+	// Saved Item (content) will be Published
+	$('.item_saved, .item_alert_saved').live('click', function(eve)
+	{
+		eve.preventDefault();
+		var item_attr_id		= $(this).attr('id');
+		var item_attr_array		= item_attr_id.split('_');
+		var item_id				= item_attr_array[3];
+		var item_url			= base_url + 'api/content/publish/id/' + item_id;
+				
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,		
+			url			: item_url,
+			type		: 'PUT',
+			dataType	: 'json',
+		  	success		: function(result)
+		  	{
+		  		console.log(result);
+		  	
+				if (result.status == 'success')
+				{	
+					$('#item_alert_saved_'+item_id).fadeOut('normal');
+					$('#item_action_saved_'+item_id).replaceWith('<a class="item_published" href="published" rel="content" id="item_action_published_'+item_id+'"><span class="actions action_published"></span> Published</a>');
+				}		  	
+		  	}		
+		});			
 	});	
 
 	// Delete Item
@@ -122,64 +185,6 @@ $(document).ready(function()
 				}
 			}
 		});
-	});	
-	
-	// Published Item (content) will be Saved
-	$('.item_published').live('click', function(eve)
-	{
-		eve.preventDefault();
-		var item_attr_id		= $(this).attr('id');
-		var item_attr_array		= item_attr_id.split('_');
-		var item_id				= item_attr_array[3];
-		var item_url			= base_url + 'api/content/save/id/' + item_id;
-				
-		$(this).oauthAjax(
-		{
-			oauth 		: user_data,		
-			url			: item_url,
-			type		: 'PUT',
-			dataType	: 'json',
-		  	success		: function(result)
-		  	{
-		  		console.log(result);
-		  	
-				if (result.status == 'success')
-				{	
-//					$('#item_alert_approve_'+item_id).fadeOut('normal');
-//					$('#item_action_approve_'+item_id).parent().fadeOut('normal');
-				}		  	
-		  	}		
-		});		
-		
-	});
-
-	// Saved Item (content) will be Published
-	$('.item_saved').live('click', function(eve)
-	{
-		eve.preventDefault();
-		var item_attr_id		= $(this).attr('id');
-		var item_attr_array		= item_attr_id.split('_');
-		var item_id				= item_attr_array[3];
-		var item_url			= base_url + 'api/content/publish/id/' + item_id;
-				
-		$(this).oauthAjax(
-		{
-			oauth 		: user_data,		
-			url			: item_url,
-			type		: 'PUT',
-			dataType	: 'json',
-		  	success		: function(result)
-		  	{
-		  		console.log(result);
-		  	
-				if (result.status == 'success')
-				{	
-//					$('#item_alert_approve_'+item_id).fadeOut('normal');
-//					$('#item_action_approve_'+item_id).parent().fadeOut('normal');
-				}		  	
-		  	}		
-		});			
-			
 	});	
 	
 	/* Geolocation */

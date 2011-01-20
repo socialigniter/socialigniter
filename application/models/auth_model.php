@@ -658,17 +658,12 @@ class Auth_model extends CI_Model
     	return $this->get_users();
   	}
 	
-	function get_users_group($id=false)
-	{
-		if (!$id)  
-		{
-			$id = $this->session->userdata('user_id');
-		}
-		
-	    $query	= $this->db->select('user_level_id')->where('user_id', $id)->get('users');
-		$user	= $query->row();
-		
-		return $this->db->select('level, level_name, description')->where('user_level_id', $user->user_level_id)->get('users_level')->row();
+	function get_users_levels()
+	{	
+	    $this->db->select('*');
+	    $this->db->from('users_level');
+ 		$result = $this->db->get();	
+ 		return $result->result();
 	}
 
 	function update_user($user_id, $data)

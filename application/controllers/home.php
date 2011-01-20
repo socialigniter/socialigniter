@@ -91,6 +91,11 @@ class Home extends Dashboard_Controller
 	
 		$this->render();
 	}
+	
+	function view()
+	{
+		$this->render();
+	}
 
 	// Dashboard Comments Section
  	function comments()
@@ -169,7 +174,6 @@ class Home extends Dashboard_Controller
 		foreach($content_module as $content):
 		
 			$this->data['item_id'] 				= $content->content_id;
-			$this->data['item_module']			= $content->module;
 			$this->data['item_type']			= $content->type;
 			$this->data['item_viewed']			= item_viewed('item_manage', $content->viewed);
 

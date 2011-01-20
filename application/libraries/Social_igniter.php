@@ -521,8 +521,13 @@ class Social_igniter
 	
 	function get_content_view_recent($parameter, $value)
 	{
-		return $this->ci->content_model->get_content_view_recent($parameter, $value);	
+		return $this->ci->content_model->get_content_view_recent($parameter, $value);
 	}
+	
+    function get_content_new_count($module)
+	{
+		return $this->ci->content_model->get_content_new_count($module);
+	}	
 	
     function get_content_category_count($category_id)
 	{

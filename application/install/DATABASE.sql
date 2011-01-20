@@ -287,16 +287,16 @@ CREATE TABLE `users` (
 
 CREATE TABLE `users_level` (
   `user_level_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `level` varchar(20) NOT NULL,
-  `description` varchar(100) NOT NULL,
+  `level` char(20) NOT NULL,
+  `name` char(64) NOT NULL,
+  `description` char(255) NOT NULL,
   PRIMARY KEY (`user_level_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
-INSERT INTO `users_level` VALUES(1, 'superadmin', 'Super Admin');
-INSERT INTO `users_level` VALUES(2, 'admin', 'Admin');
-INSERT INTO `users_level` VALUES(3, 'superuser', 'Super User');
-INSERT INTO `users_level` VALUES(4, 'user', 'User');
-
+INSERT INTO `users_level` VALUES(1, 'superadmin', 'Super Admin', 'Super Admins are the head honchos who have power to do anything they want on your install of Social Igniter');
+INSERT INTO `users_level` VALUES(2, 'admin', 'Admin', 'Admins can do most things, not all, but most things needed on a site');
+INSERT INTO `users_level` VALUES(3, 'superuser', 'Super User', 'Supers Users help keep the ship on course, they do some things, but not all');
+INSERT INTO `users_level` VALUES(4, 'user', 'User', 'Users are just regular Joes or Joesephines. They use your application as it is intended for the general public');
 
 CREATE TABLE `users_meta` (
   `user_meta_id` int(11) unsigned NOT NULL AUTO_INCREMENT,

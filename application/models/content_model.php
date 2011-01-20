@@ -75,6 +75,13 @@ class Content_model extends CI_Model {
 		}
     }
 
+    function get_content_new_count($module)
+    {
+ 		$this->db->from('content')->where(array('module' => $module, 'viewed' => 'N', 'approval !=' => 'D'));
+ 		return $this->db->count_all_results();
+
+    }
+
     function get_content_view_recent($parameter, $value)
     {
     	if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id')))
@@ -168,7 +175,7 @@ class Content_model extends CI_Model {
     function update_content($content_data)
     {
  		$content_data['updated_at'] = unix_to_mysql(now());
-
+ 		
 		$this->db->where('content_id', $content_data['content_id']);
 		$this->db->update('content', $content_data);
 		return $this->db->get_where('content', array('content_id' => $content_data['content_id']))->row();		

@@ -107,17 +107,17 @@ function item_alerts_content($item)
 	
 	if ($item->approval == 'A') 
 	{
-		$item_alerts .= '<span class="item_alert_approve item_approve" rel="'.$item->type.'" id="item_alert_approve_'.$item->content_id.'">Approve</span>';
+		$item_alerts .= '<span class="item_alert_approve" rel="content" id="item_alert_approve_'.$item->content_id.'">Approve</span>';
 	}	
 
 	if ($item->status == 'S') 
 	{
-		$item_alerts .= '<span class="item_alert_saved" id="item_alert_new_'.$item->content_id.'">Saved</span>';
+		$item_alerts .= '<span class="item_alert_saved" rel="content" id="item_alert_saved_'.$item->content_id.'">Saved</span>';
 	}
 	
 	if ($item->viewed == 'N') 
 	{
-		$item_alerts .= '<span class="item_alert_new" id="item_alert_new_'.$item->content_id.'">New</span>';
+		$item_alerts .= '<span class="item_alert_new" rel="content" id="item_alert_new_'.$item->content_id.'">New</span>';
 	}
 
 	return $item_alerts;

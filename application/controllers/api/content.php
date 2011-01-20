@@ -214,7 +214,7 @@ class Content extends Oauth_Controller
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Content could not be published'), 200);
+            $this->response(array('status' => 'error', 'message' => 'Content could not be published', 'data' => $update), 200);
         }
     }       
 

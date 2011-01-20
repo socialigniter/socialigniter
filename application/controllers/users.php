@@ -12,25 +12,19 @@ class Users extends Dashboard_Controller {
     }
  
  	function index()
- 	{
-
-	    if (!$this->social_auth->logged_in()) {
-	    	redirect('login', 'refresh');
-	    }
-	    	    
+ 	{   
     	//set the flash data error message if there is one
         $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 		//list the users
 		$this->data['users'] = $this->social_auth->get_users_array();
 	    
-	    $this->render();
+	    $this->render('dashboard_wide');
  	}
  	
   	// Create a new user
 	function create() 
-	{  
-
+	{
         $this->data['sub_title'] = "Create";				
 		$this->data['users_levels'] = $this->social_auth->get_users_levels();		
 				
@@ -93,7 +87,7 @@ class Users extends Dashboard_Controller {
 		}
 		
 		
-		$this->render();
+		$this->render('dashboard_wide');
 
 
     }
@@ -146,7 +140,7 @@ class Users extends Dashboard_Controller {
     function levels()
     {
     
-    	$this->render();
+    	$this->render('dashboard_wide');
     }    
  	
   

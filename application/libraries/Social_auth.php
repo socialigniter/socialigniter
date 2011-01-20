@@ -468,9 +468,9 @@ class Social_auth
 	    return $this->ci->auth_model->get_user($user_id)->row_array();
 	}
 	
-	function get_users_group($user_level_id=false)
+	function get_users_levels()
 	{
-	    return $this->ci->auth_model->get_users_group($user_level_id);
+	    return $this->ci->auth_model->get_users_levels();
 	}
 	
 	function get_groups_array($user_level_id=false)
