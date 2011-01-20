@@ -179,15 +179,15 @@ function display_content_status($status)
 {
 	if ($status == 'P')
 	{
-		$status = 'Published';
+		$status = 'published';
 	}
 	elseif ($status == 'S')
 	{
-		$status = 'Saved';
+		$status = 'saved';
 	}
 	else
 	{
-		$status = 'Unpublished';
+		$status = 'unpublished';
 	}
 
 	return $status;

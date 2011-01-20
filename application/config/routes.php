@@ -47,9 +47,9 @@ $route['api/categories/create']					= 'api/categories/create';
 
 /* Comments */
 $route['api/comments/content/(:any)/(:any)']	= 'api/comments/content/$1/$2';
-$route['api/comments/viewed/(:any)/(:any)']		= 'api/comments/viewed/$1/$2';
-$route['api/comments/approve/(:any)/(:any)']	= 'api/comments/approve/$1/$2';
-$route['api/comments/destroy/(:any)/(:any)']	= 'api/comments/destroy/$1/$2';
+$route['api/comments/viewed/id/(:any)']			= 'api/comments/viewed/$1/$2';
+$route['api/comments/approve/id/(:any)']		= 'api/comments/approve/$1/$2';
+$route['api/comments/destroy/id/(:any)']		= 'api/comments/destroy/$1/$2';
 $route['api/comments/content']					= 'api/comments/content';
 $route['api/comments/recent']					= 'api/comments/recent';
 $route['api/comments/create']					= 'api/comments/create';
@@ -58,13 +58,15 @@ $route['api/comments/new']						= 'api/comments/new';
 
 /* Content */
 $route['api/content/view/(:any)/(:any)']		= 'api/content/view/$1/$2';
-$route['api/content/approve/(:any)/(:any)']		= 'api/content/approve/$1/$2';
-$route['api/content/modify/(:any)/(:any)']		= 'api/content/modify/$1/$2';
-$route['api/content/destroy/(:any)/(:any)']		= 'api/content/destroy/$1/$2';
+$route['api/content/modify/id/(:any)']			= 'api/content/modify/$1/$2';
+$route['api/content/approve/id/(:any)']			= 'api/content/approve/$1/$2';
+$route['api/content/publish/id/(:any)']			= 'api/content/publish/$1/$2';
+$route['api/content/save/id/(:any)']			= 'api/content/save/$1/$2';
+$route['api/content/destroy/id/(:any)']			= 'api/content/destroy/$1/$2';
 $route['api/content/recent']					= 'api/content/recent';
 $route['api/content/create']					= 'api/content/create';
 
-/* API For Modules */
+/* API Modules */
 $route['api/(:any)/(:any)/(:any)/(:any)'] 		= '$1/api/$2/$3/$4';
 $route['api/(:any)/(:any)/(:any)'] 				= '$1/api/$2/$3';
 $route['api/(:any)/(:any)'] 					= '$1/api/$2';
@@ -74,6 +76,7 @@ $route['api/sandbox_results']				 	= 'api/index/sandbox_results';
 $route['api/sandbox'] 							= 'api/index/sandbox';
 $route['api']		 							= 'api/index';
 
+/* Connections */
 $route['connections/delete/(:num)']				= 'connections/delete';
 $route['connections/delete']					= 'connections/delete';
 $route['connections/(:any)/(:any)/(:any)'] 		= '$1/connections/$2/$3';

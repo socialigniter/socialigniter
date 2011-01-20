@@ -104,20 +104,20 @@ function item_viewed($class, $viewed)
 function item_alerts_content($item)
 {
 	$item_alerts = NULL;
+	
+	if ($item->approval == 'A') 
+	{
+		$item_alerts .= '<span class="item_alert_approve item_approve" rel="'.$item->type.'" id="item_alert_approve_'.$item->content_id.'">Approve</span>';
+	}	
 
+	if ($item->status == 'S') 
+	{
+		$item_alerts .= '<span class="item_alert_saved" id="item_alert_new_'.$item->content_id.'">Saved</span>';
+	}
+	
 	if ($item->viewed == 'N') 
 	{
 		$item_alerts .= '<span class="item_alert_new" id="item_alert_new_'.$item->content_id.'">New</span>';
-	}
-
-	if ($item->approval == 'A') 
-	{
-		$item_alerts .= '<span class="item_approve item_alert_approve" rel="'.$item->type.'" id="item_alert_approve_'.$item->content_id.'">Approve</span>';
-	}
-
-	if ($item->approval == 'S') 
-	{
-		$item_alerts .= '<span class="item_alert_'.strtolower($item->status).'" id="item_alert_new_'.$item->content_id.'">'.$item->status.'</span>';
 	}
 
 	return $item_alerts;
@@ -128,14 +128,14 @@ function item_alerts_comment($comment)
 {
 	$comment_alerts = NULL;
 
-	if ($comment->viewed == 'N') 
-	{
-		$comment_alerts .= '<span class="item_alert_new" id="item_alert_new_'.$comment->comment_id.'">New</span>';
-	}
-
 	if ($comment->approval == 'A') 
 	{
 		$comment_alerts .= '<span class="item_approve item_alert_approve" rel="comments" id="item_alert_approve_'.$comment->comment_id.'">Approve</span>';
+	}
+	
+	if ($comment->viewed == 'N') 
+	{
+		$comment_alerts .= '<span class="item_alert_new" id="item_alert_new_'.$comment->comment_id.'">New</span>';
 	}
 
 	return $comment_alerts;

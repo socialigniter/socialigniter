@@ -59,6 +59,7 @@ CREATE TABLE `comments` (
   `site_id` int(6) NOT NULL,
   `reply_to_id` int(11) DEFAULT NULL,
   `content_id` int(11) DEFAULT NULL,
+  `owner_id` int(11) DEFAULT NULL,
   `module` char(16) DEFAULT NULL,
   `type` char(16) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -205,6 +206,8 @@ CREATE TABLE `relationships` (
   `relationship_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `owner_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `type` char(32) COLLATE utf8_unicode_ci NOT NULL,
+  `type_sub` char(32) COLLATE utf8_unicode_ci NOT NULL,
   `status` char(1) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`relationship_id`)

@@ -12,10 +12,10 @@
 		</span>
 
 		<ul class="item_actions" rel="timeline">
-			<li><a href="#"><span class="actions action_share"></span> Share</a></li>
 			<?php if ($item_approval == 'A'): ?>
 			<li><a class="item_approve" href="<?= $item_approve ?>" rel="<?= $item_module ?>" id="item_action_approve_<?= $item_id ?>"><span class="actions action_approve"></span> Approve</a></li>
-			<?php endif; ?>				
+			<?php endif; ?>							
+			<li><a class="item_<?= $item_status ?>" href="<?= $item_status ?>" rel="<?= $item_module ?>" id="item_action_status_<?= $item_id ?>"><span class="actions action_<?= $item_status ?>"></span> <?= ucwords($item_status) ?></a></li>
 			<li><a class="item_edit" href="<?= $item_edit ?>" id="item_action_edit_<?= $item_id ?>"><span class="actions action_edit"></span> Edit</a></li>
 			<li><a class="item_delete" href="<?= $item_delete ?>" id="item_action_delete_<?= $item_id ?>"><span class="actions action_delete"></span> Delete</a></li>
 		</ul>

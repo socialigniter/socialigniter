@@ -47,13 +47,15 @@ class Comments extends Oauth_Controller
     // New Comments for a user
 	function new_authd_get()
 	{
-		if ($new_comments = $this->social_tools->get_comments_new_count())
+		$site_id = config_item('site_id');	
+	
+		if ($new_comments = $this->social_tools->get_comments_new_count($site_id, $this->oauth_user_id))
 		{
          	$this->response(array('status' => 'success', 'message' => $new_comments), 200);	
 		}
 		else
 		{
-         	$this->response(array('status' => 'error', 'message' => 0), 200);			
+         	$this->response(array('status' => 'error', 'message' => $new_comments), 200);			
 		}
 	}
 	
@@ -72,6 +74,7 @@ class Comments extends Oauth_Controller
 	        	$comment_data = array(
 	    			'reply_to_id'	=> $this->input->post('reply_to_id'),
 	    			'content_id'	=> $content->content_id,		
+	    			'owner_id'		=> $content->user_id,
 					'module'		=> $content->module,
 	    			'type'			=> $content->type,
 	    			'user_id'		=> $this->oauth_user_id,

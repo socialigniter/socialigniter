@@ -99,7 +99,7 @@ class Home extends Dashboard_Controller
  	    $this->data['sub_title'] 	= "Recent";
  		$this->data['navigation']	= $this->load->view(config_item('dashboard_theme').'/partials/navigation_comments.php', $this->data, true);
 
-		$comments 					= $this->social_tools->get_comments($this->uri->segment(3));		
+		$comments 					= $this->social_tools->get_comments(config_item('site_id'), $this->session->userdata('user_id'), $this->uri->segment(3));		
 		$comments_view 				= NULL;
 		$this->data['feed_type']	= 'comments';
     	$this->data['item_verb']	= item_type($this->lang->line('object_types'), 'comment');

@@ -184,37 +184,37 @@ class Content extends Oauth_Controller
     
     function approve_authd_put()
     {
-        if ($this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'approval' => 'Y')))
+        if ($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'approval' => 'Y')))
         {
-            $this->response(array('status' => 'success', 'message' => 'Comment approved'), 200);
+            $this->response(array('status' => 'success', 'message' => 'Content approved', 'data' => $update), 200);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not be approved'), 200);
+            $this->response(array('status' => 'error', 'message' => 'Content could not be approved'), 200);
         }
     }
     
     function save_authd_put()
     {
-        if ($this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'S')))
+        if ($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'S')))
         {
-            $this->response(array('status' => 'success', 'message' => 'Comment approved'), 200);
+            $this->response(array('status' => 'success', 'message' => 'Content saved', 'data' => $update), 200);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not be approved'), 200);
+            $this->response(array('status' => 'error', 'message' => 'Content could not be saved'), 200);
         }
     }       
 
     function publish_authd_put()
     {
-        if($this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'P')))
+        if($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'P')))
         {
-            $this->response(array('status' => 'success', 'message' => 'Comment approved'), 200);
+            $this->response(array('status' => 'success', 'message' => 'Content published', 'data' => $update), 200);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not be approved'), 200);
+            $this->response(array('status' => 'error', 'message' => 'Content could not be published'), 200);
         }
     }       
 
@@ -234,12 +234,12 @@ class Content extends Oauth_Controller
 	        }
 	        else
 	        {
-	            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 200);
+	            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment'), 200);
 	        }
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 200);
+            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment'), 200);
         }
         
     }   

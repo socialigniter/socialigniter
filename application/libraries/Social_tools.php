@@ -213,9 +213,9 @@ class Social_tools
 		return $this->ci->comments_model->get_comment($comment_id);
 	}
 	
-	function get_comments($module='all')
+	function get_comments($site_id, $owner_id, $module='all')
 	{
-		return $this->ci->comments_model->get_comments(config_item('site_id'), $module);
+		return $this->ci->comments_model->get_comments($site_id, $owner_id, $module);
 	}
 
 	function get_comments_recent($module, $limit=10)
@@ -238,9 +238,9 @@ class Social_tools
 		return $this->ci->comments_model->get_comments_content_count($content_id, $approval);
 	}
 
-	function get_comments_new_count()
+	function get_comments_new_count($site_id, $owner_id)
 	{
-		return $this->ci->comments_model->get_comments_new_count(config_item('site_id'));
+		return $this->ci->comments_model->get_comments_new_count($site_id, $owner_id);
 	}
 	
 	function get_comments_content($content_id)

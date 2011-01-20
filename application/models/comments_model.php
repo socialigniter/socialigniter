@@ -18,15 +18,15 @@ class Comments_model extends CI_Model
  		return $result;
     }
 
-    function get_comments($site_id, $module)
+    function get_comments($site_id, $owner_id, $module)
     {
     	if ($module == 'all')
     	{
-    		$where = array('comments.site_id' => $site_id);
+    		$where = array('comments.site_id' => $site_id, 'comments.owner_id' => $owner_id);
 		}
 		else
 		{
-		    $where = array('comments.site_id' => $site_id, 'comments.module' => $module);
+		    $where = array('comments.site_id' => $site_id, 'comments.owner_id' => $owner_id, 'comments.module' => $module);
 		}
 
  		$this->db->select('comments.*, content.title, content.title_url, users_meta.name, users_meta.image, users_meta.url, users.username, users.email');
@@ -108,9 +108,9 @@ class Comments_model extends CI_Model
  		return $this->db->count_all_results();
     }
     
-    function get_comments_new_count($site_id)
+    function get_comments_new_count($site_id, $owner_id)
     {    	
- 		$this->db->from('comments')->where(array('site_id' => $site_id, 'viewed' => 'N', 'approval !=' => 'D'));
+ 		$this->db->from('comments')->where(array('site_id' => $site_id, 'owner_id' => $owner_id, 'viewed' => 'N', 'approval !=' => 'D'));
  		return $this->db->count_all_results();
     }
 
@@ -125,6 +125,7 @@ class Comments_model extends CI_Model
  			'site_id'			=> $site_id,
 			'reply_to_id'		=> $comment_data['reply_to_id'],
 			'content_id'		=> $comment_data['content_id'],
+			'owner_id'			=> $comment_data['owner_id'],
 			'module'			=> $comment_data['module'],			
 			'type'				=> $comment_data['type'],			
 			'user_id' 	 		=> $comment_data['user_id'],

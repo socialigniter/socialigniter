@@ -124,7 +124,63 @@ $(document).ready(function()
 		});
 	});	
 	
-	
+	// Published Item (content) will be Saved
+	$('.item_published').live('click', function(eve)
+	{
+		eve.preventDefault();
+		var item_attr_id		= $(this).attr('id');
+		var item_attr_array		= item_attr_id.split('_');
+		var item_id				= item_attr_array[3];
+		var item_url			= base_url + 'api/content/save/id/' + item_id;
+				
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,		
+			url			: item_url,
+			type		: 'PUT',
+			dataType	: 'json',
+		  	success		: function(result)
+		  	{
+		  		console.log(result);
+		  	
+				if (result.status == 'success')
+				{	
+//					$('#item_alert_approve_'+item_id).fadeOut('normal');
+//					$('#item_action_approve_'+item_id).parent().fadeOut('normal');
+				}		  	
+		  	}		
+		});		
+		
+	});
+
+	// Saved Item (content) will be Published
+	$('.item_saved').live('click', function(eve)
+	{
+		eve.preventDefault();
+		var item_attr_id		= $(this).attr('id');
+		var item_attr_array		= item_attr_id.split('_');
+		var item_id				= item_attr_array[3];
+		var item_url			= base_url + 'api/content/publish/id/' + item_id;
+				
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,		
+			url			: item_url,
+			type		: 'PUT',
+			dataType	: 'json',
+		  	success		: function(result)
+		  	{
+		  		console.log(result);
+		  	
+				if (result.status == 'success')
+				{	
+//					$('#item_alert_approve_'+item_id).fadeOut('normal');
+//					$('#item_action_approve_'+item_id).parent().fadeOut('normal');
+				}		  	
+		  	}		
+		});			
+			
+	});	
 	
 	/* Geolocation */
 	function geo_get()
