@@ -190,6 +190,7 @@ div.item_content 			{ width: 550px; display: block; line-height: 21px; margin: 2
 div.item_content_small 		{ width: 400px; display: block; line-height: 21px; margin: 0 0 10px 0; position: relative; top: 5px; left: 0px; float: left; }
 span.item_separator			{ width: 100%; height: 2px; display: block; background: url(images/item_separator.png) 0 0 repeat-x; margin: 6px 0 0 0; }
 span.item_verb				{ color: #999999; }
+span.item_alerts			{ width: 200px; height: 30px; float: right; display: block; margin: 10px 0; }
 span.item_content_body		{ width: 450px; float: left; }
 span.item_content_body_small{ width: 375px; float: left; }
 img.item_content_thumb		{ width: 125px; display: block; float: left; margin: 0 15px 0 0; }
@@ -210,20 +211,20 @@ li.item_manage_new:hover ul.item_actions span.actions { position: relative; top:
 
 div.item_manage				{ width: 100%; line-height: 21px; margin: 0; padding: 0; }
 div.item_manage_content		{ width: 70%; border: 1px solid blue; }
-span.item_manage_type		{ width: 32px; height: 32px; display: block; float: left; background-image: url(images/item_type_icons.png); position: relative; left: 0px; top: 0px; margin: 5px 0px 0px 0px; }
-span.item_manage_title		{ width: 400px; height: 30px; float: left; margin: 8px 0 0 15px; padding: 0; }
+span.item_manage_type		{ width: 32px; height: 32px; display: block; float: left; background-image: url(images/item_type_icons.png); position: relative; left: 5px; top: 7px; }
+span.item_manage_title		{ width: 400px; height: 30px; float: left; margin: 10px 0 0 15px; padding: 0; }
 span.item_manage_title a	{ font-size: 16px; line-height: 18px; color: #666666; text-shadow:1px 1px 1px #FFF; }
 span.item_manage_title a:visited { color: #666666; text-shadow:1px 1px 1px #FFF; }
-span.item_manage_meta		{ width: 450px; display: block; float: left; margin: 5px 0 0 48px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
+span.item_manage_meta		{ width: 450px; display: block; float: left; margin: 0 0 0 48px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
 span.item_manage_meta span span { position: relative; top: -2px; left: 0; }
 
 span.item_manage_comments	{ display: block; width: 130px; float: left; }
 span.item_manage_publish	{ display: block; width: 200px; float: left; }
 
-span.item_alert_new			{ display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #b54545; font-size: 11px; line-height: 21px; font-weight: bold; float: right; position: relative; top: 4px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #333333; text-align: center; }
-span.item_alert_approve 	{ display: block; padding: 3px 8px; cursor: pointer; color: #2078CE; background: #f2e3af; font-size: 11px; line-height: 21px; font-weight: bold; float: right; position: relative; top: 4px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #d6d6d6; text-align: center; }
-span.item_alert_published 	{ width: 50px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #4fa74d; font-size: 11px; line-height: 21px; font-weight: bold; float: right; position: relative; top: 4px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #777777; text-align: center; }
-span.item_alert_saved 		{ width: 50px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #2078CE; font-size: 11px; line-height: 21px; font-weight: bold; float: right; position: relative; top: 4px; right: 0px; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #888888;  text-align: center; }
+span.item_alert_new			{ width: 22px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #b54545; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #333333; text-align: center; }
+span.item_alert_approve 	{ width: 42px; display: block; padding: 3px 8px; cursor: pointer; color: #2078CE; background: #f2e3af; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #d6d6d6; text-align: center; }
+span.item_alert_published 	{ width: 50px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #4fa74d; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #777777; text-align: center; }
+span.item_alert_saved 		{ width: 50px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #2078CE; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #888888;  text-align: center; }
 
 span.item_type				{ width: 38px; height: 32px; display: block; float: right; background-image: url(images/item_type_icons.png); position: relative; right: 0px; top: 0px; margin: 0px 0px 0px 0px; }
 span.type_comment			{ background-position: 0px -35px; }
@@ -241,7 +242,7 @@ span.type_approve			{ background-position: 0px -385px; }
 span.type_file				{ background-position: 0px -420px; }
 span.type_class				{ background-position: 0px -554px; }
 
-ul.item_actions 			{ margin: 0; padding: 0px; position: relative; bottom: 8px; right: 5px; list-style: none; float: right; visibility: hidden; }
+ul.item_actions 			{ margin: 10px 0 0 0; padding: 0px; position: relative; bottom: 8px; right: 15px; list-style: none; float: right; visibility: hidden; }
 ul.item_actions li			{ float: left; margin: 0px 0px 0px 20px; }
 ul.item_actions li a 		{ color: #999999; font-size: 12px; }
 ul.item_actions li a:visited{ color: #999999; font-size: 12px; }
@@ -259,7 +260,6 @@ span.action_see				{ background-position: -225px 0px; }
 span.action_edit			{ background-position: -200px 0px; }
 span.action_saved			{ background-position: -250px 0px; }
 span.action_published		{ background-position: -275px 0px; }
-
 
 /* Feed Specific */
 span.item_comment_left		{ width: 24px; height: 32px; display: block; float: left; background: url(images/item_type_icons.png) 0px -455px; position: relative; left: 0px; top: 4px; }

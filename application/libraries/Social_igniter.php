@@ -24,7 +24,7 @@ class Social_igniter
 		// Models
  		$this->ci->load->model('activity_model');
  		$this->ci->load->model('content_model');		
-		$this->ci->load->model('pages/pages_model');
+		$this->ci->load->model('pages_model');
 		$this->ci->load->model('settings_model');
 		$this->ci->load->model('sites_model');		
 	}	
@@ -71,6 +71,7 @@ class Social_igniter
     {
     	$has_url	= property_exists($data, 'url');
     	$has_title	= property_exists($data, 'title');    
+    	$has_new	= property_exists($data, 'new');
     
     	// Status
     	if ($activity->type == 'status')

@@ -6,6 +6,7 @@
 		<span class="item_content_body">
 			<b><a href="<?= $item_profile ?>"><?= $item_contributor ?></a></b> <?= $item_content ?>		
 		</span>
+		
 		<?php if ($item_type): ?><span class="item_type<?= $item_type ?>"></span><?php endif; ?>
 		
 		<div class="clear"></div>

@@ -83,16 +83,6 @@ class Dashboard_Controller extends MY_Controller
 		{
 			$this->session->set_userdata('previous_page', '');
 		}
-    
-    	// Sets Previous Page
-		if (isset($_SERVER['HTTP_REFERER']))
-		{
-			$this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']);
-		}
-		else
-		{
-			$this->session->set_userdata('previous_page', '');
-		}
 
     	// Module
        	if ($this->module_name) 
@@ -122,7 +112,7 @@ class Dashboard_Controller extends MY_Controller
         	$navigation_path	= '../modules/'.$module_name.'/views/partials/navigation_home.php';
     	    $content_path 		= config_item('dashboard_theme').'/home/module.php';
 		}
-		// Comments
+		// Comments & Pages
 		// This is a kind of nasty solution but works
 		// Should perhaps be rethought in the future
 		elseif ($this->uri->segment(2) == 'comments')
@@ -132,6 +122,24 @@ class Dashboard_Controller extends MY_Controller
 			// Without dropdown runs the risk of being too many modules and totally ruining the nav
 	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_comments.php';
         	$content_path 		= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
+		}
+		// Ugly As Hell Hack for PAGES move into 'core'
+		elseif ($this->uri->uri_string() == '/home/pages')
+		{
+	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_pages.php';
+        	$content_path 		= config_item('dashboard_theme').'/home/module.php';
+		}
+		elseif ($this->uri->uri_string() == '/home/pages/manage')
+		{
+	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_pages.php';
+        	$content_path 		= config_item('dashboard_theme').'/home/module.php';
+		}
+		elseif ($this->uri->uri_string() == '/home/pages/manage'.$this->uri->segment(4))
+		{
+			print_r('dogs');
+			
+	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_pages.php';
+        	$content_path 		= config_item('dashboard_theme').'/pages/editor.php';
 		}
 		// Not Module
 		else

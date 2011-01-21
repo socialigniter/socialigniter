@@ -84,28 +84,33 @@ $route['connections/(:any)/(:any)/(:any)'] 		= '$1/connections/$2/$3';
 $route['connections/(:any)/(:any)'] 			= '$1/connections/$2';
 $route['connections/(:any)'] 					= '$1/connections/index';
 
+/* Home */
 $route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
 $route['home/(:any)/(:any)/(:any)'] 			= '$1/home/$2/$3';
 $route['home/(:any)/manage'] 					= 'home/manage/$1';
+
+$route['home/pages/manage/(:num)']				= 'pages/editor';
+$route['home/pages/create']						= 'pages/editor';
+
 $route['home/comments/(:any)'] 					= 'home/comments/$1';
-$route['home/view/(:any)']						= 'home/view/$1';
 $route['home/(:any)/(:any)'] 					= '$1/home/$2';
 $route['home/(:any)'] 							= 'home';
 $route['home/comments'] 						= 'home/comments';
 $route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home/likes']							= 'home/likes';
+
+/* Home Partials */
 $route['home/item_timeline']					= 'home/item_timeline';
 $route['home/item_manage']						= 'home/item_manage';
 $route['home/category_editor']					= 'home/category_editor';
 $route['home'] 									= 'home';
 
-$route['manager/(:any)']						= '$1/manager';
-$route['manager']								= 'manager';
-
+/* Profiles */
 $route['profile/:any/image'] 					= 'profile/image';
 $route['profile/:any'] 							= 'profile/index';
 
+/* Settings */
 $route['settings/(:any)'] 						= '$1/settings/index';
 $route['settings/profile'] 						= 'settings/profile';
 $route['settings/account'] 						= 'settings/account';
@@ -118,6 +123,7 @@ $route['settings/comments']						= 'settings/comments';
 $route['settings/api']							= 'settings/api';
 $route['settings/update']						= 'settings/update';
 $route['settings/users']						= 'settings/users';
+$route['settings/pages']						= 'settings/pages';
 $route['settings'] 								= 'settings';
 
 $route['pages/(:any)']							= 'index/index';

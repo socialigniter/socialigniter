@@ -116,13 +116,11 @@ $(document).ready(function()
 			type		: 'PUT',
 			dataType	: 'json',
 		  	success		: function(result)
-		  	{
-		  		console.log(result);
-		  	
+		  	{		  	
 				if (result.status == 'success')
 				{	
 					$('#item_alerts_'+item_id).append('<span class="item_alert_saved" rel="content" id="item_alert_saved_'+item_id+'">Saved</span>').fadeIn('normal');
-					$('#item_action_published_'+item_id).replaceWith('<a class="item_saved" href="saved" rel="content" id="item_action_saved_'+item_id+'"><span class="actions action_saved"></span> Saved</a>');					
+					$('#item_action_published_'+item_id).replaceWith('<a class="item_saved" href="saved" rel="content" id="item_action_saved_'+item_id+'"><span class="actions action_saved"></span> Saved</a>').animate({opacity:'1'});					
 				}		  	
 		  	}		
 		});		
@@ -145,9 +143,7 @@ $(document).ready(function()
 			type		: 'PUT',
 			dataType	: 'json',
 		  	success		: function(result)
-		  	{
-		  		console.log(result);
-		  	
+		  	{		  	
 				if (result.status == 'success')
 				{	
 					$('#item_alert_saved_'+item_id).fadeOut('normal');

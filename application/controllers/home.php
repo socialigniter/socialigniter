@@ -22,14 +22,15 @@ class Home extends Dashboard_Controller
  	    {
 	 	    $this->data['page_title'] 		= ucwords($this->uri->segment(2));
  			$this->data['sub_title']		= 'Recent';
+ 			$this->data['status_updater']	= '';
  
  	    	$feed_module = $this->uri->segment(2);
  	    }
- 	    
+ 	     	     	    
 		// Feed 
 		$timeline 							= $this->social_igniter->get_timeline(10, $feed_module);
-		$timeline_view 						= NULL;
-		 			
+		$timeline_view 						= NULL;		
+				 			
 		if (!empty($timeline))
 		{
 			foreach ($timeline as $activity)
@@ -47,7 +48,7 @@ class Home extends Dashboard_Controller
 				// Activity
 				$this->data['item_content']			= $this->social_igniter->render_item($activity);
 				$this->data['item_content_id']		= $activity->content_id;
-				$this->data['item_date']			= format_datetime(config_item('home_date_style'), $activity->created_at);
+				$this->data['item_date']			= format_datetime(config_item('home_date_style'), $activity->created_at);			
 
 		 		// Actions
 			 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
@@ -142,16 +143,16 @@ class Home extends Dashboard_Controller
 				$this->data['item_text']			= $comment->comment;
 				$this->data['item_date']			= human_date('SIMPLE', mysql_to_unix($comment->created_at));
 				$this->data['item_approval']		= $comment->approval;
+
+				// Alerts
+				$this->data['item_alerts']			= item_alerts_comment($comment);
 		
 		 		// Actions
 				$this->data['item_view'] 			= base_url().$comment->module.'/view/'.$comment->content_id.'/'.$comment->comment_id;
 				$this->data['item_reply'] 			= base_url().$comment->module.'/reply/id/'.$comment->content_id.'/'.$comment->comment_id;
 				$this->data['item_approve']			= base_url().'api/comments/approve/id/'.$comment->comment_id;
 				$this->data['item_delete']			= base_url().'api/comments/destroy/id/'.$comment->comment_id;
-
-				// Alerts
-				$this->data['item_alerts']			= item_alerts_comment($comment);
-
+				
 				// Load Partial For Items
 				$comments_view 				   	   .= $this->load->view(config_item('dashboard_theme').'/partials/item_comments.php', $this->data, true);
 	 		}
@@ -182,16 +183,15 @@ class Home extends Dashboard_Controller
 			$this->data['comments_count']		= manage_comments_count($content->comments_count);
 			$this->data['publish_date']			= manage_published_date($content->created_at, $content->updated_at);
 			$this->data['item_status']			= display_content_status($content->status);
-			
 			$this->data['item_approval']		= $content->approval;
+
+			// Alerts
+			$this->data['item_alerts']			= item_alerts_content($content);			
 			
 			// Actions
 			$this->data['item_approve']			= base_url().'api/content/approve/id/'.$content->content_id;
 			$this->data['item_edit']			= base_url().'home/'.$content->module.'/manage/'.$content->content_id;
 			$this->data['item_delete']			= base_url().'api/content/destroy/id/'.$content->content_id;
-
-			// Alerts
-			$this->data['item_alerts']			= item_alerts_content($content);
 			
 			// View
 			$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);			

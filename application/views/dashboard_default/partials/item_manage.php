@@ -3,9 +3,8 @@
 		<span class="item_manage_type type_<?= $item_type ?>"></span>
 		<span class="item_manage_title"><a href="<?= $title_link ?>"><?= $title ?></a></span>
 		
-		<span id="item_alerts_<?= $item_id ?>"><?= $item_alerts ?></span>
+		<span class="item_alerts" id="item_alerts_<?= $item_id ?>"><?= $item_alerts ?></span>
 		<div class="clear"></div>
-		
 		
 		<span class="item_manage_meta">
 			<span class="item_manage_comments"><span class="actions action_comment"></span><?= $comments_count ?></span>
