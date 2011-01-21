@@ -29,7 +29,7 @@
 		 <h3>Comments</h3>
 		<?= form_dropdown('comments_allow', config_item('comments_allow'), $comments_allow) ?>	
 	
-		<input type="hidden" name="details" size="12" id="layout" value="<?= $details ?>">
+		<input type="hidden" name="details" id="layout" value="<?= $details ?>">
 		<input type="hidden" name="geo_lat" id="geo_lat" value="" />
 		<input type="hidden" name="geo_long" id="geo_long" value="" />
 		<input type="hidden" name="geo_accuracy" id="geo_accuracy" value="" />

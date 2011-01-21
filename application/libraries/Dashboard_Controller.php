@@ -117,8 +117,7 @@ class Dashboard_Controller extends MY_Controller
 		// Should perhaps be rethought in the future
 		elseif ($this->uri->segment(2) == 'comments')
 		{
-			// Need to add a way to drilldown through
-			// Comments. One idea is a dropdown menu... but breaks nav style
+			// Need to add a way to drilldown through Comments. One idea is a dropdown menu... but breaks nav style
 			// Without dropdown runs the risk of being too many modules and totally ruining the nav
 	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_comments.php';
         	$content_path 		= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
@@ -135,9 +134,7 @@ class Dashboard_Controller extends MY_Controller
         	$content_path 		= config_item('dashboard_theme').'/home/module.php';
 		}
 		elseif ($this->uri->uri_string() == '/home/pages/manage'.$this->uri->segment(4))
-		{
-			print_r('dogs');
-			
+		{			
 	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_pages.php';
         	$content_path 		= config_item('dashboard_theme').'/pages/editor.php';
 		}

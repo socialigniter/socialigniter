@@ -84,7 +84,7 @@ $route['connections/(:any)/(:any)/(:any)'] 		= '$1/connections/$2/$3';
 $route['connections/(:any)/(:any)'] 			= '$1/connections/$2';
 $route['connections/(:any)'] 					= '$1/connections/index';
 
-/* Home */
+/* Home Declared */
 $route['home/pages/manage/(:num)']				= 'pages/editor';
 $route['home/pages/create']						= 'pages/editor';
 $route['home/comments/(:any)'] 					= 'home/comments/$1';
@@ -93,6 +93,7 @@ $route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home/likes']							= 'home/likes';
 
+/* Home Modules */
 $route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
 $route['home/(:any)/(:any)/(:any)'] 			= '$1/home/$2/$3';
 $route['home/(:any)/manage'] 					= 'home/manage/$1';

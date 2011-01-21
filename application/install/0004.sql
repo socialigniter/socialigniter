@@ -1,2 +1,0 @@
-ALTER TABLE  `content` ADD  `viewed` CHAR( 1 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER  `geo_accuracy` ,
-ADD  `approval` CHAR( 1 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER  `viewed`

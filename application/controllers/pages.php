@@ -15,11 +15,6 @@ class Pages extends Dashboard_Controller
 	{
 		redirect('home');	
 	}
-	
-	function test()
-	{
-		echo 'asdadasd';
-	}
 
 	function editor()
 	{				
