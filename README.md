@@ -1,9 +1,11 @@
 Social-Igniter Core
-===========
+===================
 
-The PHP server for Geoloqi.com. See documentation on the API methods at http://geoloqi.org/API
+This is the Core install of Social-Igniter. This repository contains all you need to get an install node up and running on your own *AMP webserver.
 
-Run this on your own system to have a completely private location sharing platform.
+To see check out a working install of Social-Igniter go to: http://social-igniter.com
+
+To see documentation on the API go to: http://social-igniter.com/api
 
 Installation Instructions
 =========================
@@ -22,12 +24,9 @@ Installation Instructions
 * Edit database.php to have match your database settings
 * Install the database located at application/install/DATABASE.sql
 
-
 License
 =======
 
 Copyright 2011 by Social-Igniter.com and contributors
 
 See LICENSE
-
- 
