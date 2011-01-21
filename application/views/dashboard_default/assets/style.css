@@ -279,7 +279,8 @@ span.item_comment_right		{ width: 26px; height: 32px; display: block; float: lef
 #title_url_text				{ margin: 10px 0 10px 10px; color: #999999; font-style: italic; }
 
 #layout_options				{ height: 40px; margin: 0 0 20px 0; }
-.layout_picker				{ width: 75px; height: 24px; padding: 8px 6px 0 6px; display: block; text-align: center; float: left; color: #999999; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.layout_picker				{ width: 75px; height: 24px; margin: 0 15px 0 0; padding: 10px 8px 2px 8px; display: block; text-align: center; float: left; background: #d3d3d3; color: #999999; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; }
+.layout_picker:hover		{ background: #c3c3c3; text-decoration: none; }
 .layout_selected			{ background: #ccc; }
 
 /* Manage */

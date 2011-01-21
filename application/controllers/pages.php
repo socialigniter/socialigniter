@@ -15,6 +15,11 @@ class Pages extends Dashboard_Controller
 	{
 		redirect('home');	
 	}
+	
+	function test()
+	{
+		echo 'asdadasd';
+	}
 
 	function editor()
 	{				
@@ -65,7 +70,7 @@ class Pages extends Dashboard_Controller
 		$this->data['wysiwyg_resize']	= TRUE;
 		$this->data['wysiwyg_media']	= TRUE;			
 		$this->data['wysiwyg']	 		= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);
-		$this->data['categories'] 		= $this->social_tools->get_categories_dropdown('module', 'blog', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
+		$this->data['categories'] 		= $this->social_tools->get_categories_dropdown('module', 'pages', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
 							
  		$this->render('dashboard_wide');
 	}

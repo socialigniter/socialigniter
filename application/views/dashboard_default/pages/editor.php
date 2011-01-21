@@ -1,33 +1,126 @@
-<form method="post" action="<?= $form_url ?>">
+<form name="page_editor" id="page_editor" action="<?= $form_url ?>" method="post" enctype="multipart/form-data">
+	<div id="content_wide_content">
+	<div id="content_message" class="message_normal"><?= $message ?></div>
 
-	<h3>Title</h3>
-	<input type="text" name="title" size="60" value="<?= $title ?>">
-	<div id="title_url_text" class="edit_in_place"><?= base_url().'pages/'.$title_url ?></div>
-
-	<input type="hidden" name="title_url" size="60" value="<?= $title_url ?>">
+		<h3>Title</h3>
+		<input type="text" name="title" id="title" class="input_full" value="<?= $title ?>">
+		<p id="title_slug" class="slug_url"></p>
 	
-	<h3>Layout</h3>
-	<div id="layout_options">
-	<?php foreach ($layouts as $layout): ?>
-		<a id="layout_<?= $layout ?>" class="layout_picker <?php if ($layout == $details) echo 'layout_selected'; ?>" href="#"><?= $layout ?></a>
-	<?php endforeach; ?>
+		<h3>Content</h3>
+		<?= $wysiwyg ?>
+		
+		<h3>Layout</h3>
+		<div id="layout_options">
+		<?php foreach ($layouts as $layout): ?>
+			<a id="layout_<?= $layout ?>" class="layout_picker <?php if ($layout == $details) echo 'layout_selected'; ?>" href="#"><?= $layout ?></a>
+		<?php endforeach; ?>
+		</div>
+		<div class="clear"></div>		
+
+	    <h3>Category</h3>
+	    <?= form_dropdown('category_id', $categories, $category_id) ?>
+	
+	    <h3>Tags</h3>             
+	    <input name="tags" type="text" id="tags" size="75" placeholder="Blogging, Internet, Web Design" />  
+	
+		<h3>Access</h3>
+		<?= form_dropdown('access', config_item('access'), $access) ?>	
+	
+		 <h3>Comments</h3>
+		<?= form_dropdown('comments_allow', config_item('comments_allow'), $comments_allow) ?>	
+	
+		<input type="hidden" name="details" size="12" id="layout" value="<?= $details ?>">
+		<input type="hidden" name="geo_lat" id="geo_lat" value="" />
+		<input type="hidden" name="geo_long" id="geo_long" value="" />
+		<input type="hidden" name="geo_accuracy" id="geo_accuracy" value="" />
 	</div>
-	<div class="clear"></div>
-
-	<?= $wysiwyg ?>
-
-    <h3>Tags</h3>             
-    <input name="tags" type="text" id="tags" size="75" placeholder="Blogging, Internet, Web Design" />  
-
-	<h3>Access</h3>
-	<?= form_dropdown('access', config_item('access'), $access) ?>	
-
 	
-	 <h3>Comments</h3>
-	<?= form_dropdown('comments_allow', config_item('comments_allow'), $comments_allow) ?>	
-
-	<input type="hidden" name="details" size="12" id="layout" value="<?= $details ?>">
 	
-    <p><input name="publish" type="submit" id="publish" value="Publish" /> <input type="submit" id="save" name="save" value="Save" /></p>
-
+	<div id="content_wide_sidebar">		
+		<h3>Status</h3>
+		<p id="article_status"><?= display_content_status($status) ?></p>
+		<h3>Share</h3>
+		<?= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>'); ?>		
+		<p><input type="submit" id="status_publish" name="publish" value="Publish" /> <input type="submit" id="status_save" name="save_draft" value="Save" /></p>
+	</div>
 </form>
+
+<div class="clear"></div>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+	// Placeholders
+	doPlaceholder('#title', 'Page Title');
+	doPlaceholder('#tags', 'About, Help, Information');
+	$('#title').slugify({url:base_url + 'pages/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
+	
+	// Write Article
+	$("#page_editor").bind("submit", function(eve)
+	{
+		eve.preventDefault();
+		var valid_title	= isFieldValid('#title', "Ridiculously Cute Kitten Saves Owner From Fire", 'You need a title');
+
+		// Validation	
+		if (valid_title == true)
+		{	
+			var page_data = $('#page_editor').serializeArray();
+			page_data.push({'name':'module','value':'pages'},{'name':'type','value':'page'},{'name':'source','value':'website'});
+
+			console.log(page_data);
+
+			$(this).oauthAjax(
+			{
+				oauth 		: user_data,
+				url			: $(this).attr('ACTION'),
+				type		: 'POST',
+				dataType	: 'json',
+				data		: page_data,
+		  		success		: function(result)
+		  		{	
+		  			console.log(result);
+		  				  			  			
+					if (result.status == 'success')
+					{
+				 		$('#content_message').notify({message: result.message + ' <a href="' + base_url + 'pages/view/' + result.data.content_id + '">' + result.data.title + '</a>'});
+				 		var status = displayContentStatus(result.data.status);				 		
+				 		$('#article_status').html(status);				 	
+				 	}
+				 	else
+				 	{
+					 	$('#content_message').html(result.message).addClass('message_alert').show('normal');
+					 	$('#content_message').oneTime(3000, function(){$('#content_message').hide('fast')});			
+				 	}	
+			 	}
+			});
+		}
+		else
+		{
+			eve.preventDefault();
+		}		
+	});
+
+	// Add Category
+	$('[name=category_id]').change(function()
+	{	
+		if($(this).val() == 'add_category')
+		{
+			$('[name=category_id]').find('option:first').attr('selected','selected');
+			$.uniform.update('[name=category_id]');
+
+			$.categoryEditor(
+			{
+				url_api		: base_url + 'api/categories/view/module/pages',
+				url_pre		: base_url + 'pages/',
+				url_sub		: base_url + 'api/categories/create',				
+				module		: 'pages',
+				type		: 'category',
+				title		: 'Add Category',
+				slug_value	: '',
+				trigger		: $('.content [name=category_id]')
+			});			
+		}
+	});		
+	
+});
+</script>

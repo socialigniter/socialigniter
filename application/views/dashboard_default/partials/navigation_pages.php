@@ -2,5 +2,5 @@
 <ul class="content_navigation">
 	<?= navigation_list_btn('home/pages', 'Recent') ?>
 	<?= navigation_list_btn('home/pages/create', 'Create') ?>
-	<?= navigation_list_btn('home/pages/manage', 'Manage') ?>
+	<?= navigation_list_btn('home/pages/manage', 'Manage', $this->uri->segment(4)) ?>
 </ul>

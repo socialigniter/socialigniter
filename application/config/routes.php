@@ -85,20 +85,19 @@ $route['connections/(:any)/(:any)'] 			= '$1/connections/$2';
 $route['connections/(:any)'] 					= '$1/connections/index';
 
 /* Home */
-$route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
-$route['home/(:any)/(:any)/(:any)'] 			= '$1/home/$2/$3';
-$route['home/(:any)/manage'] 					= 'home/manage/$1';
-
 $route['home/pages/manage/(:num)']				= 'pages/editor';
 $route['home/pages/create']						= 'pages/editor';
-
 $route['home/comments/(:any)'] 					= 'home/comments/$1';
-$route['home/(:any)/(:any)'] 					= '$1/home/$2';
-$route['home/(:any)'] 							= 'home';
 $route['home/comments'] 						= 'home/comments';
 $route['home/friends']							= 'home/friends';
 $route['home/mentions'] 						= 'home/mentions';
 $route['home/likes']							= 'home/likes';
+
+$route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
+$route['home/(:any)/(:any)/(:any)'] 			= '$1/home/$2/$3';
+$route['home/(:any)/manage'] 					= 'home/manage/$1';
+$route['home/(:any)/(:any)'] 					= '$1/home/$2';
+$route['home/(:any)'] 							= 'home';
 
 /* Home Partials */
 $route['home/item_timeline']					= 'home/item_timeline';

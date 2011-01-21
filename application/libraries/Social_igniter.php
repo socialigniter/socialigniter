@@ -582,7 +582,7 @@ class Social_igniter
 		{
 			$activity_info = array(
 				'site_id'		=> $update->site_id,
-				'user_id'		=> $update->user_id,
+				'user_id'		=> $user_id,
 				'verb'			=> 'update',
 				'module'		=> $update->module,
 				'type'			=> $update->type,
