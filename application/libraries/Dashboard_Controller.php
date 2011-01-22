@@ -39,35 +39,36 @@ class Dashboard_Controller extends MY_Controller
 			$this->data['this_module']			= $this->module_name;
 		}
 
-		// Get Includes From All Modules
-		$this->modules_scan = $this->social_igniter->scan_modules();
-
-		foreach ($this->modules_scan as $module)
+		// If Modules Exist
+		if ($this->modules_scan)
 		{
-			if (config_item($module.'_enabled') == 'TRUE')
-			{	
-				// Set Module Partials
-				$module_head 						= '/modules/'.$module.'/views/partials/head_dashboard.php';
-				$module_sidebar_messages 			= '/modules/'.$module.'/views/partials/sidebar_messages.php';
-				$module_sidebar_tools 				= '/modules/'.$module.'/views/partials/sidebar_tools.php';
-				$module_sidebar_admin 				= '/modules/'.$module.'/views/partials/sidebar_admin.php';
-				$this->data['this_module_assets'] 	= base_url().'application/modules/'.$module.'/assets/';
-
-				// Load Views From All Modules
-			    if (($this->module_name == $module) && (file_exists(APPPATH.$module_head)))
-			    {
-			    	$this->data['head'] 			.= $this->load->view('..'.$module_head, $this->data, true);
-			    }
-			    
-			    if (file_exists(APPPATH.$module_sidebar_messages))
-			    {
-			    	$this->data['sidebar_messages'] .= $this->load->view('..'.$module_sidebar_messages, $this->data, true);
-			    }
-			    
-			    if (file_exists(APPPATH.$module_sidebar_tools))
-			    {
-			    	$this->data['sidebar_tools'] 	.= $this->load->view('..'.$module_sidebar_tools, $this->data, true);
-			    }
+			foreach ($this->modules_scan as $module)
+			{
+				if (config_item($module.'_enabled') == 'TRUE')
+				{	
+					// Set Module Partials
+					$module_head 						= '/modules/'.$module.'/views/partials/head_dashboard.php';
+					$module_sidebar_messages 			= '/modules/'.$module.'/views/partials/sidebar_messages.php';
+					$module_sidebar_tools 				= '/modules/'.$module.'/views/partials/sidebar_tools.php';
+					$module_sidebar_admin 				= '/modules/'.$module.'/views/partials/sidebar_admin.php';
+					$this->data['this_module_assets'] 	= base_url().'application/modules/'.$module.'/assets/';
+	
+					// Load Views From All Modules
+				    if (($this->module_name == $module) && (file_exists(APPPATH.$module_head)))
+				    {
+				    	$this->data['head'] 			.= $this->load->view('..'.$module_head, $this->data, true);
+				    }
+				    
+				    if (file_exists(APPPATH.$module_sidebar_messages))
+				    {
+				    	$this->data['sidebar_messages'] .= $this->load->view('..'.$module_sidebar_messages, $this->data, true);
+				    }
+				    
+				    if (file_exists(APPPATH.$module_sidebar_tools))
+				    {
+				    	$this->data['sidebar_tools'] 	.= $this->load->view('..'.$module_sidebar_tools, $this->data, true);
+				    }
+				}
 			}
 		}
     }

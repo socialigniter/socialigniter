@@ -27,8 +27,8 @@ class MY_Controller extends MX_Controller
     protected $module_name;
     protected $module_controller;
     protected $module;
-    protected $modules_scan;
     protected $modules_navigation;
+    public $modules_scan 			= array();
 
 	function __construct()
 	{
@@ -172,6 +172,9 @@ class MY_Controller extends MX_Controller
 		// For rendering pages in a modeule
       	$this->module_name     				= $this->router->fetch_module();
         $this->module_controller 			= $this->router->fetch_class();
+        
+		// Scann Modules directory
+		$this->modules_scan = $this->social_igniter->scan_modules();        
 
         // For Debugging
         $this->output->enable_profiler(FALSE);
