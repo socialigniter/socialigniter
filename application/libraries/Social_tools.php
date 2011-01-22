@@ -149,7 +149,7 @@ class Social_tools
 	
 	function render_children_categories($categories_query, $parent_id)
 	{
-		$categories = NULL;
+		$this->categories = NULL;
 		
 		foreach ($categories_query as $child)
 		{
