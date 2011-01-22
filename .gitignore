@@ -1,4 +1,5 @@
 *.DS_Store
+favicon.ico
 application/config/config.php
 application/config/database.php
 application/config/social_igniter.php
@@ -6,3 +7,4 @@ application/config/email.php
 application/modules/
 media/
 system/logs/
+application/views/site_trackersearth
