@@ -148,7 +148,9 @@ class Social_tools
 	}
 	
 	function render_children_categories($categories_query, $parent_id)
-	{	
+	{
+		$categories = NULL;
+		
 		foreach ($categories_query as $child)
 		{
 			if ($parent_id == $child->parent_id)
