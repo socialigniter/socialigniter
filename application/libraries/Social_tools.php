@@ -126,32 +126,46 @@ class Social_tools
 	function get_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label=NULL)
 	{
 		$categories_query	= $this->get_categories_view($parameter, $value);
-		$categories 		= array(0 => '---select---');
-
-		foreach ($categories_query as $category)
-		{
-			if ($user_level_id <= 2)
-			{
-				$categories[$category->category_id] = $category->category;
-			}
-			elseif ($category->user_id == $user_id)
-			{
-				$categories[$category->category_id] = $category->category;
-			}
-		}
+		$categories 		= array(0 => '----select----');
 		
+		// Recursive Func that build child
+		$categories 		= $this->render_children_categories($categories_query, 0);
+				
 		// Add Category
-		if (!$add_label)
+		if ($user_level_id <= 2)
 		{
-			$categories['add_category'] = '+ Add Category';	
-		}
-		else
-		{
-			$categories['add_category'] = $add_label;
+			if (!$add_label)
+			{
+				$categories['add_category'] = '+ Add Category';	
+			}
+			else
+			{
+				$categories['add_category'] = $add_label;
+			}	
 		}
 		
 		return $categories;	
 	}
+	
+	function render_children_categories($categories_query, $parent_id)
+	{	
+		foreach ($categories_query as $child)
+		{
+			if ($parent_id == $child->parent_id)
+			{
+				if ($parent_id != '0') $category_display = ' - '.$child->category;
+				else $category_display = $child->category;
+			
+				$this->categories[$child->category_id] = $category_display;
+
+				// Recursive Call
+				$this->render_children_categories($categories_query, $child->category_id);
+			}
+		}
+			
+		return $this->categories;
+	}	
+	
 
 	// Add Category & Activity
 	function add_category($category_data, $activity_data=FALSE)
@@ -293,7 +307,6 @@ class Social_tools
 	{
 		return $this->ci->comments_model->delete_comment($comment_id);
 	}
-
 
 	function render_children_comments($comments, $reply_to_id)
 	{
