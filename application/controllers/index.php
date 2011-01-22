@@ -78,9 +78,9 @@ class Index extends Public_Controller
 		{
 			$this->data['sidebar'] .= $this->load->view(config_item('site_theme').'/partials/widget_login', $this->data, true);	
 		}
-		
-		$this->data['sidebar'] .= modules::run('blog/widgets_sidebar');
-		$this->data['sidebar'] .= modules::run('events/widgets_sidebar');
+
+		// Do MODULE WIDGETS
+		//$this->data['sidebar'] .= modules::run('blog/widgets_sidebar');
 
 		$this->render();
 	}

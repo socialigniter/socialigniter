@@ -3,12 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 07, 2011 at 07:29 PM
+-- Generation Time: Jan 21, 2011 at 04:21 PM
 -- Server version: 5.1.44
 -- PHP Version: 5.2.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
 
 CREATE TABLE `access` (
   `access_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -19,7 +18,6 @@ CREATE TABLE `access` (
   `level_id` char(1) NOT NULL,
   PRIMARY KEY (`access_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `activity` (
   `activity_id` int(32) NOT NULL AUTO_INCREMENT,
@@ -33,7 +31,6 @@ CREATE TABLE `activity` (
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`activity_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `categories` (
   `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -52,7 +49,6 @@ CREATE TABLE `categories` (
   `updated_at` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `comments` (
   `comment_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -73,7 +69,6 @@ CREATE TABLE `comments` (
   PRIMARY KEY (`comment_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE `connections` (
   `connection_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned DEFAULT NULL,
@@ -85,8 +80,6 @@ CREATE TABLE `connections` (
   `auth_two` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`connection_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-
 
 CREATE TABLE `content` (
   `content_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -114,14 +107,11 @@ CREATE TABLE `content` (
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
   `updated_at` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`content_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
-
-
-INSERT INTO `content` VALUES('', 1, 0, 0, 'pages', 'page', '', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index', 'E', 'Y', 3, NULL, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '2010-12-06 00:45:45');
-INSERT INTO `content` VALUES('', 1, 0, 0, 'pages', 'page', '', 2, 1, 'Contact', 'contact', 'Please contact us', 'site', NULL, 'N', 0, NULL, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `content` VALUES('', 1, 0, 0, 'pages', 'page', '', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site', 'S', 'A', 0, NULL, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '2010-12-06 00:59:42');
-
+INSERT INTO `content` VALUES(1, 1, 0, 0, 'pages', 'page', '', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word! lkasjdlkjaskldj asd', 'index', 'E', 'Y', 2, '', '', '', 'Y', 'A', 'S', '2010-07-17 00:00:00', '2011-01-20 21:05:14');
+INSERT INTO `content` VALUES(2, 1, 0, 0, 'pages', 'page', '', 2, 1, 'Contact', 'contact', 'Please contact us', 'site', NULL, 'N', 0, NULL, NULL, NULL, 'Y', 'A', 'P', '2010-07-17 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `content` VALUES(3, 1, 0, 0, 'pages', 'page', '', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site', 'S', 'A', 3, NULL, NULL, NULL, 'Y', 'Y', 'S', '2010-07-17 00:00:00', '2011-01-20 17:06:59');
 
 CREATE TABLE `content_meta` (
   `content_meta_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -132,8 +122,22 @@ CREATE TABLE `content_meta` (
   `created_at` datetime NOT NULL,
   `updated_At` datetime NOT NULL,
   PRIMARY KEY (`content_meta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
+CREATE TABLE `locations` (
+  `location_id` int(11) NOT NULL AUTO_INCREMENT,
+  `site_id` int(6) DEFAULT NULL,
+  `content_id` int(11) DEFAULT NULL,
+  `address` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `district` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `locality` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `region` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `country` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `postal` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `latitude` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `longitude` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`location_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE `oauth_server_nonce` (
   `osn_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -144,7 +148,6 @@ CREATE TABLE `oauth_server_nonce` (
   PRIMARY KEY (`osn_id`),
   UNIQUE KEY `osn_consumer_key` (`osn_consumer_key`,`osn_token`,`osn_timestamp`,`osn_nonce`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `oauth_server_registry` (
   `osr_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -169,7 +172,6 @@ CREATE TABLE `oauth_server_registry` (
   KEY `osr_usa_id_ref` (`osr_usa_id_ref`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE `oauth_server_token` (
   `ost_id` int(11) NOT NULL AUTO_INCREMENT,
   `ost_osr_id_ref` int(11) NOT NULL,
@@ -189,7 +191,6 @@ CREATE TABLE `oauth_server_token` (
   KEY `ost_token_ttl` (`ost_token_ttl`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE `ratings` (
   `rating_id` int(11) NOT NULL AUTO_INCREMENT,
   `site_id` int(6) NOT NULL,
@@ -201,18 +202,16 @@ CREATE TABLE `ratings` (
   PRIMARY KEY (`rating_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE `relationships` (
   `relationship_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `owner_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `type` char(32) COLLATE utf8_unicode_ci NOT NULL,
-  `type_sub` char(32) COLLATE utf8_unicode_ci NOT NULL,
+  `type` char(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type_sub` char(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` char(1) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`relationship_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `settings` (
   `settings_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -222,6 +221,79 @@ CREATE TABLE `settings` (
   `value` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`settings_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` VALUES(1, 1, 'theme', 'site', 'site_default');
+INSERT INTO `settings` VALUES(2, 1, 'theme', 'dashboard', 'dashboard_default');
+INSERT INTO `settings` VALUES(3, 1, 'theme', 'mobile', 'mobile_default');
+INSERT INTO `settings` VALUES(4, 1, 'site', 'google_webmaster', '');
+INSERT INTO `settings` VALUES(5, 1, 'classes', 'images_sizes_full', 'yes');
+INSERT INTO `settings` VALUES(6, 1, 'site', 'google_analytics', '');
+INSERT INTO `settings` VALUES(7, 1, 'site', 'bing_webmaster', '');
+INSERT INTO `settings` VALUES(8, 1, 'site', 'gravatar_enabled', 'TRUE');
+INSERT INTO `settings` VALUES(9, 1, 'site', 'bitly_enabled', 'TRUE');
+INSERT INTO `settings` VALUES(10, 1, 'site', 'bitly_login', '');
+INSERT INTO `settings` VALUES(11, 1, 'site', 'bitly_api_key', '');
+INSERT INTO `settings` VALUES(12, 1, 'site', 'bitly_domain', 'bit.ly');
+INSERT INTO `settings` VALUES(13, 1, 'site', 'akismet_key', 'dc0465ba152f');
+INSERT INTO `settings` VALUES(14, 1, 'site', 'recaptcha_public', '6Lch7LwSAAAAACP2t2e1qpIQ9Cz7AsvXRfJf1yW_');
+INSERT INTO `settings` VALUES(15, 1, 'site', 'recaptcha_private', '6Lch7LwSAAAAAJvERNehdFPPPZ5TQjd1DgjJRTmK');
+INSERT INTO `settings` VALUES(16, 1, 'site', 'recaptcha_theme', 'white');
+INSERT INTO `settings` VALUES(17, 1, 'comments', 'enabled', 'TRUE');
+INSERT INTO `settings` VALUES(18, 1, 'comments', 'reply', 'TRUE');
+INSERT INTO `settings` VALUES(19, 1, 'comments', 'reply_level', '2');
+INSERT INTO `settings` VALUES(20, 1, 'comments', 'comments_date_style', 'SIMPLE_TIME');
+INSERT INTO `settings` VALUES(21, 1, 'comments', 'email_signup', 'TRUE');
+INSERT INTO `settings` VALUES(22, 1, 'comments', 'email_replies', 'TRUE');
+INSERT INTO `settings` VALUES(23, 1, 'comments', 'akismet', 'TRUE');
+INSERT INTO `settings` VALUES(24, 1, 'comments', 'recaptcha', 'TRUE');
+INSERT INTO `settings` VALUES(25, 1, 'comments', 'date_style', 'ELAPSED');
+INSERT INTO `settings` VALUES(26, 1, 'ratings', 'enabled', 'TRUE');
+INSERT INTO `settings` VALUES(27, 1, 'ratings', 'rate_type', 'TRUE');
+INSERT INTO `settings` VALUES(28, 1, 'pages', 'enabled', 'TRUE');
+INSERT INTO `settings` VALUES(29, 1, 'pages', 'ratings_allow', 'TRUE');
+INSERT INTO `settings` VALUES(30, 1, 'pages', 'tags_display', 'TRUE');
+INSERT INTO `settings` VALUES(31, 1, 'pages', 'comments_allow', 'TRUE');
+INSERT INTO `settings` VALUES(32, 1, 'pages', 'comments_per_page', '10');
+INSERT INTO `settings` VALUES(33, 1, 'home', 'public_timeline', 'TRUE');
+INSERT INTO `settings` VALUES(34, 1, 'home', 'date_style', 'ELAPSED');
+INSERT INTO `settings` VALUES(35, 1, 'home', 'description_length', '110');
+INSERT INTO `settings` VALUES(36, 1, 'home', 'share', 'TRUE');
+INSERT INTO `settings` VALUES(37, 1, 'home', 'like', 'TRUE');
+INSERT INTO `settings` VALUES(38, 1, 'home', 'comments_allow', 'TRUE');
+INSERT INTO `settings` VALUES(39, 1, 'home', 'comments_per_page', '2');
+INSERT INTO `settings` VALUES(40, 1, 'users', 'signup', 'TRUE');
+INSERT INTO `settings` VALUES(41, 1, 'users', 'signup_recaptcha', 'TRUE');
+INSERT INTO `settings` VALUES(42, 1, 'users', 'login', 'TRUE');
+INSERT INTO `settings` VALUES(43, 1, 'users', 'login_recaptcha', 'TRUE');
+INSERT INTO `settings` VALUES(44, 1, 'users', 'profile', 'TRUE');
+INSERT INTO `settings` VALUES(45, 1, 'users', 'profile_activity', 'TRUE');
+INSERT INTO `settings` VALUES(46, 1, 'users', 'profile_relationships', 'TRUE');
+INSERT INTO `settings` VALUES(47, 1, 'users', 'profile_content', 'TRUE');
+INSERT INTO `settings` VALUES(48, 1, 'users', 'message_allow', 'TRUE');
+INSERT INTO `settings` VALUES(49, 1, 'users', 'message_recaptcha', '5');
+INSERT INTO `settings` VALUES(50, 1, 'users', 'comments_allow', 'TRUE');
+INSERT INTO `settings` VALUES(51, 1, 'users', 'comments_per_page', '10');
+INSERT INTO `settings` VALUES(52, 1, 'users', 'images_sizes_large', 'yes');
+INSERT INTO `settings` VALUES(53, 1, 'users', 'images_sizes_medium', 'yes');
+INSERT INTO `settings` VALUES(54, 1, 'users', 'images_sizes_small', 'yes');
+INSERT INTO `settings` VALUES(55, 1, 'users', 'images_large_width', '275');
+INSERT INTO `settings` VALUES(56, 1, 'users', 'images_large_height', '175');
+INSERT INTO `settings` VALUES(57, 1, 'users', 'images_medium_width', '48');
+INSERT INTO `settings` VALUES(58, 1, 'users', 'images_medium_height', '48');
+INSERT INTO `settings` VALUES(59, 1, 'users', 'images_small_width', '45');
+INSERT INTO `settings` VALUES(60, 1, 'users', 'images_small_height', '25');
+INSERT INTO `settings` VALUES(61, 1, 'users', 'images_formats', 'gif|jpg|jpeg|png');
+INSERT INTO `settings` VALUES(62, 1, 'users', 'images_max_size', '25600');
+INSERT INTO `settings` VALUES(63, 1, 'users', 'images_full_width', '750');
+INSERT INTO `settings` VALUES(64, 1, 'users', 'images_full_height', '750');
+INSERT INTO `settings` VALUES(65, 1, 'users', 'images_sizes_full', 'yes');
+INSERT INTO `settings` VALUES(66, 1, 'users', 'images_folder', 'media/profiles/');
+INSERT INTO `settings` VALUES(67, 1, 'users', 'images_max_dimensions', '3000');
+INSERT INTO `settings` VALUES(68, 1, 'users', 'images_sizes_original', 'yes');
 
 
 CREATE TABLE `sites` (
@@ -234,11 +306,9 @@ CREATE TABLE `sites` (
   `keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `favicon` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`site_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 INSERT INTO `sites` VALUES(1, 'http://social-igniter.com', 'default', 'Social-Igniter', 'A Really Simple Open Source Social Web Application Template', 'Social-Igniter is a really simple open source social web application template', 'social, web application, open source, codeigniter, php', NULL);
-
 
 CREATE TABLE `tags` (
   `tag_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -246,8 +316,7 @@ CREATE TABLE `tags` (
   `tag_url` varchar(128) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`tag_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 CREATE TABLE `tags_link` (
   `tag_link_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -257,7 +326,6 @@ CREATE TABLE `tags_link` (
   PRIMARY KEY (`tag_link_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE `taxonomy` (
   `taxonomy_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `object_id` int(11) NOT NULL,
@@ -265,7 +333,6 @@ CREATE TABLE `taxonomy` (
   `count` int(5) NOT NULL,
   PRIMARY KEY (`taxonomy_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `users` (
   `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -287,11 +354,12 @@ CREATE TABLE `users` (
 
 CREATE TABLE `users_level` (
   `user_level_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `level` char(20) NOT NULL,
-  `name` char(64) NOT NULL,
-  `description` char(255) NOT NULL,
+  `level` varchar(20) NOT NULL,
+  `name` char(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) NOT NULL,
   PRIMARY KEY (`user_level_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
 
 INSERT INTO `users_level` VALUES(1, 'superadmin', 'Super Admin', 'Super Admins are the head honchos who have power to do anything they want on your install of Social Igniter');
 INSERT INTO `users_level` VALUES(2, 'admin', 'Admin', 'Admins can do most things, not all, but most things needed on a site');
@@ -333,7 +401,6 @@ CREATE TABLE `users_sessions` (
   `user_data` text NOT NULL,
   PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 ALTER TABLE `oauth_server_token`
   ADD CONSTRAINT `oauth_server_token_ibfk_1` FOREIGN KEY (`ost_osr_id_ref`) REFERENCES `oauth_server_registry` (`osr_id`) ON DELETE CASCADE ON UPDATE CASCADE;
