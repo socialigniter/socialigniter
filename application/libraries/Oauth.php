@@ -25,12 +25,26 @@ class Oauth
     
     function request_is_signed()
     {
+        log_message('debug', 'oauthcrap: inside request_is_signed of Oauth lib');
+
     	try
     	{
+	        log_message('debug', 'oauthcrap: inside request_is_signed try requestIsSigned() of Oauth lib');
+	        
+			$req_headers = $this->ci->input->request_headers();        
+	        
+	        foreach ($req_headers as $req_head)
+	        {
+	        //$this->ci->input->get_request_header('oauth_signature')
+		        log_message('debug', 'oauthcrap: header: '.$req_head);        
+	        }
+	        
         	return OAuthRequestVerifier::requestIsSigned();
     	}
     	catch (OAuthException2 $e)
     	{
+	        log_message('debug', 'oauthcrap: inside request_is_signed catch OAuthException2 of Oauth lib');
+
     		return FALSE;
     	}
     }
