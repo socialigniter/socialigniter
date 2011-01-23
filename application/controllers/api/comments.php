@@ -11,7 +11,7 @@ class Comments extends Oauth_Controller
     // Recent Comments
     function recent_get()
     {
-        $comments = $this->social_tools->get_comments();
+        $comments = $this->social_tools->get_comments_recent('all', 10);
         
         if($comments)
         {

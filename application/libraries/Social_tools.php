@@ -233,7 +233,7 @@ class Social_tools
 		return $this->ci->comments_model->get_comments($site_id, $owner_id, $module);
 	}
 
-	function get_comments_recent($module, $limit=10)
+	function get_comments_recent($module=NULL, $limit=10)
 	{
 		return $this->ci->comments_model->get_comments_recent(config_item('site_id'), $module, $limit);
 	}
