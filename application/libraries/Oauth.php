@@ -19,6 +19,8 @@ class Oauth
         );
         
         OAuthStore::instance('MySQL', $database);
+ 
+        log_message('debug', 'oauthcrap: inside construct of Oauth lib');
     }
     
     function request_is_signed()
