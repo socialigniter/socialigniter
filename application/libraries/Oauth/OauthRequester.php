@@ -29,8 +29,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-require_once dirname(__FILE__) . '/OAuthRequestSigner.php';
-require_once dirname(__FILE__) . '/body/OAuthBodyContentDisposition.php';
+require_once dirname(__FILE__) . '/OauthRequestSigner.php';
+require_once dirname(__FILE__) . '/body/OauthBodyContentDisposition.php';
 
 class OAuthRequester extends OAuthRequestSigner
 {

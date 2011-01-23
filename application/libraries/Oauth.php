@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-require_once(APPPATH.'libraries/OAuth/OAuthRequestVerifier.php');
+require_once(APPPATH.'libraries/Oauth/OauthRequestVerifier.php');
 
 class Oauth
 {
@@ -44,7 +44,7 @@ class Oauth
         }
         catch (OAuthException2 $e)
         {
-        	//log_message('debug', 'Exception while verifying request: '.$e->getMessage());
+        	log_message('debug', 'Exception while verifying request: '.$e->getMessage());
             return FALSE;
         }
     }

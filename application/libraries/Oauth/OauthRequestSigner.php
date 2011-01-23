@@ -31,8 +31,8 @@
  * THE SOFTWARE.
  */
 
-require_once dirname(__FILE__) . '/OAuthStore.php';
-require_once dirname(__FILE__) . '/OAuthRequest.php';
+require_once dirname(__FILE__) . '/OauthStore.php';
+require_once dirname(__FILE__) . '/OauthRequest.php';
 
 class OAuthRequestSigner extends OAuthRequest
 {

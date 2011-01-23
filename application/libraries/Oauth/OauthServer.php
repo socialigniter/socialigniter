@@ -31,8 +31,8 @@
  * THE SOFTWARE.
  */
 
-require_once 'OAuthRequestVerifier.php';
-require_once 'OAuthSession.php';
+require_once 'OauthRequestVerifier.php';
+require_once 'OauthSession.php';
 
 class OAuthServer extends OAuthRequestVerifier
 {
