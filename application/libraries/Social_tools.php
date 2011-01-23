@@ -14,6 +14,7 @@
 class Social_tools
 {
 	protected $ci;
+	protected $categories;
 
 	function __construct()
 	{
@@ -149,7 +150,7 @@ class Social_tools
 	
 	function render_children_categories($categories_query, $parent_id)
 	{
-		$this->categories = NULL;
+//		$this->categories = NULL;
 		
 		foreach ($categories_query as $child)
 		{
