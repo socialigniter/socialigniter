@@ -64,6 +64,8 @@ class OAuthRequestVerifier extends OAuthRequest
 		parent::__construct($uri, $method);
 		
 		OAuthRequestLogger::start($this);
+		
+        log_message('debug', 'oauthcrap: inside construct of OauthRequestVerifier');		
 	}
 	
 	
@@ -73,13 +75,19 @@ class OAuthRequestVerifier extends OAuthRequest
 	 * @return boolean
 	 */
 	static public function requestIsSigned()
-	{
+	{	
+        log_message('debug', 'oauthcrap: inside requestIsSigned() of OauthRequestVerifier');		
+	
 		if (isset($_REQUEST['oauth_signature']))
 		{
+	        log_message('debug', 'oauthcrap: inside isset($_REQUEST[oauth_sig of OauthRequestVerifier');
+
 			$signed = true;
 		}
 		else
 		{
+	        log_message('debug', 'oauthcrap: inside ELSE of isset($_REQUEST[oauth_signature of OauthRequestVerifier');
+
 			$hs = OAuthRequestLogger::getAllHeaders();
 			if (isset($hs['Authorization']) && strpos($hs['Authorization'], 'oauth_signature') !== false)
 			{
