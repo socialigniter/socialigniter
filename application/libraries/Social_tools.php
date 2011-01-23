@@ -14,7 +14,7 @@
 class Social_tools
 {
 	protected $ci;
-	protected $categories;
+	protected $categories_view;
 
 	function __construct()
 	{
@@ -126,8 +126,8 @@ class Social_tools
 	
 	function get_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label=NULL)
 	{
-		$categories_query	= $this->get_categories_view($parameter, $value);
-		$categories 		= array(0 => '----select----');
+		$categories_query		= $this->get_categories_view($parameter, $value);
+		$this->categories_view 	= array(0 => '----select----');
 		
 		// Recursive Func that build child
 		$categories 		= $this->render_children_categories($categories_query, 0);
@@ -137,21 +137,19 @@ class Social_tools
 		{
 			if (!$add_label)
 			{
-				$categories['add_category'] = '+ Add Category';	
+				$this->categories_view['add_category'] = '+ Add Category';	
 			}
 			else
 			{
-				$categories['add_category'] = $add_label;
+				$this->categories_view['add_category'] = $add_label;
 			}	
 		}
 		
-		return $categories;	
+		return $this->categories_view;	
 	}
 	
 	function render_children_categories($categories_query, $parent_id)
-	{
-//		$this->categories = NULL;
-		
+	{		
 		foreach ($categories_query as $child)
 		{
 			if ($parent_id == $child->parent_id)
@@ -159,14 +157,14 @@ class Social_tools
 				if ($parent_id != '0') $category_display = ' - '.$child->category;
 				else $category_display = $child->category;
 			
-				$this->categories[$child->category_id] = $category_display;
+				$this->categories_view[$child->category_id] = $category_display;
 
 				// Recursive Call
 				$this->render_children_categories($categories_query, $child->category_id);
 			}
 		}
 			
-		return $this->categories;
+		return $this->categories_view;
 	}	
 	
 
