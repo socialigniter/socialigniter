@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class REST_Controller extends MX_Controller
+class Rest_Controller extends MX_Controller
 {
     protected $rest_format 	= NULL; // Set this in a controller to use a default format
 	protected $methods 		= array(); // contains a list of method properties such as limit, log and level
