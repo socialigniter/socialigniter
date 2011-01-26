@@ -8,7 +8,7 @@ class Home extends Dashboard_Controller
  
  	// Home Feed
  	function index()
- 	{ 		 		
+ 	{ 	
 		if ($this->uri->total_segments() == 1)
 		{
 	 	    $this->data['page_title'] 		= 'Home';
@@ -28,8 +28,8 @@ class Home extends Dashboard_Controller
  	    }
  	     	     	    
 		// Feed 
-		$timeline 							= $this->social_igniter->get_timeline(10, $feed_module);
-		$timeline_view 						= NULL;		
+		$timeline 			= $this->social_igniter->get_timeline(10, $feed_module);
+		$timeline_view 		= NULL;		
 				 			
 		if (!empty($timeline))
 		{

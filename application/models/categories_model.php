@@ -33,9 +33,9 @@ class Categories_model extends CI_Model {
 	 		$this->db->select('*');
 	 		$this->db->from('categories');	 		 
 	 		$this->db->where($parameter, $value);
-	 		$this->db->order_by('created_at', 'desc'); 
+	 		$this->db->order_by('category', 'asc'); 
 	 		$result = $this->db->get();	
-	 		return $result->result();	      
+	 		return $result->result();
 		}
 		else
 		{

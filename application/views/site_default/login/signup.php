@@ -37,3 +37,13 @@
 <p>Sorry user signup is currently turned off</p>
 
 <?php endif; ?>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+	doPlaceholder('[name=name]', "Joe Smith");
+	doPlaceholder('[name=email]', 'your@email.com');
+	doPlaceholder('[name=password]', 'password');
+	doPlaceholder('[name=password_confirm]', 'password');
+});
+</script>

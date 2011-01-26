@@ -8,7 +8,7 @@
 <meta name="keywords" content="<?= $site_keywords ?>" />
 <meta name="google-site-verification" content="<?= $settings['site']['google_webmaster']; ?>" />
 <meta name="msvalidate.01" content="<?= $settings['site']['bing_webmaster']; ?>" />
-<link rel="icon" type="image/png" href="<?= base_url() ?>favicon.ico" />
+<link rel="icon" type="image/png" href="<?= $site_assets ?>favicon.ico" />
 <?= $head ?>
 </head>
 <body>
