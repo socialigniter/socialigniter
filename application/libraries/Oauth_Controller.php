@@ -6,9 +6,7 @@ class Oauth_Controller extends Rest_Controller
   
     function __construct($config = array())
     {
-        parent::__construct();
-        
-        log_message('debug', 'oauthcrap: at construct of Oauth_Controller');        
+        parent::__construct();        
     }
 
     function string_begins_with($string, $search)
@@ -32,12 +30,12 @@ class Oauth_Controller extends Rest_Controller
         {
             if (!$this->social_auth->request_is_signed())
             {
-			    log_message('debug', 'oauthcrap: request_is_signed returning TRUE');	
+			    log_message('debug', 'oauth request_is_signed returning TRUE');	
                 return $this->response(array('status' => 'error', 'message' => 'Request is not signed.'), 401);
             }
 
 	        $this->oauth_user_id = $this->social_auth->get_oauth_user_id();
-			log_message('debug', 'oauthcrap: oauth_user_id is '.$this->oauth_user_id);	
+			log_message('debug', 'oauth oauth_user_id is '.$this->oauth_user_id);	
 
             if (!$this->oauth_user_id)
             {
@@ -47,7 +45,7 @@ class Oauth_Controller extends Rest_Controller
             $method = $authd_method;
         }
 
-		log_message('debug', 'oauthcrap: passing to parent _remap '.$method);	
+		log_message('debug', 'oauth passing to parent _remap '.$method);	
         parent::_remap($method);
     }
 }

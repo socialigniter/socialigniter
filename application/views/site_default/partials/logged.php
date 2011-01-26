@@ -11,7 +11,7 @@
 <?php else: ?>
 <ul id="header_not_logged">
 	<?php if (config_item('users_signup') == 'TRUE'): ?>
-	<li><a class="dark_nav" href="<?= base_url().'login/signup' ?>">Sign Up</a></li>
+	<li><a class="dark_nav" href="<?= base_url().'signup' ?>">Sign Up</a></li>
 	<?php endif; ?>
 	<li><a class="dark_nav" href="<?= base_url().'login' ?>">Log In</a></li>
 </ul>

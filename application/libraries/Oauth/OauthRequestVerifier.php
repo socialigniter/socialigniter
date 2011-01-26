@@ -63,11 +63,8 @@ class OAuthRequestVerifier extends OAuthRequest
 		$this->store = OAuthStore::instance();
 		parent::__construct($uri, $method);
 		
-		OAuthRequestLogger::start($this);
-		
-        log_message('debug', 'oauthcrap: inside construct of OauthRequestVerifier');		
+		OAuthRequestLogger::start($this);		
 	}
-	
 	
 	/**
 	 * See if the current request is signed with OAuth
@@ -75,18 +72,16 @@ class OAuthRequestVerifier extends OAuthRequest
 	 * @return boolean
 	 */
 	static public function requestIsSigned()
-	{	
-        log_message('debug', 'oauthcrap: inside requestIsSigned() of OauthRequestVerifier');		
-	
+	{		
 		if (isset($_REQUEST['oauth_signature']))
 		{
-	        log_message('debug', 'oauthcrap: inside isset($_REQUEST[oauth_sig of OauthRequestVerifier');
+	        log_message('debug', 'oauth inside isset($_REQUEST[oauth_sig of OauthRequestVerifier');
 
 			$signed = true;
 		}
 		else
 		{
-	        log_message('debug', 'oauthcrap: inside ELSE of isset($_REQUEST[oauth_signature of OauthRequestVerifier');
+	        log_message('debug', 'oauth inside ELSE of isset($_REQUEST[oauth_signature of OauthRequestVerifier');
 
 			$hs = OAuthRequestLogger::getAllHeaders();
 			if (isset($hs['Authorization']) && strpos($hs['Authorization'], 'oauth_signature') !== false)
@@ -257,8 +252,8 @@ class OAuthRequestVerifier extends OAuthRequest
 		{
 			if (!isset($this->param[$req]))
 			{
-				log_message('debug', 'Can\'t verify request signature, missing parameter "'.$req.'"');
-				throw new OAuthException2('Can\'t verify request signature, missing parameter "'.$req.'"');
+				log_message('debug', 'Cannot verify request signature missing parameter "'.$req.'"');
+				throw new OAuthException2('Cannot verify request signature, missing parameter "'.$req.'"');
 			}
 		}
 

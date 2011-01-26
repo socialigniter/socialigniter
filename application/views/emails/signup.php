@@ -3,7 +3,7 @@
 
 	<p>Hi <?= $name ?>,</p>
 	
-	<p>Thanks for signing up <?= $this->config->item('site_title'); ?></p>
+	<p>Thanks for signing up <?= config_item('site_title'); ?></p>
 	
 	<p>Use the following login information for the future:</p>
 	

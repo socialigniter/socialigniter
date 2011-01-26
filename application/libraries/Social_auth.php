@@ -167,7 +167,10 @@ class Social_auth
 			// Get User
 			$profile = $this->ci->auth_model->profile($email);
 
-			$data = array('identity' => $profile->{config_item('identity')}, 'forgotten_password_code' => $profile->forgotten_password_code);
+			$data = array(
+				'identity' => $profile->{config_item('identity')}, 
+				'forgotten_password_code' => $profile->forgotten_password_code
+			);
 
 			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password'), $data, true);
 			$this->ci->email->clear();
@@ -212,7 +215,10 @@ class Social_auth
 
 		if ($new_password) 
 		{
-			$data = array('identity'     => $profile->{$identity}, 'new_password' => $new_password);
+			$data = array(
+				'identity' => $profile->{$identity}, 
+				'new_password' => $new_password
+			);
             
 			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password_complete'), $data, true);
 
@@ -259,10 +265,7 @@ class Social_auth
 			
 				// Make OAuth Tokens & debug msgs
 				$consumer_keys	= $this->create_or_update_consumer(array('requester_name' => $user->name, 'requester_email' => $user->email), $user->user_id);
-				$access_tokens	= $this->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user->user_id);
-			
-				//log_message('debug', 'consumer_key: '.$consumer_keys['consumer_key'].' consumer_secret: '.$consumer_keys['consumer_secret']);			
-				//log_message('debug', 'oauth token: '.$access_tokens['token'].' token_secret '.$access_tokens['token_secret']);
+				$access_tokens	= $this->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user->user_id);			
 
 		    	$update_data = array(
 		        	'consumer_key'		=> $consumer_keys['consumer_key'],
@@ -273,7 +276,6 @@ class Social_auth
 		    	
 		    	// Update the user with tokens
 		    	$this->update_user($user->user_id, $update_data);
-		    	
 
 				// Send Welcome Email				
 				$data = array(
@@ -290,7 +292,7 @@ class Social_auth
 				$this->ci->email->set_newline("\r\n");
 				$this->ci->email->from(config_item('admin_email'), config_item('site_title'));
 				$this->ci->email->to($email);
-				$this->ci->email->subject(config_item('site_title') . ' thanks you for signing up');
+				$this->ci->email->subject(config_item('site_title').' thanks you for signing up');
 				$this->ci->email->message($message);
 				
 				if ($this->ci->email->send() == TRUE) 

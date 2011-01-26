@@ -1,7 +1,7 @@
 <html>
 <body>
-	<h1>New Password for <?php echo $identity;?></h1>
+	<h1>New Password for <?= $identity;?></h1>
 	
-	<p>Your password has been reset to: <?php echo $new_password;?></p>
+	<p>Your password has been reset to: <?= $new_password;?></p>
 </body>
 </html>

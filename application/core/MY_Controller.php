@@ -43,7 +43,7 @@ class MY_Controller extends MX_Controller
         // Get Site
 		$site = $this->social_igniter->get_site();
 
-		// Get Language
+		// Load Language
  		$this->lang->load('social_igniter', 'english');
  		$this->lang->load('activity_stream', 'english'); 	
 
