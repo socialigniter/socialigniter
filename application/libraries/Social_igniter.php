@@ -680,21 +680,24 @@ class Social_igniter
     	    
 		// Loop through meta_data_array Key / Value array of form submitted
 		foreach ($meta_data_array as $meta_data)
-		{		
-			// Form element name
-			$name		= key($meta_data_array);		
-			$current	= $this->get_meta_content_meta($content_id, $name);
-			
-			if ($current)
-			{	
-				$this->ci->content_model->update_meta($current->content_meta_id, array('value' => $meta_data));
-				$update_count++;
-			}
-			else
-			{			
-				$this->ci->content_model->add_meta($site_id, $content_id, array($name => $meta_data));			
-				$update_count++;
-			}
+		{
+			//if ($meta_data)
+			//{	
+				// Form element name
+				$name		= key($meta_data_array);		
+				$current	= $this->get_meta_content_meta($content_id, $name);
+				
+				if ($current)
+				{	
+					$this->ci->content_model->update_meta($current->content_meta_id, array('value' => $meta_data));
+					$update_count++;
+				}
+				else
+				{			
+					$this->ci->content_model->add_meta($site_id, $content_id, array($name => $meta_data));			
+					$update_count++;
+				}
+			//}
 		
 			next($meta_data_array);
 		}

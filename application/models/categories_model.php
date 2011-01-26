@@ -35,7 +35,7 @@ class Categories_model extends CI_Model {
 	 		$this->db->where($parameter, $value);
 	 		$this->db->order_by('category', 'asc'); 
 	 		$result = $this->db->get();	
-	 		return $result->result();	      
+	 		return $result->result();
 		}
 		else
 		{
