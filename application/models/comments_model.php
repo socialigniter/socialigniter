@@ -116,9 +116,20 @@ class Comments_model extends CI_Model
 
     function add_comment($site_id, $comment_data)
     {
+    	// If Empty Fail
     	if ((!$comment_data['user_id']) || (!$comment_data['content_id']))
     	{
     		return FALSE;
+    	}
+    	
+    	// Viewed Status
+    	if ($comment_data['user_id'] ==  $comment_data['owner_id'])
+    	{
+    		$viewed = 'Y';
+    	}
+    	else
+    	{
+    		$viewed = 'N';
     	}
     
  		$data = array(
@@ -133,7 +144,7 @@ class Comments_model extends CI_Model
 			'geo_lat'			=> $comment_data['geo_lat'],
 			'geo_long'			=> $comment_data['geo_long'],
 			'geo_accuracy'		=> $comment_data['geo_accuracy'],
-			'viewed'			=> 'N',
+			'viewed'			=> $viewed,
 			'approval'			=> $comment_data['approval'],
 			'created_at' 		=> unix_to_mysql(now())
 		);	
@@ -169,5 +180,4 @@ class Comments_model extends CI_Model
 		$this->db->update('comments', array('approval' => 'D')); 
 		return TRUE;   
     }
-       
 }
