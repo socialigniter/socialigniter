@@ -8,7 +8,7 @@ class Home extends Dashboard_Controller
  
  	// Home Feed
  	function index()
- 	{	
+ 	{ 		 		
 		if ($this->uri->total_segments() == 1)
 		{
 	 	    $this->data['page_title'] 		= 'Home';

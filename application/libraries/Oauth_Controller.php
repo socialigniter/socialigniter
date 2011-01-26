@@ -30,13 +30,13 @@ class Oauth_Controller extends Rest_Controller
         
         if ($this->rest_method_exists($authd_method))
         {
-            if (!$this->oauth->request_is_signed())
+            if (!$this->oauth_igniter->request_is_signed())
             {
 			    log_message('debug', 'oauthcrap: request_is_signed returning TRUE');	
                 return $this->response(array('status' => 'error', 'message' => 'Request is not signed.'), 401);
             }
 
-	        $this->oauth_user_id = $this->oauth->get_oauth_user_id();
+	        $this->oauth_user_id = $this->oauth_igniter->get_oauth_user_id();
 			log_message('debug', 'oauthcrap: oauth_user_id is '.$this->oauth_user_id);	
 
             if (!$this->oauth_user_id)
