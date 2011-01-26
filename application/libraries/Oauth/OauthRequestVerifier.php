@@ -31,8 +31,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-require_once dirname(__FILE__) . '/OAuthStore.php';
-require_once dirname(__FILE__) . '/OAuthRequest.php';
+require_once dirname(__FILE__) . '/OauthStore.php';
+require_once dirname(__FILE__) . '/OauthRequest.php';
 
 class OAuthRequestVerifier extends OAuthRequest
 {
@@ -64,6 +64,8 @@ class OAuthRequestVerifier extends OAuthRequest
 		parent::__construct($uri, $method);
 		
 		OAuthRequestLogger::start($this);
+		
+        log_message('debug', 'oauthcrap: inside construct of OauthRequestVerifier');		
 	}
 	
 	
@@ -73,13 +75,19 @@ class OAuthRequestVerifier extends OAuthRequest
 	 * @return boolean
 	 */
 	static public function requestIsSigned()
-	{
+	{	
+        log_message('debug', 'oauthcrap: inside requestIsSigned() of OauthRequestVerifier');		
+	
 		if (isset($_REQUEST['oauth_signature']))
 		{
+	        log_message('debug', 'oauthcrap: inside isset($_REQUEST[oauth_sig of OauthRequestVerifier');
+
 			$signed = true;
 		}
 		else
 		{
+	        log_message('debug', 'oauthcrap: inside ELSE of isset($_REQUEST[oauth_signature of OauthRequestVerifier');
+
 			$hs = OAuthRequestLogger::getAllHeaders();
 			if (isset($hs['Authorization']) && strpos($hs['Authorization'], 'oauth_signature') !== false)
 			{
@@ -238,7 +246,7 @@ class OAuthRequestVerifier extends OAuthRequest
 						'oauth_signature'
 					);
 					
-		//log_message('debug', 'verifying with consumer secret '.$consumer_secret.' and token secret '.$token_secret);
+		log_message('debug', 'verifying with consumer secret '.$consumer_secret.' and token secret '.$token_secret);
 		
 		if ($token_type !== false)
 		{
@@ -249,7 +257,7 @@ class OAuthRequestVerifier extends OAuthRequest
 		{
 			if (!isset($this->param[$req]))
 			{
-				//log_message('debug', 'Can\'t verify request signature, missing parameter "'.$req.'"');
+				log_message('debug', 'Can\'t verify request signature, missing parameter "'.$req.'"');
 				throw new OAuthException2('Can\'t verify request signature, missing parameter "'.$req.'"');
 			}
 		}
@@ -258,7 +266,7 @@ class OAuthRequestVerifier extends OAuthRequest
 
 		$base = $this->signatureBaseString();
 
-		//log_message('debug', 'base string: '.$base);		
+		log_message('debug', 'base string: '.$base);		
 
 		$this->verifyDataSignature($base, $consumer_secret, $token_secret, $this->param['oauth_signature_method'], $this->param['oauth_signature']);
 	}

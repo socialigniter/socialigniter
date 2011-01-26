@@ -4,7 +4,7 @@
  * @created 04/06/2009
  */
 
-class REST
+class Rest
 {
     private $ci; // CodeIgniter instance
 

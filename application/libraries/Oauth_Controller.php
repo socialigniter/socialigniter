@@ -1,12 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-class Oauth_Controller extends REST_Controller
+class Oauth_Controller extends Rest_Controller
 {
 	public $oauth_user_id;
   
     function __construct($config = array())
     {
         parent::__construct();
+        
+        log_message('debug', 'oauthcrap: at construct of Oauth_Controller');        
     }
 
     function string_begins_with($string, $search)
@@ -28,14 +30,14 @@ class Oauth_Controller extends REST_Controller
         
         if ($this->rest_method_exists($authd_method))
         {
-            if (!$this->oauth->request_is_signed())
+            if (!$this->oauth_igniter->request_is_signed())
             {
-			    //log_message('debug', 'request_is_signed returning TRUE');	
+			    log_message('debug', 'oauthcrap: request_is_signed returning TRUE');	
                 return $this->response(array('status' => 'error', 'message' => 'Request is not signed.'), 401);
             }
 
-	        $this->oauth_user_id = $this->oauth->get_oauth_user_id();
-			//log_message('debug', 'oauth_user_id is '.$this->oauth_user_id);	
+	        $this->oauth_user_id = $this->oauth_igniter->get_oauth_user_id();
+			log_message('debug', 'oauthcrap: oauth_user_id is '.$this->oauth_user_id);	
 
             if (!$this->oauth_user_id)
             {
@@ -45,7 +47,7 @@ class Oauth_Controller extends REST_Controller
             $method = $authd_method;
         }
 
-		//log_message('debug', 'passing to parent _remap '.$method);	
+		log_message('debug', 'oauthcrap: passing to parent _remap '.$method);	
         parent::_remap($method);
     }
 }

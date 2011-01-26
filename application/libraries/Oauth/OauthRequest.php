@@ -30,7 +30,7 @@
  * THE SOFTWARE.
  */
 
-require_once dirname(__FILE__) . '/OAuthException2.php';
+require_once dirname(__FILE__) . '/OauthException2.php';
 
 /**
  * Object to parse an incoming OAuth request or prepare an outgoing OAuth request

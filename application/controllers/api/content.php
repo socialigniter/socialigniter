@@ -20,7 +20,7 @@ class Content extends Oauth_Controller
         }
         else
         {
-            $this->response(array('status' => 'error', 'data' => 'Could not find any comments'), 404);
+            $this->response(array('status' => 'error', 'data' => 'Could not find any content'), 200);
         }
     }
 
@@ -39,7 +39,7 @@ class Content extends Oauth_Controller
         else
         {
             $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' content for '.$search_for);
-            $response	= 404;        
+            $response	= 200;        
         }
 
         $this->response($message, $response);

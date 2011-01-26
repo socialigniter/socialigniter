@@ -4,14 +4,14 @@
  * Storage container for the oauth credentials, both server and consumer side.
  * This is the factory to select the store you want to use
  * 
- * @version $Id: OAuthSession.php 67 2010-01-12 18:42:04Z brunobg@corollarium.com $
- * @author brunobg@corollarium.com
+ * @version $Id: OAuthStore.php 67 2010-01-12 18:42:04Z brunobg@corollarium.com $
+ * @author Marc Worrell <marcw@pobox.com>
+ * @date  Nov 16, 2007 4:03:30 PM
  * 
  * 
  * The MIT License
  * 
  * Copyright (c) 2007-2008 Mediamatic Lab
- * Copyright (c) 2010 Corollarium Technologies
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,24 +32,24 @@
  * THE SOFTWARE.
  */
 
-require_once dirname(__FILE__) . '/OAuthException2.php';
+require_once dirname(__FILE__) . '/OauthException2.php';
 
-class OAuthSession
+class OAuthStore
 {
 	static private $instance = false;
 
 	/**
-	 * Request an instance of the OAuthSession
+	 * Request an instance of the OAuthStore
 	 */
-	public static function instance ( $store = 'SESSION', $options = array() )
+	public static function instance ( $store = 'MySQL', $options = array() )
 	{
-	    if (!OAuthSession::$instance)
+	    if (!OAuthStore::$instance)
 	    {
 			// Select the store you want to use
 			if (strpos($store, '/') === false)
 			{
-				$class = 'OAuthSession'.$store;
-				$file  = dirname(__FILE__) . '/session/'.$class.'.php';
+				$class = 'OAuthStore'.$store;
+				$file  = dirname(__FILE__) . '/store/'.$class.'.php';
 			}
 			else
 			{
@@ -64,7 +64,7 @@ class OAuthSession
 				
 				if (class_exists($class))
 				{
-					OAuthSession::$instance = new $class($options);
+					OAuthStore::$instance = new $class($options);
 				}
 				else
 				{
@@ -73,10 +73,10 @@ class OAuthSession
 			}
 			else
 			{
-				throw new OAuthException2('No OAuthSession for '.$store.' (file '.$file.')');
+				throw new OAuthException2('No OAuthStore for '.$store.' (file '.$file.')');
 			}
 	    }
-	    return OAuthSession::$instance;	
+	    return OAuthStore::$instance;	
 	}
 }
 
