@@ -223,6 +223,75 @@ CREATE TABLE `settings` (
   PRIMARY KEY (`settings_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
+INSERT INTO `settings` VALUES(1, 1, 'theme', 'site', 'site_default');
+INSERT INTO `settings` VALUES(2, 1, 'theme', 'dashboard', 'dashboard_default');
+INSERT INTO `settings` VALUES(3, 1, 'theme', 'mobile', 'mobile_default');
+INSERT INTO `settings` VALUES(4, 1, 'site', 'google_webmaster', '');
+INSERT INTO `settings` VALUES(5, 1, 'classes', 'images_sizes_full', 'yes');
+INSERT INTO `settings` VALUES(6, 1, 'site', 'google_analytics', '');
+INSERT INTO `settings` VALUES(7, 1, 'site', 'bing_webmaster', '');
+INSERT INTO `settings` VALUES(8, 1, 'site', 'gravatar_enabled', 'TRUE');
+INSERT INTO `settings` VALUES(9, 1, 'site', 'bitly_enabled', 'TRUE');
+INSERT INTO `settings` VALUES(10, 1, 'site', 'bitly_login', '');
+INSERT INTO `settings` VALUES(11, 1, 'site', 'bitly_api_key', '');
+INSERT INTO `settings` VALUES(12, 1, 'site', 'bitly_domain', 'bit.ly');
+INSERT INTO `settings` VALUES(13, 1, 'site', 'akismet_key', 'dc0465ba152f');
+INSERT INTO `settings` VALUES(14, 1, 'site', 'recaptcha_public', '6Lch7LwSAAAAACP2t2e1qpIQ9Cz7AsvXRfJf1yW_');
+INSERT INTO `settings` VALUES(15, 1, 'site', 'recaptcha_private', '6Lch7LwSAAAAAJvERNehdFPPPZ5TQjd1DgjJRTmK');
+INSERT INTO `settings` VALUES(16, 1, 'site', 'recaptcha_theme', 'white');
+INSERT INTO `settings` VALUES(17, 1, 'comments', 'enabled', 'TRUE');
+INSERT INTO `settings` VALUES(18, 1, 'comments', 'reply', 'TRUE');
+INSERT INTO `settings` VALUES(19, 1, 'comments', 'reply_level', '2');
+INSERT INTO `settings` VALUES(20, 1, 'comments', 'comments_date_style', 'SIMPLE_TIME');
+INSERT INTO `settings` VALUES(21, 1, 'comments', 'email_signup', 'TRUE');
+INSERT INTO `settings` VALUES(22, 1, 'comments', 'email_replies', 'TRUE');
+INSERT INTO `settings` VALUES(23, 1, 'comments', 'akismet', 'TRUE');
+INSERT INTO `settings` VALUES(24, 1, 'comments', 'recaptcha', 'TRUE');
+INSERT INTO `settings` VALUES(25, 1, 'comments', 'date_style', 'ELAPSED');
+INSERT INTO `settings` VALUES(26, 1, 'ratings', 'enabled', 'TRUE');
+INSERT INTO `settings` VALUES(27, 1, 'ratings', 'rate_type', 'TRUE');
+INSERT INTO `settings` VALUES(28, 1, 'pages', 'enabled', 'TRUE');
+INSERT INTO `settings` VALUES(29, 1, 'pages', 'ratings_allow', 'TRUE');
+INSERT INTO `settings` VALUES(30, 1, 'pages', 'tags_display', 'TRUE');
+INSERT INTO `settings` VALUES(31, 1, 'pages', 'comments_allow', 'TRUE');
+INSERT INTO `settings` VALUES(32, 1, 'pages', 'comments_per_page', '10');
+INSERT INTO `settings` VALUES(33, 1, 'home', 'public_timeline', 'TRUE');
+INSERT INTO `settings` VALUES(34, 1, 'home', 'date_style', 'ELAPSED');
+INSERT INTO `settings` VALUES(35, 1, 'home', 'description_length', '110');
+INSERT INTO `settings` VALUES(36, 1, 'home', 'share', 'TRUE');
+INSERT INTO `settings` VALUES(37, 1, 'home', 'like', 'TRUE');
+INSERT INTO `settings` VALUES(38, 1, 'home', 'comments_allow', 'TRUE');
+INSERT INTO `settings` VALUES(39, 1, 'home', 'comments_per_page', '2');
+INSERT INTO `settings` VALUES(40, 1, 'users', 'signup', 'TRUE');
+INSERT INTO `settings` VALUES(41, 1, 'users', 'signup_recaptcha', 'TRUE');
+INSERT INTO `settings` VALUES(42, 1, 'users', 'login', 'TRUE');
+INSERT INTO `settings` VALUES(43, 1, 'users', 'login_recaptcha', 'TRUE');
+INSERT INTO `settings` VALUES(44, 1, 'users', 'profile', 'TRUE');
+INSERT INTO `settings` VALUES(45, 1, 'users', 'profile_activity', 'TRUE');
+INSERT INTO `settings` VALUES(46, 1, 'users', 'profile_relationships', 'TRUE');
+INSERT INTO `settings` VALUES(47, 1, 'users', 'profile_content', 'TRUE');
+INSERT INTO `settings` VALUES(48, 1, 'users', 'message_allow', 'TRUE');
+INSERT INTO `settings` VALUES(49, 1, 'users', 'message_recaptcha', '5');
+INSERT INTO `settings` VALUES(50, 1, 'users', 'comments_allow', 'TRUE');
+INSERT INTO `settings` VALUES(51, 1, 'users', 'comments_per_page', '10');
+INSERT INTO `settings` VALUES(52, 1, 'users', 'images_sizes_large', 'yes');
+INSERT INTO `settings` VALUES(53, 1, 'users', 'images_sizes_medium', 'yes');
+INSERT INTO `settings` VALUES(54, 1, 'users', 'images_sizes_small', 'yes');
+INSERT INTO `settings` VALUES(55, 1, 'users', 'images_large_width', '275');
+INSERT INTO `settings` VALUES(56, 1, 'users', 'images_large_height', '175');
+INSERT INTO `settings` VALUES(57, 1, 'users', 'images_medium_width', '48');
+INSERT INTO `settings` VALUES(58, 1, 'users', 'images_medium_height', '48');
+INSERT INTO `settings` VALUES(59, 1, 'users', 'images_small_width', '45');
+INSERT INTO `settings` VALUES(60, 1, 'users', 'images_small_height', '25');
+INSERT INTO `settings` VALUES(61, 1, 'users', 'images_formats', 'gif|jpg|jpeg|png');
+INSERT INTO `settings` VALUES(62, 1, 'users', 'images_max_size', '25600');
+INSERT INTO `settings` VALUES(63, 1, 'users', 'images_full_width', '750');
+INSERT INTO `settings` VALUES(64, 1, 'users', 'images_full_height', '750');
+INSERT INTO `settings` VALUES(65, 1, 'users', 'images_sizes_full', 'yes');
+INSERT INTO `settings` VALUES(66, 1, 'users', 'images_folder', 'media/profiles/');
+INSERT INTO `settings` VALUES(67, 1, 'users', 'images_max_dimensions', '3000');
+INSERT INTO `settings` VALUES(68, 1, 'users', 'images_sizes_original', 'yes');
+
 
 CREATE TABLE `sites` (
   `site_id` int(6) unsigned NOT NULL AUTO_INCREMENT,
