@@ -128,6 +128,7 @@ $route['settings'] 								= 'settings';
 
 /* Public Sign */
 $route['signup']								= 'login/signup';
+$route['logout']								= 'login/logout';
 $route['pages/(:any)']							= 'index/index';
 
 /* End of file routes.php */

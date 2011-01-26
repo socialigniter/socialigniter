@@ -258,8 +258,8 @@ class Social_auth
 	    		$user = $this->ci->auth_model->get_user($user_id);			
 			
 				// Make OAuth Tokens & debug msgs
-				$consumer_keys	= $this->ci->oauth->create_or_update_consumer(array('requester_name' => $user->name, 'requester_email' => $user->email), $user->user_id);
-				$access_tokens	= $this->ci->oauth->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user->user_id);
+				$consumer_keys	= $this->create_or_update_consumer(array('requester_name' => $user->name, 'requester_email' => $user->email), $user->user_id);
+				$access_tokens	= $this->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user->user_id);
 			
 				//log_message('debug', 'consumer_key: '.$consumer_keys['consumer_key'].' consumer_secret: '.$consumer_keys['consumer_secret']);			
 				//log_message('debug', 'oauth token: '.$access_tokens['token'].' token_secret '.$access_tokens['token_secret']);
