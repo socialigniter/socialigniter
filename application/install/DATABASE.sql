@@ -356,7 +356,7 @@ CREATE TABLE `users` (
 CREATE TABLE `users_level` (
   `user_level_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `level` char(20) NOT NULL,
-  `name` char(64) NOT NULL,
+  `level_name` char(64) NOT NULL,
   `description` char(255) NOT NULL,
   PRIMARY KEY (`user_level_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
