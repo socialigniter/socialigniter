@@ -126,9 +126,16 @@ $route['settings/users']						= 'settings/users';
 $route['settings/pages']						= 'settings/pages';
 $route['settings'] 								= 'settings';
 
-/* Public Sign */
-$route['signup']								= 'login/signup';
-$route['logout']								= 'login/logout';
+/* Public Site */
+$route['login']									= 'index/login';
+$route['logout']								= 'index/logout';
+$route['signup']								= 'index/signup';
+$route['forgot_password']						= 'index/forgot_password';
+$route['reset_password/(:any)']					= 'index/reset_password';
+$route['reset_password']						= 'index/reset_password';
+$route['activate/(:any)/(:any)']				= 'index/activate';
+$route['activate/(:any)']						= 'index/activate';
+$route['activate']								= 'index/activate';
 $route['pages/(:any)']							= 'index/index';
 
 /* End of file routes.php */
