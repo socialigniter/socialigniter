@@ -163,21 +163,7 @@ class Login extends Public_Controller {
     		$this->render();
 		}
     }
-
-	
-	function oauth_test()
-	{
-		// Make OAuth Details
-		$consumer = $this->oauth->create_or_update_consumer(array('requester_name' => 'Billy Boy', 'requester_email' => 'billy@boy.com'), 7);
-	
-		log_message('debug', 'oauth consumer_key '.$consumer['consumer_key']);
-	
-		$access_tokens = $this->oauth->grant_access_token_to_consumer($consumer['consumer_key'], 7);
-	
-		log_message('debug', 'oauth token: '.$access_tokens['token'].' token_secret '.$access_tokens['token_secret']);	
-
-	}		
-
+    
 
 	// Activate the user. This URL is hit by email as theere site links to it
 	function activate($user_id=FALSE, $code=FALSE) 

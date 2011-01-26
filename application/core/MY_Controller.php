@@ -124,7 +124,7 @@ class MY_Controller extends MX_Controller
 			$this->data['link_home']			= base_url()."home";
 			$this->data['link_profile']			= base_url()."profile/".$this->session->userdata('username');
 			$this->data['link_settings']		= base_url()."settings/profile";
-			$this->data['link_logout']			= base_url().'login/logout';
+			$this->data['link_logout']			= base_url().'logout';
 
 			// Action Paths
 			$this->data['comments_post']		= base_url().'api/comments/create/id';
