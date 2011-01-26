@@ -126,6 +126,8 @@ $route['settings/users']						= 'settings/users';
 $route['settings/pages']						= 'settings/pages';
 $route['settings'] 								= 'settings';
 
+/* Public Sign */
+$route['signup']								= 'login/signup';
 $route['pages/(:any)']							= 'index/index';
 
 /* End of file routes.php */
