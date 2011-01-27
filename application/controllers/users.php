@@ -17,13 +17,11 @@ class Users extends Dashboard_Controller {
 		$users 			= $this->social_auth->get_users();
 		$users_view 	= NULL;
 
-//		print_r($users);
-
 		// Title Stuff
 		$this->data['page_title']	= 'Users';
 		$this->data['sub_title']	= 'Manage';
-
 		 
+		// Users View Loop 
 		foreach($users as $user):
 		
 			$this->data['user_id'] 			= $user->user_id;
@@ -34,7 +32,7 @@ class Users extends Dashboard_Controller {
 			$this->data['last_login']		= format_datetime('SIMPLE_TIME_ABBR', $user->last_login);
 
 			// Alerts
-//			$this->data['item_alerts']		= item_alerts_content($content);			
+			$this->data['user_alerts']		= item_alerts_user($user);			
 			
 			// Actions
 			$this->data['user_state']		= item_user_state($user->active);
@@ -46,7 +44,6 @@ class Users extends Dashboard_Controller {
 
 		endforeach;	
 
-
 		// Final Output
 		$this->data['users_view'] 	= $users_view;	
         $this->data['message'] 		= (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
@@ -54,120 +51,46 @@ class Users extends Dashboard_Controller {
 	    $this->render('dashboard_wide');
  	}
  	
-  	// Create a new user
-	function create() 
+  	// Create / Edit
+	function editor() 
 	{
-        $this->data['sub_title'] = "Create";				
+		if (($this->uri->segment(2) == 'manage') && ($this->uri->segment(3)))
+		{	
+			$user = $this->social_auth->get_user($this->uri->segment(3));
+		
+        	$this->data['sub_title'] 	= "Edit";
+       
+       		$this->data['name']			= $user->name;
+       		$this->data['username']		= $user->username;
+       		$this->data['email']		= $user->email;
+       		$this->data['company']		= $user->company;
+       		$this->data['phone']		= $user->phone;
+       		$this->data['location']		= $user->location;
+       		$this->data['url']			= $user->url;
+       		$this->data['bio']			= $user->bio;
+
+        }
+        else
+        {        
+        	$this->data['sub_title'] = 'Create';
+
+       		$this->data['name']			= '';
+       		$this->data['username']		= '';
+       		$this->data['email']		= '';
+       		$this->data['name']			= '';
+       		$this->data['phone']		= '';
+       		$this->data['company']		= '';
+       		$this->data['location']		= '';
+       		$this->data['url']			= '';
+       		$this->data['bio']			= '';
+       
+        }
+        				
 		$this->data['users_levels'] = $this->social_auth->get_users_levels();		
 				
-        //validate form input
-    	$this->form_validation->set_rules('level', 'Level', 'required');
-    	$this->form_validation->set_rules('name', 'Name', 'required');
-    	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
-    	$this->form_validation->set_rules('phone', 'Phone', 'xss_clean|min_length[3]|max_length[16]');
-    	$this->form_validation->set_rules('company', 'Company Name');
-    	$this->form_validation->set_rules('password', 'Password', 'required|min_length['.$this->config->item('min_password_length').']|max_length['.$this->config->item('max_password_length').']|matches[password_confirm]');
-    	$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
-
-        if ($this->form_validation->run() == true) { //check to see if we are creating the user
-			
-			if ($this->input->post('username') == "")
-			{
-				$username	= url_title($this->input->post('name'), 'none', true);
-			}
-			else
-			{
-				$username	= url_title($this->input->post('username'), 'none', true);
-			}	
-        	$email		= $this->input->post('email');
-        	$password	= $this->input->post('password');
-        	$level		= $this->input->post('level');
-        	
-        	$additional_data = array('name' 	=> $this->input->post('name'),
-        							 'company'  => $this->input->post('company'),
-        							 'phone'    => $this->input->post('phone'),
-        							 'detail_1' => $this->input->post('detail_1'),
-        							 'detail_2' => $this->input->post('detail_2'),
-        							 'detail_3' => $this->input->post('detail_3'),
-        							 'detail_4' => $this->input->post('detail_4')
-        							);
-        	
-        	//register the user
-        	$this->social_auth->register($username, $password, $email, $additional_data, $level);
-        	
-        	//redirect them back to the admin page
-        	$this->session->set_flashdata('message', "User Created");
-        	
-       		redirect(base_url()."users", 'refresh');
-		} 
-		else { //display the create user form
-	        //set the flash data error message if there is one
-	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			
-			$this->data['name']		          = "";
-			$this->data['username']		      = "";
-            $this->data['email']              = "";
-		    $this->data['password']           = "";
-            $this->data['password_confirm']   = "";
-            $this->data['phone']              = "";           
-            $this->data['company']            = "";
-            $this->data['detail_1']           = "";
-            $this->data['detail_2']           = "";
-            $this->data['detail_3']           = "";
-            $this->data['detail_4']           = "";
-	
-		}
-		
-		
 		$this->render('dashboard_wide');
-
-
     }
-    
-    function edit()
-    {
 
-
-
-		$this->render();
-		
-    }
-    
-    function delete()
-    {
-
-		$this->render();
-
-    }
-    
-
-	//activate the user
-	function activate($id, $code=false) 
-	{        
-		$activation = $this->social_auth->activate($id, $code);
-		
-        if ($activation) {
-			//redirect them to the auth page
-	        $this->session->set_flashdata('message', "Account Activated");
-	        redirect("login", 'refresh');
-        }
-        else {
-			//redirect them to the forgot password page
-	        $this->session->set_flashdata('message', "Unable to Activate");
-	        redirect("login/forgot_password", 'refresh');
-        }
-    }
-    
-    //deactivate the user
-	function deactivate($id) 
-	{        
-		if ($this->social_auth->logged_in() && $this->social_auth->is_admin()) {
-	        //de-activate the user
-	        $this->social_auth->deactivate($id);
-		} 
-        //redirect them back to the auth page
-        redirect("login", 'refresh');
-    }
     
     function levels()
     {
