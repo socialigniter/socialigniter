@@ -13,7 +13,6 @@
 * Description: 	settings file for site settings printed out to form fields to be 
 * as KEY => VALUE pairs in 'settings' table.
 */
-
 /* Settings Sections */
 $config['yes_or_no'] = array(
 	'TRUE'	=> 'Yes',

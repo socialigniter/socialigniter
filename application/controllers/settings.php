@@ -136,7 +136,7 @@ class Settings extends Dashboard_Controller {
 
 			$home_base_array 									= array();
 			$home_base_array[''] 								= '--select--';
-			$home_base_array[config_item('site_slug')]	= config_item('site_slug');
+			$home_base_array[config_item('site_url')]	= config_item('site_url');
 			 
 			foreach(config_item('social_connections') as $connection)
 			{ 

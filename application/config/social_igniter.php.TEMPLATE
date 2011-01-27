@@ -14,13 +14,6 @@
 */
 
 // Site Settings
-$config['site_title']		   			= "Social-Igniter";	
-$config['site_slug']			  		= "socialigniter";	
-$config['admin_email']		   			= "contact@social-igniter.com";
-
-$config['site_theme']					= "site_default";
-$config['dashboard_theme']				= "dashboard_default";
-
 $config['site_type']					= "default";
 $config['site_id']						= 1;
 $config['default_group']       			= 'user';				// Default group, use name

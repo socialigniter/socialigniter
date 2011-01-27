@@ -2,18 +2,11 @@
 /*
 * Name: 		Auth Model
 * 
-* Author:  		Brennan Novak severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2
+* Author:  		Brennan Novak severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
 * 		   		contact@social-igniter.com
-*				@brennannovak
-*
-* Added Awesomeness: Phil Sturgeon
+*				@socialigniter
 *
 * Location: http://github.com/socialigniter/core
-*          
-* Created:  10.01.2009 
-* Modified: 04.01.2010 Brennan Novak
-*
-* Description:  Modified auth system based on redux_auth with extensive customization.
 */ 
 class Auth_model extends CI_Model
 {
@@ -34,15 +27,7 @@ class Auth_model extends CI_Model
 	    $this->salt_length     	= $this->config->item('salt_length');
 	}
 
-	/* Hash password : Hashes the password to be stored in the database.
-     * Hash password db : This function takes a password and validates it
-     * against an entry in the users table.
-     * Salt : Generates a random salt value.
-	 * @author Mathew
-	 * Hashes the password to be stored in the database.
-	 * @return void
-	 * @author Mathew
-	 **/
+	// Hashes the password to be stored in the database.
 	public function hash_password($password, $salt=false)
 	{
 	    if (empty($password))
@@ -61,11 +46,7 @@ class Auth_model extends CI_Model
 		}		
 	}
 	
-	/* This function takes a password and validates it
-     * against an entry in the users table.
-	 * @return void
-	 * @author Mathew
-	 **/
+	// This function takes a password and validates it against an entry in the users table.
 	public function hash_password_db($identity, $password)
 	{
 	   if (empty($identity) || empty($password))
@@ -99,17 +80,13 @@ class Auth_model extends CI_Model
 		}
 	}
 	
-	// Generates a random salt value. @return void @author Mathew
+	// Generates a random salt value.
 	function salt()
 	{
 		return substr(md5(uniqid(rand(), true)), 0, $this->salt_length);
 	}
 
-	/* Activation functions
-     * Activate : Validates and removes activation code.
-     * Deactivae : Updates a users row with an activation code.
-	 * @author Mathew	
-	 * activate @return void @author Mathew */
+    // Activate validates and removes activation code
 	function activate($id, $code = false)
 	{	    
 	    if ($code != false) 
@@ -154,7 +131,8 @@ class Auth_model extends CI_Model
 		
 		return $this->db->affected_rows() == 1;
 	}
-		
+	
+    // Deactivate updates a users row with an activation code		
 	function deactivate($id = 0)
 	{
 	    if (empty($id))
@@ -285,32 +263,9 @@ class Auth_model extends CI_Model
 	        return FALSE;
 	    }
 	    
-		$this->db->select(array(
-	    	'users.user_id',
-	    	'users.username',
-	    	'users.password',
-	    	'users.salt',
-	    	'users.email',
-	    	'users.activation_code',
-	    	'users.forgotten_password_code',
-	    	'users.ip_address',
-	    	'users.active',
-	    	'users_meta.name',
-	    	'users_meta.image',
-	    	'users_level.level AS `user_level`',
-	    	'users_level.description'
-	    ));
-
-		if (!empty($this->columns))
-        {
-            foreach ($this->columns as $field)
-            {
-                $this->db->select('users_meta.'.$field);
-            }
-        }
-
-		$this->db->join('users_meta', 'users.user_id = users_meta.user_id', 'left');
-		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id', 'left');
+		$this->db->select('*');
+		$this->db->join('users_meta', 'users.user_id = users_meta.user_id');
+		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
 		
 		if (strlen($identity) === 40)
 	    {
@@ -322,8 +277,8 @@ class Auth_model extends CI_Model
 	    }
 	    
 		$this->db->where($this->social_auth->_extra_where);
-		   
 		$this->db->limit(1);
+
 		$i = $this->db->get('users');
 		
 		return ($i->num_rows > 0) ? $i->row() : FALSE;
@@ -563,7 +518,7 @@ class Auth_model extends CI_Model
 	
 	function get_users($group=false)
 	{
-		$this->db->select(array('users.user_id', 'users.username'));
+		$this->db->select(array('users.user_id', 'users.username', 'users.email', 'users.active'));
 
         foreach ($this->columns_allowed as $field)
         {

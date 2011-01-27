@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
+/* 
+ * Activity API : Core : Social-Igniter
+ *
+ */
 class Activity extends Oauth_Controller
 {
     function __construct()

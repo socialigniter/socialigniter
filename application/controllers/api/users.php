@@ -1,17 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
-/**
- * Users Api
- *
- * This is an example of a few basic user interaction methods you could use
- * all done with a hardcoded array.
- *
- * @package		CodeIgniter
- * @subpackage	Rest Server
- * @category	Controller
- * @author		Phil Sturgeon
- * @link		http://philsturgeon.co.uk/code/
-*/
+/* 
+* Social-Igniter : Core : Users : API Controller
+*
+* @package		Social Igniter
+* @subpackage	Social Igniter Library
+* @author		Brennan Novak
+* @link			http://social-igniter.com
+* 
+ */
 class Users extends Oauth_Controller
 {
     
@@ -58,8 +54,6 @@ class Users extends Oauth_Controller
     	$this->form_validation->set_rules('password', 'Password', 'required|min_length['.config_item('min_password_length').']|max_length['.$this->config->item('max_password_length').']|strong_pass['.config_item('password_strength').']|matches[password_confirm]');
     	$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
     	$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
-    	$this->form_validation->set_rules('location', 'Location', 'required|callback_valid_location');    	
-    	$this->form_validation->set_rules('license_plate', 'License Plate', 'required');
 
 		// Validates
         if ($this->form_validation->run() == true)

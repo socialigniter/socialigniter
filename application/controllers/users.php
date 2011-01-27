@@ -12,13 +12,45 @@ class Users extends Dashboard_Controller {
     }
  
  	function index()
- 	{   
-    	//set the flash data error message if there is one
-        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+ 	{   		
+		// Get Users
+		$users 			= $this->social_auth->get_users();
+		$users_view 	= NULL;
 
-		//list the users
-		$this->data['users'] = $this->social_auth->get_users_array();
-	    
+//		print_r($users);
+
+		// Title Stuff
+		$this->data['page_title']	= 'Users';
+		$this->data['sub_title']	= 'Manage';
+
+		 
+		foreach($users as $user):
+		
+			$this->data['user_id'] 			= $user->user_id;
+			$this->data['name']				= $user->name;
+			$this->data['avatar']			= $this->social_igniter->profile_image($user->user_id, $user->image, $user->email);
+			$this->data['profile']			= base_url().'profile/'.$user->username;
+			$this->data['created_on']		= format_datetime('SIMPLE_ABBR', $user->created_on);
+			$this->data['last_login']		= format_datetime('SIMPLE_TIME_ABBR', $user->last_login);
+
+			// Alerts
+//			$this->data['item_alerts']		= item_alerts_content($content);			
+			
+			// Actions
+			$this->data['user_state']		= item_user_state($user->active);
+			$this->data['user_edit']		= base_url().'users/manage/'.$user->user_id;
+			$this->data['user_delete']		= base_url().'api/users/destroy/id/'.$user->user_id;
+			
+			// View
+			$users_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_users.php', $this->data, true);			
+
+		endforeach;	
+
+
+		// Final Output
+		$this->data['users_view'] 	= $users_view;	
+        $this->data['message'] 		= (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+        
 	    $this->render('dashboard_wide');
  	}
  	
