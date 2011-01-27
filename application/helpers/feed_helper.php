@@ -100,6 +100,20 @@ function item_viewed($class, $viewed)
 	return $status;
 }
 
+function item_user_state($active)
+{	
+	if ($active)
+	{
+		$state = 'activated';
+	}
+	else
+	{
+		$state = 'deactivated';
+	}
+
+	return $state;
+}
+
 // Alerts for 'activity' feed items
 function item_alerts_content($item)
 {

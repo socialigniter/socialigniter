@@ -132,7 +132,7 @@ class Dashboard_Controller extends MY_Controller
 		elseif ($this->uri->uri_string() == '/home/pages/manage')
 		{
 	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_pages.php';
-        	$content_path 		= config_item('dashboard_theme').'/home/module.php';
+        	$content_path 		= config_item('dashboard_theme').'/home/manage.php';
 		}
 		elseif ($this->uri->uri_string() == '/home/pages/manage'.$this->uri->segment(4))
 		{			

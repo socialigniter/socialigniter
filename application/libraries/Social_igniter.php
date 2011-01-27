@@ -7,7 +7,7 @@
 * @author		Brennan Novak
 * @link			http://social-igniter.com
 *
-* runs all basic social connections to external sites
+* Handles a ton of parts of the the core install.
 */
  
 class Social_igniter

@@ -160,7 +160,7 @@ class Rest
 		$data['error_code']			= $this->ci->curl->error_code;
 		$data['info'] 				= $this->ci->curl->info;
 
-		return $this->ci->load->view(config_item('site_theme').'/api/sandbox_debug', $data, true);
+		return $this->ci->load->view('api/sandbox_debug', $data, true);
 	}
 
 	private function _set_headers()

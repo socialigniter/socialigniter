@@ -1,0 +1,93 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+* Name:			Social Igniter : Install : Config
+* Author: 		Brennan Novak
+* 		  		contact@social-igniter.com
+*         		@brennannovak
+*          
+* Created: 		Brennan Novak
+*
+* Project:		http://social-igniter.com/
+* Source: 		http://github.com/socialigniter/
+*
+* Description: 	various values that get installed to the database on installing Social Igniter 
+*/
+$config['content'] = array('pages', 'page', 'install', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index');
+$config['content'] = array('pages', 'page', 'install', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site');
+$config['content'] = array('pages', 'page', 'install', 2, 1, 'Contact', 'contact', 'Please contact us', 'site');
+
+$config['settings'] = array('theme', 'site', 'site_default');
+$config['settings'] = array('theme', 'dashboard', 'dashboard_default');
+$config['settings'] = array('theme', 'mobile', 'mobile_default');
+$config['settings'] = array('site', 'google_webmaster', '');
+$config['settings'] = array('classes', 'images_sizes_full', 'yes');
+$config['settings'] = array('site', 'google_analytics', '');
+$config['settings'] = array('site', 'bing_webmaster', '');
+$config['settings'] = array('site', 'gravatar_enabled', 'TRUE');
+$config['settings'] = array('site', 'bitly_enabled', 'TRUE');
+$config['settings'] = array('site', 'bitly_login', '');
+$config['settings'] = array('site', 'bitly_api_key', '');
+$config['settings'] = array('site', 'bitly_domain', 'bit.ly');
+$config['settings'] = array('site', 'akismet_key', 'dc0465ba152f');
+$config['settings'] = array('site', 'recaptcha_public', '6Lch7LwSAAAAACP2t2e1qpIQ9Cz7AsvXRfJf1yW_');
+$config['settings'] = array('site', 'recaptcha_private', '6Lch7LwSAAAAAJvERNehdFPPPZ5TQjd1DgjJRTmK');
+$config['settings'] = array('site', 'recaptcha_theme', 'white');
+$config['settings'] = array('comments', 'enabled', 'TRUE');
+$config['settings'] = array('comments', 'reply', 'TRUE');
+$config['settings'] = array('comments', 'reply_level', '2');
+$config['settings'] = array('comments', 'comments_date_style', 'SIMPLE_TIME');
+$config['settings'] = array('comments', 'email_signup', 'TRUE');
+$config['settings'] = array('comments', 'email_replies', 'TRUE');
+$config['settings'] = array('comments', 'akismet', 'TRUE');
+$config['settings'] = array('comments', 'recaptcha', 'TRUE');
+$config['settings'] = array('comments', 'date_style', 'ELAPSED');
+$config['settings'] = array('ratings', 'enabled', 'TRUE');
+$config['settings'] = array('ratings', 'rate_type', 'TRUE');
+$config['settings'] = array('pages', 'enabled', 'TRUE');
+$config['settings'] = array('pages', 'ratings_allow', 'TRUE');
+$config['settings'] = array('pages', 'tags_display', 'TRUE');
+$config['settings'] = array('pages', 'comments_allow', 'TRUE');
+$config['settings'] = array('pages', 'comments_per_page', '10');
+$config['settings'] = array('home', 'public_timeline', 'TRUE');
+$config['settings'] = array('home', 'date_style', 'ELAPSED');
+$config['settings'] = array('home', 'description_length', '110');
+$config['settings'] = array('home', 'share', 'TRUE');
+$config['settings'] = array('home', 'like', 'TRUE');
+$config['settings'] = array('home', 'comments_allow', 'TRUE');
+$config['settings'] = array('home', 'comments_per_page', '2');
+$config['settings'] = array('users', 'signup', 'TRUE');
+$config['settings'] = array('users', 'signup_recaptcha', 'TRUE');
+$config['settings'] = array('users', 'login', 'TRUE');
+$config['settings'] = array('users', 'login_recaptcha', 'TRUE');
+$config['settings'] = array('users', 'profile', 'TRUE');
+$config['settings'] = array('users', 'profile_activity', 'TRUE');
+$config['settings'] = array('users', 'profile_relationships', 'TRUE');
+$config['settings'] = array('users', 'profile_content', 'TRUE');
+$config['settings'] = array('users', 'message_allow', 'TRUE');
+$config['settings'] = array('users', 'message_recaptcha', '5');
+$config['settings'] = array('users', 'comments_allow', 'TRUE');
+$config['settings'] = array('users', 'comments_per_page', '10');
+$config['settings'] = array('users', 'images_sizes_large', 'yes');
+$config['settings'] = array('users', 'images_sizes_medium', 'yes');
+$config['settings'] = array('users', 'images_sizes_small', 'yes');
+$config['settings'] = array('users', 'images_large_width', '275');
+$config['settings'] = array('users', 'images_large_height', '175');
+$config['settings'] = array('users', 'images_medium_width', '48');
+$config['settings'] = array('users', 'images_medium_height', '48');
+$config['settings'] = array('users', 'images_small_width', '45');
+$config['settings'] = array('users', 'images_small_height', '25');
+$config['settings'] = array('users', 'images_formats', 'gif|jpg|jpeg|png');
+$config['settings'] = array('users', 'images_max_size', '25600');
+$config['settings'] = array('users', 'images_full_width', '750');
+$config['settings'] = array('users', 'images_full_height', '750');
+$config['settings'] = array('users', 'images_sizes_full', 'yes');
+$config['settings'] = array('users', 'images_folder', 'media/profiles/');
+$config['settings'] = array('users', 'images_max_dimensions', '3000');
+$config['settings'] = array('users', 'images_sizes_original', 'yes');
+
+$config['sites'] = array('http://social-igniter.com', 'default', 'Social-Igniter', 'A Really Simple Open Source Social Web Application Template', 'Social-Igniter is a really simple open source social web application template', 'social, web application, open source, codeigniter, php');
+
+$config['users_level'] = array('superadmin', 'Super Admin', 'Super Admins are the head honchos who have power to do anything they want on your install of Social Igniter');
+$config['users_level'] = array('admin', 'Admin', 'Admins can do most things, not all, but most things needed on a site');
+$config['users_level'] = array('superuser', 'Super User', 'Supers Users help keep the ship on course, they do some things, but not all');
+$config['users_level'] = array('user', 'User', 'Users are just regular Joes or Joesephines. They use your application as it is intended for the general public');

@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
+/* 
+ * Comments API : Core : Social-Igniter
+ *
+ */
 class Comments extends Oauth_Controller
 {
     function __construct()

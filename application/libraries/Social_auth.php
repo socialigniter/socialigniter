@@ -1,24 +1,12 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
-* Name:  Social_Auth Library
+* Name:  Social Auth Library
 * 
-* Modified: Brennan Novak
-*			@brennannovak
+* Author:  		Brennan Novak severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
+* 		   		contact@social-igniter.com
+*				@socialigniter
 *
-* Author: 	Ben Edmunds
-* 		  	ben.edmunds@gmail.com
-*         	@benedmunds
-*          
-* Added Awesomeness: Phil Sturgeon
-* 
-* Original: http://github.com/benedmunds/CodeIgniter-Ion-Auth
-*          
-* Created:  10.01.2009 
-* 
-* Description:  Modified auth system based on redux_auth with extensive customization. This is basically what Redux Auth 2 should be.  Original redux license is below.
-* Original Author name has been kept but that does not mean that the method has not been modified.
-* 
-* Requirements: PHP5 or above
+* Location: http://github.com/socialigniter/core
 */
 require_once(APPPATH.'libraries/Oauth/OauthRequestVerifier.php');
 
@@ -475,11 +463,6 @@ class Social_auth
 	function get_users($group_name=false)
 	{
 	    return $this->ci->auth_model->get_users($group_name)->result();
-	}
-	
-	function get_users_array($group_name=false)
-	{
-	    return $this->ci->auth_model->get_users($group_name)->result_array();
 	}
 	
 	function get_newest_users($limit = 10)

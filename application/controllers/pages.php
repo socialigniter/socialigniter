@@ -40,7 +40,7 @@ class Pages extends Dashboard_Controller
 		else
 		{		
 			// Non Form Fields
-			$this->data['sub_title']		= 'Write';
+			$this->data['sub_title']		= 'Create';
 			$this->data['form_url']			= base_url().'api/content/create';
 			
 			// Form Fields
