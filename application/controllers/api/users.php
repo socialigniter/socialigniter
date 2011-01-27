@@ -7,55 +7,59 @@
 * @author		Brennan Novak
 * @link			http://social-igniter.com
 * 
- */
+*/
 class Users extends Oauth_Controller
 {
+    function __construct()
+    {
+        parent::__construct();      
+	}
     
     function recent_get()
     {
-    	//$this->get('limit')
         $users = $this->social_auth->get_users(10);
         
         if($users)
         {
-            $this->response($users, 200); // 200 being the HTTP response code
+            $message = array('status' => 'success', 'message' => '1 - 10 recent users', 'data' => $users);
         }
-
         else
         {
-            $this->response(array('error' => 'Couldn\'t find any users!'), 404);
+            $message = array('status' => 'error', 'message' => 'Oops could not find any users');
         }
+        
+        $this->response($message, 200);        
     }
 
 	function view_get()
     {
         if(!$this->get('user_id'))
         {
-        	$this->response(NULL, 400);
+        	$message = array('status' => 'error', 'message' => 'You must specific a user_id in the url');
         }
 
         $user = $this->social_auth->get_user($this->get('id'));
     	
         if($user)
         {
-            $this->response($user, 200); // 200 being the HTTP response code
+            $mesage = array('status' => 'success', 'message' => 'User found', 'data' => $user);
         }
         else
         {
-            $this->response(array('error' => 'User could not be found'), 404);
+            $message = array('status' => 'error', 'message' => 'User could not be found');
         }
+
+        $this->response($message, 200);
     }
 
     function create_post()
     {
-        // Validation Rules
     	$this->form_validation->set_rules('name', 'Name', 'required');
     	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
     	$this->form_validation->set_rules('password', 'Password', 'required|min_length['.config_item('min_password_length').']|max_length['.$this->config->item('max_password_length').']|strong_pass['.config_item('password_strength').']|matches[password_confirm]');
     	$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
     	$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
 
-		// Validates
         if ($this->form_validation->run() == true)
         {
             
@@ -73,29 +77,25 @@ class Users extends Oauth_Controller
 	    		'user_state'	=> 'needs-verify'
 	    	);
 	    	        	
-	    	// Register User
 	    	if ($this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group')))
 	    	{
-		        $message	= array('message' => 'Created!');
-		        $response	= 200;
+		        $message = array('status' => 'success', 'message' => 'User created');
 	   		}
 	   		else
 	   		{
-		        $message	= array('message' => 'Could Not Create!');
-		        $response	= 400;
+		        $message = array('status' => 'error', 'message' => 'Oops could not create that user');
 	   		}     
-        
         } 
 		else
 		{ 
-		        $message	= array('message' => 'Missing: '.validation_errors());
-		        $response	= 400;        
+		        $message = array('message' => 'Oops you are missing '.validation_errors());
         }
         
-        $this->response($message, $response); // 200 being the HTTP response code
+        $this->response($message, 200);
     }
-    
-    function update_post()
+
+	// Update User    
+    function update_authd_post()
     {
     	$update_data = array(
     		'username'	=> url_username($this->input->post('name'), 'none', true),
@@ -103,27 +103,49 @@ class Users extends Oauth_Controller
         	'bio'		=> $this->input->post('bio')
     	);
     	
-    	// Update the user
     	if ($this->social_auth->update_user($this->get('id'), $update_data))
     	{
-	        $message	= array('message' => 'Updated!');
-	        $response	= 200;
+	        $message = array('status' => 'success', 'message' => 'User updated');
    		}
    		else
    		{
-	        $message	= array('message' => 'Could Not Update!');
-	        $response	= 400;
+	        $message = array('status' => 'error', 'message' => 'Could not update user');
    		}        
         
-        $this->response($message, $response); // 200 being the HTTP response code
+        $this->response($message, 200);
     }
+    
+	// Activate User
+	function activate_authd_put() 
+	{        
+		$activation = $this->social_auth->activate($this->get('id'), $this->get('code'));
+		
+        if ($activation)
+        {
+	        $message = array('status' => 'success', 'message' => 'User activated');
+        }
+        else
+        {
+	        $message = array('status' => 'error', 'message' => 'User could not be activated');
+        }
+        
+        $this->response($message, 200);        
+    }
+    
+    // Deactivate User
+	function deactivate_authd_delete($id) 
+	{
+	    $this->social_auth->deactivate($id);
+
+        $this->response($message, $response);
+    }    
     
     function destroy_delete()
     {
-    	//$this->some_model->deletesomething( $this->get('id') );
-        $message = array('id' => $this->get('id'), 'message' => 'DELETED!');
+    	// $this->some_model->deletesomething($this->get('id'));
+        $message = array('status' => 'success', 'message' => 'User was deleted');
         
-        $this->response($message, 200); // 200 being the HTTP response code
+        $this->response($message, 200);
     }
 
 }

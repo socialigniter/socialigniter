@@ -67,6 +67,12 @@ $route['api/content/destroy/(:any)/(:any)']		= 'api/content/destroy/$1/$2';
 $route['api/content/recent']					= 'api/content/recent';
 $route['api/content/create']					= 'api/content/create';
 
+/* Users */
+$route['api/users/modify/(:any)/(:any)']		= 'api/users/modify/$1/$2';
+$route['api/users/activate/(:any)/(:any)']		= 'api/users/activate/$1/$2';
+$route['api/users/recent']						= 'api/users/recent';
+$route['api/users/create']						= 'api/users/create';
+
 /* API Modules */
 $route['api/(:any)/(:any)/(:any)/(:any)'] 		= '$1/api/$2/$3/$4';
 $route['api/(:any)/(:any)/(:any)'] 				= '$1/api/$2/$3';
@@ -123,6 +129,11 @@ $route['settings/update']						= 'settings/update';
 $route['settings/users']						= 'settings/users';
 $route['settings/pages']						= 'settings/pages';
 $route['settings'] 								= 'settings';
+
+/* Users Dashboard */
+$route['users/manage/(:any)']					= 'users/editor';
+$route['users/create']							= 'users/editor';
+
 
 /* Public Site */
 $route['login']									= 'index/login';

@@ -100,20 +100,6 @@ function item_viewed($class, $viewed)
 	return $status;
 }
 
-function item_user_state($active)
-{	
-	if ($active)
-	{
-		$state = 'activated';
-	}
-	else
-	{
-		$state = 'deactivated';
-	}
-
-	return $state;
-}
-
 // Alerts for 'activity' feed items
 function item_alerts_content($item)
 {
@@ -137,7 +123,7 @@ function item_alerts_content($item)
 	return $item_alerts;
 }
 
-// Alerts for just comments
+// Alerts for Comments
 function item_alerts_comment($comment)
 {
 	$comment_alerts = NULL;
@@ -155,6 +141,18 @@ function item_alerts_comment($comment)
 	return $comment_alerts;
 }
 
+// Alerts for Users
+function item_alerts_user($user)
+{
+	$user_alerts = NULL;
+
+	if (!$user->active) 
+	{
+		$user_alerts .= '<span class="item_activate item_alert_activate" rel="users" id="item_alert_activate_'.$user->user_id.'">Activate</span>';
+	}
+
+	return $user_alerts;
+}
 
 /* Event Item Types */
 function events_location($object, $allowed)
@@ -192,7 +190,7 @@ function comments_count($count)
 }
 
 
-/* Manage Section */
+/* Manage */
 function manage_comments_count($comments_count)
 {
 	if ($comments_count)
@@ -222,4 +220,17 @@ function manage_published_date($created_at, $updated_at)
 	return $published;
 }
 
+/* Users */
+function item_user_state($active)
+{	
+	if ($active)
+	{
+		$state = 'deactivate';
+	}
+	else
+	{
+		$state = 'activate';
+	}
 
+	return $state;
+}
