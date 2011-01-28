@@ -1,5 +1,5 @@
 <?php
-class Users extends Dashboard_Controller {
+class Users extends Home_Controller {
  
     function __construct() 
     {

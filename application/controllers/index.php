@@ -1,5 +1,5 @@
 <?php
-class Index extends Public_Controller
+class Index extends Site_Controller
 { 
     function __construct()
     {
@@ -210,29 +210,18 @@ class Index extends Public_Controller
     }    
 
 	function forgot_password() 
-	{
+	{	
 		$this->form_validation->set_rules('email', 'Email Address', 'required');
 		
 	    if ($this->form_validation->run() == false)
 	    {	
-	    	// Setup the input
-	    	$this->data['email'] = array('name' => 'email', 'id'      => 'email');
-	    	
-	    	// Set any errors and display the form
-        	$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-    		
-    		$this->render();
+        	$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');    		
 	    }
 	    else
-	    {
-	        // Run the forgotten password method to email an activation code to the user
-			$forgotten = $this->social_auth->forgotten_password($this->input->post('email'));
-			
-			if ($forgotten)
+	    {			
+			if ($forgotten = $this->social_auth->forgotten_password($this->input->post('email')))
 			{
 				$this->session->set_flashdata('message', 'An email has been sent, please check your inbox.');
-
-	            //we should display a confirmation page here instead of the login page	            
 	            redirect("login", 'refresh');
 			}
 			else {
@@ -240,6 +229,8 @@ class Index extends Public_Controller
 	            redirect("forgot_password", 'refresh');
 			}
 	    }
+	    
+    	$this->render();
 	}
 	
 	function reset_password() 

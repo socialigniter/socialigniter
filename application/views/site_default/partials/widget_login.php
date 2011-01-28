@@ -13,7 +13,7 @@
 	<tr>
 	  <td>Remember:</td>
 	  <td><?= form_checkbox('remember', '1', TRUE, 'id="login_remember"');?> 
-	  <a href="<?= base_url()."login/forgot_password"; ?>">Forgot password?</a>
+	  <a href="<?= base_url()."forgot_password"; ?>">Forgot password?</a>
 	  </td>
 	</tr>
 	<tr>
@@ -23,3 +23,11 @@
 	</form>
 	<?= $this->social_igniter->get_social_logins('<div class="social_login">', '</div>'); ?>
 <?php } ?>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+	doPlaceholder('[name=email]', 'your@email.com');
+	doPlaceholder('[name=password]', 'password');
+});
+</script>

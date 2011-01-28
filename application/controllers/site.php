@@ -1,5 +1,5 @@
 <?php
-class Site extends Dashboard_Controller
+class Site extends Home_Controller
 {
 
 	function __construct()

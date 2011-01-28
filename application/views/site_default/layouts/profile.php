@@ -40,7 +40,6 @@
 		<?= $footer ?>
 	</div>
 </div>
-
 <?= $settings['site']['google_analytics'] ?>
 </body>
 </html>

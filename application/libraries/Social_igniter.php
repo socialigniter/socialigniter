@@ -414,12 +414,17 @@ class Social_igniter
 	}
 	
 	/* Activity */
-	function get_timeline($limit, $module)
+	function get_timeline($module, $limit)
 	{
 		if ($module)	$where = array('module' => $module);
 		else			$where = array();
 	
-		return $this->ci->activity_model->get_timeline($limit, $where);		
+		return $this->ci->activity_model->get_timeline($where, $limit);		
+	}
+
+	function get_timeline_user($user_id, $limit)
+	{	
+		return $this->ci->activity_model->get_timeline_user($user_id, $limit);
 	}
 	
 	function get_activity($activity_id)

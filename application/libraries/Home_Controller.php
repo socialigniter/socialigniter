@@ -13,7 +13,7 @@
 * Description: Library that is extended by all "Dashboard" facing 'home' controllers
 * that requires user authentication and access
 */
-class Dashboard_Controller extends MY_Controller
+class Home_Controller extends MY_Controller
 {
     function __construct()
     {

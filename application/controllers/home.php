@@ -1,5 +1,5 @@
 <?php
-class Home extends Dashboard_Controller 
+class Home extends Home_Controller 
 { 
     function __construct() 
     {
@@ -28,7 +28,7 @@ class Home extends Dashboard_Controller
  	    }
  	     	     	    
 		// Feed 
-		$timeline 							= $this->social_igniter->get_timeline(10, $feed_module);
+		$timeline 							= $this->social_igniter->get_timeline($feed_module, 10);
 		$timeline_view 						= NULL;		
 				 			
 		if (!empty($timeline))

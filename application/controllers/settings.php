@@ -1,5 +1,5 @@
 <?php
-class Settings extends Dashboard_Controller {
+class Settings extends Home_Controller {
  
     function __construct() 
     {

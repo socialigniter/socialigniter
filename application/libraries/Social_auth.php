@@ -156,8 +156,8 @@ class Social_auth
 			$profile = $this->ci->auth_model->profile($email);
 
 			$data = array(
-				'identity' => $profile->{config_item('identity')}, 
-				'forgotten_password_code' => $profile->forgotten_password_code
+				'identity' 					=> $profile->{config_item('identity')}, 
+				'forgotten_password_code'	=> $profile->forgotten_password_code
 			);
 
 			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password'), $data, true);
