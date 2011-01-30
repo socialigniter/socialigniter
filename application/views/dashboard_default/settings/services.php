@@ -2,6 +2,28 @@
 
 <div class="content_wrap_inner">
 
+	<h3>Email</h3>
+	
+	<p>Configure your email settings to use special email sending solutions</p>
+	
+	<p><?= form_dropdown('email_protocol', config_item('email_protocol'), $settings['site']['email_protocol']) ?></p>	
+
+	<div id="email_smtp_options">
+		<p><input type="text" name="smtp_host" value="<?= $settings['site']['smtp_host'] ?>"> Hostname</p>
+		
+		<p><input type="text" name="smtp_user" value="<?= $settings['site']['smtp_user'] ?>"> Username</p>
+	
+		<p><input type="text" name="smtp_pass" value="<?= $settings['site']['smtp_pass'] ?>"> Password</p>
+	
+		<p><input type="text" name="smtp_port" value="<?= $settings['site']['smtp_port'] ?>"> Port</p>
+	</div>
+
+</div>
+
+<span class="item_separator"></span>
+
+<div class="content_wrap_inner">
+
 	<h3>SEO</h3>
 	
 	<p>Shorten, share and track your links with <a href="http://bit.ly" target="_blank">Bit.ly</a>. You will need to <a href="http://bit.ly/a/sign_up" target="_blank">signup</a> and obtain an <a href="http://bit.ly/a/your_api_key" target="_blank">API Key</a> to use it.</p>
@@ -79,3 +101,30 @@
 </div>
 
 </form>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+	doPlaceholder('.repeating_title', "How to Grow a Garden");
+	doPlaceholder('.repeating_body', "Ever wanted to grow your own fruits and vegetables?");
+	doPlaceholder('#more_details', "Additional details about your class");
+	
+	// Add Category
+	$('[name=email_protocol]').change(function()
+	{	
+		if($(this).val() == 'smtp')
+		{
+			$('#email_smtp_options').fadeIn('normal');
+		}
+		else
+		{
+			$('#email_smtp_options').fadeOut('normal');
+			$('[name=smtp_host]').val('');
+			$('[name=smtp_user]').val('');
+			$('[name=smtp_pass]').val('');
+			$('[name=smtp_port]').val('');						
+		}
+	});
+
+});
+</script>

@@ -14,6 +14,14 @@
 <ul class="content_navigation">
 	 <?= navigation_list_btn('settings/modules', 'Back To Modules') ?>
 </ul>
+<?php elseif (is_uri_value($this->uri->segment(2), config_item('site_modules'))): ?>
+<h2 class="content_title"><img src="<?= $dashboard_assets ?>icons/site_32.png">  Site</h2>
+<ul class="content_navigation">
+	<?= navigation_list_btn('settings/site', 'Settings') ?>
+	<?= navigation_list_btn('settings/themes', 'Themes') ?>	
+	<?= navigation_list_btn('settings/widgets', 'Widgets') ?>	
+	<?= navigation_list_btn('settings/services', 'Services') ?>
+</ul>
 <?php elseif ($this->uri->segment(2) == 'api'): ?>
 <h2 class="content_title">
 	<img src="<?= $dashboard_assets ?>icons/api_32.png"> Api Settings
