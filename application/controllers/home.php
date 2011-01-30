@@ -1,6 +1,6 @@
 <?php
 class Home extends Dashboard_Controller 
-{ 
+{
     function __construct() 
     {
         parent::__construct();
@@ -27,9 +27,9 @@ class Home extends Dashboard_Controller
  	    	$feed_module = $this->uri->segment(2);
  	    }
  	     	     	    
-		// Feed 
-		$timeline 			= $this->social_igniter->get_timeline(10, $feed_module);
-		$timeline_view 		= NULL;		
+		// Feed
+		$timeline 							= $this->social_igniter->get_timeline($feed_module, 10);
+		$timeline_view 						= NULL;		
 				 			
 		if (!empty($timeline))
 		{

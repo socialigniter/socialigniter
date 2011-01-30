@@ -223,7 +223,6 @@ class Auth_model extends CI_Model
 		$this->forgotten_password_code = $key;
 		
 		$this->db->where($this->social_auth->_extra_where);
-		   
 		$this->db->update('users', array('forgotten_password_code' => $key), array('email' => $email));
 		
 		return $this->db->affected_rows() == 1;
@@ -279,9 +278,9 @@ class Auth_model extends CI_Model
 		$this->db->where($this->social_auth->_extra_where);
 		$this->db->limit(1);
 
-		$i = $this->db->get('users');
+		$profile = $this->db->get('users');
 		
-		return ($i->num_rows > 0) ? $i->row() : FALSE;
+		return ($profile->num_rows > 0) ? $profile->row() : FALSE;
 	}
 
 	function register($username, $password, $email, $additional_data=false, $group_name=false)

@@ -9,7 +9,7 @@ class Activity_model extends CI_Model {
         parent::__construct();
     }
     
-    function get_timeline($limit=10, $where)
+    function get_timeline($where, $limit=10)
     {
  		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
  		$this->db->from('activity');    
@@ -23,9 +23,9 @@ class Activity_model extends CI_Model {
  		return $result->result();	      
     }
     
-    function get_timeline_user($user_id, $limit=8)
+    function get_timeline_user($user_id, $limit=10)
     {
- 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email');
+ 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
  		$this->db->from('activity');
  		$this->db->join('sites', 'sites.site_id = activity.site_id');
  		$this->db->join('users', 'users.user_id = activity.user_id');

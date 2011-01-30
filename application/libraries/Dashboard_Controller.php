@@ -113,6 +113,16 @@ class Dashboard_Controller extends MY_Controller
         	$navigation_path	= '../modules/'.$module_name.'/views/partials/navigation_home.php';
     	    $content_path 		= config_item('dashboard_theme').'/home/module.php';
 		}
+		elseif (($this->uri->segment(1) == 'home') && (in_array($this->uri->segment(2), $this->modules_scan)))
+		{
+			$first_name		= $this->uri->segment(1);
+			$module_name 	= $this->uri->segment(2);
+
+			$this->data['modules_assets'] = base_url().'application/modules/'.$module_name.'/assets/';
+
+        	$navigation_path	= '../modules/'.$module_name.'/views/partials/navigation_home.php';
+    	    $content_path 		= config_item('dashboard_theme').'/home/module.php';
+		}
 		// Comments & Pages
 		// This is a kind of nasty solution but works
 		// Should perhaps be rethought in the future

@@ -151,7 +151,7 @@ $(document).ready(function()
 				}		  	
 		  	}		
 		});			
-	});	
+	});
 
 	// Delete Item
 	$('.item_delete').live('click', function(eve)
@@ -183,6 +183,32 @@ $(document).ready(function()
 		});
 	});	
 	
+	// Activate User
+	$('.item_activate, .item_alert_activate').live('click', function(eve)
+	{
+		eve.preventDefault();
+		var item_attr_id		= $(this).attr('id');
+		var item_attr_array		= item_attr_id.split('_');
+		var item_id				= item_attr_array[3];
+		var item_url			= base_url + 'api/users/activate/id/' + item_id;
+				
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,		
+			url			: item_url,
+			type		: 'PUT',
+			dataType	: 'json',
+		  	success		: function(result)
+		  	{	  	
+				if (result.status == 'success')
+				{	
+					$('#item_alert_activate_'+item_id).fadeOut('normal');
+					$('#item_action_activate_'+item_id).replaceWith('<a class="item_deactivate" href="deactivate" rel="users" id="item_action_deactivate_'+item_id+'"><span class="actions action_deactivate"></span> Deactivate</a>');
+				}
+		  	}		
+		});			
+	});		
+	
 	/* Geolocation */
 	function geo_get()
 	{
@@ -213,10 +239,10 @@ $(document).ready(function()
 			}
 		}
 	}
+	
 	//Initial get, use it elsewhere to update location
 	geo_get();
 	/* End Geolocation stuff */
-	
 	
 	
 	/* Start the comment functionality */
@@ -404,6 +430,8 @@ $(document).ready(function()
 				module		: '',
 				type		: '',
 				title		: '',
+				slug_value	: '',
+				details		: '',
 				trigger		: '',
 				after 		: function(){}
 			};
@@ -469,7 +497,7 @@ $(document).ready(function()
 								e.stopPropagation();
 								
 								var category_data = $('#new_category').serializeArray();
-								category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type});
+								category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type},{'name':'details','value':options.details});
 								
 								console.log(category_data)
 							

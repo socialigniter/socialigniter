@@ -217,6 +217,7 @@ span.item_manage_title a	{ font-size: 16px; line-height: 18px; color: #666666; t
 span.item_manage_title a:visited { color: #666666; text-shadow:1px 1px 1px #FFF; }
 span.item_manage_meta		{ width: 450px; display: block; float: left; margin: 0 0 0 48px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
 span.item_manage_meta span span { position: relative; top: -2px; left: 0; }
+
 span.item_manage_comments	{ display: block; width: 130px; float: left; }
 span.item_manage_publish	{ display: block; width: 200px; float: left; }
 
@@ -224,8 +225,6 @@ span.item_alert_new			{ width: 22px; display: block; padding: 3px 8px; cursor: p
 span.item_alert_approve 	{ width: 42px; display: block; padding: 3px 8px; cursor: pointer; color: #2078CE; background: #f2e3af; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #d6d6d6; text-align: center; }
 span.item_alert_published 	{ width: 50px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #4fa74d; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #777777; text-align: center; }
 span.item_alert_saved 		{ width: 50px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #2078CE; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #888888;  text-align: center; }
-span.item_alert_activate 	{ width: 50px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #b54545; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0px 10px 0px 0px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #888888;  text-align: center; }
-
 
 span.item_type				{ width: 38px; height: 32px; display: block; float: right; background-image: url(images/item_type_icons.png); position: relative; right: 0px; top: 0px; margin: 0px 0px 0px 0px; }
 span.type_comment			{ background-position: 0px -35px; }
@@ -243,16 +242,6 @@ span.type_approve			{ background-position: 0px -385px; }
 span.type_file				{ background-position: 0px -420px; }
 span.type_class				{ background-position: 0px -554px; }
 
-/* Manage Users */
-span.item_manage_avatar		{ width: 48px; height: 48px; display: block; float: left; position: relative; left: 5px; top: 10px; }
-span.item_manage_name		{ width: 400px; height: 18px; float: left; margin: 10px 0 0 15px; padding: 0; }
-span.item_manage_name a		{ font-size: 16px; line-height: 18px; color: #666666; text-shadow:1px 1px 1px #FFF; }
-span.item_manage_name a:visited { color: #666666; text-shadow:1px 1px 1px #FFF; }
-span.item_manage_user_meta	{ width: 450px; display: block; float: left; margin: -4px 0 0 65px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
-span.item_manage_last_login	{ width: 225px; display: block; float: left; }
-span.item_manage_publish	{ width: 200px; display: block; float: left; }
-
-/* Items Actions */
 ul.item_actions 			{ margin: 10px 0 0 0; padding: 0px; position: relative; bottom: 8px; right: 15px; list-style: none; float: right; visibility: hidden; }
 ul.item_actions li			{ float: left; margin: 0px 0px 0px 20px; }
 ul.item_actions li a 		{ color: #999999; font-size: 12px; }

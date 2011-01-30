@@ -21,7 +21,8 @@ $config['admin_group']         			= 'admin';				// Default administrators group,
 
 // Settings
 $config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','locations');
-$config['ignore_modules']				= array();
+$config['ignore_modules']				= array('index.html');
+$config['site_modules']					= array('site','themes','widgets','services','index.html');
 $config['home_greeting']				= array("There is no place like home","Welcome home buddy","Good news, you are home","Sweet home, Interwebs","Home again, home again, jigity jog");
 $config['mobile_verify']				= array("borogoves","gyre","jabberwocky","jubjub","frumious","bandersnatch","vorpal","tumtum","tulgey","burbled","snicker","snack","galumph","callooh","brillig","slithy","gimble"); //dont use the word verified
 $config['status_length']				= "140";

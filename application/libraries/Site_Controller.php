@@ -1,6 +1,6 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
-* Name:		Public_Controller Library
+* Name:		Site_Controller Library
 * 
 * Author:	Brennan Novak
 * 		  	contact@social-igniter.com
@@ -10,9 +10,9 @@
 * 
 * Created:  06-01-2010
 * 
-* Description: Library that is extended by all "Public" facing site controllers
+* Description: Library that is extended by all Site or "Public" facing controllers
 */
-class Public_Controller extends MY_Controller
+class Site_Controller extends MY_Controller
 {
     function __construct()
     {

@@ -29,29 +29,6 @@
 
 <div id="profile_content">
 	<ol id="timeline">
-		<?php
-		if (!empty($user_timeline)) :
-		foreach ($user_timeline as $status) : 
-		?>
-		<li class="status <?= $username ?>" id="status_<?= $status->status_id; ?>">
-			<span class="status_thumbnail">
-				<a href="<?= base_url()."profile/".$username ?>"><?= display_image("", "", asset_profiles().$user_id."/medium_", $image, asset_profiles()."medium_nopicture.png", "") ?></a>
-			</span>
-			<span class="status_text">
-				<?= text_linkify($status->text)  ?>
-				<span class="status_meta"><?= standard_date("SIMPLE_TIME", $status->created_at) ?></span>
-			</span>	
-			<ul class="status_actions">
-				<?php if ($user_id == $this->session->userdata('user_id')) { ?>
-				<li><span class="status_actions delete"><a href="#">Delete</a></span></li>
-				<?php } else { ?>
-				<li><span class="status_actions reply"><a href="#">Reply</a></span></li>
-				<?php } ?>
-			</ul>
-			<div class="clear"></div>	
-		</li>
-		<?php endforeach; else : ?>
-		<li>No updates from <?= $name ?></li>
-		<?php endif; ?>
+		<?= $timeline_view ?>
 	</ol>
 </div>	

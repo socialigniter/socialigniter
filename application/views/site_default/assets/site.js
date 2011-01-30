@@ -9,8 +9,6 @@ $(document).ready(function()
 	$('.error').hide();
 
 	// Placeholders 
-	doPlaceholder('#login_email', 'your@email.com');
-	doPlaceholder('#login_password', 'password');
 	doPlaceholder('#comment_name', 'Your Name');
 	doPlaceholder('#comment_email', 'your@email.com');
 	doPlaceholder('#comment_write_text', 'Write comment...');
