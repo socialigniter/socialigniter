@@ -19,15 +19,17 @@ class Content extends Oauth_Controller
         
         if($content)
         {
-            $this->response($content, 200);
+            $message	= array('status' => 'success', 'message' => 'Success content has been found', 'data' => $content);
         }
         else
         {
-            $this->response(array('status' => 'error', 'data' => 'Could not find any content'), 200);
+            $message	= array('status' => 'error', 'message' => 'Could not find any content');
         }
+        
+        $this->response($message, 200);        
     }
 
-	// Content by various
+	// Content View
 	function view_get()
     {
     	$search_by	= $this->uri->segment(4);
@@ -36,7 +38,7 @@ class Content extends Oauth_Controller
    		 	
         if($content)
         {
-            $message 	= array('status' => 'success', 'data' => $content);
+            $message 	= array('status' => 'success', 'message' => 'Success content has been found', 'data' => $content);
             $response	= 200;
         }
         else

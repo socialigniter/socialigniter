@@ -18,6 +18,7 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 <h3>Activity</h3>
 <ul>
 	<li>Recent <a href="<?= base_url() ?>api/activity/recent" target="_blank"><?= base_url() ?>api/activity/recent</a></li>
+	<li>View <a href="<?= base_url() ?>api/activity/view/user_id/1" target="_blank"><?= base_url() ?>api/activity/view/user_id/1</a> (accepts <b>site_id, user_id, verb, module,type,content_id</b>)</li>	
 	<li>Create <a href="<?= base_url() ?>api/activity/create" target="_blank"><?= base_url() ?>api/activity/create</a></li>
 	<li>Delete <a href="<?= base_url() ?>api/activity/destroy/id/1" target="_blank"><?= base_url() ?>api/activity/destroy/id/1</a> (1 represents <b>activity_id</b>)</li>
 </ul>

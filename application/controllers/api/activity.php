@@ -10,7 +10,6 @@ class Activity extends Oauth_Controller
         parent::__construct();      
 	}
 	
-	
     /* GET types */
     function recent_get()
     {
@@ -18,29 +17,33 @@ class Activity extends Oauth_Controller
         
         if($activity)
         {
-            $this->response($activity, 200);
+            $message	= array('status' => 'success', 'message' => 'Success activity has been found', 'data' => $activity);
         }
-
         else
         {
-            $this->response(array('error' => 'Could not find any categories'), 404);
+            $message	= array('status' => 'error', 'message' => 'Could not find any activity');
         }
+        
+        $this->response($message, 200); 
     }
 
-    function search_get()
+	// Acitivty View
+	function view_get()
     {
     	$search_by	= $this->uri->segment(4);
     	$search_for	= $this->uri->segment(5);
-    	$categories = $this->categories_model->get_categories_by($search_by, $search_for);
-    	
-        if($categories)
+		$activity	= $this->social_igniter->get_activity_view($search_by, $search_for);    
+   		 	
+        if($activity)
         {
-            $this->response($categories, 200);
+            $message 	= array('status' => 'success', 'data' => $activity);
         }
         else
         {
-            $this->response(array('error' => 'Could not find any '.$search_by.' categories for '.$search_for), 404);
+            $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' content for '.$search_for);
         }
+
+        $this->response($message, 200);
     }
 
 
