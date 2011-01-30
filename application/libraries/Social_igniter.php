@@ -32,21 +32,31 @@ class Social_igniter
     // Profile Picture	
 	function profile_image($user_id, $image, $email=NULL, $size='medium')
 	{
-		$picture 	 = '';	
-		$nopicture	 = base_url().config_item('users_images_folder').$size.'_'.config_item('profile_nopicture');
+		$this->ci->load->helper('gravatar');
+		$picture = base_url().config_item('users_images_folder').$size.'_'.config_item('profile_nopicture');
 		
 		if ($image)
 		{
-			$picture = base_url().config_item('users_images_folder').$user_id.'/'.$size.'_'.$image;
+			$image_file = config_item('users_images_folder').$user_id.'/'.$size.'_'.$image;
+			
+		    if (file_exists($image_file))
+		    {
+		    	$picture = base_url().$image_file;
+		    }
+		    else
+		    {
+				if (config_item('site_gravatar_enabled') == 'TRUE')
+				{		
+					return gravatar($email, "X", config_item('users_images_'.$size.'_width'), $picture);
+				}
+		    }
+		    
+		    return $picture;
 		}
-		elseif (config_item('site_gravatar_enabled') == 'TRUE')
+		
+		if (config_item('site_gravatar_enabled') == 'TRUE')
 		{		
-			$this->ci->load->helper('gravatar');
-			$picture = gravatar($email, "X", config_item('users_images_'.$size.'_width'), $nopicture);
-		}
-		else
-		{
-			$picture = $nopicture;
+			$picture = gravatar($email, "X", config_item('users_images_'.$size.'_width'), $picture);
 		}
 				
 		return $picture;
