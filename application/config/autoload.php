@@ -38,7 +38,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','session','form_validation','email','social_auth','social_igniter','social_tools');
+$autoload['libraries'] = array('database','session','form_validation','social_auth','social_igniter','social_tools');
 
 /*
 | -------------------------------------------------------------------
@@ -64,7 +64,7 @@ $autoload['helper'] = array('url','cookie','date','text','feed','view','array','
 |
 */
 
-$autoload['config'] = array('social_igniter','email','settings','custom');
+$autoload['config'] = array('social_igniter','settings','custom');
 
 /*
 | -------------------------------------------------------------------

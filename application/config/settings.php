@@ -14,6 +14,12 @@
 * as KEY => VALUE pairs in 'settings' table.
 */
 /* Settings Sections */
+$config['email_protocol'] = array(
+	'smtp'		=> 'SMTP',
+	'sendmail'	=> 'Sendmail',
+	'mail'		=> 'PHP Mail'
+);
+
 $config['yes_or_no'] = array(
 	'TRUE'	=> 'Yes',
 	'FALSE'	=> 'No'

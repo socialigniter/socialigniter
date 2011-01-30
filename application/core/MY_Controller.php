@@ -57,17 +57,6 @@ class MY_Controller extends MX_Controller
         $this->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
         $this->output->set_header('Pragma: no-cache');
 
-		// Site Values
-		$this->config->set_item('site_url', $site->url);
-
-		$this->data['site_title'] 			= $site->title;
-		$this->data['site_tagline'] 		= $site->tagline;
-		$this->data['site_url']				= $site->url;
-		$this->data['page_title'] 			= NULL;
-		$this->data['sub_title']			= NULL;
-		$this->data['site_description'] 	= $site->description;
-		$this->data['site_keywords'] 		= $site->keywords;
-
 		// Create Settings
 		foreach ($this->social_igniter->get_settings() as $setting)
 		{
@@ -80,6 +69,15 @@ class MY_Controller extends MX_Controller
 			if (($setting->setting == 'social_post') 		&& ($setting->value == 'TRUE')) $this->social_post[] 		= $setting->module;
 			if (($setting->setting == 'social_checkin') 	&& ($setting->value == 'TRUE')) $this->social_checkin[] 	= $setting->module;
 		}
+		
+		// Site Values
+		$this->data['site_title'] 			= config_item('site_title');
+		$this->data['site_tagline'] 		= config_item('site_tagline');
+		$this->data['site_url']				= config_item('site_url');
+		$this->data['page_title'] 			= NULL;
+		$this->data['sub_title']			= NULL;
+		$this->data['site_description'] 	= config_item('site_description');
+		$this->data['site_keywords'] 		= config_item('site_keywords');
 
 		// Set Social Config Arrays
 		$this->config->set_item('social_logins', $this->social_logins);
@@ -90,16 +88,16 @@ class MY_Controller extends MX_Controller
 		// Themes
         if ($this->agent->is_mobile())
         {
-            $this->config->set_item('site_theme', $this->data['settings']['theme']['mobile']);
-			$this->config->set_item('dashboard_theme', $this->data['settings']['theme']['mobile']);
+            $this->config->set_item('site_theme', $this->data['settings']['site']['mobile_theme']);
+			$this->config->set_item('dashboard_theme', $this->data['settings']['site']['mobile_theme']);
         }
         else
         {
-			$this->config->set_item('site_theme', $this->data['settings']['theme']['site']);
-			$this->config->set_item('dashboard_theme', $this->data['settings']['theme']['dashboard']);
+			$this->config->set_item('site_theme', $this->data['settings']['site']['site_theme']);
+			$this->config->set_item('dashboard_theme', $this->data['settings']['site']['dashboard_theme']);
         }
 
-		$this->config->set_item('mobile_theme', $this->data['settings']['theme']['mobile']);
+		$this->config->set_item('mobile_theme', $this->data['settings']['site']['mobile_theme']);
 
 		// Dashboard & Public values for logged
 		if ($this->social_auth->logged_in())
@@ -160,9 +158,9 @@ class MY_Controller extends MX_Controller
 		// Site Paths
 		$this->data['shared_images']		= base_url().'images/shared/';
 		$this->data['views']				= base_url().'application/views/';
-		$this->data['site_assets']			= base_url().'application/views/'.$this->data['settings']['theme']['site'].'/assets/';
-		$this->data['dashboard_assets']		= base_url().'application/views/'.$this->data['settings']['theme']['dashboard'].'/assets/';	
-		$this->data['mobile_assets']		= base_url().'application/views/'.$this->data['settings']['theme']['mobile'].'/assets/';
+		$this->data['site_assets']			= base_url().'application/views/'.$this->data['settings']['site']['site_theme'].'/assets/';
+		$this->data['dashboard_assets']		= base_url().'application/views/'.$this->data['settings']['site']['dashboard_theme'].'/assets/';	
+		$this->data['mobile_assets']		= base_url().'application/views/'.$this->data['settings']['site']['mobile_theme'].'/assets/';
 		$this->data['profiles']				= base_url().'profile/';
 
         // Set the current controller and action name

@@ -16,11 +16,22 @@ $config['content'] = array('pages', 'page', 'install', 0, 1, 'Welcome', 'welcome
 $config['content'] = array('pages', 'page', 'install', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site');
 $config['content'] = array('pages', 'page', 'install', 2, 1, 'Contact', 'contact', 'Please contact us', 'site');
 
-$config['settings'] = array('theme', 'site', 'site_default');
-$config['settings'] = array('theme', 'dashboard', 'dashboard_default');
-$config['settings'] = array('theme', 'mobile', 'mobile_default');
+$config['settings'] = array('site', 'site_theme', 'site_default');
+$config['settings'] = array('site', 'dashboard_theme', 'dashboard_default');
+$config['settings'] = array('site', 'mobile_theme', 'mobile_default');
+
+$config['settings'] = array('site', 'title', 'Awesome Website');
+$config['settings'] = array('site', 'tagline', 'Where I Post All My Awesome Things');
+$config['settings'] = array('site', 'keywords', 'awesome, things, pictures, videos, poems, watermelons, cats, ninjas');
+$config['settings'] = array('site', 'description', 'This is my awesome website where I post awesome stuff. Some of my favorite things are ninjas, watermelons, and cats');
+$config['settings'] = array('site', 'url', 'http://domainname.com');
+$config['settings'] = array('site', 'admin_email', 'you@email.com');
+$config['settings'] = array('site', 'email_protocol', 'mail');
+$config['settings'] = array('site', 'smtp_host', '');
+$config['settings'] = array('site', 'smtp_user', '');
+$config['settings'] = array('site', 'smtp_pass', '');
+$config['settings'] = array('site', 'smtp_post', '');
 $config['settings'] = array('site', 'google_webmaster', '');
-$config['settings'] = array('classes', 'images_sizes_full', 'yes');
 $config['settings'] = array('site', 'google_analytics', '');
 $config['settings'] = array('site', 'bing_webmaster', '');
 $config['settings'] = array('site', 'gravatar_enabled', 'TRUE');

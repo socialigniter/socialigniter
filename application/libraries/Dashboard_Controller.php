@@ -13,7 +13,7 @@
 * Description: Library that is extended by all "Dashboard" facing 'home' controllers
 * that requires user authentication and access
 */
-class Home_Controller extends MY_Controller
+class Dashboard_Controller extends MY_Controller
 {
     function __construct()
     {
@@ -103,6 +103,16 @@ class Home_Controller extends MY_Controller
     	    $content_path 			= '../modules/'.$this->module_name.'/views/'.$this->module_controller.'/'.$this->action_name.'.php';
 		}
 		// Module but uses 'home activity feed' like '/home/blog'
+		elseif (($this->uri->segment(1) == 'home') && (in_array($this->uri->segment(2), $this->modules_scan)))
+		{
+			$first_name		= $this->uri->segment(1);
+			$module_name 	= $this->uri->segment(2);
+
+			$this->data['modules_assets'] = base_url().'application/modules/'.$module_name.'/assets/';
+
+        	$navigation_path	= '../modules/'.$module_name.'/views/partials/navigation_home.php';
+    	    $content_path 		= config_item('dashboard_theme').'/home/module.php';
+		}
 		elseif (($this->uri->segment(1) == 'home') && (in_array($this->uri->segment(2), $this->modules_scan)))
 		{
 			$first_name		= $this->uri->segment(1);

@@ -29,6 +29,26 @@ class Social_auth
 		$this->error_start_delimiter   = config_item('error_start_delimiter');
 		$this->error_end_delimiter     = config_item('error_end_delimiter');
 		
+		// Config & Load Email	
+		$this->ci->load->library('email');
+		
+		$config_email = array(
+			'protocol' 		=> config_item('site_email_protocol'),
+			'smtp_host' 	=> config_item('site_smtp_host'),
+			'smtp_user' 	=> config_item('site_smtp_user'),
+			'smtp_pass' 	=> config_item('site_smtp_pass'),
+			'smtp_port' 	=> config_item('site_smtp_port'),
+			'mailtype'  	=> 'html',
+			'charset'   	=> 'UTF-8',
+			'crlf' 			=> "\r\n",
+			'newline' 		=> "\r\n", 			
+			'wordwrap'  	=> FALSE,
+			'validate'		=> TRUE,
+			'priority'		=> 1
+		);
+
+		$this->ci->email->initialize($config_email);
+			
 		// Load Models
 		$this->ci->load->model('auth_model');
 		$this->ci->load->model('connections_model');
@@ -158,20 +178,21 @@ class Social_auth
 			$data = array(
 				'identity' 					=> $profile->{config_item('identity')}, 
 				'forgotten_password_code'	=> $profile->forgotten_password_code
-			);
+			);			
 
 			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password'), $data, true);
-			$this->ci->email->clear();
-			$config['mailtype'] = "html";
-			$this->ci->email->initialize($config);
-			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from(config_item('admin_email'), config_item('site_title'));
+
+			$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
 			$this->ci->email->to($profile->email);
 			$this->ci->email->subject(config_item('site_title') . ' - Forgotten Password Verification');
 			$this->ci->email->message($message);
 			
 			if ($this->ci->email->send())
 			{
+				$debug =  $this->ci->email->print_debugger();
+
+				log_message('debug', 'emailssss '.$debug);
+			
 				$this->set_error('forgot_password_successful');
 				return TRUE;
 			}
@@ -204,17 +225,14 @@ class Social_auth
 		if ($new_password) 
 		{
 			$data = array(
-				'identity' => $profile->{$identity}, 
-				'new_password' => $new_password
+				'identity' 		=> $profile->{$identity}, 
+				'new_password'	=> $new_password
 			);
             
 			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password_complete'), $data, true);
 
-			$this->ci->email->clear();
-			$config['mailtype'] = "html";
-			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from(config_item('admin_email'), config_item('site_title'));
+			$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
 			$this->ci->email->to($profile->email);
 			$this->ci->email->subject(config_item('site_title') . ' - New Password');
 			$this->ci->email->message($message);
@@ -273,12 +291,9 @@ class Social_auth
 				);
 	            
 				$message = $this->ci->load->view(config_item('email_templates').config_item('email_signup'), $data, true);
-	            
-				$this->ci->email->clear();
-				$config['mailtype'] = "html";
-				$this->ci->email->initialize($config);
-				$this->ci->email->set_newline("\r\n");
-				$this->ci->email->from(config_item('admin_email'), config_item('site_title'));
+
+				$this->ci->email->set_newline("\r\n");	            
+				$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
 				$this->ci->email->to($email);
 				$this->ci->email->subject(config_item('site_title').' thanks you for signing up');
 				$this->ci->email->message($message);
@@ -331,12 +346,9 @@ class Social_auth
 			);
             
 			$message = $this->ci->load->view(config_item('email_templates').config_item('email_activate'), $data, true);
-            
-			$this->ci->email->clear();
-			$config['mailtype'] = "html";
-			$this->ci->email->initialize($config);
-			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from(config_item('admin_email'), config_item('site_title'));
+
+			$this->ci->email->set_newline("\r\n");            
+			$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
 			$this->ci->email->to($email);
 			$this->ci->email->subject(config_item('site_title') . ' - Account Activation');
 			$this->ci->email->message($message);

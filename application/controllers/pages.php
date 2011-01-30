@@ -1,5 +1,5 @@
 <?php
-class Pages extends Home_Controller
+class Pages extends Dashboard_Controller
 {
 	function __construct()
 	{

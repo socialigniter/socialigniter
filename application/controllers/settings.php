@@ -1,6 +1,6 @@
 <?php
-class Settings extends Home_Controller {
- 
+class Settings extends Dashboard_Controller
+{ 
     function __construct() 
     {
         parent::__construct();
@@ -13,6 +13,7 @@ class Settings extends Home_Controller {
  		redirect('settings/profile');
  	}
 
+	/* User Settings */
  	function profile()
  	{	
 		$user			= $this->social_auth->get_user($this->session->userdata('user_id')); 
@@ -90,7 +91,6 @@ class Settings extends Home_Controller {
  		$this->render();	
  	}
  	
- 	
 	function account()
  	{
 	    $this->data['sub_title'] = "Account";
@@ -155,9 +155,7 @@ class Settings extends Home_Controller {
  			$this->render();	
 		}
  	}
-
  	
- 	// Change user password
 	function password() 
 	{
 	    $this->data['sub_title'] = "Password";
@@ -166,18 +164,16 @@ class Settings extends Home_Controller {
 	    $this->form_validation->set_rules('new_password', 'New Password', 'required|min_length['.config_item('min_password_length').']|max_length['.config_item('max_password_length').']|matches[new_password_confirm]');
 	    $this->form_validation->set_rules('new_password_confirm', 'Confirm New Password', 'required');
 	   	    
-	    if ($this->form_validation->run() == true) // false) 
+	    if ($this->form_validation->run() == true) 
 	    { 
 	        $identity = $this->session->userdata(config_item('identity'));
 	        
 	        $change = $this->social_auth->change_password($identity, $this->input->post('old_password'), $this->input->post('new_password'));
 		
-			// If the password was successfully changed
     		if ($change)
     		{ 
     			$this->session->set_flashdata('message', 'Password Changed Successfully');
-    			$this->social_auth->logout();
-    			redirect('login');
+    			redirect('settings/password', 'refresh');
     		}
     		else
     		{
@@ -187,14 +183,12 @@ class Settings extends Home_Controller {
 	    }
 	    else
 	    {
-	        //set the flash data error message if there is one
 	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
         												 
         	$this->data['old_password']   		= $this->input->post('old_password');
         	$this->data['new_password']   		= $this->input->post('new_password');
         	$this->data['new_password_confirm'] = $this->input->post('new_password_confirm');
 	        
-        	//render
  			$this->render();	
 	    }
 	}
@@ -207,13 +201,13 @@ class Settings extends Home_Controller {
 
    		$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
 
-        if ($this->form_validation->run() == true) { //check to see if we are updating user
-
-        if ($user->phone_verify == 'verified') { $phone = $user->phone; }
-        else { $phone = ereg_replace("[^0-9]", "", $this->input->post('phone')); }
-                
-        if ($user->phone_verify == 'verified') { $phone_verify = $user->phone_verify; }
-        else { $phone_verify = random_element(config_item('mobile_verify')); }
+        if ($this->form_validation->run() == true)
+        {
+	        if ($user->phone_verify == 'verified') { $phone = $user->phone; }
+	        else { $phone = ereg_replace("[^0-9]", "", $this->input->post('phone')); }
+	                
+	        if ($user->phone_verify == 'verified') { $phone_verify = $user->phone_verify; }
+	        else { $phone_verify = random_element(config_item('mobile_verify')); }
 
 	    	$update_data = array(
 	        	'phone'			=> $phone,
@@ -222,7 +216,6 @@ class Settings extends Home_Controller {
 	        	'phone_search'	=> $this->input->post('phone_search')
 			);
         	
-        	// Update the user
         	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
         	{
         		$this->session->set_flashdata('message', "Phone Number Added");
@@ -232,11 +225,9 @@ class Settings extends Home_Controller {
        		{
        			redirect('settings/mobile', 'refresh');
        		}
-      
 		} 
 		else 
 		{ 	
-			//display the create user form
 	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 			
 	 		$this->data['phone']		    	= $this->input->post('phone');
@@ -284,7 +275,6 @@ class Settings extends Home_Controller {
 	        	'phone_search'	=> ""
 			);
         	
-        	// Update the user
         	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
         	{
         		$this->session->set_flashdata('message', "Phone Number Deleted");
@@ -305,9 +295,41 @@ class Settings extends Home_Controller {
 	    $this->data['message'] 				= validation_errors();
 
  		$this->render();	
- 	}		
+ 	}
+ 	
+	/* Site Settings */
+	function site()
+	{
+		$this->data['sub_title'] = 'Site';
+		$this->render();	
+	}
+
+	function themes()
+	{	
+		$this->data['site']					= $this->social_igniter->get_site();
+		$this->data['site_themes']			= $this->social_igniter->get_themes('site');
+		$this->data['dashboard_themes']		= $this->social_igniter->get_themes('dashboard');
+		$this->data['mobile_themes']		= $this->social_igniter->get_themes('mobile');
+		$this->data['sub_title'] 			= 'Themes';		
+		
+		$this->render('dashboard_wide');
+	}
+
+	function widgets()
+	{
+		$this->data['sub_title'] = 'Widgets';
+		$this->render();
+	}
+
+	function services()
+	{
+		$this->data['sub_title'] = 'Services';
+		$this->render();	
+	}
+	
+ 		
    
-    // Display Modules Settings
+    /* Modules Settings */
 	function modules()
 	{
 		$this->data['core_modules']		= config_item('core_modules');
@@ -316,26 +338,6 @@ class Settings extends Home_Controller {
 		$this->data['sub_title']		= 'Module';
 	
 		$this->render();
-	}
-
-	// Module Settings Update
-	function update()
-	{
-		// If not Super or Admin redirect
-		if ($this->data['logged_user_level_id'] > 1) redirect('home');
-
-		$settings_update = $_POST;
-	
-		if ($settings_update)
-        {
-			$this->social_igniter->update_settings($this->input->post('module'), $settings_update);
-														
-			redirect(base_url().'settings/'.$this->input->post('module'), 'refresh');
-		}
-		else
-		{
-			redirect($this->session->userdata('previous_page'), 'refresh');
-		}
 	}
 	
 	function comments()
@@ -368,6 +370,25 @@ class Settings extends Home_Controller {
 		$this->data['sub_title'] = 'API';
 	
     	$this->render();
-    }  
-    
+    }  	
+
+
+	/* Update Settings */
+	function update()
+	{
+		if ($this->data['logged_user_level_id'] > 1) redirect('home');
+
+		$settings_update = $_POST;
+	
+		if ($settings_update)
+        {
+			$this->social_igniter->update_settings($this->input->post('module'), $settings_update);
+														
+			redirect(base_url().'settings/'.$this->input->post('module'), 'refresh');
+		}
+		else
+		{
+			redirect($this->session->userdata('previous_page'), 'refresh');
+		}
+	}
 }

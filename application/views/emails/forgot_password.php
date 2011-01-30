@@ -1,6 +1,1 @@
-<html>
-<body>
-	<h1>Reset Password for <?= $identity;?></h1>
-	<p>Please click this link to <?= anchor('reset_password/'. $forgotten_password_code, 'Reset Your Password');?>.</p>
-</body>
-</html>
+<html><body><h1>Reset Password for <?php echo $identity;?></h1><p>Please click this link to <a href="<?php echo base_url().'reset_password/'. $forgotten_password_code ?>">Reset Your Password</a></p></body></html>

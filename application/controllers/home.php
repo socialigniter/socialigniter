@@ -1,6 +1,6 @@
 <?php
-class Home extends Home_Controller 
-{ 
+class Home extends Dashboard_Controller 
+{
     function __construct() 
     {
         parent::__construct();
