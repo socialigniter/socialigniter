@@ -1,12 +1,10 @@
 <h1>Signup</h1>
 
-<?php if (config_item('users_signup') == 'TRUE'): ?>
-
-<p>Please enter your information.</p> 
-
 <div id="info_message"><?= $message; ?></div>
 
-<form method="post" action="<?= base_url()."login/signup"; ?>">
+<?php if (config_item('users_signup') == 'TRUE'): ?>
+
+<form method="post" action="<?= base_url()."signup"; ?>">
 	<table border="0" cellpadding="0" cellspacing="0">
 	<tr>
 	  <td>Name:</td>

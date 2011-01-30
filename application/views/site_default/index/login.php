@@ -15,9 +15,9 @@
 <tr>
   <td>Remember:</td> 
   <td><?= form_checkbox('remember', '1', TRUE, 'id="login_remember"');?> 
-  <a href="<?= base_url()."forgot_password"; ?>">Forgot password?</a>
+  <a href="<?= base_url()."forgot_password"; ?>">Forgot password?</a>      
   </td>
-</tr>
+</tr>    
 <tr>
   <td colspan="2">
   	<input type="submit" name="submit" value="Login">
@@ -31,7 +31,7 @@
 </table>
 </form>
 
-<?= $this->social_igniter->get_social_logins('<div class="social_login">', '</div>') ?>
+<?= $this->social_igniter->get_social_logins('<div class="social_login">', '</div>'); ?>
 
 <script type="text/javascript">
 $(document).ready(function()

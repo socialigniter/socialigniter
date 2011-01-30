@@ -7,3 +7,10 @@
 	<p><input type="text" name="email" value=""></p>	
 	<p><input type="submit" name="submit" value="Retrieve" /></p>
 </form>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+	doPlaceholder('[name=email]', 'your@email.com');
+});
+</script>
