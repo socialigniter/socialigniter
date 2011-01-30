@@ -36,7 +36,7 @@ class Activity extends Oauth_Controller
    		 	
         if($activity)
         {
-            $message 	= array('status' => 'success', 'data' => $activity);
+            $message 	= array('status' => 'success', 'message' => 'Yay found some actvity', 'data' => $activity);
         }
         else
         {
@@ -48,7 +48,7 @@ class Activity extends Oauth_Controller
 
 
 	/* POST types */
-    function create_post()
+    function create_authd_post()
     {
     	$user_id = $this->session->userdata('user_id');   
     
@@ -72,25 +72,23 @@ class Activity extends Oauth_Controller
 			if ($category)
 			{
 	        	$message	= array('status' => 'success', 'data' => $category);
-	        	$response	= 200;
 	        }
 	        else
 	        {
 		        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-		        $response	= 400;		        
 	        }
 		}
 		else
 		{
 	        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-	        $response	= 400;
+	        $response	= 200;
 		}	
 
         $this->response($message, $response); // 200 being the HTTP response code
     }
     
     /* PUT types */
-    function update_put()
+    function update_authd_put()
     {
 		$viewed = $this->social_tools->update_comment_viewed($this->get('id'));			
     	
@@ -105,7 +103,7 @@ class Activity extends Oauth_Controller
     }  
 
     /* DELETE types */
-    function destroy_delete()
+    function destroy_authd_delete()
     {		
 		// Make sure user has access to do this func
 		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));

@@ -1,4 +1,4 @@
-<p><?= $site_title ?> has a standard REST API that supports GET, POST, PUT, and DELETE methods. To test the <?= $site_title ?> API we suggest using our sandbox tool located above.</p>
+<p><?= $site_title ?> has a standard REST API that supports GET, POST, PUT, and DELETE methods.</p>
 
 <h3>Formats</h3>
 <ul>
@@ -55,6 +55,11 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 	<li>Single <a href="<?= base_url() ?>api/users/view/id/1" target="_blank"><?= base_url() ?>api/users/view/id/1</a></li>
 	<li>Create <a href="<?= base_url() ?>api/users/create" target="_blank"><?= base_url() ?>api/users/create</a></li>
 	<li>Update <a href="<?= base_url() ?>api/users/update/id/1" target="_blank"><?= base_url() ?>api/users/update/id/1</a></li>
+</ul>
+
+<h3>Settings</h3>
+<ul>
+	<li>Update <a href="<?= base_url() ?>api/settings/update" target="_blank"><?= base_url() ?>api/settings/update</a></li>
 </ul>
 
 <hr>

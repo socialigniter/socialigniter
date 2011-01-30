@@ -435,7 +435,7 @@ class Social_igniter
 	function get_activity_view($parameter, $value, $limit=10)
 	{
 		return $this->ci->activity_model->get_activity_view($parameter, $value, $limit);	
-	}	
+	}
 	
 	function add_activity($activity_info, $activity_data)
 	{

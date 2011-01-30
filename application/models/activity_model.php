@@ -50,7 +50,7 @@ class Activity_model extends CI_Model {
  		return $result; 
     }
 
-    function get_activtiy_view($paramter, $value, $limit)
+    function get_activity_view($parameter, $value, $limit)
     {
     	if (in_array($parameter, array('site_id','user_id','verb', 'module','type','content_id')))
     	{    
