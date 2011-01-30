@@ -175,6 +175,6 @@ class MY_Controller extends MX_Controller
 		$this->modules_scan = $this->social_igniter->scan_modules();        
 
         // For Debugging
-        $this->output->enable_profiler(FALSE);
+        $this->output->enable_profiler(config_item('enable_profiler'));
 	}
 }
