@@ -3,7 +3,6 @@ favicon.ico
 application/config/config.php
 application/config/database.php
 application/config/social_igniter.php
-application/config/email.php
 application/config/custom.php
 application/config/routes.php
 application/helpers/custom_helper.php
