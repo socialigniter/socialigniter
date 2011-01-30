@@ -14,11 +14,11 @@ class Activity extends Oauth_Controller
     /* GET types */
     function recent_get()
     {
-    	$categories = $this->categories_model->get_timeline();
+    	$activity = $this->social_igniter->get_timeline(NULL, 10);
         
-        if($categories)
+        if($activity)
         {
-            $this->response($categories, 200);
+            $this->response($activity, 200);
         }
 
         else
