@@ -39,6 +39,12 @@ $route['feed/(:any)'] 							= '$1/feed';
 $route['feed/comments']							= 'feed/comments';
 $route['feed']		 							= 'feed/index';
 
+/* Activity */
+$route['api/activity/view/(:any)/(:any)']		= 'api/activity/view/$1/$2';
+$route['api/activity/destroy/(:any)/(:any)']	= 'api/activity/destroy/$1/$2';
+$route['api/activity/recent']					= 'api/activity/recent';
+$route['api/activity/create']					= 'api/activity/create';
+
 /* Categories */
 $route['api/categories/view/(:any)/(:any)']		= 'api/categories/view';
 $route['api/categories/view']					= 'api/categories/view';

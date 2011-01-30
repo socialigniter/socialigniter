@@ -5,8 +5,6 @@ This is the Core install of Social-Igniter. This repository contains all you nee
 
 To see check out a working install of Social-Igniter go to: http://social-igniter.com
 
-To see documentation on the API go to: http://social-igniter.com/api
-
 Installation Instructions
 =========================
 
@@ -16,13 +14,16 @@ Installation Instructions
 *
 * config.php.TEMPLATE
 * database.php.TEMPLATE
-* email.php.TEMPLATE
-* social_igniter.php.TEMPLATE
 *
 * Make the file names config.php and such...
 * Edit config.php value $config['base_url'] to match your server url
 * Edit database.php to have match your database settings
 * Install the database located at application/install/DATABASE.sql
+
+API Documentaion
+================
+
+To see documentation on the API go to: http://social-igniter.com/api
 
 License
 =======

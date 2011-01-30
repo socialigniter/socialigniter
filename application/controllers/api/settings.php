@@ -15,20 +15,18 @@ class Settings extends Oauth_Controller
     {
     	$search_by	= $this->uri->segment(4);
     	$search_for	= $this->uri->segment(5);
-    	$categories = $this->categories_model->get_categories_view($search_by, $search_for);
+    	$settings = $this->categories_model->get_categories_view($search_by, $search_for);
     	
-        if($categories)
+        if($settings)
         {
-            $message 	= array('status' => 'success', 'data' => $categories);
-            $response	= 200;
+            $message 	= array('status' => 'success', 'message' => 'Yay we found some settings', 'data' => $settings);
         }
         else
         {
             $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' categories for '.$search_for);
-            $response	= 404;        
         }
 
-        $this->response($message, $response);
+        $this->response($message, 200);
     }
     
     /* PUT types */

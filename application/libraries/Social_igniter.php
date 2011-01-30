@@ -441,6 +441,11 @@ class Social_igniter
 	{
 		return $this->ci->activity_model->get_activity($activity_id);
 	}
+
+	function get_activity_view($parameter, $value, $limit=10)
+	{
+		return $this->ci->activity_model->get_activity_view($parameter, $value, $limit);	
+	}
 	
 	function add_activity($activity_info, $activity_data)
 	{
@@ -477,7 +482,6 @@ class Social_igniter
 
 		return FALSE;
 	}
-	
 
 	/* Content */
 	function check_content_comments($content_id)
@@ -533,11 +537,6 @@ class Social_igniter
 	function get_content_title_url($type, $title_url)
 	{
 		return $this->ci->content_model->get_content_title_url($type, $title_url);
-	} 
-	
-	function get_content_view_recent($parameter, $value)
-	{
-		return $this->ci->content_model->get_content_view_recent($parameter, $value);
 	}
 	
     function get_content_new_count($module)

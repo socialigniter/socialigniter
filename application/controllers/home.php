@@ -27,7 +27,7 @@ class Home extends Dashboard_Controller
  	    	$feed_module = $this->uri->segment(2);
  	    }
  	     	     	    
-		// Feed 
+		// Feed
 		$timeline 							= $this->social_igniter->get_timeline($feed_module, 10);
 		$timeline_view 						= NULL;		
 				 			

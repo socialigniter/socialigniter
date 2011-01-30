@@ -12,7 +12,6 @@ class Sandbox extends MY_Controller
                 
         $this->data['page_title'] = 'API Sandbox';
     }
-    
  
 	function index()
 	{
@@ -33,7 +32,6 @@ class Sandbox extends MY_Controller
 	        $this->rest->format($format);
 	        $this->rest->api_key('foo');
 	        $this->rest->language('en-GB, pr');
-	        
 
 			$this->data['result']	= $this->rest->{$method}($uri, $params);
 			$this->data['debug'] 	= $this->rest->debug();	        
@@ -45,5 +43,4 @@ class Sandbox extends MY_Controller
 			echo 'Opps, something went wrong with your tonka truck. Better stay in the sandbox';			
 		}
 	}
-
 }
