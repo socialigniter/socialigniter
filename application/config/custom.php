@@ -10,3 +10,4 @@
 *
 * Description: 	For custom config settings that don't get committed back to core 
 */
+$config['custom_value']		= '';
