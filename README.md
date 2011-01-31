@@ -12,15 +12,17 @@ Installation Instructions
 * Place Download or Clone in your web servers directory 
 * Make duplicates of the following 4 files located in application/config/
 *
-* config.php.TEMPLATE
-* database.php.TEMPLATE
+* application/config/config.php.TEMPLATE
+* application/config/custom.php.TEMPLATE
+* application/config/database.php.TEMPLATE
+* application/helpers/custom_helper.TEMPLATE
 *
 * Make the file names config.php and such...
 * Edit config.php value $config['base_url'] to match your server url
 * Edit database.php to have match your database settings
 * Install the database located at application/install/DATABASE.sql
 
-API Documentaion
+API Documentation
 ================
 
 To see documentation on the API go to: http://social-igniter.com/api
