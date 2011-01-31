@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Abstract base class for OAuthStore implementations
  * 
@@ -59,5 +58,3 @@ class OAuthSessionSESSION extends OAuthSessionAbstract
 		$_SESSION[$key] = $data;
 	}
 }
-
-?>

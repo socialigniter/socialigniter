@@ -27,27 +27,7 @@ class Social_auth
 		$this->message_start_delimiter = config_item('message_start_delimiter');
 		$this->message_end_delimiter   = config_item('message_end_delimiter');
 		$this->error_start_delimiter   = config_item('error_start_delimiter');
-		$this->error_end_delimiter     = config_item('error_end_delimiter');
-		
-		// Config & Load Email	
-		$this->ci->load->library('email');
-		
-		$config_email = array(
-			'protocol' 		=> config_item('site_email_protocol'),
-			'smtp_host' 	=> config_item('site_smtp_host'),
-			'smtp_user' 	=> config_item('site_smtp_user'),
-			'smtp_pass' 	=> config_item('site_smtp_pass'),
-			'smtp_port' 	=> config_item('site_smtp_port'),
-			'mailtype'  	=> 'html',
-			'charset'   	=> 'UTF-8',
-			'crlf' 			=> "\r\n",
-			'newline' 		=> "\r\n", 			
-			'wordwrap'  	=> FALSE,
-			'validate'		=> TRUE,
-			'priority'		=> 1
-		);
-
-		$this->ci->email->initialize($config_email);
+		$this->error_end_delimiter     = config_item('error_end_delimiter');		
 			
 		// Load Models
 		$this->ci->load->model('auth_model');
@@ -172,7 +152,6 @@ class Social_auth
 	{
 		if ($this->ci->auth_model->forgotten_password($email)) 
 		{
-			// Get User
 			$profile = $this->ci->auth_model->profile($email);
 
 			$data = array(
@@ -180,8 +159,9 @@ class Social_auth
 				'forgotten_password_code'	=> $profile->forgotten_password_code
 			);			
 
-			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password'), $data, true);
+			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password'), $data, true);	
 
+			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
 			$this->ci->email->to($profile->email);
 			$this->ci->email->subject(config_item('site_title') . ' - Forgotten Password Verification');
@@ -189,9 +169,7 @@ class Social_auth
 			
 			if ($this->ci->email->send())
 			{
-				$debug =  $this->ci->email->print_debugger();
-
-				log_message('debug', 'emailssss '.$debug);
+				log_message('debug', 'emailssss debugger: '. $this->ci->email->print_debugger());
 			
 				$this->set_error('forgot_password_successful');
 				return TRUE;

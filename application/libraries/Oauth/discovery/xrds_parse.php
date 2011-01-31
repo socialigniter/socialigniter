@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Parse a XRDS discovery description to a simple array format.
  * 
@@ -297,8 +296,3 @@ function xrds_priority ( $elt )
 	}
 	return $prio;
 }
-
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
- 
-?>

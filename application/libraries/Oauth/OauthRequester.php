@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Perform a signed OAuth request with a GET, POST, PUT or DELETE operation.
  * 
@@ -483,7 +482,6 @@ class OAuthRequester extends OAuthRequestSigner
 		return array( 'code' => $code, 'headers' => $headers, 'body' => $body);
 	}
 
-
 	/**
 	 * Mix the given headers into the headers that were given to curl
 	 * 
@@ -513,7 +511,3 @@ class OAuthRequester extends OAuthRequestSigner
 		return $curl_options;
 	}
 }
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-?>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Verify the current request.  Checks if signed and if the signature is correct.
  * When correct then also figures out on behalf of which user this request is being made.
@@ -75,14 +74,10 @@ class OAuthRequestVerifier extends OAuthRequest
 	{		
 		if (isset($_REQUEST['oauth_signature']))
 		{
-	        log_message('debug', 'oauth inside isset($_REQUEST[oauth_sig of OauthRequestVerifier');
-
 			$signed = true;
 		}
 		else
 		{
-	        log_message('debug', 'oauth inside ELSE of isset($_REQUEST[oauth_signature of OauthRequestVerifier');
-
 			$hs = OAuthRequestLogger::getAllHeaders();
 			if (isset($hs['Authorization']) && strpos($hs['Authorization'], 'oauth_signature') !== false)
 			{
@@ -175,8 +170,7 @@ class OAuthRequestVerifier extends OAuthRequest
 			}
 			catch (OAuthException2 $e)
 			{
-				throw new OAuthException2('Verification of signature failed (signature base string was "'.$this->signatureBaseString().'").' 
-					. " with  " . print_r(array($secrets['consumer_secret'], $secrets['token_secret'], $token_type), true));
+				throw new OAuthException2('Verification of signature failed (signature base string was "'.$this->signatureBaseString().'").'." with ".print_r(array($secrets['consumer_secret'], $secrets['token_secret'], $token_type), true));
 			}
 			
 			// Check the optional body signature
@@ -252,7 +246,7 @@ class OAuthRequestVerifier extends OAuthRequest
 		{
 			if (!isset($this->param[$req]))
 			{
-				log_message('debug', 'Cannot verify request signature missing parameter "'.$req.'"');
+				//log_message('debug', 'Cannot verify request signature missing parameter "'.$req.'"');
 				throw new OAuthException2('Cannot verify request signature, missing parameter "'.$req.'"');
 			}
 		}
@@ -261,12 +255,9 @@ class OAuthRequestVerifier extends OAuthRequest
 
 		$base = $this->signatureBaseString();
 
-		log_message('debug', 'base string: '.$base);		
-
+		//log_message('debug', 'base string: '.$base);
 		$this->verifyDataSignature($base, $consumer_secret, $token_secret, $this->param['oauth_signature_method'], $this->param['oauth_signature']);
 	}
-
-
 
 	/**
 	 * Verify the signature of a string.
@@ -306,8 +297,3 @@ class OAuthRequestVerifier extends OAuthRequest
 			$this->accepted_signatures = null;
 	}
 }
-
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-?>

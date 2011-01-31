@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Create the body for a multipart/form-data message.
  * 
@@ -29,7 +28,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 
 class OAuthBodyMultipartFormdata
 {
@@ -135,9 +133,3 @@ class OAuthBodyMultipartFormdata
 		return preg_replace('/[^\x20-\x7f]|"/', '-', $name);
 	}
 }
-
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-
-?>

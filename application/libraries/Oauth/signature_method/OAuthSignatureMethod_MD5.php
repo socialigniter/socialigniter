@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OAuth signature implementation using MD5
  * 
@@ -89,7 +88,3 @@ class OAuthSignatureMethod_MD5 extends OAuthSignatureMethod
 		return rawurlencode($valA) == rawurlencode($valB);
 	}
 }
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-?>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Sign requests before performing the request.
  * 
@@ -204,10 +203,4 @@ class OAuthRequestSigner extends OAuthRequest
 		}
 		return implode('&', $parms);
 	}
-
 }
-
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-?>

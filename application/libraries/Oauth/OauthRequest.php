@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Request wrapper class.  Prepares a request for consumption by the OAuth routines
  * 
@@ -838,8 +837,3 @@ class OAuthRequest
 		exit();
 	}
 }
-
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-?>

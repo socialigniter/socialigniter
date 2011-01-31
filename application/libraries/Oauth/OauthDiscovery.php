@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Handle the discovery of OAuth service provider endpoints and static consumer identity.
  * 
@@ -217,8 +216,3 @@ class OAuthDiscovery
 		return $txt;
 	}
 }
-
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-?>

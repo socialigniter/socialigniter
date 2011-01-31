@@ -7,9 +7,7 @@ class Comments extends Oauth_Controller
 {
     function __construct()
     {
-        parent::__construct();
-        
-        log_message('debug', 'oauthcrap: at top of comments');      
+        parent::__construct();        
 	}
 	
     /* GET types */
@@ -51,9 +49,7 @@ class Comments extends Oauth_Controller
     
     // New Comments for a user
 	function new_authd_get()
-	{
-        log_message('debug', 'oauthcrap: inside of new_authd_get');      	
-	
+	{	
 		$site_id = config_item('site_id');	
 	
 		if ($new_comments = $this->social_tools->get_comments_new_count($site_id, $this->oauth_user_id))
@@ -145,7 +141,6 @@ class Comments extends Oauth_Controller
 
 	function public_post()
 	{	
-		
 	 	// Validation Rules
     	$this->form_validation->set_rules('comment_name', 'Name', 'required');
     	$this->form_validation->set_rules('comment_email', 'Email Address', 'required|valid_email');

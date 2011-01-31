@@ -100,6 +100,6 @@ class Site_Controller extends MY_Controller
             $this->data['content'] 		.= $this->load->view($content_path, $this->data, true);
         }
 
-        $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);  //load the template
+        $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);
     }
 }
