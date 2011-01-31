@@ -9,7 +9,7 @@ class Activity_model extends CI_Model {
         parent::__construct();
     }
     
-    function get_timeline($where, $limit=10)
+    function get_timeline($where, $limit)
     {
  		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
  		$this->db->from('activity');    
@@ -23,7 +23,7 @@ class Activity_model extends CI_Model {
  		return $result->result();	      
     }
     
-    function get_timeline_user($user_id, $limit=10)
+    function get_timeline_user($user_id, $limit)
     {
  		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
  		$this->db->from('activity');
@@ -39,7 +39,7 @@ class Activity_model extends CI_Model {
     
     function get_activity($activity_id)
     {
- 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email');
+	 	$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
  		$this->db->from('activity'); 
  		$this->db->join('sites', 'sites.site_id = activity.site_id');
   		$this->db->join('users_meta', 'users_meta.user_id = activity.user_id');		  
@@ -49,6 +49,27 @@ class Activity_model extends CI_Model {
  		$result = $this->db->get()->row();	
  		return $result; 
     }
+
+    function get_activity_view($parameter, $value, $limit)
+    {
+    	if (in_array($parameter, array('site_id','user_id','verb', 'module','type','content_id')))
+    	{    
+	 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
+	 		$this->db->from('activity');
+	 		$this->db->join('sites', 'sites.site_id = activity.site_id');
+	 		$this->db->join('users', 'users.user_id = activity.user_id');
+	 		$this->db->join('users_meta', 'users_meta.user_id = activity.user_id');
+	 		$this->db->where('activity.'.$parameter, $value);
+	 		$this->db->order_by('activity.created_at', 'desc'); 
+			$this->db->limit($limit);    
+	 		$result = $this->db->get();	
+	 		return $result->result();     
+		}
+		else
+		{
+			return FALSE;
+		}		
+    }    
     
     function add_activity($activity_info, $activity_data)
     {
