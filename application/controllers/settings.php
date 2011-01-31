@@ -48,8 +48,8 @@ class Settings extends Dashboard_Controller
 				else
 				{
 					$data = array('upload_data' => $this->upload->data());
-					$this->load->model('image_model3');			
-					$this->image_model3->make_images($data['upload_data']['file_name'], $data['upload_data']['image_width'], $data['upload_data']['image_height'], $this->session->userdata('user_id'));										
+					$this->load->model('image_model');			
+					$this->image_model->make_images($data['upload_data']['file_name'], $data['upload_data']['image_width'], $data['upload_data']['image_height'], $this->session->userdata('user_id'));										
 					$data['deleted'] = unlink("uploads/".$data['upload_data']['file_name']);
 					$user_picture = $data['upload_data']['file_name'];		
 				}	
