@@ -86,7 +86,7 @@ class Social_igniter
     	// Status
     	if ($activity->type == 'status')
     	{
-    		return $this->get_content($activity->content_id)->content;
+    		return item_linkify($this->get_content($activity->content_id)->content);
 		}
 				
 		// Has Status
