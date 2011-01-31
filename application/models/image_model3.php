@@ -103,17 +103,18 @@ class Image_model3 extends CI_Model
 		$crop_config['image_library']	= 'gd2';
 	    $crop_config['source_image'] 	= $raw_path;
 	    $crop_config['maintain_ratio']	= FALSE;
-	    $crop_config['new_image'] 		= config_item('users_images_folder').$user_id."/cropped_".$size."_".$upload_file; 
+	    $crop_config['new_image'] 		= config_item('users_images_folder').$user_id."/".$size."_".$upload_file; 
 	    $crop_config['x_axis']		 	= $x_axis;
 	    $crop_config['y_axis'] 			= $y_axis;
-	    $crop_config['width'] 			= $cropsize;
-	    $crop_config['height'] 			= $cropsize;
+	    $crop_config['master_dim'] 			= $set_master_dim;
+	    $crop_config['width'] 			= $resize_width;
+	    $crop_config['height'] 			= $resize_height;
 	        
 	    $this->image_lib->initialize($crop_config);
 	
-	    if (!$this->image_lib->crop())
+	    if (!$this->image_lib->resize())
 	    {
-	        echo "error croping";
+	        echo "error cropping";
 	        echo $this->image_lib->display_errors();
 	        return false;
 	    }	    
@@ -128,22 +129,23 @@ class Image_model3 extends CI_Model
 	    $thumb_config['new_image']			= config_item('users_images_folder').$user_id."/".$size."_".$upload_file;
 	    $thumb_config['width'] 				= config_item('users_images_'.$size.'_width');
 	    $thumb_config['height'] 			= config_item('users_images_'.$size.'_height');
-	    
+			
+    
 	    $this->image_lib->initialize($thumb_config);
 	    
 	    if (!$this->image_lib->resize())
 	    {
-	        echo "error resize croping";
+	        echo "error resize cropping";
 	        echo $this->image_lib->display_errors();
 	        return false;
 	    }
 
-  	    $this->image_lib->clear();	 	    
-  	    	
+  	    $this->image_lib->clear();
+			unlink(config_item('users_images_folder').$user_id."/cropped_".$size."_".$upload_file);	 	     
 	}
 	
 		
-	// Makes an image that does not need croping
+	// Makes an image that does not need cropping
 	function make_resized($upload_file, $user_id, $size)
 	{	
 	    $thumb_config['image_library'] 		= 'gd2';
@@ -157,7 +159,7 @@ class Image_model3 extends CI_Model
 	    
 	    if (!$this->image_lib->resize())
 	    {
-	        echo "error resize croping";
+	        echo "error resize cropping";
 	        echo $this->image_lib->display_errors();
 	        return false;
 	    }
