@@ -32,7 +32,7 @@
 | would be loaded.
 */
 
-$route['default_controller'] 					= 'index';
+$route['default_controller'] 					= 'site';
 
 /* Feeds */
 $route['feed/(:any)'] 							= '$1/feed';
@@ -144,18 +144,17 @@ $route['settings'] 								= 'settings';
 $route['users/manage/(:any)']					= 'users/editor';
 $route['users/create']							= 'users/editor';
 
-
 /* Public Site */
-$route['login']									= 'index/login';
-$route['logout']								= 'index/logout';
-$route['signup']								= 'index/signup';
-$route['forgot_password']						= 'index/forgot_password';
-$route['reset_password/(:any)']					= 'index/reset_password';
-$route['reset_password']						= 'index/reset_password';
-$route['activate/(:any)/(:any)']				= 'index/activate';
-$route['activate/(:any)']						= 'index/activate';
-$route['activate']								= 'index/activate';
-$route['pages/(:any)']							= 'index/index';
+$route['login']									= 'site/login';
+$route['logout']								= 'site/logout';
+$route['signup']								= 'site/signup';
+$route['forgot_password']						= 'site/forgot_password';
+$route['reset_password/(:any)']					= 'site/reset_password';
+$route['reset_password']						= 'site/reset_password';
+$route['activate/(:any)/(:any)']				= 'site/activate';
+$route['activate/(:any)']						= 'site/activate';
+$route['activate']								= 'site/activate';
+$route['pages/(:any)']							= 'site/index';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
