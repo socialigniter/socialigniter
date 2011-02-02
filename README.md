@@ -10,7 +10,7 @@ Installation Instructions
 
 * Click Downloads or Clone this repository
 * Place Download or Clone in your web servers directory 
-* Make duplicates of the following 4 files located in application/config/
+* Make duplicates of the following 4 files
 * application/config/config.php.TEMPLATE
 * application/config/custom.php.TEMPLATE
 * application/config/database.php.TEMPLATE
