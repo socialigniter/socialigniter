@@ -20,7 +20,7 @@ Installation Instructions
 * Edit database.php to have match your database settings
 * Install the database located at application/install/DATABASE.sql
 
-API Documentaion
+API Documentation
 ================
 
 To see documentation on the API go to: http://social-igniter.com/api
