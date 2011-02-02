@@ -12,6 +12,11 @@ class Site extends Site_Controller
 		if (!$this->uri->segment(1))
 		{
 			$page = $this->social_igniter->get_index_page();
+
+			$this->data['content_id']		= $page->content_id;
+			$this->data['page_title']		= $page->title;
+			$this->data['page_content']		= $page->content;
+			$this->data['comments_allow']	= $page->comments_allow;
 		}
 		// View Redirect
 		elseif (($this->uri->segment(1) == 'pages') && ($this->uri->segment(2) == 'view'))
@@ -22,20 +27,24 @@ class Site extends Site_Controller
 			else							redirect(base_url().'pages/'.$page->title_url, 'refresh');
 		}
 		// Pages
-		elseif ($this->uri->segment(1) == 'pages')
+		elseif (($this->uri->segment(1) == 'pages') && ($this->uri->segment(2)))
 		{
 			$page = $this->social_igniter->get_page($this->uri->segment(2));
-		}
-
-		$this->data['content_id']			= $page->content_id;
-		$this->data['page'] 				= $page;
 		
-		if ($page->details != 'index')
-		{
-			$this->data['page_title'] 		= $page->title;
-		}
-
-		// Comments
+			if ($page)
+			{				
+				$this->data['content_id']		= $page->content_id;
+				$this->data['page_title']		= $page->title;
+				$this->data['page_content']		= $page->content;
+				$this->data['comments_allow']	= $page->comments_allow;
+			}
+			else
+			{
+				redirect(404);
+			}	
+		}				
+		
+		// Comments Widget
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{
 			// Get Comments
