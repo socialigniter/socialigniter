@@ -46,5 +46,3 @@ class Oauth_Controller extends Rest_Controller
         parent::_remap($method);
     }
 }
-
-?>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Storage container for the oauth credentials, both server and consumer side.
  * This is the factory to select the store you want to use
@@ -79,8 +78,3 @@ class OAuthSession
 	    return OAuthSession::$instance;	
 	}
 }
-
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-?>

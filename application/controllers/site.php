@@ -1,5 +1,5 @@
 <?php
-class Index extends Site_Controller
+class Site extends Site_Controller
 { 
     function __construct()
     {

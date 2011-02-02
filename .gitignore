@@ -1,5 +1,7 @@
 *.DS_Store
+.ftpquota
 favicon.ico
+error_log
 application/config/config.php
 application/config/database.php
 application/config/custom.php

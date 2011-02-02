@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Add the extra headers for a PUT or POST request with a file.
  * 
@@ -121,9 +120,3 @@ class OAuthBodyContentDisposition
 		return preg_replace('/[^\x20-\x7f]|"/', '-', $name);
 	}
 }
-
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-
-?>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Server layer over the OAuthRequest handler
  * 
@@ -327,7 +326,3 @@ class OAuthServer extends OAuthRequestVerifier
 		exit();
 	}	
 }
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-?>

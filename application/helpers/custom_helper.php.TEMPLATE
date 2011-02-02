@@ -3,8 +3,10 @@
 * Custom Helper
 *
 * @package		Social Igniter
-* @subpackage	Feed Helper
+* @subpackage	Custom Helper
 * @link			http://social-igniter.com
 *
 * Description: 	For custom helpers for your application that don't get committed back to core 
 */
+
+/// Makes Region for link (used in the header)

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OAuth signature implementation using HMAC-SHA1
  * 
@@ -30,9 +29,7 @@
  * THE SOFTWARE.
  */
 
-
 require_once dirname(__FILE__).'/OAuthSignatureMethod.class.php';
-
 
 class OAuthSignatureMethod_HMAC_SHA1 extends OAuthSignatureMethod
 {
@@ -40,7 +37,6 @@ class OAuthSignatureMethod_HMAC_SHA1 extends OAuthSignatureMethod
 	{
 		return 'HMAC-SHA1';
 	}
-
 
 	/**
 	 * Calculate the signature using HMAC-SHA1
@@ -108,8 +104,3 @@ class OAuthSignatureMethod_HMAC_SHA1 extends OAuthSignatureMethod
 		return rawurlencode($valA) == rawurlencode($valB);
 	}
 }
-
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-?>

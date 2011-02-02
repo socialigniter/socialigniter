@@ -24,7 +24,7 @@ class Site_Controller extends MY_Controller
         // Load Views
         $this->data['head']					= $this->load->view(config_item('site_theme').'/partials/head_site.php', $this->data, true);
         $this->data['logged']				= $this->load->view(config_item('site_theme').'/partials/logged.php', $this->data, true);
-        $this->data['navigation']			= $this->load->view(config_item('site_theme').'/partials/navigation_site.php', $this->data, true);
+        $this->data['navigation']			= '';
         $this->data['content']				= '';
         $this->data['sidebar']				= $this->load->view(config_item('site_theme').'/partials/sidebar_site.php', $this->data, true);
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
@@ -100,6 +100,6 @@ class Site_Controller extends MY_Controller
             $this->data['content'] 		.= $this->load->view($content_path, $this->data, true);
         }
 
-        $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);  //load the template
+        $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);
     }
 }

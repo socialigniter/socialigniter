@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Simple exception wrapper for OAuth
  * 
@@ -43,8 +42,3 @@ class OAuthException2 extends Exception
 	}
 
 }
-
-
-/* vi:set ts=4 sts=4 sw=4 binary noeol: */
-
-?>
