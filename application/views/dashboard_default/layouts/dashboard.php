@@ -8,14 +8,14 @@
 <meta name="keywords" content="<?= $site_keywords ?>" />
 <meta name="google-site-verification" content="<?= $settings['site']['google_webmaster']; ?>" />
 <meta name="msvalidate.01" content="<?= $settings['site']['bing_webmaster']; ?>" />
-<link rel="icon" type="image/png" href="<?= $dashboard_assets ?>favicon.ico" />
+<link rel="icon" type="image/png" href="<?= $site_images ?>favicon.png" />
 <?= $head ?>
 </head>
 <body>
 <div id="container">
 	<div id="header">
 		<div id="name">
-			<a id="name_img" href="<?= base_url() ?>"><img src="<?= $dashboard_assets; ?>medium_logo.png" border="0" /></a>
+			<a id="name_img" href="<?= base_url() ?>"><img src="<?= $site_images ?>medium_logo.png" border="0" /></a>
 			<a id="name_text" href="<?= base_url() ?>"><h1><?= $site_title ?></h1></a>
 		</div>
 		<div id="nav">

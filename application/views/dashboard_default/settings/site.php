@@ -5,7 +5,7 @@
 	<h3>Meta Tags</h3>
 
 	<p>Title<br>
-	<input type="text" name="name" size="40" value="<?= $settings['site']['title'] ?>"></p>
+	<input type="text" name="title" size="40" value="<?= $settings['site']['title'] ?>"></p>
 
 	<p>Tagline<br>
 	<input type="text" name="tagline" size="40" value="<?= $settings['site']['tagline'] ?>"></p>
