@@ -72,13 +72,13 @@ class MY_Controller extends MX_Controller
 		}
 		
 		// Site Values
-		$this->data['site_title'] 			= config_item('site_title');
-		$this->data['site_tagline'] 		= config_item('site_tagline');
 		$this->data['site_url']				= config_item('site_url');
+		$this->data['site_title'] 			= config_item('site_title');
 		$this->data['page_title'] 			= NULL;
 		$this->data['sub_title']			= NULL;
 		$this->data['site_description'] 	= config_item('site_description');
 		$this->data['site_keywords'] 		= config_item('site_keywords');
+		$this->data['site_tagline'] 		= config_item('site_tagline');
 
 		// Set Social Config Arrays
 		$this->config->set_item('social_logins', $this->social_logins);
@@ -180,6 +180,7 @@ class MY_Controller extends MX_Controller
 
 		// Site Paths
 		$this->data['shared_images']		= base_url().'images/shared/';
+		$this->data['site_images']			= base_url().'media/sites/'.config_item('site_id').'/';
 		$this->data['views']				= base_url().'application/views/';
 		$this->data['site_assets']			= base_url().'application/views/'.$this->data['settings']['site']['site_theme'].'/assets/';
 		$this->data['dashboard_assets']		= base_url().'application/views/'.$this->data['settings']['site']['dashboard_theme'].'/assets/';	
