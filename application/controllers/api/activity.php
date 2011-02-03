@@ -110,10 +110,8 @@ class Activity extends Oauth_Controller
     	
     	// Move this up to result of "user_has_access"
     	if ($access)
-        {
-			//$comment = $this->social_tools->get_comment($this->get('id'));
-        
-        	$this->social_tools->delete_comment($this->get('id'));
+        {        
+        	$this->social_igniter->delete_activity($this->get('id'), $this->oauth_user_id);
         
 			// Reset comments with this reply_to_id
 			$this->social_tools->update_comment_orphaned_children($this->get('id'));

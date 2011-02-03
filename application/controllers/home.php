@@ -13,6 +13,7 @@ class Home extends Dashboard_Controller
 		{
 	 	    $this->data['page_title'] 		= 'Home';
 			$this->data['home_greeting']	= random_element(config_item('home_greeting'));
+	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
  	    
  	    	$feed_module = NULL;
@@ -56,7 +57,7 @@ class Home extends Dashboard_Controller
 			 	
 			 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify($activity->type, $activity->activity_id);
 				$this->data['item_edit']			= base_url().'home/'.$activity->module.'/manage/'.$activity->content_id;
-				$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
+				$this->data['item_delete']			= base_url().'api/activity/destroy/id/'.$activity->activity_id;
 
 				// View
 				$timeline_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_timeline.php', $this->data, true);
@@ -65,7 +66,7 @@ class Home extends Dashboard_Controller
 	 	else
 	 	{
 	 		$timeline_view = '<li>Nothing to show from anyone!</li>';
- 		}
+ 		}	
 
 		// Final Output
 		$this->data['timeline_view'] 	= $timeline_view;

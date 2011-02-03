@@ -223,25 +223,40 @@ class Social_igniter
 	function get_social_post($user_id)
 	{
 		$post_to 			= NULL;
+		$connections		= NULL;
 		$social_post		= config_item('social_post');
 		
-		if ($user_connections = $this->ci->session->userdata('user_connections'))
+		if ($social_post)
 		{
-			foreach ($social_post as $social)
-			{
-				foreach($user_connections as $exists)
-				{
-					if ($exists->module == $social)
-					{
-						$post_to .= '<li><input type="checkbox" value="1" id="post_'.$social.'" checked="checked" name="post_'.$social.'" /> '.ucwords($social).'</li>';
-					}
-				}		
-			}
-		}
+			$user_connections = $this->ci->session->userdata('user_connections');
 		
-		if ($post_to)
-		{
-			return '<ul id="social_post">'.$post_to.'</ul>';
+			if ($user_connections)
+			{
+				foreach ($social_post as $social)
+				{
+					foreach($user_connections as $exists)
+					{
+						if ($exists->module == $social)
+						{
+							$post_to .= '<li><input type="checkbox" value="1" id="post_'.$social.'" checked="checked" name="post_'.$social.'" /> '.ucwords($social).'</li>';
+						}
+					}		
+				}
+			}
+			else
+			{
+				foreach ($social_post as $social)
+				{
+					$connections .= '<li>'.ucwords($social).'</li>';
+				}			
+			
+				$post_to = '<li><a href="'.base_url().'settings/connections" id="social_post_connections_add"><span class="actions action_share"></span> Add Connections</a> <ul id="social_post_connections_avail">'.$connections.'</ul></li>';
+			}
+			
+			if ($post_to)
+			{
+				return '<ul id="social_post">'.$post_to.'</ul>';
+			}
 		}
 			
 		return NULL;
@@ -462,19 +477,14 @@ class Social_igniter
 	 	$activity = $this->get_activity($activity_id);
 
  		if (is_object($activity))
- 		{ 		
- 			if ($activity->user_id != $this->ci->session->userdata('user_id'))
- 			{
- 				return FALSE;
- 			}
- 		
+ 		{
  			$this->ci->activity_model->delete_activity($activity->activity_id);
  		
  			if ($activity->type == 'status')
  			{
  				$content = json_decode($activity->data);
  				
- 				$this->delete_content($content->content_id);
+ 				$this->delete_content($activity->content_id);
  			}
  		
  			return TRUE;

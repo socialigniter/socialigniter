@@ -10,7 +10,7 @@ Installation Instructions
 
 * Click Downloads or Clone this repository
 * Place Download or Clone in your web servers directory 
-* Make duplicates of the following 4 files located in application/config/
+* Make duplicates of the following 4 files
 * application/config/config.php.TEMPLATE
 * application/config/custom.php.TEMPLATE
 * application/config/database.php.TEMPLATE
@@ -24,6 +24,11 @@ API Documentation
 ================
 
 To see documentation on the API go to: http://social-igniter.com/api
+
+Modules
+=======
+
+There are a whole bunch of modules (blog, twitter, etc...) that are under various states of construction to see a full list go to: http://social-igniter.com/pages/modules
 
 License
 =======

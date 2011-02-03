@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* Dashboard Default Theme */
-body		{ background: #ffffff; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
+body		{ background: url(images/background.png) 0px 0px repeat-x #f2e3af; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
 
 h1			{ color: #444; font-size: 30px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h2			{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
@@ -168,9 +168,12 @@ span.stage_marker 			{ display: block; border: 1px solid #666666; color: #efefef
 #status_find_location		{ width: 24px; height: 24px; display: block; margin: 0px 0px 0px 0px; background: url(icons/location_gray_24.png) 0px 0px no-repeat; position: relative; top: -6px; left: 0px; } 
 #status_find_location span	{ width: 110px; display: block; position: relative; top: 4px; left: 30px; }
 
-#social_post				{ margin: 0px 0px 0px 0px; position: relative; top: -2px; left: 0px; }
+#social_post				{ margin: 0px 0px 0px 0px; position: relative; top: -2px; left: 5px; }
 #social_post li				{ margin: 0px 0px 0px 0px; }
 #social_post .checker 		{ position: relative; top: -2px; left: 0px; }
+#social_post_connections_avail	{ visibility: hidden; width: 80px; background: #333333; color: #eeeeee; font-size: 12px; padding: 8px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+#social_post_connections_add	{ color: #999999 !important; text-shadow: #F3F3F3 1px 1px 1px !important; }
+#social_post_connections_add span { position: relative; top: -1px; left: 0px; }
 
 #status_update_post			{ width: 160px; float: right; }
 #character_count 			{ float: right; margin: 5px 15px 15px 0px; font-size:18px; color: #666; text-shadow:1px 1px 1px #FFF; }
