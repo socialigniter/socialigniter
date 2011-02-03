@@ -6,7 +6,7 @@
 			<a href="#" class="find_location" id="status_find_location"><span>Get Location</span></a>
 		</div>
 		<?php endif; ?>
-		<?= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>'); ?>
+		<?= $social_post ?>
 		<div class="clear"></div>
 	</div>
 	<div id="status_update_post">

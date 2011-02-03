@@ -25,6 +25,11 @@ API Documentation
 
 To see documentation on the API go to: http://social-igniter.com/api
 
+Modules
+=======
+
+There are a whole bunch of modules (blog, twitter, etc...) that are under various states of construction to see a full list go to: http://social-igniter.com/pages/modules
+
 License
 =======
 

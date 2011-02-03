@@ -223,25 +223,40 @@ class Social_igniter
 	function get_social_post($user_id)
 	{
 		$post_to 			= NULL;
+		$connections		= NULL;
 		$social_post		= config_item('social_post');
 		
-		if ($user_connections = $this->ci->session->userdata('user_connections'))
+		if ($social_post)
 		{
-			foreach ($social_post as $social)
-			{
-				foreach($user_connections as $exists)
-				{
-					if ($exists->module == $social)
-					{
-						$post_to .= '<li><input type="checkbox" value="1" id="post_'.$social.'" checked="checked" name="post_'.$social.'" /> '.ucwords($social).'</li>';
-					}
-				}		
-			}
-		}
+			$user_connections = $this->ci->session->userdata('user_connections');
 		
-		if ($post_to)
-		{
-			return '<ul id="social_post">'.$post_to.'</ul>';
+			if ($user_connections)
+			{
+				foreach ($social_post as $social)
+				{
+					foreach($user_connections as $exists)
+					{
+						if ($exists->module == $social)
+						{
+							$post_to .= '<li><input type="checkbox" value="1" id="post_'.$social.'" checked="checked" name="post_'.$social.'" /> '.ucwords($social).'</li>';
+						}
+					}		
+				}
+			}
+			else
+			{
+				foreach ($social_post as $social)
+				{
+					$connections .= '<li>'.ucwords($social).'</li>';
+				}			
+			
+				$post_to = '<li><a href="'.base_url().'settings/connections" id="social_post_connections_add"><span class="actions action_share"></span> Add Connections</a> <ul id="social_post_connections_avail">'.$connections.'</ul></li>';
+			}
+			
+			if ($post_to)
+			{
+				return '<ul id="social_post">'.$post_to.'</ul>';
+			}
 		}
 			
 		return NULL;
