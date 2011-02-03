@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="<?= base_url() ?>css/wysiwyg.css" type="text/css" />
-
 <?php if ($wysiwyg_media): ?>
 <div id="wysiwyg_media">
 	<?= $this->social_igniter->scan_media_manager(); ?>
@@ -14,7 +13,7 @@ $(function($)
 	$('#<?= $wysiwyg_id ?>').wysiwyg(
 	{	
 		autoGrow: true,
-		resizeOptions: { maxWidth : 640, minWidth : 640, minHeight : 340 },
+		resizeOptions: { maxWidth : <?= $wysiwyg_width ?>, minWidth : <?= $wysiwyg_width ?>, minHeight : <?= $wysiwyg_height ?> },
 		controls:
 		{
 			separator				: { visible : false },
