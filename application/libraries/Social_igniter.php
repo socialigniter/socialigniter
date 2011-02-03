@@ -462,19 +462,14 @@ class Social_igniter
 	 	$activity = $this->get_activity($activity_id);
 
  		if (is_object($activity))
- 		{ 		
- 			if ($activity->user_id != $this->ci->session->userdata('user_id'))
- 			{
- 				return FALSE;
- 			}
- 		
+ 		{
  			$this->ci->activity_model->delete_activity($activity->activity_id);
  		
  			if ($activity->type == 'status')
  			{
  				$content = json_decode($activity->data);
  				
- 				$this->delete_content($content->content_id);
+ 				$this->delete_content($activity->content_id);
  			}
  		
  			return TRUE;

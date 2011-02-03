@@ -1,9 +1,7 @@
 <?php
 
-class Activity_model extends CI_Model {
-
-	private $lat_long;
-    
+class Activity_model extends CI_Model
+{    
     function __construct()
     {
         parent::__construct();
@@ -103,6 +101,5 @@ class Activity_model extends CI_Model {
     	$this->db->where('activity_id', $activity_id);
     	$this->db->delete('activity'); 
 		return TRUE;
-    } 
-    
+    }
 }
