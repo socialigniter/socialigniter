@@ -162,6 +162,10 @@ div.stage_marker_on 		{ background: url(images/button_basic.png) 0 0 repeat-x; b
 
 span.stage_marker 			{ display: block; border: 1px solid #666666; color: #efefef; text-shadow:1px 1px 1px #555555; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; }
 
+/* Specific Pages */
+#content_status				{ color: #999999;  font-style: italic; }
+#content_status span		{ margin: 0 6px 0 0; }
+
 /* Publisher */
 #status_update_text 		{ width: 615px; height: 45px; font-size: 14px; line-height: 18px; padding: 12px; }
 #status_update_options		{ width: 400px; height: 60px; float: left; margin: 0; }
@@ -276,6 +280,8 @@ span.action_see				{ background-position: -225px 0px; }
 span.action_edit			{ background-position: -200px 0px; }
 span.action_saved			{ background-position: -250px 0px; }
 span.action_published		{ background-position: -275px 0px; }
+span.action_unpublished		{ background-position: -300px 0px; }
+
 
 /* Feed Specific */
 span.item_comment_left		{ width: 24px; height: 32px; display: block; float: left; background: url(images/item_type_icons.png) 0px -455px; position: relative; left: 0px; top: 4px; }
