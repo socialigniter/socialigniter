@@ -2,7 +2,7 @@
 
 /* Dashboard Default Theme */
 /* Make background and basic fonts be designable from dashboard */
-body		{ background: url(/media/sites/1/background.png) 0px 0px repeat-x #f2e3af; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
+body		{ background: url(/media/sites/1/background.png) 0px 0px repeat #ffffff; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
 
 h1			{ color: #444; font-size: 30px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h2			{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
