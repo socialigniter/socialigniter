@@ -86,6 +86,8 @@ $route['api/(:any)/(:any)'] 					= '$1/api/$2';
 $route['api/(:any)'] 							= 'api/index';
 $route['api/sandbox']							= 'api/sandbox/index';
 $route['api/index']								= 'api/index';
+$route['api']									= 'api/index';
+
 
 /* Connections */
 $route['connections/delete/(:num)']				= 'connections/delete';

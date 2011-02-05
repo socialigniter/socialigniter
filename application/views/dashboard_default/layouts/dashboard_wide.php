@@ -34,6 +34,7 @@
 			<div class="clear"></div>
 			<div class="wide_separator"></div>			
 			<div class="content_wrap">
+				<div id="content_message" class="message_normal"><?= $message ?></div>			
 				<?= $content ?>
 			</div>	
 		</div>

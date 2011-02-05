@@ -74,7 +74,7 @@ $(document).ready(function()
 	});
 	
 	// Approve Item
-	$('.item_alert, .item_alert_approve').live('click', function(eve)
+	$('.item_approve, .item_alert_approve').live('click', function(eve)
 	{
 		eve.preventDefault();
 		var item_attr_id		= $(this).attr('id');
