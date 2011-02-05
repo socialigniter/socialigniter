@@ -175,19 +175,34 @@ function display_image($id=false, $class=false, $image_pre, $image, $image_null=
 	return $image;
 }
 
-function display_content_status($status)
-{
-	if ($status == 'P')
+function display_content_status($status, $approval=NULL)
+{	
+	// Does Approval
+	if ($approval)
 	{
-		$status = 'published';
-	}
-	elseif ($status == 'S')
-	{
-		$status = 'saved';
+		if (($status == 'P') && ($approval == 'A'))
+		{
+			$status = 'awaiting approval';
+		}
+		else
+		{
+			$status = 'saved';
+		}
 	}
 	else
 	{
-		$status = 'unpublished';
+		if ($status == 'P')
+		{
+			$status = 'published';
+		}
+		elseif ($status == 'S')
+		{
+			$status = 'saved';
+		}
+		else
+		{
+			$status = 'unpublished';
+		}
 	}
 
 	return $status;

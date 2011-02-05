@@ -661,10 +661,10 @@ var mysqlDateParser = function(str){
 		},
 		time: function(){
 			m = _str.match(/([0-9])+/gi)
-			pmOrAm = 'am';
+			pmOrAm = 'AM';
 			if(m[3]>12){
 				m[3] = m[3]-12;
-				pmOrAm = 'pm';
+				pmOrAm = 'PM';
 			}
 			return m[3]+':'+m[4]+' '+pmOrAm;
 		}
