@@ -285,6 +285,13 @@ class Site extends Site_Controller
     	$this->render();
     }
     
+    // Display Page Not Found
+    function error_404()
+    {
+		$this->data['page_title'] = 'Oops, Page Not Found';
+    	$this->render();
+    }
+    
     
     /* Widgets */
 	function widgets_sidebar()

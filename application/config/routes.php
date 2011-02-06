@@ -33,6 +33,7 @@
 */
 
 $route['default_controller'] 					= 'site';
+$route['404_override'] 							= 'site/error_404';
 
 /* Feeds */
 $route['feed/(:any)'] 							= '$1/feed';
