@@ -118,13 +118,13 @@ class Image_model extends CI_Model
 			$img_output_path =  getcwd() . '/' . config_item('users_images_folder').$user_id."/".$size."_".$upload_file;
 			$raw_path = getcwd() . '/' . $raw_path;
 			$working_path =  getcwd() . '/' . config_item('users_images_folder').$user_id."/working_".$upload_file;
-
+/*
 			if (stristr(PHP_OS, 'WIN')) {
 				$raw_path = str_replace('/', '\\', $raw_path);
 				$working_path = str_replace('/', '\\', $working_path);
 				$img_output_path = str_replace('/', '\\', $img_output_path);
 			}
-			
+*/			
 			// make a working copy
 			copy($raw_path, $working_path); 	    	   
  
