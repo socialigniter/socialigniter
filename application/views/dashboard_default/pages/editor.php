@@ -1,7 +1,6 @@
 <form name="page_editor" id="page_editor" action="<?= $form_url ?>" method="post" enctype="multipart/form-data">
-	<div id="content_wide_content">
-	<div id="content_message" class="message_normal"><?= $message ?></div>
 
+	<div id="content_wide_content">
 		<h3>Title</h3>
 		<input type="text" name="title" id="title" class="input_full" value="<?= $title ?>">
 		<p id="title_slug" class="slug_url"></p>
@@ -18,33 +17,29 @@
 		<div class="clear"></div>		
 
 	    <h3>Category</h3>
-	    <?= form_dropdown('category_id', $categories, $category_id) ?>
-	
-	    <h3>Tags</h3>             
-	    <input name="tags" type="text" id="tags" size="75" placeholder="Blogging, Internet, Web Design" />  
-	
+	    <p><?= form_dropdown('category_id', $categories, $category_id) ?></p>
+	    
+	    <h3>Tags</h3>
+	    <p><input name="tags" type="text" id="tags" size="75" placeholder="Blogging, Internet, Web Design" /></p>
+
 		<h3>Access</h3>
-		<?= form_dropdown('access', config_item('access'), $access) ?>	
+		<p><?= form_dropdown('access', config_item('access'), $access) ?></p>
 	
-		 <h3>Comments</h3>
-		<?= form_dropdown('comments_allow', config_item('comments_allow'), $comments_allow) ?>	
-	
+		<h3>Comments</h3>
+		<p><?= form_dropdown('comments_allow', config_item('comments_allow'), $comments_allow) ?></p>
+		
 		<input type="hidden" name="details" id="layout" value="<?= $details ?>">
 		<input type="hidden" name="geo_lat" id="geo_lat" value="" />
 		<input type="hidden" name="geo_long" id="geo_long" value="" />
 		<input type="hidden" name="geo_accuracy" id="geo_accuracy" value="" />
-	</div>
-	
-	
-	<div id="content_wide_sidebar">		
-		<h3>Status</h3>
-		<p id="article_status"><?= display_content_status($status) ?></p>
-		<h3>Share</h3>
-		<?= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>'); ?>		
-		<p><input type="submit" id="status_publish" name="publish" value="Publish" /> <input type="submit" id="status_save" name="save_draft" value="Save" /></p>
-	</div>
-</form>
 
+	</div>
+	
+	<div id="content_wide_toolbar">
+		<?= $content_publisher ?>
+	</div>	
+	
+</form>
 <div class="clear"></div>
 
 <script type="text/javascript">

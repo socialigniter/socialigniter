@@ -5,7 +5,7 @@
 </div>
 <?php endif; ?>
 
-<textarea name="<?= $wysiwyg_name ?>" id="<?= $wysiwyg_id ?>" class="<?= $wysiwyg_class ?>"><?= $wysiwyg_value ?></textarea>
+<p><textarea name="<?= $wysiwyg_name ?>" id="<?= $wysiwyg_id ?>" class="<?= $wysiwyg_class ?>"><?= $wysiwyg_value ?></textarea></p>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.wysiwyg.js"></script>
 <script type="text/javascript">
 $(function($)

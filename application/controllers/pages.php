@@ -35,7 +35,7 @@ class Pages extends Dashboard_Controller
 			$this->data['details'] 			= $page->details;
 			$this->data['access']			= $page->access;
 			$this->data['comments_allow']	= $page->comments_allow;
-			$this->data['status']			= $page->status;
+			$this->data['status']			= display_content_status($page->status, $page->approval);
 		}
 		else
 		{		
@@ -52,21 +52,23 @@ class Pages extends Dashboard_Controller
 			$this->data['details'] 			= '';			
 			$this->data['access']			= 'E';
 			$this->data['comments_allow']	= '';
-			$this->data['status']			= 'U';
+			$this->data['status']			= display_content_status('U');
 		}
 	
-		$this->data['layouts']			= $this->social_igniter->scan_layouts(config_item('site_theme'));
+		$this->data['layouts']				= $this->social_igniter->scan_layouts(config_item('site_theme'));
 
-		$this->data['wysiwyg_name']		= 'content';
-		$this->data['wysiwyg_id']		= 'wysiwyg_content';
-		$this->data['wysiwyg_class']	= 'wysiwyg_norm_full';
-		$this->data['wysiwyg_width']	= 640;
-		$this->data['wysiwyg_height']	= 300;
-		$this->data['wysiwyg_resize']	= TRUE;
-		$this->data['wysiwyg_media']	= TRUE;			
-		$this->data['wysiwyg']	 		= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);
-		$this->data['categories'] 		= $this->social_tools->get_categories_dropdown('module', 'pages', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
-							
+		$this->data['wysiwyg_name']			= 'content';
+		$this->data['wysiwyg_id']			= 'wysiwyg_content';
+		$this->data['wysiwyg_class']		= 'wysiwyg_norm_full';
+		$this->data['wysiwyg_width']		= 640;
+		$this->data['wysiwyg_height']		= 300;
+		$this->data['wysiwyg_resize']		= TRUE;
+		$this->data['wysiwyg_media']		= TRUE;			
+		$this->data['wysiwyg']	 			= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);
+		$this->data['categories'] 			= $this->social_tools->get_categories_dropdown('module', 'pages', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
+	
+	 	$this->data['content_publisher'] 	= $this->load->view(config_item('dashboard_theme').'/partials/content_publisher', $this->data, true);
+
  		$this->render('dashboard_wide');
 	}
 	
