@@ -14,7 +14,7 @@ class Image_model extends CI_Model
 	{
 		make_folder(config_item('users_images_folder').$user_id);		
 		delete_files(config_item('users_images_folder').$user_id."/");
-	    
+ 
 	    $raw_path 		= config_item('uploads_folder').$upload_file;
 		$image_sizes	= array('full', 'large', 'medium', 'small');
 		
@@ -37,10 +37,14 @@ class Image_model extends CI_Model
 	    $original_width		= 0;
 	    $original_height	= 0;
 
+			$aspect = $upload_width / $upload_height;
+			$set_master_dim = '';
+
 	    // Raw width larger than allowed
 		if ($upload_width >= config_item('users_images_'.$size.'_width'))
 		{
 			$original_width = config_item('users_images_'.$size.'_width');
+			$set_master_dim = 'width';
 		}
 		else
 		{
@@ -51,67 +55,148 @@ class Image_model extends CI_Model
 		if ($upload_height >= config_item('users_images_'.$size.'_height'))
 		{
 			$original_height = config_item('users_images_'.$size.'_height');
+			$set_master_dim = 'height';
 		}
 		else
 		{
 			$original_height = $upload_height;
 		}
-	       	       
-	    // Horizontal or Vertical Picture	    
-	    if($upload_width > $upload_height)
+			
+		// in the case where both upload dimensions are larger than the specified size, let the smaller specified dimension govern  
+		if ($upload_width >= config_item('users_images_'.$size.'_height') && $upload_height >= config_item('users_images_'.$size.'_height') ) {
+			//special case for square images
+			if (config_item('users_images_'.$size.'_width')  == config_item('users_images_'.$size.'_height') ) {
+				if ($upload_width > $upload_height) {
+					$set_master_dim = 'height';
+				} else {
+					$set_master_dim = 'width';
+				}
+			} else {
+				if (config_item('users_images_'.$size.'_width')  > config_item('users_images_'.$size.'_height') ) {
+					$set_master_dim = 'width';
+				} else {
+					$set_master_dim = 'height';
+				}
+			}
+		} 
+
+   	       
+	    // Horizontal or Vertical Picture	   
+			// using config sizes will enlarge small pictures to size 
+	    if($set_master_dim == 'width')
 	    {
 	        $resize_width 	= $original_width; 
-	        $resize_height 	= $original_height; 
-	        $set_master_dim = 'width';
+	        //$resize_width 	= config_item('users_images_'.$size.'_width'); 
+	        $resize_height 	= round($original_width / $aspect); 
+	        //$resize_height 	= round(config_item('users_images_'.$size.'_width') / $aspect); 
 	    }
 	    else
 	    {
-	        $resize_width 	= $original_width;
+	        $resize_width 	= round($original_height * $aspect);
+	        //$resize_width 	= round(config_item('users_images_'.$size.'_height') * $aspect);
 	        $resize_height 	= $original_height;
-	        $set_master_dim = 'height';
+	        //$resize_height 	= config_item('users_images_'.$size.'_height');
 	    }
 	    
 	    // Calculate Offset
-	    if($upload_width > $upload_height)
-	    {
-	    	// Horizontal picture
-	        $diff = $upload_width - $upload_height;
-	        $cropsize = $upload_height - 1;
-	        $x_axis = round($diff / 2);
-	        $y_axis = 0;
-	    }
-	    else
-	    {
-	    	// Vertical picture
-	        $cropsize = $upload_width - 1;
-	        $diff = $upload_height - $upload_width;
-	        $x_axis = 0;
-	        $y_axis = round($diff / 2);
-	    }
-	    
-	    	    
+	    	// Horizontal crop
+	        if( $resize_width > config_item('users_images_'.$size.'_width')) {
+		        $diff = $resize_width - config_item('users_images_'.$size.'_width');
+	        	$x_axis = round($diff / 2);
+					} else {
+						$x_axis = 0;
+					}
+	    	// Vertical crop
+	        if ($resize_height > config_item('users_images_'.$size.'_height')) {
+	       	  $diff = $resize_height - config_item('users_images_'.$size.'_height');
+	        	$y_axis = round($diff / 2);
+					} else {
+						$y_axis = 0;
+					}
+		
+			// define paths	
+			$img_output_path =  getcwd() . '/' . config_item('users_images_folder').$user_id."/".$size."_".$upload_file;
+			$raw_path = getcwd() . '/' . $raw_path;
+			$working_path =  getcwd() . '/' . config_item('users_images_folder').$user_id."/working_".$upload_file;
+
+			if (stristr(PHP_OS, 'WIN')) {
+				$raw_path = str_replace('/', '\\', $raw_path);
+				$working_path = str_replace('/', '\\', $working_path);
+				$img_output_path = str_replace('/', '\\', $img_output_path);
+			}
+			
+			// make a working copy
+			copy($raw_path, $working_path); 	    	   
+ 
 	    // Largest Possible Cropped Image	 
-		$crop_config['image_library']	= 'gd2';
-	    $crop_config['source_image'] 	= $raw_path;
+			$crop_config['image_library']	= 'gd2';
+	    $crop_config['source_image'] 	= $working_path;
 	    $crop_config['maintain_ratio']	= FALSE;
-	    $crop_config['new_image'] 		= config_item('users_images_folder').$user_id."/".$size."_".$upload_file; 
-	    $crop_config['x_axis']		 	= $x_axis;
-	    $crop_config['y_axis'] 			= $y_axis;
-	    $crop_config['master_dim'] 		= $set_master_dim;
+	    if ($x_axis) $crop_config['x_axis']		 	= $x_axis;
+	    if ($y_axis) $crop_config['y_axis'] 			= $y_axis;
 	    $crop_config['width'] 			= $resize_width;
 	    $crop_config['height'] 			= $resize_height;
-	        
+	    
+			//echo "x_axis: $x_axis - y_axis: $y_axis -- resize_width: $resize_width - resize_height: $resize_height - upload_width - $upload_width - upload_height - $upload_height -- constrained width - " . config_item('users_images_'.$size.'_width') .  " constrained_height - " . config_item('users_images_'.$size.'_height') . " master_dim - $set_master_dim<br><br>";
+    
 	    $this->image_lib->initialize($crop_config);
-	
-	    if (!$this->image_lib->resize())
-	    {
-	        echo "error cropping 1";
+	    
+			if (!$this->image_lib->resize()) {
+	        echo "error resizing 1";
 	        echo $this->image_lib->display_errors();
-	        return false;
-	    }	    
-  
-  	    $this->image_lib->clear();
-  	    
+			}
+
+			copy($working_path, $img_output_path);
+			unlink($working_path);
+	    
+			$crop_config['source_image'] 	= $img_output_path;
+
+	    $crop_config['width'] 			= $resize_width - $x_axis;
+ 	    $crop_config['height'] 			= $resize_height - $y_axis;
+				    
+  	  $this->image_lib->clear();
+			$this->image_lib->initialize($crop_config);
+
+			if ($x_axis || $y_axis) {
+		    if (!$this->image_lib->crop())
+		    {
+		        echo $this->image_lib->display_errors();
+		        return false;
+		    }	    
+			}	
+
+			$crop_config['rotation_angle'] = 180;
+
+	    $this->image_lib->initialize($crop_config);
+ 			
+			if (!$this->image_lib->rotate()) {
+				echo "error rotation 1";
+				echo $this->image_lib->display_errors();
+				return false;
+			}
+
+			$this->image_lib->clear();
+			$crop_config['width'] = $crop_config['width'] - $x_axis;
+			$crop_config['height'] = $crop_config['height'] - $y_axis;
+			unset($crop_config['rotation_angle']);
+	    $this->image_lib->initialize($crop_config);
+
+			if (!$this->image_lib->crop()) {
+				echo "error crop 2";
+				echo $this->image_lib->display_errors();
+			}	
+  	  
+			$this->image_lib->clear();
+	    $crop_config['rotation_angle'] = 180;
+			$this->image_lib->initialize($crop_config);
+
+ 			if (!$this->image_lib->rotate()) {
+				echo "error rotation 1";
+				echo $this->image_lib->display_errors();
+				return false;
+			}
+			
+  	   $this->image_lib->clear();
  /* 	    
 		// Makes Cropped Version ???
 		// Old Version from Brennans intial resizing lib
