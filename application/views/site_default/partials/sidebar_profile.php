@@ -11,7 +11,6 @@
 <?php if ($connections): ?>
 
 	<h3>Connections</h3>
-	
 	<ul>
 	<?php foreach ($connections as $connection): ?>
 		<li><a class="profile_sidebar_icon" href="<?= $connection->url.$connection->connection_username ?>" target="_blank"> <img src="<?= base_url().'application/modules/'.$connection->module.'/assets/'.$connection->module ?>_24.png"> <?= $connection->connection_username ?></a></li>
@@ -20,7 +19,7 @@
 	
 	<div class="profile_sidebar_separator"></div>
 
-<?php endif; ?>	
-	
+<?php endif; ?>
+
 	<h3>People</h3>
 	<p>Thumbnails of friends</p>
