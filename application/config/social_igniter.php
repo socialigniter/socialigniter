@@ -22,8 +22,11 @@ $config['admin_group']         			= 'admin';
 $config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','locations');
 $config['ignore_modules']				= array('index.html');
 $config['site_modules']					= array('site','themes','widgets','services');
-$config['home_greeting']				= array("There is no place like home","Welcome home buddy","Good news, you are home","Sweet home, Interwebs","Home again, home again, jigity jog");
-$config['mobile_verify']				= array("borogoves","gyre","jabberwocky","jubjub","frumious","bandersnatch","vorpal","tumtum","tulgey","burbled","snicker","snack","galumph","callooh","brillig","slithy","gimble"); //dont use the word verified
+$config['home_greeting']				= array('There is no place like home','Welcome home buddy','Good news, you are home','Sweet home, Interwebs','Home again, home again, jigity jog');
+$config['mobile_verify']				= array('borogoves','gyre','jabberwocky','jubjub','frumious','bandersnatch','vorpal','tumtum','tulgey','burbled','snicker','snack','galumph','callooh','brillig','slithy','gimble'); //dont use the word verified
+$config['cool_salutations']				= array('Yo-zers','Howdi','Hola','Bonjour','Aloha','Wassup','Hey');
+$config['cool_phrases']					= array('wicked sweet','dope sick','super fresh','super duper','totally boss','über tight');
+
 $config['status_length']				= "140";
 $config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian');
 $config['languages_default']			= 'en';

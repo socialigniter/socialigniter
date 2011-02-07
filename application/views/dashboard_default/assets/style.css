@@ -201,7 +201,7 @@ div.item_content_small 		{ width: 400px; display: block; line-height: 21px; marg
 span.item_separator			{ width: 100%; height: 2px; display: block; background: url(images/item_separator.png) 0 0 repeat-x; margin: 6px 0 0 0; }
 span.item_verb				{ color: #999999; }
 span.item_alerts			{ width: 200px; height: 30px; float: right; display: block; margin: 10px 0; }
-span.item_content_body		 0
+span.item_content_body		{ width: 450px; float: left; }
 span.item_content_body_small{ width: 375px; float: left; }
 img.item_content_thumb		{ width: 125px; display: block; float: left; margin: 0 15px 0 0; }
 span.item_content_detail	{ width: 350px; display: block; float: left; margin: 4px 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }
@@ -236,7 +236,7 @@ span.item_alert_published 	{ width: 50px; display: block; padding: 3px 8px; curs
 span.item_alert_saved 		{ width: 50px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #2078CE; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0 10px 0 0; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #888888;  text-align: center; }
 span.item_alert_activate 	{ width: 50px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #b54545; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0 10px 0 0; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #888888;  text-align: center; }
 
-span.item_type				{ width: 38px; height: 32px; display: block; float: right; background-image: url(images/item_type_icons.png); position: relative; right: 0; top: -20px; margin: 0; }
+span.item_type				{ width: 38px; height: 32px; display: block; float: right; background-image: url(images/item_type_icons.png); position: relative; right: 0; top: 0px; margin: 0; }
 span.type_comment			{ background-position: 0 -35px; }
 span.type_event				{ background-position: 42px -38px; }
 span.type_events			{ background-position: 42px -70px; }

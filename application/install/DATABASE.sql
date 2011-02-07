@@ -76,6 +76,7 @@ CREATE TABLE `comments` (
 
 CREATE TABLE `connections` (
   `connection_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `site_id` int(6) NOT NULL,
   `user_id` int(11) unsigned DEFAULT NULL,
   `module` char(32) NOT NULL,
   `type` char(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -300,9 +301,6 @@ CREATE TABLE `sites` (
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `type` char(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tagline` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `favicon` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;

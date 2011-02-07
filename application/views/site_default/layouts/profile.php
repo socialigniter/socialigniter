@@ -26,10 +26,18 @@
 <div id="content">
 	<div class="wrap">
 		<div id="main">
-			<?= $content ?>
+			<div class="content norm_top"></div>	
+			<div class="content norm_mid">		
+				<?= $content ?>
+			</div>
+			<div class="content norm_bot"></div>			
 		</div>
-		<div id="sidebar">
-			<?= $sidebar_profile ?>
+		<div id="profile_sidebar">
+			<div class="profile_sidebar_top"></div>	
+			<div class="profile_sidebar_mid">		
+				<?= $sidebar_profile ?>
+			</div>
+			<div class="profile_sidebar_bot"></div>
 		</div>
 	</div>
 	<div class="clear"></div>

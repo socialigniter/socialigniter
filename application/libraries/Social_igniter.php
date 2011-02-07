@@ -26,7 +26,7 @@ class Social_igniter
  		$this->ci->load->model('content_model');		
 		$this->ci->load->model('pages_model');
 		$this->ci->load->model('settings_model');
-		$this->ci->load->model('sites_model');		
+		$this->ci->load->model('sites_model');
 	}	
 	
     // Profile Picture	

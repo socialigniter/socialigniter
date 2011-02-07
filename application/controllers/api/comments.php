@@ -10,7 +10,6 @@ class Comments extends Oauth_Controller
         parent::__construct();        
 	}
 	
-    /* GET types */
     // Recent Comments
     function recent_get()
     {
@@ -47,7 +46,7 @@ class Comments extends Oauth_Controller
         }
     }
     
-    // New Comments for a user
+    // New Comments for a User
 	function new_authd_get()
 	{	
 		$site_id = config_item('site_id');	
@@ -147,30 +146,63 @@ class Comments extends Oauth_Controller
 		$this->form_validation->set_rules('comment', 'Comment', 'required');
 
 		// Akismet Enabled
-		//if (config_item('comments_akismet') == 'TRUE')
-		
+		//if (config_item('comments_akismet') == 'TRUE')		
 		//$this->form_validation->set_rules('comment', 'Comment', 'callback_akismet');
+/*	
+		$this->load->library('akismet');
 		
-
-		// ReCAPTCHA Enabled
-		//if (config_item('comments_recaptcha') == 'TRUE')
+		$comment = array('author' => $this->input->post('comment_name'), 'email' => $this->input->post('comment_email'), 'body' => $this->input->post('comment'));
+		$config  = array('blog_url' => config_item('site_url'), 'api_key' => config_item('site_akismet_key'), 'comment' => $comment);
 		
-		//$this->form_validation->set_rules('recaptcha_response_field', 'lang:recaptcha_field_name', 'required|callback_recaptcha');
-
-	
-	    $this->load->library('recaptcha');	
-	
-		if ($this->recaptcha->check_answer($this->input->ip_address(), $this->input->post('recaptcha_challenge_field'), $val))
-		{
-			$recaptcha = TRUE;
-		} 
+		$this->akismet->init($config);
+		 
+		if ($this->akismet->errors_exist())
+		{				
+			if ($this->akismet->is_error('AKISMET_INVALID_KEY')) 			
+			{
+				return FALSE;
+			}
+			elseif ($this->akismet->is_error('AKISMET_RESPONSE_FAILED'))
+			{
+				return FALSE;
+			}
+			elseif ($this->akismet->is_error('AKISMET_SERVER_NOT_FOUND'))
+			{
+				return FALSE;
+			}
+			else															
+			{
+				return TRUE;
+			}
+		}
 		else
 		{
-			//$this->form_validation->set_message('check_captcha', $this->lang->line('recaptcha_incorrect_response'));
-			$recaptcha = FALSE;
-		}	
-			
+			if ($this->akismet->is_spam())	
+			{
+				$this->form_validation->set_message('akistmet_validate', 'We think your comment might be spam!"');		
+				return FALSE; 
+			}
+			else
+			{
+				return TRUE;
+			}
+		}
+*/		
+		// ReCAPTCHA Enabled
+		//if (config_item('comments_recaptcha') == 'TRUE')		
+		{
+		    $this->load->library('recaptcha');	
 		
+			if ($this->recaptcha->check_answer($this->input->ip_address(), $this->input->post('recaptcha_challenge_field'), $val))
+			{
+				$recaptcha = TRUE;
+			} 
+			else
+			{
+				//$this->form_validation->set_message('check_captcha', $this->lang->line('recaptcha_incorrect_response'));
+				$recaptcha = FALSE;
+			}	
+		}
 
 		// Validates
 		if ($this->form_validation->run())
@@ -255,7 +287,6 @@ class Comments extends Oauth_Controller
 		}
 
         $this->response($message, $response);
-		
 	}    
     
     
@@ -315,72 +346,7 @@ class Comments extends Oauth_Controller
         else
         {
             $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 404);
-        }
-        
+        }   
     }
-    
-	// Validation
-	function akismet()
-	{
-		return FALSE;
-/*	
-		$this->load->library('akismet');
-		
-		$comment = array('author' => $this->input->post('comment_name'), 'email' => $this->input->post('comment_email'), 'body' => $this->input->post('comment'));
-		$config  = array('blog_url' => config_item('site_url'), 'api_key' => config_item('site_akismet_key'), 'comment' => $comment);
-		
-		$this->akismet->init($config);
-		 
-		if ($this->akismet->errors_exist())
-		{				
-			if ($this->akismet->is_error('AKISMET_INVALID_KEY')) 			
-			{
-				return FALSE;
-			}
-			elseif ($this->akismet->is_error('AKISMET_RESPONSE_FAILED'))
-			{
-				return FALSE;
-			}
-			elseif ($this->akismet->is_error('AKISMET_SERVER_NOT_FOUND'))
-			{
-				return FALSE;
-			}
-			else															
-			{
-				return TRUE;
-			}
-		}
-		else
-		{
-			if ($this->akismet->is_spam())	
-			{
-				$this->form_validation->set_message('akistmet_validate', 'We think your comment might be spam!"');		
-				return FALSE; 
-			}
-			else
-			{
-				return TRUE;
-			}
-		}
-*/			
-	}
-	
-	function recaptcha($val)
-	{
-		return FALSE;
-/*
-	    $this->load->library('recaptcha');	
-	
-		if ($this->recaptcha->check_answer($this->input->ip_address(), $this->input->post('recaptcha_challenge_field'), $val))
-		{
-			return TRUE;
-		} 
-		else
-		{
-			$this->form_validation->set_message('check_captcha', $this->lang->line('recaptcha_incorrect_response'));
-			return FALSE;
-		}
-*/		
-	}    
 
 }

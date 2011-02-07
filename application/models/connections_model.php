@@ -80,6 +80,7 @@ class Connections_model extends CI_Model
 	{
  		$this->db->select('*');
  		$this->db->from('connections');
+  		$this->db->join('sites', 'sites.site_id = connections.site_id');		  
 		$this->db->where('user_id', $user_id);
  		$result = $this->db->get();	
  		return $result->result();
@@ -102,5 +103,4 @@ class Connections_model extends CI_Model
 	{
 		$this->db->delete('connections', array('connection_id' => $connection_id));
 	}
-	
 }

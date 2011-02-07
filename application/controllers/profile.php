@@ -11,30 +11,32 @@ class Profile extends Site_Controller {
  	
 		if($this->user)
 		{	
-			$this->data['user_id'] 		= $this->user->user_id;	
-			$this->data['username'] 	= $this->user->username;
-			$this->data['email'] 		= $this->user->email;
-			$this->data['name'] 		= $this->user->name;
-			$this->data['company'] 		= $this->user->company;
-			$this->data['location'] 	= $this->user->location; 
-			$this->data['url'] 			= $this->user->url; 
-			$this->data['bio'] 			= $this->user->bio; 
-			$this->data['home_base'] 	= $this->user->home_base; 
-			$this->data['image'] 		= $this->user->image; 
-			$this->data['created_on'] 	= $this->user->created_on;
+			$this->data['user_id'] 			= $this->user->user_id;	
+			$this->data['username'] 		= $this->user->username;
+			$this->data['email'] 			= $this->user->email;
+			$this->data['name'] 			= $this->user->name;
+			$this->data['company'] 			= $this->user->company;
+			$this->data['location'] 		= $this->user->location; 
+			$this->data['url'] 				= $this->user->url; 
+			$this->data['bio'] 				= $this->user->bio; 
+			$this->data['home_base'] 		= $this->user->home_base; 
+			$this->data['image'] 			= $this->user->image; 
+			$this->data['created_on'] 		= $this->user->created_on;
 
 			// Links
-	 		$this->data['follow_url'] 	= base_url().'api/relationships/follow/'.$this->user->user_id;
-	 		$this->data['message_url'] 	= base_url().'api/message/send/'.$this->user->user_id;
+	 		$this->data['follow_url'] 		= base_url().'api/relationships/follow/'.$this->user->user_id;
+	 		$this->data['message_url'] 		= base_url().'api/message/send/'.$this->user->user_id;
 			
+			// Social Connections
+			$this->data['connections']		= $this->social_auth->get_connections_user($this->user->user_id);
+						
 			// Sidebar
 			$this->data['sidebar_profile'] = $this->load->view(config_item('site_theme').'/partials/sidebar_profile.php', $this->data, true);			
 		}
 		else
 		{
-			show_404('page');
+			redirect(404);
 		}
-
     }
 
  	function index()
@@ -73,7 +75,7 @@ class Profile extends Site_Controller {
 				$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
 
 				// View
-				$timeline_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_timeline.php', $this->data, true);
+				$timeline_view .= $this->load->view(config_item('site_theme').'/partials/user_timeline.php', $this->data, true);
 	 		}
 	 	}
 	 	else

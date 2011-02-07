@@ -41,9 +41,6 @@ class MY_Controller extends MX_Controller
             show_error('Sorry the site is shut for now.');
         }
 
-        // Get Site
-		$site = $this->social_igniter->get_site();
-
 		// Load Language
  		$this->lang->load('social_igniter', 'english');
  		$this->lang->load('activity_stream', 'english'); 	

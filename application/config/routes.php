@@ -157,7 +157,8 @@ $route['reset_password']						= 'site/reset_password';
 $route['activate/(:any)/(:any)']				= 'site/activate';
 $route['activate/(:any)']						= 'site/activate';
 $route['activate']								= 'site/activate';
-$route['pages/(:any)']							= 'site/index';
+$route['pages/(:any)']							= 'site/pages';
+$route['index']									= 'site/index';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

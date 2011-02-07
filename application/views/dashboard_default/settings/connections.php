@@ -7,7 +7,7 @@
 	<td width="30"><img src="<?= base_url().'/application/modules/'.$social->module.'/assets/'.$social->module ?>_24.png" border="0" /></td>
 	<td><?= ucwords($social->module) ?></td>
 	<?php if ($user_connections): foreach($user_connections as $exists): if ($exists->module == $social->module): $connection_set[$social->module] = TRUE; ?>
-	<td><?= $exists->connection_username ?></td>
+	<td><a href="<?= $exists->url.$exists->connection_username ?>" target="_blank"><?= $exists->connection_username ?></a></td>
 	<td width="80"><a class="button_75 button_basic_link" href="<?= base_url().'connections/delete/'.$exists->connection_id; ?>"><span>Remove</span></a></td>
 	<?php endif; endforeach; endif;	if (!$connection_set[$social->module]): ?>
 	<td></td>
