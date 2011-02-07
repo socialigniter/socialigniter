@@ -24,6 +24,7 @@ class Social_tools
 		$this->ci->load->model('categories_model');
 		$this->ci->load->model('comments_model');
 		$this->ci->load->model('ratings_model');
+		$this->ci->load->model('relationships_model');
 		$this->ci->load->model('tags_model');
 		$this->ci->load->model('taxonomy_model');
 
@@ -39,7 +40,8 @@ class Social_tools
 		{
 			return 'A';
 		}	
-	
+
+		return FALSE;	
 	}
 	
 	function has_access_to_modify($type, $object_id)
@@ -345,6 +347,13 @@ class Social_tools
 		return $this->ci->ratings_model->add_rating();
 	}
 	
+	
+	/* Relationships */
+	function get_relationships_user($user_id)
+	{
+		return $this->ci->relationships_mode->get_relationships_user($user_id);
+	}	
+	
 
 	/* Tags */
 	function get_tag($tag)
@@ -401,10 +410,6 @@ class Social_tools
 			}
 			return TRUE;
 		}
-	}	
-	
-	/* Relationships */
-	function 
-	
+	}
 
 }

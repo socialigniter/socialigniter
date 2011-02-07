@@ -7,13 +7,13 @@ class Relationships_model extends CI_Model {
         parent::__construct();
     }
     
-    function get_relationships_user($owner_id)
+    function get_relationships_user($user_id)
     {
  		$this->db->select('relationships.*, users.username, users.email, users_meta.name, users_meta.image');
  		$this->db->from('relationships');
  		$this->db->join('users', 'users.user_id = relationships.owner_id');		
  		$this->db->join('users_meta', 'users_meta.user_id = relationships.owner_id');
- 		$this->db->where('owner_id', $owner_id);
+ 		$this->db->where('owner_id', $user_id);
  		$result = $this->db->get();	
  		return $result->result();	      
     }

@@ -31,7 +31,7 @@ class Profile extends Site_Controller {
 			$this->data['connections']		= $this->social_auth->get_connections_user($this->user->user_id);
 			
 			// Relationships
-			$this->data['relationships']	= $this->social
+			$this->data['relationships']	= $this->social_tools->get_relationships_user($this->user->user_id);
 						
 			// Sidebar
 			$this->data['sidebar_profile'] = $this->load->view(config_item('site_theme').'/partials/sidebar_profile.php', $this->data, true);			
