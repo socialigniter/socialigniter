@@ -10,24 +10,22 @@ class Relationships extends Oauth_Controller
         parent::__construct();      
 	}
 	
-	
-    /* GET types */
     function followers_get()
     {
     	$followers = $this->relantionships_model->get_relationships_user('follows', $this->get('id'));
     	
         if($followers)
         {
-            $this->response($followers, 200);
+            $message = array('status' => 'error', 'message' => 'User has have followers', 'data' => $followers);
         }
         else
         {
-            $this->response(array('error' => 'User does not have followers'), 404);
+            $message = array('status' => 'error', 'message' => 'User does not have followers');
         }
+
+        $this->response($message, 200);        
     }
 
-
-	/* POST types */
     function follow_post()
     {
     	$user_id = $this->session->userdata('user_id');   
@@ -36,7 +34,7 @@ class Relationships extends Oauth_Controller
 		
 		if ($access)
 		{
-        	$category_data = array(
+        	$follow_data = array(
         		'parent_id'		=> $this->input->post('parent_id'),
     			'site_id'		=> config_item('site_id'),		
     			'permission'	=> $this->input->post('permission'),
@@ -47,71 +45,59 @@ class Relationships extends Oauth_Controller
         	);
 
 			// Insert
-		    $category = $this->categories_model->add_category($category_data);
+		    $follow = $this->categories_model->add_category($follow_data);
 
-			if ($category)
+			if ($follow)
 			{
-	        	$message	= array('status' => 'success', 'data' => $category);
-	        	$response	= 200;
+	        	$message = array('status' => 'success', 'message' => 'User was successfully followed', 'data' => $follow);
 	        }
 	        else
 	        {
-		        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-		        $response	= 400;		        
+		        $message = array('status' => 'error', 'message' => 'Oops unable to follow user');
 	        }
 		}
 		else
 		{
-	        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-	        $response	= 400;
+	        $message = array('status' => 'error', 'message' => 'Oops unable to follow user');
 		}	
 
-        $this->response($message, $response); // 200 being the HTTP response code
+        $this->response($message, 200);
     }
     
-    
-    /* PUT types */
     function update_put()
     {
-		$viewed = $this->social_tools->update_comment_viewed($this->get('id'));			
+		$relationship = $this->social_tools->update_comment_viewed($this->get('id'));	
     	
-        if($viewed)
+        if($relationship)
         {
-            $this->response(array('status' => 'success', 'message' => 'Comment viewed'), 200);
+            $message = array('status' => 'success', 'message' => 'Relationship updated', 'data' => $relationship);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not mark as viewed'), 404);
+            $message = array('status' => 'error', 'message' => 'Oops, we were unable to update your relationship');
         }    
-    }  
-    
 
-    /* DELETE types */
-    function unfollow_delete()
+        $this->response($message, 200);
+    }  
+
+    function unfollow_authd_delete()
     {		
 		// Make sure user has access to do this func
 		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
     	
     	// Move this up to result of "user_has_access"
     	if ($access)
-        {
-			//$comment = $this->social_tools->get_comment($this->get('id'));
+        {        
+        	$this->social_tools->delete_comment($this->get('id'));			
         
-        	$this->social_tools->delete_comment($this->get('id'));
-        
-			// Reset comments with this reply_to_id
-			$this->social_tools->update_comment_orphaned_children($this->get('id'));
-			
-			// Update Content
-			$this->social_igniter->update_content_comments_count($this->get('id'));
-        
-        	$this->response(array('status' => 'success', 'message' => 'Comment deleted'), 200);
+        	$message = array('status' => 'success', 'message' => 'User unfollowed successfully');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 404);
+            $message = array('status' => 'error', 'message' => 'Oops, unable to unfollow that user');
         }
-        
+
+        $this->response($message, 200);        
     }
 
 }

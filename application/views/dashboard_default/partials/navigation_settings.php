@@ -38,7 +38,7 @@
 </ul>
 <?php else: ?>
 <h2 class="content_title">
-	<img src="<?= $dashboard_assets ?>icons/settings_32.png"> Module Settings
+	<img src="<?= $dashboard_assets ?>icons/modules_32.png"> Module Settings
 </h2> 
 <ul class="content_navigation">
 </ul>

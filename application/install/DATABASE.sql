@@ -1,14 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 3.2.5
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Jan 07, 2011 at 07:29 PM
--- Server version: 5.1.44
--- PHP Version: 5.2.13
-
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
 
 CREATE TABLE `access` (
   `access_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -19,7 +9,6 @@ CREATE TABLE `access` (
   `level_id` char(1) NOT NULL,
   PRIMARY KEY (`access_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `activity` (
   `activity_id` int(32) NOT NULL AUTO_INCREMENT,
@@ -33,7 +22,6 @@ CREATE TABLE `activity` (
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`activity_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `categories` (
   `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -52,7 +40,6 @@ CREATE TABLE `categories` (
   `updated_at` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `comments` (
   `comment_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -73,7 +60,6 @@ CREATE TABLE `comments` (
   PRIMARY KEY (`comment_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE `connections` (
   `connection_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `site_id` int(6) NOT NULL,
@@ -86,8 +72,6 @@ CREATE TABLE `connections` (
   `auth_two` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`connection_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-
 
 CREATE TABLE `content` (
   `content_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -130,7 +114,7 @@ CREATE TABLE `content_meta` (
   `created_at` datetime NOT NULL,
   `updated_At` datetime NOT NULL,
   PRIMARY KEY (`content_meta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 CREATE TABLE `oauth_server_nonce` (
   `osn_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -218,7 +202,6 @@ CREATE TABLE `settings` (
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'site_theme', 'site_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'dashboard_theme', 'dashboard_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'mobile_theme', 'mobile_default');
-
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'title', 'Awesome Website');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'tagline', 'Where I Post All My Awesome Things');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'keywords', 'awesome, things, pictures, videos, poems, watermelons, cats, ninjas');
@@ -230,7 +213,6 @@ INSERT INTO `settings` VALUES(NULL, 1, 'site', 'smtp_host', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'smtp_user', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'smtp_pass', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'smtp_port', '');
-
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'google_webmaster', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'google_analytics', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'bing_webmaster', '');
@@ -299,6 +281,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_sizes_original', 'yes');
 CREATE TABLE `sites` (
   `site_id` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `module` char(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `type` char(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `favicon` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -315,7 +298,6 @@ CREATE TABLE `tags` (
   PRIMARY KEY (`tag_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE `tags_link` (
   `tag_link_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `tag_id` int(11) DEFAULT NULL,
@@ -324,7 +306,6 @@ CREATE TABLE `tags_link` (
   PRIMARY KEY (`tag_link_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE `taxonomy` (
   `taxonomy_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `object_id` int(11) NOT NULL,
@@ -332,7 +313,6 @@ CREATE TABLE `taxonomy` (
   `count` int(5) NOT NULL,
   PRIMARY KEY (`taxonomy_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `users` (
   `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -350,7 +330,6 @@ CREATE TABLE `users` (
   `last_login` int(16) unsigned DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE `users_level` (
   `user_level_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
@@ -391,7 +370,6 @@ CREATE TABLE `users_meta` (
   PRIMARY KEY (`user_meta_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
 CREATE TABLE `users_sessions` (
   `session_id` varchar(40) NOT NULL DEFAULT '0',
   `ip_address` varchar(16) NOT NULL DEFAULT '0',
@@ -400,7 +378,6 @@ CREATE TABLE `users_sessions` (
   `user_data` text NOT NULL,
   PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 ALTER TABLE `oauth_server_token`
   ADD CONSTRAINT `oauth_server_token_ibfk_1` FOREIGN KEY (`ost_osr_id_ref`) REFERENCES `oauth_server_registry` (`osr_id`) ON DELETE CASCADE ON UPDATE CASCADE;

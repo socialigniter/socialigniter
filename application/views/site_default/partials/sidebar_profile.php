@@ -12,9 +12,11 @@
 
 	<h3>Connections</h3>
 	
+	<ul>
 	<?php foreach ($connections as $connection): ?>
-		<p><img src="<?= $connection->module ?>"> <a href="<?= $connection->url.$connection->connection_username ?>" target="_blank"><?= $connection->connection_username ?></a></p>
+		<li><a class="profile_sidebar_icon" href="<?= $connection->url.$connection->connection_username ?>" target="_blank"> <img src="<?= base_url().'application/modules/'.$connection->module.'/assets/'.$connection->module ?>_24.png"> <?= $connection->connection_username ?></a></li>
 	<?php endforeach; ?>
+	</ul>
 	
 	<div class="profile_sidebar_separator"></div>
 
