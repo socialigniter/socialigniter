@@ -351,7 +351,7 @@ class Social_tools
 	/* Relationships */
 	function get_relationships_user($user_id)
 	{
-		return $this->ci->relationships_mode->get_relationships_user($user_id);
+		return $this->ci->relationships_model->get_relationships_user($user_id);
 	}	
 	
 
