@@ -46,9 +46,6 @@ class Relationships extends Oauth_Controller
     	);
  		
  		$allowed = $this->social_tools->check_relationship_exists($follow_data);
- 		
-// 		print_r($allowed);
-
        	
        	if ($allowed)
        	{       		

@@ -173,7 +173,7 @@ class Home extends Dashboard_Controller
 		$this->data['page_title']	= ucwords($this->uri->segment(2));
 		$this->data['sub_title']	= 'Manage';
 		
-		if (!empty($timeline))
+		if (!empty($content_module))
 		{		 
 			foreach($content_module as $content):
 			
