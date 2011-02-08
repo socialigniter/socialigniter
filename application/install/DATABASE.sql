@@ -2,7 +2,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE `access` (
   `access_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `site_id` int(11) DEFAULT NULL,
+  `site_id` int(6) DEFAULT NULL,
   `owner_id` int(11) DEFAULT NULL,
   `granted_id` int(11) DEFAULT NULL,
   `type` char(16) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE `access` (
 
 CREATE TABLE `activity` (
   `activity_id` int(32) NOT NULL AUTO_INCREMENT,
-  `site_id` int(11) DEFAULT NULL,
+  `site_id` int(6) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `verb` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `module` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE `activity` (
 CREATE TABLE `categories` (
   `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
-  `site_id` int(11) DEFAULT NULL,
+  `site_id` int(6) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `access` char(1) DEFAULT NULL,
   `module` char(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -181,10 +181,11 @@ CREATE TABLE `ratings` (
 
 CREATE TABLE `relationships` (
   `relationship_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `site_id` int(6) NOT NULL,
   `owner_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `type` char(32) COLLATE utf8_unicode_ci NOT NULL,
-  `type_sub` char(32) COLLATE utf8_unicode_ci NOT NULL,
+  `module` char(16) COLLATE utf8_unicode_ci NOT NULL,
+  `type` char(16) COLLATE utf8_unicode_ci NOT NULL,
   `status` char(1) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`relationship_id`)

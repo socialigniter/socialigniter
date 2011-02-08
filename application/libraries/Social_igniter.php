@@ -446,7 +446,7 @@ class Social_igniter
 	/* Activity */
 	function get_timeline($module, $limit)
 	{
-		if ($module)	$where = array('module' => $module);
+		if ($module)	$where = array('activity.module' => $module);
 		else			$where = array();
 	
 		return $this->ci->activity_model->get_timeline($where, $limit);		

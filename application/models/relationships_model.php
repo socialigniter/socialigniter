@@ -1,10 +1,27 @@
 <?php
 
-class Relationships_model extends CI_Model {
-    
+class Relationships_model extends CI_Model
+{    
     function __construct()
     {
         parent::__construct();
+    }
+    
+    function check_relationship_exists($relationship_data)
+    {
+ 		$this->db->select('*');
+ 		$this->db->from('relationships');
+ 		$this->db->where($relationship_data); 
+ 		$count = $this->db->count_all_results();
+ 		
+ 		if ($count >= 1)
+ 		{
+ 			return 'dogs';
+ 		}
+ 		else
+ 		{
+ 			return 'catss';
+ 		}
     }
     
     function get_relationships_user($user_id)
@@ -18,25 +35,18 @@ class Relationships_model extends CI_Model {
  		return $result->result();	      
     }
     
-    function add_data($user_id, $status_data)
+    function add_relationship($relationship_data)
     {
- 		$data = array(
-			'user_id' 	 			=> $user_id,
-			'source'				=> $status_data['source'],
-			'text'  	 			=> $status_data['text'],
-			'lat'		 			=> $status_data['lat'],
-			'long'					=> $status_data['long'],
-			'created_at' 			=> unix_to_mysql(now())
-		);	
-		$insert 	= $this->db->insert('status', $data);
-		$status_id 	= $this->db->insert_id();
-		return $this->db->get_where('status', array('status_id' => $status_id))->row();	
-    }   
+ 		$relationship_data['created_at']	= unix_to_mysql(now()); 			
+		$this->db->insert('relationships', $relationship_data);
+		$relationship_id = $this->db->insert_id();
+		return $this->db->get_where('relationships', array('relationship_id' => $relationship_id))->row();	
+    } 
 
-    function update_data($data_id, $data)
+    function update_relationship($relationship_id, $data)
     {
-		$this->db->where('data_id', $data_id);
-		$this->db->update('table', array('data' => $data));        
+		$this->db->where('relationship_id', $relationship_id);
+		$this->db->update('relationships', array('data' => $data));        
     }
     
 }

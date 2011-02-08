@@ -112,6 +112,20 @@ function navigation_list_btn_manage($link, $link_array, $word, $uri_segment3, $w
 	return $link;
 }
 
+// Use Dis Function is a module name has multiple words separated by '_' 
+function url_word_parser($separator, $input)
+{
+	$name	= '';
+	$pieces = explode($separator, $input);
+
+	foreach ($pieces as $word)
+	{
+		$name .= ' '.ucwords($word);
+	}
+
+	return $name;
+}
+
 function display_value($tag=false, $id=false, $class=false, $value=false)
 {
 	$tag_start	= '';

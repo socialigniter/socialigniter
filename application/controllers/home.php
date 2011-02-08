@@ -172,32 +172,39 @@ class Home extends Dashboard_Controller
 		// Title Stuff
 		$this->data['page_title']	= ucwords($this->uri->segment(2));
 		$this->data['sub_title']	= 'Manage';
-		 
-		foreach($content_module as $content):
 		
-			$this->data['item_id'] 				= $content->content_id;
-			$this->data['item_type']			= $content->type;
-			$this->data['item_viewed']			= item_viewed('item_manage', $content->viewed);
-
-			$this->data['title']				= item_title($content->title, $content->type);
-			$this->data['title_link']			= base_url().$content->module.'/view/'.$content->content_id;
-			$this->data['comments_count']		= manage_comments_count($content->comments_count);
-			$this->data['publish_date']			= manage_published_date($content->created_at, $content->updated_at);
-			$this->data['item_status']			= display_content_status($content->status);
-			$this->data['item_approval']		= $content->approval;
-
-			// Alerts
-			$this->data['item_alerts']			= item_alerts_content($content);			
+		if (!empty($timeline))
+		{		 
+			foreach($content_module as $content):
 			
-			// Actions
-			$this->data['item_approve']			= base_url().'api/content/approve/id/'.$content->content_id;
-			$this->data['item_edit']			= base_url().'home/'.$content->module.'/manage/'.$content->content_id;
-			$this->data['item_delete']			= base_url().'api/content/destroy/id/'.$content->content_id;
-			
-			// View
-			$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);			
-
-		endforeach;	
+				$this->data['item_id'] 				= $content->content_id;
+				$this->data['item_type']			= $content->type;
+				$this->data['item_viewed']			= item_viewed('item_manage', $content->viewed);
+	
+				$this->data['title']				= item_title($content->title, $content->type);
+				$this->data['title_link']			= base_url().$content->module.'/view/'.$content->content_id;
+				$this->data['comments_count']		= manage_comments_count($content->comments_count);
+				$this->data['publish_date']			= manage_published_date($content->created_at, $content->updated_at);
+				$this->data['item_status']			= display_content_status($content->status);
+				$this->data['item_approval']		= $content->approval;
+	
+				// Alerts
+				$this->data['item_alerts']			= item_alerts_content($content);			
+				
+				// Actions
+				$this->data['item_approve']			= base_url().'api/content/approve/id/'.$content->content_id;
+				$this->data['item_edit']			= base_url().'home/'.$content->module.'/manage/'.$content->content_id;
+				$this->data['item_delete']			= base_url().'api/content/destroy/id/'.$content->content_id;
+				
+				// View
+				$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);			
+	
+			endforeach;	
+		}
+	 	else
+	 	{
+	 		$manage_view = '<li>Nothing to manage from anyone!</li>';
+ 		}
 
 		// Final Output
 		$this->data['timeline_view'] 	= $manage_view;				

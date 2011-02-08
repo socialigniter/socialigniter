@@ -24,8 +24,8 @@ class Profile extends Site_Controller {
 			$this->data['created_on'] 		= $this->user->created_on;
 
 			// Links
-	 		$this->data['follow_url'] 		= base_url().'api/relationships/follow/'.$this->user->user_id;
-	 		$this->data['message_url'] 		= base_url().'api/message/send/'.$this->user->user_id;
+	 		$this->data['follow_url'] 		= base_url().'api/relationships/follow/id/'.$this->user->user_id;
+	 		$this->data['message_url'] 		= base_url().'api/message/send/id/'.$this->user->user_id;
 			
 			// Social Connections
 			$this->data['connections']		= $this->social_auth->get_connections_user($this->user->user_id);

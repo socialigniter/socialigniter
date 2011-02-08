@@ -349,10 +349,20 @@ class Social_tools
 	
 	
 	/* Relationships */
+	function check_relationship_exists($relationship_data)
+	{
+		return $this->ci->relationships_model->check_relationship_exists($relationship_data);
+	}
+	
 	function get_relationships_user($user_id)
 	{
 		return $this->ci->relationships_model->get_relationships_user($user_id);
-	}	
+	}
+	
+	function add_relationship($relationship_data)
+	{
+		return $this->ci->relationships_model->add_relationship($relationship_data);
+	}
 	
 
 	/* Tags */

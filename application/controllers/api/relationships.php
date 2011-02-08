@@ -26,26 +26,34 @@ class Relationships extends Oauth_Controller
         $this->response($message, 200);        
     }
 
-    function follow_post()
+    function follow_get()
     {
-    	$user_id = $this->session->userdata('user_id');   
-    
-		$access = $this->social_igniter->has_access_to_create('category', $user_id);
-		
-		if ($access)
-		{
-        	$follow_data = array(
-        		'parent_id'		=> $this->input->post('parent_id'),
-    			'site_id'		=> config_item('site_id'),		
-    			'permission'	=> $this->input->post('permission'),
-				'module'		=> $this->input->post('module'),
-    			'type'			=> $this->input->post('type'),
-    			'category'		=> $this->input->post('category'),
-    			'category_url'	=> $this->input->post('category_url')
-        	);
+    	$user = $this->social_auth->get_user($this->get('id'));
+    	
+		if ($user->privacy) $status = 'N';
+		else $status = 'Y';
+   	
+		if ($this->input->post('site_id')) $site_id = $this->input->post('site_id');
+		else $site_id = config_item('site_id');
+	
+    	$follow_data = array(
+			'site_id'	=> $site_id,		
+    		'owner_id'	=> $this->oauth_user_id,
+    		'user_id'	=> $this->get('id'),
+			'module'	=> $this->input->post('module'),
+			'type'		=> 'follow',
+			'status'	=> $status
+    	);
+ 		
+ 		$allowed = $this->social_tools->check_relationship_exists($follow_data);
+ 		
+// 		print_r($allowed);
 
+       	
+       	if ($allowed)
+       	{       		
 			// Insert
-		    $follow = $this->categories_model->add_category($follow_data);
+		    $follow = $this->social_tools->add_relationship($follow_data);
 
 			if ($follow)
 			{
@@ -62,6 +70,7 @@ class Relationships extends Oauth_Controller
 		}	
 
         $this->response($message, 200);
+
     }
     
     function update_put()

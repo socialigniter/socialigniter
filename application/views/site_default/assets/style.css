@@ -11,6 +11,8 @@ p { margin: 0 0 0 0; font-size: 14px; }
 ul { margin: 0 }
 ol { margin: 0 }
 
+pre { background: #f3f3f3; border: 1px solid #999999; padding: 10px; }
+
 .clear 		{ clear: both; }
 .hide 		{ display: none; }
 .wrap		{ width: 950px; margin: 0 auto; padding: 0; display: block; }
@@ -30,8 +32,8 @@ a.dark_nav:active		{ text-decoration: underline; }
 input[type=text], input[type=password], input[type=email], input[type=url] { height: 28px; background: url(images/input_basic.png) 0 0 repeat-x #fff; font-size: 13px; padding: 0 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=url]:focus { height: 28px; background: url(images/input_basic_focus.png) 0 0 repeat-x #fff; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 
-input[type=submit], input[type=reset] 				{ height: 29px; background: url(images/button_basic.png) 0 0 repeat-x; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
-input[type=submit]:hover, input[type=reset]:hover 	{ height: 29px; background: url(images/button_basic_hover.png) 0 0 repeat-x; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
+input[type=submit], input[type=reset], input[type=button] { height: 29px; background: url(images/button_basic.png) 0 0 repeat-x; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
+input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover { height: 29px; background: url(images/button_basic_hover.png) 0 0 repeat-x; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
 
 textarea 				{ background: url(images/textarea_basic.png) 0 0 repeat-x #ffffff; font-size: 14px; padding: 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 textarea:focus 			{ background: url(images/textarea_basic_focus.png) 0 0 repeat-x #ffffff; }
