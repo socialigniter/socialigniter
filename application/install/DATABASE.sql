@@ -188,6 +188,7 @@ CREATE TABLE `relationships` (
   `type` char(16) COLLATE utf8_unicode_ci NOT NULL,
   `status` char(1) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   PRIMARY KEY (`relationship_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 

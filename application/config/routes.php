@@ -76,6 +76,7 @@ $route['api/content/create']					= 'api/content/create';
 
 /* Relationships */
 $route['api/relationships/follow/(:any)/(:any)']	= 'api/relationships/follow/$1/$2';
+$route['api/relationships/unfollow/(:any)/(:any)']	= 'api/relationships/unfollow/$1/$2';
 $route['api/relationships/followers/(:any)/(:any)']	= 'api/relationships/followers/$1/$2';
 $route['api/relationships/']						= 'api/relationships/';
 

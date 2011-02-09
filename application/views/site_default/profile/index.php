@@ -20,4 +20,6 @@
 </ol>
 <div class="clear"></div>
 
-<input type="submit" name="see_more" value="See More">
+<?php if ($timeline_count > 8): ?>
+<input type="button" id="profile_feed_see_more" value="See More">
+<?php endif; ?>

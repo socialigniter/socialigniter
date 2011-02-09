@@ -26,13 +26,8 @@ class Relationships extends Oauth_Controller
         $this->response($message, 200);        
     }
 
-    function follow_get()
-    {
-    	$user = $this->social_auth->get_user($this->get('id'));
-    	
-		if ($user->privacy) $status = 'N';
-		else $status = 'Y';
-   	
+    function follow_authd_post()
+    {   	
 		if ($this->input->post('site_id')) $site_id = $this->input->post('site_id');
 		else $site_id = config_item('site_id');
 	
@@ -42,14 +37,30 @@ class Relationships extends Oauth_Controller
     		'user_id'	=> $this->get('id'),
 			'module'	=> $this->input->post('module'),
 			'type'		=> 'follow',
-			'status'	=> $status
     	);
  		
- 		$allowed = $this->social_tools->check_relationship_exists($follow_data);
+ 		$exists = $this->social_tools->check_relationship_exists($follow_data);
        	
-       	if ($allowed)
-       	{       		
-			// Insert
+       	if ($exists)
+       	{
+			if ($exists->status == 'Y')
+			{
+	        	$message = array('status' => 'error', 'message' => 'You already follow that user');
+			}
+			elseif ($exists->status == 'D')
+			{
+				$follow = $this->social_tools->update_relationship($exists->relationship_id, array('status' => 'Y'));
+				
+				$message = array('status' => 'success', 'message' => 'You now follow that user', 'data' => $follow);
+			}
+		}
+		else
+		{
+	    	$user = $this->social_auth->get_user($this->get('id'));
+	    	
+			if ($user->privacy) $follow_data['status'] = 'N';
+			else $follow_data['status'] = 'Y';
+       	    
 		    $follow = $this->social_tools->add_relationship($follow_data);
 
 			if ($follow)
@@ -60,50 +71,47 @@ class Relationships extends Oauth_Controller
 	        {
 		        $message = array('status' => 'error', 'message' => 'Oops unable to follow user');
 	        }
-		}
-		else
-		{
-	        $message = array('status' => 'error', 'message' => 'Oops unable to follow user');
 		}	
 
         $this->response($message, 200);
-
     }
     
-    function update_put()
+
+    function unfollow_authd_post()
     {
-		$relationship = $this->social_tools->update_comment_viewed($this->get('id'));	
-    	
-        if($relationship)
-        {
-            $message = array('status' => 'success', 'message' => 'Relationship updated', 'data' => $relationship);
-        }
-        else
-        {
-            $message = array('status' => 'error', 'message' => 'Oops, we were unable to update your relationship');
-        }    
+		if ($this->input->post('site_id')) $site_id = $this->input->post('site_id');
+		else $site_id = config_item('site_id');
+	
+    	$follow_data = array(
+			'site_id'	=> $site_id,		
+    		'owner_id'	=> $this->oauth_user_id,
+    		'user_id'	=> $this->get('id'),
+			'module'	=> $this->input->post('module'),
+			'type'		=> 'follow',
+			'status'	=> 'Y'
+    	);
+ 		
+ 		$exists = $this->social_tools->check_relationship_exists($follow_data);
+       	
+       	if ($exists)
+       	{
+		    $follow = $this->social_tools->update_relationship($exists->relationship_id, array('status' => 'D'));
 
-        $this->response($message, 200);
-    }  
+			if ($follow)
+			{
+	        	$message = array('status' => 'success', 'message' => 'User was unfollowed');
+	        }
+	        else
+	        {
+		        $message = array('status' => 'error', 'message' => 'Oops unable to unfollow user');
+	        }
+		}
+		else
+		{
+	        $message = array('status' => 'error', 'message' => 'You do not follow that user');
+		}
 
-    function unfollow_authd_delete()
-    {		
-		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
-    	
-    	// Move this up to result of "user_has_access"
-    	if ($access)
-        {        
-        	$this->social_tools->delete_comment($this->get('id'));			
-        
-        	$message = array('status' => 'success', 'message' => 'User unfollowed successfully');
-        }
-        else
-        {
-            $message = array('status' => 'error', 'message' => 'Oops, unable to unfollow that user');
-        }
-
-        $this->response($message, 200);        
+        $this->response($message, 200);     
     }
 
 }

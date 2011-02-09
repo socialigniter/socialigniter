@@ -353,10 +353,15 @@ class Social_tools
 	{
 		return $this->ci->relationships_model->check_relationship_exists($relationship_data);
 	}
-	
-	function get_relationships_user($user_id)
+
+	function get_relationships_followers($user_id)
 	{
-		return $this->ci->relationships_model->get_relationships_user($user_id);
+		return $this->ci->relationships_model->get_relationships_followers($user_id);
+	}
+	
+	function get_relationships_follows($owner_id)
+	{
+		return $this->ci->relationships_model->get_relationships_follows($owner_id);
 	}
 	
 	function add_relationship($relationship_data)
@@ -364,6 +369,15 @@ class Social_tools
 		return $this->ci->relationships_model->add_relationship($relationship_data);
 	}
 	
+	function update_relationship($relationship_id, $relationship_data)
+	{	
+		return $this->ci->relationships_model->update_relationship($relationship_id, $relationship_data);
+	}	
+
+	function delete_relationship($relationship_id)
+	{	
+		return $this->ci->relationships_model->delete_relationship($relationship_id);
+	}		
 
 	/* Tags */
 	function get_tag($tag)

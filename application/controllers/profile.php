@@ -1,6 +1,6 @@
 <?php
-class Profile extends Site_Controller {
- 
+class Profile extends Site_Controller
+{ 
     function __construct() 
     {
         parent::__construct();
@@ -22,17 +22,27 @@ class Profile extends Site_Controller {
 			$this->data['home_base'] 		= $this->user->home_base; 
 			$this->data['image'] 			= $this->user->image; 
 			$this->data['created_on'] 		= $this->user->created_on;
-
-			// Links
-	 		$this->data['follow_url'] 		= base_url().'api/relationships/follow/id/'.$this->user->user_id;
-	 		$this->data['message_url'] 		= base_url().'api/message/send/id/'.$this->user->user_id;
 			
 			// Social Connections
 			$this->data['connections']		= $this->social_auth->get_connections_user($this->user->user_id);
 			
 			// Relationships
-			$this->data['relationships']	= $this->social_tools->get_relationships_user($this->user->user_id);
-						
+			$this->data['followers']		= $this->social_tools->get_relationships_followers($this->user->user_id);
+			$this->data['follows']			= $this->social_tools->get_relationships_follows($this->user->user_id);
+
+			// Links
+			if ($this->social_tools->check_relationship_exists(array('site_id' => config_item('site_id'), 'owner_id' => 2, 'user_id' => $this->user->user_id, 'module' => 'site', 'type' => 'follow', 'status' => 'Y')))
+			{
+		 		$this->data['follow_word']	= 'unfollow';
+			}
+			else
+			{
+		 		$this->data['follow_word']	= 'follow';				
+			}		
+
+	 		$this->data['message_url'] 		= base_url().'api/message/send/id/'.$this->user->user_id;
+	 		
+
 			// Sidebar
 			$this->data['sidebar_profile'] = $this->load->view(config_item('site_theme').'/partials/sidebar_profile.php', $this->data, true);			
 		}
@@ -48,12 +58,15 @@ class Profile extends Site_Controller {
  		
 		// Timeline 		
 		$timeline 							= $this->social_igniter->get_timeline_user($this->user->user_id, 8);
-		$timeline_view 						= NULL;		
+		$timeline_view 						= NULL;	
+		$timeline_count						= 1;	
 				 			
 		if (!empty($timeline))
 		{
 			foreach ($timeline as $activity)
-			{			
+			{	
+				$timeline_count++;
+					
 				// Item
 				$this->data['item_id']				= $activity->activity_id;
 				$this->data['item_type']			= item_type_class($activity->type);
@@ -88,6 +101,7 @@ class Profile extends Site_Controller {
 
 		// Final Output
 		$this->data['timeline_view'] 	= $timeline_view; 		
+ 		$this->data['timeline_count']	= $timeline_count;
  		
 		$this->render('profile');
  	}
