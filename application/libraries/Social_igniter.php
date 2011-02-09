@@ -470,6 +470,32 @@ class Social_igniter
 		return $this->ci->activity_model->get_timeline($where, $limit);
 	}
 
+	function get_timeline_likes($likes, $limit)
+	{	
+		$i = 0;
+		
+		if ($likes)
+		{
+			$where = 'activity.site_id = 1 AND ';
+			
+			foreach ($likes as $like)
+			{			
+				if ($i >= 1) $or = " OR ";
+				else $or = "";
+				
+				$where .= $or." activity.user_id = '". $like->user_id . "'";
+			
+				$i++;
+			}		
+
+			return $this->ci->activity_model->get_timeline($where, $limit);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
 	function get_timeline_user($user_id, $limit)
 	{	
 	 	$where = array('activity.user_id' => $user_id);

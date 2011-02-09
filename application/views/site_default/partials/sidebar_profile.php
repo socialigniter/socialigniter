@@ -47,11 +47,8 @@ $(document).ready(function()
 	{
 		eve.preventDefault();
 		var follow_word = $('#follow_button').attr('value').toLowerCase();
-		var follow_data = $('#follow_buttom').serializeArray();
+		var follow_data = $('#follow_button').serializeArray();
 		follow_data.push({'name':'module','value':'site'});
-
-		console.log(follow_word);
-		console.log(follow_data);
 
 		$(this).oauthAjax(
 		{
@@ -74,6 +71,35 @@ $(document).ready(function()
 					{
 						$('#follow_button').val('Follow');					
 					}
+			 	}
+			 	else
+			 	{
+					alert(result.message);
+			 	}
+		 	}
+		})
+	});
+
+	$("#message_button").bind("click", function(eve)
+	{
+		eve.preventDefault();
+		var follow_data = $('#message_button').serializeArray();
+		follow_data.push({'name':'module','value':'messages'});
+
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: base_url + 'api/messages/' + follow_word + '/id/<?= $user_id; ?>',
+			type		: 'POST',
+			dataType	: 'json',
+			data		: follow_data,
+	  		success		: function(result)
+	  		{	
+	  			console.log(result);	  			
+	  				  			
+				if (result.status == 'success')
+				{
+					alert(result.message);
 			 	}
 			 	else
 			 	{

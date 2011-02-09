@@ -110,7 +110,7 @@ $route['home/comments/(:any)'] 					= 'home/comments/$1';
 $route['home/comments'] 						= 'home/comments';
 $route['home/friends']							= 'home/index';
 $route['home/mentions'] 						= 'home/mentions';
-$route['home/likes']							= 'home/likes';
+$route['home/likes']							= 'home/index';
 
 /* Home Modules */
 $route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';

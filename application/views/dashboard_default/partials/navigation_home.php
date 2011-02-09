@@ -2,6 +2,5 @@
 <ul class="content_navigation">
 	<?= navigation_list_btn('home', 'All') ?>
 	<?= navigation_list_btn('home/friends', 'Friends') ?>
-	<?= navigation_list_btn('home/mentions', '@ Mentions') ?>
 	<?= navigation_list_btn('home/likes', 'Likes') ?>
 </ul>

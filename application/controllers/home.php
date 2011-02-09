@@ -28,6 +28,16 @@ class Home extends Dashboard_Controller
 			$friends						= $this->social_tools->get_relationships_follows($this->session->userdata('user_id'));
 			$timeline 						= $this->social_igniter->get_timeline_friends($friends, 10); 
  	    }
+ 	    elseif ($this->uri->segment(2) == 'likes')
+ 	    {
+	 	    $this->data['page_title'] 		= 'Likes';
+			$this->data['home_greeting']	= random_element(config_item('home_greeting'));
+	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
+			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
+
+			$likes							= $this->social_tools->get_ratings_likes_user($this->session->userdata('user_id'));
+			$timeline 						= $this->social_igniter->get_timeline_likes($likes, 10); 
+ 	    }
  	    // Fix For MODULE Checking
  	    else
  	    {
@@ -88,13 +98,6 @@ class Home extends Dashboard_Controller
 		 	 	
 		$this->render();
  	}
-
-	function likes()
-	{
- 	    $this->data['page_title'] 		= "Likes";		
-	
-		$this->render();
-	}
 	
 	function view()
 	{
