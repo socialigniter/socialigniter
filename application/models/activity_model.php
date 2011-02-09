@@ -21,20 +21,6 @@ class Activity_model extends CI_Model
  		return $result->result();	      
     }
     
-    function get_timeline_user($user_id, $limit)
-    {
- 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
- 		$this->db->from('activity');
- 		$this->db->join('sites', 'sites.site_id = activity.site_id');
- 		$this->db->join('users', 'users.user_id = activity.user_id');
- 		$this->db->join('users_meta', 'users_meta.user_id = activity.user_id');
- 		$this->db->where('activity.user_id', $user_id);
- 		$this->db->order_by('activity.created_at', 'desc'); 
-		$this->db->limit($limit);    
- 		$result = $this->db->get();	
- 		return $result->result();     
-    }
-    
     function get_activity($activity_id)
     {
 	 	$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
