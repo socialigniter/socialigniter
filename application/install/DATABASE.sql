@@ -290,7 +290,7 @@ CREATE TABLE `sites` (
   PRIMARY KEY (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
-INSERT INTO `sites` VALUES(NULL, 'http://social-igniter.com', 'default', 'Social-Igniter', 'A Really Simple Open Source Social Web Application Template', 'Social-Igniter is a really simple open source social web application template', 'social, web application, open source, codeigniter, php', NULL);
+INSERT INTO `sites` VALUES(1, 'http://localhost/', 'site', 'default', 'Social-Igniter', NULL);
 
 CREATE TABLE `tags` (
   `tag_id` int(11) unsigned NOT NULL AUTO_INCREMENT,

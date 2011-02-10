@@ -83,16 +83,16 @@ $(document).ready(function()
 	$("#message_button").bind("click", function(eve)
 	{
 		eve.preventDefault();
-		var follow_data = $('#message_button').serializeArray();
-		follow_data.push({'name':'module','value':'messages'});
+		var message_data = $('#message_button').serializeArray();
+		message_data.push({'name':'receiver_id','name':<?= $user_id ?>},{'name':'module','value':'messages'},{'name':'type','value':'personal'});
 
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,
-			url			: base_url + 'api/messages/' + follow_word + '/id/<?= $user_id; ?>',
+			url			: base_url + 'api/messages/send',
 			type		: 'POST',
 			dataType	: 'json',
-			data		: follow_data,
+			data		: message_data,
 	  		success		: function(result)
 	  		{	
 	  			console.log(result);	  			

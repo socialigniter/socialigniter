@@ -50,9 +50,8 @@ class Content extends Oauth_Controller
         $this->response($message, $response);
     }
 
-
-	/* POST types */
-	// Create Content - if module needs content to do more funky things, write an API controller in that module
+	// Create Content
+	// if module needs content to do more funky things, write an API controller in that module
 	function create_authd_post()
 	{
 		// Validation Rules
@@ -62,9 +61,7 @@ class Content extends Oauth_Controller
 
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
-	    {	
-	   		//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
-
+	    {
 	    	$viewed			= 'Y';
 	    	$approval		= 'A'; 
 
