@@ -9,10 +9,65 @@ $(document).ready(function()
 		
 		markNewItem(url_octothorpe);
 	}
-	
+
 	// Generates Uniform
 	$("select, input:checkbox, input:radio, input:file").uniform();
-
+	
+	
+	// Gets Count of Feed Items
+	function getCountNew(element)
+	{
+		var request 		= $(element).attr('id');
+		var current_class	= $(element).attr('class');
+		var type			= $(element).attr('rel');
+		
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,		
+			url			: base_url + 'api/' + type + '/new',
+			type		: 'GET',
+			dataType	: 'json',
+		  	success		: function(result)
+		  	{	  	  	
+				if(result.status == 'success')
+				{	// Adds msg_notifation class to feed_count_new
+					$('#' + request).html(result.message).addClass(current_class + ' msg_notification');
+				}		  	
+		  	}		
+		});	
+	}
+	
+	// Marks Item In Feed New
+	function markNewItem(item_id)
+	{
+		$('#' + item_id).addClass('item_created');
+		$('#' + item_id).oneTime(4000, function()
+		{
+			$('#' + item_id).removeClass('item_created').addClass('item');
+		});
+	}
+	
+	
+	// Makes Word From content.status
+	function displayContentStatus(status)
+	{
+		var result = '';
+	
+	    if (status == 'P')
+	    {
+	    	result = 'Published'; 
+	    }
+	    else if (status == 'S') 	
+	    {
+	    	result = 'Saved';
+		}
+		else if (status == 'U')
+		{
+			result = 'Unpublished';	        
+		}
+	
+		return result;
+	}
 
 	// Hide Things
 	$('.error').hide();
@@ -27,7 +82,6 @@ $(document).ready(function()
 	$('.feed_count_new').everyTime(60000,function() { getCountNew(this); });		
 	
 	/* Item Events (activity, content, comments, etc...)
-	 *
 	 * These are used to interact with feed items of any type, but currently for (activity, content, comments)
 	 * You can extend your module to hit a custom API event (new, approve, publish, save, delete) 
 	 */
@@ -241,7 +295,10 @@ $(document).ready(function()
 	}
 	
 	//Initial get, use it elsewhere to update location
-	geo_get();
+	$(window).load(function()
+	{
+//		geo_get();
+	});
 	/* End Geolocation stuff */
 	
 	
