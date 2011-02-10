@@ -180,8 +180,8 @@ class Home extends Dashboard_Controller
 		
 		if (!empty($content_module))
 		{		 
-			foreach($content_module as $content):
-			
+			foreach($content_module as $content)
+			{
 				$this->data['item_id'] 				= $content->content_id;
 				$this->data['item_type']			= $content->type;
 				$this->data['item_viewed']			= item_viewed('item_manage', $content->viewed);
@@ -202,9 +202,8 @@ class Home extends Dashboard_Controller
 				$this->data['item_delete']			= base_url().'api/content/destroy/id/'.$content->content_id;
 				
 				// View
-				$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);			
-	
-			endforeach;	
+				$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);
+			}	
 		}
 	 	else
 	 	{
