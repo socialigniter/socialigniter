@@ -452,9 +452,55 @@ class Social_igniter
 		return $this->ci->activity_model->get_timeline($where, $limit);		
 	}
 
+	function get_timeline_friends($friends, $limit)
+	{	
+		$i 		= 0;
+		$where	= 'activity.site_id = 1 AND ';
+		
+		foreach ($friends as $friend)
+		{			
+			if ($i >= 1) $or = " OR ";
+			else $or = "";
+			
+			$where .= $or." activity.user_id = '". $friend->user_id . "'";
+		
+			$i++;
+		}
+	
+		return $this->ci->activity_model->get_timeline($where, $limit);
+	}
+
+	function get_timeline_likes($likes, $limit)
+	{	
+		$i = 0;
+		
+		if ($likes)
+		{
+			$where = 'activity.site_id = 1 AND ';
+			
+			foreach ($likes as $like)
+			{			
+				if ($i >= 1) $or = " OR ";
+				else $or = "";
+				
+				$where .= $or." activity.user_id = '". $like->user_id . "'";
+			
+				$i++;
+			}		
+
+			return $this->ci->activity_model->get_timeline($where, $limit);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
 	function get_timeline_user($user_id, $limit)
 	{	
-		return $this->ci->activity_model->get_timeline_user($user_id, $limit);
+	 	$where = array('activity.user_id' => $user_id);
+	
+		return $this->ci->activity_model->get_timeline($where, $limit);
 	}
 	
 	function get_activity($activity_id)

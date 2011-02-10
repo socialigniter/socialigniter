@@ -56,7 +56,7 @@ a.button_basic_on span	{ position: relative; top: 7px; left: 0px; }
 #main_nav 				{ float: left; position: relative; top: 35px; left: 0; margin: 0; padding: 0; }
 #main_nav li 			{ float: left; margin: 0 40px 0 0; padding: 0; text-decoration: none; font-weight: bold; list-style-type: none; }
 
-#content 				{ width: 100%; min-height: 425px; padding: 25px 0 45px 0; background: url(images/content_background.png) 0 0 repeat-x #fff; margin: 0; }
+#content 				{ width: 100%; min-height: 425px; padding: 25px 0; background: url(images/content_background.png) 0 0 repeat-x #fff; margin: 0; }
 #content table			{ margin: 10px 0 35px 0; }
 #content table td 		{ padding: 5px 0; }
 #content h1				{ margin: 25px 0 15px 0; }
@@ -114,9 +114,12 @@ div.social_login			{ width: 165px; margin: 0 0 5px 0; }
 #profile_feed					{ margin: 0 0 0 20px; }
 #profile_feed li				{ float: left; }
 
+#profile_feed_see_more			{ margin: 20px 0 0 35px; }
+
 #profile_sidebar 				{ float: left; width: 240px; margin: 0 0 0 10px; padding: 0; text-align: left; }
-#profile_sidebar ul 			{ list-style-type: none; text-align: left; margin: 0 0 20px 25px; }
+#profile_sidebar ul 			{ list-style-type: none; text-align: left; margin: 20px 0 20px 25px; }
 #profile_sidebar li 			{ text-align: left; margin: 0 10px 0 0; }
+#profile_sidebar li input[type=button] { position: relative; top: -6px; left: 10px; }
 #profile_sidebar h3 			{ margin: 0 0 12px 20px; }
 #profile_sidebar p 				{ margin: 0 10px 12px 20px; }
 #profile_sidebar a:link			{ text-decoration: none; }

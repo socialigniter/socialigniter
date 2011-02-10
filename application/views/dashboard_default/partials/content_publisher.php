@@ -19,7 +19,7 @@ $(document).ready(function()
 		
 		var status		= $(this).attr('name');			
 		var form_data	= $form.serializeArray();
-		form_data.push({'name':'source','value':'website'},'name':'status','value':status);
+		form_data.push({'name':'source','value':'website'},{'name':'status','value':status});
 
 		$form.oauthAjax(
 		{
@@ -42,5 +42,5 @@ $(document).ready(function()
 		 	}
 		});		
 	});
-	
+});
 </script>

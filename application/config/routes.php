@@ -76,6 +76,7 @@ $route['api/content/create']					= 'api/content/create';
 
 /* Relationships */
 $route['api/relationships/follow/(:any)/(:any)']	= 'api/relationships/follow/$1/$2';
+$route['api/relationships/unfollow/(:any)/(:any)']	= 'api/relationships/unfollow/$1/$2';
 $route['api/relationships/followers/(:any)/(:any)']	= 'api/relationships/followers/$1/$2';
 $route['api/relationships/']						= 'api/relationships/';
 
@@ -107,9 +108,9 @@ $route['home/pages/manage/(:num)']				= 'pages/editor';
 $route['home/pages/create']						= 'pages/editor';
 $route['home/comments/(:any)'] 					= 'home/comments/$1';
 $route['home/comments'] 						= 'home/comments';
-$route['home/friends']							= 'home/friends';
+$route['home/friends']							= 'home/index';
 $route['home/mentions'] 						= 'home/mentions';
-$route['home/likes']							= 'home/likes';
+$route['home/likes']							= 'home/index';
 
 /* Home Modules */
 $route['home/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4';
