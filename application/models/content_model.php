@@ -113,7 +113,6 @@ class Content_model extends CI_Model {
  		$this->db->select('category_id')->from('content')->where('category_id', $category_id);
  		return $this->db->count_all_results();
     }
-        
     
     function add_content($content_data)
     {

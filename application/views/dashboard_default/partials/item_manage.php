@@ -11,7 +11,7 @@
 			<span class="item_manage_publish"><?= $publish_date ?></span>
 		</span>
 
-		<ul class="item_actions" rel="timeline">
+		<ul class="item_actions" rel="manage">
 			<?php if ($item_approval == 'A'): ?>
 			<li><a class="item_approve" href="<?= $item_approve ?>" rel="content" id="item_action_approve_<?= $item_id ?>"><span class="actions action_approve"></span> Approve</a></li>
 			<?php endif; ?>							
