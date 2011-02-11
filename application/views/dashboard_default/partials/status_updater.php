@@ -1,5 +1,5 @@
 <form method="post" id="status_update" action="<?= base_url() ?>api/content/create">
-	<p><textarea id="status_update_text" name="content"></textarea></p>
+	<textarea id="status_update_text" name="content"></textarea>
 	<div id="status_update_options">
 		<?php if ($logged_geo_enabled): ?>
 		<div id="status_update_geo">

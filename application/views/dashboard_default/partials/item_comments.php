@@ -9,7 +9,7 @@
 		</span>
 		<?php if ($item_type): ?><span class="item_type<?= $item_type ?>"></span><?php endif; ?>
 
-		<?= $item_alerts ?>			
+		<span class="item_alerts" id="item_alerts_<?= $item_id ?>"><?= $item_alerts ?></span>
 		<div class="clear"></div>	
 		
 		<span class="item_meta"><?= $item_date ?></span>
