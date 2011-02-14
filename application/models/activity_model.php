@@ -14,7 +14,8 @@ class Activity_model extends CI_Model
  		$this->db->join('sites', 'sites.site_id = activity.site_id');
  		$this->db->join('users', 'users.user_id = activity.user_id'); 				
  		$this->db->join('users_meta', 'users_meta.user_id = activity.user_id'); 				    
-    	$this->db->where($where); 
+    	$this->db->where($where);
+	 	$this->db->where('activity.status !=', 'D');    	
  		$this->db->order_by('created_at', 'desc'); 
 		$this->db->limit($limit);    
  		$result = $this->db->get();	
@@ -29,6 +30,7 @@ class Activity_model extends CI_Model
   		$this->db->join('users_meta', 'users_meta.user_id = activity.user_id');		  
  		$this->db->join('users', 'users.user_id = activity.user_id');  		 
  		$this->db->where('activity_id', $activity_id);
+	 	$this->db->where('activity.status !=', 'D');
 		$this->db->limit(1);    
  		$result = $this->db->get()->row();	
  		return $result; 
@@ -44,6 +46,7 @@ class Activity_model extends CI_Model
 	 		$this->db->join('users', 'users.user_id = activity.user_id');
 	 		$this->db->join('users_meta', 'users_meta.user_id = activity.user_id');
 	 		$this->db->where('activity.'.$parameter, $value);
+	 		$this->db->where('activity.status !=', 'D');
 	 		$this->db->order_by('activity.created_at', 'desc'); 
 			$this->db->limit($limit);    
 	 		$result = $this->db->get();	
@@ -68,6 +71,7 @@ class Activity_model extends CI_Model
 			'type'				=> $activity_info['type'],
 			'content_id' 	 	=> $content_id,
 			'data'  	 		=> json_encode($activity_data),
+			'status'			=> 'P',
 			'created_at' 		=> unix_to_mysql(now())
 		);
 		
@@ -85,7 +89,7 @@ class Activity_model extends CI_Model
     function delete_activity($activity_id)
     {
     	$this->db->where('activity_id', $activity_id);
-    	$this->db->delete('activity'); 
+		$this->db->update('activity', array('status' => 'D'));
 		return TRUE;
     }
 }

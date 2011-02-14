@@ -8,7 +8,11 @@ class Home extends Dashboard_Controller
  
  	// Home Feed
  	function index()
- 	{ 	
+ 	{
+ 		$timeline		= NULL;
+		$timeline_view	= NULL;
+ 	
+ 		// Pick Type of Feed
 		if ($this->uri->total_segments() == 1)
 		{
 	 	    $this->data['page_title'] 		= 'Home';
@@ -25,8 +29,10 @@ class Home extends Dashboard_Controller
 	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
-			$friends						= $this->social_tools->get_relationships_follows($this->session->userdata('user_id'));
-			$timeline 						= $this->social_igniter->get_timeline_friends($friends, 10); 
+			if ($friends = $this->social_tools->get_relationships_follows($this->session->userdata('user_id')))
+			{
+				$timeline = $this->social_igniter->get_timeline_friends($friends, 10);
+			}
  	    }
  	    elseif ($this->uri->segment(2) == 'likes')
  	    {
@@ -48,9 +54,7 @@ class Home extends Dashboard_Controller
 			$timeline 						= $this->social_igniter->get_timeline($this->uri->segment(2), 10); 
  	    }
  	     	     	    
-		// Feed
-		$timeline_view 						= NULL;		
-				 			
+		// Build Feed				 			
 		if (!empty($timeline))
 		{
 			foreach ($timeline as $activity)
@@ -84,7 +88,7 @@ class Home extends Dashboard_Controller
 	 	}
 	 	else
 	 	{
-	 		$timeline_view = '<li>Nothing to show from anyone!</li>';
+	 		$timeline_view = '<li><p>Nothing to show from anyone!</p></li>';
  		}	
 
 		// Final Output
@@ -95,7 +99,6 @@ class Home extends Dashboard_Controller
  	function mentions()
  	{
  	    $this->data['page_title'] 		= "@ Replies";
-		 	 	
 		$this->render();
  	}
 	

@@ -19,6 +19,7 @@ CREATE TABLE `activity` (
   `type` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `content_id` int(11) DEFAULT NULL,
   `data` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,  
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`activity_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
