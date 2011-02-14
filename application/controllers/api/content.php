@@ -34,20 +34,18 @@ class Content extends Oauth_Controller
     {
     	$search_by	= $this->uri->segment(4);
     	$search_for	= $this->uri->segment(5);
-		$content	= $this->social_igniter->get_content_view($search_by, $search_for);    
+		$content	= $this->social_igniter->get_content_view($search_by, $search_for, 50);    
    		 	
         if($content)
         {
             $message 	= array('status' => 'success', 'message' => 'Success content has been found', 'data' => $content);
-            $response	= 200;
         }
         else
         {
             $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' content for '.$search_for);
-            $response	= 200;        
         }
 
-        $this->response($message, $response);
+        $this->response($message, 200);
     }
 
 	// Create Content

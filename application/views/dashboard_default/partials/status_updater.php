@@ -67,7 +67,6 @@ $("#status_update").bind("submit", function(eve)
 						$('#feed').prepend(newHTML);
 					});
 					
-				 	//$('#feed').prepend(result.message).show('slow');
 					$('#status_update_text').val('');						
 					doPlaceholder('#status_update_text', "What's shaking?");
 	                markNewItem($(result.message).attr('id'));				
