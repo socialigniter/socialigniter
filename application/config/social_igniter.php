@@ -70,5 +70,5 @@ $config['email_forgot_password_complete']= 'new_password.php'; 	// Forgot Passwo
 $config['email_send']  					= 'send.php';			// Template for a message being sent as an email
 
 // Image Options
-$config['uploads_folder']				= "uploads/";
+$config['uploads_folder']				= "temp/";
 $config['profile_nopicture']			= "nopicture.png";

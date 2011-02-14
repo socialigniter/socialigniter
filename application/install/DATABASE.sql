@@ -276,7 +276,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_max_size', '25600');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_full_width', '750');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_full_height', '750');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_sizes_full', 'yes');
-INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_folder', 'media/profiles/');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_folder', 'uploads/profiles/');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_max_dimensions', '3000');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_sizes_original', 'yes');
 
