@@ -95,7 +95,6 @@ $route['api/sandbox']							= 'api/sandbox/index';
 $route['api/index']								= 'api/index';
 $route['api']									= 'api/index';
 
-
 /* Connections */
 $route['connections/delete/(:num)']				= 'connections/delete';
 $route['connections/delete']					= 'connections/delete';

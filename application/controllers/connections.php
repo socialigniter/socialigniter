@@ -18,6 +18,7 @@ class Connections extends MY_Controller
 		if ($connection->user_id == $this->session->userdata('user_id'))
 		{
 			$this->social_auth->delete_connection($connection->connection_id);
+			$this->social_auth->set_userdata_connections($this->session->userdata('user_id'));
 			redirect('settings/connections', 'refresh');
 		}
 	
