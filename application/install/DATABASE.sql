@@ -1,15 +1,5 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-CREATE TABLE `access` (
-  `access_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `site_id` int(6) DEFAULT NULL,
-  `owner_id` int(11) DEFAULT NULL,
-  `granted_id` int(11) DEFAULT NULL,
-  `type` char(16) NOT NULL,
-  `level_id` char(1) NOT NULL,
-  PRIMARY KEY (`access_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 CREATE TABLE `activity` (
   `activity_id` int(32) NOT NULL AUTO_INCREMENT,
   `site_id` int(6) DEFAULT NULL,

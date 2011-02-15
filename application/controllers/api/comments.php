@@ -319,25 +319,20 @@ class Comments extends Oauth_Controller
 
     function destroy_authd_delete()
     {		
+		$comment = $this->social_tools->get_comment($this->get('id'));
+		
 		// Make sure user has access to do this func    	
-    	if ($access = $this->social_tools->has_access_to_modify('comment', $this->get('id')))
-        {
-			if ($comment = $this->social_tools->get_comment($this->get('id')))
-			{        
-	        	$this->social_tools->delete_comment($comment->comment_id);
-	        
-				// Reset comments with this reply_to_id
-				$this->social_tools->update_comment_orphaned_children($comment->comment_id);
-				
-				// Update Content
-				$this->social_igniter->update_content_comments_count($comment->comment_id);
-	        
-	        	$message = array('status' => 'success', 'message' => 'Comment deleted');
-	        }
-	        else
-	        {
-	            $message = array('status' => 'error', 'message' => 'Could not delete that comment!');
-	        }
+    	if ($access = $this->social_tools->has_access_to_modify('comment', $comment, $this->oauth_user_id))
+        {       
+        	$this->social_tools->delete_comment($comment->comment_id);
+        
+			// Reset comments with this reply_to_id
+			$this->social_tools->update_comment_orphaned_children($comment->comment_id);
+			
+			// Update Content
+			$this->social_igniter->update_content_comments_count($comment->comment_id);
+        
+        	$message = array('status' => 'success', 'message' => 'Comment deleted');
         }
         else
         {

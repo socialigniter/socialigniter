@@ -10,7 +10,6 @@ class Categories extends Oauth_Controller
         parent::__construct();      
 	}
 	
-    /* GET types */
     function all_get()
     {
     	$categories = $this->categories_model->get_categories();
@@ -27,7 +26,6 @@ class Categories extends Oauth_Controller
         $this->response($message, 200);        
     }
 
-    /* GET types */
     function view_get()
     {
     	$search_by	= $this->uri->segment(4);
@@ -46,7 +44,6 @@ class Categories extends Oauth_Controller
         $this->response($message, 200);
     }
 
-	/* POST types */
     function create_authd_post()
     {
 		$this->form_validation->set_rules('category', 'Category', 'required');
@@ -103,7 +100,6 @@ class Categories extends Oauth_Controller
         $this->response($message, 200);
     }
     
-    /* PUT types */
     function modify_authd_post()
     {
     	$content = $this->social_igniter->get_content($this->get('id'));
@@ -139,7 +135,7 @@ class Categories extends Oauth_Controller
 
 	    $this->response($message, 200);
     }
-    /* DELETE types */
+
     function destroy_delete()
     {		
 		// Make sure user has access to do this func

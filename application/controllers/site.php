@@ -33,7 +33,7 @@ class Site extends Site_Controller
 			else					$comments_title = 'Write';
 
 			$this->data['comments_title']	= $comments_title;
-			$this->data['comments_list'] 	= $this->social_tools->render_children_comments($comments, '0');
+			$this->data['comments_list'] 	= $this->social_tools->render_children_comments($comments, '0', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
 
 			// Write
 			$this->data['comment_name']			= $this->session->flashdata('comment_name');

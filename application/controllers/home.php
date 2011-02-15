@@ -94,12 +94,6 @@ class Home extends Dashboard_Controller
 		// Final Output
 		$this->data['timeline_view'] 	= $timeline_view;
 		$this->render();
- 	}   
-
- 	function mentions()
- 	{
- 	    $this->data['page_title'] 		= "@ Replies";
-		$this->render();
  	}
 	
 	function view()
@@ -107,7 +101,7 @@ class Home extends Dashboard_Controller
 		$this->render();
 	}
 
-	// Dashboard Comments Section
+	// Dashboard Comments
  	function comments()
  	{
  	    $this->data['page_title'] 	= "Comments";

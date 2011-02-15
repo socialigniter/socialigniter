@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /* 
- * Content Meta API : Core : Social-Igniter
+ * Content API : Core : Social-Igniter
  *
  */
 class Content extends Oauth_Controller
@@ -209,36 +209,37 @@ class Content extends Oauth_Controller
     {
         if($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'P')))
         {
-            $this->response(array('status' => 'success', 'message' => 'Content published', 'data' => $update), 200);
+            $message = array('status' => 'success', 'message' => 'Content published', 'data' => $update);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Content could not be published', 'data' => $update), 200);
+            $message = array('status' => 'error', 'message' => 'Content could not be published', 'data' => $update);
         }
+
+	    $this->response($message, 200);
     }       
 
     function destroy_authd_delete()
-    {		
-		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_modify('content', $this->get('id'), $this->oauth_user_id);
-    	
-    	// Move this up to result of "user_has_access"
-    	if ($access)
+    {
+    	$content = $this->social_igniter->get_content($this->get('id'));
+    
+    	if ($access = $this->social_tools->has_access_to_modify('content', $content, $this->oauth_user_id))
         {
-			if ($delete = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'D')))
+			if ($delete = $this->social_igniter->update_content_value(array('content_id' => $content->content_id, 'status' => 'D')))
 			{						        
-	        	$this->response(array('status' => 'success', 'message' => 'Content deleted'), 200);
+	        	$message = array('status' => 'success', 'message' => 'Content deleted');
 	        }
 	        else
 	        {
-	            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment'), 200);
+	            $message = array('status' => 'error', 'message' => 'Could not delete that comment');
 	        }
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment'), 200);
+            $message = array('status' => 'error', 'message' => 'Could not delete that comment');
         }
         
+	    $this->response($message, 200);        
     }   
 
 }

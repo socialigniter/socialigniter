@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /* 
- * messages API : Core : Social-Igniter
+ * Messages API : Module : Social-Igniter
  *
  */
 class Messages extends Oauth_Controller
@@ -10,7 +10,6 @@ class Messages extends Oauth_Controller
         parent::__construct();      
 	}
 	
-    /* GET types */
     function all_get()
     {
     	$messages = $this->messages_model->get_messages();
@@ -27,7 +26,6 @@ class Messages extends Oauth_Controller
         $this->response($message, 200);        
     }
 
-    /* GET types */
     function view_get()
     {
     	$search_by	= $this->uri->segment(4);
@@ -37,7 +35,6 @@ class Messages extends Oauth_Controller
         $this->response($messages, $response);
     }
 
-	/* POST types */
     function create_authd_post()
     {
 		$this->form_validation->set_rules('message', 'message', 'required');
@@ -94,7 +91,6 @@ class Messages extends Oauth_Controller
         $this->response($message, 200);
     }
       
-    /* DELETE types */
     function destroy_delete()
     {		
 		// Make sure user has access to do this func

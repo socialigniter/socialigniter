@@ -1,13 +1,13 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Social Igniter Library
-*
-* @package		Social Igniter
-* @subpackage	Social Igniter Library
-* @author		Brennan Novak
-* @link			http://social-igniter.com
-*
-* Handles a ton of parts of the the core install.
+Social Igniter Library
+
+@package		Social Igniter
+@subpackage	Social Igniter Library
+@author		Brennan Novak
+@link			http://social-igniter.com
+
+Handles a ton of parts of the the core install.
 */
  
 class Social_igniter
