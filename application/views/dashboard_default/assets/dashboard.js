@@ -332,28 +332,29 @@ $(document).ready(function()
 			$comment_form.find('[name=geo_accuracy]').val(localStorage['geo_accuracy']);
 		}
 		
-		//Here we are going to get the comments:
+		// Here we are going to get the comments:
 		content_id = $(this).parent().parent().parent().find('.comment_form [name=content_id]').val();
 		$comment_list = $(this).parent().parent().parent().find('.comment_list');
-		//if($comment_list.children().length < 1){
-			$.get('api/comments/content/id/'+content_id,function(json){
-				if(json.status !== 'error'){
-					$comment_list.find('li:not(#comment_write)').remove();
-					for(x in json){
-						$comment_list.prepend('\
-							<li id="comment_'+json[x].comment_id+'">\
-								<div class="comment">\
-									<a href="' + base_url + 'profiles/' + json[x].username + '"><img class="comment_thumb" src="'+getUserImageSrc(json[x],'small')+'"></a>\
-									<p><span class="comment_author"><a href="' + base_url + 'profiles/' + json[x].username + '">'+json[x].name+'</a></span> '+json[x].comment+'</p>\
-									<p class="comment_meta"><span class="comment_date">'+$.relativetime({time:json[x].created_at})+'</span></p>\
-									<div class="clear"></div>\
-								</div>\
-							</li>\
-						');
-					}
+		$.get('api/comments/content/id/'+content_id, function(json)
+		{
+			if (json.status !== 'error')
+			{
+				$comment_list.find('li:not(#comment_write)').remove();					
+				for (x in json.data)
+				{
+					$comment_list.prepend('\
+						<li id="comment_'+json.data[x].comment_id+'">\
+							<div class="comment">\
+								<a href="' + base_url + 'profiles/' + json.data[x].username + '"><img class="comment_thumb" src="'+getUserImageSrc(json.data[x],'small')+'"></a>\
+								<p><span class="comment_author"><a href="' + base_url + 'profiles/' + json.data[x].username + '">'+json.data[x].name+'</a></span> '+json.data[x].comment+'</p>\
+								<p class="comment_meta"><span class="comment_date">'+$.relativetime({time:json.data[x].created_at})+'</span></p>\
+								<div class="clear"></div>\
+							</div>\
+						</li>\
+					');
 				}
-			});
-		//}
+			}
+		});
 		return false;
 	});
 	
@@ -376,11 +377,7 @@ $(document).ready(function()
 		if(!msg) { msg = 'Something must have gone wrong, but no worries we\'re working on it!'; }
 		$.fancybox(
 		{
-			content:'\
-				<div class="error_alert">\
-					<h2>'+title+'</h2>\
-					<p>'+msg+'\
-				</div>'
+			content:'<div class="error_alert"><h2>'+title+'</h2><p>'+msg+'</div>'
 		});
 	}
 	
@@ -432,10 +429,7 @@ $(document).ready(function()
 		{
 			generic_error();
 		}
-	
-	});
-	/* End the comment functionality */
-	
+	});	
 	
 	
 	/* Add Category */

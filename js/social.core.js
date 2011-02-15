@@ -564,7 +564,7 @@ function getUserImageSrc(json,size){
 	}
 	//Otherwise check gravatar, and/or return the default "no image" image
 	else {
-		_imgSrcOutput = 'http://gravatar.com/avatar.php?gravatar_id='+md5(json.email)+'&s='+_gravatarSize+'&d=//localhost/media/profiles/'+_localImgSize+'_nopicture.png';
+		_imgSrcOutput = 'http://gravatar.com/avatar.php?gravatar_id='+md5(json.email)+'&s='+_gravatarSize+'&d='+base_url+'/uploads/profiles/'+_localImgSize+'_nopicture.png';
 	}
 	return _imgSrcOutput;
 }
