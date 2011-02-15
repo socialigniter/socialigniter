@@ -11,7 +11,7 @@ class Settings extends Oauth_Controller
 	}
 	
     /* GET types */
-    function view_get()
+    function view_get$message = array(
     {
     	$search_by	= $this->uri->segment(4);
     	$search_for	= $this->uri->segment(5);
@@ -19,11 +19,11 @@ class Settings extends Oauth_Controller
     	
         if($settings)
         {
-            $message 	= array('status' => 'success', 'message' => 'Yay we found some settings', 'data' => $settings);
+            $message = array('status' => 'success', 'message' => 'Yay we found some settings', 'data' => $settings);
         }
         else
         {
-            $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' categories for '.$search_for);
+            $message = array('status' => 'error', 'message' => 'Could not find any '.$search_by.' categories for '.$search_for);
         }
 
         $this->response($message, 200);
@@ -36,18 +36,19 @@ class Settings extends Oauth_Controller
     	
         if($viewed)
         {
-            $this->response(array('status' => 'success', 'message' => 'Comment viewed'), 200);
+            $message = array('status' => 'success', 'message' => 'Comment viewed');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not mark as viewed'), 404);
-        }    
+            $message = array('status' => 'error', 'message' => 'Could not mark as viewed');
+        } 
+
+        $this->response($message, 200);           
     }  
 
     /* DELETE types */
     function destroy_delete()
     {		
-		// Make sure user has access to do this func
 		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
     	
     	if ($access)
@@ -57,13 +58,14 @@ class Settings extends Oauth_Controller
 			// Reset comments with this reply_to_id
 			//$this->social_igniter->update_content_comments_count($this->get('id'));
         
-        	$this->response(array('status' => 'success', 'message' => 'Comment deleted'), 200);
+        	$message = array('status' => 'success', 'message' => 'Comment deleted');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment'), 404);
+            $message = array('status' => 'error', 'message' => 'Could not delete that comment');
         }
-        
+
+        $this->response($message, 200);        
     }
 
 }

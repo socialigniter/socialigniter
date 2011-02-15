@@ -44,42 +44,43 @@ class Social_tools
 		return FALSE;	
 	}
 	
-	function has_access_to_modify($type, $object_id)
+	function has_access_to_modify($type, $object, $user_id, $user_level_id)
 	{
+		// Go through types of actions
+		if ($type == 'content')
+		{		
+			if ($user_id == $object->user_id)
+			{
+				return TRUE;
+			}
+			/* Does User Have Access
+			elseif ($access = $this->get_content_access($user_id, $object->content_id))
+			{
+				return TRUE;
+			}
+			*/			
+		}
+		elseif ($type == 'activity')
+		{
+			if ($user_id == $object->user_id)
+			{
+				return TRUE;
+			}
+		}
+		elseif ($type == 'comment')
+		{
+			if ($user_id == $object->user_id)
+			{
+				return TRUE;
+			}	
+		}
+		
 		// Is Super or Admin
-		if ($this->ci->session->userdata('user_level_id') <= 2)
+		if ($user_level_id <= 2)
 		{
 			return TRUE;
 		}
-		
-		if ($type == 'content')
-		{		
-			// Is User Owner
-			if ($this->ci->session->userdata('user_id') == $this->ci->social_igniter->get_content($object_id)->user_id)
-			{
-				return TRUE;
-			}
-			
-			// Does User Have Access
-			/*
-			$access = $this->get_content_access($this->ci->session->userdata('user_id'), $content_id);
-			
-			if ($access)
-			{
-				return TRUE;
-			}
-			*/
-		}
-		
-		if ($type == 'comment')
-		{
-			// Is User Owner
-			if ($this->ci->session->userdata('user_id') == $this->get_comment($object_id)->user_id)
-			{
-				return TRUE;
-			}				
-		}
-
+				
 		return FALSE;
 	}
 	

@@ -52,54 +52,46 @@ class Activity extends Oauth_Controller
     {
     	$user_id = $this->session->userdata('user_id');   
     
-		$access = $this->social_igniter->has_access_to_create('category', $user_id);
-		
-		if ($access)
-		{
-        	$category_data = array(
-        		'parent_id'		=> $this->input->post('parent_id'),
-    			'site_id'		=> config_item('site_id'),		
-    			'permission'	=> $this->input->post('permission'),
-				'module'		=> $this->input->post('module'),
-    			'type'			=> $this->input->post('type'),
-    			'category'		=> $this->input->post('category'),
-    			'category_url'	=> $this->input->post('category_url')
-        	);
+    	$category_data = array(
+    		'parent_id'		=> $this->input->post('parent_id'),
+			'site_id'		=> config_item('site_id'),		
+			'permission'	=> $this->input->post('permission'),
+			'module'		=> $this->input->post('module'),
+			'type'			=> $this->input->post('type'),
+			'category'		=> $this->input->post('category'),
+			'category_url'	=> $this->input->post('category_url')
+    	);
 
-			// Insert
-		    $category = $this->categories_model->add_category($category_data);
+		// Insert
+	    $category = $this->categories_model->add_category($category_data);
 
-			if ($category)
-			{
-	        	$message	= array('status' => 'success', 'data' => $category);
-	        }
-	        else
-	        {
-		        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-	        }
-		}
-		else
+		if ($category)
 		{
+        	$message	= array('status' => 'success', 'data' => $category);
+        }
+        else
+        {
 	        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-	        $response	= 200;
-		}	
-
-        $this->response($message, $response); // 200 being the HTTP response code
+        }
+	
+        $this->response($message, 200);
     }
     
     /* PUT types */
     function update_authd_put()
     {
-		$viewed = $this->social_tools->update_comment_viewed($this->get('id'));			
+		$viewed = $this->social_tools->update_activity_viewed($this->get('id'));			
     	
         if($viewed)
         {
-            $this->response(array('status' => 'success', 'message' => 'Comment viewed'), 200);
+            $message = array('status' => 'success', 'message' => 'Activity viewed');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not mark as viewed'), 404);
-        }    
+            $message = array('status' => 'error', 'message' => 'Could not mark as viewed');
+        } 
+
+        $this->response($message, 200);           
     }  
 
     /* DELETE types */
@@ -119,13 +111,14 @@ class Activity extends Oauth_Controller
 			// Update Content
 			$this->social_igniter->update_content_comments_count($this->get('id'));
         
-        	$this->response(array('status' => 'success', 'message' => 'Comment deleted'), 200);
+        	$message = array('status' => 'success', 'message' => 'Activity was deleted');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 404);
+            $message = array('status' => 'error', 'message' => 'Could not delete that activity');
         }
         
+        $this->response($message, 200);
     }
 
 }

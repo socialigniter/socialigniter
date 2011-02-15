@@ -279,7 +279,7 @@ class Comments extends Oauth_Controller
 		// Not Valid
 		else 
 		{	
-	        $message	= array('status' => 'error', 'message' => validation_errors());
+	        $message = array('status' => 'error', 'message' => validation_errors());
 		}
 
         $this->response($message, 200);
@@ -317,14 +317,10 @@ class Comments extends Oauth_Controller
         $this->response($message, 200);        
     } 
 
-    /* DELETE types */
     function destroy_authd_delete()
     {		
-		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
-    	
-    	// Move this up to result of "user_has_access"
-    	if ($access)
+		// Make sure user has access to do this func    	
+    	if ($access = $this->social_tools->has_access_to_modify('comment', $this->get('id')))
         {
 			if ($comment = $this->social_tools->get_comment($this->get('id')))
 			{        

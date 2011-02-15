@@ -78,7 +78,7 @@ class Home extends Dashboard_Controller
 			 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
 			 	$this->data['item_comment_avatar']	= $this->data['logged_image'];
 			 	
-			 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify($activity->type, $activity->activity_id);
+			 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify('activity', $activity, $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
 				$this->data['item_edit']			= base_url().'home/'.$activity->module.'/manage/'.$activity->content_id;
 				$this->data['item_delete']			= base_url().'api/activity/destroy/id/'.$activity->activity_id;
 
@@ -149,7 +149,7 @@ class Home extends Dashboard_Controller
 					$this->data['item_object']		= $comment->type;
 				}
 				
-				$this->data['item_text']			= $comment->comment;
+				$this->data['item_text']			= item_linkify($comment->comment);
 				$this->data['item_date']			= human_date('SIMPLE', mysql_to_unix($comment->created_at));
 				$this->data['item_approval']		= $comment->approval;
 
