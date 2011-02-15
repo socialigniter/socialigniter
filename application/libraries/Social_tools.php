@@ -309,6 +309,21 @@ class Social_tools
 	{
 		return $this->ci->comments_model->delete_comment($comment_id);
 	}
+	
+	function delete_comments_content($content_id)
+	{
+		$comments = $this->get_comments_content($content_id);
+		
+		if ($comments)
+		{
+			foreach ($comments as $comment)
+			{
+				$this->delete_comment($comment->comment_id);
+			}
+		}
+		
+		return TRUE;
+	}
 
 	function render_children_comments($comments, $reply_to_id, $user_id, $user_level_id)
 	{

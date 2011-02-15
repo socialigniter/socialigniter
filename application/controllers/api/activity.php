@@ -92,6 +92,11 @@ class Activity extends Oauth_Controller
         {        
         	if ($this->social_igniter->delete_activity($activity->activity_id, $this->oauth_user_id))
         	{
+        		if ($activity->type == 'status')
+        		{					
+					$this->social_tools->delete_comments_content($activity->content_id);        		
+        		}
+        	
         		$message = array('status' => 'success', 'message' => 'Activity was deleted');
         	}
         	else
