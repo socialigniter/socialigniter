@@ -31,7 +31,7 @@ $(document).ready(function()
 		  	{	  	  	
 				if(result.status == 'success')
 				{	// Adds msg_notifation class to feed_count_new
-					$('#' + request).html(result.message).addClass(current_class + ' msg_notification');
+					$('#' + request).html(result.data).addClass(current_class + ' msg_notification');
 				}		  	
 		  	}		
 		});	

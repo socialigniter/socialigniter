@@ -17,52 +17,56 @@ class Comments extends Oauth_Controller
         
         if($comments)
         {
-            $this->response($comments, 200);
+            $message = array('status' => 'success', 'message' => 'Yay found some comments', 'data' => $comments);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not find any comments'), 200);
+            $message = array('status' => 'error', 'message' => 'Could not find any comments');
         }
+
+        $this->response($message, 200);        
     }
 
 	// Comments for Content
 	function content_get()
     {
-    	// If No ID return error
         if(!$this->get('id'))
         {
-            $this->response(array('status' => 'error', 'message' => 'Specify a content_id'), 200);
+            $message = array('status' => 'error', 'message' => 'You need to specify a content_id');
         }
 
         $comments = $this->social_tools->get_comments_content($this->get('id'));
     	
         if($comments)
         {
-            $this->response($comments, 200);
+            $message = array('status' => 'success', 'message' => 'Comments were found', 'data' => $comments);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'No comments could be found'), 200);
+            $message = array('status' => 'error', 'message' => 'No comments could be found');
         }
+
+        $this->response($message, 200);        
     }
     
-    // New Comments for a User
+    // New Comments for User
 	function new_authd_get()
 	{	
 		$site_id = config_item('site_id');	
 	
 		if ($new_comments = $this->social_tools->get_comments_new_count($site_id, $this->oauth_user_id))
 		{
-         	$this->response(array('status' => 'success', 'message' => $new_comments), 200);	
+         	$message = array('status' => 'success', 'message' => 'New comments found', 'data' => $new_comments);	
 		}
 		else
 		{
-         	$this->response(array('status' => 'error', 'message' => $new_comments), 200);			
+         	$message = array('status' => 'error', 'message' => 'No new comments found', 'data' => $new_comments);			
 		}
+		
+        $this->response($message, 200);		
 	}
 	
 
-	/* POST types */
 	// Creates Comment
     function create_authd_post()
     {
@@ -112,29 +116,25 @@ class Comments extends Oauth_Controller
 						$comment_data['comment']	= '<i>Your comment is awaiting approval!</i>';
 					}
 				
-		        	$message	= array('status' => 'success', 'message' => 'Comment posted successfully', 'data' => $comment_data);
-		        	$response	= 200;
+		        	$message = array('status' => 'success', 'message' => 'Comment posted successfully', 'data' => $comment_data);
 		        }
 		        else
 		        {
-			        $message	= array('status' => 'error', 'message' => 'Oops unable to post your comment');
-			        $response	= 200;		        
+			        $message = array('status' => 'error', 'message' => 'Oops unable to post your comment');
 		        }
 			}
 			else
 			{
-		        $message	= array('status' => 'error', 'message' => 'Oops you can not comment on that!');
-		        $response	= 200;
+		        $message = array('status' => 'error', 'message' => 'Oops you can not comment on that!');
 			}	
 		}
 		// Not Valid
 		else 
 		{	
-	        $message	= array('status' => 'error', 'message' => validation_errors());
-	        $response	= 200;
+	        $message = array('status' => 'error', 'message' => validation_errors());
 		}
 
-        $this->response($message, $response);
+        $this->response($message, 200);
     }
     
 
@@ -264,29 +264,25 @@ class Comments extends Oauth_Controller
 						$comment_data['comment']	= '<i>Your comment is awaiting approval!</i>';
 					}
 				
-		        	$message	= array('status' => 'success', 'data' => $comment_data);
-		        	$response	= 200;
+		        	$message = array('status' => 'success', 'message' => 'We posted your comment', 'data' => $comment_data);
 		        }
 		        else
 		        {
-			        $message	= array('status' => 'error', 'message' => 'Oops unable to post your comment');
-			        $response	= 200;		        
+			        $message = array('status' => 'error', 'message' => 'Oops unable to post your comment');
 		        }
 			}
 			else
 			{
-		        $message	= array('status' => 'error', 'message' => 'Oops you can not comment on that!');
-		        $response	= 200;
+		        $message = array('status' => 'error', 'message' => 'Oops you can not comment on that!');
 			}
 		}
 		// Not Valid
 		else 
 		{	
 	        $message	= array('status' => 'error', 'message' => validation_errors());
-	        $response	= 200;
 		}
 
-        $this->response($message, $response);
+        $this->response($message, 200);
 	}    
     
     
@@ -295,12 +291,14 @@ class Comments extends Oauth_Controller
     {				
         if($this->social_tools->update_comment_viewed($this->get('id')))
         {
-            $this->response(array('status' => 'success', 'message' => 'Comment viewed'), 200);
+            $message = array('status' => 'success', 'message' => 'Comment viewed');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not mark as viewed'), 404);
-        }    
+            $message = array('status' => 'error', 'message' => 'Could not mark as viewed');
+        }
+        
+        $this->response($message, 200);            
     }   
     
     function approve_authd_put()
@@ -309,12 +307,14 @@ class Comments extends Oauth_Controller
 
         if($approve)
         {
-            $this->response(array('status' => 'success', 'message' => 'Comment approved'), 200);
+            $message = array('status' => 'success', 'message' => 'Comment approved');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not be approved'), 404);
+            $message = array('status' => 'error', 'message' => 'Could not be approved');
         }
+
+        $this->response($message, 200);        
     } 
 
     /* DELETE types */
@@ -336,17 +336,18 @@ class Comments extends Oauth_Controller
 				// Update Content
 				$this->social_igniter->update_content_comments_count($comment->comment_id);
 	        
-	        	$this->response(array('status' => 'success', 'message' => 'Comment deleted'), 200);
+	        	$message = array('status' => 'success', 'message' => 'Comment deleted');
 	        }
 	        else
 	        {
-	            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 404);
+	            $message = array('status' => 'error', 'message' => 'Could not delete that comment!');
 	        }
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 404);
-        }   
-    }
+            $messgage = array('status' => 'error', 'message' => 'Could not delete that comment!');
+        }
 
+        $this->response($message, 200); 
+    }
 }

@@ -560,7 +560,7 @@ function getUserImageSrc(json,size){
 	
 	//If the user uploaded his own image
 	if(json.image !== "0"){
-		_imgSrcOutput = '/media/profiles/'+json.user_id+'/'+_localImgSize+'_'+json.image
+		_imgSrcOutput = '/uploads/profiles/'+json.user_id+'/'+_localImgSize+'_'+json.image
 	}
 	//Otherwise check gravatar, and/or return the default "no image" image
 	else {
