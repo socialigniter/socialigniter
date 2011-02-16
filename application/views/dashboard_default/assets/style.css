@@ -342,3 +342,9 @@ span.item_right a:hover		{ text-decoration: underline; }
 	.comment_list li p.comment_meta span { margin: 10px 0 0 0; font-size:11px; color:#999999; }
 	.comment_list li img.comment_thumb { width: 34px; display: block; float: left; margin: 0 10px 10px 0; }
 	.comment_list #comment_write { margin: 5px 0 0 0; }
+	
+	/* Auto complete drop down styles */
+	.ui-autocomplete {background:#fff;background:rgba(255,255,255,0.97);width:200px;border:1px solid #CCC;}
+	.ui-autocomplete li {cursor:pointer !important;}
+	.ui-autocomplete a {padding:5px;display:block;cursor:pointer !important;}
+	.ui-autocomplete li a:hover,.ui-autocomplete .ui-state-hover {background:#F2F2F2;}
