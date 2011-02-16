@@ -112,6 +112,31 @@ function navigation_list_btn_manage($link, $link_array, $word, $uri_segment3, $w
 	return $link;
 }
 
+/* Used on CMS type pages that have multiple steps (i.e. cart, classes, etc...) */
+function navigation_create_stages($stages, $stage, $element)
+{
+	$search_stage	= array_search($stage, $stages);
+	$search_element	= array_search($element, $stages);
+
+	if ($search_stage >= $search_element)
+	{
+		return ' stage_marker_on';	
+	} 
+
+	return NULL;
+}
+
+function navigation_sidebar_link_basic($module, $uri_segment3, $uri_segment4)
+{
+	if ($uri_segment4)
+	{
+		return base_url().'home/'.$module.'/manage/'.$uri_segment4;
+	}
+
+	return NULL;
+}
+
+
 // Use Dis Function is a module name has multiple words separated by '_' 
 function url_word_parser($separator, $input)
 {
