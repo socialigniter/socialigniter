@@ -221,3 +221,44 @@ function display_content_status($status, $approval=NULL)
 
 	return $status;
 }
+
+function display_category($categories, $category_id)
+{
+	if (!$categories)
+	{
+		return FALSE;
+	}
+
+	if (!$category_id)
+	{
+		return 'Uncategorized';	
+	}	
+
+	foreach ($categories as $category)
+	{
+		if ($category->category_id == $category_id)
+		{
+			return $category->category;
+		}
+	}
+	
+	return FALSE;
+}
+
+function display_category_url($categories, $category_id)
+{
+	if (!$categories)
+	{
+		return FALSE;
+	}
+
+	foreach ($categories as $category)
+	{
+		if ($category->category_id == $category_id)
+		{
+			return $category->category_url;
+		}
+	}
+	
+	return FALSE;
+}

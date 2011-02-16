@@ -80,6 +80,10 @@ $route['api/relationships/unfollow/(:any)/(:any)']	= 'api/relationships/unfollow
 $route['api/relationships/followers/(:any)/(:any)']	= 'api/relationships/followers/$1/$2';
 $route['api/relationships/']						= 'api/relationships/';
 
+/* Tags */
+$route['api/tags/all']							= 'api/tags/all';
+$route['api/tags']								= 'api/tags';
+
 /* Users */
 $route['api/users/modify/(:any)/(:any)']		= 'api/users/modify/$1/$2';
 $route['api/users/activate/(:any)/(:any)']		= 'api/users/activate/$1/$2';

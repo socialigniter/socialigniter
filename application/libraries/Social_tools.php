@@ -403,14 +403,17 @@ class Social_tools
 	/* Tags */
 	function get_tag($tag)
 	{
-		$result = $this->ci->tags_model->get_tag($tag);
-		return $result;
+		return $this->ci->tags_model->get_tag($tag);
 	}	
+	
+	function get_tags()
+	{
+		return $this->ci->tags_model->get_tags();
+	}
 
 	function get_tags_content($content_id)
 	{
-		$result = $this->ci->tags_model->get_tags($content_id);
-		return $result;
+		return $this->ci->tags_model->get_tags($content_id);
 	}
 		
 	function process_tags($tags_post, $content_id)

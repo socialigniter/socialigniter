@@ -17,6 +17,15 @@ class Tags_model extends CI_Model {
  		return $result;	      
     }
     
+    function get_tags()
+    {
+ 		$this->db->select('*');
+ 		$this->db->from('tags');     		
+ 		$this->db->order_by('tag', 'asc'); 
+ 		$result = $this->db->get();	
+ 		return $result->result();	      
+    }    
+    
  	function get_tag_total($tag)
 	{
  		$this->db->select('*');

@@ -42,11 +42,16 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 
 <h3>Categories</h3>
 <ul>
-	<li>All <a href="<?= base_url() ?>api/categories/recent" target="_blank"><?= base_url() ?>api/categories/all</a></li>
+	<li>All <a href="<?= base_url() ?>api/categories/all" target="_blank"><?= base_url() ?>api/categories/all</a></li>
 	<li>View <a href="<?= base_url() ?>api/categories/view/module/pages" target="_blank"><?= base_url() ?>api/categories/view/module/pages</a> (accepts <b>site_id, parent_id, module, type, category_url</b> as a paramter)</li>
 	<li>Create <a href="<?= base_url() ?>api/categories/create" target="_blank"><?= base_url() ?>api/categories/create</a> </li>
 	<li>Update <a href="<?= base_url() ?>api/categories/update/id/1" target="_blank"><?= base_url() ?>api/categories/update/id/1</a> (1 represents <b>category_id</b>)</li>
 	<li>Delete <a href="<?= base_url() ?>api/categories/destroy/id/1" target="_blank"><?= base_url() ?>api/categories/destroy/id/1</a> (1 represents <b>category_id</b>)</li>
+</ul>
+
+<h3>Tags</h3>
+<ul>
+	<li>All <a href="<?= base_url() ?>api/tags/all" target="_blank"><?= base_url() ?>api/tags/all</a></li></ul>
 </ul>
 
 <h3>Users</h3>

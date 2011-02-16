@@ -26,6 +26,7 @@ class Content_model extends CI_Model {
   		$this->db->join('users_meta', 'users_meta.user_id = content.user_id');		  
  		$this->db->join('users', 'users.user_id = content.user_id'); 
  		$this->db->where('content_id', $content_id);
+	 	$this->db->where('content.status !=', 'D');
 		$this->db->limit(1);    
  		$result = $this->db->get()->row();	
  		return $result;
@@ -47,7 +48,8 @@ class Content_model extends CI_Model {
 		{
 			$this->db->where('type', $type);
 		}
-
+	 	
+	 	$this->db->where('content.status !=', 'D');
 		$this->db->limit($limit);
 		$this->db->order_by('created_at', 'desc');
  		$result = $this->db->get();	
@@ -103,6 +105,7 @@ class Content_model extends CI_Model {
   		$this->db->join('users_meta', 'users_meta.user_id = content.user_id');		  
  		$this->db->join('users', 'users.user_id = content.user_id'); 				
  		$this->db->where('content_id', $content_id);
+	 	$this->db->where('content.status !=', 'D');
 		$this->db->limit(1);    
  		$result = $this->db->get()->row();	
  		return $result;      
@@ -110,7 +113,10 @@ class Content_model extends CI_Model {
     
     function get_content_category_count($category_id)
     {
- 		$this->db->select('category_id')->from('content')->where('category_id', $category_id);
+ 		$this->db->select('category_id');
+ 		$this->db->from('content');
+ 		$this->db->where('category_id', $category_id);
+	 	$this->db->where('content.status !=', 'D');
  		return $this->db->count_all_results();
     }
     
