@@ -92,7 +92,7 @@ $config['settings'] = array('users', 'images_max_size', '25600');
 $config['settings'] = array('users', 'images_full_width', '750');
 $config['settings'] = array('users', 'images_full_height', '750');
 $config['settings'] = array('users', 'images_sizes_full', 'yes');
-$config['settings'] = array('users', 'images_folder', 'media/profiles/');
+$config['settings'] = array('users', 'images_folder', 'uploads/profiles/');
 $config['settings'] = array('users', 'images_max_dimensions', '3000');
 $config['settings'] = array('users', 'images_sizes_original', 'yes');
 

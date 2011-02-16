@@ -177,7 +177,7 @@ class MY_Controller extends MX_Controller
 
 		// Site Paths
 		$this->data['shared_images']		= base_url().'images/shared/';
-		$this->data['site_images']			= base_url().'media/sites/'.config_item('site_id').'/';
+		$this->data['site_images']			= base_url().'uploads/sites/'.config_item('site_id').'/';
 		$this->data['views']				= base_url().'application/views/';
 		$this->data['site_assets']			= base_url().'application/views/'.$this->data['settings']['site']['site_theme'].'/assets/';
 		$this->data['dashboard_assets']		= base_url().'application/views/'.$this->data['settings']['site']['dashboard_theme'].'/assets/';	

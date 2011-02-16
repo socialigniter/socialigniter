@@ -10,24 +10,22 @@ class Activity extends Oauth_Controller
         parent::__construct();      
 	}
 	
-    /* GET types */
     function recent_get()
     {
     	$activity = $this->social_igniter->get_timeline(NULL, 10);
         
         if($activity)
         {
-            $message	= array('status' => 'success', 'message' => 'Success activity has been found', 'data' => $activity);
+            $message = array('status' => 'success', 'message' => 'Activity has been found', 'data' => $activity);
         }
         else
         {
-            $message	= array('status' => 'error', 'message' => 'Could not find any activity');
+            $message = array('status' => 'error', 'message' => 'Could not find activity');
         }
         
         $this->response($message, 200); 
     }
 
-	// Acitivty View
 	function view_get()
     {
     	$search_by	= $this->uri->segment(4);
@@ -36,96 +34,81 @@ class Activity extends Oauth_Controller
    		 	
         if($activity)
         {
-            $message 	= array('status' => 'success', 'message' => 'Yay found some actvity', 'data' => $activity);
+            $message = array('status' => 'success', 'message' => 'Activity has been found', 'data' => $activity);
         }
         else
         {
-            $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' content for '.$search_for);
+            $message = array('status' => 'error', 'message' => 'Could not find any '.$search_by.' activity for '.$search_for);
         }
 
         $this->response($message, 200);
     }
 
-
-	/* POST types */
     function create_authd_post()
-    {
-    	$user_id = $this->session->userdata('user_id');   
-    
-		$access = $this->social_igniter->has_access_to_create('category', $user_id);
-		
-		if ($access)
+    {    
+		$activity_info = array(
+			'site_id'		=> config_item('site_id'),
+			'user_id'		=> $this->oauth_user_id,
+			'verb'			=> 'post',
+			'module'		=> $this->input->post('module'),
+			'type'			=> $this->input->post('type'),
+			'content_id'	=> $this->input->post('content_id')
+		);
+
+		// Add Activity
+		if ($activity = $this->social_igniter->add_activity($activity_info, $this->input->post('activity_data')))
 		{
-        	$category_data = array(
-        		'parent_id'		=> $this->input->post('parent_id'),
-    			'site_id'		=> config_item('site_id'),		
-    			'permission'	=> $this->input->post('permission'),
-				'module'		=> $this->input->post('module'),
-    			'type'			=> $this->input->post('type'),
-    			'category'		=> $this->input->post('category'),
-    			'category_url'	=> $this->input->post('category_url')
-        	);
-
-			// Insert
-		    $category = $this->categories_model->add_category($category_data);
-
-			if ($category)
-			{
-	        	$message	= array('status' => 'success', 'data' => $category);
-	        }
-	        else
-	        {
-		        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-	        }
-		}
-		else
-		{
-	        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-	        $response	= 200;
-		}	
-
-        $this->response($message, $response); // 200 being the HTTP response code
+        	$message = array('status' => 'success', 'message' => 'Activity successfully created', 'data' => $activity);
+        }
+        else
+        {
+	        $message = array('status' => 'error', 'message' => 'Oops unable to add activity');
+        }
+	
+        $this->response($message, 200);
     }
     
-    /* PUT types */
     function update_authd_put()
     {
-		$viewed = $this->social_tools->update_comment_viewed($this->get('id'));			
+		$viewed = $this->social_tools->update_activity_viewed($this->get('id'));			
     	
         if($viewed)
         {
-            $this->response(array('status' => 'success', 'message' => 'Comment viewed'), 200);
+            $message = array('status' => 'success', 'message' => 'Activity viewed');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not mark as viewed'), 404);
-        }    
+            $message = array('status' => 'error', 'message' => 'Could not mark as viewed');
+        } 
+
+        $this->response($message, 200);           
     }  
 
-    /* DELETE types */
     function destroy_authd_delete()
     {		
-		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
-    	
-    	// Move this up to result of "user_has_access"
-    	if ($access)
+		$activity = $this->social_igniter->get_activity($this->get('id'));
+	
+    	if ($access = $this->social_tools->has_access_to_modify('activity', $activity, $this->oauth_user_id))
         {        
-        	$this->social_igniter->delete_activity($this->get('id'), $this->oauth_user_id);
-        
-			// Reset comments with this reply_to_id
-			$this->social_tools->update_comment_orphaned_children($this->get('id'));
-			
-			// Update Content
-			$this->social_igniter->update_content_comments_count($this->get('id'));
-        
-        	$this->response(array('status' => 'success', 'message' => 'Comment deleted'), 200);
+        	if ($this->social_igniter->delete_activity($activity->activity_id, $this->oauth_user_id))
+        	{
+        		if ($activity->type == 'status')
+        		{					
+					$this->social_tools->delete_comments_content($activity->content_id);        		
+        		}
+        	
+        		$message = array('status' => 'success', 'message' => 'Activity was deleted');
+        	}
+        	else
+        	{
+        		$message = array('status' => 'error', 'message' => 'Oops activity was not deleted');        	
+        	}
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 404);
+            $message = array('status' => 'error', 'message' => 'You do no have access to delete that activity');
         }
         
+        $this->response($message, 200);
     }
-
 }

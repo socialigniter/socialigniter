@@ -10,26 +10,22 @@ class Categories extends Oauth_Controller
         parent::__construct();      
 	}
 	
-    /* GET types */
     function all_get()
     {
     	$categories = $this->categories_model->get_categories();
         
         if($categories)
         {
-            $message 	= array('status' => 'success', 'data' => $categories);
-            $response	= 200;
+            $message = array('status' => 'success', 'message' => 'Category found', 'data' => $categories);
         }
         else
         {
-            $message 	= array('status' => 'error', 'message' => 'Could not find any categories');
-            $response	= 404;
+            $message = array('status' => 'error', 'message' => 'Could not find any categories');
         }
         
-        $this->response($message, $response);        
+        $this->response($message, 200);        
     }
 
-    /* GET types */
     function view_get()
     {
     	$search_by	= $this->uri->segment(4);
@@ -38,19 +34,16 @@ class Categories extends Oauth_Controller
     	
         if($categories)
         {
-            $message 	= array('status' => 'success', 'data' => $categories);
-            $response	= 200;
+            $message = array('status' => 'success', 'message' => 'Category were found', 'data' => $categories);
         }
         else
         {
-            $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' categories for '.$search_for);
-            $response	= 200;        
+            $message = array('status' => 'error', 'message' => 'Could not find any '.$search_by.' categories for '.$search_for);
         }
 
-        $this->response($message, $response);
+        $this->response($message, 200);
     }
 
-	/* POST types */
     function create_authd_post()
     {
 		$this->form_validation->set_rules('category', 'Category', 'required');
@@ -87,31 +80,26 @@ class Categories extends Oauth_Controller
 	
 				if ($category)
 				{
-		        	$message	= array('status' => 'success', 'data' => $category);
-		        	$response	= 200;
+		        	$message = array('status' => 'success', 'data' => $category);
 		        }
 		        else
 		        {
-			        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-			        $response	= 200;		        
+			        $message = array('status' => 'error', 'message' => 'Oops unable to add your category');
 		        }
 			}
 			else
 			{
-		        $message	= array('status' => 'error', 'message' => 'You do not have access to add a category');
-		        $response	= 200;
+		        $message = array('status' => 'error', 'message' => 'You do not have access to add a category');
 			}
 		}
 		else 
 		{	
-	        $message	= array('status' => 'error', 'message' => 'hrmm'.validation_errors());
-	        $response	= 200;
+	        $message = array('status' => 'error', 'message' => 'hrmm'.validation_errors());
 		}			
 
-        $this->response($message, $response);
+        $this->response($message, 200);
     }
     
-    /* PUT types */
     function modify_authd_post()
     {
     	$content = $this->social_igniter->get_content($this->get('id'));
@@ -138,40 +126,35 @@ class Categories extends Oauth_Controller
 		 		     		
 	    if ($update)
 	    {
-			// Process Tags    
-			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);
-	    
-        	$message	= array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
-        	$response	= 200;
+        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
         }
         else
         {
-	        $message	= array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
-	        $response	= 200;		        
+	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
         }
 
-	    $this->response($message, $response);
+	    $this->response($message, 200);
     }
-    /* DELETE types */
+
     function destroy_delete()
     {		
 		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
+		$access = $this->social_tools->has_access_to_modify('comment', $this->social_tools->get_comment($this->get('id')));
     	
     	if ($access)
         {   
         	$this->social_tools->delete_comment($this->get('id'));
         
-			// Reset comments with this reply_to_id
 			//$this->social_igniter->update_content_comments_count($this->get('id'));
         
-        	$this->response(array('status' => 'success', 'message' => 'Comment deleted'), 200);
+        	$message = array('status' => 'success', 'message' => 'Comment deleted');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment'), 404);
+            $message = array('status' => 'error', 'message' => 'Could not delete that comment');
         }
-        
+
+	    $this->response($message, 200);        
     }
 
 }

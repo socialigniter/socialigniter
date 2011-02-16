@@ -1,14 +1,14 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Social Tools Library
-*
-* @package		Social Tools
-* @subpackage	Social Tools Library
-* @author		Brennan Novak
-* @link			http://social-igniter.com
-*
-* Contains functions that do all the basic extensible 'tools' of Social Igniter 
-* This includes Categories, Comments, Content, Ratings, Tags
+Social Tools Library
+
+@package		Social Tools
+@subpackage	Social Tools Library
+@author		Brennan Novak
+@link			http://social-igniter.com
+
+Contains functions that do all the basic extensible 'tools' of Social Igniter 
+This includes Categories, Comments, Content, Ratings, Tags
 */
  
 class Social_tools
@@ -44,42 +44,41 @@ class Social_tools
 		return FALSE;	
 	}
 	
-	function has_access_to_modify($type, $object_id)
+	function has_access_to_modify($type, $object, $user_id, $user_level_id=NULL)
 	{
+		// Types of objects
+		if ($type == 'content')
+		{		
+			if ($user_id == $object->user_id)
+			{
+				return TRUE;
+			}		
+		}
+		elseif ($type == 'activity')
+		{
+			if ($user_id == $object->user_id)
+			{
+				return TRUE;
+			}
+		}
+		elseif ($type == 'comment')
+		{
+			if ($user_id == $object->user_id)
+			{
+				return TRUE;
+			}	
+		}
+		else
+		{
+			return FALSE;
+		}
+		
 		// Is Super or Admin
 		if ($this->ci->session->userdata('user_level_id') <= 2)
 		{
 			return TRUE;
 		}
-		
-		if ($type == 'content')
-		{		
-			// Is User Owner
-			if ($this->ci->session->userdata('user_id') == $this->ci->social_igniter->get_content($object_id)->user_id)
-			{
-				return TRUE;
-			}
-			
-			// Does User Have Access
-			/*
-			$access = $this->get_content_access($this->ci->session->userdata('user_id'), $content_id);
-			
-			if ($access)
-			{
-				return TRUE;
-			}
-			*/
-		}
-		
-		if ($type == 'comment')
-		{
-			// Is User Owner
-			if ($this->ci->session->userdata('user_id') == $this->get_comment($object_id)->user_id)
-			{
-				return TRUE;
-			}				
-		}
-
+				
 		return FALSE;
 	}
 	
@@ -310,8 +309,23 @@ class Social_tools
 	{
 		return $this->ci->comments_model->delete_comment($comment_id);
 	}
+	
+	function delete_comments_content($content_id)
+	{
+		$comments = $this->get_comments_content($content_id);
+		
+		if ($comments)
+		{
+			foreach ($comments as $comment)
+			{
+				$this->delete_comment($comment->comment_id);
+			}
+		}
+		
+		return TRUE;
+	}
 
-	function render_children_comments($comments, $reply_to_id)
+	function render_children_comments($comments, $reply_to_id, $user_id, $user_level_id)
 	{
 		foreach ($comments as $child)
 		{
@@ -325,10 +339,12 @@ class Social_tools
 				$this->data['comment_id']		= $child->comment_id;
 				$this->data['comment_text']		= $child->comment;
 				$this->data['reply_id']			= $child->comment_id;
+				$this->data['item_can_modify']	= $this->has_access_to_modify('comment', $child, $user_id, $user_level_id);
+
 				$this->view_comments  	       .= $this->ci->load->view(config_item('site_theme').'/partials/comments_list', $this->data, true);
 				
 				// Recursive Call
-				$this->render_children_comments($comments, $child->comment_id);
+				$this->render_children_comments($comments, $child->comment_id, $user_id, $user_level_id);
 			}	
 		}
 			

@@ -1,0 +1,2 @@
+UPLOADS DIRECTORY
+This is where all sorts of stuff gets uploaded to

@@ -95,7 +95,6 @@ $route['api/sandbox']							= 'api/sandbox/index';
 $route['api/index']								= 'api/index';
 $route['api']									= 'api/index';
 
-
 /* Connections */
 $route['connections/delete/(:num)']				= 'connections/delete';
 $route['connections/delete']					= 'connections/delete';
@@ -109,7 +108,6 @@ $route['home/pages/create']						= 'pages/editor';
 $route['home/comments/(:any)'] 					= 'home/comments/$1';
 $route['home/comments'] 						= 'home/comments';
 $route['home/friends']							= 'home/index';
-$route['home/mentions'] 						= 'home/mentions';
 $route['home/likes']							= 'home/index';
 
 /* Home Modules */

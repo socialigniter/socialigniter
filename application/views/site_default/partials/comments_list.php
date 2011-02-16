@@ -6,7 +6,7 @@
 		<ul class="comment_actions">
 			<?php if (config_item('comments_reply') == 'TRUE'): ?>
 			<li><a href="#<?= $comments_write_form ?>" id="reply-<?= $reply_id ?>" class="comment_reply"><span class="item_actions action_reply"></span> Reply</a></li>
-			<?php endif; if($comment->user_id == $this->session->userdata('user_id')): ?>
+			<?php endif; if ($item_can_modify): ?>
 			<li><a href="<?= base_url().'api/comments/destroy/id/'.$comment_id ?>" id="delete-<?= $comment_id ?>" class="comment_delete"><span class="item_actions action_delete"></span> Delete</a></li>
 			<?php endif; ?>
 		</ul>

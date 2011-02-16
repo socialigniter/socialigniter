@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* Dashboard Default Theme */
 /* Make background and basic fonts be designable from dashboard */
-body		{ background: url(/media/sites/1/background.png) 0 0 repeat-x #ffffff; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
+body		{ background: url(/uploads/sites/1/background.png) 0 0 repeat-x #ffffff; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
 
 h1			{ color: #444; font-size: 30px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h2			{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
@@ -21,8 +21,8 @@ table td 	{ padding: 10px 10px 5px 0; text-align: left; vertical-align: top; }
 input[type=text], input[type=password], input[type=email], input[type=url] { height: 28px; background: url(images/input_basic.png) 0 0 repeat-x #fff; font-size: 13px; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; padding: 0 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=url]:focus { height: 28px; background: url(images/input_basic_focus.png) 0 0 repeat-x #fff; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 
-input[type=submit], input[type=reset], button[type=button] { height: 29px; background: url(images/button_basic.png) 0 0 repeat-x #888888; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 13px; padding: 0 12px; }
-input[type=submit]:hover, input[type=reset]:hover, button[type=button]:hover { height: 29px; background: url(images/button_basic_hover.png) 0 0 repeat-x #979595; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
+input[type=submit], input[type=reset], input[type=button] { height: 29px; background: url(images/button_basic.png) 0 0 repeat-x #888888; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 13px; padding: 0 12px; }
+input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover { height: 29px; background: url(images/button_basic_hover.png) 0 0 repeat-x #979595; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
 
 textarea 					{ background: url(images/textarea_basic.png) 0 0 repeat-x #ffffff; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; padding: 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 textarea:focus 				{ background: url(images/textarea_basic_focus.png) 0 0 repeat-x #ffffff; }
@@ -342,3 +342,9 @@ span.item_right a:hover		{ text-decoration: underline; }
 	.comment_list li p.comment_meta span { margin: 10px 0 0 0; font-size:11px; color:#999999; }
 	.comment_list li img.comment_thumb { width: 34px; display: block; float: left; margin: 0 10px 10px 0; }
 	.comment_list #comment_write { margin: 5px 0 0 0; }
+	
+	/* Auto complete drop down styles */
+	.ui-autocomplete {background:#fff;background:rgba(255,255,255,0.97);width:200px;border:1px solid #CCC;}
+	.ui-autocomplete li {cursor:pointer !important;}
+	.ui-autocomplete a {padding:5px;display:block;cursor:pointer !important;}
+	.ui-autocomplete li a:hover,.ui-autocomplete .ui-state-hover {background:#F2F2F2;}

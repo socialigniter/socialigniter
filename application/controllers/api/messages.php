@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /* 
- * messages API : Core : Social-Igniter
+ * Messages API : Module : Social-Igniter
  *
  */
 class Messages extends Oauth_Controller
@@ -10,26 +10,22 @@ class Messages extends Oauth_Controller
         parent::__construct();      
 	}
 	
-    /* GET types */
     function all_get()
     {
     	$messages = $this->messages_model->get_messages();
         
         if($messages)
         {
-            $message 	= array('status' => 'success', 'data' => $messages);
-            $response	= 200;
+            $message = array('status' => 'success', 'message' => 'Found some messages', 'data' => $messages);
         }
         else
         {
-            $message 	= array('status' => 'error', 'message' => 'Could not find any messages');
-            $response	= 404;
+            $message = array('status' => 'error', 'message' => 'Could not find any messages');
         }
         
-        $this->response($message, $response);        
+        $this->response($message, 200);        
     }
 
-    /* GET types */
     function view_get()
     {
     	$search_by	= $this->uri->segment(4);
@@ -39,7 +35,6 @@ class Messages extends Oauth_Controller
         $this->response($messages, $response);
     }
 
-	/* POST types */
     function create_authd_post()
     {
 		$this->form_validation->set_rules('message', 'message', 'required');
@@ -76,31 +71,26 @@ class Messages extends Oauth_Controller
 	
 				if ($message)
 				{
-		        	$message	= array('status' => 'success', 'data' => $message);
-		        	$response	= 200;
+		        	$message = array('status' => 'success', 'data' => $message);
 		        }
 		        else
 		        {
-			        $message	= array('status' => 'error', 'message' => 'Oops unable to add your message');
-			        $response	= 200;		        
+			        $message = array('status' => 'error', 'message' => 'Oops unable to add your message');
 		        }
 			}
 			else
 			{
-		        $message	= array('status' => 'error', 'message' => 'You do not have access to add a message');
-		        $response	= 200;
+		        $message = array('status' => 'error', 'message' => 'You do not have access to add a message');
 			}
 		}
 		else 
 		{	
-	        $message	= array('status' => 'error', 'message' => 'hrmm'.validation_errors());
-	        $response	= 200;
+	        $message = array('status' => 'error', 'message' => 'hrmm'.validation_errors());
 		}			
 
-        $this->response($message, $response);
+        $this->response($message, 200);
     }
       
-    /* DELETE types */
     function destroy_delete()
     {		
 		// Make sure user has access to do this func
@@ -110,13 +100,14 @@ class Messages extends Oauth_Controller
         {   
         	$this->social_tools->delete_comment($this->get('id'));
         	        
-        	$this->response(array('status' => 'success', 'message' => 'Comment deleted'), 200);
+        	$message = array('status' => 'success', 'message' => 'Message deleted');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment'), 404);
+            $message = array('status' => 'error', 'message' => 'Could not delete that message');
         }
-        
+
+        $this->response($message, 200);        
     }
 
 }

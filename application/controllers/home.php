@@ -8,7 +8,11 @@ class Home extends Dashboard_Controller
  
  	// Home Feed
  	function index()
- 	{ 	
+ 	{
+ 		$timeline		= NULL;
+		$timeline_view	= NULL;
+ 	
+ 		// Pick Type of Feed
 		if ($this->uri->total_segments() == 1)
 		{
 	 	    $this->data['page_title'] 		= 'Home';
@@ -25,8 +29,10 @@ class Home extends Dashboard_Controller
 	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
-			$friends						= $this->social_tools->get_relationships_follows($this->session->userdata('user_id'));
-			$timeline 						= $this->social_igniter->get_timeline_friends($friends, 10); 
+			if ($friends = $this->social_tools->get_relationships_follows($this->session->userdata('user_id')))
+			{
+				$timeline = $this->social_igniter->get_timeline_friends($friends, 10);
+			}
  	    }
  	    elseif ($this->uri->segment(2) == 'likes')
  	    {
@@ -48,9 +54,7 @@ class Home extends Dashboard_Controller
 			$timeline 						= $this->social_igniter->get_timeline($this->uri->segment(2), 10); 
  	    }
  	     	     	    
-		// Feed
-		$timeline_view 						= NULL;		
-				 			
+		// Build Feed				 			
 		if (!empty($timeline))
 		{
 			foreach ($timeline as $activity)
@@ -74,7 +78,7 @@ class Home extends Dashboard_Controller
 			 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
 			 	$this->data['item_comment_avatar']	= $this->data['logged_image'];
 			 	
-			 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify($activity->type, $activity->activity_id);
+			 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify('activity', $activity, $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
 				$this->data['item_edit']			= base_url().'home/'.$activity->module.'/manage/'.$activity->content_id;
 				$this->data['item_delete']			= base_url().'api/activity/destroy/id/'.$activity->activity_id;
 
@@ -84,18 +88,11 @@ class Home extends Dashboard_Controller
 	 	}
 	 	else
 	 	{
-	 		$timeline_view = '<li>Nothing to show from anyone!</li>';
+	 		$timeline_view = '<li><p>Nothing to show from anyone!</p></li>';
  		}	
 
 		// Final Output
 		$this->data['timeline_view'] 	= $timeline_view;
-		$this->render();
- 	}   
-
- 	function mentions()
- 	{
- 	    $this->data['page_title'] 		= "@ Replies";
-		 	 	
 		$this->render();
  	}
 	
@@ -104,7 +101,7 @@ class Home extends Dashboard_Controller
 		$this->render();
 	}
 
-	// Dashboard Comments Section
+	// Dashboard Comments
  	function comments()
  	{
  	    $this->data['page_title'] 	= "Comments";
@@ -146,7 +143,7 @@ class Home extends Dashboard_Controller
 					$this->data['item_object']		= $comment->type;
 				}
 				
-				$this->data['item_text']			= $comment->comment;
+				$this->data['item_text']			= item_linkify($comment->comment);
 				$this->data['item_date']			= human_date('SIMPLE', mysql_to_unix($comment->created_at));
 				$this->data['item_approval']		= $comment->approval;
 

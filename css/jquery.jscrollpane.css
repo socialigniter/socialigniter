@@ -55,6 +55,7 @@
 
 .jspTrack
 {
+<<<<<<< HEAD
 	background: #dde;
 	position: relative;
 }
@@ -62,10 +63,19 @@
 .jspDrag
 {
 	background: #bbd;
+=======
+	background: #ececec;
+	position: relative;
+}
+.jspDrag
+{
+	background: #999999;
+	border: 1px solid #666666;
 	position: relative;
 	top: 0;
 	left: 0;
 	cursor: pointer;
+	border-radius:8px;	
 }
 
 .jspHorizontalBar .jspTrack,

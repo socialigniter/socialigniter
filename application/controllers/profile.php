@@ -111,7 +111,5 @@ class Profile extends Site_Controller
  		$this->data['page_title'] = $this->data['name']."'s profile picture";	
 
  		$this->render('profile');
- 	}
- 	
- 
+ 	} 
 }

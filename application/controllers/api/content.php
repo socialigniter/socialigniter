@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /* 
- * Content Meta API : Core : Social-Igniter
+ * Content API : Core : Social-Igniter
  *
  */
 class Content extends Oauth_Controller
@@ -19,11 +19,11 @@ class Content extends Oauth_Controller
         
         if($content)
         {
-            $message	= array('status' => 'success', 'message' => 'Success content has been found', 'data' => $content);
+            $message = array('status' => 'success', 'message' => 'Success content has been found', 'data' => $content);
         }
         else
         {
-            $message	= array('status' => 'error', 'message' => 'Could not find any content');
+            $message = array('status' => 'error', 'message' => 'Could not find any content');
         }
         
         $this->response($message, 200);        
@@ -34,20 +34,18 @@ class Content extends Oauth_Controller
     {
     	$search_by	= $this->uri->segment(4);
     	$search_for	= $this->uri->segment(5);
-		$content	= $this->social_igniter->get_content_view($search_by, $search_for);    
+		$content	= $this->social_igniter->get_content_view($search_by, $search_for, 50);    
    		 	
         if($content)
         {
-            $message 	= array('status' => 'success', 'message' => 'Success content has been found', 'data' => $content);
-            $response	= 200;
+            $message = array('status' => 'success', 'message' => 'Success content has been found', 'data' => $content);
         }
         else
         {
-            $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' content for '.$search_for);
-            $response	= 200;        
+            $message = array('status' => 'error', 'message' => 'Could not find any '.$search_by.' content for '.$search_for);
         }
 
-        $this->response($message, $response);
+        $this->response($message, 200);
     }
 
 	// Create Content
@@ -97,25 +95,20 @@ class Content extends Oauth_Controller
 				if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $result['content']->content_id);				
 				
 				// API Response
-	        	$message	= array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $result['content'], 'activity' => $result['activity']);
-	        	$response	= 200;
+	        	$message = array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $result['content'], 'activity' => $result['activity']);
 	        }
 	        else
 	        {
-		        $message	= array('status' => 'error', 'message' => 'Oops we were unable to post your '.$content_data['type']);
-		        $response	= 200;		        
+		        $message = array('status' => 'error', 'message' => 'Oops we were unable to post your '.$content_data['type']);
 	        }	
 		}
 		else 
 		{
-			// Does Not Pass Validation
-	        $message	= array('status' => 'error', 'message' => validation_errors());
-	        $response	= 200;
+	        $message = array('status' => 'error', 'message' => validation_errors());
 		}
 
-	    $this->response($message, $response);
+	    $this->response($message, 200);
 	}
-        
         
     
     /* PUT types */
@@ -158,16 +151,14 @@ class Content extends Oauth_Controller
 			// Process Tags    
 			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);
 	    
-        	$message	= array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
-        	$response	= 200;
+        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
         }
         else
         {
-	        $message	= array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
-	        $response	= 200;		        
+	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
         }
 
-	    $this->response($message, $response);
+	    $this->response($message, 200);
     }
     
 
@@ -176,74 +167,79 @@ class Content extends Oauth_Controller
     {    
         if ($this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'viewed' => 'Y')))
         {
-            $this->response(array('status' => 'success', 'message' => 'Content viewed'), 200);
+            $message = array('status' => 'success', 'message' => 'Content viewed');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not mark as viewed'), 200);
-        }    
+            $message = array('status' => 'error', 'message' => 'Could not mark as viewed');
+        }
+        
+	    $this->response($message, 200);            
     }   
     
     function approve_authd_put()
     {
         if ($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'approval' => 'Y')))
         {
-            $this->response(array('status' => 'success', 'message' => 'Content approved', 'data' => $update), 200);
+            $message = array('status' => 'success', 'message' => 'Content approved', 'data' => $update);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Content could not be approved'), 200);
+            $message = array('status' => 'error', 'message' => 'Content could not be approved');
         }
+        
+	    $this->response($message, 200);        
     }
     
     function save_authd_put()
     {
         if ($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'S')))
         {
-            $this->response(array('status' => 'success', 'message' => 'Content saved', 'data' => $update), 200);
+            $message = array('status' => 'success', 'message' => 'Content saved', 'data' => $update);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Content could not be saved'), 200);
+            $message = array('status' => 'error', 'message' => 'Content could not be saved');
         }
+        
+	    $this->response($message, 200);        
     }       
 
     function publish_authd_put()
     {
         if($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'P')))
         {
-            $this->response(array('status' => 'success', 'message' => 'Content published', 'data' => $update), 200);
+            $message = array('status' => 'success', 'message' => 'Content published', 'data' => $update);
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Content could not be published', 'data' => $update), 200);
+            $message = array('status' => 'error', 'message' => 'Content could not be published', 'data' => $update);
         }
+
+	    $this->response($message, 200);
     }       
 
-
-    /* DELETE types */
     function destroy_authd_delete()
-    {		
-		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_modify('content', $this->get('id'), $this->oauth_user_id);
-    	
-    	// Move this up to result of "user_has_access"
-    	if ($access)
+    {
+    	$content = $this->social_igniter->get_content($this->get('id'));
+    
+    	if ($access = $this->social_tools->has_access_to_modify('content', $content, $this->oauth_user_id))
         {
-			if ($delete = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'D')))
+			if ($delete = $this->social_igniter->update_content_value(array('content_id' => $content->content_id, 'status' => 'D')))
 			{						        
-	        	$this->response(array('status' => 'success', 'message' => 'Content deleted'), 200);
+	        	$message = array('status' => 'success', 'message' => 'Content deleted');
 	        }
 	        else
 	        {
-	            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment'), 200);
+	            $message = array('status' => 'error', 'message' => 'Could not delete that comment');
 	        }
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment'), 200);
+            $message = array('status' => 'error', 'message' => 'Could not delete that comment');
         }
         
+	    $this->response($message, 200);        
     }   
 
 }

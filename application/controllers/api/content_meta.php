@@ -19,12 +19,14 @@ class Content_meta extends Oauth_Controller
         
         if($content)
         {
-            $this->response($content, 200);
+            $message = array('status' => 'success', 'message' => 'Found some meta content', 'data' => $content);
         }
         else
         {
-            $this->response(array('status' => 'error', 'data' => 'Could not find any comments'), 404);
+            $message = array('status' => 'error', 'message' => 'Could not find any meta content');
         }
+        
+        $this->response($message, 200);        
     }
 
 	// Content by various
@@ -36,47 +38,39 @@ class Content_meta extends Oauth_Controller
    		 	
         if($content)
         {
-            $message 	= array('status' => 'success', 'data' => $content);
-            $response	= 200;
+            $message = array('status' => 'success', 'data' => $content);
         }
         else
         {
-            $message 	= array('status' => 'error', 'message' => 'Could not find any '.$search_by.' content for '.$search_for);
-            $response	= 404;        
+            $message = array('status' => 'error', 'message' => 'Could not find any '.$search_by.' content for '.$search_for);
         }
 
-        $this->response($message, $response);
+        $this->response($message, 200);
     }
 
 	/* POST types */
 	// Create Content - if module needs content to do more funky things, write an API controller in that module
 	function create_authd_post()
 	{
-	
    		//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
    	
 		// Process Content Meta
 		// MAKE INTO A $_POST loop that gets all elements sent over
-		$meta_data = array(
-			'excerpt' => $this->input->post('excerpt')
-		);
+		$meta_data = array('excerpt' => $this->input->post('excerpt'));
 
 		$content_meta = $this->content_model->add_meta(config_item('site_id'), $this->input->post('content_id'), $meta_data);
 			
 		     		
 	    if ($content_meta)
 	    {		    
-        	$message	= array('status' => 'success', 'message' => 'Posted your content', 'data' => $content);
-        	$response	= 200;
+        	$message = array('status' => 'success', 'message' => 'Posted your content', 'data' => $content);
         }
         else
         {
-	        $message	= array('status' => 'error', 'message' => 'Oops we were unable to post your content');
-	        $response	= 200;		        
+	        $message = array('status' => 'error', 'message' => 'Oops we were unable to post your content');
         }	
-
 	
-	    $this->response($message, $response);
+	    $this->response($message, 200);
 	}
         
     

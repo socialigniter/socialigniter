@@ -10,7 +10,7 @@ application/helpers/custom_helper.php
 application/logs/
 application/modules/
 images/site/
-media/
+uploads/
 system/logs/
 application/views/
 application/views/dashboard_default/.DS_Store

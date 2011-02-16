@@ -31,6 +31,59 @@ function doPlaceholder(id, placeholder)
 	}
 }
 
+// Validate email address
+function validateEmailAddress(email)
+{
+	var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+
+	return pattern.test(email);
+}
+
+// Checks if field has content, handles placeholder
+function isFieldValid(id, placeholder, error)
+{
+	var value = $(id).val();
+	
+	if (value == placeholder)
+	{
+		$(id).val(error).css('color', '#bd0b0b');		
+		$(id).oneTime(1350, function(){$(id).val(placeholder)});
+		$(id).oneTime(1350, function(){$(id).css('color', '#999999')});
+		
+		return false;
+	}
+	
+	return true;
+}
+
+function isWysiwygValid(id, placeholder, error)
+{
+	var value = $(id).val();
+	
+	if (value == placeholder)
+	{
+		$(id).val(error).css('color', '#bd0b0b');		
+		$(id).oneTime(1350, function(){$(id).val(placeholder)});
+		$(id).oneTime(1350, function(){$(id).css('color', '#999999')});
+		
+		return false;
+	}
+	
+	return true;
+}
+
+function cleanFieldEmpty(id, placeholder)
+{	
+	if ($(id).val() == placeholder)
+	{
+		$(id).val('');		
+	}
+	
+	return false;
+}
+
+
+
 //For God's sake, disable autocomplete!
 $(function(){ $('input').attr('autocomplete','off'); });
 
@@ -463,46 +516,6 @@ function convertToSlug(str)
 	return slug_val;
 }
 
-// Validate email address
-function validateEmailAddress(email)
-{
-	var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-
-	return pattern.test(email);
-}
-
-// Checks if field has content, handles placeholder
-function isFieldValid(id, placeholder, error)
-{
-	var value = $(id).val();
-	
-	if (value == placeholder)
-	{
-		$(id).val(error).css('color', '#bd0b0b');		
-		$(id).oneTime(1350, function(){$(id).val(placeholder)});
-		$(id).oneTime(1350, function(){$(id).css('color', '#999999')});
-		
-		return false;
-	}
-	
-	return true;
-}
-
-function isWysiwygValid(id, placeholder, error)
-{
-	var value = $(id).val();
-	
-	if (value == placeholder)
-	{
-		$(id).val(error).css('color', '#bd0b0b');		
-		$(id).oneTime(1350, function(){$(id).val(placeholder)});
-		$(id).oneTime(1350, function(){$(id).css('color', '#999999')});
-		
-		return false;
-	}
-	
-	return true;
-}
 
 /**
  * Checks for for a user image in the DB, if none
@@ -547,11 +560,11 @@ function getUserImageSrc(json,size){
 	
 	//If the user uploaded his own image
 	if(json.image !== "0"){
-		_imgSrcOutput = '/media/profiles/'+json.user_id+'/'+_localImgSize+'_'+json.image
+		_imgSrcOutput = '/uploads/profiles/'+json.user_id+'/'+_localImgSize+'_'+json.image
 	}
 	//Otherwise check gravatar, and/or return the default "no image" image
 	else {
-		_imgSrcOutput = 'http://gravatar.com/avatar.php?gravatar_id='+md5(json.email)+'&s='+_gravatarSize+'&d=//localhost/media/profiles/'+_localImgSize+'_nopicture.png';
+		_imgSrcOutput = 'http://gravatar.com/avatar.php?gravatar_id='+md5(json.email)+'&s='+_gravatarSize+'&d='+base_url+'/uploads/profiles/'+_localImgSize+'_nopicture.png';
 	}
 	return _imgSrcOutput;
 }
