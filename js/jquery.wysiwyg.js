@@ -407,7 +407,7 @@
 			formWidth: 440,
 			i18n: false,
 			iFrameClass: null,
-			initialContent: "<p>Initial content</p>",
+			initialContent: "<p>&nbsp;</p>",
 			maxHeight: 10000,			// see autoGrow
 			messages: {
 				nonSelection: "Select the text you wish to link"
