@@ -348,3 +348,6 @@ span.item_right a:hover		{ text-decoration: underline; }
 	.ui-autocomplete li {cursor:pointer !important;}
 	.ui-autocomplete a {padding:5px;display:block;cursor:pointer !important;}
 	.ui-autocomplete li a:hover,.ui-autocomplete .ui-state-hover {background:#F2F2F2;}
+	
+	.ui-dialog {-webkit-box-shadow:rgba(0,0,0,0.2) 0 0 10px;-moz-box-shadow:rgba(0,0,0,0.2) 0 0 10px;box-shadow:rgba(0,0,0,0.2) 0 0 10px;padding:17px;background:#ECECEC;border:1px solid #A09F9F; margin-left:auto; margin-right:auto;}
+	.ui-dialog-titlebar {display:none}
