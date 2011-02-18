@@ -10,72 +10,69 @@ class Image_model extends CI_Model
 	    $this->load->library('image_lib');
     }
 
-	function make_images($file_data, $module, $image_sizes, $create_path, $delete_files)
+	function make_images($upload_file, $upload_width, $upload_height, $user_id)
 	{
-		make_folder($create_path);
-		
-		if ($delete_files)
-		{
-			delete_files($create_path);
- 		}
+		make_folder(config_item('users_images_folder').$user_id);		
+		delete_files(config_item('users_images_folder').$user_id."/");
  
-	    $raw_path = config_item('uploads_folder').$file_data['file_name'];
+	    $raw_path 		= config_item('uploads_folder').$upload_file;
+		$image_sizes	= array('full', 'large', 'medium', 'small');
 		
-		// Loop through sizes...
+		// Loop through sizes... make sure config_items exist for both
 		foreach ($image_sizes as $size)
 		{
 			// If upload width / heights differ from config
-			if (($file_data['image_width'] != config_item($module.'_images_'.$size.'_width')) || ($file_data['image_height'] != config_item($module.'_images_'.$size.'_height')))
+			if (($upload_width != config_item('users_images_'.$size.'_width')) || ($upload_height != config_item('users_images_'.$size.'_height')))
 			{ 
-				$this->make_cropped($file_data, $module, $create_path, $size);
+				$this->make_cropped($upload_file, $upload_width, $upload_height, $user_id, $size);
 			}
 		}			
 	    
 	    return true;	    
 	}
 	
-	function make_cropped($file_data, $module, $create_path, $size)
+	function make_cropped($upload_file, $upload_width, $upload_height, $user_id, $size)
 	{
-	    $raw_path 			= config_item('uploads_folder').$file_data['file_name'];
+	    $raw_path 			= config_item('uploads_folder').$upload_file;
 	    $original_width		= 0;
 	    $original_height	= 0;
 
-			$aspect = $file_data['image_width'] / $file_data['image_height'];
+			$aspect = $upload_width / $upload_height;
 			$set_master_dim = '';
 
 	    // Raw width larger than allowed
-		if ($file_data['image_width'] >= config_item($module.'_images_'.$size.'_width'))
+		if ($upload_width >= config_item('users_images_'.$size.'_width'))
 		{
-			$original_width = config_item($module.'_images_'.$size.'_width');
+			$original_width = config_item('users_images_'.$size.'_width');
 			$set_master_dim = 'width';
 		}
 		else
 		{
-			$original_width = $file_data['image_width'];
+			$original_width = $upload_width;
 		}
 
 	    // Raw height larger than allowed
-		if ($file_data['image_height'] >= config_item($module.'_images_'.$size.'_height'))
+		if ($upload_height >= config_item('users_images_'.$size.'_height'))
 		{
-			$original_height = config_item($module.'_images_'.$size.'_height');
+			$original_height = config_item('users_images_'.$size.'_height');
 			$set_master_dim = 'height';
 		}
 		else
 		{
-			$original_height = $file_data['image_height'];
+			$original_height = $upload_height;
 		}
 			
 		// in the case where both upload dimensions are larger than the specified size, let the smaller specified dimension govern  
-		if ($file_data['image_width'] >= config_item($module.'_images_'.$size.'_height') && $file_data['image_height'] >= config_item($module.'_images_'.$size.'_height') ) {
+		if ($upload_width >= config_item('users_images_'.$size.'_height') && $upload_height >= config_item('users_images_'.$size.'_height') ) {
 			//special case for square images
-			if (config_item($module.'_images_'.$size.'_width')  == config_item($module.'_images_'.$size.'_height') ) {
-				if ($file_data['image_width'] > $file_data['image_height']) {
+			if (config_item('users_images_'.$size.'_width')  == config_item('users_images_'.$size.'_height') ) {
+				if ($upload_width > $upload_height) {
 					$set_master_dim = 'height';
 				} else {
 					$set_master_dim = 'width';
 				}
 			} else {
-				if (config_item($module.'_images_'.$size.'_width')  > config_item($module.'_images_'.$size.'_height') ) {
+				if (config_item('users_images_'.$size.'_width')  > config_item('users_images_'.$size.'_height') ) {
 					$set_master_dim = 'width';
 				} else {
 					$set_master_dim = 'height';
@@ -89,34 +86,38 @@ class Image_model extends CI_Model
 	    if($set_master_dim == 'width')
 	    {
 	        $resize_width 	= $original_width; 
+	        //$resize_width 	= config_item('users_images_'.$size.'_width'); 
 	        $resize_height 	= round($original_width / $aspect); 
+	        //$resize_height 	= round(config_item('users_images_'.$size.'_width') / $aspect); 
 	    }
 	    else
 	    {
 	        $resize_width 	= round($original_height * $aspect);
+	        //$resize_width 	= round(config_item('users_images_'.$size.'_height') * $aspect);
 	        $resize_height 	= $original_height;
+	        //$resize_height 	= config_item('users_images_'.$size.'_height');
 	    }
 	    
 	    // Calculate Offset
-    	// Horizontal crop
-        if( $resize_width > config_item($module.'_images_'.$size.'_width')) {
-	        $diff = $resize_width - config_item($module.'_images_'.$size.'_width');
-        	$x_axis = round($diff / 2);
-				} else {
-					$x_axis = 0;
-				}
-    	// Vertical crop
-        if ($resize_height > config_item($module.'_images_'.$size.'_height')) {
-       	  $diff = $resize_height - config_item($module.'_images_'.$size.'_height');
-        	$y_axis = round($diff / 2);
-				} else {
-					$y_axis = 0;
-				}
+	    	// Horizontal crop
+	        if( $resize_width > config_item('users_images_'.$size.'_width')) {
+		        $diff = $resize_width - config_item('users_images_'.$size.'_width');
+	        	$x_axis = round($diff / 2);
+					} else {
+						$x_axis = 0;
+					}
+	    	// Vertical crop
+	        if ($resize_height > config_item('users_images_'.$size.'_height')) {
+	       	  $diff = $resize_height - config_item('users_images_'.$size.'_height');
+	        	$y_axis = round($diff / 2);
+					} else {
+						$y_axis = 0;
+					}
 		
 			// define paths	
-			$img_output_path =  getcwd() . '/' . $create_path.$size."_".$file_data['file_name'];
+			$img_output_path =  getcwd() . '/' . config_item('users_images_folder').$user_id."/".$size."_".$upload_file;
 			$raw_path = getcwd() . '/' . $raw_path;
-			$working_path =  getcwd() . '/' . $create_path."/working_".$file_data['file_name'];
+			$working_path =  getcwd() . '/' . config_item('users_images_folder').$user_id."/working_".$upload_file;
 /*
 			if (stristr(PHP_OS, 'WIN')) {
 				$raw_path = str_replace('/', '\\', $raw_path);
@@ -136,7 +137,7 @@ class Image_model extends CI_Model
 	    $crop_config['width'] 			= $resize_width;
 	    $crop_config['height'] 			= $resize_height;
 	    
-		//echo "x_axis: $x_axis - y_axis: $y_axis -- resize_width: $resize_width - resize_height: $resize_height - upload_width - $file_data['image_width'] - upload_height - $file_data['image_height'] -- constrained width - " . config_item($module.'_images_'.$size.'_width') .  " constrained_height - " . config_item($module.'_images_'.$size.'_height') . " master_dim - $set_master_dim<br><br>";
+			//echo "x_axis: $x_axis - y_axis: $y_axis -- resize_width: $resize_width - resize_height: $resize_height - upload_width - $upload_width - upload_height - $upload_height -- constrained width - " . config_item('users_images_'.$size.'_width') .  " constrained_height - " . config_item('users_images_'.$size.'_height') . " master_dim - $set_master_dim<br><br>";
     
 	    $this->image_lib->initialize($crop_config);
 	    
@@ -200,11 +201,11 @@ class Image_model extends CI_Model
 		// Makes Cropped Version ???
 		// Old Version from Brennans intial resizing lib
  	    $thumb_config['image_library'] 		= 'gd2';
-	    $thumb_config['source_image'] 		= $create_path."/cropped_".$size."_".$file_data['file_name'];;
+	    $thumb_config['source_image'] 		= config_item('users_images_folder').$user_id."/cropped_".$size."_".$upload_file;;
 	    $thumb_config['maintain_ratio'] 	= TRUE;
-	    $thumb_config['new_image']			= $create_path.$size."_".$file_data['file_name'];
-	    $thumb_config['width'] 				= config_item($module.'_images_'.$size.'_width');
-	    $thumb_config['height'] 			= config_item($module.'_images_'.$size.'_height');	
+	    $thumb_config['new_image']			= config_item('users_images_folder').$user_id."/".$size."_".$upload_file;
+	    $thumb_config['width'] 				= config_item('users_images_'.$size.'_width');
+	    $thumb_config['height'] 			= config_item('users_images_'.$size.'_height');	
     
 	    $this->image_lib->initialize($thumb_config);
 	    
@@ -216,20 +217,21 @@ class Image_model extends CI_Model
 	    }
 
   	    $this->image_lib->clear();
-  		unlink($create_path."/cropped_".$size."_".$file_data['file_name']);
+  		unlink(config_item('users_images_folder').$user_id."/cropped_".$size."_".$upload_file);
 */  		
+  		
 	}
 	
 		
 	// Makes Image that does not need cropping
-	function make_resized($file_data, $module, $create_path, $size)
+	function make_resized($upload_file, $user_id, $size)
 	{	
 	    $thumb_config['image_library'] 		= 'gd2';
-	    $thumb_config['source_image'] 		= $create_path."/cropped_".$size."_".$file_data['file_name'];;
+	    $thumb_config['source_image'] 		= config_item('users_images_folder').$user_id."/cropped_".$size."_".$upload_file;;
 	    $thumb_config['maintain_ratio'] 	= TRUE;
-	    $thumb_config['new_image']			= $create_path.$size."_".$file_data['file_name'];
-	    $thumb_config['width'] 				= config_item($module.'_images_'.$size.'_width');
-	    $thumb_config['height'] 			= config_item($module.'_images_'.$size.'_height');
+	    $thumb_config['new_image']			= config_item('users_images_folder').$user_id."/".$size."_".$upload_file;
+	    $thumb_config['width'] 				= config_item('users_images_'.$size.'_width');
+	    $thumb_config['height'] 			= config_item('users_images_'.$size.'_height');
 	    
 	    $this->image_lib->initialize($thumb_config);
 	    
