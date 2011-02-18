@@ -5,7 +5,7 @@ class Settings extends Dashboard_Controller
     {
         parent::__construct();
         
-        $this->data['page_title']	= 'Settings';
+        $this->data['page_title'] = 'Settings';
     } 
  
  	function index()
@@ -47,11 +47,20 @@ class Settings extends Dashboard_Controller
 				}	
 				else
 				{
-					$data = array('upload_data' => $this->upload->data());
-					$this->load->model('image_model');			
-					$this->image_model->make_images($data['upload_data']['file_name'], $data['upload_data']['image_width'], $data['upload_data']['image_height'], $this->session->userdata('user_id'));										
-					$data['deleted'] = unlink(config_item('uploads_folder').$data['upload_data']['file_name']);
-					$user_picture = $data['upload_data']['file_name'];		
+					// Load Image Model
+					$this->load->model('image_model');
+					
+					// Upload & Sizes
+					$file_data		= $this->upload->data();
+					$image_sizes	= array('full', 'large', 'medium', 'small');
+					$create_path	= config_item('users_images_folder').$this->session->userdata('user_id').'/';
+					
+					// Do Resizes					
+					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);										
+					
+					// Delete Upload
+					$file_data['deleted'] = unlink(config_item('uploads_folder').$file_data['file_name']);
+					$user_picture = $file_data['file_name'];		
 				}	
 			}	
 	
@@ -134,8 +143,8 @@ class Settings extends Dashboard_Controller
 	        // Set the flash data error message if there is one
 	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
-			$home_base_array 									= array();
-			$home_base_array[''] 								= '--select--';
+			$home_base_array 							= array();
+			$home_base_array[''] 						= '--select--';
 			$home_base_array[config_item('site_url')]	= config_item('site_url');
 			 
 			foreach(config_item('social_connections') as $connection)
@@ -305,13 +314,12 @@ class Settings extends Dashboard_Controller
 	}
 
 	function themes()
-	{	
+	{
 		$this->data['site']					= $this->social_igniter->get_site();
 		$this->data['site_themes']			= $this->social_igniter->get_themes('site');
 		$this->data['dashboard_themes']		= $this->social_igniter->get_themes('dashboard');
 		$this->data['mobile_themes']		= $this->social_igniter->get_themes('mobile');
-		$this->data['sub_title'] 			= 'Themes';		
-		
+		$this->data['sub_title'] 			= 'Themes';	
 		$this->render('dashboard_wide');
 	}
 
@@ -325,19 +333,6 @@ class Settings extends Dashboard_Controller
 	{
 		$this->data['sub_title'] = 'Services';
 		$this->render();	
-	}
-	
- 		
-   
-    /* Modules Settings */
-	function modules()
-	{
-		$this->data['core_modules']		= config_item('core_modules');
-		$this->data['ignore_modules']	= config_item('ignore_modules');
-		$this->data['modules']			= $this->social_igniter->scan_modules();
-		$this->data['sub_title']		= 'Module';
-	
-		$this->render();
 	}
 	
 	function comments()
@@ -368,10 +363,19 @@ class Settings extends Dashboard_Controller
 	function api()
 	{
 		$this->data['sub_title'] = 'API';
-	
     	$this->render();
-    }  	
+    }
 
+    /* Modules Settings */
+	function modules()
+	{
+		$this->data['core_modules']		= config_item('core_modules');
+		$this->data['ignore_modules']	= config_item('ignore_modules');
+		$this->data['modules']			= $this->social_igniter->scan_modules();
+		$this->data['sub_title']		= 'Module';
+	
+		$this->render();
+	}
 
 	/* Update Settings */
 	function update()
