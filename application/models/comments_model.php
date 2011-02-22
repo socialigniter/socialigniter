@@ -8,9 +8,8 @@ class Comments_model extends CI_Model
     
     function get_comment($comment_id)
     {
- 		$this->db->select('comments.*, users_meta.name, users_meta.image, users_meta.url, users.username, users.email');
+ 		$this->db->select('comments.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('comments');
- 		$this->db->join('users_meta', 'users_meta.user_id = comments.user_id');
  		$this->db->join('users', 'users.user_id = comments.user_id'); 
  		$this->db->where('comment_id', $comment_id);
  		$this->db->limit(1);				
@@ -29,10 +28,9 @@ class Comments_model extends CI_Model
 		    $where = array('comments.site_id' => $site_id, 'comments.owner_id' => $owner_id, 'comments.module' => $module);
 		}
 
- 		$this->db->select('comments.*, content.title, content.title_url, users_meta.name, users_meta.image, users_meta.url, users.username, users.email');
+ 		$this->db->select('comments.*, content.title, content.title_url, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('comments');
  		$this->db->join('content', 'content.content_id = comments.content_id');
- 		$this->db->join('users_meta', 'users_meta.user_id = comments.user_id');
  		$this->db->join('users', 'users.user_id = comments.user_id');
  		$this->db->where($where);
     	$this->db->where('comments.approval !=', 'D');
@@ -52,10 +50,9 @@ class Comments_model extends CI_Model
 		    $where = array('comments.site_id' => $site_id, 'comments.module' => $module, 'comments.approval' => 'Y');
 		}
 
- 		$this->db->select('comments.*, content.title, content.title_url, users_meta.name, users_meta.image, users_meta.url, users.username, users.email');
+ 		$this->db->select('comments.*, content.title, content.title_url, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('comments');
  		$this->db->join('content', 'content.content_id = comments.content_id');
- 		$this->db->join('users_meta', 'users_meta.user_id = comments.user_id');
  		$this->db->join('users', 'users.user_id = comments.user_id');
  		$this->db->where($where);
  		$this->db->limit($limit);
@@ -83,9 +80,8 @@ class Comments_model extends CI_Model
     {
     	$where = array('content_id' => $content_id, 'approval' => $approval);
     	
- 		$this->db->select('comments.*, users_meta.name, users_meta.image, users_meta.url, users.username, users.email');
+ 		$this->db->select('comments.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('comments');
- 		$this->db->join('users_meta', 'users_meta.user_id = comments.user_id');
  		$this->db->join('users', 'users.user_id = comments.user_id');
  		$this->db->where($where);
  		$this->db->order_by('created_at', 'asc'); 

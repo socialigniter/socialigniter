@@ -9,10 +9,9 @@ class Ratings_model extends CI_Model {
     
     function get_ratings($content_id)
     {
- 		$this->db->select('ratings.*, users.username, users.email, users_meta.name, users_meta.image');
+ 		$this->db->select('ratings.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('ratings');    
  		$this->db->join('users', 'users.user_id = ratings.user_id'); 				
- 		$this->db->join('users_meta', 'users_meta.user_id = ratings.user_id');
 		$this->db->where('ratings.content_id', $content_id);
  		$this->db->order_by('created_at', 'desc'); 
  		$result = $this->db->get();	
@@ -21,10 +20,9 @@ class Ratings_model extends CI_Model {
     
 	function get_ratings_likes_user($user_id)
     {
- 		$this->db->select('ratings.*, users.username, users.email, users_meta.name, users_meta.image');
+ 		$this->db->select('ratings.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('ratings');    
  		$this->db->join('users', 'users.user_id = ratings.user_id'); 				
- 		$this->db->join('users_meta', 'users_meta.user_id = ratings.user_id');
 		$this->db->where('ratings.user_id', $user_id);
  		$this->db->order_by('created_at', 'desc'); 
  		$result = $this->db->get();	

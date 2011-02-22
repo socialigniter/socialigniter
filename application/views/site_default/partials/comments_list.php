@@ -1,5 +1,5 @@
 <li class="<?= $sub ?>comment" id="comment-<?= $comment_id ?>">
-	<a href="<?= $profiles.$comment->username ?>"><span class="<?= $sub ?>comment_thumbnail"><img src="<?= $this->social_igniter->profile_image($comment->user_id, $comment->image, $comment->email) ?>" border="0" /></span></a>
+	<a href="<?= $profiles.$comment->username ?>"><span class="<?= $sub ?>comment_thumbnail"><img src="<?= $this->social_igniter->profile_image($comment->user_id, $comment->image, $comment->gravatar) ?>" border="0" /></span></a>
 	<span class="<?= $sub ?>comment">
 		<a href="<?= $profiles.$comment->username ?>"><?= $comment->name ?></a> <?= $comment_text ?>
 		<span class="<?= $sub ?>comment_date"><?= format_datetime(config_item('comments_date_style'), $comment->created_at) ?></span>
