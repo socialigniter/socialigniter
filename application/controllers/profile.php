@@ -7,21 +7,24 @@ class Profile extends Site_Controller
 
 		if (!$this->uri->segment(2) || (config_item('users_profile') != 'TRUE')) redirect(base_url());	
 	
-		$this->user = $this->social_auth->get_user_by_username($this->uri->segment(2)); 
+		$this->user 		= $this->social_auth->get_user_by_username($this->uri->segment(2)); 
+ 		$this->user_meta	= $this->social_auth->get_user_meta($this->user->user_id);
  	
 		if($this->user)
 		{	
+			// User Data
 			$this->data['user_id'] 			= $this->user->user_id;	
 			$this->data['username'] 		= $this->user->username;
-			$this->data['email'] 			= $this->user->email;
+			$this->data['gravatar'] 		= $this->user->gravatar;
 			$this->data['name'] 			= $this->user->name;
-			$this->data['company'] 			= $this->user->company;
-			$this->data['location'] 		= $this->user->location; 
-			$this->data['url'] 				= $this->user->url; 
-			$this->data['bio'] 				= $this->user->bio; 
-			$this->data['home_base'] 		= $this->user->home_base; 
 			$this->data['image'] 			= $this->user->image; 
 			$this->data['created_on'] 		= $this->user->created_on;
+			
+			// User Meta
+			$this->data['location']			= $this->social_auth->find_user_meta_value('location', $this->user_meta);;
+			$this->data['url']				= $this->social_auth->find_user_meta_value('url', $this->user_meta);;
+			$this->data['bio']				= $this->social_auth->find_user_meta_value('bio', $this->user_meta);;
+
 			
 			// Social Connections
 			$this->data['connections']		= $this->social_auth->get_connections_user($this->user->user_id);
@@ -73,7 +76,7 @@ class Profile extends Site_Controller
 				
 				// Contributor
 				$this->data['item_user_id']			= $activity->user_id;
-				$this->data['item_avatar']			= $this->social_igniter->profile_image($activity->user_id, $activity->image, $activity->email);
+				$this->data['item_avatar']			= $this->social_igniter->profile_image($activity->user_id, $activity->image, $activity->gravatar);
 				$this->data['item_contributor']		= $activity->name;
 				$this->data['item_profile']			= base_url().'profile/'.$activity->username;
 				
@@ -85,8 +88,8 @@ class Profile extends Site_Controller
 		 		// Actions
 			 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
 			 	$this->data['item_comment_avatar']	= $this->data['logged_image'];
-			 	
-			 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify($activity->type, $activity->activity_id);
+
+			 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify('activity', $activity, $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));			 	
 				$this->data['item_edit']			= base_url().'home/'.$activity->module.'/manage/'.$activity->content_id;
 				$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
 

@@ -25,7 +25,7 @@
 <h3>Followers</h3>
 <ul>
 <?php foreach ($followers as $follower): ?>
-	<li><a href="<?= base_url().'profile/'.$follower->username ?>"><img src="<?= $this->social_igniter->profile_image($follower->user_id, $follower->image, $follower->email); ?>"> <?= $follower->name ?></a></li>
+	<li><a href="<?= base_url().'profile/'.$follower->username ?>"><img src="<?= $this->social_igniter->profile_image($follower->user_id, $follower->image, $follower->gravatar); ?>"> <?= $follower->name ?></a></li>
 <?php endforeach; ?>
 </ul>
 <?php endif; ?>
@@ -35,7 +35,7 @@
 <h3>Follows</h3>
 <ul>
 <?php foreach ($follows as $follow): ?>
-	<li><a href="<?= base_url().'profile/'.$follow->username ?>"><img src="<?= $this->social_igniter->profile_image($follow->user_id, $follow->image, $follow->email); ?>"> <?= $follow->name ?></a></li>
+	<li><a href="<?= base_url().'profile/'.$follow->username ?>"><img src="<?= $this->social_igniter->profile_image($follow->user_id, $follow->image, $follow->gravatar); ?>"> <?= $follow->name ?></a></li>
 <?php endforeach; ?>
 </ul>
 <?php endif; ?>

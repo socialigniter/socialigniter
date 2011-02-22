@@ -263,7 +263,6 @@ class Auth_model extends CI_Model
 	    }
 	    
 		$this->db->select('*');
-		$this->db->join('users_meta', 'users.user_id = users_meta.user_id');
 		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
 		
 		if (strlen($identity) === 40)
@@ -456,7 +455,6 @@ class Auth_model extends CI_Model
 	    
 	    $this->db->select('*');
 		$this->db->from('users');
-		$this->db->join('users_meta', 'users_meta.user_id = users.user_id');
 		$this->db->join('users_level', 'users_level.user_level_id = users.user_level_id');
 		$this->db->where('users.'.$this->identity_column, $identity);
 		$this->db->where('active', 1);
@@ -495,7 +493,6 @@ class Auth_model extends CI_Model
 
 	    $this->db->select('*');
 		$this->db->from('users');
-		$this->db->join('users_meta', 'users_meta.user_id = users.user_id');
 		$this->db->join('users_level', 'users_level.user_level_id = users.user_level_id');
 		$this->db->where('users.user_id', $user_id);
 		$this->db->where('active', 1);
@@ -517,17 +514,8 @@ class Auth_model extends CI_Model
 	
 	function get_users($group=false)
 	{
-		$this->db->select(array('users.user_id', 'users.username', 'users.email', 'users.active'));
-
-        foreach ($this->columns_allowed as $field)
-        {
-            $this->db->select('users_meta.'.$field);
-        }
-
-		$this->db->select(array('users.created_on', 'users.last_login'));
-
-		$this->db->join('users_meta', 'users.user_id = users_meta.user_id', 'left');
-		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id', 'left');
+		$this->db->select('*');
+		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
 
 		if (is_string($group))
 		{
@@ -548,38 +536,9 @@ class Auth_model extends CI_Model
 
 	function get_user_row()
 	{
-		$this->db->select(array('users.*', 'users_level.level AS `user_level`', 'users_level.description'));
-	    
-		if (!empty($this->columns))
-        {
-            foreach ($this->columns as $field)
-            {
-                $this->db->select('users_meta.'.$field);
-            }
-        }
-        
-		$this->db->join('users_meta', 'users.user_id = users_meta.user_id');
+		$this->db->select('*');
 		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
-
-		if (isset($this->social_auth->_extra_where))
-		{
-			$this->db->where($this->social_auth->_extra_where);
-		}
-
 		return $this->db->get('users')->row();		
-	}
-
-	
-	function get_active_users($group_name = false)
-	{
-	    $this->db->where('users.active', 1);
-		return $this->get_users($group_name);
-	}
-	
-	function get_inactive_users($group_name = false)
-	{
-	    $this->db->where('users.active', 0);
-		return $this->get_users($group_name);
 	}
 	
 	function get_user($id=false)
@@ -711,12 +670,11 @@ class Auth_model extends CI_Model
 		}
 
 		// Get User
-	    $query = $this->db->select('*')
-				  ->join('users_meta', 'users.user_id = users_meta.user_id')
-			      ->where(config_item('identity'), get_cookie('identity'))
-			      ->where('remember_code', get_cookie('remember_code'))
-			      ->limit(1)
-			      ->get('users');
+	    $this->db->select('*');
+		$this->db->where(config_item('identity'), get_cookie('identity'));
+		$this->db->where('remember_code', get_cookie('remember_code'));
+		$this->db->limit(1);
+		$query = $this->db->get('users');
 
 	    if ($query->num_rows() == 1)
 	    {
@@ -761,4 +719,14 @@ class Auth_model extends CI_Model
 
 		return FALSE;
 	}
+	
+	/* Users Meta */
+	function get_user_meta($user_id)
+	{
+ 		$this->db->select('*');
+ 		$this->db->from('users_meta');    
+ 		$result = $this->db->get();	
+ 		return $result->result();		
+	}
+	
 }

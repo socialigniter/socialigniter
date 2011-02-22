@@ -65,7 +65,7 @@ class Home extends Dashboard_Controller
 				
 				// Contributor
 				$this->data['item_user_id']			= $activity->user_id;
-				$this->data['item_avatar']			= $this->social_igniter->profile_image($activity->user_id, $activity->image, $activity->email);
+				$this->data['item_avatar']			= $this->social_igniter->profile_image($activity->user_id, $activity->image, $activity->gravatar);
 				$this->data['item_contributor']		= $activity->name;
 				$this->data['item_profile']			= base_url().'profile/'.$activity->username;
 				
@@ -127,7 +127,7 @@ class Home extends Dashboard_Controller
 				$this->data['item_viewed']			= item_viewed('item', $comment->viewed);
 				
 				// Contributor
-				$this->data['item_avatar']			= $this->social_igniter->profile_image($comment->user_id, $comment->image, $comment->email);
+				$this->data['item_avatar']			= $this->social_igniter->profile_image($comment->user_id, $comment->image, $comment->gravatar);
 				$this->data['item_contributor']		= $comment->name;
 				$this->data['item_profile']			= base_url().'profile/'.$comment->username;
 

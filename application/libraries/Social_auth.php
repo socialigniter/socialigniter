@@ -512,11 +512,24 @@ class Social_auth
 	    return $this->ci->auth_model->get_users_levels();
 	}
 	
-	function get_groups_array($user_level_id=false)
+	function get_user_meta($user_id)
 	{
-		return $this->ci->auth_model->get_groups_array($user_level_id);
+		return $this->ci->auth_model->get_user_meta($user_id);
 	}
-
+	
+	function find_user_meta_value($key, $meta_query)
+	{
+		foreach($meta_query as $meta)
+		{			
+			if ($meta->meta == $key)
+			{
+				return $meta->value;
+			}			
+		}		
+		
+		return FALSE;
+	}	
+	
 	function update_user($user_id, $data)
 	{
 		 if ($this->ci->auth_model->update_user($user_id, $data))

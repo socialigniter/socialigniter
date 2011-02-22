@@ -1,5 +1,5 @@
 <div id="profile_image">
-	<img src="<?= $this->social_igniter->profile_image($user_id, $image, $email, 'large'); ?>" border="0">
+	<img src="<?= $this->social_igniter->profile_image($user_id, $image, $gravatar, 'large'); ?>" border="0">
 </div>
 
 <div id="profile_info">
@@ -9,7 +9,6 @@
 		<?= display_value("li", "", "", $location); ?>
 		<?= display_value("li", "", "", display_link("", "", $url, $url)); ?>		
 		<?= display_value("li", "", "", $bio); ?>
-		<?= display_value("li", "", "", $home_base); ?>
 	</ul>	
 </div>
 <div class="clear"></div>
