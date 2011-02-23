@@ -34,7 +34,7 @@ class Social_auth
 		$this->ci->load->model('connections_model');
 		
 		// Auto-login user if they're remembered
-		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
+		if (!$this->logged_in() && get_cookie('email') && get_cookie('remember_code'))
 		{
 			if ($user = $this->ci->auth_model->login_remembered_user())
 			{
@@ -134,16 +134,14 @@ class Social_auth
 		}
 	}
 	
-	function change_password($identity, $old, $new)
+	function change_password($user_id, $old, $new)
 	{
-        if ($this->ci->auth_model->change_password($identity, $old, $new))
+        if ($this->ci->auth_model->change_password($user_id, $old, $new))
         {
-        	$this->set_message('password_change_successful');
         	return TRUE;
         }
         else
         {
-        	$this->set_error('password_change_unsuccessful');
         	return FALSE;
         }
 	}
@@ -155,7 +153,7 @@ class Social_auth
 			$profile = $this->ci->auth_model->profile($email);
 
 			$data = array(
-				'identity' 					=> $profile->{config_item('identity')}, 
+				'email' 					=> $profile->email, 
 				'forgotten_password_code'	=> $profile->forgotten_password_code
 			);			
 
@@ -189,8 +187,7 @@ class Social_auth
 
 	function forgotten_password_complete($code)
 	{
-	    $identity     = config_item('identity');
-	    $profile      = $this->ci->auth_model->profile($code);
+	    $profile = $this->ci->auth_model->profile($code);
 
         if (!is_object($profile)) 
         {
@@ -203,7 +200,7 @@ class Social_auth
 		if ($new_password) 
 		{
 			$data = array(
-				'identity' 		=> $profile->{$identity}, 
+				'email' 		=> $profile->email, 
 				'new_password'	=> $new_password
 			);
             
@@ -313,11 +310,10 @@ class Social_auth
 			}
 
 			$activation_code = $this->ci->auth_model->activation_code;
-			$identity        = config_item('identity');
 	    	$user            = $this->ci->auth_model->get_user($user_id);
 
 			$data = array(
-				'identity'   => $user->{$identity},
+				'email'   	 => $user->email,
 				'user_id'    => $user->user_id,
 				'email'      => $email,
 				'activation' => $activation_code,
@@ -360,9 +356,9 @@ class Social_auth
 		}
 	}
 	
-	function login($identity, $password, $remember=false)
+	function login($email, $password, $remember=false)
 	{
-		if ($this->ci->auth_model->login($identity, $password, $remember))
+		if ($this->ci->auth_model->login($email, $password, $remember))
 		{        				
 			$this->set_message('login_successful');
 			return TRUE;
@@ -390,16 +386,16 @@ class Social_auth
 	
 	function logout()
 	{
-	    $this->ci->session->unset_userdata(config_item('identity'));
+	    $this->ci->session->unset_userdata('email');
 
 		foreach (config_item('user_data') as $item)
 		{	
 		    $this->ci->session->unset_userdata($item);	    
 	    }		
 	    
-	    if (get_cookie('identity')) 
+	    if (get_cookie('email')) 
 	    {
-	    	delete_cookie('identity');	
+	    	delete_cookie('email');	
 	    }
 	    
 		if (get_cookie('remember_code')) 
@@ -415,7 +411,7 @@ class Social_auth
 	
 	function logged_in()
 	{
-		return (bool) $this->ci->session->userdata(config_item('identity'));
+		return (bool) $this->ci->session->userdata('email');
 	}
 
 	function is_admin()
@@ -446,10 +442,9 @@ class Social_auth
 		
 	function profile()
 	{
-	    $session  = config_item('identity');
-	    $identity = $this->ci->session->userdata($session);
+	    $email = $this->ci->session->userdata('email');
 	    
-	    return $this->ci->auth_model->profile($identity);
+	    return $this->ci->auth_model->profile($email);
 	}
 	
 	function get_users($group_name=false)
@@ -515,6 +510,11 @@ class Social_auth
 		return FALSE;
 	}	
 	
+	function add_user_meta($meta_data)
+	{
+		return $this->ci->auth_model->add_user_meta($meta_data);
+	}
+	
 	function update_user($user_id, $data)
 	{
 		 if ($this->ci->auth_model->update_user($user_id, $data))
@@ -546,7 +546,7 @@ class Social_auth
 	// Sets Userdate
 	function set_userdata($user)
 	{
-		$this->ci->session->set_userdata(config_item('identity'),  $user->{config_item('identity')});
+		$this->ci->session->set_userdata('email',  $user->email);
 
 		foreach (config_item('user_data') as $item)
 		{

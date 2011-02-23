@@ -184,6 +184,7 @@ class Site extends Site_Controller
         		$remember = FALSE;
         	}
         	
+        	// Attempt Login
         	if ($this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
         	{
 	        	$this->session->set_flashdata('message', "Logged In Successfully");
@@ -199,8 +200,7 @@ class Site extends Site_Controller
 		{
 			// The user is not logging in so display the login page	    
 	        $this->data['message'] 			= (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->data['name']      		= "";			    
-			$this->data['email']      		= "";
+			$this->data['email']      		= $this->input->post('email');
             $this->data['password']   		= "";
         	$this->data['password_confirm'] = "";
 	        $this->data['page_title'] 		= "Login";	            	

@@ -86,8 +86,10 @@ $route['api/tags']									= 'api/tags';
 
 /* Users */
 $route['api/users/modify/(:any)/(:any)']			= 'api/users/modify/$1/$2';
+$route['api/users/details/(:any)/(:any)']			= 'api/users/details/$1/$2';
 $route['api/users/activate/(:any)/(:any)']			= 'api/users/activate/$1/$2';
 $route['api/users/recent']							= 'api/users/recent';
+$route['api/users/password']						= 'api/users/password';
 $route['api/users/create']							= 'api/users/create';
 
 /* API Modules */

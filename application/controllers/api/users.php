@@ -62,19 +62,13 @@ class Users extends Oauth_Controller
 
         if ($this->form_validation->run() == true)
         {
-            
 			$username			= url_username($this->input->post('name'), 'none', true);
 	    	$email				= $this->input->post('email');
 	    	$password			= $this->input->post('password');
 	    	$additional_data 	= array(
 	    		'name'			=> $this->input->post('name'),
 	    		'phone'			=> preg_replace("/[^0-9]*/", "", $this->input->post('phone')),
-	    		'phone_verify'	=> random_element(config_item('mobile_verify')),
-	        	'location'		=> $this->input->post('location'),
-	        	'license_plate'	=> $this->input->post('license_plate'),
-	    		'is_car'		=> 1,
-	    		'is_driveway'	=> 0,
-	    		'user_state'	=> 'needs-verify'
+	    		'phone_verify'	=> random_element(config_item('mobile_verify'))
 	    	);
 	    	        	
 	    	if ($this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group')))
@@ -88,16 +82,15 @@ class Users extends Oauth_Controller
         } 
 		else
 		{ 
-		        $message = array('message' => 'Oops you are missing '.validation_errors());
+			$message = array('message' => 'Oops you are missing '.validation_errors());
         }
         
         $this->response($message, 200);
     }
 
 	// Update User    
-    function update_authd_post()
-    {
-    
+    function modify_authd_post()
+    {    
     	// Delete Picture
     	if ($this->input->post('delete_pic') == 1)
     	{
@@ -105,7 +98,6 @@ class Users extends Oauth_Controller
     		delete_files($this->config->item('profile_images').$user->user_id."/");
     		$user_picture = '';
     	}    
-    
     
     	// Upload Picture
 		if (!$this->input->post('userfile'))
@@ -142,19 +134,21 @@ class Users extends Oauth_Controller
 			}	
 		}	   
     
-    
     	$update_data = array(
     		'username'		=> url_username($this->input->post('username'), 'none', true),
         	'email'			=> $this->input->post('email'),
+        	'gravatar'		=> md5($this->input->post('email')),
+        	'name'			=> $this->input->post('name'),
+        	'image'			=> $user_picture,
+        	'time_zone'		=> $this->input->post('time_zone'),
         	'privacy'		=> $this->input->post('privacy'),
         	'language'		=> $this->input->post('language'),
-        	'geo_enable'	=> $this->input->post('bio'),
-        	'time_zone'		=> $this->input->post('time_zone')
+        	'geo_enable'	=> $this->input->post('geo_enable'),
     	);
     	
     	if ($this->social_auth->update_user($this->get('id'), $update_data))
     	{
-	        $message = array('status' => 'success', 'message' => 'User chnages saved');
+	        $message = array('status' => 'success', 'message' => 'User changes saved');
    		}
    		else
    		{
@@ -162,6 +156,57 @@ class Users extends Oauth_Controller
    		}        
         
         $this->response($message, 200);
+    }
+    
+    function details_authd_post()
+    {
+    	if ($this->oauth_user_id == $this->get('id'))
+    	{
+			$user_meta_data = array();
+			
+			// Build Meta
+			foreach (config_item('user_data_meta') as $config_meta)
+			{
+				$user_meta_data[$config_meta] = $this->input->post($config_meta);
+			}
+	    	
+	    	// Update
+	    	if ($update_meta = $this->social_auth->update_user_meta($user_id, $user_meta_data))
+	    	{
+		        $message = array('status' => 'success', 'message' => 'User details saved', 'data' => $user_meta_data);
+	   		}
+	   		else
+	   		{
+		        $message = array('status' => 'error', 'message' => 'Could not save user details at this time');
+	   		}	
+    	}
+
+    	$this->response($message, 200);
+    }
+    
+    function password_authd_post()
+    {
+	    $this->form_validation->set_rules('old_password', 'Old password', 'required');
+	    $this->form_validation->set_rules('new_password', 'New Password', 'required|min_length['.config_item('min_password_length').']|max_length['.config_item('max_password_length').']|matches[new_password_confirm]');
+	    $this->form_validation->set_rules('new_password_confirm', 'Confirm New Password', 'required');
+	   	
+	    if ($this->form_validation->run() == true) 
+	    {
+    		if ($change = $this->social_auth->change_password($this->oauth_user_id, $this->input->post('old_password'), $this->input->post('new_password')))
+    		{
+		        $message = array('status' => 'success', 'message' => 'Password changed Successfully');
+    		}
+    		else
+    		{
+		        $message = array('status' => 'success', 'message' => 'Oops could not change your password');    		
+    		}
+	    }
+	    else
+	    {
+	        $message = array('status' => 'error', 'message' => validation_errors());
+	    }
+	    
+	    $this->response($message, 200);    
     }
     
 	// Activate User

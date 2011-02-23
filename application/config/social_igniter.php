@@ -29,7 +29,6 @@ $config['user_data']					= array('user_id','username','user_level_id','gravatar'
 $config['user_data_meta']				= array('company','location','url','bio', 'phone');
 
 // Users & Login
-$config['identity']            			= 'email';				// A database column which is used to login with.		 
 $config['super_admin_group']         	= 'superadmin';			// Super administrators group
 $config['admin_group']         			= 'admin';				// Admin group
 $config['default_group']       			= 'user';				// Default group

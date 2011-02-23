@@ -19,64 +19,32 @@ class Settings extends Dashboard_Controller
 	    $this->data['sub_title'] = "Profile";
 	    
 		$user = $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 
-	    
-    	$this->form_validation->set_rules('username', 'Username', 'required|min_length['.config_item('min_username_length').']|max_length['.config_item('max_username_length').']');
-    	$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 
-        if ($this->form_validation->run() == true) { 
-
-        	$update_data = array(
-				'username' 		=> url_username($this->input->post('username'), 'none', true),
-	        	'email'			=> $this->input->post('email'),
-	        	'language'		=> $this->input->post('language'),
-	        	'time_zone'		=> $this->input->post('timezones'),
-	        	'geo_enabled'	=> $this->input->post('geo_enabled'),
-	        	'privacy'		=> $this->input->post('privacy'),
-	        	'utc_offset'	=> timezones($this->input->post('timezones')) * 60 * 60      					
-			);
+/*
+    	$update_data = array(
+			'username' 		=> url_username($this->input->post('username'), 'none', true),
+        	'email'			=> $this->input->post('email'),
+        	'language'		=> $this->input->post('language'),
+        	'time_zone'		=> $this->input->post('timezones'),
+        	'geo_enabled'	=> $this->input->post('geo_enabled'),
+        	'privacy'		=> $this->input->post('privacy'),
+        	'utc_offset'	=> timezones($this->input->post('timezones')) * 60 * 60      					
+		);
         	
-        	// Update the user
-        	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
-        	{        	
-				foreach ($update_data as $field => $value)
-				{
-				    $this->session->set_userdata($field,  $value);			
-				}
-        		
-       			redirect('settings/account', 'refresh');
-       		}
-       		else
-       		{
-       		    $this->session->set_flashdata('message', "Unable To Update Settings");       		
-       			redirect('settings/account', 'refresh');
-       		}   
-		} 
-		else
-		{ 	
-	        // Set the flash data error message if there is one
-	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
-			$home_base_array 							= array();
-			$home_base_array[''] 						= '--select--';
-			$home_base_array[config_item('site_url')]	= config_item('site_url');
-			 
-			foreach(config_item('social_connections') as $connection)
-			{ 
-			  $home_base_array[$connection] = $connection;
-			}	        
-
-	 	 	$this->data['image']		= is_empty($user->image);
-		 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar, 'small');
-			$this->data['name']			= $user->name;
-			$this->data['username']     = $user->username;			    
-			$this->data['email']      	= $user->email;
-			$this->data['language']		= $user->language;
-			$this->data['time_zone']	= $user->time_zone;
-			$this->data['geo_enabled']	= $user->geo_enabled;
-			$this->data['privacy'] 		= $user->privacy;
-            
- 			$this->render();	
-		}
+    	// Update the user
+    	$this->social_auth->update_user($this->session->userdata('user_id'), $update_data);
+*/       
+ 	 	$this->data['image']		= is_empty($user->image);
+	 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar, 'small');
+		$this->data['name']			= $user->name;
+		$this->data['username']     = $user->username;			    
+		$this->data['email']      	= $user->email;
+		$this->data['language']		= $user->language;
+		$this->data['time_zone']	= $user->time_zone;
+		$this->data['geo_enabled']	= $user->geo_enabled;
+		$this->data['privacy'] 		= $user->privacy;
+        
+		$this->render();
  	}
  	
  		
@@ -85,52 +53,40 @@ class Settings extends Dashboard_Controller
 		$user		= $this->social_auth->get_user('user_id', $this->session->userdata('user_id'));
 		$user_meta	= $this->social_auth->get_user_meta($this->session->userdata('user_id'));
 
+		foreach (config_item('user_data_meta') as $config_meta)
+		{
+			if ($this_meta = $this->social_auth->find_user_meta_value($config_meta, $user_meta))
+			{
+				$this->data[$config_meta] = $this_meta;		
+			}
+			else
+			{
+				$add_user_meta = array(
+					'user_id'	=> $this->session->userdata('user_id'),
+					'site_id'	=> config_item('site_id'),
+					'module'	=> 'users',
+					'meta'		=> $config_meta,
+					'value'		=> ''
+				);
+			
+				$this->social_auth->add_user_meta($add_user_meta);
+				$this->data[$config_meta] = '';
+			}
+		}
+
  	    $this->data['sub_title'] 	= "Details";
-	    $this->data['message'] 		= validation_errors();
- 		$this->data['name'] 		= is_empty($user->name);
-        $this->data['company'] 		= is_empty($user->company);
-        $this->data['location'] 	= is_empty($user->location);
-        $this->data['url']      	= is_empty($user->url);
-        $this->data['bio']      	= is_empty($user->bio);
 	 	
  		$this->render();	
  	}
  	
 	function password() 
 	{
-	    $this->data['sub_title'] = "Password";
-		    
-	    $this->form_validation->set_rules('old_password', 'Old password', 'required');
-	    $this->form_validation->set_rules('new_password', 'New Password', 'required|min_length['.config_item('min_password_length').']|max_length['.config_item('max_password_length').']|matches[new_password_confirm]');
-	    $this->form_validation->set_rules('new_password_confirm', 'Confirm New Password', 'required');
-	   	    
-	    if ($this->form_validation->run() == true) 
-	    { 
-	        $identity = $this->session->userdata(config_item('identity'));
-	        
-	        $change = $this->social_auth->change_password($identity, $this->input->post('old_password'), $this->input->post('new_password'));
-		
-    		if ($change)
-    		{ 
-    			$this->session->set_flashdata('message', 'Password Changed Successfully');
-    			redirect('settings/password', 'refresh');
-    		}
-    		else
-    		{
-    			$this->session->set_flashdata('message', 'Password Change Failed');
-    			redirect('settings/password', 'refresh');
-    		}
-	    }
-	    else
-	    {
-	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-        												 
-        	$this->data['old_password']   		= $this->input->post('old_password');
-        	$this->data['new_password']   		= $this->input->post('new_password');
-        	$this->data['new_password_confirm'] = $this->input->post('new_password_confirm');
-	        
- 			$this->render();	
-	    }
+	    $this->data['sub_title']			= "Password";			 
+    	$this->data['old_password']   		= $this->input->post('old_password');
+    	$this->data['new_password']   		= $this->input->post('new_password');
+    	$this->data['new_password_confirm'] = $this->input->post('new_password_confirm');
+        
+		$this->render();
 	}
 
   	function mobile()
