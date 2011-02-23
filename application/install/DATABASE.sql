@@ -200,6 +200,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'site', 'tagline', 'Where I Post All My A
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'keywords', 'awesome, things, pictures, videos, poems, watermelons, cats, ninjas');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'description', 'This is my awesome website where I post awesome stuff. Some of my favorite things are ninjas, watermelons, and cats');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'url', 'http://domainname.com');
+INSERT INTO `settings` VALUES(NULL, 1, 'site', 'languages_default', 'en');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'admin_email', 'you@email.com');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'email_protocol', 'mail');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'smtp_host', '');
@@ -235,6 +236,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'tags_display', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'comments_allow', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'comments_per_page', '10');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'public_timeline', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'home', 'status_length', '140');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'date_style', 'ELAPSED');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'description_length', '110');
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'share', 'TRUE');

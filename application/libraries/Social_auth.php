@@ -569,6 +569,14 @@ class Social_auth
 	    }
 	}
 
+	function set_userdata_meta($user_meta)
+	{
+		foreach ($user_meta as $meta)
+		{
+		    $this->ci->session->set_userdata($meta->meta,  $meta->value);
+	    }
+	}
+
 	function set_userdata_connections($user_id)
 	{	
 		$this->ci->session->set_userdata('user_connections', $this->get_connections_user($user_id));

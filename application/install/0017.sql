@@ -18,3 +18,5 @@ ALTER TABLE `users` ADD `consumer_key` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE 
 ALTER TABLE `users` ADD `consumer_secret` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `consumer_key`;
 ALTER TABLE `users` ADD `token` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `consumer_secret`;
 ALTER TABLE `users` ADD `token_secret` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `token`;
+
+INSERT INTO `settings` VALUES(NULL, 1, 'home', 'status_length', '140');

@@ -22,6 +22,18 @@
 
 <div class="content_wrap_inner">
 
+	<h3>Display</h3>
+
+	<p>Language
+	<?= form_dropdown('languages_default', config_item('languages'), $settings['site']['languages_default']) ?>
+	</p>
+
+</div>
+
+<span class="item_separator"></span>
+
+<div class="content_wrap_inner">
+
 	<h3>Technical</h3>
 
 	<p>Domain<br>

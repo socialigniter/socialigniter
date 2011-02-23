@@ -15,37 +15,28 @@
 // Site Settings
 $config['site_type']					= "default";
 $config['site_id']						= 1;
-$config['default_group']       			= 'user';
-$config['admin_group']         			= 'admin';
+
+$config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian');
 
 // Settings
 $config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','locations');
 $config['ignore_modules']				= array('index.html');
 $config['site_modules']					= array('site','themes','widgets','services');
 $config['home_greeting']				= array('There is no place like home','Welcome home buddy','Good news, you are home','Sweet home, Interwebs','Home again, home again, jigity jog');
-$config['mobile_verify']				= array('borogoves','gyre','jabberwocky','jubjub','frumious','bandersnatch','vorpal','tumtum','tulgey','burbled','snicker','snack','galumph','callooh','brillig','slithy','gimble'); //dont use the word verified
-$config['cool_salutations']				= array('Yo-zers','Howdi','Hola','Bonjour','Aloha','Wassup','Hey');
+$config['mobile_verify']				= array('borogoves','gyre','jabberwocky','jubjub','frumious','bandersnatch','vorpal','tumtum','tulgey','burbled','snicker','snack','galumph','callooh','brillig','slithy','gimble');
+$config['cool_salutations']				= array('Yo!','Howdi','Hola','Bonjour','Aloha','Wassup','Hey');
 $config['cool_phrases']					= array('wicked sweet','dope sick','super fresh','super duper','totally boss','über tight','dang sexy','beautiful');
+$config['user_data']					= array('user_id','username','user_level_id','gravatar','name','image','language','time_zone','geo_enabled','privacy','consumer_key','consumer_secret','token','token_secret');	
+$config['user_data_meta']				= array('company','location','url','bio', 'phone');
 
-$config['status_length']				= "140";
-$config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian');
-$config['languages_default']			= 'en';
-$config['social_connections']			= array();
-$config['social_logins']				= array();
-$config['social_post']					= array();
-$config['social_checkins']				= array();
-
-// Columns in your meta table, id not required.
-$config['columns']             			= array('name','company','phone','phone_verify','phone_active','phone_search','location','url','bio','image','home_base','language','time_zone','geo_enabled','privacy','utc_offset','consumer_key','consumer_secret','token','token_secret');
-$config['columns_allowed']				= array('name','image','location','language','time_zone','geo_enabled','privacy');
-$config['user_data']					= array('user_id','username','user_level_id','consumer_key','consumer_secret','token','token_secret','name','image','location','language','time_zone','geo_enabled','privacy');	
 $config['identity']            			= 'email';				// A database column which is used to login with.		 
-$config['super_admin_group']         	= 'superadmin';			// Super administrators group, use name
-$config['default_group']       			= 'user';				// Default group, use name
-$config['comments_group']       		= 'user';				// Comments group, use name
-$config['admin_group']         			= 'admin';				// Default administrators group, use name
+$config['super_admin_group']         	= 'superadmin';			// Super administrators group
+$config['admin_group']         			= 'admin';				// Admin group
+$config['default_group']       			= 'user';				// Default group
+$config['comments_group']       		= 'user';				// Comments group
+
 $config['min_username_length'] 			= 3;					// Minimum Required Length of Username
-$config['max_username_length'] 			= 20;					// Maximum Allowed Length of Username
+$config['max_username_length'] 			= 32;					// Maximum Allowed Length of Username
 $config['min_password_length'] 			= 8;					// Minimum Required Length of Password
 $config['max_password_length'] 			= 20;					// Maximum Allowed Length of Password
 $config['password_strength'] 			= 3;					// Maximum Allowed Length of Password
