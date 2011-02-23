@@ -487,26 +487,11 @@ class Social_auth
 	    return $this->ci->auth_model->get_inactive_users($group_name)->result_array();
 	}
 	
-	function get_user($user_id=false)
+	function get_user($parameter, $value)
 	{
-	    return $this->ci->auth_model->get_user($user_id);
-	}
-	
-	function get_user_by_email($email)
-	{
-	    return $this->ci->auth_model->get_user_by_email($email);
+	    return $this->ci->auth_model->get_user($parameter, $value);
 	}
 
-	function get_user_by_username($username)
-	{
-	    return $this->ci->auth_model->get_user_by_username($username);
-	}
-	
-	function get_user_array($user_id=false)
-	{
-	    return $this->ci->auth_model->get_user($user_id)->row_array();
-	}
-	
 	function get_users_levels()
 	{
 	    return $this->ci->auth_model->get_users_levels();

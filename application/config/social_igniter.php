@@ -15,7 +15,6 @@
 // Site Settings
 $config['site_type']					= "default";
 $config['site_id']						= 1;
-
 $config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian');
 
 // Settings
@@ -29,12 +28,12 @@ $config['cool_phrases']					= array('wicked sweet','dope sick','super fresh','su
 $config['user_data']					= array('user_id','username','user_level_id','gravatar','name','image','language','time_zone','geo_enabled','privacy','consumer_key','consumer_secret','token','token_secret');	
 $config['user_data_meta']				= array('company','location','url','bio', 'phone');
 
+// Users & Login
 $config['identity']            			= 'email';				// A database column which is used to login with.		 
 $config['super_admin_group']         	= 'superadmin';			// Super administrators group
 $config['admin_group']         			= 'admin';				// Admin group
 $config['default_group']       			= 'user';				// Default group
 $config['comments_group']       		= 'user';				// Comments group
-
 $config['min_username_length'] 			= 3;					// Minimum Required Length of Username
 $config['max_username_length'] 			= 32;					// Maximum Allowed Length of Username
 $config['min_password_length'] 			= 8;					// Minimum Required Length of Password

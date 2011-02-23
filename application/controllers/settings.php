@@ -14,97 +14,11 @@ class Settings extends Dashboard_Controller
  	}
 
 	/* User Settings */
- 	function profile()
- 	{	
-		$user			= $this->social_auth->get_user($this->session->userdata('user_id')); 
-		$user_picture 	= $user->image; 
-
-   		$this->form_validation->set_rules('name', 'Name', 'required');
-
-        if ($this->form_validation->run() == true)
-        {
-        	if ($this->input->post('delete_pic') == 1)
-        	{
-				$this->load->helper('file');
-        		delete_files($this->config->item('profile_images').$user->user_id."/");
-        		$user_picture = '';
-        	}
-	           
-			if (!$this->input->post('userfile'))
-			{
-				$config['upload_path'] 		= config_item('uploads_folder');
-				$config['allowed_types'] 	= config_item('users_images_formats');		
-				$config['overwrite']		= true;
-				$config['max_size']			= config_item('users_images_max_size');
-				$config['max_width']  		= config_item('users_images_max_dimensions');
-				$config['max_height']  		= config_item('users_images_max_dimensions');
-			
-				$this->load->library('upload',$config);
-				
-				if (!$this->upload->do_upload())
-				{
-					$error = array('error' => $this->upload->display_errors());
-				}	
-				else
-				{
-					// Load Image Model
-					$this->load->model('image_model');
-					
-					// Upload & Sizes
-					$file_data		= $this->upload->data();
-					$image_sizes	= array('full', 'large', 'medium', 'small');
-					$create_path	= config_item('users_images_folder').$this->session->userdata('user_id').'/';
-					
-					// Do Resizes					
-					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);										
-					
-					// Delete Upload
-					$file_data['deleted'] = unlink(config_item('uploads_folder').$file_data['file_name']);
-					$user_picture = $file_data['file_name'];		
-				}	
-			}	
-	
-	    	$update_data = array(
-	        	'name'		=> $this->input->post('name'),
-	        	'company'	=> $this->input->post('company'),
-	        	'location'	=> $this->input->post('location'),
-	        	'url'		=> $this->input->post('url'),
-	        	'bio'		=> $this->input->post('bio'),
-	        	'image'		=> $user_picture 
-			);
-
-	    	// Update the user
-	    	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
-	    	{
-				foreach ($update_data as $field => $value)
-				{
-				    $this->session->set_userdata($field,  $value);			
-				}
-	   		}
-	   		
-	   		redirect('settings/profile', 'refresh');
-		} 
-		else 
-		{ 	
-	 	    $this->data['sub_title'] 	= "Profile";
-		    $this->data['message'] 		= validation_errors();
-	 		$this->data['name'] 		= is_empty($user->name);
-	        $this->data['company'] 		= is_empty($user->company);
-	        $this->data['location'] 	= is_empty($user->location);
-	        $this->data['url']      	= is_empty($user->url);
-	        $this->data['bio']      	= is_empty($user->bio);
-	 	 	$this->data['image']		= is_empty($user->image);
-		 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->email, 'small');
-		}	    
- 	 	
- 		$this->render();	
- 	}
- 	
-	function account()
+	function profile()
  	{
-	    $this->data['sub_title'] = "Account";
+	    $this->data['sub_title'] = "Profile";
 	    
-	    $user = $this->social_auth->get_user($this->session->userdata('user_id')); 
+		$user = $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 
 	    
     	$this->form_validation->set_rules('username', 'Username', 'required|min_length['.config_item('min_username_length').']|max_length['.config_item('max_username_length').']');
     	$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -114,7 +28,6 @@ class Settings extends Dashboard_Controller
         	$update_data = array(
 				'username' 		=> url_username($this->input->post('username'), 'none', true),
 	        	'email'			=> $this->input->post('email'),
-	        	'home_base'		=> $this->input->post('home_base'),
 	        	'language'		=> $this->input->post('language'),
 	        	'time_zone'		=> $this->input->post('timezones'),
 	        	'geo_enabled'	=> $this->input->post('geo_enabled'),
@@ -152,17 +65,35 @@ class Settings extends Dashboard_Controller
 			  $home_base_array[$connection] = $connection;
 			}	        
 
-			$this->data['username']      	= $user->username;			    
-			$this->data['email']      		= $user->email;
-			$this->data['home_base_array']	= $home_base_array;
-			$this->data['home_base']		= $user->home_base;
-			$this->data['language']			= $user->language;
-			$this->data['time_zone']		= $user->time_zone;
-			$this->data['geo_enabled']		= $user->geo_enabled;
-			$this->data['privacy'] 			= $user->privacy;
+	 	 	$this->data['image']		= is_empty($user->image);
+		 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar, 'small');
+			$this->data['name']			= $user->name;
+			$this->data['username']     = $user->username;			    
+			$this->data['email']      	= $user->email;
+			$this->data['language']		= $user->language;
+			$this->data['time_zone']	= $user->time_zone;
+			$this->data['geo_enabled']	= $user->geo_enabled;
+			$this->data['privacy'] 		= $user->privacy;
             
  			$this->render();	
 		}
+ 	}
+ 	
+ 		
+ 	function details()
+ 	{	
+		$user		= $this->social_auth->get_user('user_id', $this->session->userdata('user_id'));
+		$user_meta	= $this->social_auth->get_user_meta($this->session->userdata('user_id'));
+
+ 	    $this->data['sub_title'] 	= "Details";
+	    $this->data['message'] 		= validation_errors();
+ 		$this->data['name'] 		= is_empty($user->name);
+        $this->data['company'] 		= is_empty($user->company);
+        $this->data['location'] 	= is_empty($user->location);
+        $this->data['url']      	= is_empty($user->url);
+        $this->data['bio']      	= is_empty($user->bio);
+	 	
+ 		$this->render();	
  	}
  	
 	function password() 

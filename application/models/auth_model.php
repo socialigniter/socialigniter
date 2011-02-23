@@ -512,64 +512,48 @@ class Auth_model extends CI_Model
 		return FALSE;
 	}
 	
-	function get_users($group=false)
+	function get_users($parameter, $value)
 	{
-		$this->db->select('*');
-		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
-
-		if (is_string($group))
-		{
-			$this->db->where('users_level.level', $group);
+    	if (in_array($parameter, array('user_level_id','active')))
+    	{	
+			$this->db->select('*');
+	 		$this->db->from('users');
+			$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
+			$this->db->where('users.'.$parameter, $where);
+	 		$result = $this->db->get();	
+	 		return $result->result();		
 		}
-		elseif (is_array($group))
+		else
 		{
-			$this->db->where_in('users_level.level', $group);
+			return FALSE;
 		}
-
-		if (isset($this->social_auth->_extra_where))
-		{
-			$this->db->where($this->social_auth->_extra_where);
-		}
-
-		return $this->db->get('users');
-	}
-
-	function get_user_row()
-	{
-		$this->db->select('*');
-		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
-		return $this->db->get('users')->row();		
 	}
 	
-	function get_user($id=false)
+	function get_user($parameter, $value)
 	{
-		if (empty($id)) $id = $this->session->userdata('user_id');
-		
-		$this->db->where('users.user_id', $id);
-		$this->db->limit(1);
-		return $this->get_user_row();
-	}
-	
-	function get_user_by_email($email)
-	{
-		$this->db->where('users.email', $email);
-		$this->db->limit(1);
-		return $this->get_user_row();
+    	if (in_array($parameter, array('user_id','username', 'email','gravatar')))
+    	{
+			$this->db->select('*');
+	 		$this->db->from('users');
+			$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');		
+			$this->db->where('users.'.$parameter, $value);
+			$this->db->limit(1);    
+	 		$result = $this->db->get()->row();	
+	 		return $result;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
-	function get_user_by_username($username)
+	function get_user_meta($user_id)
 	{
-		$this->db->where('users.username', $username);
-		$this->db->limit(1);
-		return $this->get_user_row();
+ 		$this->db->select('*');
+ 		$this->db->from('users_meta');    
+ 		$result = $this->db->get();	
+ 		return $result->result();		
 	}
-	
-	function get_newest_users($limit = 10)
-  	{
-    	$this->db->order_by('users.created_on', 'desc');
-    	$this->db->limit($limit);
-    	return $this->get_users();
-  	}
 	
 	function get_users_levels()
 	{	
@@ -719,14 +703,4 @@ class Auth_model extends CI_Model
 
 		return FALSE;
 	}
-	
-	/* Users Meta */
-	function get_user_meta($user_id)
-	{
- 		$this->db->select('*');
- 		$this->db->from('users_meta');    
- 		$result = $this->db->get();	
- 		return $result->result();		
-	}
-	
 }

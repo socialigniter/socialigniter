@@ -97,19 +97,68 @@ class Users extends Oauth_Controller
 	// Update User    
     function update_authd_post()
     {
+    
+    	// Delete Picture
+    	if ($this->input->post('delete_pic') == 1)
+    	{
+			$this->load->helper('file');
+    		delete_files($this->config->item('profile_images').$user->user_id."/");
+    		$user_picture = '';
+    	}    
+    
+    
+    	// Upload Picture
+		if (!$this->input->post('userfile'))
+		{
+			$config['upload_path'] 		= config_item('uploads_folder');
+			$config['allowed_types'] 	= config_item('users_images_formats');		
+			$config['overwrite']		= true;
+			$config['max_size']			= config_item('users_images_max_size');
+			$config['max_width']  		= config_item('users_images_max_dimensions');
+			$config['max_height']  		= config_item('users_images_max_dimensions');
+		
+			$this->load->library('upload',$config);
+			
+			if (!$this->upload->do_upload())
+			{
+				$error = array('error' => $this->upload->display_errors());
+			}	
+			else
+			{
+				// Load Image Model
+				$this->load->model('image_model');
+				
+				// Upload & Sizes
+				$file_data		= $this->upload->data();
+				$image_sizes	= array('full', 'large', 'medium', 'small');
+				$create_path	= config_item('users_images_folder').$user->user_id.'/';
+				
+				// Do Resizes					
+				$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);										
+				
+				// Delete Upload
+				$file_data['deleted'] = unlink(config_item('uploads_folder').$file_data['file_name']);
+				$user_picture = $file_data['file_name'];		
+			}	
+		}	   
+    
+    
     	$update_data = array(
-    		'username'	=> url_username($this->input->post('name'), 'none', true),
-        	'name'		=> $this->input->post('name'),
-        	'bio'		=> $this->input->post('bio')
+    		'username'		=> url_username($this->input->post('username'), 'none', true),
+        	'email'			=> $this->input->post('email'),
+        	'privacy'		=> $this->input->post('privacy'),
+        	'language'		=> $this->input->post('language'),
+        	'geo_enable'	=> $this->input->post('bio'),
+        	'time_zone'		=> $this->input->post('time_zone')
     	);
     	
     	if ($this->social_auth->update_user($this->get('id'), $update_data))
     	{
-	        $message = array('status' => 'success', 'message' => 'User updated');
+	        $message = array('status' => 'success', 'message' => 'User chnages saved');
    		}
    		else
    		{
-	        $message = array('status' => 'error', 'message' => 'Could not update user');
+	        $message = array('status' => 'error', 'message' => 'Could not save user change');
    		}        
         
         $this->response($message, 200);

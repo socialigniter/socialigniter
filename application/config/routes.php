@@ -133,7 +133,7 @@ $route['profile/:any'] 								= 'profile/index';
 
 /* Settings */
 $route['settings/profile'] 							= 'settings/profile';
-$route['settings/account'] 							= 'settings/account';
+$route['settings/details'] 							= 'settings/details';
 $route['settings/password'] 						= 'settings/password';
 $route['settings/mobile'] 							= 'settings/mobile';
 $route['settings/connections'] 						= 'settings/connections';

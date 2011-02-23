@@ -20,3 +20,4 @@ ALTER TABLE `users` ADD `token` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_un
 ALTER TABLE `users` ADD `token_secret` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `token`;
 
 INSERT INTO `settings` VALUES(NULL, 1, 'home', 'status_length', '140');
+INSERT INTO `settings` VALUES(NULL, 1, 'site', 'languages_default', 'en');
