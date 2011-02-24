@@ -3,8 +3,8 @@
 <ul class="content_navigation">
 	<?= navigation_list_btn('settings/profile', 'Profile') ?>
 	<?= navigation_list_btn('settings/details', 'Details') ?>
-	<?= navigation_list_btn('settings/password', 'Password') ?>
 	<?= navigation_list_btn('settings/mobile', 'Mobile') ?>
+	<?= navigation_list_btn('settings/password', 'Password') ?>
 	<?= navigation_list_btn('settings/connections', 'Connections') ?>
 </ul>
 <?php elseif (is_uri_value($this->uri->segment(2), config_item('core_modules'))): ?>

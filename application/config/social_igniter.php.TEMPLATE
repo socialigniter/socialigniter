@@ -21,12 +21,10 @@ $config['languages']					= array('' => '--select--','en' => 'English','fr' => 'F
 $config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','locations');
 $config['ignore_modules']				= array('index.html');
 $config['site_modules']					= array('site','themes','widgets','services');
-$config['home_greeting']				= array('There is no place like home','Welcome home buddy','Good news, you are home','Sweet home, Interwebs','Home again, home again, jigity jog');
-$config['mobile_verify']				= array('borogoves','gyre','jabberwocky','jubjub','frumious','bandersnatch','vorpal','tumtum','tulgey','burbled','snicker','snack','galumph','callooh','brillig','slithy','gimble');
-$config['cool_salutations']				= array('Yo!','Howdi','Hola','Bonjour','Aloha','Wassup','Hey');
-$config['cool_phrases']					= array('wicked sweet','dope sick','super fresh','super duper','totally boss','über tight','dang sexy','beautiful');
 $config['user_data']					= array('user_id','username','user_level_id','gravatar','name','image','language','time_zone','geo_enabled','privacy','consumer_key','consumer_secret','token','token_secret');	
 $config['user_data_details']			= array('company','location','url','bio');
+$config['user_mobile_types']			= array('mobile','home','work');
+$config['user_mobile_verify']			= array('borogoves','gyre','jabberwocky','jubjub','frumious','bandersnatch','vorpal','tumtum','tulgey','burbled','snicker','snack','galumph','callooh','brillig','slithy','gimble');
 
 // Users & Login
 $config['super_admin_group']         	= 'superadmin';			// Super administrators group

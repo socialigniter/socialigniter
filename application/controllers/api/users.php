@@ -216,6 +216,98 @@ class Users extends Oauth_Controller
 	    $this->response($message, 200);    
     }
     
+    function mobile_add_authd_post()
+    {
+
+   		$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
+
+        if ($this->form_validation->run() == true)
+        {
+	        if ($user->phone_verify == 'verified') { $phone = $user->phone; }
+	        else { $phone = ereg_replace("[^0-9]", "", $this->input->post('phone')); }
+	                
+	        if ($user->phone_verify == 'verified') { $phone_verify = $user->phone_verify; }
+	        else { $phone_verify = random_element(config_item('mobile_verify')); }
+
+	    	$update_data = array(
+	        	'phone'			=> $phone,
+	        	'phone_verify'	=> $phone_verify,
+	        	'phone_active'	=> $this->input->post('phone_active'),
+	        	'phone_search'	=> $this->input->post('phone_search')
+			);
+        	
+        	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
+        	{
+        		$this->session->set_flashdata('message', "Phone Number Added");
+       			redirect('settings/mobile', 'refresh');
+       		}
+       		else
+       		{
+       			redirect('settings/mobile', 'refresh');
+       		}
+		} 
+		else 
+		{ 	
+	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			
+	 		$this->data['phone']		    	= $this->input->post('phone');
+	 		$this->data['phone_active_array'] 	= array('1'=>'Yes','0'=>'No');
+	 		$this->data['phone_active']     	= $this->input->post('phone_active');
+
+			if ($user->phone_search) { $phone_search_checked = true; }
+			else { $phone_search_checked = false; }	
+	    
+			$this->data['phone_search'] = array(
+			    'name'      => 'phone_search',
+	    		'id'        => 'phone_search',
+			    'value'     => $user->phone_search,
+			    'checked'   => $phone_search_checked,
+			);      
+		}	    
+
+ 		$this->data['phone']		    = is_empty($user->phone);
+        $this->data['phone_verify']     = $user->phone_verify;
+        $this->data['phone_active']     = $user->phone_active;
+
+		if ($user->phone_search) { $phone_search_checked = true; }
+		else { $phone_search_checked = false; }	
+    
+		$this->data['phone_search'] = array(
+		    'name'      => 'phone_search',
+    		'id'        => 'phone_search',
+		    'value'     => $user->phone_search,
+		    'checked'   => $phone_search_checked,
+		);    
+    
+    	$this->response($message, 200);
+    }
+    
+    function mobile_destroy_authd_delete()
+    {
+ 	   	$user = $this->social_auth->get_user($this->session->userdata('user_id'));
+
+		if ($user->phone != "")
+		{
+        	$update_data = array(
+	        	'phone'			=> "",
+	        	'phone_verify'	=> "",
+	        	'phone_active'	=> "",
+	        	'phone_search'	=> ""
+			);
+        	
+        	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
+        	{
+		        $message = array('status' => 'success', 'message' => 'Phone number deleted');
+       		}
+       		else
+       		{
+	       		$message = array('status' => 'error', 'message' => 'Could not delete phone number');
+       		}		
+		}    
+    
+    	$this->response($message, 200);
+    }
+    
 	// Activate User
 	function activate_authd_put() 
 	{        

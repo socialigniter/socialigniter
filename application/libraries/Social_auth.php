@@ -497,6 +497,11 @@ class Social_auth
 	{
 		return $this->ci->auth_model->get_user_meta_all($user_id);
 	}
+
+	function get_user_meta_meta($user_id, $meta)
+	{
+		return $this->ci->auth_model->get_user_meta_meta($user_id, $meta);
+	}
 	
 	function find_user_meta_value($key, $meta_query)
 	{

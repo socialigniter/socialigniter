@@ -192,9 +192,6 @@ CREATE TABLE `settings` (
   PRIMARY KEY (`settings_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'site_theme', 'site_default');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'dashboard_theme', 'dashboard_default');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'mobile_theme', 'mobile_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'title', 'Awesome Website');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'tagline', 'Where I Post All My Awesome Things');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'keywords', 'awesome, things, pictures, videos, poems, watermelons, cats, ninjas');
@@ -202,23 +199,28 @@ INSERT INTO `settings` VALUES(NULL, 1, 'site', 'description', 'This is my awesom
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'url', 'http://domainname.com');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'languages_default', 'en');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'admin_email', 'you@email.com');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'email_protocol', 'mail');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'smtp_host', '');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'smtp_user', '');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'smtp_pass', '');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'smtp_port', '');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'google_webmaster', '');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'google_analytics', '');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'bing_webmaster', '');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'gravatar_enabled', 'TRUE');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'bitly_enabled', 'TRUE');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'bitly_login', '');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'bitly_api_key', '');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'bitly_domain', 'bit.ly');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'akismet_key', 'dc0465ba152f');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'recaptcha_public', '6Lch7LwSAAAAACP2t2e1qpIQ9Cz7AsvXRfJf1yW_');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'recaptcha_private', '6Lch7LwSAAAAAJvERNehdFPPPZ5TQjd1DgjJRTmK');
-INSERT INTO `settings` VALUES(NULL, 1, 'site', 'recaptcha_theme', 'white');
+INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'site_theme', 'site_default');
+INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'dashboard_theme', 'dashboard_default');
+INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'mobile_theme', 'mobile_default');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'email_protocol', 'mail');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_host', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_user', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_pass', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_port', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'mobile_enabled', 'FALSE');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'mobile_module', '--select--');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'google_webmaster', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'google_analytics', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'bing_webmaster', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'gravatar_enabled', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'bitly_enabled', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'bitly_login', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'bitly_api_key', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'bitly_domain', 'bit.ly');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'akismet_key', 'dc0465ba152f');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'recaptcha_public', '6Lch7LwSAAAAACP2t2e1qpIQ9Cz7AsvXRfJf1yW_');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'recaptcha_private', '6Lch7LwSAAAAAJvERNehdFPPPZ5TQjd1DgjJRTmK');
+INSERT INTO `settings` VALUES(NULL, 1, 'services', 'recaptcha_theme', 'white');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'enabled', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'reply', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'reply_level', '2');
@@ -365,13 +367,14 @@ CREATE TABLE `users_meta` (
   PRIMARY KEY (`user_meta_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE TABLE  `users_meta_new` (
+CREATE TABLE  `users_meta` (
 `user_meta_id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `user_id` INT( 11 ) NOT NULL ,
 `site_id` INT( 6 ) NOT NULL ,
 `module` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 `meta` CHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+`value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`details` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL 
 ) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `users_sessions` (

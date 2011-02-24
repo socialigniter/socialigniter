@@ -6,8 +6,8 @@
 <meta name="title" content="<?= site_title($sub_title, $page_title, $site_title) ?>" />
 <meta name="description" content="<?= $site_description ?>" />
 <meta name="keywords" content="<?= $site_keywords ?>" />
-<meta name="google-site-verification" content="<?= $settings['site']['google_webmaster']; ?>" />
-<meta name="msvalidate.01" content="<?= $settings['site']['bing_webmaster']; ?>" />
+<meta name="google-site-verification" content="<?= $settings['services']['google_webmaster']; ?>" />
+<meta name="msvalidate.01" content="<?= $settings['services']['bing_webmaster']; ?>" />
 <link rel="icon" type="image/png" href="<?= $site_images ?>favicon.png" />
 <?= $head ?>
 </head>
@@ -47,6 +47,6 @@
 		</ul>
 	</div>
 </div>
-<?= $settings['site']['google_analytics'] ?>
+<?= $settings['services']['google_analytics'] ?>
 </body>
 </html>

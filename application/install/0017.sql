@@ -6,7 +6,8 @@ CREATE TABLE `users_meta` (
 `site_id` INT( 6 ) NOT NULL ,
 `module` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 `meta` CHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+`value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`details` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 ALTER TABLE `users` ADD `gravatar` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `email`;

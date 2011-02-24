@@ -56,13 +56,13 @@ class Settings extends Dashboard_Controller
 			$this->data[$config_meta] = $this->social_auth->find_user_meta_value($config_meta, $user_meta);
 		}
 
- 	    $this->data['sub_title'] 	= "Details";
+ 	    $this->data['sub_title'] = "Details";
 	 	
  		$this->render();	
  	}
  	
 	function password() 
-	{
+	{	
 	    $this->data['sub_title']			= "Password";			 
     	$this->data['old_password']   		= $this->input->post('old_password');
     	$this->data['new_password']   		= $this->input->post('new_password');
@@ -73,97 +73,14 @@ class Settings extends Dashboard_Controller
 
   	function mobile()
  	{
- 	    $this->data['sub_title'] = "Mobile";
- 	    
- 	   	$user = $this->social_auth->get_user($this->session->userdata('user_id'));
-
-   		$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
-
-        if ($this->form_validation->run() == true)
-        {
-	        if ($user->phone_verify == 'verified') { $phone = $user->phone; }
-	        else { $phone = ereg_replace("[^0-9]", "", $this->input->post('phone')); }
-	                
-	        if ($user->phone_verify == 'verified') { $phone_verify = $user->phone_verify; }
-	        else { $phone_verify = random_element(config_item('mobile_verify')); }
-
-	    	$update_data = array(
-	        	'phone'			=> $phone,
-	        	'phone_verify'	=> $phone_verify,
-	        	'phone_active'	=> $this->input->post('phone_active'),
-	        	'phone_search'	=> $this->input->post('phone_search')
-			);
-        	
-        	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
-        	{
-        		$this->session->set_flashdata('message', "Phone Number Added");
-       			redirect('settings/mobile', 'refresh');
-       		}
-       		else
-       		{
-       			redirect('settings/mobile', 'refresh');
-       		}
-		} 
-		else 
-		{ 	
-	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			
-	 		$this->data['phone']		    	= $this->input->post('phone');
-	 		$this->data['phone_active_array'] 	= array('1'=>'Yes','0'=>'No');
-	 		$this->data['phone_active']     	= $this->input->post('phone_active');
-
-			if ($user->phone_search) { $phone_search_checked = true; }
-			else { $phone_search_checked = false; }	
-	    
-			$this->data['phone_search'] = array(
-			    'name'      => 'phone_search',
-	    		'id'        => 'phone_search',
-			    'value'     => $user->phone_search,
-			    'checked'   => $phone_search_checked,
-			);      
-		}	    
-
- 		$this->data['phone']		    = is_empty($user->phone);
-        $this->data['phone_verify']     = $user->phone_verify;
-        $this->data['phone_active']     = $user->phone_active;
-
-		if ($user->phone_search) { $phone_search_checked = true; }
-		else { $phone_search_checked = false; }	
-    
-		$this->data['phone_search'] = array(
-		    'name'      => 'phone_search',
-    		'id'        => 'phone_search',
-		    'value'     => $user->phone_search,
-		    'checked'   => $phone_search_checked,
-		);
+ 	   	$user 		= $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 	
+ 		$user_meta	= $this->social_auth->get_user_meta_meta($this->session->userdata('user_id'), 'phone');
+ 	
+ 		$this->data['phones']		= $user_meta;
+ 	    $this->data['sub_title'] 	= "Mobile";
     	
  		$this->render();	
- 	}	
- 	
- 	function mobile_delete()
- 	{
- 	   	$user = $this->social_auth->get_user($this->session->userdata('user_id'));
-
-		if ($user->phone != "")
-		{
-        	$update_data = array(
-	        	'phone'			=> "",
-	        	'phone_verify'	=> "",
-	        	'phone_active'	=> "",
-	        	'phone_search'	=> ""
-			);
-        	
-        	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
-        	{
-        		$this->session->set_flashdata('message', "Phone Number Deleted");
-       			redirect("settings/mobile", 'refresh');
-       		}
-       		else
-       		{
-       			redirect("error");
-       		}		
-		}
-	}
+ 	}
  	
   	function connections()
  	{
@@ -200,7 +117,17 @@ class Settings extends Dashboard_Controller
 
 	function services()
 	{
-		$this->data['sub_title'] = 'Services';
+		$mobile_modules = $this->social_igniter->get_settings_type('is_mobile_module');
+	
+		$this->data['mobile_modules']['none'] = '--none--';
+		
+		foreach ($mobile_modules as $mobile_module)
+		{
+			$this->data['mobile_modules'][$mobile_module->module] = ucwords($mobile_module->module);
+		}
+		
+		$this->data['sub_title'] 		= 'Services';
+		
 		$this->render();	
 	}
 	

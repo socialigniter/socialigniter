@@ -16,7 +16,7 @@ class Home extends Dashboard_Controller
 		if ($this->uri->total_segments() == 1)
 		{
 	 	    $this->data['page_title'] 		= 'Home';
-			$this->data['home_greeting']	= random_element(config_item('home_greeting'));
+			$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
 	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
  	    
@@ -25,7 +25,7 @@ class Home extends Dashboard_Controller
  	    elseif ($this->uri->segment(2) == 'friends')
  	    {
 	 	    $this->data['page_title'] 		= 'Friends';
-			$this->data['home_greeting']	= random_element(config_item('home_greeting'));
+			$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
 	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
@@ -37,7 +37,7 @@ class Home extends Dashboard_Controller
  	    elseif ($this->uri->segment(2) == 'likes')
  	    {
 	 	    $this->data['page_title'] 		= 'Likes';
-			$this->data['home_greeting']	= random_element(config_item('home_greeting'));
+			$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
 	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 

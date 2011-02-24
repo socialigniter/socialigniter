@@ -5,8 +5,8 @@
 	<li><img src="<?= $dashboard_assets ?>icons/messages_24.png"><input type="button" id="message_button" href="<?= $message_url ?>" value="Message"></li>
 </ul>
 <?php else: ?>
-<h3><?= random_element(config_item('cool_salutations')) ?>,</h3>
-<p>This is your <?= random_element(config_item('cool_phrases')) ?> profile</p>
+<h3><?= random_element($this->lang->line('cool_salutations')) ?>,</h3>
+<p>This is your <?= random_element($this->lang->line('cool_phrases')) ?> profile</p>
 <?php endif; ?>
 <div class="profile_sidebar_separator"></div>
 

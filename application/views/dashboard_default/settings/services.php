@@ -6,17 +6,31 @@
 	
 	<p>Configure your email settings to use special email sending solutions</p>
 	
-	<p><?= form_dropdown('email_protocol', config_item('email_protocol'), $settings['site']['email_protocol']) ?></p>	
+	<p><?= form_dropdown('email_protocol', config_item('email_protocol'), $settings['services']['email_protocol']) ?></p>	
 
 	<div id="email_smtp_options">
-		<p><input type="text" name="smtp_host" value="<?= $settings['site']['smtp_host'] ?>"> Hostname</p>
+		<p><input type="text" name="smtp_host" value="<?= $settings['services']['smtp_host'] ?>"> Hostname</p>
 		
-		<p><input type="text" name="smtp_user" value="<?= $settings['site']['smtp_user'] ?>"> Username</p>
+		<p><input type="text" name="smtp_user" value="<?= $settings['services']['smtp_user'] ?>"> Username</p>
 	
-		<p><input type="text" name="smtp_pass" value="<?= $settings['site']['smtp_pass'] ?>"> Password</p>
+		<p><input type="text" name="smtp_pass" value="<?= $settings['services']['smtp_pass'] ?>"> Password</p>
 	
-		<p><input type="text" name="smtp_port" value="<?= $settings['site']['smtp_port'] ?>"> Port</p>
+		<p><input type="text" name="smtp_port" value="<?= $settings['services']['smtp_port'] ?>"> Port</p>
 	</div>
+
+</div>
+
+<span class="item_separator"></span>
+
+<div class="content_wrap_inner">
+
+	<h3>Mobile</h3>
+	
+	<p>Configure SMS & Voice settings to use a module that supports mobile</p>
+	
+	<p><?= form_dropdown('mobile_enabled', config_item('enable_disable'), $settings['services']['mobile_enabled']) ?></p>
+	
+	<p><?= form_dropdown('mobile_module', $mobile_modules, $settings['services']['mobile_module']) ?></p>
 
 </div>
 
@@ -28,11 +42,11 @@
 	
 	<p>Shorten, share and track your links with <a href="http://bit.ly" target="_blank">Bit.ly</a>. You will need to <a href="http://bit.ly/a/sign_up" target="_blank">signup</a> and obtain an <a href="http://bit.ly/a/your_api_key" target="_blank">API Key</a> to use it.</p>
 
-	<p><input type="text" name="google_webmaster" value="<?= $settings['site']['google_webmaster'] ?>"> Google Webmaster</p>
+	<p><input type="text" name="google_webmaster" value="<?= $settings['services']['google_webmaster'] ?>"> Google Webmaster</p>
 	
-	<p><input type="text" name="google_analytics" value="<?= $settings['site']['google_analytics'] ?>"> Google Analytics</p>
+	<p><input type="text" name="google_analytics" value="<?= $settings['services']['google_analytics'] ?>"> Google Analytics</p>
 
-	<p><input type="text" name="bing_webmaster" value="<?= $settings['site']['bing_webmaster'] ?>"> Bing Webmaster</p>
+	<p><input type="text" name="bing_webmaster" value="<?= $settings['services']['bing_webmaster'] ?>"> Bing Webmaster</p>
 
 </div>
 
@@ -44,7 +58,7 @@
 	
 	<p>Over 1 million people have accounts on <a href="http://gravatar.com" target="_blank">Gravatar</a> keep this enabled to display user's profile picture based on their email address.</p>
 		
-	<p><?= form_dropdown('gravatar_enabled', config_item('enable_disable'), $settings['site']['gravatar_enabled']) ?></p>
+	<p><?= form_dropdown('gravatar_enabled', config_item('enable_disable'), $settings['services']['gravatar_enabled']) ?></p>
 
 </div>
 
@@ -56,15 +70,15 @@
 	
 	<p>Shorten, share and track your links with <a href="http://bit.ly" target="_blank">Bit.ly</a>. You will need to <a href="http://bit.ly/a/sign_up" target="_blank">signup</a> and obtain an <a href="http://bit.ly/a/your_api_key" target="_blank">API Key</a> to use it.</p>
 
-	<p><input type="text" name="bitly_login" value="<?= $settings['site']['bitly_login'] ?>"> Login</p>
+	<p><input type="text" name="bitly_login" value="<?= $settings['services']['bitly_login'] ?>"> Login</p>
 	
-	<p><input type="text" name="bitly_api_key" value="<?= $settings['site']['bitly_api_key'] ?>"> API Key</p>
+	<p><input type="text" name="bitly_api_key" value="<?= $settings['services']['bitly_api_key'] ?>"> API Key</p>
 	
 	<p>Domain 
-	<?= form_dropdown('bitly_domain', config_item('bitly_domain'), $settings['site']['bitly_domain']) ?>
+	<?= form_dropdown('bitly_domain', config_item('bitly_domain'), $settings['services']['bitly_domain']) ?>
 	</p>	
 
-	<p><?= form_dropdown('bitly_enabled', config_item('enable_disable'), $settings['site']['bitly_enabled']) ?></p>
+	<p><?= form_dropdown('bitly_enabled', config_item('enable_disable'), $settings['services']['bitly_enabled']) ?></p>
 	
 </div>
 
@@ -76,7 +90,7 @@
 	
 	<p>The best defense against comment spam is <a href="http://akismet.com" target="_blank">Askimet</a>. Obtain an <a href="http://akismet.com/personal/" target="_blank">API Key</a> to use it.</p>
 	
-	<p><input type="text" name="akismet_key" value="<?= $settings['site']['akismet_key'] ?>"> API Key </p>
+	<p><input type="text" name="akismet_key" value="<?= $settings['services']['akismet_key'] ?>"> API Key </p>
 	
 </div>
 
@@ -88,13 +102,13 @@
 	
 	<p>Block spam & bogus user signups with <a href="http://www.google.com/recaptcha" target="_blank">ReCAPTCHA</a>. You must obtain <a href="https://www.google.com/recaptcha/admin/create" target="_blank">API Keys</a> to use it.</p>
 	
-	<p><input type="text" name="recaptcha_public" value="<?= $settings['site']['recaptcha_public'] ?>"> Public Key</p>
+	<p><input type="text" name="recaptcha_public" value="<?= $settings['services']['recaptcha_public'] ?>"> Public Key</p>
 	
-	<p><input type="text" name="recaptcha_private" value="<?= $settings['site']['recaptcha_private'] ?>"> Private Key</p>
+	<p><input type="text" name="recaptcha_private" value="<?= $settings['services']['recaptcha_private'] ?>"> Private Key</p>
 
-	<p><input type="text" name="recaptcha_theme" value="<?= $settings['site']['recaptcha_theme'] ?>"> Theme</p>
+	<p><input type="text" name="recaptcha_theme" value="<?= $settings['services']['recaptcha_theme'] ?>"> Theme</p>
 			
-	<input type="hidden" name="module" value="site">		
+	<input type="hidden" name="module" value="services">		
 	
 	<p><input type="submit" name="Save" value="Save"></p>
 

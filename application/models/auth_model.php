@@ -597,6 +597,16 @@ class Auth_model extends CI_Model
  		return $result->result();		
 	}
 
+	function get_user_meta_meta($user_id, $meta)
+	{
+ 		$this->db->select('*');
+ 		$this->db->from('users_meta');
+ 		$this->db->where('user_id', $user_id);   
+ 		$this->db->where('meta', $meta);
+ 		$result = $this->db->get();	
+ 		return $result->result();		
+	}
+
 	function get_user_meta_id($user_meta_id)
 	{
  		$this->db->select('*');
