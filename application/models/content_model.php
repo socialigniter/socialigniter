@@ -235,6 +235,8 @@ class Content_model extends CI_Model {
     
     function update_meta($content_meta_id, $update_data)
     {
+		$update_data['updated_at'] = unix_to_mysql(now());
+    
 		$this->db->where('content_meta_id', $content_meta_id);
 		$this->db->update('content_meta', $update_data);
 		return TRUE;

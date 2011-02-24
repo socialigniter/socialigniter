@@ -7,11 +7,12 @@ class Profile extends Site_Controller
 
 		if (!$this->uri->segment(2) || (config_item('users_profile') != 'TRUE')) redirect(base_url());	
 	
-		$this->user 		= $this->social_auth->get_user_by_username($this->uri->segment(2)); 
- 		$this->user_meta	= $this->social_auth->get_user_meta($this->user->user_id);
+		$this->user = $this->social_auth->get_user('username', $this->uri->segment(2)); 
  	
 		if($this->user)
-		{	
+		{
+	 		$this->user_meta				= $this->social_auth->get_user_meta_all($this->user->user_id);		
+		
 			// User Data
 			$this->data['user_id'] 			= $this->user->user_id;	
 			$this->data['username'] 		= $this->user->username;
@@ -21,6 +22,7 @@ class Profile extends Site_Controller
 			$this->data['created_on'] 		= $this->user->created_on;
 			
 			// User Meta
+			$this->data['company']			= $this->social_auth->find_user_meta_value('company', $this->user_meta);;
 			$this->data['location']			= $this->social_auth->find_user_meta_value('location', $this->user_meta);;
 			$this->data['url']				= $this->social_auth->find_user_meta_value('url', $this->user_meta);;
 			$this->data['bio']				= $this->social_auth->find_user_meta_value('bio', $this->user_meta);;

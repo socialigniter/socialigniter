@@ -14,6 +14,7 @@ Installation Instructions
 * application/config/config.php.TEMPLATE
 * application/config/custom.php.TEMPLATE
 * application/config/database.php.TEMPLATE
+* application/config/social_igniter.php.TEMPLATE
 * application/helpers/custom_helper.TEMPLATE
 * Make the file names config.php and such...
 * Edit config.php value $config['base_url'] to match your server url

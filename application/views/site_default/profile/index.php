@@ -6,6 +6,7 @@
 	<ul>
 		<li><h1><?= $name ?></h1></li>
 		<li><h3>@<?= $username ?></h3></li>
+		<?= display_value("li", "", "", $company); ?>
 		<?= display_value("li", "", "", $location); ?>
 		<?= display_value("li", "", "", display_link("", "", $url, $url)); ?>		
 		<?= display_value("li", "", "", $bio); ?>

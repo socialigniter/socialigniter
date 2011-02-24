@@ -588,10 +588,11 @@ class Auth_model extends CI_Model
 	}
 	
 	/* User Meta */
-	function get_user_meta($user_id)
+	function get_user_meta_all($user_id)
 	{
  		$this->db->select('*');
- 		$this->db->from('users_meta');    
+ 		$this->db->from('users_meta');
+ 		$this->db->where('user_id', $user_id);   
  		$result = $this->db->get();	
  		return $result->result();		
 	}
@@ -606,32 +607,45 @@ class Auth_model extends CI_Model
  		return $result;	
 	}
 
-	function check_user_meta_exists($meta_data)
+	function check_user_meta_exists($user_meta_data)
 	{
  		$this->db->select('*');
  		$this->db->from('users_meta');
- 		$this->db->where($meta_data); 
+ 		$this->db->where($user_meta_data); 
 		$this->db->limit(1);    
- 		$result = $this->db->get()->row();	
- 		return $result;
+ 		$result = $this->db->get()->row();
+ 		
+ 		if ($result)
+ 		{	
+ 			return $result;
+		}
+		
+		return FALSE;	
 	}
 	
 	function add_user_meta($meta_data)
 	{
-		if (!$this->check_user_meta_exists($meta_data))
+		$meta_data['created_at'] = unix_to_mysql(now());
+		$meta_data['updated_at'] = unix_to_mysql(now());
+
+		$this->db->insert('users_meta', $meta_data);
+		$user_meta_id = $this->db->insert_id();
+		
+		if ($user_meta_id)
 		{
-			$this->db->insert('users_meta', $meta_data);
-			$user_meta_id = $this->db->insert_id();
-			
-			if ($user_meta_id)
-			{
-				return $this->get_user_meta_id($user_meta_id);
-			}		
-		}
+			return $this->get_user_meta_id($user_meta_id);
+		}		
 		
 		return FALSE;		
 	}
 	
+	function update_user_meta($user_meta_id, $meta_data)
+	{
+		$meta_data['updated_at'] = unix_to_mysql(now());
+		$this->db->where('user_meta_id', $user_meta_id);
+		$this->db->update('users_meta', $meta_data);
+		return TRUE;		
+	}
 	
 	/* Remember Login */
 	function update_last_login($user_id)

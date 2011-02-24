@@ -19,7 +19,6 @@ class Settings extends Dashboard_Controller
 	    $this->data['sub_title'] = "Profile";
 	    
 		$user = $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 
-
 /*
     	$update_data = array(
 			'username' 		=> url_username($this->input->post('username'), 'none', true),
@@ -46,32 +45,15 @@ class Settings extends Dashboard_Controller
         
 		$this->render();
  	}
- 	
  		
  	function details()
- 	{	
+ 	{
 		$user		= $this->social_auth->get_user('user_id', $this->session->userdata('user_id'));
-		$user_meta	= $this->social_auth->get_user_meta($this->session->userdata('user_id'));
+		$user_meta	= $this->social_auth->get_user_meta_all($this->session->userdata('user_id'));
 
-		foreach (config_item('user_data_meta') as $config_meta)
+		foreach (config_item('user_data_details') as $config_meta)
 		{
-			if ($this_meta = $this->social_auth->find_user_meta_value($config_meta, $user_meta))
-			{
-				$this->data[$config_meta] = $this_meta;		
-			}
-			else
-			{
-				$add_user_meta = array(
-					'user_id'	=> $this->session->userdata('user_id'),
-					'site_id'	=> config_item('site_id'),
-					'module'	=> 'users',
-					'meta'		=> $config_meta,
-					'value'		=> ''
-				);
-			
-				$this->social_auth->add_user_meta($add_user_meta);
-				$this->data[$config_meta] = '';
-			}
+			$this->data[$config_meta] = $this->social_auth->find_user_meta_value($config_meta, $user_meta);
 		}
 
  	    $this->data['sub_title'] 	= "Details";

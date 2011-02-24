@@ -492,9 +492,10 @@ class Social_auth
 	    return $this->ci->auth_model->get_users_levels();
 	}
 	
-	function get_user_meta($user_id)
+	/* User Meta */
+	function get_user_meta_all($user_id)
 	{
-		return $this->ci->auth_model->get_user_meta($user_id);
+		return $this->ci->auth_model->get_user_meta_all($user_id);
 	}
 	
 	function find_user_meta_value($key, $meta_query)
@@ -508,11 +509,57 @@ class Social_auth
 		}		
 		
 		return FALSE;
+	}
+	
+	function check_user_meta_exists($user_meta_data)
+	{
+		return $this->ci->auth_model->check_user_meta_exists($user_meta_data);
 	}	
 	
 	function add_user_meta($meta_data)
 	{
 		return $this->ci->auth_model->add_user_meta($meta_data);
+	}
+	
+	function update_user_meta($site_id, $user_id, $module, $user_meta_data)
+	{
+    	$update_total = count($user_meta_data);
+    	$update_count = 0;
+    	    
+		// Loop user_meta_data
+		foreach ($user_meta_data as $meta => $value)
+		{		
+			// Form Element Name
+			$this_user_meta = array(
+				'user_id'	=> $user_id,
+				'site_id'	=> $site_id,
+				'module'	=> $module,
+				'meta'		=> $meta
+			);
+
+			$current = $this->check_user_meta_exists($this_user_meta);
+			
+			if ($current)
+			{			
+				$this->ci->auth_model->update_user_meta($current->user_meta_id, array('value' => $value));
+				$update_count++;
+			}
+			else
+			{
+				$this_user_meta['value'] = $value;
+				$this->ci->auth_model->add_user_meta($this_user_meta);			
+				$update_count++;
+			}		
+		}
+		
+		// Were All Updated
+		if ($update_total == $update_count)
+		{
+			return TRUE;
+		}
+		
+    	return FALSE;	
+	
 	}
 	
 	function update_user($user_id, $data)

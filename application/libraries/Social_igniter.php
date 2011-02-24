@@ -753,10 +753,10 @@ class Social_igniter
     	$update_total = count($meta_data_array);
     	$update_count = 0;
     	    
-		// Loop through meta_data_array Key / Value array of form submitted
+		// Loop meta_data_array Key / Value array
 		foreach ($meta_data_array as $meta_data)
 		{
-			// Form element name
+			// Form Element Name
 			$name		= key($meta_data_array);		
 			$current	= $this->get_meta_content_meta($content_id, $name);
 			

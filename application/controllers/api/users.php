@@ -164,21 +164,28 @@ class Users extends Oauth_Controller
     	{
 			$user_meta_data = array();
 			
+			// User
+			$user_id = $this->oauth_user_id;
+			
+			// Site
+	    	if ($this->input->post('site_id')) $site_id = $this->input-->post('site_id');
+	    	else $site_id = config_item('site_id');			
+			
 			// Build Meta
-			foreach (config_item('user_data_meta') as $config_meta)
+			foreach (config_item('user_data_details') as $config_meta)
 			{
 				$user_meta_data[$config_meta] = $this->input->post($config_meta);
 			}
 	    	
 	    	// Update
-	    	if ($update_meta = $this->social_auth->update_user_meta($user_id, $user_meta_data))
+	    	if ($update_meta = $this->social_auth->update_user_meta($site_id, $user_id, $this->input->post('module'), $user_meta_data))
 	    	{
 		        $message = array('status' => 'success', 'message' => 'User details saved', 'data' => $user_meta_data);
 	   		}
 	   		else
 	   		{
 		        $message = array('status' => 'error', 'message' => 'Could not save user details at this time');
-	   		}	
+	   		}
     	}
 
     	$this->response($message, 200);

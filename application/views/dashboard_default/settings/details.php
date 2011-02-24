@@ -1,5 +1,5 @@
 <h3>Details</h3>
-<form method="post" action="<?= base_url() ?>settings/profile" enctype="multipart/form-data">
+<form method="post" name="user_details" id="user_details" action="<?= base_url() ?>api/users/details/id/<?= $logged_user_id ?>" enctype="multipart/form-data">
 	<table border="0" cellpadding="0" cellspacing="0">
 		<tr>		
 			<td>Company:</td>
@@ -22,3 +22,38 @@
 		</tr>			
 	</table>
 </form>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+	// Write Article
+	$("#user_details").bind("submit", function(e)
+	{
+		e.preventDefault();
+		var details_data = $('#user_details').serializeArray();
+		details_data.push({'name':'module','value':'users'});		
+	
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: $(this).attr('ACTION'),
+			type		: 'POST',
+			dataType	: 'json',
+			data		: details_data,
+	  		success		: function(result)
+	  		{		  					  			  			
+				if (result.status == 'success')
+				{
+				 	$('#content_message').html(result.message).addClass('message_alert').show('slow');				 	
+				 	$('#content_message').oneTime(4000, function(){$('#content_message').hide('normal')});
+			 	}
+			 	else
+			 	{
+				 	$('#content_message').html(result.message).addClass('message_alert').show('slow');
+				 	$('#content_message').oneTime(4000, function(){$('#content_message').hide('normal')});			
+			 	}	
+		 	}
+		});		
+	});	
+});
+</script>
