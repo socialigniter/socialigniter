@@ -45,7 +45,7 @@ class Social_igniter
 		    }
 		    else
 		    {
-				if (config_item('site_gravatar_enabled') == 'TRUE')
+				if (config_item('services_gravatar_enabled') == 'TRUE')
 				{		
 					return gravatar($email_hash, "X", config_item('users_images_'.$size.'_width'), $picture);
 				}
@@ -54,7 +54,7 @@ class Social_igniter
 		    return $picture;
 		}
 		
-		if (config_item('site_gravatar_enabled') == 'TRUE')
+		if (config_item('services_gravatar_enabled') == 'TRUE')
 		{		
 			$picture = gravatar($email_hash, "X", config_item('users_images_'.$size.'_width'), $picture);
 		}

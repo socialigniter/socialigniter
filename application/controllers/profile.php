@@ -11,7 +11,7 @@ class Profile extends Site_Controller
  	
 		if($this->user)
 		{
-	 		$this->user_meta				= $this->social_auth->get_user_meta_all($this->user->user_id);		
+	 		$this->user_meta				= $this->social_auth->get_user_meta($this->user->user_id);		
 		
 			// User Data
 			$this->data['user_id'] 			= $this->user->user_id;	

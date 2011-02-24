@@ -39,6 +39,7 @@ class Social_auth
 			if ($user = $this->ci->auth_model->login_remembered_user())
 			{
 				$this->set_userdata($user);
+	 			$this->set_userdata_meta($user->user_id);
 	 			$this->set_userdata_connections($user->user_id);
 			}
 		}
@@ -452,50 +453,43 @@ class Social_auth
 	    return $this->ci->auth_model->get_users($group_name)->result();
 	}
 	
-	function get_newest_users($limit = 10)
-	{
-	    return $this->ci->auth_model->get_newest_users($limit)->result();
-	}
-	
-	function get_newest_users_array($limit = 10)
-	{
-	    return $this->ci->auth_model->get_newest_users($limit)->result_array();
-	}
-	
-	function get_active_users($group_name = false)
-	{
-	    return $this->ci->auth_model->get_active_users($group_name)->result();
-	}
-	
-	function get_active_users_array($group_name = false)
-	{
-	    return $this->ci->auth_model->get_active_users($group_name)->result_array();
-	}
-	
-	function get_inactive_users($group_name = false)
-	{
-	    return $this->ci->auth_model->get_inactive_users($group_name)->result();
-	}
-	
-	function get_inactive_users_array($group_name = false)
-	{
-	    return $this->ci->auth_model->get_inactive_users($group_name)->result_array();
-	}
-	
 	function get_user($parameter, $value)
 	{
 	    return $this->ci->auth_model->get_user($parameter, $value);
 	}
-
-	function get_users_levels()
+	
+	function update_user($user_id, $data)
 	{
-	    return $this->ci->auth_model->get_users_levels();
+		 if ($this->ci->auth_model->update_user($user_id, $data))
+		 {
+		 	$this->set_message('update_successful');
+		 	return TRUE;
+		 }
+		 else
+		 {
+		 	$this->set_error('update_unsuccessful');
+		 	return FALSE;
+		 }
 	}
 	
-	/* User Meta */
-	function get_user_meta_all($user_id)
+	function delete_user($id)
 	{
-		return $this->ci->auth_model->get_user_meta_all($user_id);
+		 if ($this->ci->auth_model->delete_user($id))
+		 {
+		 	$this->set_message('delete_successful');
+		 	return TRUE;
+		 }
+		 else
+		 {
+		 	$this->set_error('delete_unsuccessful');
+		 	return FALSE;
+		 }
+	}	
+
+	/* User Meta */
+	function get_user_meta($user_id)
+	{
+		return $this->ci->auth_model->get_user_meta($user_id);
 	}
 
 	function get_user_meta_meta($user_id, $meta)
@@ -563,39 +557,18 @@ class Social_auth
 			return TRUE;
 		}
 		
-    	return FALSE;	
-	
+    	return FALSE;
 	}
 	
-	function update_user($user_id, $data)
+	
+	/* User Levels */
+	function get_users_levels()
 	{
-		 if ($this->ci->auth_model->update_user($user_id, $data))
-		 {
-		 	$this->set_message('update_successful');
-		 	return TRUE;
-		 }
-		 else
-		 {
-		 	$this->set_error('update_unsuccessful');
-		 	return FALSE;
-		 }
+	    return $this->ci->auth_model->get_users_levels();
 	}
-	
-	function delete_user($id)
-	{
-		 if ($this->ci->auth_model->delete_user($id))
-		 {
-		 	$this->set_message('delete_successful');
-		 	return TRUE;
-		 }
-		 else
-		 {
-		 	$this->set_error('delete_unsuccessful');
-		 	return FALSE;
-		 }
-	}
+		
 
-	// Sets Userdate
+	/* Sets user_data */
 	function set_userdata($user)
 	{
 		$this->ci->session->set_userdata('email',  $user->email);
@@ -606,11 +579,16 @@ class Social_auth
 	    }
 	}
 
-	function set_userdata_meta($user_meta)
+	function set_userdata_meta($user_id)
 	{
+		$user_meta = $this->get_user_meta($user_id);
+	
 		foreach ($user_meta as $meta)
 		{
-		    $this->ci->session->set_userdata($meta->meta,  $meta->value);
+			if (in_array($meta->meta, config_item('user_data_meta')))
+			{
+		    	$this->ci->session->set_userdata($meta->meta,  $meta->value);
+	    	}
 	    }
 	}
 

@@ -439,6 +439,7 @@ class Auth_model extends CI_Model
     			// Sets Various Userdata
         		$this->update_last_login($user->user_id);
 				$this->social_auth->set_userdata($user);
+	 			$this->social_auth->set_userdata_meta($user->user_id);
 	 			$this->social_auth->set_userdata_connections($user->user_id);
    		    
     		    if ($remember && config_item('remember_users'))
@@ -470,14 +471,14 @@ class Auth_model extends CI_Model
 
 		if ($user)
 		{
-    		// Sets Various Userdata
     		$this->update_last_login($user->user_id);
 			$this->social_auth->set_userdata($user);
+	 		$this->social_auth->set_userdata_meta($user->user_id);	
 			$this->social_auth->set_userdata_connections($user->user_id);
 
 		    return TRUE;
         }
-        
+
 		return FALSE;
 	}
 	
@@ -543,7 +544,6 @@ class Auth_model extends CI_Model
 	        $this->db->update('users_meta');
 	    }
 
-	    // Only does Users Tables
         if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data)) 
         {
 	        if (array_key_exists('password', $data))
@@ -555,7 +555,6 @@ class Auth_model extends CI_Model
 			$this->db->update('users', $data, array('user_id' => $user_id));
         }
          
-        // Finishes    
 		if ($this->db->trans_status() === FALSE)
 		{
 		    $this->db->trans_rollback();
@@ -588,7 +587,7 @@ class Auth_model extends CI_Model
 	}
 	
 	/* User Meta */
-	function get_user_meta_all($user_id)
+	function get_user_meta($user_id)
 	{
  		$this->db->select('*');
  		$this->db->from('users_meta');
@@ -678,7 +677,6 @@ class Auth_model extends CI_Model
 
 	function login_remembered_user()
 	{
-		// If all three cookies exist
 		if (!get_cookie('email') || !get_cookie('remember_code') || !$this->email_check(get_cookie('email')))
 		{
 			return FALSE;
