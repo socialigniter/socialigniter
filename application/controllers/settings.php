@@ -15,25 +15,11 @@ class Settings extends Dashboard_Controller
 
 	/* User Settings */
 	function profile()
- 	{
-	    $this->data['sub_title'] = "Profile";
-	    
+ 	{	    
 		$user = $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 
-/*
-    	$update_data = array(
-			'username' 		=> url_username($this->input->post('username'), 'none', true),
-        	'email'			=> $this->input->post('email'),
-        	'language'		=> $this->input->post('language'),
-        	'time_zone'		=> $this->input->post('timezones'),
-        	'geo_enabled'	=> $this->input->post('geo_enabled'),
-        	'privacy'		=> $this->input->post('privacy'),
-        	'utc_offset'	=> timezones($this->input->post('timezones')) * 60 * 60      					
-		);
-        	
-    	// Update the user
-    	$this->social_auth->update_user($this->session->userdata('user_id'), $update_data);
-*/       
- 	 	$this->data['image']		= is_empty($user->image);
+
+	    $this->data['sub_title'] 	= "Profile";     
+ 	 	$this->data['image']		= $user->image;
 	 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar, 'small');
 		$this->data['name']			= $user->name;
 		$this->data['username']     = $user->username;			    
@@ -76,8 +62,8 @@ class Settings extends Dashboard_Controller
  	   	$user 		= $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 	
  		$user_meta	= $this->social_auth->get_user_meta_meta($this->session->userdata('user_id'), 'phone');
  	
- 		$this->data['phones']		= $user_meta;
  	    $this->data['sub_title'] 	= "Mobile";
+ 		$this->data['phones']		= $user_meta;
     	
  		$this->render();	
  	}
@@ -165,10 +151,10 @@ class Settings extends Dashboard_Controller
     /* Modules Settings */
 	function modules()
 	{
+		$this->data['sub_title']		= 'Module';
 		$this->data['core_modules']		= config_item('core_modules');
 		$this->data['ignore_modules']	= config_item('ignore_modules');
 		$this->data['modules']			= $this->social_igniter->scan_modules();
-		$this->data['sub_title']		= 'Module';
 	
 		$this->render();
 	}
