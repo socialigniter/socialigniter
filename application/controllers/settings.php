@@ -81,7 +81,9 @@ class Settings extends Dashboard_Controller
 	/* Site Settings */
 	function site()
 	{
-		$this->data['sub_title'] = 'Site';
+		$this->data['sub_title'] 	= 'Site';
+		$this->data['this_module']	= 'site';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render();	
 	}
 
@@ -91,13 +93,17 @@ class Settings extends Dashboard_Controller
 		$this->data['site_themes']			= $this->social_igniter->get_themes('site');
 		$this->data['dashboard_themes']		= $this->social_igniter->get_themes('dashboard');
 		$this->data['mobile_themes']		= $this->social_igniter->get_themes('mobile');
-		$this->data['sub_title'] 			= 'Themes';	
+		$this->data['sub_title'] 			= 'Themes';
+		$this->data['this_module']			= 'home';
+		$this->data['shared_ajax'] 		   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render('dashboard_wide');
 	}
 
 	function widgets()
 	{
-		$this->data['sub_title'] = 'Widgets';
+		$this->data['sub_title'] 	= 'Widgets';
+		$this->data['this_module']	= 'widgets';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render();
 	}
 
@@ -112,39 +118,49 @@ class Settings extends Dashboard_Controller
 			$this->data['mobile_modules'][$mobile_module->module] = ucwords($mobile_module->module);
 		}
 		
-		$this->data['sub_title'] 		= 'Services';
-		
+		$this->data['sub_title'] 	= 'Services';
+		$this->data['this_module']	= 'services';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render();	
 	}
 	
 	function comments()
 	{	
-		$this->data['sub_title'] = 'Comments';
+		$this->data['sub_title'] 	= 'Comments';
+		$this->data['this_module']	= 'comments';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
     	$this->render();
     }	
 
 	function home()
 	{
-		$this->data['sub_title'] = 'Home';
-	
+		$this->data['sub_title'] 	= 'Home';
+		$this->data['this_module']	= 'home';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render();
     }
 
 	function users()
 	{	
-		$this->data['sub_title'] = 'Users';
+		$this->data['sub_title']	= 'Users';
+		$this->data['this_module']	= 'users';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render();
     }
 	
 	function pages()
 	{	
-		$this->data['sub_title'] = 'Pages';
+		$this->data['sub_title'] 	= 'Pages';
+		$this->data['this_module']	= 'users';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render();
     }    
 
 	function api()
 	{
-		$this->data['sub_title'] = 'API';
+		$this->data['sub_title'] 	= 'API';
+		$this->data['this_module']	= 'users';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
     	$this->render();
     }
 
@@ -155,7 +171,7 @@ class Settings extends Dashboard_Controller
 		$this->data['core_modules']		= config_item('core_modules');
 		$this->data['ignore_modules']	= config_item('ignore_modules');
 		$this->data['modules']			= $this->social_igniter->scan_modules();
-	
+		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
 		$this->render();
 	}
 

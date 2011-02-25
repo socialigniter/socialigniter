@@ -1,6 +1,6 @@
 <h3>Profile</h3>
 	
-<form method="post" action="<?= base_url() ?>settings/account">
+<form  name="settings_update" id="settings_update"  method="post" action="<?= base_url() ?>settings/account">
 	<table border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td>Picture:</td>
@@ -46,3 +46,4 @@
   	</tr>  	
 	</table>
 </form>
+

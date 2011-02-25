@@ -1,4 +1,4 @@
-<form name="settings" method="post" action="<?= base_url() ?>settings/update">
+<form name="settings_update" id="settings_update" method="post" action="<?= base_url() ?>api/settings/modify" enctype="multipart/form-data">
 
 <div class="content_wrap_inner">
 
@@ -142,3 +142,5 @@ $(document).ready(function()
 
 });
 </script>
+
+<?= $shared_ajax ?>

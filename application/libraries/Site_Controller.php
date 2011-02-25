@@ -26,6 +26,7 @@ class Site_Controller extends MY_Controller
         $this->data['logged']				= $this->load->view(config_item('site_theme').'/partials/logged.php', $this->data, true);
         $this->data['navigation']			= $this->load->view(config_item('site_theme').'/partials/navigation_site.php', $this->data, true);
         $this->data['content']				= '';
+        $this->data['shared_ajax']			= '';        
         $this->data['sidebar']				= $this->load->view(config_item('site_theme').'/partials/sidebar_site.php', $this->data, true);
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
 
