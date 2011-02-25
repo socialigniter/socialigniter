@@ -1,10 +1,10 @@
-<?php if (is_uri_value($this->uri->segment(2), array('profile','account','password','mobile','connections'))): ?>
+<?php if (is_uri_value($this->uri->segment(2), array('profile','details','password','mobile','connections'))): ?>
 <h2 class="content_title"><img src="<?= $dashboard_assets ?>icons/users_32.png"> Your Settings</h2>
 <ul class="content_navigation">
 	<?= navigation_list_btn('settings/profile', 'Profile') ?>
-	<?= navigation_list_btn('settings/account', 'Account') ?>
-	<?= navigation_list_btn('settings/password', 'Password') ?>
+	<?= navigation_list_btn('settings/details', 'Details') ?>
 	<?= navigation_list_btn('settings/mobile', 'Mobile') ?>
+	<?= navigation_list_btn('settings/password', 'Password') ?>
 	<?= navigation_list_btn('settings/connections', 'Connections') ?>
 </ul>
 <?php elseif (is_uri_value($this->uri->segment(2), config_item('core_modules'))): ?>

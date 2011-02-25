@@ -30,7 +30,7 @@ class Social_igniter
 	}	
 	
     // Profile Picture	
-	function profile_image($user_id, $image, $email=NULL, $size='medium')
+	function profile_image($user_id, $image, $email_hash=NULL, $size='medium')
 	{
 		$this->ci->load->helper('gravatar');
 		$picture = base_url().config_item('users_images_folder').$size.'_'.config_item('profile_nopicture');
@@ -45,18 +45,18 @@ class Social_igniter
 		    }
 		    else
 		    {
-				if (config_item('site_gravatar_enabled') == 'TRUE')
+				if (config_item('services_gravatar_enabled') == 'TRUE')
 				{		
-					return gravatar($email, "X", config_item('users_images_'.$size.'_width'), $picture);
+					return gravatar($email_hash, "X", config_item('users_images_'.$size.'_width'), $picture);
 				}
 		    }
 		    
 		    return $picture;
 		}
 		
-		if (config_item('site_gravatar_enabled') == 'TRUE')
+		if (config_item('services_gravatar_enabled') == 'TRUE')
 		{		
-			$picture = gravatar($email, "X", config_item('users_images_'.$size.'_width'), $picture);
+			$picture = gravatar($email_hash, "X", config_item('users_images_'.$size.'_width'), $picture);
 		}
 				
 		return $picture;
@@ -753,10 +753,10 @@ class Social_igniter
     	$update_total = count($meta_data_array);
     	$update_count = 0;
     	    
-		// Loop through meta_data_array Key / Value array of form submitted
+		// Loop meta_data_array Key / Value array
 		foreach ($meta_data_array as $meta_data)
 		{
-			// Form element name
+			// Form Element Name
 			$name		= key($meta_data_array);		
 			$current	= $this->get_meta_content_meta($content_id, $name);
 			

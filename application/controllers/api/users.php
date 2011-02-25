@@ -62,19 +62,13 @@ class Users extends Oauth_Controller
 
         if ($this->form_validation->run() == true)
         {
-            
 			$username			= url_username($this->input->post('name'), 'none', true);
 	    	$email				= $this->input->post('email');
 	    	$password			= $this->input->post('password');
 	    	$additional_data 	= array(
 	    		'name'			=> $this->input->post('name'),
 	    		'phone'			=> preg_replace("/[^0-9]*/", "", $this->input->post('phone')),
-	    		'phone_verify'	=> random_element(config_item('mobile_verify')),
-	        	'location'		=> $this->input->post('location'),
-	        	'license_plate'	=> $this->input->post('license_plate'),
-	    		'is_car'		=> 1,
-	    		'is_driveway'	=> 0,
-	    		'user_state'	=> 'needs-verify'
+	    		'phone_verify'	=> random_element(config_item('mobile_verify'))
 	    	);
 	    	        	
 	    	if ($this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group')))
@@ -88,31 +82,230 @@ class Users extends Oauth_Controller
         } 
 		else
 		{ 
-		        $message = array('message' => 'Oops you are missing '.validation_errors());
+			$message = array('message' => 'Oops you are missing '.validation_errors());
         }
         
         $this->response($message, 200);
     }
 
 	// Update User    
-    function update_authd_post()
-    {
+    function modify_authd_post()
+    {    
+    	// Delete Picture
+    	if ($this->input->post('delete_pic') == 1)
+    	{
+			$this->load->helper('file');
+    		delete_files($this->config->item('profile_images').$user->user_id."/");
+    		$user_picture = '';
+    	}    
+    
+    	// Upload Picture
+		if (!$this->input->post('userfile'))
+		{
+			$config['upload_path'] 		= config_item('uploads_folder');
+			$config['allowed_types'] 	= config_item('users_images_formats');		
+			$config['overwrite']		= true;
+			$config['max_size']			= config_item('users_images_max_size');
+			$config['max_width']  		= config_item('users_images_max_dimensions');
+			$config['max_height']  		= config_item('users_images_max_dimensions');
+		
+			$this->load->library('upload',$config);
+			
+			if (!$this->upload->do_upload())
+			{
+				$error = array('error' => $this->upload->display_errors());
+			}	
+			else
+			{
+				// Load Image Model
+				$this->load->model('image_model');
+				
+				// Upload & Sizes
+				$file_data		= $this->upload->data();
+				$image_sizes	= array('full', 'large', 'medium', 'small');
+				$create_path	= config_item('users_images_folder').$user->user_id.'/';
+				
+				// Do Resizes					
+				$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);										
+				
+				// Delete Upload
+				$file_data['deleted'] = unlink(config_item('uploads_folder').$file_data['file_name']);
+				$user_picture = $file_data['file_name'];		
+			}	
+		}	   
+    
     	$update_data = array(
-    		'username'	=> url_username($this->input->post('name'), 'none', true),
-        	'name'		=> $this->input->post('name'),
-        	'bio'		=> $this->input->post('bio')
+    		'username'		=> url_username($this->input->post('username'), 'none', true),
+        	'email'			=> $this->input->post('email'),
+        	'gravatar'		=> md5($this->input->post('email')),
+        	'name'			=> $this->input->post('name'),
+        	'image'			=> $user_picture,
+        	'time_zone'		=> $this->input->post('time_zone'),
+        	'privacy'		=> $this->input->post('privacy'),
+        	'language'		=> $this->input->post('language'),
+        	'geo_enable'	=> $this->input->post('geo_enable'),
     	);
     	
     	if ($this->social_auth->update_user($this->get('id'), $update_data))
     	{
-	        $message = array('status' => 'success', 'message' => 'User updated');
+	        $message = array('status' => 'success', 'message' => 'User changes saved');
    		}
    		else
    		{
-	        $message = array('status' => 'error', 'message' => 'Could not update user');
+	        $message = array('status' => 'error', 'message' => 'Could not save user change');
    		}        
         
         $this->response($message, 200);
+    }
+    
+    function details_authd_post()
+    {
+    	if ($this->oauth_user_id == $this->get('id'))
+    	{
+			$user_meta_data = array();
+			
+			// User
+			$user_id = $this->oauth_user_id;
+			
+			// Site
+	    	if ($this->input->post('site_id')) $site_id = $this->input-->post('site_id');
+	    	else $site_id = config_item('site_id');			
+			
+			// Build Meta
+			foreach (config_item('user_data_details') as $config_meta)
+			{
+				$user_meta_data[$config_meta] = $this->input->post($config_meta);
+			}
+	    	
+	    	// Update
+	    	if ($update_meta = $this->social_auth->update_user_meta($site_id, $user_id, $this->input->post('module'), $user_meta_data))
+	    	{
+		        $message = array('status' => 'success', 'message' => 'User details saved', 'data' => $user_meta_data);
+	   		}
+	   		else
+	   		{
+		        $message = array('status' => 'error', 'message' => 'Could not save user details at this time');
+	   		}
+    	}
+
+    	$this->response($message, 200);
+    }
+    
+    function password_authd_post()
+    {
+	    $this->form_validation->set_rules('old_password', 'Old password', 'required');
+	    $this->form_validation->set_rules('new_password', 'New Password', 'required|min_length['.config_item('min_password_length').']|max_length['.config_item('max_password_length').']|matches[new_password_confirm]');
+	    $this->form_validation->set_rules('new_password_confirm', 'Confirm New Password', 'required');
+	   	
+	    if ($this->form_validation->run() == true) 
+	    {
+    		if ($change = $this->social_auth->change_password($this->oauth_user_id, $this->input->post('old_password'), $this->input->post('new_password')))
+    		{
+		        $message = array('status' => 'success', 'message' => 'Password changed Successfully');
+    		}
+    		else
+    		{
+		        $message = array('status' => 'success', 'message' => 'Oops could not change your password');    		
+    		}
+	    }
+	    else
+	    {
+	        $message = array('status' => 'error', 'message' => validation_errors());
+	    }
+	    
+	    $this->response($message, 200);    
+    }
+    
+    function mobile_add_authd_post()
+    {
+
+   		$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
+
+        if ($this->form_validation->run() == true)
+        {
+	        if ($user->phone_verify == 'verified') { $phone = $user->phone; }
+	        else { $phone = ereg_replace("[^0-9]", "", $this->input->post('phone')); }
+	                
+	        if ($user->phone_verify == 'verified') { $phone_verify = $user->phone_verify; }
+	        else { $phone_verify = random_element(config_item('mobile_verify')); }
+
+	    	$update_data = array(
+	        	'phone'			=> $phone,
+	        	'phone_verify'	=> $phone_verify,
+	        	'phone_active'	=> $this->input->post('phone_active'),
+	        	'phone_search'	=> $this->input->post('phone_search')
+			);
+        	
+        	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
+        	{
+        		$this->session->set_flashdata('message', "Phone Number Added");
+       			redirect('settings/mobile', 'refresh');
+       		}
+       		else
+       		{
+       			redirect('settings/mobile', 'refresh');
+       		}
+		} 
+		else 
+		{ 	
+	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			
+	 		$this->data['phone']		    	= $this->input->post('phone');
+	 		$this->data['phone_active_array'] 	= array('1'=>'Yes','0'=>'No');
+	 		$this->data['phone_active']     	= $this->input->post('phone_active');
+
+			if ($user->phone_search) { $phone_search_checked = true; }
+			else { $phone_search_checked = false; }	
+	    
+			$this->data['phone_search'] = array(
+			    'name'      => 'phone_search',
+	    		'id'        => 'phone_search',
+			    'value'     => $user->phone_search,
+			    'checked'   => $phone_search_checked,
+			);      
+		}	    
+
+ 		$this->data['phone']		    = is_empty($user->phone);
+        $this->data['phone_verify']     = $user->phone_verify;
+        $this->data['phone_active']     = $user->phone_active;
+
+		if ($user->phone_search) { $phone_search_checked = true; }
+		else { $phone_search_checked = false; }	
+    
+		$this->data['phone_search'] = array(
+		    'name'      => 'phone_search',
+    		'id'        => 'phone_search',
+		    'value'     => $user->phone_search,
+		    'checked'   => $phone_search_checked,
+		);    
+    
+    	$this->response($message, 200);
+    }
+    
+    function mobile_destroy_authd_delete()
+    {
+ 	   	$user = $this->social_auth->get_user($this->session->userdata('user_id'));
+
+		if ($user->phone != "")
+		{
+        	$update_data = array(
+	        	'phone'			=> "",
+	        	'phone_verify'	=> "",
+	        	'phone_active'	=> "",
+	        	'phone_search'	=> ""
+			);
+        	
+        	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
+        	{
+		        $message = array('status' => 'success', 'message' => 'Phone number deleted');
+       		}
+       		else
+       		{
+	       		$message = array('status' => 'error', 'message' => 'Could not delete phone number');
+       		}		
+		}    
+    
+    	$this->response($message, 200);
     }
     
 	// Activate User

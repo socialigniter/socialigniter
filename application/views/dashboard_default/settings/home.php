@@ -7,9 +7,13 @@
 	<p>Public Timeline
 	<?= form_dropdown('public_timeline', config_item('yes_or_no'), $settings['home']['public_timeline']) ?>
 	</p>
-	
+
 	<p>Date
 	<?= form_dropdown('date_style', config_item('date_style_types'), $settings['home']['date_style']) ?>
+	</p>
+
+	<p>Status<br>
+	<input type="text" size="4" name="status_length" value="<?= $settings['home']['status_length'] ?>" /> characters
 	</p>
 		
 	<p>Description<br>

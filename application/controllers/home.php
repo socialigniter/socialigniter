@@ -16,7 +16,7 @@ class Home extends Dashboard_Controller
 		if ($this->uri->total_segments() == 1)
 		{
 	 	    $this->data['page_title'] 		= 'Home';
-			$this->data['home_greeting']	= random_element(config_item('home_greeting'));
+			$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
 	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
  	    
@@ -25,7 +25,7 @@ class Home extends Dashboard_Controller
  	    elseif ($this->uri->segment(2) == 'friends')
  	    {
 	 	    $this->data['page_title'] 		= 'Friends';
-			$this->data['home_greeting']	= random_element(config_item('home_greeting'));
+			$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
 	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
@@ -37,7 +37,7 @@ class Home extends Dashboard_Controller
  	    elseif ($this->uri->segment(2) == 'likes')
  	    {
 	 	    $this->data['page_title'] 		= 'Likes';
-			$this->data['home_greeting']	= random_element(config_item('home_greeting'));
+			$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
 	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
@@ -65,7 +65,7 @@ class Home extends Dashboard_Controller
 				
 				// Contributor
 				$this->data['item_user_id']			= $activity->user_id;
-				$this->data['item_avatar']			= $this->social_igniter->profile_image($activity->user_id, $activity->image, $activity->email);
+				$this->data['item_avatar']			= $this->social_igniter->profile_image($activity->user_id, $activity->image, $activity->gravatar);
 				$this->data['item_contributor']		= $activity->name;
 				$this->data['item_profile']			= base_url().'profile/'.$activity->username;
 				
@@ -127,7 +127,7 @@ class Home extends Dashboard_Controller
 				$this->data['item_viewed']			= item_viewed('item', $comment->viewed);
 				
 				// Contributor
-				$this->data['item_avatar']			= $this->social_igniter->profile_image($comment->user_id, $comment->image, $comment->email);
+				$this->data['item_avatar']			= $this->social_igniter->profile_image($comment->user_id, $comment->image, $comment->gravatar);
 				$this->data['item_contributor']		= $comment->name;
 				$this->data['item_profile']			= base_url().'profile/'.$comment->username;
 

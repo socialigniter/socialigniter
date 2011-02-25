@@ -77,11 +77,11 @@ class MY_Controller extends MX_Controller
 		$this->data['site_keywords'] 		= config_item('site_keywords');
 		$this->data['site_tagline'] 		= config_item('site_tagline');
 
-		// Set Social Config Arrays
+		// Set Social Arrays
 		$this->config->set_item('social_logins', $this->social_logins);
 		$this->config->set_item('social_connections', $this->social_connections);
 		$this->config->set_item('social_post', $this->social_post);
-		$this->config->set_item('social_checkin', $this->social_checkin);		
+		$this->config->set_item('social_checkin', $this->social_checkin);
 
 		// Config Email	
 		$this->load->library('email');
@@ -108,16 +108,16 @@ class MY_Controller extends MX_Controller
 		// Themes
         if ($this->agent->is_mobile())
         {
-            $this->config->set_item('site_theme', $this->data['settings']['site']['mobile_theme']);
-			$this->config->set_item('dashboard_theme', $this->data['settings']['site']['mobile_theme']);
+            $this->config->set_item('site_theme', $this->data['settings']['themes']['mobile_theme']);
+			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['mobile_theme']);
         }
         else
         {
-			$this->config->set_item('site_theme', $this->data['settings']['site']['site_theme']);
-			$this->config->set_item('dashboard_theme', $this->data['settings']['site']['dashboard_theme']);
+			$this->config->set_item('site_theme', $this->data['settings']['themes']['site_theme']);
+			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['dashboard_theme']);
         }
 
-		$this->config->set_item('mobile_theme', $this->data['settings']['site']['mobile_theme']);
+		$this->config->set_item('mobile_theme', $this->data['settings']['themes']['mobile_theme']);
 
 		// Dashboard & Public values for logged
 		if ($this->social_auth->logged_in())
@@ -133,7 +133,7 @@ class MY_Controller extends MX_Controller
 			$this->data['logged_user_level_id']	= $this->session->userdata('user_level_id');
 			$this->data['logged_username']		= $this->session->userdata('username');
 			$this->data['logged_name']			= $this->session->userdata('name');
-			$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('email'));
+			$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('gravatar'));
 			$this->data['logged_location']		= $this->session->userdata('location');
 			$this->data['logged_geo_enabled']	= $this->session->userdata('geo_enabled');
 			$this->data['logged_privacy']		= $this->session->userdata('privacy');
@@ -179,9 +179,9 @@ class MY_Controller extends MX_Controller
 		$this->data['shared_images']		= base_url().'images/shared/';
 		$this->data['site_images']			= base_url().'uploads/sites/'.config_item('site_id').'/';
 		$this->data['views']				= base_url().'application/views/';
-		$this->data['site_assets']			= base_url().'application/views/'.$this->data['settings']['site']['site_theme'].'/assets/';
-		$this->data['dashboard_assets']		= base_url().'application/views/'.$this->data['settings']['site']['dashboard_theme'].'/assets/';	
-		$this->data['mobile_assets']		= base_url().'application/views/'.$this->data['settings']['site']['mobile_theme'].'/assets/';
+		$this->data['site_assets']			= base_url().'application/views/'.$this->data['settings']['themes']['site_theme'].'/assets/';
+		$this->data['dashboard_assets']		= base_url().'application/views/'.$this->data['settings']['themes']['dashboard_theme'].'/assets/';	
+		$this->data['mobile_assets']		= base_url().'application/views/'.$this->data['settings']['themes']['mobile_theme'].'/assets/';
 		$this->data['profiles']				= base_url().'profile/';
 
         // Set the current controller and action name

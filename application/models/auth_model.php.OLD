@@ -14,6 +14,7 @@ class Auth_model extends CI_Model
 	public $activation_code;	
 	public $forgotten_password_code;
 	public $new_password;	
+	public $identity;
 	
 	public function __construct()
 	{
@@ -21,6 +22,7 @@ class Auth_model extends CI_Model
 
 		$this->columns 			= $this->config->item('columns');
 		$this->columns_allowed 	= $this->config->item('columns_allowed');
+		$this->identity_column 	= $this->config->item('identity');
 	    $this->store_salt      	= $this->config->item('store_salt');
 	    $this->salt_length     	= $this->config->item('salt_length');
 	}
@@ -45,16 +47,17 @@ class Auth_model extends CI_Model
 	}
 	
 	// This function takes a password and validates it against an entry in the users table.
-	public function hash_password_db($email, $password)
+	public function hash_password_db($identity, $password)
 	{
-	   if (empty($email) || empty($password))
+	   if (empty($identity) || empty($password))
 	   {
 	        return FALSE;
 	   }
 	   
 	   $query = $this->db->select('password')
 	   					 ->select('salt')
-						 ->where('email', $email)
+						 ->where($this->identity_column, $identity)
+						 ->where($this->social_auth->_extra_where)
 						 ->limit(1)
 						 ->get('users');
             
@@ -88,7 +91,7 @@ class Auth_model extends CI_Model
 	{	    
 	    if ($code != false) 
 	    {  
-		    $query = $this->db->select('email')
+		    $query = $this->db->select($this->identity_column)
 	        	->where('activation_code', $code)
 	        	->limit(1)
 	        	->get('users');
@@ -100,7 +103,7 @@ class Auth_model extends CI_Model
 				return FALSE;
 			}
 		    
-			$email = $result->email;
+			$identity = $result->{$this->identity_column};
 			
 			$data = array(
 				'activation_code' => '',
@@ -108,7 +111,7 @@ class Auth_model extends CI_Model
 			);
 	        
 			$this->db->where($this->social_auth->_extra_where);
-			$this->db->update('users', $data, array('email' => $email));
+			$this->db->update('users', $data, array($this->identity_column => $identity));
 	    }
 	    else 
 	    {
@@ -151,28 +154,29 @@ class Auth_model extends CI_Model
 		return $this->db->affected_rows() == 1;
 	}
 
-	function change_password($user_id, $old, $new)
+	function change_password($identity, $old, $new)
 	{
-	    $this->db->select('email,password,salt');
-		$this->db->from('users');
-		$this->db->where('user_id', $user_id);
-		$this->db->limit(1);    
- 		$result = $this->db->get()->row();
+	    $query = $this->db->select('password,salt')
+						  ->where($this->identity_column, $identity)
+						  ->where($this->social_auth->_extra_where)
+						  ->limit(1)
+						  ->get('users');
  
- 		if ($result)
- 		{
-		    $db_password = $result->password;
-		    $old         = $this->hash_password_db($result->email, $old);
-		    $new         = $this->hash_password($new, $result->salt);
-
-		    if ($db_password === $old)
-		    {
-		        $this->db->where('user_id', $user_id);
-		        $this->db->update('users', array('password' => $new));
-	 
-		        return TRUE;
-		    } 		
- 		}
+	    $result = $query->row();
+ 
+	    $db_password = $result->password;
+	    $old         = $this->hash_password_db($identity, $old);
+	    $new         = $this->hash_password($new, $result->salt);
+ 
+	    if ($db_password === $old)
+	    {
+	        $data = array('password' => $new);
+ 
+	        $this->db->where($this->social_auth->_extra_where);
+	        $this->db->update('users', $data, array($this->identity_column => $identity));
+ 
+	        return TRUE;
+	    }
  
 	    return FALSE;
 	}
@@ -194,7 +198,17 @@ class Auth_model extends CI_Model
 	        return FALSE;
 	    }
 		   
-	    return $this->db->where('email', $email)->count_all_results('users') > 0;
+	    return $this->db->where('email', $email)->where($this->social_auth->_extra_where)->count_all_results('users') > 0;
+	}
+	
+	function identity_check($identity = '')
+	{
+	    if (empty($identity))
+	    {
+	        return FALSE;
+	    }
+	    
+	    return $this->db->where($this->identity_column, $identity)->count_all_results('users') > 0;
 	}
 
 	function forgotten_password($email = '')
@@ -241,23 +255,24 @@ class Auth_model extends CI_Model
         return FALSE;
 	}
 
-	function profile($email = '')
+	function profile($identity = '')
 	{ 
-	    if (empty($email))
+	    if (empty($identity))
 	    {
 	        return FALSE;
 	    }
 	    
 		$this->db->select('*');
+		$this->db->join('users_meta', 'users.user_id = users_meta.user_id');
 		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
 		
-		if (strlen($email) === 40)
+		if (strlen($identity) === 40)
 	    {
-	        $this->db->where('users.forgotten_password_code', $email);
+	        $this->db->where('users.forgotten_password_code', $identity);
 	    }
 	    else
 	    {
-	        $this->db->where('users.email', $email);
+	        $this->db->where('users.'.$this->identity_column, $identity);
 	    }
 	    
 		$this->db->where($this->social_auth->_extra_where);
@@ -270,6 +285,17 @@ class Auth_model extends CI_Model
 
 	function register($username, $password, $email, $additional_data=false, $group_name=false)
 	{
+	    if ($this->identity_column == 'email' && $this->email_check($email))
+	    {
+			$this->social_auth->set_error('account_creation_duplicate_email');
+	    	return FALSE;
+	    } 
+	    elseif ($this->identity_column == 'username' && $this->username_check($username))
+	    {
+	    	$this->social_auth->set_error('account_creation_duplicate_username');
+	    	return FALSE;
+	    }
+
 		// Are Basics met
 	    if (empty($username) || empty($password) || empty($email) || $this->email_check($email))
 	    {
@@ -277,13 +303,16 @@ class Auth_model extends CI_Model
 	    }
 	    
 	    // If Username is taken append increment
-	    for ($i = 0; $this->username_check($username); $i++)
+	    if ($this->identity != 'username') 
 	    {
-	    	if ($i > 0)
-	    	{
-	    		$username .= $i;
-	    	}
-	    }	    
+		    for ($i = 0; $this->username_check($username); $i++)
+		    {
+		    	if($i > 0)
+		    	{
+		    		$username .= $i;
+		    	}
+		    }
+	    }
 	    
         // Group
 		if(empty($group_name))
@@ -310,9 +339,6 @@ class Auth_model extends CI_Model
 			'password'   		=> $password,
   			'salt'				=> $salt,
   			'email'      		=> $email,
-  			'gravatar'			=> md5($email),
-  			'name'				=> $name,
-  			'image'				=> $image,
 			'user_level_id'   	=> $user_level_id,
 			'ip_address' 		=> $ip_address,
         	'created_on' 		=> now(),
@@ -320,7 +346,10 @@ class Auth_model extends CI_Model
 			'active'     		=> 1
 		);
 		
-		if ($this->store_salt)	$data['salt'] = $salt;
+		if ($this->store_salt) 
+        {
+        	$data['salt'] = $salt;
+        }
 		  				
 		$this->db->insert('users', $user_data);		
 		$user_id = $this->db->insert_id();
@@ -350,12 +379,15 @@ class Auth_model extends CI_Model
 	function social_register($username, $email, $additional_data=false)
 	{
 	    // If Username is taken append increment
-	    for ($i = 0; $this->username_check($username); $i++)
+	    if ($this->identity != 'username') 
 	    {
-	    	if ($i > 0)
-	    	{
-	    		$username .= $i;
-	    	}
+		    for ($i = 0; $this->username_check($username); $i++)
+		    {
+		    	if ($i > 0)
+		    	{
+		    		$username .= $i;
+		    	}
+		    }
 	    }
 	    
 	    $user_level_id	= $this->db->select('user_level_id')->where('level', config_item('default_group'))->get('users_level')->row()->user_level_id;
@@ -415,31 +447,31 @@ class Auth_model extends CI_Model
 		return $this->db->affected_rows() > 0 ? $user_id : false;			
 	}
 	
-	function login($email, $password, $remember=FALSE)
+	function login($identity, $password, $remember=FALSE)
 	{
-	    if (empty($email) || empty($password) || !$this->email_check($email))
+	    if (empty($identity) || empty($password) || !$this->identity_check($identity))
 	    {
-	        return FALSE;	        
+	        return FALSE;
 	    }
 	    
 	    $this->db->select('*');
 		$this->db->from('users');
+		$this->db->join('users_meta', 'users_meta.user_id = users.user_id');
 		$this->db->join('users_level', 'users_level.user_level_id = users.user_level_id');
-		$this->db->where('users.email', $email);
+		$this->db->where('users.'.$this->identity_column, $identity);
 		$this->db->where('active', 1);
 		$this->db->limit(1);
  		$user = $this->db->get()->row();
         
         if ($user)
-        {                
-            $password = $this->hash_password_db($email, $password);
+        {
+            $password = $this->hash_password_db($identity, $password);
             
     		if ($user->password === $password)
     		{
     			// Sets Various Userdata
         		$this->update_last_login($user->user_id);
 				$this->social_auth->set_userdata($user);
-	 			$this->social_auth->set_userdata_meta($user->user_id);
 	 			$this->social_auth->set_userdata_connections($user->user_id);
    		    
     		    if ($remember && config_item('remember_users'))
@@ -463,6 +495,7 @@ class Auth_model extends CI_Model
 
 	    $this->db->select('*');
 		$this->db->from('users');
+		$this->db->join('users_meta', 'users_meta.user_id = users.user_id');
 		$this->db->join('users_level', 'users_level.user_level_id = users.user_level_id');
 		$this->db->where('users.user_id', $user_id);
 		$this->db->where('active', 1);
@@ -471,51 +504,114 @@ class Auth_model extends CI_Model
 
 		if ($user)
 		{
+    		// Sets Various Userdata
     		$this->update_last_login($user->user_id);
 			$this->social_auth->set_userdata($user);
-	 		$this->social_auth->set_userdata_meta($user->user_id);	
 			$this->social_auth->set_userdata_connections($user->user_id);
 
 		    return TRUE;
         }
-
+        
 		return FALSE;
 	}
 	
-	function get_users($parameter, $value)
+	function get_users($group=false)
 	{
-    	if (in_array($parameter, array('user_level_id','active')))
-    	{	
-			$this->db->select('*');
-	 		$this->db->from('users');
-			$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
-			$this->db->where('users.'.$parameter, $where);
-	 		$result = $this->db->get();	
-	 		return $result->result();		
-		}
-		else
+		$this->db->select(array('users.user_id', 'users.username', 'users.email', 'users.active'));
+
+        foreach ($this->columns_allowed as $field)
+        {
+            $this->db->select('users_meta.'.$field);
+        }
+
+		$this->db->select(array('users.created_on', 'users.last_login'));
+
+		$this->db->join('users_meta', 'users.user_id = users_meta.user_id', 'left');
+		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id', 'left');
+
+		if (is_string($group))
 		{
-			return FALSE;
+			$this->db->where('users_level.level', $group);
 		}
+		elseif (is_array($group))
+		{
+			$this->db->where_in('users_level.level', $group);
+		}
+
+		if (isset($this->social_auth->_extra_where))
+		{
+			$this->db->where($this->social_auth->_extra_where);
+		}
+
+		return $this->db->get('users');
+	}
+
+	function get_user_row()
+	{
+		$this->db->select(array('users.*', 'users_level.level AS `user_level`', 'users_level.description'));
+	    
+		if (!empty($this->columns))
+        {
+            foreach ($this->columns as $field)
+            {
+                $this->db->select('users_meta.'.$field);
+            }
+        }
+        
+		$this->db->join('users_meta', 'users.user_id = users_meta.user_id');
+		$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
+
+		if (isset($this->social_auth->_extra_where))
+		{
+			$this->db->where($this->social_auth->_extra_where);
+		}
+
+		return $this->db->get('users')->row();		
+	}
+
+	
+	function get_active_users($group_name = false)
+	{
+	    $this->db->where('users.active', 1);
+		return $this->get_users($group_name);
 	}
 	
-	function get_user($parameter, $value)
+	function get_inactive_users($group_name = false)
 	{
-    	if (in_array($parameter, array('user_id','username', 'email','gravatar')))
-    	{
-			$this->db->select('*');
-	 		$this->db->from('users');
-			$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');		
-			$this->db->where('users.'.$parameter, $value);
-			$this->db->limit(1);    
-	 		$result = $this->db->get()->row();	
-	 		return $result;
-		}
-		else
-		{
-			return FALSE;
-		}
+	    $this->db->where('users.active', 0);
+		return $this->get_users($group_name);
 	}
+	
+	function get_user($id=false)
+	{
+		if (empty($id)) $id = $this->session->userdata('user_id');
+		
+		$this->db->where('users.user_id', $id);
+		$this->db->limit(1);
+		return $this->get_user_row();
+	}
+	
+	function get_user_by_email($email)
+	{
+		$this->db->where('users.email', $email);
+		$this->db->limit(1);
+		return $this->get_user_row();
+	}
+
+	function get_user_by_username($username)
+	{
+		$this->db->where('users.username', $username);
+		$this->db->limit(1);
+		return $this->get_user_row();
+	}
+	
+	function get_newest_users($limit = 10)
+  	{
+    	$this->db->order_by('users.created_on', 'desc');
+    	$this->db->limit($limit);
+    	return $this->get_users();
+  	}
+	
 	function get_users_levels()
 	{	
 	    $this->db->select('*');
@@ -544,6 +640,7 @@ class Auth_model extends CI_Model
 	        $this->db->update('users_meta');
 	    }
 
+	    // Only does Users Tables
         if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data)) 
         {
 	        if (array_key_exists('password', $data))
@@ -555,6 +652,7 @@ class Auth_model extends CI_Model
 			$this->db->update('users', $data, array('user_id' => $user_id));
         }
          
+        // Finishes    
 		if ($this->db->trans_status() === FALSE)
 		{
 		    $this->db->trans_rollback();
@@ -586,77 +684,6 @@ class Auth_model extends CI_Model
 		}
 	}
 	
-	/* User Meta */
-	function get_user_meta($user_id)
-	{
- 		$this->db->select('*');
- 		$this->db->from('users_meta');
- 		$this->db->where('user_id', $user_id);   
- 		$result = $this->db->get();	
- 		return $result->result();		
-	}
-
-	function get_user_meta_meta($user_id, $meta)
-	{
- 		$this->db->select('*');
- 		$this->db->from('users_meta');
- 		$this->db->where('user_id', $user_id);   
- 		$this->db->where('meta', $meta);
- 		$result = $this->db->get();	
- 		return $result->result();		
-	}
-
-	function get_user_meta_id($user_meta_id)
-	{
- 		$this->db->select('*');
- 		$this->db->from('users_meta');
- 		$this->db->where('user_meta_id', $user_meta_id);
-		$this->db->limit(1);    
- 		$result = $this->db->get()->row();	
- 		return $result;	
-	}
-
-	function check_user_meta_exists($user_meta_data)
-	{
- 		$this->db->select('*');
- 		$this->db->from('users_meta');
- 		$this->db->where($user_meta_data); 
-		$this->db->limit(1);    
- 		$result = $this->db->get()->row();
- 		
- 		if ($result)
- 		{	
- 			return $result;
-		}
-		
-		return FALSE;	
-	}
-	
-	function add_user_meta($meta_data)
-	{
-		$meta_data['created_at'] = unix_to_mysql(now());
-		$meta_data['updated_at'] = unix_to_mysql(now());
-
-		$this->db->insert('users_meta', $meta_data);
-		$user_meta_id = $this->db->insert_id();
-		
-		if ($user_meta_id)
-		{
-			return $this->get_user_meta_id($user_meta_id);
-		}		
-		
-		return FALSE;		
-	}
-	
-	function update_user_meta($user_meta_id, $meta_data)
-	{
-		$meta_data['updated_at'] = unix_to_mysql(now());
-		$this->db->where('user_meta_id', $user_meta_id);
-		$this->db->update('users_meta', $meta_data);
-		return TRUE;		
-	}
-	
-	/* Remember Login */
 	function update_last_login($user_id)
 	{
 		$this->db->update('users', array('last_login' => now()), array('user_id' => $user_id));
@@ -677,17 +704,19 @@ class Auth_model extends CI_Model
 
 	function login_remembered_user()
 	{
-		if (!get_cookie('email') || !get_cookie('remember_code') || !$this->email_check(get_cookie('email')))
+		// If all three cookies exist
+		if (!get_cookie('identity') || !get_cookie('remember_code') || !$this->identity_check(get_cookie('identity')))
 		{
 			return FALSE;
 		}
 
 		// Get User
-	    $this->db->select('*');
-		$this->db->where('email', get_cookie('email'));
-		$this->db->where('remember_code', get_cookie('remember_code'));
-		$this->db->limit(1);
-		$query = $this->db->get('users');
+	    $query = $this->db->select('*')
+				  ->join('users_meta', 'users.user_id = users_meta.user_id')
+			      ->where(config_item('identity'), get_cookie('identity'))
+			      ->where('remember_code', get_cookie('remember_code'))
+			      ->limit(1)
+			      ->get('users');
 
 	    if ($query->num_rows() == 1)
 	    {
@@ -719,12 +748,12 @@ class Auth_model extends CI_Model
 
 		if ($this->db->affected_rows() == 1)
 		{
-			$user = $this->get_user('user_id', $user_id);
+			$user = $this->get_user($user_id);
 
-			$email			= array('name' => 'email', 'value' => $user->email, 'expire' => config_item('user_expire'));
-			$remember_code	= array('name' => 'remember_code', 'value' => $salt, 'expire' => config_item('user_expire'));
+			$identity = array('name' => 'identity', 'value' => $user->{config_item('identity')}, 'expire' => config_item('user_expire'));
+			$remember_code = array('name' => 'remember_code', 'value' => $salt, 'expire' => config_item('user_expire'));
 
-			set_cookie($email);
+			set_cookie($identity);
 			set_cookie($remember_code);
 
 			return TRUE;

@@ -9,11 +9,10 @@ class Activity_model extends CI_Model
     
     function get_timeline($where, $limit)
     {
- 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
+ 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('activity');    
  		$this->db->join('sites', 'sites.site_id = activity.site_id');
  		$this->db->join('users', 'users.user_id = activity.user_id'); 				
- 		$this->db->join('users_meta', 'users_meta.user_id = activity.user_id'); 				    
     	$this->db->where($where);
 	 	$this->db->where('activity.status !=', 'D');    	
  		$this->db->order_by('created_at', 'desc'); 
@@ -24,10 +23,9 @@ class Activity_model extends CI_Model
     
     function get_activity($activity_id)
     {
-	 	$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
+	 	$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('activity'); 
  		$this->db->join('sites', 'sites.site_id = activity.site_id');
-  		$this->db->join('users_meta', 'users_meta.user_id = activity.user_id');		  
  		$this->db->join('users', 'users.user_id = activity.user_id');  		 
  		$this->db->where('activity_id', $activity_id);
 	 	$this->db->where('activity.status !=', 'D');
@@ -40,11 +38,10 @@ class Activity_model extends CI_Model
     {
     	if (in_array($parameter, array('site_id','user_id','verb', 'module','type','content_id')))
     	{    
-	 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.email, users_meta.name, users_meta.location, users_meta.image');
+	 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
 	 		$this->db->from('activity');
 	 		$this->db->join('sites', 'sites.site_id = activity.site_id');
 	 		$this->db->join('users', 'users.user_id = activity.user_id');
-	 		$this->db->join('users_meta', 'users_meta.user_id = activity.user_id');
 	 		$this->db->where('activity.'.$parameter, $value);
 	 		$this->db->where('activity.status !=', 'D');
 	 		$this->db->order_by('activity.created_at', 'desc'); 

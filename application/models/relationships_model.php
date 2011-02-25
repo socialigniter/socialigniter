@@ -27,10 +27,9 @@ class Relationships_model extends CI_Model
 
     function get_relationships_followers($user_id)
     {    
- 		$this->db->select('relationships.*, users.username, users.email, users_meta.name, users_meta.image');
+ 		$this->db->select('relationships.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('relationships');
  		$this->db->join('users', 'users.user_id = relationships.owner_id');		
- 		$this->db->join('users_meta', 'users_meta.user_id = relationships.owner_id');
 	 	$this->db->where('relationships.user_id', $user_id);
  		$this->db->where('relationships.type', 'follow');
  		$this->db->where('relationships.status', 'Y');
@@ -40,10 +39,9 @@ class Relationships_model extends CI_Model
     
     function get_relationships_follows($owner_id)
     {    
- 		$this->db->select('relationships.*, users.username, users.email, users_meta.name, users_meta.image');
+ 		$this->db->select('relationships.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('relationships');
  		$this->db->join('users', 'users.user_id = relationships.user_id');		
- 		$this->db->join('users_meta', 'users_meta.user_id = relationships.user_id');
 	 	$this->db->where('relationships.owner_id', $owner_id);
  		$this->db->where('relationships.type', 'follow');
  		$this->db->where('relationships.status', 'Y');
