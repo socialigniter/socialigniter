@@ -15,6 +15,8 @@ ALTER TABLE `users` ADD `name` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_un
 ALTER TABLE `users` ADD `image` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `name`;
 ALTER TABLE `users` ADD `time_zone` VARCHAR( 8 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `image`;
 ALTER TABLE `users` ADD `privacy` INT( 1 ) NULL AFTER  `time_zone`;
+ALTER TABLE `users` ADD `language` VARCHAR( 8 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `privacy`;
+ALTER TABLE `users` ADD `geo_enabled` TINYINT( 1 ) NULL DEFAULT NULL AFTER  `language`
 ALTER TABLE `users` ADD `consumer_key` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `privacy`;
 ALTER TABLE `users` ADD `consumer_secret` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `consumer_key`;
 ALTER TABLE `users` ADD `token` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL AFTER  `consumer_secret`;
