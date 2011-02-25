@@ -58,7 +58,7 @@ class Content_model extends CI_Model {
     {
  		if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id')))
     	{
-	 		$this->db->select('content.*, users.username, users.name, users.image');
+	 		$this->db->select('content.*, users.username, users.gravatar, users.name, users.image');
 	 		$this->db->from('content');
  			$this->db->join('users', 'users.user_id = content.user_id');
 	 		$this->db->where('content.'.$parameter, $value);
@@ -82,7 +82,7 @@ class Content_model extends CI_Model {
 
     function get_content_title_url($type, $title_url)
     {
- 		$this->db->select('content.*, users.url, users.username, users.name, users.image');
+ 		$this->db->select('content.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('content');
 		$this->db->join('users', 'users.user_id = content.user_id');
  		$this->db->where('content.type', $type);
