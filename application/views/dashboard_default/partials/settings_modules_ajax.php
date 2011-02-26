@@ -16,17 +16,9 @@ $(document).ready(function()
 			dataType	: 'json',
 			data		: settings_data,
 	  		success		: function(result)
-	  		{		  					  			  			
-				if (result.status == 'success')
-				{
-				 	$('#content_message').html(result.message).addClass('message_alert').show('slow');				 	
-				 	$('#content_message').oneTime(4000, function(){$('#content_message').hide('normal')});
-			 	}
-			 	else
-			 	{
-				 	$('#content_message').html(result.message).addClass('message_alert').show('slow');
-				 	$('#content_message').oneTime(4000, function(){$('#content_message').hide('normal')});			
-			 	}	
+	  		{
+				$('html, body').animate({scrollTop:0});
+				$('#content_message').notify({scroll:true,status:result.status,message:result.message});			 		
 		 	}
 		});		
 	});	

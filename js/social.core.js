@@ -88,30 +88,41 @@ function cleanFieldEmpty(id, placeholder)
 $(function(){ $('input').attr('autocomplete','off'); });
 
 // Allows for easy user notifications and if "how" the notifiy ever works it'll be site wide.
-// Use like: $('#content_message).notify({message:'Something has been updated!'});
+// Use like: $('#content_message').notify({message:'Something has been updated!'});
 (function($)
 {
 	$.fn.notify = function(options)
 	{
 		var settings =
 		{
-			message : 'Content has been saved', //The message
-			appendTo: '.content_wrap', 			//Where to add the message
-			classes : 'message_alert', 			//Classes you want to add to the selected item,
-			timeout : 5000, 					//How long to wait before hiding,
-			speed   : 'normal' 					//animation speed
+			status 	: 'error', 					// Status either: success, error
+			message : 'Content has been saved', // The message
+			appendTo: '.content_wrap', 			// Where to add the message
+			timeout : 5000, 					// How long to wait before hiding message
+			speed   : 'normal' 					// Animation speed
 		};
+		
 		return this.each(function()
-		{//Merge the options and settings
+		{
+			//Merge the options and settings
 			options = $.extend({},settings,options);
+			
 			//Save "this"
 			var $this = $(this);
-			//If it's not already, hide the thing to be shown, add content, classes, then show it!
-			$this.css({display:'none'}).html(options.message).addClass(options.classes).show(options.speed)
+			
+			// Message Class
+			if (options.status == 'success') var message_class = 'message_success';
+			else var message_class = 'message_alert';
+			
+			console.log(message_class);
+
+			//If it's not already, hide the thing to be shown, add content, classes, then show it!			
+			$this.css({display:'none'}).delay(500).html(options.message).addClass(message_class).show(options.speed)
 			//wait for the specified "timeout", then hide
-				.delay(options.timeout).hide(options.speed,function()
-				{//Cleanup by removing the added classes, then empty contents
-					$this.removeClass(options.classes).empty();
+				.delay(options.timeout).hide(options.speed, function()
+				{
+					//Cleanup by removing the added classes, then empty contents
+					$this.removeClass(message_class).empty();
 				});
 		});
 	};

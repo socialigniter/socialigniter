@@ -1,4 +1,3 @@
-<h3>Details</h3>
 <form method="post" name="user_details" id="user_details" action="<?= base_url() ?>api/users/details/id/<?= $logged_user_id ?>" enctype="multipart/form-data">
 	<table border="0" cellpadding="0" cellspacing="0">
 		<tr>		
@@ -41,17 +40,9 @@ $(document).ready(function()
 			dataType	: 'json',
 			data		: details_data,
 	  		success		: function(result)
-	  		{		  					  			  			
-				if (result.status == 'success')
-				{
-				 	$('#content_message').html(result.message).addClass('message_alert').show('slow');				 	
-				 	$('#content_message').oneTime(4000, function(){$('#content_message').hide('normal')});
-			 	}
-			 	else
-			 	{
-				 	$('#content_message').html(result.message).addClass('message_alert').show('slow');
-				 	$('#content_message').oneTime(4000, function(){$('#content_message').hide('normal')});			
-			 	}	
+	  		{
+				$('html, body').animate({scrollTop:0});
+				$('#content_message').notify({scroll:true,status:result.status,message:result.message});
 		 	}
 		});		
 	});	
