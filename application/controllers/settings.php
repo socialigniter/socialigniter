@@ -14,90 +14,22 @@ class Settings extends Dashboard_Controller
  	}
 
 	/* User Settings */
- 	function profile()
- 	{	
-		$user			= $this->social_auth->get_user($this->session->userdata('user_id')); 
-		$user_picture 	= $user->image; 
+	function profile()
+ 	{	    
+		$user = $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 
 
-   		$this->form_validation->set_rules('name', 'Name', 'required');
-
-        if ($this->form_validation->run() == true)
-        {
-        	if ($this->input->post('delete_pic') == 1)
-        	{
-				$this->load->helper('file');
-        		delete_files($this->config->item('profile_images').$user->user_id."/");
-        		$user_picture = '';
-        	}
-	           
-			if (!$this->input->post('userfile'))
-			{
-				$config['upload_path'] 		= config_item('uploads_folder');
-				$config['allowed_types'] 	= config_item('users_images_formats');		
-				$config['overwrite']		= true;
-				$config['max_size']			= config_item('users_images_max_size');
-				$config['max_width']  		= config_item('users_images_max_dimensions');
-				$config['max_height']  		= config_item('users_images_max_dimensions');
-			
-				$this->load->library('upload',$config);
-				
-				if (!$this->upload->do_upload())
-				{
-					$error = array('error' => $this->upload->display_errors());
-				}	
-				else
-				{
-					// Load Image Model
-					$this->load->model('image_model');
-					
-					// Upload & Sizes
-					$file_data		= $this->upload->data();
-					$image_sizes	= array('full', 'large', 'medium', 'small');
-					$create_path	= config_item('users_images_folder').$this->session->userdata('user_id').'/';
-					
-					// Do Resizes					
-					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);										
-					
-					// Delete Upload
-					$file_data['deleted'] = unlink(config_item('uploads_folder').$file_data['file_name']);
-					$user_picture = $file_data['file_name'];		
-				}	
-			}	
-	
-	    	$update_data = array(
-	        	'name'		=> $this->input->post('name'),
-	        	'company'	=> $this->input->post('company'),
-	        	'location'	=> $this->input->post('location'),
-	        	'url'		=> $this->input->post('url'),
-	        	'bio'		=> $this->input->post('bio'),
-	        	'image'		=> $user_picture 
-			);
-
-	    	// Update the user
-	    	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
-	    	{
-				foreach ($update_data as $field => $value)
-				{
-				    $this->session->set_userdata($field,  $value);			
-				}
-	   		}
-	   		
-	   		redirect('settings/profile', 'refresh');
-		} 
-		else 
-		{ 	
-	 	    $this->data['sub_title'] 	= "Profile";
-		    $this->data['message'] 		= validation_errors();
-	 		$this->data['name'] 		= is_empty($user->name);
-	        $this->data['company'] 		= is_empty($user->company);
-	        $this->data['location'] 	= is_empty($user->location);
-	        $this->data['url']      	= is_empty($user->url);
-	        $this->data['bio']      	= is_empty($user->bio);
-	 	 	$this->data['image']		= is_empty($user->image);
-		 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->email, 'small');
-		}	    
- 	 	
- 		$this->render();	
+	    $this->data['sub_title'] 	= "Profile";     
+ 	 	$this->data['image']		= $user->image;
+	 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar, 'small');
+		$this->data['name']			= $user->name;
+		$this->data['username']     = $user->username;			    
+		$this->data['email']      	= $user->email;
+		$this->data['language']		= $user->language;
+		$this->data['time_zone']	= $user->time_zone;
+		$this->data['geo_enabled']	= $user->geo_enabled;
+		$this->data['privacy'] 		= $user->privacy;
+        
+		$this->render();
  	}
  	
  	function details()
@@ -130,8 +62,8 @@ class Settings extends Dashboard_Controller
  	   	$user 		= $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 	
  		$user_meta	= $this->social_auth->get_user_meta_meta($this->session->userdata('user_id'), 'phone');
  	
- 		$this->data['phones']		= $user_meta;
  	    $this->data['sub_title'] 	= "Mobile";
+ 		$this->data['phones']		= $user_meta;
     	
  		$this->render();	
  	}
@@ -149,7 +81,9 @@ class Settings extends Dashboard_Controller
 	/* Site Settings */
 	function site()
 	{
-		$this->data['sub_title'] = 'Site';
+		$this->data['sub_title'] 	= 'Site';
+		$this->data['this_module']	= 'site';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render();	
 	}
 
@@ -159,13 +93,17 @@ class Settings extends Dashboard_Controller
 		$this->data['site_themes']			= $this->social_igniter->get_themes('site');
 		$this->data['dashboard_themes']		= $this->social_igniter->get_themes('dashboard');
 		$this->data['mobile_themes']		= $this->social_igniter->get_themes('mobile');
-		$this->data['sub_title'] 			= 'Themes';	
+		$this->data['sub_title'] 			= 'Themes';
+		$this->data['this_module']			= 'home';
+		$this->data['shared_ajax'] 		   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render('dashboard_wide');
 	}
 
 	function widgets()
 	{
-		$this->data['sub_title'] = 'Widgets';
+		$this->data['sub_title'] 	= 'Widgets';
+		$this->data['this_module']	= 'widgets';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render();
 	}
 
@@ -180,69 +118,60 @@ class Settings extends Dashboard_Controller
 			$this->data['mobile_modules'][$mobile_module->module] = ucwords($mobile_module->module);
 		}
 		
-		$this->data['sub_title'] = 'Services';
-		
+		$this->data['sub_title'] 	= 'Services';
+		$this->data['this_module']	= 'services';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render();	
 	}
 	
 	function comments()
 	{	
-		$this->data['sub_title'] = 'Comments';
+		$this->data['sub_title'] 	= 'Comments';
+		$this->data['this_module']	= 'comments';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
     	$this->render();
     }	
 
 	function home()
 	{
-		$this->data['sub_title'] = 'Home';
-	
+		$this->data['sub_title'] 	= 'Home';
+		$this->data['this_module']	= 'home';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render();
     }
 
 	function users()
 	{	
-		$this->data['sub_title'] = 'Users';
+		$this->data['sub_title']	= 'Users';
+		$this->data['this_module']	= 'users';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render();
     }
 	
 	function pages()
 	{	
-		$this->data['sub_title'] = 'Pages';
+		$this->data['sub_title'] 	= 'Pages';
+		$this->data['this_module']	= 'users';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render();
     }    
 
 	function api()
 	{
-		$this->data['sub_title'] = 'API';
+		$this->data['sub_title'] 	= 'API';
+		$this->data['this_module']	= 'users';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
     	$this->render();
     }
 
     /* Modules Settings */
 	function modules()
 	{
+		$this->data['sub_title']		= 'Module';
 		$this->data['core_modules']		= config_item('core_modules');
 		$this->data['ignore_modules']	= config_item('ignore_modules');
 		$this->data['modules']			= $this->social_igniter->scan_modules();
-		$this->data['sub_title']		= 'Module';
-	
+		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
 		$this->render();
-	}
-
-	/* Update Settings */
-	function update()
-	{
-		if ($this->data['logged_user_level_id'] > 1) redirect('home');
-
-		$settings_update = $_POST;
-	
-		if ($settings_update)
-        {
-			$this->social_igniter->update_settings($this->input->post('module'), $settings_update);
-														
-			redirect(base_url().'settings/'.$this->input->post('module'), 'refresh');
-		}
-		else
-		{
-			redirect($this->session->userdata('previous_page'), 'refresh');
-		}
 	}
 }

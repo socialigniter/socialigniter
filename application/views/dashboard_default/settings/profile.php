@@ -1,6 +1,4 @@
-<h3>Profile</h3>
-	
-<form method="post" action="<?= base_url() ?>settings/account">
+<form name="settings_update" id="settings_update"  method="post" action="<?= base_url() ?>settings/account">
 	<table border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td>Picture:</td>
@@ -46,3 +44,30 @@
   	</tr>  	
 	</table>
 </form>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+	// Write Article
+	$("#user_details").bind("submit", function(e)
+	{
+		e.preventDefault();
+		var details_data = $('#user_details').serializeArray();
+		details_data.push({'name':'module','value':'users'});		
+	
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: $(this).attr('ACTION'),
+			type		: 'POST',
+			dataType	: 'json',
+			data		: details_data,
+	  		success		: function(result)
+	  		{
+				$('html, body').animate({scrollTop:0});
+				$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+		 	}
+		});		
+	});	
+});
+</script>

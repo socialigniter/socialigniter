@@ -11,11 +11,11 @@ class Settings extends Oauth_Controller
 	}
 	
     /* GET types */
-    function view_get$message = array(
+    function view_get()
     {
     	$search_by	= $this->uri->segment(4);
     	$search_for	= $this->uri->segment(5);
-    	$settings = $this->categories_model->get_categories_view($search_by, $search_for);
+    	$settings 	= $this->categories_model->get_categories_view($search_by, $search_for);
     	
         if($settings)
         {
@@ -29,20 +29,30 @@ class Settings extends Oauth_Controller
         $this->response($message, 200);
     }
     
-    /* PUT types */
-    function update_put()
+    function modify_authd_post()
     {
-		$viewed = $this->social_tools->update_comment_viewed($this->get('id'));			
+    	$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);
+    
+		if ($user->user_level_id == 1)
+		{
+			$settings_update = $_POST;
+		
+			if ($settings_update)
+	        {
+				$this->social_igniter->update_settings($this->input->post('module'), $settings_update);
+															
+	            $message = array('status' => 'success', 'message' => 'Settings have been updated');
+			}
+			else
+			{
+	            $message = array('status' => 'error', 'message' => 'Settings could not be updated');
+			}				
+		}
+		else
+		{
+			$message = array('status' => 'error', 'message' => 'You do not have access to update those settings');		
+		}
     	
-        if($viewed)
-        {
-            $message = array('status' => 'success', 'message' => 'Comment viewed');
-        }
-        else
-        {
-            $message = array('status' => 'error', 'message' => 'Could not mark as viewed');
-        } 
-
         $this->response($message, 200);           
     }  
 

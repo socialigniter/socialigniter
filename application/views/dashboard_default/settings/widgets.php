@@ -1,4 +1,4 @@
-<form name="settings" method="post" action="<?= base_url() ?>settings/update" enctype="multipart/form-data">
+<form name="settings_update" id="settings_update" method="post" action="<?= base_url() ?>api/settings/modify" enctype="multipart/form-data">
 
 <div class="content_wrap_inner">
 	
@@ -8,3 +8,5 @@
 </div>
 
 </form>
+
+<?= $shared_ajax ?>

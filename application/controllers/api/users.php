@@ -12,7 +12,9 @@ class Users extends Oauth_Controller
 {
     function __construct()
     {
-        parent::__construct();      
+        parent::__construct();
+
+    	$this->form_validation->set_error_delimiters('', '');            
 	}
     
     function recent_get()
@@ -172,7 +174,7 @@ class Users extends Oauth_Controller
 	    	else $site_id = config_item('site_id');			
 			
 			// Build Meta
-			foreach (config_item('user_data_details') as $config_meta)
+			foreach (config_item('user_meta_details') as $config_meta)
 			{
 				$user_meta_data[$config_meta] = $this->input->post($config_meta);
 			}
@@ -205,7 +207,7 @@ class Users extends Oauth_Controller
     		}
     		else
     		{
-		        $message = array('status' => 'success', 'message' => 'Oops could not change your password');    		
+		        $message = array('status' => 'error', 'message' => 'Oops could not change your password');    		
     		}
 	    }
 	    else

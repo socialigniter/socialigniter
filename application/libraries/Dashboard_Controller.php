@@ -25,6 +25,7 @@ class Dashboard_Controller extends MY_Controller
         $this->data['head']						= $this->load->view(config_item('dashboard_theme').'/partials/head_dashboard.php', $this->data, true);
         $this->data['navigation']				= '';
         $this->data['content']					= '';
+        $this->data['shared_ajax']				= '';
         $this->data['sidebar_messages']			= $this->load->view(config_item('dashboard_theme').'/partials/sidebar_messages.php', $this->data, true);
         $this->data['sidebar_tools']			= $this->load->view(config_item('dashboard_theme').'/partials/sidebar_tools.php', $this->data, true);
         $this->data['sidebar_admin']			= $this->load->view(config_item('dashboard_theme').'/partials/sidebar_admin.php', $this->data, true);

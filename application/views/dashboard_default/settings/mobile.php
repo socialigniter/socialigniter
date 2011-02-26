@@ -80,23 +80,13 @@
 
 <h3>Add A Phone</h3>
 <form method="post" name="user_mobile_add" id="user_mobile_add" action="<?= base_url() ?>api/users/mobile_add">
-	<table border="0" cellpadding="0" cellspacing="0">
-    <tr>		
-		<td>Phone:</td>
-		<td>+1 <input type="text" name="phone" size="18" value=""></td>
-	</tr>
-	<tr>
-		<td>Search:</td>
-		<td><input type="checkbox" name="phone_search" value="yes"> Allow others to search this number</td>
-	</tr>
-	<tr>
-		<td>Type:</td>
-		<td><?= form_dropdown('type', config_item('user_mobile_types')); ?></td>
-	</tr>
-    <tr>		
-		<td colspan="2"><input type="submit" value="Add" /></td>
-  	</tr>	
-	</table>
+
+	<?= form_dropdown('type', config_item('user_mobile_types')); ?>
+
+	+1 <input type="text" name="phone" size="18" value=""> <input type="checkbox" name="phone_search" value="yes"> Allow others to search this number</p>
+
+	<p><input type="submit" value="Add" /></p>
+		
 </form>	
 
 <script type="text/javascript">
@@ -118,16 +108,8 @@ $(document).ready(function()
 			data		: details_data,
 	  		success		: function(result)
 	  		{		  					  			  			
-				if (result.status == 'success')
-				{
-				 	$('#content_message').html(result.message).addClass('message_alert').show('slow');				 	
-				 	$('#content_message').oneTime(4000, function(){$('#content_message').hide('normal')});
-			 	}
-			 	else
-			 	{
-				 	$('#content_message').html(result.message).addClass('message_alert').show('slow');
-				 	$('#content_message').oneTime(4000, function(){$('#content_message').hide('normal')});			
-			 	}	
+				$('html, body').animate({scrollTop:0});
+				$('#content_message').notify({scroll:true,status:result.status,message:result.message});	
 		 	}
 		});		
 	});	

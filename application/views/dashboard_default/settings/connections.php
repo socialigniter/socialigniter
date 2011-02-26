@@ -1,5 +1,3 @@
-<h3>Connections</h3>
-
 <?php if ($social_connections): ?>
 <table border="0" cellpadding="0" cellspacing="0" width="450">
 <?php foreach($social_connections as $social): $connection_set[$social->module] = FALSE; ?>
