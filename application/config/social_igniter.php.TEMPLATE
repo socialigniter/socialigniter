@@ -20,7 +20,7 @@ $config['languages']					= array('' => '--select--','en' => 'English','fr' => 'F
 // Settings
 $config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','locations');
 $config['ignore_modules']				= array('index.html');
-$config['site_modules']					= array('site','themes','widgets','services');
+$config['site_modules']					= array('site','themes','design','widgets','services');
 $config['user_meta_details']			= array('company','location','url','bio');
 $config['user_data']					= array('user_id','username','user_level_id','gravatar','name','image','language','time_zone','geo_enabled','privacy','consumer_key','consumer_secret','token','token_secret');	
 $config['user_data_meta']				= array('location','url');

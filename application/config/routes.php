@@ -126,6 +126,7 @@ $route['home/likes']								= 'home/index';
 $route['home/item_timeline']						= 'home/item_timeline';
 $route['home/item_manage']							= 'home/item_manage';
 $route['home/category_editor']						= 'home/category_editor';
+$route['home/widget_picker']						= 'home/widget_picker';
 $route['home'] 										= 'home';
 
 /* Home Modules */
@@ -148,6 +149,7 @@ $route['settings/mobile'] 							= 'settings/mobile';
 $route['settings/connections'] 						= 'settings/connections';
 $route['settings/site']								= 'settings/site';
 $route['settings/themes']							= 'settings/themes';
+$route['settings/design']							= 'settings/design';
 $route['settings/widgets']							= 'settings/widgets';
 $route['settings/services']							= 'settings/services';
 $route['settings/modules'] 							= 'settings/modules';

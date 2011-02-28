@@ -352,3 +352,11 @@ span.item_right a:hover		{ text-decoration: underline; }
 	
 	.ui-dialog {-webkit-box-shadow:rgba(0,0,0,0.2) 0 0 10px;-moz-box-shadow:rgba(0,0,0,0.2) 0 0 10px;box-shadow:rgba(0,0,0,0.2) 0 0 10px;padding:17px;background:#ECECEC;border:1px solid #A09F9F; margin-left:auto; margin-right:auto;}
 	.ui-dialog-titlebar {display:none}
+
+/* Settings - Widget */
+#widget_content_area 	{ width: 620px; padding:0 0 0 12px; margin: 0 0 10px 0; float: left; }
+#widget_sidebar_area 	{ width: 200px; padding:0 0 0 12px; margin: 0 0 10px 35px; float: left; }
+#widget_wide_area 	 	{ width: 870px; padding:0 0 0 12px; margin: 0 0 25px 0; }
+div.widget_area h3		{ float: left; }
+div.widget_area input[type=button] { float: right; display: block; position: relative; top: 12px; right: -10px; }
+div.widget_border		{ width: 100%; min-height: 75px; border: 4px dashed #999999; }

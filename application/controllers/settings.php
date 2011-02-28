@@ -94,17 +94,26 @@ class Settings extends Dashboard_Controller
 		$this->data['dashboard_themes']		= $this->social_igniter->get_themes('dashboard');
 		$this->data['mobile_themes']		= $this->social_igniter->get_themes('mobile');
 		$this->data['sub_title'] 			= 'Themes';
-		$this->data['this_module']			= 'home';
+		$this->data['this_module']			= 'themes';
 		$this->data['shared_ajax'] 		   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render('dashboard_wide');
+	}
+	
+	function design()
+	{
+		$this->data['sub_title'] 			= 'Design';
+		$this->data['this_module']			= 'design';
+		$this->data['shared_ajax'] 		   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
+		$this->render();
 	}
 
 	function widgets()
 	{
-		$this->data['sub_title'] 	= 'Widgets';
-		$this->data['this_module']	= 'widgets';
-		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
-		$this->render();
+		$this->data['sub_title'] 		= 'Widgets';
+		$this->data['this_module']		= 'widgets';
+		$this->data['layouts']			= $this->social_igniter->scan_layouts(config_item('site_theme'));		
+		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
+		$this->render('dashboard_wide');
 	}
 
 	function services()

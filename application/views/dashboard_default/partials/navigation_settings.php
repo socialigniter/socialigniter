@@ -19,6 +19,7 @@
 <ul class="content_navigation">
 	<?= navigation_list_btn('settings/site', 'Settings') ?>
 	<?= navigation_list_btn('settings/themes', 'Themes') ?>	
+	<?= navigation_list_btn('settings/design', 'Design') ?>	
 	<?= navigation_list_btn('settings/widgets', 'Widgets') ?>	
 	<?= navigation_list_btn('settings/services', 'Services') ?>
 </ul>

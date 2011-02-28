@@ -267,5 +267,10 @@ class Home extends Dashboard_Controller
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/category_editor');
 	}
+	
+	function widget_picker()
+	{
+		$this->load->view(config_item('dashboard_theme').'/partials/widget_picker');
+	}
 
 }
