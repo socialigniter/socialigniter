@@ -579,20 +579,18 @@ class Social_igniter
 	function get_content_recent($type, $limit=10)
 	{
 		$site_id = config_item('site_id');
-		
 		return $this->ci->content_model->get_content_recent($site_id, $type, $limit);
 	}
 
 	function get_content_module($module, $limit=10)
 	{
-		$site_id = config_item('site_id');
-		
+		$site_id = config_item('site_id');		
 		return $this->ci->content_model->get_content_module($site_id, $module, $limit);
 	}
 	
-	function get_content_view($parameter, $value, $limit=10)
+	function get_content_view($parameter, $value, $status=FALSE, $limit=10)
 	{
-		return $this->ci->content_model->get_content_view($parameter, $value, $limit);	
+		return $this->ci->content_model->get_content_view($parameter, $value, $status, $limit);	
 	}
 	
 	function get_content_title_url($type, $title_url)

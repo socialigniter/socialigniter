@@ -105,7 +105,7 @@ function item_alerts_content($item)
 {
 	$item_alerts = NULL;
 	
-	if ($item->approval == 'A') 
+	if ($item->approval == 'N') 
 	{
 		$item_alerts .= '<span class="item_alert_approve" rel="content" id="item_alert_approve_'.$item->content_id.'">Approve</span>';
 	}	

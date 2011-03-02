@@ -168,7 +168,7 @@ class Home extends Dashboard_Controller
 	
 	function manage()
 	{
-		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2));
+		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2), 'all');
 		$manage_view 		= NULL;
 
 		// Title Stuff
@@ -187,6 +187,8 @@ class Home extends Dashboard_Controller
 				$this->data['title_link']			= base_url().$content->module.'/view/'.$content->content_id;
 				$this->data['comments_count']		= manage_comments_count($content->comments_count);
 				$this->data['publish_date']			= manage_published_date($content->created_at, $content->updated_at);
+				
+				// MAKE FOR CHECK RELVANT TO USER_LEVEL
 				$this->data['item_status']			= display_content_status($content->status);
 				$this->data['item_approval']		= $content->approval;
 	

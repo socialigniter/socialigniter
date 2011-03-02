@@ -31,9 +31,9 @@ class Categories_model extends CI_Model
     	if (in_array($parameter, array('category_id','parent_id','site_id','module','type','category_url')))
     	{
 	 		$this->db->select('*');
-	 		$this->db->from('categories');	 		 
+	 		$this->db->from('categories'); 
 	 		$this->db->where($parameter, $value);
-	 		$this->db->order_by('category', 'asc'); 
+	 		$this->db->order_by('parent_id', 'asc');
 	 		$result = $this->db->get();	
 	 		return $result->result();
 		}

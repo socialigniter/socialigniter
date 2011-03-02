@@ -125,15 +125,13 @@ class Social_tools
 		return $category;
 	}
 	
-	function get_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label=NULL)
+	function make_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label=NULL)
 	{
-		$categories_query		= $this->get_categories_view($parameter, $value);
+		$categories_query 		= $this->get_categories_view($parameter, $value);
 		$this->categories_view 	= array(0 => '----select----');
-		
-		// Recursive Func that build child
-		$categories 		= $this->render_children_categories($categories_query, 0);
+		$categories 			= $this->render_categories_children($categories_query, 0);
 				
-		// Add Category
+		// Add Category if Admin
 		if ($user_level_id <= 2)
 		{
 			if (!$add_label)
@@ -148,8 +146,8 @@ class Social_tools
 		
 		return $this->categories_view;	
 	}
-	
-	function render_children_categories($categories_query, $parent_id)
+
+	function render_categories_children($categories_query, $parent_id)
 	{		
 		foreach ($categories_query as $child)
 		{
@@ -161,13 +159,98 @@ class Social_tools
 				$this->categories_view[$child->category_id] = $category_display;
 
 				// Recursive Call
-				$this->render_children_categories($categories_query, $child->category_id);
+				$this->render_categories_children($categories_query, $child->category_id);
+			}
+		}
+			
+		return $this->categories_view;
+	}
+	
+	function make_categories_url($categories_query, $category_id=0)
+	{
+		// Declare Instance null for pages with multiple calls 
+		$this->categories_view = NULL;
+		$elements_all 	= $this->render_categories_url($categories_query, $category_id);
+		$elements_view	= '';
+		
+		if ($elements_all)
+		{
+			arsort($elements_all);
+		
+			foreach ($elements_all as $category_url)
+			{
+				$elements_view .= $category_url.'/';
+			}
+		}
+		
+		return $elements_view;
+	}
+
+	function render_categories_url($categories_query, $object_category_id)
+	{	
+		foreach ($categories_query as $category)
+		{
+			if ($object_category_id == $category->category_id)
+			{			
+				$this->categories_view[] = $category->category_url;
+
+				if ($category->parent_id)
+				{
+					$this->render_categories_url($categories_query, $category->parent_id);
+				}
+			}
+		}
+			
+		return $this->categories_view;
+	}
+	
+	function make_categories_breadcrumb($categories_query, $category_id=0, $base_url, $seperator)
+	{
+		// Declare Instance null for pages with multiple calls 
+		$this->categories_view = NULL;
+		$categories_all 	= $this->render_categories_object($categories_query, $category_id);
+		$categories_view	= '';
+		$categories_count	= count($categories_all);
+		$categories_build 	= 0;
+		$category_breadcrumb_url = NULL;
+		
+		if ($categories_all)
+		{
+			sort($categories_all);
+		
+			foreach ($categories_all as $category)
+			{
+				// Do Seperator
+				$categories_build++;
+				if ($categories_count == $categories_build) $seperator = '';
+				
+				// Build URL
+				$category_breadcrumb_url .= '/'.$category->category_url;			
+								
+				$categories_view .= '<a href="'.$base_url.$category_breadcrumb_url.'">'.$category->category.'</a>'.$seperator;
+			}
+		}
+		
+		return $categories_view;
+	}
+
+	function render_categories_object($categories_query, $object_category_id)
+	{	
+		foreach ($categories_query as $category)
+		{
+			if ($object_category_id == $category->category_id)
+			{			
+				$this->categories_view[] = $category;
+
+				if ($category->parent_id)
+				{
+					$this->render_categories_object($categories_query, $category->parent_id);
+				}
 			}
 		}
 			
 		return $this->categories_view;
 	}	
-	
 
 	// Add Category & Activity
 	function add_category($category_data, $activity_data=FALSE)
@@ -325,7 +408,7 @@ class Social_tools
 		return TRUE;
 	}
 
-	function render_children_comments($comments, $reply_to_id, $user_id, $user_level_id)
+	function render_comments_children($comments, $reply_to_id, $user_id, $user_level_id)
 	{
 		foreach ($comments as $child)
 		{
@@ -344,7 +427,7 @@ class Social_tools
 				$this->view_comments  	       .= $this->ci->load->view(config_item('site_theme').'/partials/comments_list', $this->data, true);
 				
 				// Recursive Call
-				$this->render_children_comments($comments, $child->comment_id, $user_id, $user_level_id);
+				$this->render_comments_children($comments, $child->comment_id, $user_id, $user_level_id);
 			}	
 		}
 			

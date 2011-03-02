@@ -54,7 +54,7 @@ class Content_model extends CI_Model {
  		return $result->result();
     }
     
-    function get_content_view($parameter, $value, $limit)
+    function get_content_view($parameter, $value, $status, $limit)
     {
  		if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id')))
     	{
@@ -62,7 +62,27 @@ class Content_model extends CI_Model {
 	 		$this->db->from('content');
  			$this->db->join('users', 'users.user_id = content.user_id');
 	 		$this->db->where('content.'.$parameter, $value);
-	 		$this->db->where('content.status !=', 'D');
+	 		
+	 		if ($status == 'all')
+	 		{
+		 		$this->db->where('content.status !=', 'D');	 		
+	 		}
+	 		elseif ($status == 'saved')
+	 		{
+		 		$this->db->where('content.status', 'S');
+				$this->db->where('content.approval', 'Y');
+	 		}
+	 		elseif ($status == 'awaiting')
+	 		{
+				$this->db->where('content.approval', 'N');
+	 		}
+	 		else
+	 		{
+		 		$this->db->where('content.status', 'P');
+				$this->db->where('content.approval', 'Y');
+	 		}
+	 		
+	 		
 	 		$this->db->order_by('created_at', 'desc');
 			$this->db->limit($limit);	 		 
 	 		$result = $this->db->get();	

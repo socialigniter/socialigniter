@@ -214,12 +214,12 @@ function display_image($id=false, $class=false, $image_pre, $image, $image_null=
 	return $image;
 }
 
-function display_content_status($status, $approval=NULL)
+function display_content_status($status, $approval=FALSE)
 {	
 	// Does Approval
 	if ($approval)
 	{
-		if (($status == 'P') && ($approval == 'A'))
+		if (($status == 'P') && ($approval == 'N'))
 		{
 			$status = 'awaiting approval';
 		}

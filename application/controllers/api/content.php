@@ -61,7 +61,7 @@ class Content extends Oauth_Controller
 	    if ($this->form_validation->run() == true)
 	    {
 	    	$viewed			= 'Y';
-	    	$approval		= 'A'; 
+	    	$approval		= 'N'; 
 
 	    	$content_data = array(
 	    		'site_id'			=> config_item('site_id'),

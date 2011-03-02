@@ -65,7 +65,7 @@ class Pages extends Dashboard_Controller
 		$this->data['wysiwyg_resize']		= TRUE;
 		$this->data['wysiwyg_media']		= TRUE;			
 		$this->data['wysiwyg']	 			= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);
-		$this->data['categories'] 			= $this->social_tools->get_categories_dropdown('module', 'pages', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
+		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown('module', 'pages', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
 	
 	 	$this->data['content_publisher'] 	= $this->load->view(config_item('dashboard_theme').'/partials/content_publisher', $this->data, true);
 
