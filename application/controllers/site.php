@@ -234,7 +234,11 @@ class Site extends Site_Controller
 			$username			= url_username($this->input->post('name'), 'none', true);
         	$email				= $this->input->post('email');
         	$password			= $this->input->post('password');
-        	$additional_data 	= array('name' => $this->input->post('name'));
+        	$additional_data 	= array(
+        		'name' 		=> $this->input->post('name'),
+        		'image'		=> ''
+        	);
+			
 			$level				= config_item('default_group');
         	
         	// Register User

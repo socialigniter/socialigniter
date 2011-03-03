@@ -233,41 +233,50 @@ class Social_auth
 
 	function register($username, $password, $email, $additional_data, $group_name = false)
 	{
-	    $email_activation = config_item('email_activation');
-
-		if ($email_activation == false)
-		{		
-			$user_id = $this->ci->auth_model->register($username, $password, $email, $additional_data, $group_name);
+		$user_id = $this->ci->auth_model->register($username, $password, $email, $additional_data, $group_name);
 		
-			if ($user_id) 
+		if ($user_id) 
+		{
+			$this->set_message('account_creation_successful');
+		
+			log_message('debug', 'debuuuugggg: $user_id'.$user_id);
+		
+			// Make OAuth Tokens & debug msgs
+			$consumer_keys	= $this->create_or_update_consumer(array('requester_name' => $additional_data['name'], 'requester_email' => $email), $user_id);
+			
+			log_message('debug', 'debuuuugggg: consumer_key '.$consumer_keys['consumer_key']);
+			log_message('debug', 'debuuuugggg: consumer_secret '.$consumer_keys['consumer_key']);
+						
+			$access_tokens	= $this->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user_id);			
+
+			log_message('debug', 'debuuuugggg: token '.$access_tokens['token']);
+			log_message('debug', 'debuuuugggg: token_secret '.$access_tokens['token_secret']);
+
+	    	$update_data = array(
+	        	'consumer_key'		=> $consumer_keys['consumer_key'],
+	        	'consumer_secret'	=> $consumer_keys['consumer_secret'],
+	        	'token'				=> $access_tokens['token'],
+	        	'token_secret'		=> $access_tokens['token_secret']
+			);
+	    	
+	    	// Update the user with tokens
+	    	$this->update_user($user_id, $update_data);
+
+			// Send Welcome Email				
+			$data = array(
+				'name'	   => $additional_data['name'],
+				'username' => $username,
+        		'email'    => $email
+			);
+			
+
+
+
+			// If Activation Email
+			if (config_item('email_activation') == false)
 			{
-				$this->set_message('account_creation_successful');
-			
-	    		$user = $this->ci->auth_model->get_user($user_id);			
-			
-				// Make OAuth Tokens & debug msgs
-				$consumer_keys	= $this->create_or_update_consumer(array('requester_name' => $user->name, 'requester_email' => $user->email), $user->user_id);
-				$access_tokens	= $this->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user->user_id);			
-
-		    	$update_data = array(
-		        	'consumer_key'		=> $consumer_keys['consumer_key'],
-		        	'consumer_secret'	=> $consumer_keys['consumer_secret'],
-		        	'token'				=> $access_tokens['token'],
-		        	'token_secret'		=> $access_tokens['token_secret']
-				);
-		    	
-		    	// Update the user with tokens
-		    	$this->update_user($user->user_id, $update_data);
-
-				// Send Welcome Email				
-				$data = array(
-					'name'	   => $user->name,
-					'username' => $user->username,
-	        		'email'    => $email
-				);
-	            
 				$message = $this->ci->load->view(config_item('email_templates').config_item('email_signup'), $data, true);
-
+	
 				$this->ci->email->set_newline("\r\n");	            
 				$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
 				$this->ci->email->to($email);
@@ -285,60 +294,46 @@ class Social_auth
 					return FALSE;
 				}
 			}
-			else 
+			else
 			{
-				$this->set_error('account_creation_unsuccessful');
-				return FALSE;
+				$activation_code = $this->ci->auth_model->activation_code;
+		    	$user            = $this->ci->auth_model->get_user($user_id);
+	
+				$data = array(
+					'email'   	 => $user->email,
+					'user_id'    => $user->user_id,
+					'email'      => $email,
+					'activation' => $activation_code,
+				);
+	            
+				$message = $this->ci->load->view(config_item('email_templates').config_item('email_activate'), $data, true);
+	
+				$this->ci->email->set_newline("\r\n");            
+				$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
+				$this->ci->email->to($email);
+				$this->ci->email->subject(config_item('site_title') . ' - Account Activation');
+				$this->ci->email->message($message);
+				
+				if ($this->ci->email->send() == TRUE) 
+				{
+					$this->set_message('activation_email_successful');
+					return TRUE;
+				}
+				else 
+				{
+					$this->set_error('activation_email_unsuccessful');
+					return FALSE;
+				}
 			}
-		}		
-		else
-		{
-			// Attempts to add User to database
-			$user_id = $this->ci->auth_model->register($username, $password, $email, $additional_data, $group_name);
-            
-			if (!$user_id) 
-			{ 
-				$this->set_error('account_creation_unsuccessful');
-				return FALSE; 
-			}
-
-			$deactivate = $this->ci->auth_model->deactivate($user_id);
-
-			if (!$deactivate) 
-			{ 
-				$this->set_error('deactivate_unsuccessful');
-				return FALSE; 
-			}
-
-			$activation_code = $this->ci->auth_model->activation_code;
-	    	$user            = $this->ci->auth_model->get_user($user_id);
-
-			$data = array(
-				'email'   	 => $user->email,
-				'user_id'    => $user->user_id,
-				'email'      => $email,
-				'activation' => $activation_code,
-			);
-            
-			$message = $this->ci->load->view(config_item('email_templates').config_item('email_activate'), $data, true);
-
-			$this->ci->email->set_newline("\r\n");            
-			$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
-			$this->ci->email->to($email);
-			$this->ci->email->subject(config_item('site_title') . ' - Account Activation');
-			$this->ci->email->message($message);
+		
 			
-			if ($this->ci->email->send() == TRUE) 
-			{
-				$this->set_message('activation_email_successful');
-				return TRUE;
-			}
-			else 
-			{
-				$this->set_error('activation_email_unsuccessful');
-				return FALSE;
-			}
-		}				
+			
+		}
+		else 
+		{
+			$this->set_error('account_creation_unsuccessful');
+			return FALSE;
+		}	            	
 	}	
 
 	function social_register($username, $email, $additional_data)
@@ -414,32 +409,6 @@ class Social_auth
 	{
 		return (bool) $this->ci->session->userdata('email');
 	}
-
-	function is_admin()
-	{
-		$super_admin	= config_item('super_admin_group');
-	    $admin_group 	= config_item('admin_group');
-	    $user_group  	= $this->ci->session->userdata('user_level');
-	    
-	    if (($user_group == $super_admin) || ($user_group == $admin_group))
-	    {
-	    	return true;
-	    }
-
-	    return false;
-	}
-	
-	function is_group($check_group)
-	{
-	    $user_group = $this->ci->session->userdata('user_level');
-	    
-	    if(is_array($check_group))
-	    {
-	    	return in_array($user_group, $check_group);
-	    }
-	    
-	    return $user_group == $check_group;
-	}
 		
 	function profile()
 	{
@@ -460,6 +429,8 @@ class Social_auth
 	
 	function update_user($user_id, $data)
 	{
+		log_message('debug', 'debuuuugggg: inside update_user lib');
+	
 		 if ($this->ci->auth_model->update_user($user_id, $data))
 		 {
 		 	$this->set_message('update_successful');

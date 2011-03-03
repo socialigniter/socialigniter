@@ -1,4 +1,4 @@
-<form name="settings_update" id="settings_update"  method="post" action="<?= base_url() ?>settings/account">
+<form method="post" name="user_profile" id="user_profile" action="<?= base_url() ?>api/users/modify/id/<?= $logged_user_id ?>" enctype="multipart/form-data">
 	<table border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td>Picture:</td>
@@ -49,11 +49,11 @@
 $(document).ready(function()
 {
 	// Write Article
-	$("#user_details").bind("submit", function(e)
+	$("#user_profile").bind("submit", function(e)
 	{
 		e.preventDefault();
-		var details_data = $('#user_details').serializeArray();
-		details_data.push({'name':'module','value':'users'});		
+		var profile_data = $('#user_profile').serializeArray();
+//		details_data.push({'name':'module','value':'users'});		
 	
 		$(this).oauthAjax(
 		{
@@ -61,7 +61,7 @@ $(document).ready(function()
 			url			: $(this).attr('ACTION'),
 			type		: 'POST',
 			dataType	: 'json',
-			data		: details_data,
+			data		: profile_data,
 	  		success		: function(result)
 	  		{
 				$('html, body').animate({scrollTop:0});

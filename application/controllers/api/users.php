@@ -94,6 +94,7 @@ class Users extends Oauth_Controller
     function modify_authd_post()
     {    
     	// Delete Picture
+/*    
     	if ($this->input->post('delete_pic') == 1)
     	{
 			$this->load->helper('file');
@@ -134,8 +135,10 @@ class Users extends Oauth_Controller
 				$file_data['deleted'] = unlink(config_item('uploads_folder').$file_data['file_name']);
 				$user_picture = $file_data['file_name'];		
 			}	
-		}	   
-    
+		}
+*/ 
+		$user_picture = '';
+ 
     	$update_data = array(
     		'username'		=> url_username($this->input->post('username'), 'none', true),
         	'email'			=> $this->input->post('email'),
@@ -145,7 +148,7 @@ class Users extends Oauth_Controller
         	'time_zone'		=> $this->input->post('time_zone'),
         	'privacy'		=> $this->input->post('privacy'),
         	'language'		=> $this->input->post('language'),
-        	'geo_enable'	=> $this->input->post('geo_enable'),
+        	'geo_enabled'	=> $this->input->post('geo_enabled'),
     	);
     	
     	if ($this->social_auth->update_user($this->get('id'), $update_data))

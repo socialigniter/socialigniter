@@ -112,11 +112,6 @@ class Auth_model extends CI_Model
 	    }
 	    else 
 	    {
-			if (!$this->social_auth->is_admin()) 
-			{
-				return false;
-			}
-
 			$data = array(
 				'activation_code' => '',
 				'active' => 1
@@ -302,6 +297,7 @@ class Auth_model extends CI_Model
         {
         	$salt = false;
         }
+        
 		$password = $this->hash_password($password, $salt);
 		
         // Users table.
@@ -311,8 +307,8 @@ class Auth_model extends CI_Model
   			'salt'				=> $salt,
   			'email'      		=> $email,
   			'gravatar'			=> md5($email),
-  			'name'				=> $name,
-  			'image'				=> $image,
+  			'name'				=> $additional_data['name'],
+  			'image'				=> $additional_data['image'],
 			'user_level_id'   	=> $user_level_id,
 			'ip_address' 		=> $ip_address,
         	'created_on' 		=> now(),
@@ -325,25 +321,6 @@ class Auth_model extends CI_Model
 		$this->db->insert('users', $user_data);		
 		$user_id = $this->db->insert_id();
         
-		// Meta table.		
-		$data = array('user_id' => $user_id);
-		
-		if (!empty($this->columns))
-	    {
-	        foreach ($this->columns as $input)
-	        {
-	        	if (is_array($additional_data) && isset($additional_data[$input])) 
-	        	{
-	        		$data[$input] = $additional_data[$input];	
-	        	}
-	        	else 
-	        	{
-	            	$data[$input] = $this->input->post($input);
-	        	}
-	        }
-	    }
-        
-		$this->db->insert('users_meta', $data);
 		return $this->db->affected_rows() > 0 ? $user_id : false;			
 	}
 
@@ -525,46 +502,15 @@ class Auth_model extends CI_Model
 	}
 
 	function update_user($user_id, $data)
-	{
-	    $this->db->trans_begin();
-		
-	    if (!empty($this->columns))
-	    {
-			$this->db->where('user_id', $user_id);
-			
-	        foreach ($this->columns as $field)
-	        {
-	        	if (is_array($data) && isset($data[$field])) 
-	        	{
-	            	$this->db->set($field, $data[$field]);
-	            	unset($data[$field]);
-	        	}
-	        }
+	{		
+        if (array_key_exists('password', $data))
+		{
+		    $data['password'] = $this->hash_password($data['password']);
+		}
 
-	        $this->db->update('users_meta');
-	    }
-
-        if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data)) 
-        {
-	        if (array_key_exists('password', $data))
-			{
-			    $data['password'] = $this->hash_password($data['password']);
-			}
-	
-			$this->db->where($this->social_auth->_extra_where);
-			$this->db->update('users', $data, array('user_id' => $user_id));
-        }
+		$this->db->update('users', $data, array('user_id' => $user_id));
          
-		if ($this->db->trans_status() === FALSE)
-		{
-		    $this->db->trans_rollback();
-		    return FALSE;
-		}
-		else
-		{
-		    $this->db->trans_commit();
-		    return TRUE;
-		}
+		return TRUE;
 	}
 	
 	function delete_user($id)
