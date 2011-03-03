@@ -51,6 +51,8 @@ $(document).ready(function()
 	// Write Article
 	$("#user_profile").bind("submit", function(e)
 	{
+		console.log('file: ' + $('[name=userfile]').val());
+	
 		e.preventDefault();
 		var profile_data = $('#user_profile').serializeArray();
 //		details_data.push({'name':'module','value':'users'});		
@@ -66,6 +68,12 @@ $(document).ready(function()
 	  		{
 				$('html, body').animate({scrollTop:0});
 				$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+				
+				if (result.status == 'success')
+				{
+					$('#logged_name').html(result.data.name);
+				}
+				
 		 	}
 		});		
 	});	

@@ -92,73 +92,88 @@ class Users extends Oauth_Controller
 
 	// Update User    
     function modify_authd_post()
-    {    
-    	// Delete Picture
-/*    
-    	if ($this->input->post('delete_pic') == 1)
+    { 
+    	if ($this->oauth_user_id == $this->get('id'))
     	{
-			$this->load->helper('file');
-    		delete_files($this->config->item('profile_images').$user->user_id."/");
-    		$user_picture = '';
-    	}    
-    
-    	// Upload Picture
-		if (!$this->input->post('userfile'))
-		{
-			$config['upload_path'] 		= config_item('uploads_folder');
-			$config['allowed_types'] 	= config_item('users_images_formats');		
-			$config['overwrite']		= true;
-			$config['max_size']			= config_item('users_images_max_size');
-			$config['max_width']  		= config_item('users_images_max_dimensions');
-			$config['max_height']  		= config_item('users_images_max_dimensions');
-		
-			$this->load->library('upload',$config);
+			// User
+			$user_id = $this->oauth_user_id;
+    	  
+	    	// Delete Picture   
+	    	if ($this->input->post('delete_pic') == 1)
+	    	{
+				$this->load->helper('file');
+	    		delete_files($this->config->item('profile_images').$user->user_id."/");
+	    		$user_picture = '';
+	    	} 
+	    	else   
+	    	{
+	    		$user_picture = '';
+	    	}
+	/*    
+	    	// Upload Picture
+			if (!$this->input->post('userfile'))
+			{
+				$config['upload_path'] 		= config_item('uploads_folder');
+				$config['allowed_types'] 	= config_item('users_images_formats');		
+				$config['overwrite']		= true;
+				$config['max_size']			= config_item('users_images_max_size');
+				$config['max_width']  		= config_item('users_images_max_dimensions');
+				$config['max_height']  		= config_item('users_images_max_dimensions');
 			
-			if (!$this->upload->do_upload())
-			{
-				$error = array('error' => $this->upload->display_errors());
-			}	
-			else
-			{
-				// Load Image Model
-				$this->load->model('image_model');
+				$this->load->library('upload',$config);
 				
-				// Upload & Sizes
-				$file_data		= $this->upload->data();
-				$image_sizes	= array('full', 'large', 'medium', 'small');
-				$create_path	= config_item('users_images_folder').$user->user_id.'/';
-				
-				// Do Resizes					
-				$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);										
-				
-				// Delete Upload
-				$file_data['deleted'] = unlink(config_item('uploads_folder').$file_data['file_name']);
-				$user_picture = $file_data['file_name'];		
-			}	
-		}
-*/ 
-		$user_picture = '';
- 
-    	$update_data = array(
-    		'username'		=> url_username($this->input->post('username'), 'none', true),
-        	'email'			=> $this->input->post('email'),
-        	'gravatar'		=> md5($this->input->post('email')),
-        	'name'			=> $this->input->post('name'),
-        	'image'			=> $user_picture,
-        	'time_zone'		=> $this->input->post('time_zone'),
-        	'privacy'		=> $this->input->post('privacy'),
-        	'language'		=> $this->input->post('language'),
-        	'geo_enabled'	=> $this->input->post('geo_enabled'),
-    	);
-    	
-    	if ($this->social_auth->update_user($this->get('id'), $update_data))
+				if (!$this->upload->do_upload())
+				{
+					$error = array('error' => $this->upload->display_errors());
+				}	
+				else
+				{
+					// Load Image Model
+					$this->load->model('image_model');
+					
+					// Upload & Sizes
+					$file_data		= $this->upload->data();
+					$image_sizes	= array('full', 'large', 'medium', 'small');
+					$create_path	= config_item('users_images_folder').$user->user_id.'/';
+					
+					// Do Resizes					
+					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);										
+					
+					// Delete Upload
+					$file_data['deleted'] = unlink(config_item('uploads_folder').$file_data['file_name']);
+					$user_picture = $file_data['file_name'];		
+				}	
+			}
+	*/
+	    	$update_data = array(
+	    		'username'		=> url_username($this->input->post('username'), 'none', true),
+	        	'email'			=> $this->input->post('email'),
+	        	'gravatar'		=> md5($this->input->post('email')),
+	        	'name'			=> $this->input->post('name'),
+	        	'image'			=> $user_picture,
+	        	'time_zone'		=> $this->input->post('time_zone'),
+	        	'privacy'		=> $this->input->post('privacy'),
+	        	'language'		=> $this->input->post('language'),
+	        	'geo_enabled'	=> $this->input->post('geo_enabled'),
+	    	);
+	    	
+	    	if ($this->social_auth->update_user($user_id, $update_data))
+	    	{
+	    		$user = $this->social_auth->get_user('user_id', $user_id);
+	    	
+	    		$this->social_auth->set_userdata($user);
+	    	
+		        $message = array('status' => 'success', 'message' => 'User changes saved', 'data' => $user);
+	   		}
+	   		else
+	   		{
+		        $message = array('status' => 'error', 'message' => 'Could not save user changes');
+	   		}
+	   	}
+    	else
     	{
-	        $message = array('status' => 'success', 'message' => 'User changes saved');
-   		}
-   		else
-   		{
-	        $message = array('status' => 'error', 'message' => 'Could not save user change');
-   		}        
+			$message = array('status' => 'error', 'message' => 'Ooops this is not your user account');    	
+    	}	   	        
         
         $this->response($message, 200);
     }
@@ -185,6 +200,9 @@ class Users extends Oauth_Controller
 	    	// Update
 	    	if ($update_meta = $this->social_auth->update_user_meta($site_id, $user_id, $this->input->post('module'), $user_meta_data))
 	    	{
+	    		// Update User Data
+	    		$this->social_auth->set_userdata_meta($user_id);
+	    	
 		        $message = array('status' => 'success', 'message' => 'User details saved', 'data' => $user_meta_data);
 	   		}
 	   		else
@@ -192,7 +210,12 @@ class Users extends Oauth_Controller
 		        $message = array('status' => 'error', 'message' => 'Could not save user details at this time');
 	   		}
     	}
-
+    	else
+    	{
+			$message = array('status' => 'error', 'message' => 'Ooops this is not your user account');    	
+    	}
+    	
+    	// STILL NEED AN ELSE FOR ADMINS TO MODIFY
     	$this->response($message, 200);
     }
     

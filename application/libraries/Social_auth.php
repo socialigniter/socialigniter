@@ -428,9 +428,7 @@ class Social_auth
 	}
 	
 	function update_user($user_id, $data)
-	{
-		log_message('debug', 'debuuuugggg: inside update_user lib');
-	
+	{	
 		 if ($this->ci->auth_model->update_user($user_id, $data))
 		 {
 		 	$this->set_message('update_successful');
