@@ -68,7 +68,6 @@ class Site extends Site_Controller
 
 		$this->render();
 	}
-	
 
 	function view()
 	{
@@ -86,8 +85,7 @@ class Site extends Site_Controller
 	
 	function pages()
 	{
-		// View Redirect
-		if (($this->uri->segment(1) == 'pages') && ($this->uri->segment(2) == 'view'))
+		if (($this->uri->segment(2) == 'view'))
 		{
 			$page = $this->social_igniter->get_page_id($this->uri->segment(3));
 			
@@ -95,7 +93,7 @@ class Site extends Site_Controller
 			else							redirect(base_url().'pages/'.$page->title_url, 'refresh');
 		}
 		// Pages
-		elseif (($this->uri->segment(1) == 'pages') && ($this->uri->segment(2)))
+		elseif ($this->uri->segment(1))
 		{
 			$page = $this->social_igniter->get_page($this->uri->segment(2));
 		

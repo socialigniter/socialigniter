@@ -167,18 +167,7 @@ $route['users/manage/(:any)']						= 'users/editor';
 $route['users/create']								= 'users/editor';
 
 /* Custom Routes */
-$route['portland/(:any)/(:any)/(:any)']				= 'classes/product';
-$route['bay-area/(:any)/(:any)/(:any)']				= 'classes/product';
-$route['earth/(:any)/(:any)/(:any)']				= 'classes/product';
-$route['portland/(:any)/(:any)']					= 'classes/category';
-$route['bay-area/(:any)/(:any)']					= 'classes/category';
-$route['earth/(:any)/(:any)']						= 'classes/category';
-$route['portland/(:any)']							= 'classes/category';
-$route['bay-area/(:any)']							= 'classes/category';
-$route['earth/(:any)']								= 'classes/category';
-$route['portland']									= 'classes/mashup';
-$route['bay-area']									= 'classes/mashup';
-$route['earth']										= 'classes/mashup';
+
 
 /* Site & Index & Wildcard Pages */
 $route['login']										= 'site/login';
