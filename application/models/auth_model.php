@@ -355,6 +355,7 @@ class Auth_model extends CI_Model
 			'password'   		=> $password,
   			'salt'				=> $salt,
   			'email'      		=> $email,
+  			'gravatar'			=> md5($email),  			
 			'user_level_id'   	=> $user_level_id,
 			'ip_address' 		=> $ip_address,
         	'created_on' 		=> now(),
@@ -641,13 +642,12 @@ class Auth_model extends CI_Model
 						
 			$this->update_last_login($user->user_id);
 			
-			/* BORKEN for now
-			*  Still causes that compression header 
+			// WAS borken, seems fixed now
+			// Causesing compression header issue
 			if (config_item('user_extend_on_login'))
 			{
 				$this->remember_user($user->user_id);
-			}
-			*/			
+			}			
 
 			return $user;
 		}

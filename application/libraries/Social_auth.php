@@ -15,11 +15,12 @@ class Social_auth
 	protected $ci;
 	protected $status;
 	protected $messages;
-	protected $errors = array();
+	protected $errors   = array();
 	protected $error_start_delimiter;
 	protected $error_end_delimiter;
-	public $_extra_where = array();
-	public $_extra_set = array();
+	public $config_email	= array();    	
+	public $_extra_where	= array();
+	public $_extra_set		= array();
 
 	function __construct()
 	{
@@ -33,6 +34,29 @@ class Social_auth
 		$this->ci->load->model('auth_model');
 		$this->ci->load->model('connections_model');
 		
+		// Config Email	
+		$this->ci->load->library('email');
+		
+		$this->config_email['protocol']  	= config_item('site_email_protocol');
+		$this->config_email['mailtype']  	= 'html';
+		$this->config_email['charset']  	= 'UTF-8';
+		$this->config_email['crlf']			= "\r\n";
+		$this->config_email['newline'] 		= "\r\n"; 			
+		$this->config_email['wordwrap']  	= FALSE;
+		$this->config_email['validate']		= TRUE;
+		$this->config_email['priority']		= 1;
+		
+		if (config_item('site_email_protocol') == 'smtp')
+		{
+			$this->config_email['smtp_host'] 	= config_item('site_smtp_host');
+			$this->config_email['smtp_user'] 	= config_item('site_smtp_user');
+			$this->config_email['smtp_pass'] 	= config_item('site_smtp_pass');
+			$this->config_email['smtp_port'] 	= config_item('site_smtp_port');
+		}
+
+		$this->ci->email->initialize($this->config_email);
+				
+		
 		// Auto-login user if they're remembered
 		if (!$this->logged_in() && get_cookie('email') && get_cookie('remember_code'))
 		{
@@ -44,7 +68,7 @@ class Social_auth
 			}
 		}
 		
-  		// Pulls In DB settings from SI for Oauth
+  		// Pulls In DB settings from CI to Oauth libs
         $database = array(
         	'server'	=> $this->ci->db->hostname, 
         	'username'	=> $this->ci->db->username, 
@@ -238,19 +262,10 @@ class Social_auth
 		if ($user_id) 
 		{
 			$this->set_message('account_creation_successful');
-		
-			log_message('debug', 'debuuuugggg: $user_id'.$user_id);
-		
+				
 			// Make OAuth Tokens & debug msgs
 			$consumer_keys	= $this->create_or_update_consumer(array('requester_name' => $additional_data['name'], 'requester_email' => $email), $user_id);
-			
-			log_message('debug', 'debuuuugggg: consumer_key '.$consumer_keys['consumer_key']);
-			log_message('debug', 'debuuuugggg: consumer_secret '.$consumer_keys['consumer_key']);
-						
-			$access_tokens	= $this->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user_id);			
-
-			log_message('debug', 'debuuuugggg: token '.$access_tokens['token']);
-			log_message('debug', 'debuuuugggg: token_secret '.$access_tokens['token_secret']);
+			$access_tokens	= $this->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user_id);
 
 	    	$update_data = array(
 	        	'consumer_key'		=> $consumer_keys['consumer_key'],
@@ -262,15 +277,14 @@ class Social_auth
 	    	// Update the user with tokens
 	    	$this->update_user($user_id, $update_data);
 
+		    $user = $this->get_user('user_id', $user_id);
+
 			// Send Welcome Email				
 			$data = array(
-				'name'	   => $additional_data['name'],
-				'username' => $username,
-        		'email'    => $email
+				'name'	   => $user->name,
+				'username' => $user->username,
+        		'email'    => $user->email
 			);
-			
-
-
 
 			// If Activation Email
 			if (config_item('email_activation') == false)
@@ -279,7 +293,7 @@ class Social_auth
 	
 				$this->ci->email->set_newline("\r\n");	            
 				$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
-				$this->ci->email->to($email);
+				$this->ci->email->to($user->email);
 				$this->ci->email->subject(config_item('site_title').' thanks you for signing up');
 				$this->ci->email->message($message);
 				
@@ -297,12 +311,11 @@ class Social_auth
 			else
 			{
 				$activation_code = $this->ci->auth_model->activation_code;
-		    	$user            = $this->ci->auth_model->get_user($user_id);
 	
 				$data = array(
 					'email'   	 => $user->email,
 					'user_id'    => $user->user_id,
-					'email'      => $email,
+					'email'      => $user->email,
 					'activation' => $activation_code,
 				);
 	            
@@ -310,7 +323,7 @@ class Social_auth
 	
 				$this->ci->email->set_newline("\r\n");            
 				$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
-				$this->ci->email->to($email);
+				$this->ci->email->to($user->email);
 				$this->ci->email->subject(config_item('site_title') . ' - Account Activation');
 				$this->ci->email->message($message);
 				
@@ -324,10 +337,7 @@ class Social_auth
 					$this->set_error('activation_email_unsuccessful');
 					return FALSE;
 				}
-			}
-		
-			
-			
+			}			
 		}
 		else 
 		{

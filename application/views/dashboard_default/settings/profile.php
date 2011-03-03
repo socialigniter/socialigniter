@@ -48,14 +48,10 @@
 <script type="text/javascript">
 $(document).ready(function()
 {
-	// Write Article
 	$("#user_profile").bind("submit", function(e)
-	{
-		console.log('file: ' + $('[name=userfile]').val());
-	
+	{	
 		e.preventDefault();
 		var profile_data = $('#user_profile').serializeArray();
-//		details_data.push({'name':'module','value':'users'});		
 	
 		$(this).oauthAjax(
 		{
@@ -71,7 +67,9 @@ $(document).ready(function()
 				
 				if (result.status == 'success')
 				{
+					// Update Viewed User Data
 					$('#logged_name').html(result.data.name);
+					// DO PICTURE ONCE WORKING
 				}
 				
 		 	}

@@ -25,7 +25,8 @@
 
 <div id="content">
 	<div class="wrap">
-			<?= $content ?>
+		<div id="content_message" class="message_normal"><?= $message ?></div>
+		<?= $content ?>
 	</div>
 	<div class="clear"></div>
 </div>

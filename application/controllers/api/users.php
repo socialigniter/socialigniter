@@ -60,7 +60,6 @@ class Users extends Oauth_Controller
     	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
     	$this->form_validation->set_rules('password', 'Password', 'required|min_length['.config_item('min_password_length').']|max_length['.$this->config->item('max_password_length').']|strong_pass['.config_item('password_strength').']|matches[password_confirm]');
     	$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
-    	$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
 
         if ($this->form_validation->run() == true)
         {
@@ -69,22 +68,21 @@ class Users extends Oauth_Controller
 	    	$password			= $this->input->post('password');
 	    	$additional_data 	= array(
 	    		'name'			=> $this->input->post('name'),
-	    		'phone'			=> preg_replace("/[^0-9]*/", "", $this->input->post('phone')),
-	    		'phone_verify'	=> random_element(config_item('mobile_verify'))
+	    		'image'			=> ''
 	    	);
 	    	        	
 	    	if ($this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group')))
 	    	{
-		        $message = array('status' => 'success', 'message' => 'User created');
+		        $message = array('status' => 'success', 'message' => 'User successfully created');
 	   		}
 	   		else
 	   		{
-		        $message = array('status' => 'error', 'message' => 'Oops could not create that user');
+		        $message = array('status' => 'error', 'message' => 'Oops could not create user');
 	   		}     
         } 
 		else
 		{ 
-			$message = array('message' => 'Oops you are missing '.validation_errors());
+			$message = array('message' => 'Oops '.validation_errors());
         }
         
         $this->response($message, 200);

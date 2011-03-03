@@ -36,6 +36,9 @@ var user_data = {
 	"token": "<?= $oauth_token ?>",
 	"token_secret": "<?= $oauth_token_secret ?>"
 }
+
+var base_url 		= '<?= base_url() ?>';
+var current_module	= jQuery.url.segment(1);
 </script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
 <script type="text/javascript" src="<?= $dashboard_assets ?>dashboard.js"></script>

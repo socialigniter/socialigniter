@@ -219,60 +219,13 @@ class Site extends Site_Controller
     function signup()
     {
     	if ($this->social_auth->logged_in()) redirect(base_url()."home", 'refresh'); 
-    
-        $this->data['page_title'] = "Signup";
-              
-        // Validation Rules
-    	$this->form_validation->set_rules('name', 'Name', 'required');
-    	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
-    	$this->form_validation->set_rules('password', 'Password', 'required|min_length['.$this->config->item('min_password_length').']|max_length['.$this->config->item('max_password_length').']|strong_pass['.$this->config->item('password_strength').']|matches[password_confirm]');
-    	$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
-
-		// Validates
-        if (($this->form_validation->run() == true) && (config_item('users_signup') == 'TRUE'))
-        {
-			$username			= url_username($this->input->post('name'), 'none', true);
-        	$email				= $this->input->post('email');
-        	$password			= $this->input->post('password');
-        	$additional_data 	= array(
-        		'name' 		=> $this->input->post('name'),
-        		'image'		=> ''
-        	);
-			
-			$level				= config_item('default_group');
-        	
-        	// Register User
-        	if ($this->social_auth->register($username, $password, $email, $additional_data, $level))
-        	{
-        		$this->session->set_flashdata('message', "User Created");
-       			
-       			if (!$this->config->item('email_activation'))
-       			{
-	        		$this->social_auth->login($email, $password, $remember=FALSE);
-		        	$this->session->set_flashdata('message', "Logged In Success");
-		        	redirect(base_url().'home', 'refresh');
-		        }
-		        else
-		        {
-		        	$this->session->set_flashdata('message', "You should be receiving an email shortly with a link to activate your account");
-		        	redirect('activation', 'refresh');
-		        }		              			
-       		}
-       		else
-       		{
-        		$this->session->set_flashdata('message', "Error Creating User");
-       			redirect("signup", 'refresh');       		
-       		}
-		} 
-		else
-		{ 
-	        // Display The Create User Form
-	        $this->data['message'] 			= (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->data['name']      		= "";			    
-			$this->data['email']      		= "";
-            $this->data['password']   		= "";
-        	$this->data['password_confirm'] = "";    		
-		}
+                  
+        // Display The Create User Form
+		$this->data['name']      		= "";			    
+		$this->data['email']      		= "";
+        $this->data['password']   		= "";
+    	$this->data['password_confirm'] = "";    		
+        $this->data['page_title'] 		= "Signup";
 
     	$this->render();
     }    

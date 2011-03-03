@@ -26,6 +26,7 @@
 <div id="content">
 	<div class="wrap">
 		<div id="main">
+			<div id="content_message" class="message_normal"><?= $message ?></div>
 			<?= $content ?>
 		</div>
 		<div id="sidebar">

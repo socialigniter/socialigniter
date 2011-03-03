@@ -35,6 +35,20 @@ var user_data = {
 	"token": "<?= $oauth_token ?>",
 	"token_secret": "<?= $oauth_token_secret ?>"
 }
+
+var base_url 		= '<?= base_url() ?>';
+var current_module	= jQuery.url.segment(1);
+
+$(document).ready(function()
+{
+	// Generates Uniform
+	$(function(){
+		$("select, input:checkbox, input:radio, input:file").uniform();
+	});
+	
+	// Hides Things
+	$('.error').hide();
+
+});
 </script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
-<script type="text/javascript" src="<?= $site_assets ?>site.js"></script>

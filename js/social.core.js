@@ -1,14 +1,3 @@
-if (jQuery.url.attr('port'))
-{
-	var url_port = ':' + jQuery.url.attr('port');
-}
-else
-{
-	var url_port = '';
-}
-var base_url 		= jQuery.url.attr('protocol') + '://' + jQuery.url.attr('host') + url_port + '/';
-var current_module	= jQuery.url.segment(1);
-
 // Makes a Placeholder for form module
 function doPlaceholder(id, placeholder)
 {		
@@ -99,7 +88,9 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			message : 'Content has been saved', // The message
 			appendTo: '.content_wrap', 			// Where to add the message
 			timeout : 5000, 					// How long to wait before hiding message
-			speed   : 'normal' 					// Animation speed
+			speed   : 'normal', 				// Animation speed
+			complete: 'hide',					// Accepts 'hide' 'nohide' 'redirect' (last option needs value)
+			redirect: ''
 		};
 		
 		return this.each(function()
@@ -114,16 +105,21 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			if (options.status == 'success') var message_class = 'message_success';
 			else var message_class = 'message_alert';
 			
-			console.log(message_class);
-
-			//If it's not already, hide the thing to be shown, add content, classes, then show it!			
-			$this.css({display:'none'}).delay(500).html(options.message).addClass(message_class).show(options.speed)
-			//wait for the specified "timeout", then hide
-				.delay(options.timeout).hide(options.speed, function()
+			// If it's not already, hide the thing to be shown, add content, classes, then show it!			
+			$this.css({display:'none'}).delay(500).html(options.message).addClass(message_class).show(options.speed);
+			
+			// Do complete action
+			if (options.complete == 'hide')
+			{
+				$this.delay(options.timeout).hide(options.speed, function()
 				{
-					//Cleanup by removing the added classes, then empty contents
 					$this.removeClass(message_class).empty();
 				});
+			}
+			else if (options.complete == 'redirect')
+			{
+				setTimeout(function() { window.location.href = options.redirect }, options.timeout);
+			}
 		});
 	};
 })( jQuery );
