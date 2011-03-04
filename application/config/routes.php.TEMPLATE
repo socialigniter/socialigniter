@@ -87,6 +87,7 @@ $route['api/settings']								= 'api/settings';
 
 /* Tags */
 $route['api/tags/all']								= 'api/tags/all';
+$route['api/tags/create']							= 'api/tags/create';
 $route['api/tags']									= 'api/tags';
 
 /* Users */

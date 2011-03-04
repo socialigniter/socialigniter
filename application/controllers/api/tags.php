@@ -23,4 +23,19 @@ class Tags extends Oauth_Controller
         
         $this->response($message, 200);        
     }
+    
+    function create_authd_post()
+    {
+        if($tags = $this->social_tools->process_tags($this->input->post('tags'), $this->input->post('content_id')))
+        {
+            $message = array('status' => 'success', 'message' => 'Created your tags', 'data' => $tags);
+        }
+        else
+        {
+            $message = array('status' => 'error', 'message' => 'Could not create tags');
+        }
+        
+        $this->response($message, 200);    
+    }
+        
 }

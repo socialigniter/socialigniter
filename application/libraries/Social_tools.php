@@ -539,6 +539,7 @@ class Social_tools
 					$insert_taxonomy = $this->ci->taxonomy_model->add_taxonomy($tag_id, 'tag', $tag_total);
 				}	
 			}
+			
 			return TRUE;
 		}
 	}
