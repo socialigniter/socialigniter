@@ -47,11 +47,11 @@ class Connections_model extends CI_Model
 		return FALSE;
  	}
 
- 	function check_connection_user_id($connection_user_id)
+ 	function check_connection_user_id($connection_user_id, $module)
  	{
- 		$where = array('connection_user_id' => $connection_user_id);
+ 		$where = array('connection_user_id' => $connection_user_id, 'module' => $module);
 		return $this->db->select('*')->where($where)->limit(1)->get('connections')->row();	
- 	} 	
+ 	}
 
  	function check_connection_auth($module, $connection_user_id)
  	{

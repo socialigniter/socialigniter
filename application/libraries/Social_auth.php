@@ -666,6 +666,11 @@ class Social_auth
 		return $this->ci->connections_model->check_connection_user($user_id, $module, $type);
 	}
 
+	function check_connection_user_id($connection_user_id, $module)
+	{
+		return $this->ci->connections_model->check_connection_user_id($connection_user_id, $module);
+	}
+
 	function get_connection($connection_id)
 	{
 		return $this->ci->connections_model->get_connection($connection_id);
