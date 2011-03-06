@@ -12,8 +12,8 @@ code { font-family: Monaco, Verdana, Sans-serif; font-size: 12px; background-col
 #sandbox_result { position: absolute; top: 190px; left: 35px;  width:94%; margin: 0 auto; padding: 0 0 20px 0 }
 div.separator { border-bottom: 1px double #999999; }
 </style>
-<link rel="icon" type="image/png" href="<?= $site_assets  ?>favicon.ico" />
-<script type="text/javascript" src="<?= base_url() ?>js/jquery-1.4.4.js"></script>
+<link rel="icon" type="image/png" href="<?= $site_images  ?>favicon.png" />
+<script type="text/javascript" src="<?= base_url() ?>js/jquery-1.5.1.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.url.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/oauth.js"></script>
@@ -64,6 +64,8 @@ div.separator { border-bottom: 1px double #999999; }
 	};
 })(jQuery);
 
+var base_url 		= '<?= base_url() ?>';
+var current_module	= jQuery.url.segment(1);
 
 $(document).ready(function()
 {
