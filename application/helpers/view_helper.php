@@ -136,21 +136,6 @@ function navigation_sidebar_link_basic($module, $uri_segment3, $uri_segment4)
 	return NULL;
 }
 
-
-// Use Dis Function is a module name has multiple words separated by '_' 
-function url_word_parser($separator, $input)
-{
-	$name	= '';
-	$pieces = explode($separator, $input);
-
-	foreach ($pieces as $word)
-	{
-		$name .= ' '.ucwords($word);
-	}
-
-	return $name;
-}
-
 function display_value($tag=false, $id=false, $class=false, $value=false)
 {
 	$tag_start	= '';
@@ -286,4 +271,45 @@ function display_category_url($categories, $category_id)
 	}
 	
 	return FALSE;
+}
+
+// Takes 'a_file_name' and makes it into 'A File Name'
+// Works with both '-' and '_' as word seperators
+function display_nice_file_name($input)
+{
+	preg_match('/-/', $input, $dashes);
+	preg_match('/_/', $input, $underscores);
+	
+	$pieces = '';
+	$run	= FALSE;
+	$name	= '';
+	
+	if ($dashes)
+	{
+		$pieces = explode('-', $input);
+		$run	= TRUE;
+	}
+	elseif ($underscores)
+	{
+		$pieces = explode('_', $input);
+		$run	= TRUE;	
+	}
+	else
+	{
+		$pieces = $input;
+	}
+
+	if ($run)
+	{
+		foreach ($pieces as $word)
+		{
+			$name .= ' '.ucwords($word);
+		}
+	}
+	else
+	{
+		$name = $input;
+	}
+
+	return ucwords($name);
 }
