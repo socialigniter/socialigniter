@@ -174,9 +174,9 @@ class Settings extends Dashboard_Controller
     }
 
     /* Modules Settings */
-	function modules()
+	function apps()
 	{
-		$this->data['sub_title']		= 'Module';
+		$this->data['sub_title']		= 'Apps';
 		$this->data['core_modules']		= config_item('core_modules');
 		$this->data['ignore_modules']	= config_item('ignore_modules');
 		$this->data['modules']			= $this->social_igniter->scan_modules();

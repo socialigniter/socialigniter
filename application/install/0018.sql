@@ -1,0 +1,6 @@
+CREATE TABLE `uploads` (
+`upload_id` INT( 6 ) UNSIGNED NULL AUTO_INCREMENT PRIMARY KEY ,
+`consumer_key` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`file_hash` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`uploaded_at` DATETIME NOT NULL
+) ENGINE = INNODB;
