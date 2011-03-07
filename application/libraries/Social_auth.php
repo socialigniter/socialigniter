@@ -475,6 +475,11 @@ class Social_auth
 	{
 		return $this->ci->auth_model->get_user_meta_meta($user_id, $meta);
 	}
+
+	function get_user_meta_row($user_id, $meta)
+	{
+		return $this->ci->auth_model->get_user_meta_row($user_id, $meta);
+	}
 	
 	function find_user_meta_value($key, $meta_query)
 	{
@@ -506,7 +511,9 @@ class Social_auth
     	    
 		// Loop user_meta_data
 		foreach ($user_meta_data as $meta => $value)
-		{		
+		{	
+			$update_count++;
+			
 			// Form Element Name
 			$this_user_meta = array(
 				'user_id'	=> $user_id,
@@ -520,14 +527,12 @@ class Social_auth
 			if ($current)
 			{			
 				$this->ci->auth_model->update_user_meta($current->user_meta_id, array('value' => $value));
-				$update_count++;
 			}
 			else
 			{
 				$this_user_meta['value'] = $value;
 				$this->ci->auth_model->add_user_meta($this_user_meta);			
-				$update_count++;
-			}		
+			}
 		}
 		
 		// Were All Updated

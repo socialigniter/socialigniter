@@ -286,8 +286,7 @@ class Auth_model extends CI_Model
         	$group_name = config_item('default_group');
         }
        
-	    $user_level_id	= $this->db->select('user_level_id')->where('level', $group_name)->get('users_level')->row()->user_level_id;
-        $ip_address		= $this->input->ip_address();
+	    $user_level_id = $this->db->select('user_level_id')->where('level', $group_name)->get('users_level')->row()->user_level_id;
         
         if ($this->store_salt) 
         {
@@ -310,7 +309,7 @@ class Auth_model extends CI_Model
   			'name'				=> $additional_data['name'],
   			'image'				=> $additional_data['image'],
 			'user_level_id'   	=> $user_level_id,
-			'ip_address' 		=> $ip_address,
+			'ip_address' 		=> $this->input->ip_address(),
         	'created_on' 		=> now(),
 			'last_login' 		=> now(),
 			'active'     		=> 1
@@ -335,8 +334,7 @@ class Auth_model extends CI_Model
 	    	}
 	    }
 	    
-	    $user_level_id	= $this->db->select('user_level_id')->where('level', config_item('default_group'))->get('users_level')->row()->user_level_id;
-        $ip_address		= $this->input->ip_address();
+	    $user_level_id = $this->db->select('user_level_id')->where('level', config_item('default_group'))->get('users_level')->row()->user_level_id;
         
         if ($this->store_salt) 
         {
@@ -355,9 +353,11 @@ class Auth_model extends CI_Model
 			'password'   		=> $password,
   			'salt'				=> $salt,
   			'email'      		=> $email,
-  			'gravatar'			=> md5($email),  			
+  			'gravatar'			=> md5($email),
+  			'name'				=> $additional_data['name'],
+  			'image'				=> $additional_data['image'],  			 			
 			'user_level_id'   	=> $user_level_id,
-			'ip_address' 		=> $ip_address,
+			'ip_address' 		=> $this->input->ip_address(),
         	'created_on' 		=> now(),
 			'last_login' 		=> now(),
 			'active'     		=> 1
@@ -370,26 +370,7 @@ class Auth_model extends CI_Model
 		  				
 		$this->db->insert('users', $user_data);		
 		$user_id = $this->db->insert_id();
-        
-		// Meta table.		
-		$data = array('user_id' => $user_id);
-		
-		if (!empty($this->columns))
-	    {
-	        foreach ($this->columns as $input)
-	        {
-	        	if (is_array($additional_data) && isset($additional_data[$input])) 
-	        	{
-	        		$data[$input] = $additional_data[$input];	
-	        	}
-	        	else 
-	        	{
-	            	$data[$input] = $this->input->post($input);
-	        	}
-	        }
-	    }
-        
-		$this->db->insert('users_meta', $data);
+        		
 		return $this->db->affected_rows() > 0 ? $user_id : false;			
 	}
 	
@@ -551,6 +532,16 @@ class Auth_model extends CI_Model
  		$this->db->where('meta', $meta);
  		$result = $this->db->get();	
  		return $result->result();		
+	}
+
+	function get_user_meta_row($user_id, $meta)
+	{
+ 		$this->db->select('*');
+ 		$this->db->from('users_meta');
+ 		$this->db->where('user_id', $user_id);   
+ 		$this->db->where('meta', $meta);
+ 		$result = $this->db->get()->row();	
+ 		return $result;		
 	}
 
 	function get_user_meta_id($user_meta_id)
