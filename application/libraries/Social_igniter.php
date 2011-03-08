@@ -347,6 +347,11 @@ class Social_igniter
 	{
 		return $this->ci->sites_model->get_site_view($parameter, $value);
 	}
+
+	function get_site_view_row($parameter, $value)
+	{
+		return $this->ci->sites_model->get_site_view_row($parameter, $value);
+	}
 	
 	function get_themes($theme_type='site')
 	{
