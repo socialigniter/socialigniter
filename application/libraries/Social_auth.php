@@ -690,6 +690,11 @@ class Social_auth
 	{
 		return $this->ci->connections_model->add_connection($connection_data);
 	}
+
+	function update_connection($connection_id, $connection_data)
+	{
+		return $this->ci->connections_model->update_connection($connection_id, $connection_data);
+	}
 	
 	function delete_connection($connection_id)
 	{

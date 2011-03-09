@@ -61,6 +61,8 @@ CREATE TABLE `connections` (
   `connection_username` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `auth_one` varchar(255) DEFAULT NULL,
   `auth_two` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT '0000-00-00 00:00:00',
+  `updated_at` datetime DEFAULT '0000-00-00 00:00:00',  
   PRIMARY KEY (`connection_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

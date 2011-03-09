@@ -4,3 +4,6 @@ CREATE TABLE `uploads` (
 `file_hash` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
 `uploaded_at` DATETIME NOT NULL
 ) ENGINE = INNODB;
+
+ALTER TABLE  `connections` ADD  `created_at` DATETIME NOT NULL AFTER  `connection_id` ,
+ADD  `updated_at` DATETIME NOT NULL AFTER  `created_at`
