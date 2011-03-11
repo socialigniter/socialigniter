@@ -29,7 +29,7 @@ class Site_Controller extends MY_Controller
         $this->data['shared_ajax']			= '';        
         $this->data['sidebar']				= $this->load->view(config_item('site_theme').'/partials/sidebar_site.php', $this->data, true);
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
-		$this->data['message']				= NULL;
+		$this->data['message']				= $this->session->userdata('message');
 
 		// If Modules Exist		
 		if ($this->modules_scan)

@@ -87,6 +87,35 @@ class Users extends Oauth_Controller
         
         $this->response($message, 200);
     }
+    
+    function set_userdata_signup_email_post()
+	{
+    	$this->form_validation->set_rules('signup_email', 'Email Address', 'required|valid_email');
+
+        if ($this->form_validation->run() == true)
+        {
+        	$email = $this->input->post('signup_email');
+
+			if ($user = $this->social_auth->get_user('email', $email))
+			{
+			    $message = array('status' => 'error', 'message' => 'Oops that email address is in use by someone else!', 'data' => $user);
+			}
+        	else
+        	{
+				$this->session->set_userdata('signup_email', $email);
+				$this->session->set_userdata('signup_user_state', 'has_connection_and_email');
+
+			    $message = array('status' => 'success', 'message' => 'Awesome, you will now be redirected to finish setting up your account');
+    		}
+        } 
+		else
+		{ 
+			$message = array('message' => 'Oops '.validation_errors());
+        }
+        
+        $this->response($message, 200);	
+	
+	}
 
 	// Update User    
     function modify_authd_post()
@@ -336,10 +365,8 @@ class Users extends Oauth_Controller
     
 	// Activate User
 	function activate_authd_put() 
-	{        
-		$activation = $this->social_auth->activate($this->get('id'), $this->get('code'));
-		
-        if ($activation)
+	{		
+        if ($activation = $this->social_auth->activate($this->get('id'), $this->get('code')))
         {
 	        $message = array('status' => 'success', 'message' => 'User activated');
         }
@@ -366,5 +393,4 @@ class Users extends Oauth_Controller
         
         $this->response($message, 200);
     }
-
 }

@@ -1,10 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
-* Name:  Social Auth Library
+* Name:  	Social Auth Library
 * 
-* Author:  		Brennan Novak severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
-* 		   		contact@social-igniter.com
-*				@socialigniter
+* Author:  	Brennan Novak severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
+* 		   	contact@social-igniter.com
+*			@socialigniter
 *
 * Location: http://github.com/socialigniter/core
 */
@@ -579,8 +579,7 @@ class Social_auth
 	function set_userdata_connections($user_id)
 	{	
 		$this->ci->session->set_userdata('user_connections', $this->get_connections_user($user_id));
-	}	
-	
+	}
 	
 	function set_lang($lang='en')
 	{

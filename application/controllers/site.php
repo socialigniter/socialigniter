@@ -226,9 +226,20 @@ class Site extends Site_Controller
         $this->data['password']   		= "";
     	$this->data['password_confirm'] = "";    		
         $this->data['page_title'] 		= "Signup";
-
     	$this->render();
-    }    
+    }  
+    
+    function signup_social()
+    {
+    	if ($this->session->userdata('signup_user_state') != 'has_connection_data') redirect('signup', 'refresh');
+
+		$this->data['sub_title'] 		= 'Signup';
+		$this->data['signup_module']	= $this->session->userdata('connection_signup_module');
+		$this->data['name']				= $this->session->userdata('signup_name');
+		$this->data['signup_email']		= $this->session->userdata('social_email');
+		$this->data['return_url']		= $this->session->userdata('connection_return_url');
+		$this->render();  
+    }  
 
 	function forgot_password() 
 	{	
@@ -239,7 +250,7 @@ class Site extends Site_Controller
         	$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');    		
 	    }
 	    else
-	    {			
+	    {	
 			if ($forgotten = $this->social_auth->forgotten_password($this->input->post('email')))
 			{
 				$this->session->set_flashdata('message', 'An email has been sent, please check your inbox.');
