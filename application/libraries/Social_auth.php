@@ -255,28 +255,18 @@ class Social_auth
 		}
 	}
 
-	function register($username, $password, $email, $additional_data, $group_name = false)
+	function register($username, $password, $email, $additional_data, $group_name=false)
 	{
 		$user_id = $this->ci->auth_model->register($username, $password, $email, $additional_data, $group_name);
 		
 		if ($user_id) 
 		{
 			$this->set_message('account_creation_successful');
-				
-			// Make OAuth Tokens & debug msgs
-			$consumer_keys	= $this->create_or_update_consumer(array('requester_name' => $additional_data['name'], 'requester_email' => $email), $user_id);
-			$access_tokens	= $this->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user_id);
+			
+			// Add Oauth Tokens
+			$this->oauth_register($email, $user_id, $additional_data['name']);
 
-	    	$update_data = array(
-	        	'consumer_key'		=> $consumer_keys['consumer_key'],
-	        	'consumer_secret'	=> $consumer_keys['consumer_secret'],
-	        	'token'				=> $access_tokens['token'],
-	        	'token_secret'		=> $access_tokens['token_secret']
-			);
-	    	
-	    	// Update the user with tokens
-	    	$this->update_user($user_id, $update_data);
-
+			// Get User
 		    $user = $this->get_user('user_id', $user_id);
 
 			// Send Welcome Email				
@@ -352,12 +342,40 @@ class Social_auth
 
 		if ($user_id)
 		{
-			$this->set_message('account_creation_successful');
+			$this->set_message('account_creation_successful');	
+			
+			// Add Oauth Tokens
+			$this->oauth_register($email, $user_id, $additional_data['name']);
+			
 			return $user_id;
 		}
 		else 
 		{
 			$this->set_error('account_creation_unsuccessful');
+			return FALSE;
+		}
+	}
+	
+	function oauth_register($email, $user_id, $name=NULL)
+	{
+		if (($email) && ($user_id))
+		{
+			// Make OAuth Tokens & debug msgs
+			$consumer_keys	= $this->create_or_update_consumer(array('requester_name' => $name, 'requester_email' => $email), $user_id);
+			$access_tokens	= $this->grant_access_token_to_consumer($consumer_keys['consumer_key'], $user_id);
+	
+	    	$update_data = array(
+	        	'consumer_key'		=> $consumer_keys['consumer_key'],
+	        	'consumer_secret'	=> $consumer_keys['consumer_secret'],
+	        	'token'				=> $access_tokens['token'],
+	        	'token_secret'		=> $access_tokens['token_secret']
+			);
+	    	
+	    	// Update the user with tokens
+	    	return $this->update_user($user_id, $update_data);	
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
