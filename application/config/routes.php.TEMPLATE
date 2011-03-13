@@ -99,6 +99,9 @@ $route['api/users/recent']							= 'api/users/recent';
 $route['api/users/password']						= 'api/users/password';
 $route['api/users/create']							= 'api/users/create';
 
+/* Upload */
+$route['api/upload/create_expectation']				= 'api/upload/create_expectation';
+
 /* API Modules */
 $route['api/(:any)/(:any)/(:any)/(:any)'] 			= '$1/api/$2/$3/$4';
 $route['api/(:any)/(:any)/(:any)'] 					= '$1/api/$2/$3';

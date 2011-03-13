@@ -52,12 +52,11 @@ class Auth_model extends CI_Model
 	        return FALSE;
 	   }
 	   
-	   $query = $this->db->select('password')
-	   					 ->select('salt')
+	   $query = $this->db->select('password, salt')
 						 ->where('email', $email)
 						 ->limit(1)
 						 ->get('users');
-            
+
         $result = $query->row();
         
 		if ($query->num_rows() !== 1)
@@ -460,7 +459,7 @@ class Auth_model extends CI_Model
 	
 	function get_user($parameter, $value)
 	{
-    	if (($value) && (in_array($parameter, array('user_id','username', 'email','gravatar'))))
+    	if (($value) && (in_array($parameter, array('user_id','username', 'email','gravatar', 'consumer_key', 'token'))))
     	{
 			$this->db->select('*');
 	 		$this->db->from('users');
@@ -475,6 +474,7 @@ class Auth_model extends CI_Model
 			return FALSE;
 		}
 	}
+	
 	function get_users_levels()
 	{	
 	    $this->db->select('*');

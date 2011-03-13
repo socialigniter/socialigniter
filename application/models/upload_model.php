@@ -7,31 +7,31 @@ class Upload_model extends CI_Model {
         parent::__construct();
     }
     
-    function verify_upload($consumer_key, $file_hash)
+    function check_upload_hash($consumer_key, $file_hash)
     {
- 		$this->db->select('*');
- 		$this->db->from('uploads');  
- 		$this->db->where('consumer_key', $consumer_key);
-	 	$this->db->where('file_hash', $file_hash);
-		$this->db->limit(1);    
- 		$result = $this->db->get()->row();	
+	   $query = $this->db->select('*')
+						 ->where('consumer_key', $consumer_key)
+						 ->where('file_hash', $file_hash)
+						 ->limit(1)
+						 ->get('uploads');
+
+        $result = $query->row();
+        
+		if ($query->num_rows() !== 1)
+		{
+		    return FALSE;
+		}    
+    
  		return $result;
     }
-
-    function add_upload($activity_info, $activity_data)
+   
+    function add_upload($upload_data)
     {
-		if (array_key_exists('content_id', $activity_info)) $content_id = $activity_info['content_id'];
-		else $content_id = 0;
-
- 		$insert_data = array(
-			'consumer_key' 	 	=> $activity_info['consumer_key'],
-			'file_hash'			=> $activity_info['file_hash'],
-			'status'			=> 'P',
-			'uploaded_at' 		=> unix_to_mysql(now())
-		);
+ 		$upload_data['status']		= 'P';
+		$upload_data['uploaded_at'] = unix_to_mysql(now());
 		
-		$this->db->insert('uploads', $insert_data);
-		$activity_id = $this->db->insert_id();
+		$this->db->insert('uploads', $upload_data);
+		$upload_id = $this->db->insert_id();
 		
 		if ($upload_id)
 		{
