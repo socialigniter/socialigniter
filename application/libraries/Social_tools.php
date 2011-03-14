@@ -102,6 +102,11 @@ class Social_tools
 	{
 		return $this->ci->categories_model->get_categories_view($parameter, $value);	
 	}
+	
+	function get_category_title_url($type, $title_url)
+	{
+		return $this->ci->categories_model->get_category_title_url($type, $title_url);
+	}	
 
 	function get_category_default_user($parameter, $value, $user_id, $make=FALSE)
 	{

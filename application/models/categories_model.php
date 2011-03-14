@@ -8,7 +8,7 @@ class Categories_model extends CI_Model
     
     function get_categories()
     {
- 		$this->db->select('*');
+ 		$this->db->select('categories.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('categories');    
  		$this->db->order_by('created_at', 'desc'); 
  		$result = $this->db->get();	
@@ -17,9 +17,8 @@ class Categories_model extends CI_Model
 
     function get_category($category_id)
     {
- 		$this->db->select('*');
+ 		$this->db->select('categories.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('categories'); 
-  		$this->db->join('users_meta', 'users_meta.user_id = categories.user_id');		  
  		$this->db->join('users', 'users.user_id = categories.user_id'); 
   		$this->db->where('category_id', $category_id);
  		$result = $this->db->get()->row();
@@ -30,8 +29,9 @@ class Categories_model extends CI_Model
     {
     	if (in_array($parameter, array('category_id','parent_id','site_id','module','type','category_url')))
     	{
-	 		$this->db->select('*');
-	 		$this->db->from('categories'); 
+	 		$this->db->select('categories.*, users.username, users.gravatar, users.name, users.image');
+	 		$this->db->from('categories');
+	 		$this->db->join('users', 'users.user_id = categories.user_id');
 	 		$this->db->where($parameter, $value);
 	 		$this->db->order_by('parent_id', 'asc');
 	 		$result = $this->db->get();	
@@ -43,13 +43,23 @@ class Categories_model extends CI_Model
 		}
     }
 
+    function get_category_title_url($type, $category_url)
+    {
+ 		$this->db->select('categories.*, users.username, users.gravatar, users.name, users.image');
+ 		$this->db->from('categories'); 
+ 		$this->db->join('users', 'users.user_id = categories.user_id'); 
+  		$this->db->where('categories.type', $type);
+  		$this->db->where('categories.category_url', $category_url);
+ 		$result = $this->db->get()->row();
+ 		return $result;
+    }
+
     function get_category_default_user($parameter, $value, $user_id)
     {
     	if (in_array($parameter, array('parent_id','site_id','module','type','category_url')))
     	{
 	 		$this->db->select('*');
 	 		$this->db->from('categories'); 
-	  		$this->db->join('users_meta', 'users_meta.user_id = categories.user_id');		  
 	 		$this->db->join('users', 'users.user_id = categories.user_id');	 		
 	 		$this->db->where($parameter, $value);
 	 		$this->db->where('user_id', $user_id);

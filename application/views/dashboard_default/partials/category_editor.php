@@ -6,7 +6,7 @@
 		<p id="category_slug" class="slug_url"></p>	
 		<label for="category_description">Description</label>
 		<textarea name="description" id="category_description" rows="2"></textarea>
-		<label for="category_parent">Parent</label>
+		<label for="category_parent">Parent Category</label>
 		<select name="parent_id" id="category_parent_id">
 			<option value="0">--None--</option>
 		</select>
