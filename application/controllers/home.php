@@ -45,7 +45,7 @@ class Home extends Dashboard_Controller
  	    // Fix For MODULE Checking
  	    else
  	    {
-	 	    $this->data['page_title'] 		= ucwords($this->uri->segment(2));
+	 	    $this->data['page_title'] 		= display_nice_file_name($this->uri->segment(2));
  			$this->data['sub_title']		= 'Recent';
  			$this->data['status_updater']	= '';
 

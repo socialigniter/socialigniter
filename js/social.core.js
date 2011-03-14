@@ -532,24 +532,28 @@ function convertToSlug(str)
  * @requires utf8_encode() required for md5()
  * @requires md5() required to get Gravatar image
  *
- * @param json {obj} json object containing json.image and json.email
+ * @param json {obj} json object containing json.image and json.gravatar
  * @param size {string} Can be either "small", "medium", or "large"
  *
  * @returns {string} URL to image
  **/
 
-function getUserImageSrc(json,size){
-	
+function getUserImageSrc(json, size)
+{	
 	//Sets the default size, medium and then changes the name to be easier to use.
 	//instead of small, normal, and bigger, it changes it to small, medium, and large
 	if(!size){size='medium';} //if no size was specified
-	if(size == 'large'){
+	
+	if(size == 'large')
+	{
 		_localImgSize = 'bigger'
 	}
-	else if(size == 'small'){
+	else if(size == 'small')
+	{
 		_localImgSize = 'small' 
 	}
-	else{
+	else
+	{
 		_localImgSize = 'medium'
 	}
 	
@@ -558,21 +562,26 @@ function getUserImageSrc(json,size){
 	//to the px sizes 35, 48, and 175
 	_gravatarSize = '48'
 	
-	if(size == 'large'){
+	if(size == 'large')
+	{
 		_gravatarSize = '175'
 	}
-	else if(size == 'small'){
+	else if(size == 'small')
+	{
 		_gravatarSize = '35'
 	}
 	
 	//If the user uploaded his own image
-	if(json.image !== "0"){
+	if (json.image != '')
+	{	
 		_imgSrcOutput = '/uploads/profiles/'+json.user_id+'/'+_localImgSize+'_'+json.image
 	}
 	//Otherwise check gravatar, and/or return the default "no image" image
-	else {
-		_imgSrcOutput = 'http://gravatar.com/avatar.php?gravatar_id='+md5(json.email)+'&s='+_gravatarSize+'&d='+base_url+'/uploads/profiles/'+_localImgSize+'_nopicture.png';
+	else
+	{	
+		_imgSrcOutput = 'http://gravatar.com/avatar.php?gravatar_id='+json.gravatar+'&s='+_gravatarSize+'&d='+base_url+'/uploads/profiles/'+_localImgSize+'_nopicture.png';
 	}
+	
 	return _imgSrcOutput;
 }
 

@@ -6,17 +6,15 @@ body		{ background: url(/uploads/sites/1/background.png) 0 0 repeat-x #ffffff; f
 h1			{ color: #444; font-size: 30px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h2			{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h3			{ color: #444; font-size: 18px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
-
 p 			{ margin: 15px 0; font-size: 14px; }
-
 a:link 		{ color: #666666; text-shadow:1px 1px 1px #FFF; font-weight: normal; text-decoration: none; }
 a:visited	{ color: #666666; text-shadow:1px 1px 1px #FFF; text-decoration: none; }
 a:hover		{ color: #555555; text-shadow:1px 1px 1px #FFF; text-decoration: underline; }
-a:active	0
+a:active	{ color: #555555; text-shadow:1px 1px 1px #FFF; text-decoration: underline; }
 a 			{ font-weight: normal; text-shadow:1px 1px 1px #F3F3F3; }
-
 table 		{ margin: 10 0; }
 table td 	{ padding: 10px 10px 5px 0; text-align: left; vertical-align: top; }
+pre			{ background: #f3f3f3; border: 1px solid #999999; padding: 10px; }
 
 input[type=text], input[type=password], input[type=email], input[type=url] { height: 28px; background: url(images/input_basic.png) 0 0 repeat-x #fff; font-size: 13px; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; margin: 0 10px 0 0; padding: 0 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=url]:focus { height: 28px; background: url(images/input_basic_focus.png) 0 0 repeat-x #fff; margin: 0 10px 0 0; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
