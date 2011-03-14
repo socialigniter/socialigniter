@@ -220,7 +220,7 @@ class Social_igniter
 		return $social_logins;
 	}
 
-	function get_social_post($user_id)
+	function get_social_post($user_id, $id='social_post')
 	{
 		$post_to 			= NULL;
 		$connections		= NULL;
@@ -255,7 +255,7 @@ class Social_igniter
 			
 			if ($post_to)
 			{
-				return '<ul id="social_post">'.$post_to.'</ul>';
+				return '<ul id="'.$id.'">'.$post_to.'</ul>';
 			}
 		}
 			
@@ -346,6 +346,11 @@ class Social_igniter
 	function get_site_view($parameter, $value)
 	{
 		return $this->ci->sites_model->get_site_view($parameter, $value);
+	}
+
+	function get_site_view_row($parameter, $value)
+	{
+		return $this->ci->sites_model->get_site_view_row($parameter, $value);
 	}
 	
 	function get_themes($theme_type='site')

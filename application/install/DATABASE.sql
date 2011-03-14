@@ -61,6 +61,8 @@ CREATE TABLE `connections` (
   `connection_username` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `auth_one` varchar(255) DEFAULT NULL,
   `auth_two` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT '0000-00-00 00:00:00',
+  `updated_at` datetime DEFAULT '0000-00-00 00:00:00',  
   PRIMARY KEY (`connection_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -311,6 +313,14 @@ CREATE TABLE `taxonomy` (
   PRIMARY KEY (`taxonomy_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+CREATE TABLE `uploads` (
+  `upload_id` INT( 6 ) UNSIGNED NULL AUTO_INCREMENT PRIMARY KEY ,
+  `consumer_key` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+  `file_hash` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,  
+  `uploaded_at` DATETIME NOT NULL
+) ENGINE = INNODB;
+
 CREATE TABLE `users` (
   `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_level_id` tinyint(3) unsigned DEFAULT NULL,
@@ -353,13 +363,14 @@ INSERT INTO `users_level` VALUES(3, 'superuser', 'Super User', 'Supers Users hel
 INSERT INTO `users_level` VALUES(4, 'user', 'User', 'Users are just regular Joes or Joesephines. They use your application as it is intended for the general public');
 
 CREATE TABLE  `users_meta` (
-`user_meta_id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`user_id` INT( 11 ) NOT NULL ,
-`site_id` INT( 6 ) NOT NULL ,
-`module` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`meta` CHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`details` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL 
+  `user_meta_id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `user_id` INT( 11 ) NOT NULL ,
+  `site_id` INT( 6 ) NOT NULL ,
+  `module` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+  `meta` CHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+  `created_at` datetime DEFAULT '0000-00-00 00:00:00',
+  `updated_at` datetime DEFAULT '0000-00-00 00:00:00'
 ) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `users_sessions` (

@@ -47,11 +47,11 @@ class Connections_model extends CI_Model
 		return FALSE;
  	}
 
- 	function check_connection_user_id($connection_user_id)
+ 	function check_connection_user_id($connection_user_id, $module)
  	{
- 		$where = array('connection_user_id' => $connection_user_id);
+ 		$where = array('connection_user_id' => $connection_user_id, 'module' => $module);
 		return $this->db->select('*')->where($where)->limit(1)->get('connections')->row();	
- 	} 	
+ 	}
 
  	function check_connection_auth($module, $connection_user_id)
  	{
@@ -89,8 +89,11 @@ class Connections_model extends CI_Model
  	
 	function add_connection($connection_data)
 	{
+		$connection_data['created_at'] = unix_to_mysql(now());
+		$connection_data['updated_at'] = unix_to_mysql(now());
+	
 		if($this->db->insert('connections', $connection_data))
-		{
+		{		
 			$connection_id 	= $this->db->insert_id();
 			return $this->db->get_where('connections', array('connection_id' => $connection_id))->row();
 		}
@@ -99,6 +102,15 @@ class Connections_model extends CI_Model
 			return FALSE;
 		}
 	}
+	
+    function update_connection($connection_id, $update_data)
+    {
+		$update_data['updated_at'] = unix_to_mysql(now());
+    
+		$this->db->where('connection_id', $connection_id);
+		$this->db->update('connections', $update_data);
+		return TRUE;
+    }	
 
 	function delete_connection($connection_id)
 	{

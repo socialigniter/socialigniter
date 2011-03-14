@@ -27,6 +27,7 @@ class Social_tools
 		$this->ci->load->model('relationships_model');
 		$this->ci->load->model('tags_model');
 		$this->ci->load->model('taxonomy_model');
+		$this->ci->load->model('upload_model');
 
 		// Define Variables
 		$this->view_comments = NULL;
@@ -548,5 +549,46 @@ class Social_tools
 			return TRUE;
 		}
 	}
+	
+	/* Upload */
+    function verify_upload($consumer_key, $file_name)
+	{
+		$user = $this->ci->social_auth->get_user('consumer_key', $consumer_key);
+		
+		if (!$user)
+		{
+			return FALSE;
+		}
+		else
+		{		
+			$file_hash		= md5($file_name.$user->token_secret);
+			$check_upload	= $this->check_upload_hash($consumer_key, $file_hash);
+		
+			if ($check_upload)
+			{
+				$this->delete_upload($check_upload->upload_id);
+			
+				return TRUE;
+			}
+		}
+	
+		return FALSE;
+	}
+	
+	function check_upload_hash($consumer_key, $file_hash)
+	{
+		return $this->ci->upload_model->check_upload_hash($consumer_key, $file_hash);
+	}
+	
+    function add_upload($upload_data)
+	{
+		return $this->ci->upload_model->add_upload($upload_data);
+	}
+	
+    function delete_upload($upload_id)
+	{
+		return $this->ci->upload_model->delete_upload($upload_id);
+	}
+
 
 }

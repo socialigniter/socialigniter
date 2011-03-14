@@ -85,7 +85,7 @@ class Image_model extends CI_Model
 
    	       
 	    // Horizontal or Vertical Picture	   
-			// using config sizes will enlarge small pictures to size 
+		// using config sizes will enlarge small pictures to size 
 	    if($set_master_dim == 'width')
 	    {
 	        $resize_width 	= $original_width; 
@@ -195,31 +195,8 @@ class Image_model extends CI_Model
 				return false;
 			}
 			
-  	   $this->image_lib->clear();
- /* 	    
-		// Makes Cropped Version ???
-		// Old Version from Brennans intial resizing lib
- 	    $thumb_config['image_library'] 		= 'gd2';
-	    $thumb_config['source_image'] 		= $create_path."/cropped_".$size."_".$file_data['file_name'];;
-	    $thumb_config['maintain_ratio'] 	= TRUE;
-	    $thumb_config['new_image']			= $create_path.$size."_".$file_data['file_name'];
-	    $thumb_config['width'] 				= config_item($module.'_images_'.$size.'_width');
-	    $thumb_config['height'] 			= config_item($module.'_images_'.$size.'_height');	
-    
-	    $this->image_lib->initialize($thumb_config);
-	    
-	    if (!$this->image_lib->resize())
-	    {
-	        echo "error resize cropping 2";
-	        echo $this->image_lib->display_errors();
-	        return false;
-	    }
-
-  	    $this->image_lib->clear();
-  		unlink($create_path."/cropped_".$size."_".$file_data['file_name']);
-*/  		
+  	   $this->image_lib->clear(); 		
 	}
-	
 		
 	// Makes Image that does not need cropping
 	function make_resized($file_data, $module, $create_path, $size)
@@ -243,4 +220,23 @@ class Image_model extends CI_Model
   	    $this->image_lib->clear();		
 	}
 	
+	function get_external_image($image_full, $image_save)
+	{	
+	    $ch = curl_init ($image_full);
+	    curl_setopt($ch, CURLOPT_HEADER, 0);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	    curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+	    $rawdata = curl_exec($ch);
+	    curl_close ($ch);
+	    
+	    if (file_exists($image_save))
+	    {
+	        unlink($image_save);
+	    }
+	    
+	    $fp = fopen($image_save,'x');
+
+	    fwrite($fp, $rawdata);
+	    fclose($fp);
+	}
 }

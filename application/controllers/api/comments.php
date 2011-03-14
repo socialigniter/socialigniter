@@ -99,7 +99,7 @@ class Comments extends Oauth_Controller
 					$comment_data['created_at']		= format_datetime(config_item('comments_date_style'), $comment->created_at);
 					$comment_data['name']			= $comment->name;
 					$comment_data['username']		= $comment->username;
-					$comment_data['email']			= $comment->email;
+					$comment_data['gravatar']		= $comment->gravatar;
 					$comment_data['image']			= $comment->image;
 					$comment_data['sub']			= '';
 				

@@ -11,13 +11,15 @@ class Home extends Dashboard_Controller
  	{
  		$timeline		= NULL;
 		$timeline_view	= NULL;
+		
+ 	   	// Load
+		$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
+	 	$this->data['social_post'] 		= $this->social_igniter->get_social_post($this->session->userdata('user_id'), 'social_post_horizontal'); 		
  	
  		// Pick Type of Feed
 		if ($this->uri->total_segments() == 1)
 		{
 	 	    $this->data['page_title'] 		= 'Home';
-			$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
-	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
  	    
 			$timeline 						= $this->social_igniter->get_timeline(NULL, 10);
@@ -25,8 +27,6 @@ class Home extends Dashboard_Controller
  	    elseif ($this->uri->segment(2) == 'friends')
  	    {
 	 	    $this->data['page_title'] 		= 'Friends';
-			$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
-	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
 			if ($friends = $this->social_tools->get_relationships_follows($this->session->userdata('user_id')))
@@ -37,8 +37,6 @@ class Home extends Dashboard_Controller
  	    elseif ($this->uri->segment(2) == 'likes')
  	    {
 	 	    $this->data['page_title'] 		= 'Likes';
-			$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
-	 		$this->data['social_post'] 		= $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>');		
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
 			$likes							= $this->social_tools->get_ratings_likes_user($this->session->userdata('user_id'));
@@ -47,12 +45,12 @@ class Home extends Dashboard_Controller
  	    // Fix For MODULE Checking
  	    else
  	    {
-	 	    $this->data['page_title'] 		= ucwords($this->uri->segment(2));
+	 	    $this->data['page_title'] 		= display_nice_file_name($this->uri->segment(2));
  			$this->data['sub_title']		= 'Recent';
  			$this->data['status_updater']	= '';
 
 			$timeline 						= $this->social_igniter->get_timeline($this->uri->segment(2), 10); 
- 	    }
+ 	    }	    
  	     	     	    
 		// Build Feed				 			
 		if (!empty($timeline))
@@ -215,6 +213,12 @@ class Home extends Dashboard_Controller
 		$this->render('dashboard_wide');
 	}
 	
+	/* Error */
+    function error()
+	{
+		$this->data['page_title'] = 'Oops, Page Not Found';	
+		$this->render();	
+	}
 	
 	/* Partials */
 	function item_timeline()

@@ -12,7 +12,7 @@
 	<img src="<?= $dashboard_assets.'icons/'.$this->uri->segment(2) ?>_32.png"> <?= ucwords($this->uri->segment(2)) ?> Settings
 </h2>
 <ul class="content_navigation">
-	 <?= navigation_list_btn('settings/modules', 'Back To Modules') ?>
+	 <?= navigation_list_btn('settings/apps', 'Back To Apps') ?>
 </ul>
 <?php elseif (is_uri_value($this->uri->segment(2), config_item('site_modules'))): ?>
 <h2 class="content_title"><img src="<?= $dashboard_assets ?>icons/site_32.png">  Site</h2>
@@ -28,19 +28,19 @@
 	<img src="<?= $dashboard_assets ?>icons/api_32.png"> Api Settings
 </h2>
 <ul class="content_navigation">
-	 <?= navigation_list_btn('settings/modules', 'Back To Modules') ?>
+	 <?= navigation_list_btn('settings/apps', 'Back To Apps') ?>
 </ul>
-<?php elseif ($this->uri->segment(2) != 'modules'): ?>
+<?php elseif ($this->uri->segment(2) != 'apps'): ?>
 <h2 class="content_title">
-	<img src="<?= $modules_assets.$this_module ?>_32.png"> <?= ucwords(url_word_parser('_', $this_module)) ?> Settings
+	<img src="<?= $modules_assets.$this_module ?>_32.png"> <?= display_nice_file_name($this_module) ?> Settings
 </h2>
 <ul class="content_navigation">
-	 <?= navigation_list_btn('settings/modules', 'Back To Modules') ?>
+	 <?= navigation_list_btn('settings/apps', 'Back To Apps') ?>
 </ul>
 <?php else: ?>
-<h2 class="content_title">
-	<img src="<?= $dashboard_assets ?>icons/modules_32.png"> Module Settings
-</h2> 
+<h2 class="content_title"><img src="<?= $dashboard_assets ?>icons/installer_32.png"> Apps</h2>
 <ul class="content_navigation">
+	<?= navigation_list_btn('settings/apps', 'Installed') ?> 
+	<?= navigation_list_btn('settings/get', 'Get Apps') ?> 
 </ul>
 <?php endif; ?>

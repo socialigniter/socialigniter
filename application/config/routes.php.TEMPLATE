@@ -99,6 +99,9 @@ $route['api/users/recent']							= 'api/users/recent';
 $route['api/users/password']						= 'api/users/password';
 $route['api/users/create']							= 'api/users/create';
 
+/* Upload */
+$route['api/upload/create_expectation']				= 'api/upload/create_expectation';
+
 /* API Modules */
 $route['api/(:any)/(:any)/(:any)/(:any)'] 			= '$1/api/$2/$3/$4';
 $route['api/(:any)/(:any)/(:any)'] 					= '$1/api/$2/$3';
@@ -122,6 +125,7 @@ $route['home/comments/(:any)'] 						= 'home/comments/$1';
 $route['home/comments'] 							= 'home/comments';
 $route['home/friends']								= 'home/index';
 $route['home/likes']								= 'home/index';
+$route['home/error'] 								= 'home/error';
 
 /* Home Partials */
 $route['home/item_timeline']						= 'home/item_timeline';
@@ -153,13 +157,13 @@ $route['settings/themes']							= 'settings/themes';
 $route['settings/design']							= 'settings/design';
 $route['settings/widgets']							= 'settings/widgets';
 $route['settings/services']							= 'settings/services';
-$route['settings/modules'] 							= 'settings/modules';
 $route['settings/home']								= 'settings/home';
 $route['settings/comments']							= 'settings/comments';
 $route['settings/api']								= 'settings/api';
 $route['settings/update']							= 'settings/update';
 $route['settings/users']							= 'settings/users';
 $route['settings/pages']							= 'settings/pages';
+$route['settings/apps'] 							= 'settings/apps';
 $route['settings/(:any)'] 							= '$1/settings';
 $route['settings'] 									= 'settings';
 
@@ -174,6 +178,7 @@ $route['users/create']								= 'users/editor';
 $route['login']										= 'site/login';
 $route['logout']									= 'site/logout';
 $route['signup']									= 'site/signup';
+$route['signup_social']								= 'site/signup_social';
 $route['forgot_password']							= 'site/forgot_password';
 $route['reset_password/(:any)']						= 'site/reset_password';
 $route['reset_password']							= 'site/reset_password';

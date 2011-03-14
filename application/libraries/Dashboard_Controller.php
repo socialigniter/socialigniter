@@ -134,6 +134,14 @@ class Dashboard_Controller extends MY_Controller
 	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_comments.php';
         	$content_path 		= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
 		}
+		// Should perhaps be rethought in the future
+		elseif ($this->uri->segment(2) == 'error')
+		{
+			// Need to add a way to drilldown through Comments. One idea is a dropdown menu... but breaks nav style
+			// Without dropdown runs the risk of being too many modules and totally ruining the nav
+	        $navigation_path 	= config_item('dashboard_theme').'/partials/navigation_error.php';
+        	$content_path 		= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
+		}
 		// Ugly As Hell Hack for PAGES move into 'core'
 		elseif ($this->uri->uri_string() == '/home/pages')
 		{
