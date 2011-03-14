@@ -125,6 +125,7 @@ $route['home/comments/(:any)'] 						= 'home/comments/$1';
 $route['home/comments'] 							= 'home/comments';
 $route['home/friends']								= 'home/index';
 $route['home/likes']								= 'home/index';
+$route['home/error'] 								= 'home/error';
 
 /* Home Partials */
 $route['home/item_timeline']						= 'home/item_timeline';

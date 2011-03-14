@@ -213,6 +213,12 @@ class Home extends Dashboard_Controller
 		$this->render('dashboard_wide');
 	}
 	
+	/* Error */
+    function error()
+	{
+		$this->data['page_title'] = 'Oops, Page Not Found';	
+		$this->render();	
+	}
 	
 	/* Partials */
 	function item_timeline()
