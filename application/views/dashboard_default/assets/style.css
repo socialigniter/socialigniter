@@ -21,7 +21,7 @@ table td 	{ padding: 10px 10px 5px 0; text-align: left; vertical-align: top; }
 input[type=text], input[type=password], input[type=email], input[type=url] { height: 28px; background: url(images/input_basic.png) 0 0 repeat-x #fff; font-size: 13px; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; margin: 0 10px 0 0; padding: 0 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=url]:focus { height: 28px; background: url(images/input_basic_focus.png) 0 0 repeat-x #fff; margin: 0 10px 0 0; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 
-input[type=submit], input[type=reset], input[type=button] { height: 29px; background: url(images/button_basic.png) 0 0 repeat-x #888888; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 13px; padding: 0 12px; }
+input[type=submit], input[type=reset], input[type=button], button { height: 29px; background: url(images/button_basic.png) 0 0 repeat-x #888888; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 13px; padding: 0 12px; }
 input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover { height: 29px; background: url(images/button_basic_hover.png) 0 0 repeat-x #979595; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
 
 textarea 					{ background: url(images/textarea_basic.png) 0 0 repeat-x #ffffff; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; padding: 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
@@ -353,8 +353,10 @@ span.item_right a:hover		{ text-decoration: underline; }
 	.ui-autocomplete a {padding:5px;display:block;cursor:pointer !important;}
 	.ui-autocomplete li a:hover,.ui-autocomplete .ui-state-hover {background:#F2F2F2;}
 	
-	.ui-dialog {-webkit-box-shadow:rgba(0,0,0,0.2) 0 0 10px;-moz-box-shadow:rgba(0,0,0,0.2) 0 0 10px;box-shadow:rgba(0,0,0,0.2) 0 0 10px;padding:17px;background:#ECECEC;border:1px solid #A09F9F; margin-left:auto; margin-right:auto;}
-	.ui-dialog-titlebar {display:none}
+	.ui-dialog {border-radius:5px;-moz-border-radius:5px;-webkit-box-shadow:rgba(0,0,0,0.2) 0 0 10px;-moz-box-shadow:rgba(0,0,0,0.2) 0 0 10px;box-shadow:rgba(0,0,0,0.2) 0 0 10px;padding:17px;background:#ECECEC;border:1px solid #A09F9F; margin-left:auto; margin-right:auto;}
+	.ui-dialog-titlebar {}
+	.ui-dialog-title {color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF;}
+	.ui-dialog-titlebar-close {position:absolute;top:-15px;right:-15px;text-indent:-9999px;display:block;background:url(/images/fancybox/fancy_close.png) no-repeat;width:30px;height:30px;}
 
 /* Settings - Widget */
 #widget_content_area 	{ width: 620px; padding:0 0 0 12px; margin: 0 0 10px 0; float: left; }
