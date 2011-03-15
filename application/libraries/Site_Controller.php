@@ -118,7 +118,7 @@ class Site_Controller extends MY_Controller
     			}
     			elseif (($widget->method == 'run') && ($widget->enabled == 'TRUE'))
     			{
-    				$section_widgets .= 'MUST RUN ROUTE';
+    				$section_widgets .= modules::run($widget->module.'/'.$widget->path);
     			}
     			elseif (($widget->method == 'text') && ($widget->enabled == 'TRUE'))
 				{
@@ -126,8 +126,6 @@ class Site_Controller extends MY_Controller
 				}
     		}
     	}
-    	
-	    	
 
 		return $section_widgets;
     }

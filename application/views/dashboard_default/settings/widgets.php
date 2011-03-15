@@ -1,22 +1,15 @@
 <form name="settings_update" id="settings_update" method="post" action="<?= base_url() ?>api/settings/modify" enctype="multipart/form-data">
 
-<!--
-	<h3>Create</h3>
-	<input type="button" name="add_widget" value="Add Widget">
-	
-	<h3>Layout</h3>
-	<?= form_dropdown('layout', $layouts, ''); ?>
--->
 	<div id="widget_content_area" class="widget_area">		
 		<h3>Content</h3> <input type="button" name="add_widget_content" class="add_widget" rel="content" value="Add">
 		<div class="clear"></div>	
 		<div class="widget_border">
 
 			<?php foreach ($content_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-		
+
 				<p><b><?= $widget->name ?></b></p>
 		
-			<?php endforeach; ?>		
+			<?php endforeach; ?>
 		
 		</div>			
 	</div>
@@ -47,7 +40,6 @@
 		
 		</div>	
 	</div>
-
 
 </form>
 
@@ -121,8 +113,6 @@ $(document).ready(function()
 			});
 		};
 	})( jQuery );
-
-
 
 
 	// Add Widget

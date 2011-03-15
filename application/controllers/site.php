@@ -61,7 +61,7 @@ class Site extends Site_Controller
 		}
 
 		// Load Login Is Enabled
-		$this->data['sidebar'] = $this->render_widgets('sidebar');
+		$this->data['sidebar'] = $this->render_widgets('sidebar');		
 
 		$this->render();
 	}
