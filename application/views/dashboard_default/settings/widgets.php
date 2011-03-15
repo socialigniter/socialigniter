@@ -5,12 +5,15 @@
 		<div class="clear"></div>	
 		<div class="widget_border">
 
-			<?php foreach ($content_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
+			<?php if ($content_widgets): foreach ($content_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
 
 				<p><b><?= $widget->name ?></b></p>
 		
-			<?php endforeach; ?>
-		
+			<?php endforeach; else: ?>
+			<div class="widget_instance_none">
+				No Widgets
+			</div>			
+			<?php endif; ?>		
 		</div>			
 	</div>
 
@@ -18,11 +21,19 @@
 		<h3>Sidebar</h3> <input type="button" name="add_widget_sidebar" class="add_widget" rel="sidebar" value="Add">
 		<div class="clear"></div>
 		<div class="widget_border">
-			<?php foreach ($sidebar_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-		
-				<p><b><?= $widget->name ?></b></p>
-		
-			<?php endforeach; ?>
+			<?php if ($sidebar_widgets): foreach ($sidebar_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
+			<div class="widget_instance">
+				<b><?= $widget->name ?></b>				
+				
+				<a class="widget_edit" href="#"><span class="actions action_edit"></span>Edit</a>
+
+			</div>
+			<?php endforeach; else: ?>
+			<div class="widget_instance_none">
+				No Widgets
+			</div>			
+			<?php endif; ?>
+			
 		</div>
 	</div>
 	<div class="clear"></div>
@@ -32,12 +43,20 @@
 		<div class="clear"></div>
 		<div class="widget_border">
 
-			<?php foreach ($wide_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
+			<?php if ($wide_widgets): foreach ($wide_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
+			<div class="widget_instance">
+				<b><?= $widget->name ?></b>
+
+				<a class="widget_edit" href="#"><span class="actions action_edit"></span>Edit</a>				
+				
+			</div>
+			<?php endforeach; else: ?>
+			
+			<div class="widget_instance_none">
+				No Widget
+			</div>						
 		
-				<p><b><?= $widget->name ?></b></p>
-		
-			<?php endforeach; ?>		
-		
+			<?php endif; ?>
 		</div>	
 	</div>
 
@@ -116,15 +135,18 @@ $(document).ready(function()
 
 
 	// Add Widget
-	$('.add_widget').live('click', function()
+	$('.widget_edit').live('click', function()
 	{	
+		alert('Time to edit dis here lil widget');
+	/*
 		$.widgetPicker(
 		{
 			url_html	: base_url + 'home/settings/occurrence_membership',		
 			url_submit	: base_url + 'api/classes/occurrence_create',
 			type		: $(this).attr('rel'),
 			title		: 'Add ' + $(this).attr('rel') + 'Widget'
-		});		
+		});
+	*/	
 	});
 
 
