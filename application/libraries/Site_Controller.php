@@ -27,7 +27,7 @@ class Site_Controller extends MY_Controller
         $this->data['navigation']			= $this->load->view(config_item('site_theme').'/partials/navigation_site.php', $this->data, true);
         $this->data['content']				= '';
         $this->data['shared_ajax']			= '';        
-        $this->data['sidebar']				= $this->load->view(config_item('site_theme').'/partials/sidebar_site.php', $this->data, true);
+        $this->data['sidebar']				= '';
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
 		$this->data['message']				= $this->session->userdata('message');
 
@@ -100,5 +100,35 @@ class Site_Controller extends MY_Controller
         }
 
         $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);
+    }
+    
+    function render_widgets($section)
+    {
+    	$section_widgets = '';
+    
+    	foreach ($this->site_widgets as $site_widget)
+    	{
+    		if ($site_widget->setting == $section)
+    		{
+    			$widget = json_decode($site_widget->value);
+    		
+    			if ($widget->method == 'view')
+ 				{   		
+    				$section_widgets .= $widget->path;//$this->load->view($widget->path, $this->data, true);
+    			}
+    			elseif ($widget->method == 'run')
+    			{
+    				$section_widgets .= 'MUST RUN ROUTE';
+    			}
+    			elseif ($widget->method == 'text')
+				{
+    				$section_widgets .= $widget->content;				
+				}
+    		}
+    	}
+    	
+	    	
+
+		return $section_widgets;
     }
 }

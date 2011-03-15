@@ -17,6 +17,7 @@
 class MY_Controller extends MX_Controller
 {
     protected $data = array();
+    protected $site_widgets			= array();
     protected $social_logins		= array();
     protected $social_connections	= array();
 	protected $social_post			= array();
@@ -60,7 +61,11 @@ class MY_Controller extends MX_Controller
 			$this->data['settings'][$setting->module][$setting->setting] = $setting->value;
 
             $this->config->set_item($setting->module.'_'.$setting->setting, $setting->value);
-		
+
+			// Make Widgets Array
+			if ($setting->module  == 'widgets') $this->site_widgets[] = $setting;
+			
+			// Make Social Arrays
 			if (($setting->setting == 'social_login') 		&& ($setting->value == 'TRUE')) $this->social_logins[] 		= $setting->module;
 			if (($setting->setting == 'social_connection')	&& ($setting->value == 'TRUE')) $this->social_connections[] = $setting->module;
 			if (($setting->setting == 'social_post') 		&& ($setting->value == 'TRUE')) $this->social_post[] 		= $setting->module;

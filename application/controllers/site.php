@@ -61,10 +61,7 @@ class Site extends Site_Controller
 		}
 
 		// Load Login Is Enabled
-		if (config_item('users_login') == 'TRUE')
-		{
-			$this->data['sidebar'] .= $this->load->view(config_item('site_theme').'/partials/widget_login', $this->data, true);	
-		}
+		$this->data['sidebar'] = $this->render_widgets();
 
 		$this->render();
 	}
