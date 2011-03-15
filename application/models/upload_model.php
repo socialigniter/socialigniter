@@ -9,22 +9,31 @@ class Upload_model extends CI_Model {
     
     function check_upload_hash($consumer_key, $file_hash)
     {
-	   $query = $this->db->select('*')
-						 ->where('consumer_key', $consumer_key)
-						 ->where('file_hash', $file_hash)
-						 ->limit(1)
-						 ->get('uploads');
-
-        $result = $query->row();
+		$this->db->select('*');
+		$this->db->from('uploads');
+		$this->db->where('consumer_key', $consumer_key);
+		$this->db->where('file_hash', $file_hash);
+		$this->db->limit(1);    
+		$result = $this->db->get()->row();	
         
-		if ($query->num_rows() !== 1)
+		if ($result)
 		{
-		    return FALSE;
+		    return $result;
 		}    
     
- 		return $result;
+ 		return FALSE;
     }
-   
+    
+    function get_upload($upload_id)
+    {
+		$this->db->select('*');
+ 		$this->db->from('uploads');
+		$this->db->where('upload_id', $upload_id);
+		$this->db->limit(1);    
+ 		$result = $this->db->get()->row();	
+ 		return $result;    
+    }
+       
     function add_upload($upload_data)
     {
  		$upload_data['status']		= 'P';

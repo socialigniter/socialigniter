@@ -551,7 +551,7 @@ class Social_tools
 	}
 	
 	/* Upload */
-    function verify_upload($consumer_key, $file_name)
+    function verify_upload($consumer_key, $file_hash, $delete=FALSE)
 	{
 		$user = $this->ci->social_auth->get_user('consumer_key', $consumer_key);
 		
@@ -561,12 +561,11 @@ class Social_tools
 		}
 		else
 		{		
-			$file_hash		= md5($file_name.$user->token_secret);
-			$check_upload	= $this->check_upload_hash($consumer_key, $file_hash);
+			$check_upload	= $this->ci->upload_model->check_upload_hash($consumer_key, $file_hash);
 		
 			if ($check_upload)
 			{
-				$this->delete_upload($check_upload->upload_id);
+				if ($delete) $this->delete_upload($check_upload->upload_id);
 			
 				return TRUE;
 			}
@@ -574,12 +573,7 @@ class Social_tools
 	
 		return FALSE;
 	}
-	
-	function check_upload_hash($consumer_key, $file_hash)
-	{
-		return $this->ci->upload_model->check_upload_hash($consumer_key, $file_hash);
-	}
-	
+
     function add_upload($upload_data)
 	{
 		return $this->ci->upload_model->add_upload($upload_data);

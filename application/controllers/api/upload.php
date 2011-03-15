@@ -24,6 +24,10 @@ class Upload extends Oauth_Controller
 			
 			if ($check_expectation)
 			{			
+		        $message = array('status' => 'error', 'message' => 'This upload token already exists', 'data' => $check_expectation);
+			}
+			else
+			{
 	        	$upload_data = array(
 	        		'consumer_key'	=> $user->consumer_key,
 	    			'file_hash'		=> $this->input->post('file_hash')	    			
@@ -39,10 +43,6 @@ class Upload extends Oauth_Controller
 			        $message = array('status' => 'error', 'message' => 'Oops could not create upload key');
 		        }
 			}
-			else
-			{
-		        $message = array('status' => 'error', 'message' => 'You do not have access to upload!');
-			}
 		}
 		else 
 		{	
@@ -51,7 +51,4 @@ class Upload extends Oauth_Controller
 
         $this->response($message, 200);	
 	}
-
-	
-
 }
