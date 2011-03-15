@@ -113,6 +113,28 @@ class Settings extends Dashboard_Controller
 		$this->data['this_module']		= 'widgets';
 		$this->data['layouts']			= $this->social_igniter->scan_layouts(config_item('site_theme'));		
 		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
+
+		$this->data['content_widgets']  = array();		
+		$this->data['sidebar_widgets']  = array();
+		$this->data['wide_widgets']  	= array();
+		
+		foreach ($this->site_widgets as $site_widget)
+		{
+			if ($site_widget->setting == 'content')
+			{
+				$this->data['content_widgets'][] = $site_widget;
+			}
+			elseif ($site_widget->setting == 'sidebar')
+			{
+				$this->data['sidebar_widgets'][] = $site_widget;			
+			}
+			elseif ($site_widget->setting == 'wide')
+			{
+				$this->data['wide_widgets'][] = $site_widget;			
+			}
+			
+		}
+		
 		$this->render('dashboard_wide');
 	}
 

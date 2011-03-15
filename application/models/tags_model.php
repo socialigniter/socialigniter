@@ -19,8 +19,10 @@ class Tags_model extends CI_Model {
     
     function get_tags()
     {
- 		$this->db->select('*');
- 		$this->db->from('tags');     		
+ 		$this->db->select('tags.*, taxonomy.count');
+ 		$this->db->from('tags');
+ 		$this->db->join('taxonomy', 'taxonomy.object_id = tags.tag_id'); 		  		
+ 		$this->db->order_by('taxonomy.count', 'desc'); 
  		$this->db->order_by('tag', 'asc'); 
  		$result = $this->db->get();	
  		return $result->result();	      

@@ -10,20 +10,42 @@
 	<div id="widget_content_area" class="widget_area">		
 		<h3>Content</h3> <input type="button" name="add_widget_content" class="add_widget" rel="content" value="Add">
 		<div class="clear"></div>	
-		<div class="widget_border"></div>			
+		<div class="widget_border">
+
+			<?php foreach ($content_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
+		
+				<p><b><?= $widget->name ?></b></p>
+		
+			<?php endforeach; ?>		
+		
+		</div>			
 	</div>
 
 	<div id="widget_sidebar_area" class="widget_area">		
 		<h3>Sidebar</h3> <input type="button" name="add_widget_sidebar" class="add_widget" rel="sidebar" value="Add">
 		<div class="clear"></div>
-		<div class="widget_border"></div>
+		<div class="widget_border">
+			<?php foreach ($sidebar_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
+		
+				<p><b><?= $widget->name ?></b></p>
+		
+			<?php endforeach; ?>
+		</div>
 	</div>
 	<div class="clear"></div>
 
 	<div id="widget_wide_area" class="widget_area">
 		<h3>Wide</h3> <input type="button" name="add_widget_wide" class="add_widget" rel="wide" value="Add">
 		<div class="clear"></div>
-		<div class="widget_border"></div>	
+		<div class="widget_border">
+
+			<?php foreach ($wide_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
+		
+				<p><b><?= $widget->name ?></b></p>
+		
+			<?php endforeach; ?>		
+		
+		</div>	
 	</div>
 
 
