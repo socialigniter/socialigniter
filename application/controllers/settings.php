@@ -71,7 +71,7 @@ class Settings extends Dashboard_Controller
   	function connections()
  	{
  	    $this->data['sub_title'] 			= "Connections";
-		$this->data['social_connections']	= $this->social_igniter->get_settings_type_value('social_connection', 'TRUE');
+		$this->data['social_connections']	= $this->social_igniter->get_settings_setting_value('social_connection', 'TRUE');
 		$this->data['user_connections']		= $this->social_auth->get_connections_user($this->session->userdata('user_id'));
 	    $this->data['message'] 				= validation_errors();
 
@@ -141,7 +141,7 @@ class Settings extends Dashboard_Controller
 
 	function services()
 	{
-		$mobile_modules = $this->social_igniter->get_settings_type('is_mobile_module');
+		$mobile_modules = $this->social_igniter->get_settings_setting('is_mobile_module');
 	
 		$this->data['mobile_modules']['none'] = '--none--';
 		

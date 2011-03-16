@@ -26,6 +26,19 @@ function site_title($sub_title, $page_title=FALSE, $site_title=FALSE)
 	return $title.$site_title;
 }
 
+// Determines if module is core or extended
+function is_core_module($module)
+{
+    $ci =& get_instance();    
+	
+	if (in_array($module, $ci->config->item('core_modules')))
+	{
+		return TRUE;	
+	}
+
+	return FALSE;
+}
+
 function is_empty($value)
 {
 	if ($value)
@@ -312,4 +325,18 @@ function display_nice_file_name($input)
 	}
 
 	return ucwords($name);
+}
+
+function display_module_assets($module, $core_assets, $module_assets)
+{
+	if (is_core_module($module))
+	{
+		$path = $core_assets;
+	}
+	else
+	{
+		$path = base_url().'application/modules/'.$module.'/assets/';
+	}
+
+	return $path;
 }

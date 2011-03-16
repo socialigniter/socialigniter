@@ -11,19 +11,29 @@ class Settings extends Oauth_Controller
 	}
 	
     /* GET types */
-    function view_get()
-    {
-    	$search_by	= $this->uri->segment(4);
-    	$search_for	= $this->uri->segment(5);
-    	$settings 	= $this->categories_model->get_categories_view($search_by, $search_for);
-    	
-        if($settings)
+    function module_get()
+    {    	
+        if ($settings = $this->social_igniter->get_settings_module($this->uri->segment(4)))
         {
-            $message = array('status' => 'success', 'message' => 'Yay we found some settings', 'data' => $settings);
+            $message = array('status' => 'success', 'message' => 'Yay we found some settings for the parameter '.$this->uri->segment(4), 'data' => $settings);
         }
         else
         {
-            $message = array('status' => 'error', 'message' => 'Could not find any '.$search_by.' categories for '.$search_for);
+            $message = array('status' => 'error', 'message' => 'Could not find any settings for that module');
+        }
+
+        $this->response($message, 200);
+    }
+    
+    function setting_get()
+    {    	
+        if ($settings = $this->social_igniter->get_settings_setting($this->uri->segment(4)))
+        {
+            $message = array('status' => 'success', 'message' => 'Yay we found some settings for the parameter '.$this->uri->segment(4), 'data' => $settings);
+        }
+        else
+        {
+            $message = array('status' => 'error', 'message' => 'Could not find any settings for that parameter');
         }
 
         $this->response($message, 200);

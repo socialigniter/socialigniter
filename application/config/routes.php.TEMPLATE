@@ -81,7 +81,8 @@ $route['api/relationships/followers/(:any)/(:any)']	= 'api/relationships/followe
 $route['api/relationships/']						= 'api/relationships/';
 
 /* Settings */
-$route['api/settings/view/(:any)/(:any)']			= 'api/settings/view/$1/$2';
+$route['api/settings/module/(:any)']				= 'api/settings/module/$1';
+$route['api/settings/setting/(:any)']				= 'api/settings/setting/$1';
 $route['api/settings/modify']						= 'api/settings/modify';
 $route['api/settings']								= 'api/settings';
 
