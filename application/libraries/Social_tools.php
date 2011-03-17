@@ -500,9 +500,10 @@ class Social_tools
 		return $this->ci->tags_model->get_tags();
 	}
 
-	function get_tags_content($content_id)
+	// STILL NEED TO CHANGE 'content_id' to 'object_id'
+	function get_tags_object($object_id)
 	{
-		return $this->ci->tags_model->get_tags($content_id);
+		return $this->ci->tags_model->get_tags_object($object_id);
 	}
 		
 	function process_tags($tags_post, $content_id)
@@ -547,6 +548,40 @@ class Social_tools
 			}
 			
 			return TRUE;
+		}
+	}
+	
+	function delete_tag($tag_id)
+	{
+		return $this->ci->tags_model->delete_tag($tag_id);
+	}
+	
+	function delete_tag_link($tag_link_id)
+	{
+		return $this->ci->tags_model->delete_tag_link($tag_link_id);
+	}
+	
+	function delete_tag_links_object($object_id)
+	{
+		$tag_links 	= $this->get_tags_object($object_id);
+		$link_count	= count($tag_links);
+		$link_build = 0;
+		
+		foreach ($tag_links as $link)
+		{
+			if ($this->delete_tag_link($link->tag_link_id))
+			{
+				$link_build++;
+			}
+		}
+		
+		if ($link_count == $link_build)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;		
 		}
 	}
 	

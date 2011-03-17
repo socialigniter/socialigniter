@@ -87,6 +87,7 @@ $route['api/settings/modify']						= 'api/settings/modify';
 $route['api/settings']								= 'api/settings';
 
 /* Tags */
+$route['api/tags/destroy/(:any)/(:any)']			= 'api/tags/destroy/$1/$2';
 $route['api/tags/all']								= 'api/tags/all';
 $route['api/tags/create']							= 'api/tags/create';
 $route['api/tags']									= 'api/tags';
