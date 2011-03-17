@@ -403,19 +403,19 @@ class Social_igniter
 		return $this->ci->settings_model->get_settings(config_item('site_id'), $module);
 	}
 
-	function get_settings_type($setting)
+	function get_settings_setting($setting)
 	{
-		return $this->ci->settings_model->get_settings_type($setting);
+		return $this->ci->settings_model->get_settings_setting($setting);
 	}	
 
-	function get_settings_type_value($setting, $value)
+	function get_settings_setting_value($setting, $value)
 	{
-		return $this->ci->settings_model->get_settings_type_value($setting, $value);
+		return $this->ci->settings_model->get_settings_setting_value($setting, $value);
 	}	
 	
-	function get_setting_module_type($module, $setting)
+	function get_settings_module($module)
 	{
-		return $this->ci->settings_model->get_setting_module_type($module, $setting);
+		return $this->ci->settings_model->get_settings_module($module);
 	}	
 
 	function update_settings($module, $settings_update_array)

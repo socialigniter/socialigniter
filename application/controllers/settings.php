@@ -71,7 +71,7 @@ class Settings extends Dashboard_Controller
   	function connections()
  	{
  	    $this->data['sub_title'] 			= "Connections";
-		$this->data['social_connections']	= $this->social_igniter->get_settings_type_value('social_connection', 'TRUE');
+		$this->data['social_connections']	= $this->social_igniter->get_settings_setting_value('social_connection', 'TRUE');
 		$this->data['user_connections']		= $this->social_auth->get_connections_user($this->session->userdata('user_id'));
 	    $this->data['message'] 				= validation_errors();
 
@@ -113,12 +113,35 @@ class Settings extends Dashboard_Controller
 		$this->data['this_module']		= 'widgets';
 		$this->data['layouts']			= $this->social_igniter->scan_layouts(config_item('site_theme'));		
 		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
+
+		// Build Widget Arrays
+		$this->data['content_widgets']  = array();		
+		$this->data['sidebar_widgets']  = array();
+		$this->data['wide_widgets']  	= array();
+		
+		foreach ($this->site_widgets as $site_widget)
+		{
+			if ($site_widget->setting == 'content')
+			{
+				$this->data['content_widgets'][] = $site_widget;
+			}
+			elseif ($site_widget->setting == 'sidebar')
+			{
+				$this->data['sidebar_widgets'][] = $site_widget;			
+			}
+			elseif ($site_widget->setting == 'wide')
+			{
+				$this->data['wide_widgets'][] = $site_widget;			
+			}
+			
+		}
+		
 		$this->render('dashboard_wide');
 	}
 
 	function services()
 	{
-		$mobile_modules = $this->social_igniter->get_settings_type('is_mobile_module');
+		$mobile_modules = $this->social_igniter->get_settings_setting('is_mobile_module');
 	
 		$this->data['mobile_modules']['none'] = '--none--';
 		

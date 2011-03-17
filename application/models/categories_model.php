@@ -10,7 +10,8 @@ class Categories_model extends CI_Model
     {
  		$this->db->select('categories.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('categories');    
- 		$this->db->order_by('created_at', 'desc'); 
+ 		$this->db->join('users', 'users.user_id = categories.user_id'); 
+ 		$this->db->order_by('categories.created_at', 'desc'); 
  		$result = $this->db->get();	
  		return $result->result();	      
     }

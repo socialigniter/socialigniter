@@ -357,9 +357,26 @@ span.item_right a:hover		{ text-decoration: underline; }
 	.ui-dialog-titlebar-close {position:absolute;top:-15px;right:-15px;text-indent:-9999px;display:block;background:url(/images/fancybox/fancy_close.png) no-repeat;width:30px;height:30px;}
 
 /* Settings - Widget */
-#widget_content_area 	{ width: 620px; padding:0 0 0 12px; margin: 0 0 10px 0; float: left; }
-#widget_sidebar_area 	{ width: 200px; padding:0 0 0 12px; margin: 0 0 10px 35px; float: left; }
-#widget_wide_area 	 	{ width: 870px; padding:0 0 0 12px; margin: 0 0 25px 0; }
-div.widget_area h3		{ float: left; }
-div.widget_area input[type=button] { float: right; display: block; position: relative; top: 12px; right: -10px; }
-div.widget_border		{ width: 100%; min-height: 75px; border: 4px dashed #999999; }
+#widget_content_area 				{ width: 545px; padding:0 0 0 12px; margin: 0 0 10px 0; float: left; }
+#widget_sidebar_area 				{ width: 275px; padding:0 0 0 12px; margin: 0 0 10px 35px; float: left; }
+#widget_wide_area 	 				{ width: 870px; padding:0 0 0 12px; margin: 0 0 25px 0; }
+div.widget_area h3					{ float: left; }
+div.widget_area input[type=button] 	{ float: right; display: block; position: relative; top: 12px; right: -10px; }
+div.widget_border					{ width: 100%; min-height: 25px; border: 4px dashed #999999; }
+
+div.widget_instance_none			{ width: auto; height: 18px; border: 1px solid #ececec; margin: 15px; padding: 13px; font-size: 18px; font-weight: bold; color: #999999; text-shadow:1px 1px 1px #ffffff; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+div.widget_instance					{ width: auto; height: 18px; background: url(images/gradients_horizontal.png) 0 0 repeat-x #f9f9f9; border: 1px solid #c3c3c3; margin: 15px; padding: 13px; font-size: 14px; font-weight: normal; color: #999999; text-shadow:1px 1px 1px #ffffff; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+div.widget_instance:hover			{ cursor: move; }
+div.widget_instance:active			{ width: auto; background: url(images/gradients_horizontal.png) 0 -50px repeat-x #f9f9f9; border: 1px solid #b3b3b3; color: #999999; cursor: move; }
+
+span.widget_icon 					{ width: 24px; height: 24px; float: left; display: block; position: relative; top: -2px; left: 0; }
+span.widget_name 					{ height: 24px; float: left; display: block; position: relative; top: 3px; left: 10px; }
+
+div.widget_instance 		a.widget_edit 			{ width: 55px; float: right; display: none; font-size: 12px; color: #999999; position: relative; top: 3px; right: 0; }
+div.widget_instance:hover 	a.widget_edit 			{ display: block; }
+div.widget_instance 		a.widget_edit			{ color: #999999; }
+div.widget_instance 		a.widget_edit:visited	{ color: #999999; }
+div.widget_instance 		a.widget_edit:hover 	{ color: #2078ce; }
+
+div.widget_instance a.widget_edit span.actions 		{ position: relative; top: -2px; left: 0; margin: 0 5px 0 0; }
+

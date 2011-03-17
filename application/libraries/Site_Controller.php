@@ -111,23 +111,21 @@ class Site_Controller extends MY_Controller
     		if ($site_widget->setting == $section)
     		{
     			$widget = json_decode($site_widget->value);
-    		
-    			if ($widget->method == 'view')
- 				{   		
-    				$section_widgets .= $widget->path;//$this->load->view($widget->path, $this->data, true);
+
+    			if (($widget->method == 'view') && ($widget->enabled == 'TRUE'))
+ 				{
+    				$section_widgets .= $this->load->view(config_item('site_theme').'/'.$widget->path, $this->data, true);
     			}
-    			elseif ($widget->method == 'run')
+    			elseif (($widget->method == 'run') && ($widget->enabled == 'TRUE'))
     			{
-    				$section_widgets .= 'MUST RUN ROUTE';
+    				$section_widgets .= modules::run($widget->module.'/'.$widget->path);
     			}
-    			elseif ($widget->method == 'text')
+    			elseif (($widget->method == 'text') && ($widget->enabled == 'TRUE'))
 				{
     				$section_widgets .= $widget->content;				
 				}
     		}
     	}
-    	
-	    	
 
 		return $section_widgets;
     }

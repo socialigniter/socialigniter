@@ -25,7 +25,7 @@ class Settings_model extends CI_Model {
  		return $result->result();	      
     }
 
-    function get_settings_type($setting)
+    function get_settings_setting($setting)
     {
  		$this->db->select('*');
  		$this->db->from('settings');
@@ -34,7 +34,7 @@ class Settings_model extends CI_Model {
  		return $result->result();   
     }
 
-    function get_settings_type_value($setting, $value)
+    function get_settings_setting_value($setting, $value)
     {
  		$this->db->select('*');
  		$this->db->from('settings');
@@ -44,14 +44,13 @@ class Settings_model extends CI_Model {
  		return $result->result();   
     }
 
-    function get_setting_module_type($module, $setting)
+    function get_settings_module($module)
     {
  		$this->db->select('*');
  		$this->db->from('settings');
 		$this->db->where('module', $module);
-		$this->db->where('setting', $setting);
- 		$result = $this->db->get()->row();
- 		return $result;    
+ 		$result = $this->db->get();	
+ 		return $result->result(); 
     }
     
     function add_setting($user_id, $status_data)

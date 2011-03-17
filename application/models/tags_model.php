@@ -19,8 +19,10 @@ class Tags_model extends CI_Model {
     
     function get_tags()
     {
- 		$this->db->select('*');
- 		$this->db->from('tags');     		
+ 		$this->db->select('tags.*, taxonomy.count');
+ 		$this->db->from('tags');
+ 		$this->db->join('taxonomy', 'taxonomy.object_id = tags.tag_id'); 		  		
+ 		$this->db->order_by('taxonomy.count', 'desc'); 
  		$this->db->order_by('tag', 'asc'); 
  		$result = $this->db->get();	
  		return $result->result();	      
@@ -35,12 +37,12 @@ class Tags_model extends CI_Model {
  		return $this->db->count_all_results();	
 	}
     
-    function get_tags_content($content_id)
+    function get_tags_object($object_id)
     {
  		$this->db->select('*');
  		$this->db->from('tags_link');    
  		$this->db->join('tags', 'tags.tag_id = tags_link.tag_id');
- 		$this->db->where('tags_link.content_id', $content_id); 				
+ 		$this->db->where('tags_link.content_id', $object_id); 				
  		$this->db->order_by('tags_link.tag_link_id', 'desc'); 
  		$result = $this->db->get();	
  		return $result->result();	      
@@ -80,7 +82,20 @@ class Tags_model extends CI_Model {
 		$insert 		= $this->db->insert('tags_link', $data);
 		$tag_link_id 	= $this->db->insert_id();
 		return $this->db->get_where('tags_link', array('tag_link_id' => $tag_link_id))->row();	
-    } 
-           
+    }
+    
+    function delete_tag($tag_id)
+    {
+    	$this->db->where('tag_id', $tag_id);
+    	$this->db->delete('tags'); 
+		return TRUE;
+    }
+    
+    function delete_tag_link($tag_link_id)
+    {
+    	$this->db->where('tag_link_id', $tag_link_id);
+    	$this->db->delete('tags_link'); 
+		return TRUE;
+    }
     
 }

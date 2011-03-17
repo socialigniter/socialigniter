@@ -500,9 +500,10 @@ class Social_tools
 		return $this->ci->tags_model->get_tags();
 	}
 
-	function get_tags_content($content_id)
+	// STILL NEED TO CHANGE 'content_id' to 'object_id'
+	function get_tags_object($object_id)
 	{
-		return $this->ci->tags_model->get_tags($content_id);
+		return $this->ci->tags_model->get_tags_object($object_id);
 	}
 		
 	function process_tags($tags_post, $content_id)
@@ -550,8 +551,42 @@ class Social_tools
 		}
 	}
 	
+	function delete_tag($tag_id)
+	{
+		return $this->ci->tags_model->delete_tag($tag_id);
+	}
+	
+	function delete_tag_link($tag_link_id)
+	{
+		return $this->ci->tags_model->delete_tag_link($tag_link_id);
+	}
+	
+	function delete_tag_links_object($object_id)
+	{
+		$tag_links 	= $this->get_tags_object($object_id);
+		$link_count	= count($tag_links);
+		$link_build = 0;
+		
+		foreach ($tag_links as $link)
+		{
+			if ($this->delete_tag_link($link->tag_link_id))
+			{
+				$link_build++;
+			}
+		}
+		
+		if ($link_count == $link_build)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;		
+		}
+	}
+	
 	/* Upload */
-    function verify_upload($consumer_key, $file_name)
+    function verify_upload($consumer_key, $file_hash, $delete=FALSE)
 	{
 		$user = $this->ci->social_auth->get_user('consumer_key', $consumer_key);
 		
@@ -561,12 +596,11 @@ class Social_tools
 		}
 		else
 		{		
-			$file_hash		= md5($file_name.$user->token_secret);
-			$check_upload	= $this->check_upload_hash($consumer_key, $file_hash);
+			$check_upload	= $this->ci->upload_model->check_upload_hash($consumer_key, $file_hash);
 		
 			if ($check_upload)
 			{
-				$this->delete_upload($check_upload->upload_id);
+				if ($delete) $this->delete_upload($check_upload->upload_id);
 			
 				return TRUE;
 			}
@@ -574,12 +608,7 @@ class Social_tools
 	
 		return FALSE;
 	}
-	
-	function check_upload_hash($consumer_key, $file_hash)
-	{
-		return $this->ci->upload_model->check_upload_hash($consumer_key, $file_hash);
-	}
-	
+
     function add_upload($upload_data)
 	{
 		return $this->ci->upload_model->add_upload($upload_data);

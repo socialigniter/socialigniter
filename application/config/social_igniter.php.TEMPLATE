@@ -18,7 +18,7 @@ $config['site_id']						= 1;
 $config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian');
 
 // Settings
-$config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','locations');
+$config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','locations','text');
 $config['ignore_modules']				= array('index.html');
 $config['site_modules']					= array('site','themes','design','widgets','services');
 $config['user_meta_details']			= array('company','location','url','bio');

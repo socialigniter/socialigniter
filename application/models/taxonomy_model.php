@@ -10,14 +10,12 @@ class Taxonomy_model extends CI_Model {
     // Taxonomy Table
     function get_taxonomy($object_id, $taxonomy)
     {
-    
  		$this->db->select('*');
  		$this->db->from('taxonomy');    
  		$this->db->where('object_id', $object_id); 				
  		$this->db->where('taxonomy', $taxonomy); 
  		$result = $this->db->get()->row();	
  		return $result;    	
-
     }
     
     function add_taxonomy($object_id, $taxonomy, $count)
@@ -37,5 +35,4 @@ class Taxonomy_model extends CI_Model {
 		$this->db->update('taxonomy', array('count' => $count));        
     }
   
-    
 }
