@@ -27,9 +27,9 @@ class Settings extends Oauth_Controller
     
     function setting_get()
     {    	
-        if ($settings = $this->social_igniter->get_settings_setting($this->uri->segment(4)))
+        if ($setting = $this->social_igniter->get_setting($this->get('id')))
         {
-            $message = array('status' => 'success', 'message' => 'Yay we found some settings for the parameter '.$this->uri->segment(4), 'data' => $settings);
+            $message = array('status' => 'success', 'message' => 'Yay we found that setting', 'data' => $setting);
         }
         else
         {
@@ -39,6 +39,25 @@ class Settings extends Oauth_Controller
         $this->response($message, 200);
     }
     
+	function view_get()
+    {
+    	$search_by	= $this->uri->segment(4);
+    	$search_for	= $this->uri->segment(5);
+		$content	= $this->social_igniter->get_content_view($search_by, $search_for, 50);    
+   		 	
+        if($content)
+        {
+            $message = array('status' => 'success', 'message' => 'Success content has been found', 'data' => $content);
+        }
+        else
+        {
+            $message = array('status' => 'error', 'message' => 'Could not find any '.$search_by.' content for '.$search_for);
+        }
+
+        $this->response($message, 200);
+    }    
+    
+    // Only works if there are no duplicate 'setting' values in $_POST data
     function modify_authd_post()
     {
     	$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);
@@ -65,6 +84,35 @@ class Settings extends Oauth_Controller
     	
         $this->response($message, 200);           
     }  
+    
+    function modify_widget_authd_post()
+    {
+    	$widget = $this->social_igniter->get_setting($this->get('id'));
+		
+		if ($widget->module == 'widgets')
+        {
+        	$widget_data = array(
+				'module'	: $this->input->post('module'),
+				'name'		: $this->input->post('name'),
+				'method'	: $this->input->post('method'),
+				'path'		: $this->input->post('widgets_sidebar_recent'),
+				'enabled'	: $this->input->post('enabled'),
+				'order'		: $this->input->post('order'),
+				'content'	: $this->input->post('content')
+        	);
+        
+        	$this->social_igniter->update_setting($this->get('id'), array('value' => json_encode($widget_data));
+														
+            $message = array('status' => 'success', 'message' => 'Widget has been updated');
+		}
+		else
+		{
+            $message = array('status' => 'error', 'message' => 'Widget could not be updated');
+		}
+    	
+        $this->response($message, 200);      	
+    
+    }
 
     /* DELETE types */
     function destroy_delete()

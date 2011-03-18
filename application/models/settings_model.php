@@ -25,6 +25,16 @@ class Settings_model extends CI_Model {
  		return $result->result();	      
     }
 
+    function get_setting($settings_id)
+    {
+ 		$this->db->select('*');
+ 		$this->db->from('settings');
+		$this->db->where('settings_id', $settings_id);
+		$this->db->limit(1);    
+ 		$result = $this->db->get()->row();	
+ 		return $result; 
+    }
+
     function get_settings_setting($setting)
     {
  		$this->db->select('*');

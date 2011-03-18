@@ -83,6 +83,7 @@ $route['api/relationships/']						= 'api/relationships/';
 /* Settings */
 $route['api/settings/module/(:any)']				= 'api/settings/module/$1';
 $route['api/settings/setting/(:any)']				= 'api/settings/setting/$1';
+$route['api/settings/modify_widget/(:any)/(:any)']	= 'api/settings/modify_widget/$1/$2';
 $route['api/settings/modify']						= 'api/settings/modify';
 $route['api/settings']								= 'api/settings';
 
@@ -133,7 +134,8 @@ $route['home/error'] 								= 'home/error';
 $route['home/item_timeline']						= 'home/item_timeline';
 $route['home/item_manage']							= 'home/item_manage';
 $route['home/category_editor']						= 'home/category_editor';
-$route['home/widget_picker']						= 'home/widget_picker';
+$route['home/widget_editor/(:any)']					= 'home/widget_editor/$1';
+$route['home/widget_editor']						= 'home/widget_editor';
 $route['home'] 										= 'home';
 
 /* Home Modules */

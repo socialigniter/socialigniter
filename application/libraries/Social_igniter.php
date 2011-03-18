@@ -403,6 +403,11 @@ class Social_igniter
 		return $this->ci->settings_model->get_settings(config_item('site_id'), $module);
 	}
 
+	function get_setting($settings_id)
+	{
+		return $this->ci->settings_model->get_setting($settings_id);
+	}
+
 	function get_settings_setting($setting)
 	{
 		return $this->ci->settings_model->get_settings_setting($setting);
@@ -445,9 +450,14 @@ class Social_igniter
 			next($settings_update_array);
 		}
 		
-		return;
+		return TRUE;
 	}
-	
+
+	function update_setting($setting_id, $update_data)
+	{
+		return $this->ci->settings_mode->update_setting($setting_id, $update_data);
+	}
+
 	/* Activity */
 	function get_timeline($module, $limit)
 	{

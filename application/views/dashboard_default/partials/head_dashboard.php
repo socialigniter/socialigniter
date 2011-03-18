@@ -8,6 +8,7 @@
 <link type="text/css" href="<?= base_url() ?>css/fancybox.css" rel="stylesheet" media="screen" charset="utf-8" />
 
 <script type="text/javascript" src="<?= base_url() ?>js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/jquery-ui.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.NobleCount.min.js"></script>  
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.uniform.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.timers.js"></script>

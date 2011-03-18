@@ -269,14 +269,19 @@ class Home extends Dashboard_Controller
 		$this->load->view(config_item('dashboard_theme').'/partials/item_manage', $this->data);
 	}
 	
+	/* Partials */
 	function category_editor()
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/category_editor');
 	}
 	
-	function widget_picker()
+	/* Widget Editors */
+	function widget_editor()
 	{
-		$this->load->view(config_item('dashboard_theme').'/partials/widget_picker');
+		if ($this->uri->segment(3)) $editor_type = $this->uri->segment(3);
+		else $editor_type = 'standard';
+	
+		$this->load->view(config_item('dashboard_theme').'/partials/widget_editor_'.$editor_type);
 	}
 
 }
