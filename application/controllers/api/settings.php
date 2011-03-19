@@ -92,18 +92,14 @@ class Settings extends Oauth_Controller
 		if ($widget->module == 'widgets')
         {
         	$widget_data = array(
-				'module'	: $this->input->post('module'),
-				'name'		: $this->input->post('name'),
-				'method'	: $this->input->post('method'),
-				'path'		: $this->input->post('widgets_sidebar_recent'),
-				'enabled'	: $this->input->post('enabled'),
-				'order'		: $this->input->post('order'),
-				'content'	: $this->input->post('content')
+				'module'	=> 'widgets',
+				'setting'	=> $widget->setting,
+				'value'		=> $this->input->post('value')
         	);
-        
-        	$this->social_igniter->update_setting($this->get('id'), array('value' => json_encode($widget_data));
+       
+        	$update = $this->social_igniter->update_setting($this->get('id'), $widget_data);
 														
-            $message = array('status' => 'success', 'message' => 'Widget has been updated');
+            $message = array('status' => 'success', 'message' => 'Widget has been updated', 'data' => $update);
 		}
 		else
 		{

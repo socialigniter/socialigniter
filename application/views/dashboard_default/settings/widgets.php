@@ -24,18 +24,16 @@
 		<div class="clear"></div>
 		<div class="widget_border">
 			<?php if ($sidebar_widgets): foreach ($sidebar_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-			<div class="widget_instance">
+			<div class="widget_instance" id="<?= $json_widget->settings_id ?>">
 				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span>
 				<span class="widget_name"><?= $widget->name ?></span>
 				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>
+				<textarea name="widget_data" style="display:none"><?= $json_widget->value ?></textarea>
 				<div class="clear"></div>				
 			</div>
 			<?php endforeach; else: ?>
-			<div class="widget_instance_none">
-				No Widgets
-			</div>			
+			<div class="widget_instance_none">No Widgets</div>
 			<?php endif; ?>
-			
 		</div>
 	</div>
 	<div class="clear"></div>
@@ -46,18 +44,14 @@
 		<div class="widget_border">
 
 			<?php if ($wide_widgets): foreach ($wide_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-			<div class="widget_instance">
+			<div class="widget_instance" id="<?= $widget->order ?>">
 				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons', '').$widget->module ?>_24.png"></span>
 				<span class="widget_name"><?= $widget->name ?></span>
 				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>				
 				<div class="clear"></div>
 			</div>
 			<?php endforeach; else: ?>
-			
-			<div class="widget_instance_none">
-				No Widget
-			</div>						
-		
+			<div class="widget_instance_none">No Widgets</div>			
 			<?php endif; ?>
 		</div>	
 	</div>
@@ -88,21 +82,48 @@ $(document).ready(function()
 	});
 
 	// Draggable	
-	$('.widget_border').sortable();
+	$('.widget_border').sortable(
+	{	
+		stop: function() 
+		{
+			var count = 0;
+		
+			$(this).find('.widget_instance').each(function()
+			{
+				count++;
+				var settings_id = $(this).attr('id');
+				var widget_json = $(this).find('textarea').val();
+				var widget_data = $.parseJSON(widget_json);
+
+				// New Order
+				widget_data.order = count;
+				var new_widget_data = [{'name':'value','value':JSON.stringify(widget_data)}];
+			
+				$(this).oauthAjax(
+				{
+					oauth 	 : user_data,
+					url		 : base_url + 'api/settings/modify_widget/id/' + settings_id,
+					type	 : 'POST',
+					dataType : 'json',
+					data	 : new_widget_data,
+			  		success	 : function(result)
+			  		{
+						console.log(result);
+				 	}
+				});
+			});	
+		}
+	});	
 	
 
-});
-
-$(function()
-{
-	var partial_html = '<p>Oops, something went wrong! Close and try again in a few seconds.</p>';
+	// Edit Partial
+	var edit_html = '<p>Oops, something went wrong! Close and try again in a few seconds.</p>';
 	$.get(base_url + 'home/widget_editor/standard',function(html)
 	{		
-		console.log('Got the dialog.php partial');
-		partial_html = html;
+		edit_html = html;
 	});   
     
-    // Start Editor
+    // Edit Event
     $('.widget_edit').click(function(eve)
     {
     	eve.preventDefault();
@@ -111,14 +132,13 @@ $(function()
 		$.get(base_url + 'api/settings/setting/id/' + settings_id, function(json)
 		{
 			var widget = jQuery.parseJSON(json.data.value);
-			
-			$(partial_html).find('#widget_content').html('dogggys');
-      
-	      	$('<div />').html(partial_html).dialog(
-	      	{
+			     
+			edit_html = $('<div />').html(edit_html).find('textarea').val(widget.content).end();
+			$('<div />').html(edit_html).dialog(
+			{
 				width	: 600,
 				modal	: true,
-				title	: widget.name + ' Widget',
+				title	: widget.name,
 				create	: function()
 				{
 					// Will run RIGHT as the dialog is generated in the DOM

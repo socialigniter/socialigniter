@@ -13,6 +13,7 @@ Handles a ton of parts of the the core install.
 class Social_igniter
 {
 	protected $ci;
+	protected $widgets;
 
 	function __construct()
 	{
@@ -421,7 +422,23 @@ class Social_igniter
 	function get_settings_module($module)
 	{
 		return $this->ci->settings_model->get_settings_module($module);
-	}	
+	}
+	
+	function make_widgets_order($widgets)
+	{
+		$da_widgets = array();
+	
+		foreach ($widgets as $json_widget)
+		{
+			$widget = json_decode($json_widget->value);
+		
+			$da_widgets[$widget->order.'-'.$json_widget->settings_id] = $json_widget;
+		}
+		
+		ksort($da_widgets);
+					
+		return $da_widgets;
+	}
 
 	function update_settings($module, $settings_update_array)
 	{
@@ -455,7 +472,7 @@ class Social_igniter
 
 	function update_setting($setting_id, $update_data)
 	{
-		return $this->ci->settings_mode->update_setting($setting_id, $update_data);
+		return $this->ci->settings_model->update_setting($setting_id, $update_data);
 	}
 
 	/* Activity */

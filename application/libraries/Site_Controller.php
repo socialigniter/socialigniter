@@ -104,9 +104,11 @@ class Site_Controller extends MY_Controller
     
     function render_widgets($section)
     {
-    	$section_widgets = '';
+    	$widgets = '';
+    	
+    	$site_widgets = $this->social_igniter->make_widgets_order($this->site_widgets);
     
-    	foreach ($this->site_widgets as $site_widget)
+    	foreach ($site_widgets as $site_widget)
     	{
     		if ($site_widget->setting == $section)
     		{
@@ -114,19 +116,19 @@ class Site_Controller extends MY_Controller
     		
     			if (($widget->method == 'view') && ($widget->enabled == 'TRUE'))
  				{   		
-    				$section_widgets .= $this->load->view(config_item('site_theme').'/'.$widget->path, $this->data, true);
+    				$widgets .= $this->load->view(config_item('site_theme').'/'.$widget->path, $this->data, true);
     			}
     			elseif (($widget->method == 'run') && ($widget->enabled == 'TRUE'))
     			{
-    				$section_widgets .= modules::run($widget->module.'/'.$widget->path);
+    				$widgets .= modules::run($widget->module.'/'.$widget->path);
     			}
     			elseif (($widget->method == 'text') && ($widget->enabled == 'TRUE'))
 				{
-    				$section_widgets .= $widget->content;				
+    				$widgets .= $widget->content;				
 				}
     		}
     	}
 
-		return $section_widgets;
+		return $widgets;
     }
 }

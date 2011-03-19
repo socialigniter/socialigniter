@@ -115,27 +115,31 @@ class Settings extends Dashboard_Controller
 		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 
 		// Build Widget Arrays
-		$this->data['content_widgets']  = array();		
-		$this->data['sidebar_widgets']  = array();
-		$this->data['wide_widgets']  	= array();
-		
+		// Will have to redo for different layouts
+		$content_widgets	= array();		
+		$sidebar_widgets	= array();
+		$wide_widgets		= array();		
+				
 		foreach ($this->site_widgets as $site_widget)
 		{
 			if ($site_widget->setting == 'content')
 			{
-				$this->data['content_widgets'][] = $site_widget;
+				$content_widgets[] = $site_widget;
 			}
 			elseif ($site_widget->setting == 'sidebar')
 			{
-				$this->data['sidebar_widgets'][] = $site_widget;			
+				$sidebar_widgets[] = $site_widget;			
 			}
 			elseif ($site_widget->setting == 'wide')
 			{
-				$this->data['wide_widgets'][] = $site_widget;			
+				$wide_widgets[] = $site_widget;			
 			}
-			
 		}
-		
+
+		$this->data['content_widgets']	= $this->social_igniter->make_widgets_order($content_widgets);
+		$this->data['sidebar_widgets']  = $this->social_igniter->make_widgets_order($sidebar_widgets);
+		$this->data['wide_widgets']		= $this->social_igniter->make_widgets_order($wide_widgets);
+
 		$this->render('dashboard_wide');
 	}
 
