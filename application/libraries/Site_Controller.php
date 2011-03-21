@@ -69,16 +69,6 @@ class Site_Controller extends MY_Controller
 
     function render($layout='site')
     {
-    	// Sets Previous Page
-		if (isset($_SERVER['HTTP_REFERER']))
-		{
-			$this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']);
-		}
-		else
-		{
-			$this->session->set_userdata('previous_page', '');
-		}
-
       	// Is Module
        	if ($this->module_name)
     	{

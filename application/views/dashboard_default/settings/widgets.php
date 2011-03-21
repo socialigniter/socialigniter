@@ -115,14 +115,13 @@ $(document).ready(function()
 		}
 	});	
 	
-
 	// Edit Partial
 	var edit_html = '<p>Oops, something went wrong! Close and try again in a few seconds.</p>';
 	$.get(base_url + 'home/widget_editor/standard',function(html)
 	{		
 		edit_html = html;
-	});   
-    
+	});
+
     // Edit Event
     $('.widget_edit').click(function(eve)
     {
@@ -136,14 +135,11 @@ $(document).ready(function()
 			edit_html = $('<div />').html(edit_html).find('textarea').val(widget.content).end();
 			$('<div />').html(edit_html).dialog(
 			{
-				width	: 600,
+				width	: 450,
 				modal	: true,
 				title	: widget.name,
 				create	: function()
 				{
-					// Will run RIGHT as the dialog is generated in the DOM
-					console.log('Dialog generated in the DOM');
-				
 					//Here we save "this" dialog so we can reference it in "sub scopes"
 					$parent_dialog = $(this);               
 				},

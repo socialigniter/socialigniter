@@ -156,6 +156,16 @@ class MY_Controller extends MX_Controller
 			// Site Forms
 			$this->data['comments_write_form']	= 'comments_public_form';
 		}
+		
+    	// Sets Previous Page
+		if (isset($_SERVER['HTTP_REFERER']))
+		{
+			$this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']);
+		}
+		else
+		{
+			$this->session->set_userdata('previous_page', '');
+		}		
 
 		// Site Paths
 		$this->data['shared_images']		= base_url().'images/shared/';

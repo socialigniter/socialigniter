@@ -324,37 +324,39 @@ span.item_right a:hover		{ text-decoration: underline; }
 #feed .item [type=submit] { float:right; margin: 4px 0 10px 0; height:25px; font-size:12px; border-radius:7px; }
 
 .modal_wrap {padding:17px;}
-	#new_category {width:410px;height:280px}
-		#new_category label {display:block;padding:10px 0 7px;}
-		#new_category .selector {margin:0 0 0 0 !important;}
-		#new_category h2 {display:block;padding:0 0 10px 0;}
-		#new_category > input[type=text] {width:375px;}
-		#new_category > input[type=submit] {float:right;} 
-		#new_category > textarea { width: 375px; }
-		.slug_url { font-style:italic; height:22px; line-height:22px; color:#999999; margin: 6px 0 6px 4px; }
-		.slug_url span {border-bottom:1px dashed #aaa;}
-		.slug_url span:hover {border-bottom:1px dashed #dddd00;cursor:pointer;background:#f2e3af}
-		.slug_url_edit {width:100px;height:15px !important;padding:3px !important; }
+#new_category {width:410px;height:280px}
+#new_category label {display:block;padding:10px 0 7px;}
+#new_category .selector {margin:0 0 0 0 !important;}
+#new_category h2 {display:block;padding:0 0 10px 0;}
+#new_category > input[type=text] {width:375px;}
+#new_category > input[type=submit] {float:right;} 
+#new_category > textarea { width: 375px; }
+.slug_url { font-style:italic; height:22px; line-height:22px; color:#999999; margin: 6px 0 6px 4px; }
+.slug_url span {border-bottom:1px dashed #aaa;}
+.slug_url span:hover {border-bottom:1px dashed #dddd00;cursor:pointer;background:#f2e3af}
+.slug_url_edit {width:100px;height:15px !important;padding:3px !important; }
 		
 .comment_list { width: 450px; border-radius:5px; background: #e2e2e2; margin: 0 0 10px 0; display: none; }
-	.comment_list li:first-child { border-top:none; padding: 10px 10px 5px 15px; }
-	.comment_list li { padding: 0 10px 5px 15px; margin: 0; display:block;float:none !important; }
-	.comment_list li div.comment { border-bottom:1px solid #ccc; margin: 5px 0 0 0; }
-	.comment_list li div.comment p { margin: 0; color: #555555; text-shadow: #eeeeee; font-size:12px; line-height:16px; }
-	.comment_list li p.comment_meta span { margin: 10px 0 0 0; font-size:11px; color:#999999; }
-	.comment_list li img.comment_thumb { width: 34px; display: block; float: left; margin: 0 10px 10px 0; }
-	.comment_list #comment_write { margin: 5px 0 0 0; }
-	
-	/* Auto complete drop down styles */
-	.ui-autocomplete {background:#fff;background:rgba(255,255,255,0.97);width:200px;border:1px solid #CCC;}
-	.ui-autocomplete li {cursor:pointer !important;}
-	.ui-autocomplete a {padding:5px;display:block;cursor:pointer !important;}
-	.ui-autocomplete li a:hover,.ui-autocomplete .ui-state-hover {background:#F2F2F2;}
-	
-	.ui-dialog {border-radius:5px;-moz-border-radius:5px;-webkit-box-shadow:rgba(0,0,0,0.2) 0 0 10px;-moz-box-shadow:rgba(0,0,0,0.2) 0 0 10px;box-shadow:rgba(0,0,0,0.2) 0 0 10px;padding:17px;background:#ECECEC;border:1px solid #A09F9F; margin-left:auto; margin-right:auto;}
-	.ui-dialog-titlebar {}
-	.ui-dialog-title {color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF;}
-	.ui-dialog-titlebar-close {position:absolute;top:-15px;right:-15px;text-indent:-9999px;display:block;background:url(/images/fancybox/fancy_close.png) no-repeat;width:30px;height:30px;}
+.comment_list li:first-child { border-top:none; padding: 10px 10px 5px 15px; }
+.comment_list li { padding: 0 10px 5px 15px; margin: 0; display:block;float:none !important; }
+.comment_list li div.comment { border-bottom:1px solid #ccc; margin: 5px 0 0 0; }
+.comment_list li div.comment p { margin: 0; color: #555555; text-shadow: #eeeeee; font-size:12px; line-height:16px; }
+.comment_list li p.comment_meta span { margin: 10px 0 0 0; font-size:11px; color:#999999; }
+.comment_list li img.comment_thumb { width: 34px; display: block; float: left; margin: 0 10px 10px 0; }
+.comment_list #comment_write { margin: 5px 0 0 0; }
+
+/* Auto complete drop down styles */
+.ui-autocomplete 			{ background:#fff;background:rgba(255,255,255,0.97);width:200px;border:1px solid #CCC; }
+.ui-autocomplete li 		{ cursor:pointer !important; }
+.ui-autocomplete a 			{ padding:5px;display:block;cursor:pointer !important; }
+.ui-autocomplete li a:hover,.ui-autocomplete .ui-state-hover { background:#F2F2F2; }
+
+.ui-dialog 					{ padding: 20px; background:#ECECEC; border:1px solid #A09F9F; margin-left:auto; margin-right:auto; border-radius:5px; -moz-border-radius:5px; -webkit-box-shadow:rgba(0,0,0,0.2) 0 0 10px; -moz-box-shadow:rgba(0,0,0,0.2) 0 0 10px; box-shadow:rgba(0,0,0,0.2) 0 0 10px; }
+.ui-dialog-titlebar 		{ margin: 0 0 20px 0; }
+.ui-dialog-title 			{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
+.ui-dialog-titlebar-close 	{ position:absolute;top:-15px;right:-15px;text-indent:-9999px;display:block;background:url(/images/fancybox/fancy_close.png) no-repeat;width:30px;height:30px;}
+.ui-dialog-buttonset button	{ margin: 0 15px 0 0; }
+.ui-dialog-buttonset button:hover { height: 29px; background: url(images/button_basic_hover.png) 0 0 repeat-x #979595; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
 
 /* Settings - Widget */
 #widget_content_area 				{ width: 545px; padding:0 0 0 12px; margin: 0 0 10px 0; float: left; }
@@ -380,3 +382,5 @@ div.widget_instance 		a.widget_edit:hover 	{ color: #2078ce; }
 
 div.widget_instance a.widget_edit span.actions 		{ position: relative; top: -2px; left: 0; margin: 0 5px 0 0; }
 
+#delete_widget	{ width: 130px; height: 22px; display: block; float: right; padding: 8px 0 0 0; background: url(images/gradients_horizontal.png) 0 -14px repeat-x #f9f9f9; border: 1px solid #c3c3c3; color: #b43e1e; font-weight: bold; text-align: center; text-shadow:1px 1px 1px #ffffff; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+#delete_widget:hover { background: url(images/gradients_horizontal.png) 0 -106px repeat-x #c8290f; border: 1px solid #999999; color: #e9e9e9; text-shadow:1px 1px 1px #666666; text-decoration: none; }
