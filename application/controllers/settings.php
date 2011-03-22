@@ -183,11 +183,19 @@ class Settings extends Dashboard_Controller
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render();
     }
+
+	function places()
+	{	
+		$this->data['sub_title'] 	= 'Places';
+		$this->data['this_module']	= 'places';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
+    	$this->render();
+    } 
 	
 	function pages()
 	{	
 		$this->data['sub_title'] 	= 'Pages';
-		$this->data['this_module']	= 'users';
+		$this->data['this_module']	= 'pages';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render();
     }    

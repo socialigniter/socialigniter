@@ -74,12 +74,13 @@ $route['api/content/destroy/(:any)/(:any)']			= 'api/content/destroy/$1/$2';
 $route['api/content/recent']						= 'api/content/recent';
 $route['api/content/create']						= 'api/content/create';
 
-/* Locations */
-$route['api/locations/destroy/(:any)/(:any)']		= 'api/locations/destroy/$1/$2';
-$route['api/locations/all']							= 'api/locations/all';
-$route['api/locations/nearby']						= 'api/locations/nearby';
-$route['api/locations/create']						= 'api/locations/create';
-$route['api/locations']								= 'api/locations';
+/* Places */
+$route['api/places/view/(:any)/(:any)']				= 'api/places/view/$1/$2';
+$route['api/places/destroy/(:any)/(:any)']			= 'api/places/destroy/$1/$2';
+$route['api/places/modify/(:any)/(:any)']			= 'api/places/modify/$1/$2';
+$route['api/places/nearby/(:any)/(:any)']			= 'api/places/nearby/$1/$2';
+$route['api/places/all']							= 'api/places/all';
+$route['api/places/create']							= 'api/places/create';
 
 /* Relationships */
 $route['api/relationships/follow/(:any)/(:any)']	= 'api/relationships/follow/$1/$2';
@@ -129,11 +130,12 @@ $route['connections/(:any)/(:any)'] 				= '$1/connections/$2';
 $route['connections/(:any)'] 						= '$1/connections/index';
 
 /* Home */
-$route['home/pages/manage/(:num)']					= 'pages/editor';
-$route['home/pages/create']							= 'pages/editor';
+$route['home/pages/manage/(:num)']					= 'home/pages_editor';
+$route['home/pages/create']							= 'home/pages_editor';
 $route['home/comments/(:any)'] 						= 'home/comments/$1';
 $route['home/comments'] 							= 'home/comments';
-$route['home/locations/(:any)'] 					= 'home/locations';
+$route['home/places/manage/(:num)']					= 'home/places_editor';
+$route['home/places/create']						= 'home/places_editor';
 $route['home/locations'] 							= 'home/locations';
 $route['home/friends']								= 'home/index';
 $route['home/likes']								= 'home/index';
@@ -172,6 +174,7 @@ $route['settings/widgets']							= 'settings/widgets';
 $route['settings/services']							= 'settings/services';
 $route['settings/home']								= 'settings/home';
 $route['settings/comments']							= 'settings/comments';
+$route['settings/places']							= 'settings/places';
 $route['settings/api']								= 'settings/api';
 $route['settings/update']							= 'settings/update';
 $route['settings/users']							= 'settings/users';

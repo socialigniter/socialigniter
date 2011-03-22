@@ -23,6 +23,7 @@ class Social_tools
 		// Load Models
 		$this->ci->load->model('categories_model');
 		$this->ci->load->model('comments_model');
+		$this->ci->load->model('locations_model');		
 		$this->ci->load->model('ratings_model');
 		$this->ci->load->model('relationships_model');
 		$this->ci->load->model('tags_model');

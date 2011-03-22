@@ -171,22 +171,22 @@ span.stage_marker 			{ display: block; border: 1px solid #666666; color: #efefef
 #status_update_options		{ width: 400px; height: 50px; float: left; margin: 15px 0 0 0; }
 #status_update_geo			{ width: 130px; float: left; }
 
-#status_find_location		{ width: 24px; height: 24px; display: block; margin: 0; background: url(icons/location_gray_24.png) 0 0 no-repeat; position: relative; top: -6px; left: 0; } 
-#status_find_location span	{ width: 110px; display: block; position: relative; top: 4px; left: 30px; }
+#status_find_place			{ width: 24px; height: 24px; display: block; margin: 0; background: url(icons/places_gray_24.png) 0 0 no-repeat; position: relative; top: -6px; left: 0; } 
+#status_find_place span		{ width: 110px; display: block; position: relative; top: 4px; left: 30px; }
 
 #social_post				{ margin: 0; position: relative; top: -2px; left: 5px; }
 #social_post li				{ width: 100px; margin: 0; }
 #social_post_horizontal		{ margin: 0; position: relative; top: -2px; left: 5px; }
 #social_post_horizontal li	{ width: 150px; margin: 0; float: left; }
 
-#social_post .checker 		{ position: relative; top: -2px; left: 0; }
-#social_post_connections_avail	{ display: none; width: 80px; background: #333333; color: #eeeeee; font-size: 12px; padding: 8px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-#social_post_connections_add	{ color: #999999 !important; text-shadow: #F3F3F3 1px 1px 1px !important; }
-#social_post_connections_add span { position: relative; top: -1px; left: 0; }
+#social_post .checker 				{ position: relative; top: -2px; left: 0; }
+#social_post_connections_avail		{ display: none; width: 80px; background: #333333; color: #eeeeee; font-size: 12px; padding: 8px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+#social_post_connections_add		{ color: #999999 !important; text-shadow: #F3F3F3 1px 1px 1px !important; }
+#social_post_connections_add span 	{ position: relative; top: -1px; left: 0; }
 
-#status_update_post			{ width: 160px; float: right; margin: 15px 0 0 0; }
-#character_count 			{ float: right; margin: 5px 15px 15px 0; font-size:18px; color: #666; text-shadow:1px 1px 1px #FFF; }
-#status_post				{ float: right; margin: 0 15px 0 0; }
+#status_update_post					{ width: 160px; float: right; margin: 15px 0 0 0; }
+#character_count 					{ float: right; margin: 5px 15px 15px 0; font-size:18px; color: #666; text-shadow:1px 1px 1px #FFF; }
+#status_post						{ float: right; margin: 0 15px 0 0; }
 
 /* Feed */
 #feed								{ margin: 0; }
@@ -261,7 +261,7 @@ span.type_product			{ background-position: 0 -210px; }
 span.type_article			{ background-position: 0 -245px; }
 span.type_like				{ background-position: 0 -280px; }
 span.type_link				{ background-position: 0 -315px; }
-span.type_location			{ background-position: 0 -350px; }
+span.type_place				{ background-position: 0 -350px; }
 span.type_approve			{ background-position: 0 -385px; }
 span.type_file				{ background-position: 0 -420px; }
 span.type_class				{ background-position: 0 -554px; }
@@ -278,7 +278,7 @@ span.action_delete 			{ background-position: -25px 0; }
 span.action_share 			{ background-position: -50px 0; margin: 0 6px 0 0; }
 span.action_like 			{ background-position: -75px 0; }
 span.action_comment 		{ background-position: -100px 0; }
-span.action_get_location	{ background-position: -125px 0; }
+span.action_get_place		{ background-position: -125px 0; }
 span.action_link			{ background-position: -150px 0; }
 span.action_approve			{ background-position: -175px 0; }
 span.action_see				{ background-position: -225px 0; }

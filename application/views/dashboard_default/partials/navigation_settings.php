@@ -1,4 +1,4 @@
-<?php if (is_uri_value($this->uri->segment(2), array('profile','details','password','mobile','connections'))): ?>
+<?php if (is_uri_value($this->uri->segment(2), config_item('user_settings'))): ?>
 <h2 class="content_title"><img src="<?= $dashboard_assets ?>icons/users_32.png"> Your Settings</h2>
 <ul class="content_navigation">
 	<?= navigation_list_btn('settings/profile', 'Profile') ?>
@@ -12,6 +12,7 @@
 	<img src="<?= $dashboard_assets.'icons/'.$this->uri->segment(2) ?>_32.png"> <?= ucwords($this->uri->segment(2)) ?> Settings
 </h2>
 <ul class="content_navigation">
+	 <?= navigation_list_btn('settings/'.$this->uri->segment(2), 'Settings') ?>
 	 <?= navigation_list_btn('settings/apps', 'Back To Apps') ?>
 </ul>
 <?php elseif (is_uri_value($this->uri->segment(2), config_item('site_modules'))): ?>

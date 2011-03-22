@@ -19,9 +19,10 @@ $config['superadmin_user_id']			= 1;
 $config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian');
 
 // Settings
-$config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','locations','text');
-$config['ignore_modules']				= array('index.html');
+$config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','places','text');
+$config['ignore_modules']				= array('index.html', 'text');
 $config['site_modules']					= array('site','themes','design','widgets','services');
+$config['user_settings']				= array('profile','details','password','mobile','connections');
 $config['user_meta_details']			= array('company','location','url','bio');
 $config['user_data']					= array('user_id','username','user_level_id','gravatar','name','image','language','time_zone','geo_enabled','privacy','consumer_key','consumer_secret','token','token_secret');	
 $config['user_data_meta']				= array('location','url');
