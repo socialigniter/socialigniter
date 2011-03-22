@@ -16,7 +16,15 @@
 		<img src="<?= base_url().'application/modules/'.$module.'/assets/'.$module ?>_24.png"> <?= display_nice_file_name($module) ?>
 	</span>	
 	<span class="item_right">
+	<?php if (config_item($module.'_enabled') == 'TRUE'): ?>
+	
 		<a href="<?= $module ?>">Settings</a>
+		
+	<?php else: ?>
+	
+		<a href="<?= base_url().'settings/'.$module.'/install' ?>">Install</a>
+	
+	<?php endif; ?>
 	</span>	
 	<div class="clear"></div>
 	<span class="item_separator"></span>	
