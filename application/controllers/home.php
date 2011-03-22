@@ -164,6 +164,13 @@ class Home extends Dashboard_Controller
 		$this->render();
 	}
 	
+	function locations()
+	{
+		$this->data['page_title'] = 'Locations';
+	
+		$this->render();
+	}
+	
 	function manage()
 	{
 		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2), 'all');

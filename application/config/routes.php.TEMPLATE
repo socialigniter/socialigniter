@@ -74,6 +74,13 @@ $route['api/content/destroy/(:any)/(:any)']			= 'api/content/destroy/$1/$2';
 $route['api/content/recent']						= 'api/content/recent';
 $route['api/content/create']						= 'api/content/create';
 
+/* Locations */
+$route['api/locations/destroy/(:any)/(:any)']		= 'api/locations/destroy/$1/$2';
+$route['api/locations/all']							= 'api/locations/all';
+$route['api/locations/nearby']						= 'api/locations/nearby';
+$route['api/locations/create']						= 'api/locations/create';
+$route['api/locations']								= 'api/locations';
+
 /* Relationships */
 $route['api/relationships/follow/(:any)/(:any)']	= 'api/relationships/follow/$1/$2';
 $route['api/relationships/unfollow/(:any)/(:any)']	= 'api/relationships/unfollow/$1/$2';
@@ -126,6 +133,8 @@ $route['home/pages/manage/(:num)']					= 'pages/editor';
 $route['home/pages/create']							= 'pages/editor';
 $route['home/comments/(:any)'] 						= 'home/comments/$1';
 $route['home/comments'] 							= 'home/comments';
+$route['home/locations/(:any)'] 					= 'home/locations';
+$route['home/locations'] 							= 'home/locations';
 $route['home/friends']								= 'home/index';
 $route['home/likes']								= 'home/index';
 $route['home/error'] 								= 'home/error';

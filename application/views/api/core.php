@@ -49,6 +49,11 @@ Example: <a href="<?= base_url() ?>api/users/recent/format/xml" target="_blank">
 	<li>Delete <a href="<?= base_url() ?>api/categories/destroy/id/1" target="_blank"><?= base_url() ?>api/categories/destroy/id/1</a> (1 represents <b>category_id</b>)</li>
 </ul>
 
+<h3>Locations</h3>
+<ul>
+	<li>Recent <a href="<?= base_url() ?>api/locations/nearby/45.23/-122.23" target="_blank"><?= base_url() ?>api/locations/nearby/45.23/-122.23</a> (45.23/-122.23 represents /lat/long)</li>
+</ul>
+
 <h3>Tags</h3>
 <ul>
 	<li>All <a href="<?= base_url() ?>api/tags/all" target="_blank"><?= base_url() ?>api/tags/all</a></li></ul>
