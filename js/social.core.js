@@ -411,6 +411,36 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	};
 })(jQuery);
 
+
+/* Modal Maker */
+(function($)
+{	
+	$.modalMaker = function(options)
+	{
+		var defaults = 
+		{
+    		partial	:'',
+    		api		:'',
+    		template:{},
+    		callback:function() {}
+  		}
+  		
+		var settings = $.extend(defaults,options);
+		
+		$.get(settings.partial, function(html)
+		{
+			var modal_html = html;
+			
+			$.get(settings.api, function(json)
+			{
+				modal_html = $.template(modal_html, settings.template);
+				settings.callback.call(this, modal_html);
+			});
+		});
+	};
+})(jQuery);
+
+
 /**
  * @requires jQuery
  * Takes a MySQL timestamp and renders it into a "relative" time like "2 days ago"

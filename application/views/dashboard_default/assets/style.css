@@ -345,6 +345,8 @@ span.item_right a:hover		{ text-decoration: underline; }
 #place_address				{ width: 390px; float: left; }
 #place_map					{ width: 235px; float: left; margin: 0 0 0 25px; }
 #place_map_map				{ width: 225px; height: 225px; margin: 23px 0 0 0; border: 4px solid #c3c3c3; }
+#place_country				{ width: 225px; display: block; float: left; margin: 15px 0 0 0; }
+#place_map_it				{ width: 100px; display: block; float: left; margin: 22px 0 0 0; color: #999999; }
 
 /* Page Editor */
 #text_content_norm			{ width: 630px; margin: 0; padding: 0; }

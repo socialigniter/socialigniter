@@ -14,19 +14,19 @@
 				<input type="text" name="region" class="input_mini" value="<?= $region ?>">
 				<input type="text" name="postal" class="input_small" value="<?= $postal ?>">
 			</p>
-			<p><?= country_dropdown($country, config_item('countries')) ?></p>
+			<div id="place_country"><?= country_dropdown($country, config_item('countries')) ?></div>
+			<a href="#" id="place_map_it">Map It</a>
+			<div class="clear"></div>
 		</div>
 
 		<div id="place_map">
 			<h3>Map</h3>
-			<div id="place_map_map" class="map">
-			
-			</div>
+			<div id="place_map_map" class="map"></div>
 		</div>
 		
 		<div class="clear"></div>
 	
-		<p><input type="button" id="add_details" value="Add Details"></p>
+		<p><input type="button" id="add_details" value="Add More Details"></p>
 		<div id="place_details" style="display:none">
 
 			<h3>Description</h3>
@@ -46,10 +46,9 @@
 		
 		</div>
 		
-		<input type="hidden" name="details" id="layout" value="<?= $details ?>">
-		<input type="hidden" name="geo_lat" id="geo_lat" value="" />
-		<input type="hidden" name="geo_long" id="geo_long" value="" />
-		<input type="hidden" name="geo_accuracy" id="geo_accuracy" value="" />
+		<input type="hidden" name="geo_lat" value="" />
+		<input type="hidden" name="geo_long" value="" />
+		<input type="hidden" name="geo_accuracy" value="" />
 
 	</div>
 	
@@ -78,40 +77,25 @@ $(document).ready(function()
 	// Slugify Title
 	$('#title').slugify({url:base_url + 'places/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
-	// Make Map Title
-	// Currently using Portland, should use lookup
-  /*
-    var lat		= 45.52342768;
-    var long 	= -122.67522811;
-    var coords 	= new google.maps.LatLng(lat, long);
-
-	getMap(coords);
-	
-	function getMap(lat_long)
-	{
-		var myOptions = 
-		{     
-			disableDefaultUI 	: true,
-			zoom 				: 13,
-			center 				: lat_long,
-			mapTypeId 			: google.maps.MapTypeId.ROADMAP
-		};
-		
-		
-		var map = new google.maps.Map(document.getElementById("place_map_map"), myOptions);
-	}	
-	*/
+	// Make Map (currently using Portland as default, should use geo lookup)
+    var initial_place = new google.maps.LatLng(45.52342768, -122.67522811);	
 	var geocoder;
 	var map;
+	var markersArray = [];
 	
-	function initialize()
-	{
+	function getMap(lat_long)
+	{		
 		geocoder = new google.maps.Geocoder();
-		var latlng = new google.maps.LatLng(-34.397, 150.644);
 		var myOptions =
 		{
-	  		zoom: 13,
-	  		center: latlng,
+	  		zoom				: 13,
+	  		center				: lat_long,
+			panControl			: false,
+			zoomControl			: true,
+			mapTypeControl		: false,
+			scaleControl		: true,
+			streetViewControl	: false,
+			overviewMapControl	: false,	  		
 	  		mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
 	
@@ -119,88 +103,94 @@ $(document).ready(function()
 	}	
 	
 	function getMapGeocode(address)
-	{
-		//var coder = new GClientGeocoder();
-		//coder.getLatLng('2562 26th Ave, San Francisco, CA 94116', function(gpoint)
-//		var address = '2562 26th Ave, San Francisco, CA 94116'; //document.getElementById('input_name').value;
-		
+	{		
 		geocoder.geocode({'address' : address}, function(results, status)
 		{
 			if (status == google.maps.GeocoderStatus.OK)
 			{
+				// Center Tile
 		    	map.setCenter(results[0].geometry.location);
-		    	var marker = new google.maps.Marker(
-		   		{
-		        	map: map, 
-		        	position: results[0].geometry.location
-		    	});	    	
+			
+				// Clear & Make Markers
+		    	clearOverlays();
+		    	deleteOverlays();	
+		    	addMarker(results[0].geometry.location);
+		    	
+		    	// Set Geo
+		    	$("[name=geo_lat]").val(results[0].geometry.location.Aa);
+		    	$("[name=geo_long]").val(results[0].geometry.location.Ca);
 			}
 			else
 			{
-				alert("Geocode was not successful for the following reason: " + status);
+				console.log("Could not get Google map");
 			}
-		});	  
+		}); 
 	}
 	
-	initialize();
-	getMapGeocode('2562 26th Ave, San Francisco, CA 94116');
+	function addMarker(location)
+	{
+		marker = new google.maps.Marker(
+	  	{
+	  		position: location,
+	    	map: map
+	  });
+	  
+	  markersArray.push(marker);
+	}
+
+	function clearOverlays()
+	{
+		if (markersArray)
+		{
+			for (i in markersArray)
+			{
+				markersArray[i].setMap(null);
+			}
+		}
+	}		
+
+	function deleteOverlays()
+	{
+		if (markersArray)
+		{
+			for (i in markersArray)
+			{
+				markersArray[i].setMap(null);
+			}
 		
-	$('[name=postal]').focusout(function(e)
+			markersArray.length = 0;
+		}
+	}
+	
+	// Launch
+	getMap(initial_place);
+	
+	// On Completing Address
+	$('[name=postal], [name=region], [name=locality]').live('blur', function(eve)
 	{
 		if ($("[name=postal]").val().length > 0 && $("[name=locality]").val().length > 0 && $("[name=region]").val().length > 0 && $("[name=address]").val().length > 0) 
 		{
 			var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();
-			
 			getMapGeocode(address);
 		}
 	});
 
-/*	
-	var canGo = false;
-	
-	$(".map").gMap(
+	// Click Map It
+	$('#place_map_it').live('click', function(eve)
 	{
-		address:"2562 26th Ave, San Francisco, CA 94116", 
-		zoom: 16
+		eve.preventDefault();
+		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();	
+		getMapGeocode(address);
 	});
-	
-	$(".mapit").click(function(e)
-	{
-		var address = $('#street').val() + " " + $('#city').val() + ", " + $('#state').val() + " " + $('#postal').val();
-		
-		$(".map").gMap(
-		{
-			address	: address,
-			zoom 	: 16,
-			markers : [{ address: address }]
-		});
 
-		var coder = new GClientGeocoder();
-		
-		coder.getLatLng(address, function(gpoint)
-		{ 
-			console.log("long: "+gpoint.x+"\nLat: "+gpoint.y);
-			
-			$("#long").val(gpoint.x);
-			$("#lat").val(gpoint.y);
-		});
-	
-		canGo = true;
-		$(".disabled1").removeClass('disabled1');
-		
-		return false;
-	});
-*/
-	
 	// Add Details
 	$('#add_details').live('click', function(eve)
 	{
 		eve.preventDefault();
 		$(this).hide();
-		$('#place_details').show('normal');
+		$('#place_details').show('slow');
 		
 	});
-		
 	
 	// Create / Modify Place 
 	$("#place_editor").bind("submit", function(eve)
