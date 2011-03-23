@@ -23,7 +23,7 @@ class Social_tools
 		// Load Models
 		$this->ci->load->model('categories_model');
 		$this->ci->load->model('comments_model');
-		$this->ci->load->model('locations_model');		
+		$this->ci->load->model('places_model');		
 		$this->ci->load->model('ratings_model');
 		$this->ci->load->model('relationships_model');
 		$this->ci->load->model('tags_model');
@@ -440,7 +440,30 @@ class Social_tools
 			
 		return $this->view_comments;
 	}
+	
+	
+	/* Places */
+	function get_place($parameter, $value)
+	{
+		return $this->ci->places_model->get_place($parameter, $value);
+	}
 
+	function get_places_view($parameter, $value)
+	{
+		return $this->ci->places_model->get_places_view($parameter, $value);
+	}
+	
+	function add_place($place_data)
+	{
+		if ($place = $this->ci->places_model->add_place($place_data))
+		{			
+			return $place;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 
 	/* Ratings */
 	function get_ratings()

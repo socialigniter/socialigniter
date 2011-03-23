@@ -7,19 +7,12 @@
 		<p><?= form_dropdown('enabled', config_item('enable_disable'), $settings['places']['enabled']) ?></p>
 	</div>
 		
-	<p>User Lookup
-	<?= form_dropdown('user_lookup', config_item('yes_or_no'), $settings['places']['user_lookup']) ?>
-	</p>	
 
-	<h3>User</h3>
+	<h3>Place</h3>
 	
 	<p>Ratings
 	<?= form_dropdown('ratings_allow', config_item('yes_or_no'), $settings['places']['ratings_allow']) ?>
-	</p>
-
-	<p>URL
-	<?= form_dropdown('url_style', config_item('url_style_posts'), $settings['places']['url_style']) ?>
-	</p>			
+	</p>		
 
 </div>	
 	

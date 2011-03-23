@@ -30,24 +30,22 @@ class Places extends Oauth_Controller
         
         $this->response($message, $response);
     }
-
-
     
  	function create_authd_post()
 	{
 		// Validation Rules
-	   	$this->form_validation->set_rules('module', 'Module', 'required');
-	   	$this->form_validation->set_rules('type', 'Type', 'required');
+	   	$this->form_validation->set_rules('address', 'Address', 'required');
+	   	$this->form_validation->set_rules('title', 'Title', 'required');
 	   	$this->form_validation->set_rules('content', 'Content', 'required');
 
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
 	    {
-	    	$viewed			= 'Y';
-	    	$approval		= 'N'; 
-
+	    	if ($this->input->post('site_id')) $site_id = $this->input->post('site_id');
+	    	else $site_id = config_item('site_id');
+	    	
 	    	$content_data = array(
-	    		'site_id'			=> config_item('site_id'),
+	    		'site_id'			=> $site_id,
 				'parent_id'			=> $this->input->post('parent_id'),
 				'category_id'		=> $this->input->post('category_id'),
 				'module'			=> 'locations',
@@ -60,13 +58,13 @@ class Places extends Oauth_Controller
 				'content'			=> $this->input->post('content'),
 				'details'			=> $this->input->post('details'),
 				'access'			=> $this->input->post('access'),
-				'comments_allow'	=> $this->input->post('comments_allow'),
+				'comments_allow'	=> config_item('places_comments_allow'),
 				'geo_lat'			=> $this->input->post('geo_lat'),
 				'geo_long'			=> $this->input->post('geo_long'),
 				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
-				'viewed'			=> $viewed,
-				'approval'			=> $approval,
-				'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))  			
+				'viewed'			=> 'Y',
+				'approval'			=> 'Y',
+				'status'			=> 'P'  			
 	    	);
 
 			// Insert
@@ -74,15 +72,28 @@ class Places extends Oauth_Controller
 
 	    	if ($result)
 		    {
-		    	// Process Tags if exist
+		    	// Process Tags
 				if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $result['content']->content_id);				
 				
+				// Add Place
+				$place_data = array(
+					'content_id'	=> $this->input->post('content_id'),
+					'address'		=> $this->input->post('address'),
+					'district'		=> $this->input->post('district'),
+					'locality'		=> $this->input->post('locality'),
+					'region'		=> $this->input->post('region'),
+					'country'		=> $this->input->post('country'),
+					'postal'		=> $this->input->post('postal')
+				);
+				
+				$place = $this->social_tools->add_place($place_data);
+				
 				// API Response
-	        	$message = array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $result['content'], 'activity' => $result['activity']);
+	        	$message = array('status' => 'success', 'message' => 'Awesome we created your place', 'data' => $result['content'], 'activity' => $result['activity'], 'place' => $place);
 	        }
 	        else
 	        {
-		        $message = array('status' => 'error', 'message' => 'Oops we were unable to post your '.$content_data['type']);
+		        $message = array('status' => 'error', 'message' => 'Oops we were unable to create your place');
 	        }	
 		}
 		else 
