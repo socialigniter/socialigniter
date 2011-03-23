@@ -31,7 +31,6 @@
 		<input type="hidden" name="details" id="layout" value="<?= $details ?>">
 		<input type="hidden" name="geo_lat" id="geo_lat" value="" />
 		<input type="hidden" name="geo_long" id="geo_long" value="" />
-		<input type="hidden" name="geo_accuracy" id="geo_accuracy" value="" />
 
 	</div>
 	

@@ -1,4 +1,4 @@
-<form name="place_editor" id="place_editor" action="<?= $form_url ?>" method="post" enctype="multipart/form-data">
+<form name="<?= $form_name ?>" id="<?= $form_name ?>" action="<?= $form_url ?>" method="post" enctype="multipart/form-data">
 
 	<div id="content_wide_content">
 		<h3>Title</h3>
@@ -46,9 +46,8 @@
 		
 		</div>
 		
-		<input type="hidden" name="geo_lat" value="" />
-		<input type="hidden" name="geo_long" value="" />
-		<input type="hidden" name="geo_accuracy" value="" />
+		<input type="hidden" name="geo_lat" value="<?= $geo_lat ?>" />
+		<input type="hidden" name="geo_long" value="<?= $geo_long ?>" />
 
 	</div>
 	
@@ -77,93 +76,9 @@ $(document).ready(function()
 	// Slugify Title
 	$('#title').slugify({url:base_url + 'places/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
-	// Make Map (currently using Portland as default, should use geo lookup)
-    var initial_place = new google.maps.LatLng(45.52342768, -122.67522811);	
-	var geocoder;
-	var map;
-	var markersArray = [];
-	
-	function getMap(lat_long)
-	{		
-		geocoder = new google.maps.Geocoder();
-		var myOptions =
-		{
-	  		zoom				: 13,
-	  		center				: lat_long,
-			panControl			: false,
-			zoomControl			: true,
-			mapTypeControl		: false,
-			scaleControl		: true,
-			streetViewControl	: false,
-			overviewMapControl	: false,	  		
-	  		mapTypeId: google.maps.MapTypeId.ROADMAP
-		}
-	
-		map = new google.maps.Map(document.getElementById("place_map_map"), myOptions);
-	}	
-	
-	function getMapGeocode(address)
-	{		
-		geocoder.geocode({'address' : address}, function(results, status)
-		{
-			if (status == google.maps.GeocoderStatus.OK)
-			{
-				// Center Tile
-		    	map.setCenter(results[0].geometry.location);
-			
-				// Clear & Make Markers
-		    	clearOverlays();
-		    	deleteOverlays();	
-		    	addMarker(results[0].geometry.location);
-		    	
-		    	// Set Geo
-		    	$("[name=geo_lat]").val(results[0].geometry.location.Aa);
-		    	$("[name=geo_long]").val(results[0].geometry.location.Ca);
-			}
-			else
-			{
-				console.log("Could not get Google map");
-			}
-		}); 
-	}
-	
-	function addMarker(location)
-	{
-		marker = new google.maps.Marker(
-	  	{
-	  		position: location,
-	    	map: map
-	  });
-	  
-	  markersArray.push(marker);
-	}
-
-	function clearOverlays()
-	{
-		if (markersArray)
-		{
-			for (i in markersArray)
-			{
-				markersArray[i].setMap(null);
-			}
-		}
-	}		
-
-	function deleteOverlays()
-	{
-		if (markersArray)
-		{
-			for (i in markersArray)
-			{
-				markersArray[i].setMap(null);
-			}
-		
-			markersArray.length = 0;
-		}
-	}
-	
-	// Launch
-	getMap(initial_place);
+	// Initialize Map
+    var initial_place = new google.maps.LatLng(<?= $geo_lat ?>, <?= $geo_long ?>);	
+	getMap(initial_place, 'place_map_map');
 	
 	// On Completing Address
 	$('[name=postal], [name=region], [name=locality]').live('blur', function(eve)
@@ -189,52 +104,6 @@ $(document).ready(function()
 		eve.preventDefault();
 		$(this).hide();
 		$('#place_details').show('slow');
-		
-	});
-	
-	// Create / Modify Place 
-	$("#place_editor").bind("submit", function(eve)
-	{
-		eve.preventDefault();
-		var valid_title	= isFieldValid('#title', "Joes Oyster Shack", 'You need a title');
-
-		// Validation	
-		if (valid_title == true)
-		{	
-			var page_data = $('#place_editor').serializeArray();
-			page_data.push({'name':'module','value':'places'},{'name':'type','value':'place'},{'name':'source','value':'website'});
-
-			console.log(page_data);
-
-			$(this).oauthAjax(
-			{
-				oauth 		: user_data,
-				url			: $(this).attr('ACTION'),
-				type		: 'POST',
-				dataType	: 'json',
-				data		: page_data,
-		  		success		: function(result)
-		  		{	
-		  			console.log(result);
-		  				  			  			
-					if (result.status == 'success')
-					{
-				 		$('#content_message').notify({message: result.message + ' <a href="' + base_url + 'pages/view/' + result.data.content_id + '">' + result.data.title + '</a>'});
-				 		var status = displayContentStatus(result.data.status);				 		
-				 		$('#article_status').html(status);				 	
-				 	}
-				 	else
-				 	{
-					 	$('#content_message').html(result.message).addClass('message_alert').show('normal');
-					 	$('#content_message').oneTime(3000, function(){$('#content_message').hide('fast')});			
-				 	}	
-			 	}
-			});
-		}
-		else
-		{
-			eve.preventDefault();
-		}		
 	});
 
 	// Add Category

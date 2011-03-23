@@ -87,7 +87,6 @@ class Comments extends Oauth_Controller
 	    			'comment'		=> $this->input->post('comment'),
 	    			'geo_lat'		=> $this->input->post('geo_lat'),
 	    			'geo_long'		=> $this->input->post('geo_long'),
-	    			'geo_accuracy'	=> $this->input->post('geo_accuracy'),
 	    			'approval'		=> $content->comments_allow
 	        	);
 	
@@ -235,7 +234,6 @@ class Comments extends Oauth_Controller
 	    			'comment'		=> $this->input->post('comment'),
 	    			'geo_lat'		=> $this->input->post('geo_lat'),
 	    			'geo_long'		=> $this->input->post('geo_long'),
-	    			'geo_accuracy'	=> $this->input->post('geo_accuracy'),
 	    			'approval'		=> $content->comments_allow
 	        	);
 	

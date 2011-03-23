@@ -14,13 +14,13 @@
 * Offers more file & folder options than the normal File Helper
 */
 
-function form_submit_publish($publish, $save)
+function form_submit_publish($status)
 {
-    if ($publish == "Publish")
+    if ($status == "Publish")
     {
     	$status = "P"; 
     }
-    elseif ($save == "Save Draft") 	
+    elseif ($status == "Save") 	
     {
     	$status = "S";		
 	}

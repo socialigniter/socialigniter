@@ -22,7 +22,6 @@
 	<input type="hidden" name="content_id" id="content_id" value="<?= $content_id ?>">
 	<input type="hidden" name="geo_lat" id="geo_lat" value="<?= $geo_lat ?>">
 	<input type="hidden" name="geo_long" id="geo_long" value="<?= $geo_long ?>">
-	<input type="hidden" name="geo_accuracy" id="geo_accuracy" value="<?= $geo_accuracy ?>">
 </form>
 <div class="clear"></div>
 

@@ -155,7 +155,6 @@ class Content_model extends CI_Model {
 			'comments_count'  	=> 0,
 			'geo_lat'			=> $content_data['geo_lat'],
 			'geo_long'			=> $content_data['geo_long'],
-			'geo_accuracy'		=> $content_data['geo_accuracy'],
 			'viewed'			=> $content_data['viewed'],
 			'approval'			=> $content_data['approval'],
 			'status'			=> $content_data['status'],

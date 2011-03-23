@@ -28,7 +28,6 @@ var user_data = {
 	"geo_enabled":"<?= $logged_geo_enabled ?>",
 	"geo_lat":"",
 	"geo_long":"",
-	"geo_accuracy":"",	
 	"privacy":"<?= $logged_privacy ?>",	 
 	"consumer_key": "<?= $oauth_consumer_key ?>",
 	"consumer_secret": "<?= $oauth_consumer_secret ?>",

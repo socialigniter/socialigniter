@@ -13,23 +13,30 @@ $(document).ready(function()
 {
 	// Publishes / Saves Content
 	$('#content_publish, #content_save').bind('click', function()
-	{	
+	{
+		console.log('launched');
+	
 		$(this).attr('disabled', 'disabled');
-		$form = $('#classes_media');
+		$form = $('#<?= $form_name ?>');
 		
 		var status		= $(this).attr('name');			
 		var form_data	= $form.serializeArray();
-		form_data.push({'name':'source','value':'website'},{'name':'status','value':status});
+		
+		console.log('status: ' + status);
+		
+		form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
 
 		$form.oauthAjax(
 		{
 			oauth 		: user_data,
-			url			: $form.attr('ACTION'),
+			url			: '<?= $form_url ?>',
 			type		: 'POST',
 			dataType	: 'json',
 			data		: form_data,
 	  		success		: function(result)
-	  		{			  			  			
+	  		{	
+	  			console.log(result);
+	  				  			  			
 				if (result.status == 'success')
 				{
 					alert(status + ' performed successfully');

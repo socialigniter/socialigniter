@@ -80,7 +80,6 @@ class Content extends Oauth_Controller
 				'comments_allow'	=> $this->input->post('comments_allow'),
 				'geo_lat'			=> $this->input->post('geo_lat'),
 				'geo_long'			=> $this->input->post('geo_long'),
-				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
 				'viewed'			=> $viewed,
 				'approval'			=> $approval,
 				'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))  			
@@ -137,7 +136,6 @@ class Content extends Oauth_Controller
 			'comments_allow'	=> $this->input->post('comments_allow'),
 			'geo_lat'			=> $this->input->post('geo_lat'),
 			'geo_long'			=> $this->input->post('geo_long'),
-			'geo_accuracy'		=> $this->input->post('geo_accuracy'),
 			'viewed'			=> $viewed,
 			'approval'			=> $approval,
 			'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))

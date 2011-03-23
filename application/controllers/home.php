@@ -188,7 +188,8 @@ class Home extends Dashboard_Controller
 	
 			// Non Form Fields
 			$this->data['sub_title']		= $place->title;
-			$this->data['form_url']			= base_url().'api/content/modify/id/'.$this->uri->segment(4);
+			$this->data['form_name']		= 'places_editor';
+			$this->data['form_url']			= base_url().'api/places/modify/id/'.$this->uri->segment(4);
 			
 			// Form Fields
 			$this->data['title'] 			= $place->title;
@@ -198,21 +199,24 @@ class Home extends Dashboard_Controller
 			$this->data['details'] 			= $place->details;
 			$this->data['access']			= $place->access;
 			$this->data['comments_allow']	= $place->comments_allow;
+			$this->data['geo_lat']			= $place->geo_lat;
+			$this->data['geo_long']			= $place->geo_long;
 			$this->data['status']			= display_content_status($place->status, $place->approval);
 
 			// Place
-			$this->data['address']			= $place->address;
-			$this->data['district']			= $place->district;
-			$this->data['locality']			= $place->locality;
-			$this->data['region']			= $place->region;
-			$this->data['country']			= $place->country;
-			$this->data['postal']			= $place->postal;
+			$this->data['address']			= $place_details->address;
+			$this->data['district']			= $place_details->district;
+			$this->data['locality']			= $place_details->locality;
+			$this->data['region']			= $place_details->region;
+			$this->data['country']			= $place_details->country;
+			$this->data['postal']			= $place_details->postal;
 		}
 		else
 		{
 			// Non Form Fields
 			$this->data['sub_title']		= 'Create';
-			$this->data['form_url']			= base_url().'api/place/create';
+			$this->data['form_name']		= 'places_editor';			
+			$this->data['form_url']			= base_url().'api/places/create';
 
 			// Form Fields
 			$this->data['title'] 			= '';
@@ -222,6 +226,8 @@ class Home extends Dashboard_Controller
 			$this->data['details'] 			= '';
 			$this->data['access']			= 'E';
 			$this->data['comments_allow']	= '';
+			$this->data['geo_lat']			= '45.52342768';
+			$this->data['geo_long']			= '-122.67522811';
 			$this->data['status']			= display_content_status('U');
 
 			// Place

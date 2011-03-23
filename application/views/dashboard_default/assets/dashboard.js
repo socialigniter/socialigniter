@@ -288,7 +288,6 @@ $(document).ready(function()
 			{
 				localStorage.setItem('geo_lat',position.coords.latitude);
 				localStorage.setItem('geo_long',position.coords.longitude);
-				localStorage.setItem('geo_accuracy',position.coords.accuracy);
 				localStorage.setItem('geo_date',current_time);
 			}
 		}
@@ -329,7 +328,6 @@ $(document).ready(function()
 			//...get it from localStorage and put it in the hidden comment fields
 			$comment_form.find('[name=geo_lat]').val(localStorage['geo_lat']);
 			$comment_form.find('[name=geo_long]').val(localStorage['geo_long']);
-			$comment_form.find('[name=geo_accuracy]').val(localStorage['geo_accuracy']);
 		}
 		
 		// Here we are going to get the comments:

@@ -43,7 +43,6 @@ class Site extends Site_Controller
 			$this->data['comment_type']			= 'page';
 			$this->data['geo_lat']				= $this->session->flashdata('geo_lat');
 			$this->data['geo_long']				= $this->session->flashdata('geo_long');
-			$this->data['geo_accuracy']			= $this->session->flashdata('geo_accuracy');
 			$this->data['comment_error']		= $this->session->flashdata('comment_error');
 
 			// ReCAPTCHA Enabled
@@ -123,7 +122,6 @@ class Site extends Site_Controller
 			$this->data['comment_type']			= 'page';
 			$this->data['geo_lat']				= $this->session->flashdata('geo_lat');
 			$this->data['geo_long']				= $this->session->flashdata('geo_long');
-			$this->data['geo_accuracy']			= $this->session->flashdata('geo_accuracy');
 			$this->data['comment_error']		= $this->session->flashdata('comment_error');
 
 			// ReCAPTCHA Enabled

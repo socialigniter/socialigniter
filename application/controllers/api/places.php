@@ -14,21 +14,18 @@ class Places extends Oauth_Controller
 
     function index_get()
     {
-    
         $locations = $this->locations_model->get_locations();
         
         if($locations)
         {
-            $message 	= array('status' => 'success', 'data' =>$locations)
-            $response	= 200;
+            $message = array('status' => 'success', 'data' => $locations);
         }
         else
         {
-            $message	= array('error' => 'Could not find any locations');
-            $response	= 404;
+            $message = array('status' => 'error', 'message' => 'Could not find any locations');
         }
         
-        $this->response($message, $response);
+        $this->response($message, 200);
     }
     
  	function create_authd_post()
@@ -48,7 +45,7 @@ class Places extends Oauth_Controller
 	    		'site_id'			=> $site_id,
 				'parent_id'			=> $this->input->post('parent_id'),
 				'category_id'		=> $this->input->post('category_id'),
-				'module'			=> 'locations',
+				'module'			=> 'places',
 				'type'				=> 'place',
 				'source'			=> $this->input->post('source'),
 				'order'				=> 0,
@@ -61,10 +58,9 @@ class Places extends Oauth_Controller
 				'comments_allow'	=> config_item('places_comments_allow'),
 				'geo_lat'			=> $this->input->post('geo_lat'),
 				'geo_long'			=> $this->input->post('geo_long'),
-				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
 				'viewed'			=> 'Y',
 				'approval'			=> 'Y',
-				'status'			=> 'P'  			
+				'status'			=> form_submit_publish($this->input->post('status'))  			
 	    	);
 
 			// Insert
@@ -77,7 +73,7 @@ class Places extends Oauth_Controller
 				
 				// Add Place
 				$place_data = array(
-					'content_id'	=> $this->input->post('content_id'),
+					'content_id'	=> $result['content']->content_id,
 					'address'		=> $this->input->post('address'),
 					'district'		=> $this->input->post('district'),
 					'locality'		=> $this->input->post('locality'),

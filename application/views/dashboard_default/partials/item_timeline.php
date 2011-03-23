@@ -40,7 +40,6 @@
 						<input type="hidden" name="content_id" value="<?= $item_content_id; ?>">
 						<input type="hidden" name="geo_lat" id="geo_lat" value="">
 						<input type="hidden" name="geo_long" id="geo_long" value="">
-						<input type="hidden" name="geo_accuracy" id="geo_accuracy" value="">				
 						<input type="submit" id="comment_submit" value="Comment">		
 					</form>
 					<div class="clear"></div>
