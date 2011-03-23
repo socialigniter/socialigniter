@@ -84,7 +84,6 @@ class Places extends Oauth_Controller
 				
 				$place = $this->social_tools->add_place($place_data);
 				
-				// API Response
 	        	$message = array('status' => 'success', 'message' => 'Awesome we created your place', 'data' => $result['content'], 'activity' => $result['activity'], 'place' => $place);
 	        }
 	        else
@@ -103,7 +102,60 @@ class Places extends Oauth_Controller
     
     function modify_authd_post()
     {    
-        $message 	= array('id' => $this->get('id'), 'name' => $this->post('name'), 'email' => $this->post('email'), 'message' => 'ADDED!');
+    	$content = $this->social_igniter->get_content($this->get('id'));
+    
+		// Access Rules
+	   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
+	   	
+    	$viewed			= 'Y';
+    	$approval		= 'A'; 
+   
+    	$content_data = array(
+    		'content_id'		=> $this->get('id'),
+			'parent_id'			=> $this->input->post('parent_id'),
+			'category_id'		=> $this->input->post('category_id'),
+			'order'				=> $this->input->post('order'),
+			'title'				=> $this->input->post('title'),
+			'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
+			'content'			=> $this->input->post('content'),
+			'details'			=> $this->input->post('details'),
+			'access'			=> $this->input->post('access'),
+			'comments_allow'	=> $this->input->post('comments_allow'),
+			'geo_lat'			=> $this->input->post('geo_lat'),
+			'geo_long'			=> $this->input->post('geo_long'),
+			'viewed'			=> $viewed,
+			'approval'			=> $approval,
+			'status'			=> form_submit_publish($this->input->post('status'))
+    	);
+    									
+		// Insert
+		$update = $this->social_igniter->update_content($content_data, $this->oauth_user_id); 
+        
+	    if ($update)
+	    {
+			// Process Tags    
+			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);
+							
+			// Add Place
+			$place_data = array(
+				'content_id'	=> $result['content']->content_id,
+				'address'		=> $this->input->post('address'),
+				'district'		=> $this->input->post('district'),
+				'locality'		=> $this->input->post('locality'),
+				'region'		=> $this->input->post('region'),
+				'country'		=> $this->input->post('country'),
+				'postal'		=> $this->input->post('postal')
+			);
+			
+			$place = $this->social_tools->add_place($place_data);			
+			
+	    
+        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
+        }
+        else
+        {
+	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
+        }        
         
         $this->response($message, 200);
     }

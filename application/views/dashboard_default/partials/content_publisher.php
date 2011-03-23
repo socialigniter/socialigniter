@@ -12,42 +12,63 @@
 $(document).ready(function()
 {
 	// Publishes / Saves Content
-	$('#content_publish, #content_save').bind('click', function()
+	$('#content_publish, #content_save').live('click', function(eve)
 	{
-		console.log('launched');
-	
+		eve.preventDefault();
 		$(this).attr('disabled', 'disabled');
 		$form = $('#<?= $form_name ?>');
-		
-		var status		= $(this).attr('name');			
-		var form_data	= $form.serializeArray();
-		
-		console.log('status: ' + status);
-		
-		form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
 
-		$form.oauthAjax(
-		{
-			oauth 		: user_data,
-			url			: '<?= $form_url ?>',
-			type		: 'POST',
-			dataType	: 'json',
-			data		: form_data,
-	  		success		: function(result)
-	  		{	
-	  			console.log(result);
-	  				  			  			
-				if (result.status == 'success')
+		// Validation Stuffs
+		var check_count = 0;
+		var valid_count = 0;
+		var this_valid	= false;
+		
+		$.each(form_validation, function(key, item)
+		{			 
+			if (item.message != '')
+			{				
+				check_count++;
+							
+				if (isFieldValid(item.element, item.holder, item.message) == true)
 				{
-					alert(status + ' performed successfully');
+					valid_count++;
+				}	
+			}
+		});
+		
+		// Validation	
+		if (check_count == valid_count)
+		{
+			console.log('shizzle is valid');
+		
+			// Strip Empty Fields
+			cleanFieldEmpty('#tags', "Gardening, Fruit, Vegetables");		
+		
+			var status		= $(this).attr('name');			
+			var form_data	= $form.serializeArray();
+					
+			form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
+	
+			$form.oauthAjax(
+			{
+				oauth 		: user_data,
+				url			: '<?= $form_url ?>',
+				type		: 'POST',
+				dataType	: 'json',
+				data		: form_data,
+		  		success		: function(result)
+		  		{	
+					$('html, body').animate({scrollTop:0});
+					$('#content_message').notify({scroll:true,status:result.status,message:result.message});
 			 	}
-			 	else
-			 	{
-				 	$('#content_message').html(result.message).addClass('message_alert').show('normal');
-				 	$('#content_message').oneTime(3000, function(){$('#content_message').hide('fast')});			
-			 	}	
-		 	}
-		});		
+			});	
+		}
+		else
+		{
+			console.log('shizzle be not valid');
+		
+			eve.preventDefault();
+		}	
 	});
 });
 </script>

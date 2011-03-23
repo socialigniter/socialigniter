@@ -7,12 +7,12 @@
 		
 		<div id="place_address">
 			<h3>Address</h3>
-			<p><input type="text" name="address" class="input_bigger" value="<?= $address ?>"></p>
-			<p><input type="text" name="district" class="input_bigger" value="<?= $district ?>"></p>
+			<p><input type="text" name="address" id="address" class="input_bigger" value="<?= $address ?>"></p>
+			<p><input type="text" name="district" id="district" class="input_bigger" value="<?= $district ?>"></p>
 			<p>
-				<input type="text" name="locality" class="input_small" value="<?= $locality ?>">
-				<input type="text" name="region" class="input_mini" value="<?= $region ?>">
-				<input type="text" name="postal" class="input_small" value="<?= $postal ?>">
+				<input type="text" name="locality" id="locality" class="input_small" value="<?= $locality ?>">
+				<input type="text" name="region" id="region" class="input_mini" value="<?= $region ?>">
+				<input type="text" name="postal" id="postal" class="input_small" value="<?= $postal ?>">
 			</p>
 			<div id="place_country"><?= country_dropdown($country, config_item('countries')) ?></div>
 			<a href="#" id="place_map_it">Map It</a>
@@ -60,19 +60,51 @@
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
-$(document).ready(function()
-{
-	// Placeholders
-	doPlaceholder('#title', 'Joes Oyster Shack');
-	doPlaceholder('[name=address]', '15229 Ocean St.');
-	doPlaceholder('[name=district]', 'Waterfront');
-	doPlaceholder('[name=locality]', 'Los Angeles');
-	doPlaceholder('[name=region]', 'CA');
-	doPlaceholder('[name=country]', 'USA');
-	doPlaceholder('[name=postal]', '91405');
-	doPlaceholder('[name=content]', 'Joe is a good man but he makes even better oysters...');
-	doPlaceholder('#tags', 'Oysters, Lobster, Seafood');
 
+// Elements for Placeholder
+// If message is set it gets added to validate
+var form_validation = [{
+	'element' 	: '#title', 
+	'holder'	: 'Joes Oyster Shack', 
+	'message'	: 'You need a place title'
+},{
+	'element' 	: '#address', 
+	'holder'	: '15229 Ocean St.', 
+	'message'	: 'You need an address'
+},{
+	'element' 	: '#district', 
+	'holder'	: 'Waterfront', 
+	'message'	: ''	
+},{
+	'element' 	: '#locality', 
+	'holder'	: 'Los Angeles', 
+	'message'	: ''	
+},{
+	'element' 	: '#region', 
+	'holder'	: 'CA', 
+	'message'	: ''	
+},{
+	'element' 	: '#postal', 
+	'holder'	: '91405', 
+	'message'	: ''	
+},{
+	'element' 	: '#place_content', 
+	'holder'	: 'Joe is a good man but he makes even better oysters...', 
+	'message'	: ''	
+},{
+	'element' 	: '#tags', 
+	'holder'	: 'Oysters, Lobster, Seafood', 
+	'message'	: ''	
+}]
+
+$(document).ready(function()
+{	
+	// Placeholders
+	$.each(form_validation, function(key, item)
+	{
+		doPlaceholder(item.element, item.holder);
+	});	
+			
 	// Slugify Title
 	$('#title').slugify({url:base_url + 'places/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 

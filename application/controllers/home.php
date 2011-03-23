@@ -188,7 +188,6 @@ class Home extends Dashboard_Controller
 	
 			// Non Form Fields
 			$this->data['sub_title']		= $place->title;
-			$this->data['form_name']		= 'places_editor';
 			$this->data['form_url']			= base_url().'api/places/modify/id/'.$this->uri->segment(4);
 			
 			// Form Fields
@@ -215,7 +214,6 @@ class Home extends Dashboard_Controller
 		{
 			// Non Form Fields
 			$this->data['sub_title']		= 'Create';
-			$this->data['form_name']		= 'places_editor';			
 			$this->data['form_url']			= base_url().'api/places/create';
 
 			// Form Fields
@@ -238,7 +236,9 @@ class Home extends Dashboard_Controller
 			$this->data['country']			= '';
 			$this->data['postal']			= '';			
 		}
-			
+
+		$this->data['form_module']			= 'places';
+		$this->data['form_name']			= 'places_editor';
 		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown('module', 'places', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));	
 	 	$this->data['content_publisher'] 	= $this->load->view(config_item('dashboard_theme').'/partials/content_publisher', $this->data, true);
 

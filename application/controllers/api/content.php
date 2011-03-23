@@ -82,7 +82,7 @@ class Content extends Oauth_Controller
 				'geo_long'			=> $this->input->post('geo_long'),
 				'viewed'			=> $viewed,
 				'approval'			=> $approval,
-				'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))  			
+				'status'			=> form_submit_publish($this->input->post('status'))
 	    	);
 
 			// Insert
@@ -138,7 +138,7 @@ class Content extends Oauth_Controller
 			'geo_long'			=> $this->input->post('geo_long'),
 			'viewed'			=> $viewed,
 			'approval'			=> $approval,
-			'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))
+			'status'			=> form_submit_publish($this->input->post('status'))
     	);
     									
 		// Insert
