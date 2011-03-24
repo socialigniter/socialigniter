@@ -165,14 +165,6 @@ class Home extends Dashboard_Controller
 	}
 	
 	/* Places */
-	function places_nearby()
-	{
-		$this->data['page_title'] 	= 'Places';
-		$this->data['sub_title']	= 'Nearby';
-	
-		$this->render();
-	}
-
 	function places_editor()
 	{
 		$this->load->config('locations');

@@ -6,16 +6,16 @@
 		<div class="clear"></div>	
 		<div class="widget_border">
 			<?php if ($content_widgets): foreach ($content_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-			<div class="widget_instance">
+			<div class="widget_instance" id="<?= $json_widget->settings_id ?>">
+				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span>
 				<span class="widget_name"><?= $widget->name ?></span>
-				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>		
-				<div class="clear"></div>
+				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>
+				<textarea name="widget_data" style="display:none"><?= $json_widget->value ?></textarea>
+				<div class="clear"></div>				
 			</div>
 			<?php endforeach; else: ?>
-			<div class="widget_instance_none">
-				No Widgets
-			</div>			
-			<?php endif; ?>		
+			<div class="widget_instance_none">No Widgets</div>
+			<?php endif; ?>	
 		</div>			
 	</div>
 
@@ -86,32 +86,36 @@ $(document).ready(function()
 	{	
 		stop: function() 
 		{
-			var count = 0;
+			var count 			= 0;
+			var this_elements 	= $(this).find('.widget_instance');
 		
-			$(this).find('.widget_instance').each(function()
-			{
-				count++;
-				var settings_id = $(this).attr('id');
-				var widget_json = $(this).find('textarea').val();
-				var widget_data = $.parseJSON(widget_json);
-
-				// New Order
-				widget_data.order = count;
-				var new_widget_data = [{'name':'value','value':JSON.stringify(widget_data)}];
-			
-				$(this).oauthAjax(
+			if (this_elements.length > 1)
+			{	
+				this_elements.each(function()
 				{
-					oauth 	 : user_data,
-					url		 : base_url + 'api/settings/modify_widget/id/' + settings_id,
-					type	 : 'POST',
-					dataType : 'json',
-					data	 : new_widget_data,
-			  		success	 : function(result)
-			  		{
-						console.log(result);
-				 	}
-				});
-			});	
+					count++;
+					var settings_id = $(this).attr('id');
+					var widget_json = $(this).find('textarea').val();
+					var widget_data = $.parseJSON(widget_json);
+	
+					// New Order
+					widget_data.order = count;
+					var new_widget_data = [{'name':'value','value':JSON.stringify(widget_data)}];
+				
+					$(this).oauthAjax(
+					{
+						oauth 	 : user_data,
+						url		 : base_url + 'api/settings/modify_widget/id/' + settings_id,
+						type	 : 'POST',
+						dataType : 'json',
+						data	 : new_widget_data,
+				  		success	 : function(result)
+				  		{
+							console.log(result);
+					 	}
+					});
+				});	
+			}
 		}
 	});	
 	
@@ -178,7 +182,6 @@ $(document).ready(function()
 				  }
 				}			
 	    	});
-	    	
 	    });
 	});
        

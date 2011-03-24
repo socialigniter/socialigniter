@@ -12,32 +12,14 @@
 $(document).ready(function()
 {
 	// Publishes / Saves Content
-	$('#content_publish, #content_save').live('click', function(eve)
+	$('#content_publish, #content_save').bind('click', function(eve)
 	{
 		eve.preventDefault();
-		$(this).attr('disabled', 'disabled');
-		$form = $('#<?= $form_name ?>');
-
-		// Validation Stuffs
-		var check_count = 0;
-		var valid_count = 0;
-		var this_valid	= false;
 		
-		$.each(form_validation, function(key, item)
-		{			 
-			if (item.message != '')
-			{				
-				check_count++;
-							
-				if (isFieldValid(item.element, item.holder, item.message) == true)
-				{
-					valid_count++;
-				}	
-			}
-		});
+		console.log('being called');
 		
 		// Validation	
-		if (check_count == valid_count)
+		if (validationRules(validation_rules))
 		{
 			console.log('shizzle is valid');
 		
@@ -45,11 +27,11 @@ $(document).ready(function()
 			cleanFieldEmpty('#tags', "Gardening, Fruit, Vegetables");		
 		
 			var status		= $(this).attr('name');			
-			var form_data	= $form.serializeArray();
+			var form_data	= $('#<?= $form_name ?>').serializeArray();
 					
 			form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
 	
-			$form.oauthAjax(
+			$('#<?= $form_name ?>').oauthAjax(
 			{
 				oauth 		: user_data,
 				url			: '<?= $form_url ?>',
@@ -65,7 +47,7 @@ $(document).ready(function()
 		}
 		else
 		{
-			console.log('shizzle be not valid');
+			console.log('shizzle is not valid');
 		
 			eve.preventDefault();
 		}	

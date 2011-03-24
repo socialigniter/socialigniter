@@ -217,7 +217,11 @@ function display_content_status($status, $approval=FALSE)
 	// Does Approval
 	if ($approval)
 	{
-		if (($status == 'P') && ($approval == 'N'))
+		if (($status == 'P') && ($approval == 'Y'))
+		{
+			$status = 'published';
+		}
+		elseif (($status == 'P') && ($approval == 'N'))
 		{
 			$status = 'awaiting approval';
 		}

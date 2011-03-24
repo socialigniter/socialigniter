@@ -101,7 +101,8 @@ class Places extends Oauth_Controller
          
     
     function modify_authd_post()
-    {    
+    { 
+/*      
     	$content = $this->social_igniter->get_content($this->get('id'));
     
 		// Access Rules
@@ -150,12 +151,14 @@ class Places extends Oauth_Controller
 			$place = $this->social_tools->add_place($place_data);			
 			
 	    
-        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
+        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your place', 'data' => $update);
         }
         else
         {
-	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
-        }        
+	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to update this place');
+        }  
+*/              
+	    $message = array('status' => 'error', 'message' => 'You be right here');
         
         $this->response($message, 200);
     }

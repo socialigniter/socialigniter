@@ -63,7 +63,7 @@
 
 // Elements for Placeholder
 // If message is set it gets added to validate
-var form_validation = [{
+var validation_rules = [{
 	'element' 	: '#title', 
 	'holder'	: 'Joes Oyster Shack', 
 	'message'	: 'You need a place title'
@@ -78,7 +78,7 @@ var form_validation = [{
 },{
 	'element' 	: '#locality', 
 	'holder'	: 'Los Angeles', 
-	'message'	: ''	
+	'message'	: 'You need a city'	
 },{
 	'element' 	: '#region', 
 	'holder'	: 'CA', 
@@ -98,13 +98,10 @@ var form_validation = [{
 }]
 
 $(document).ready(function()
-{	
+{
 	// Placeholders
-	$.each(form_validation, function(key, item)
-	{
-		doPlaceholder(item.element, item.holder);
-	});	
-			
+	makePlaceholders(validation_rules);
+
 	// Slugify Title
 	$('#title').slugify({url:base_url + 'places/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 

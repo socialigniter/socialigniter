@@ -97,9 +97,11 @@ class Settings extends Oauth_Controller
 				'value'		=> $this->input->post('value')
         	);
        
-        	$update = $this->social_igniter->update_setting($this->get('id'), $widget_data);
+        	$this->social_igniter->update_setting($this->get('id'), $widget_data);
+			
+			$updated = $this->social_igniter->get_setting($this->get('id'));
 														
-            $message = array('status' => 'success', 'message' => 'Widget has been updated', 'data' => $update);
+            $message = array('status' => 'success', 'message' => 'Widget has been updated', 'data' => $updated);
 		}
 		else
 		{

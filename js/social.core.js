@@ -71,6 +71,41 @@ function cleanFieldEmpty(id, placeholder)
 	return false;
 }
 
+function makePlaceholders(validation_rules)
+{
+	$.each(validation_rules, function(key, item)
+	{
+		doPlaceholder(item.element, item.holder);
+	});
+	
+	return false;
+}
+
+function validationRules(validation_rules)
+{
+	var check_count = 0;
+	var valid_count = 0;
+	
+	$.each(validation_rules, function(key, item)
+	{			 
+		if (item.message != '')
+		{				
+			check_count++;
+			if (isFieldValid(item.element, item.holder, item.message) == true)
+			{
+				valid_count++;
+			}	
+		}
+	});
+	
+	if (check_count == valid_count)
+	{
+		return true;
+	}
+	
+	return false;
+}
+
 
 
 //For God's sake, disable autocomplete!
