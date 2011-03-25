@@ -15,23 +15,21 @@ $(document).ready(function()
 	$('#content_publish, #content_save').bind('click', function(eve)
 	{
 		eve.preventDefault();
-		
-		console.log('being called');
-		
+		$form = $('#<?= $form_name ?>');
+
 		// Validation	
 		if (validationRules(validation_rules))
 		{
-			console.log('shizzle is valid');
-		
-			// Strip Empty Fields
-			cleanFieldEmpty('#tags', "Gardening, Fruit, Vegetables");		
-		
-			var status		= $(this).attr('name');			
-			var form_data	= $('#<?= $form_name ?>').serializeArray();
-					
+			// Strip Empty
+			cleanAllFieldsEmpty(validation_rules);
+
+			var status		= $(this).attr('name');		
+			var form_data	= $form.serializeArray();
 			form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
-	
-			$('#<?= $form_name ?>').oauthAjax(
+
+			console.log(form_data);
+
+			$form.oauthAjax(
 			{
 				oauth 		: user_data,
 				url			: '<?= $form_url ?>',
@@ -39,16 +37,23 @@ $(document).ready(function()
 				dataType	: 'json',
 				data		: form_data,
 		  		success		: function(result)
-		  		{	
+		  		{		  		
 					$('html, body').animate({scrollTop:0});
 					$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+					
+					if (result.status == 'success')
+					{
+						console.log(result.data);
+					
+						var new_status = displayContentStatus(result.data.status, result.data.approval);
+						$('#content_status').html('<span class="actions action_' + new_status + '"></span> ' + new_status);	
+					}
 			 	}
-			});	
+			});
+				
 		}
 		else
-		{
-			console.log('shizzle is not valid');
-		
+		{		
 			eve.preventDefault();
 		}	
 	});

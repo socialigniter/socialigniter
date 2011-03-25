@@ -12,10 +12,10 @@ class Site extends Site_Controller
 		{
 			$page = $this->social_igniter->get_index_page();
 
-			$this->data['content_id']		= $page->content_id;
-			$this->data['page_title']		= $page->title;
-			$this->data['page_content']		= $page->content;
-			$this->data['comments_allow']	= $page->comments_allow;
+			$this->data['content_id']			= $page->content_id;
+			$this->data['page_title']			= $page->title;
+			$this->data['page_content']			= $page->content;
+			$this->data['comments_allow']		= $page->comments_allow;
 		}
 		else
 		{
@@ -26,14 +26,14 @@ class Site extends Site_Controller
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{
 			// Get Comments
-			$comments 						= $this->social_tools->get_comments_content($page->content_id);
-			$comments_count					= $this->social_tools->get_comments_content_count($page->content_id);
+			$comments 							= $this->social_tools->get_comments_content($page->content_id);
+			$comments_count						= $this->social_tools->get_comments_content_count($page->content_id);
 			
 			if ($comments_count)	$comments_title = $comments_count;
 			else					$comments_title = 'Write';
 
-			$this->data['comments_title']	= $comments_title;
-			$this->data['comments_list'] 	= $this->social_tools->render_comments_children($comments, '0', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
+			$this->data['comments_title']		= $comments_title;
+			$this->data['comments_list'] 		= $this->social_tools->render_comments_children($comments, '0', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
 
 			// Write
 			$this->data['comment_name']			= $this->session->flashdata('comment_name');
@@ -95,24 +95,24 @@ class Site extends Site_Controller
 		
 			if (!$page)	redirect(404);
 
-			$this->data['content_id']		= $page->content_id;
-			$this->data['page_title']		= $page->title;
-			$this->data['page_content']		= $page->content;
-			$this->data['comments_allow']	= $page->comments_allow;
+			$this->data['content_id']			= $page->content_id;
+			$this->data['page_title']			= $page->title;
+			$this->data['page_content']			= $page->content;
+			$this->data['comments_allow']		= $page->comments_allow;
 		}				
 		
 		// Comments Widget
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{
 			// Get Comments
-			$comments 						= $this->social_tools->get_comments_content($page->content_id);
-			$comments_count					= $this->social_tools->get_comments_content_count($page->content_id);
+			$comments 							= $this->social_tools->get_comments_content($page->content_id);
+			$comments_count						= $this->social_tools->get_comments_content_count($page->content_id);
 			
 			if ($comments_count)	$comments_title = $comments_count;
 			else					$comments_title = 'Write';
 
-			$this->data['comments_title']	= $comments_title;
-			$this->data['comments_list'] 	= $this->social_tools->render_comments_children($comments, '0');
+			$this->data['comments_title']		= $comments_title;
+			$this->data['comments_list'] 		= $this->social_tools->render_comments_children($comments, '0', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
 
 			// Write
 			$this->data['comment_name']			= $this->session->flashdata('comment_name');
@@ -146,6 +146,7 @@ class Site extends Site_Controller
 
 		$this->render();	
 	}
+	
 	
 	
 	/* Login Pages */
@@ -295,6 +296,13 @@ class Site extends Site_Controller
 	    $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
     	$this->render();
     }
+
+	function places()
+	{
+		$this->data['page_title'] = 'Doggy';
+		$this->render();
+	}
+
     
     // Page Not Found
     function error_404()

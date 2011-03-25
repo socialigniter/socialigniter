@@ -108,25 +108,18 @@ class Content extends Oauth_Controller
 
 	    $this->response($message, 200);
 	}
-        
     
-    /* PUT types */
     function modify_authd_post()
     {
     	$content = $this->social_igniter->get_content($this->get('id'));
     
 		// Access Rules
 	   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
-	   	
-    	$viewed			= 'Y';
-    	$approval		= 'A'; 
-   
+	   	   
     	$content_data = array(
     		'content_id'		=> $this->get('id'),
 			'parent_id'			=> $this->input->post('parent_id'),
 			'category_id'		=> $this->input->post('category_id'),
-			'module'			=> $this->input->post('module'),
-			'type'				=> $this->input->post('type'),
 			'order'				=> $this->input->post('order'),
 			'title'				=> $this->input->post('title'),
 			'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
@@ -136,18 +129,18 @@ class Content extends Oauth_Controller
 			'comments_allow'	=> $this->input->post('comments_allow'),
 			'geo_lat'			=> $this->input->post('geo_lat'),
 			'geo_long'			=> $this->input->post('geo_long'),
-			'viewed'			=> $viewed,
-			'approval'			=> $approval,
+			'viewed'			=> 'Y',
+			'approval'			=> 'Y',
 			'status'			=> form_submit_publish($this->input->post('status'))
     	);
-    									
+    	    									
 		// Insert
-		$update = $this->social_igniter->update_content($content_data, $this->oauth_user_id); 
-				 		     		
+		$update = $this->social_igniter->update_content($content_data, $this->oauth_user_id);
+
 	    if ($update)
 	    {
 			// Process Tags    
-			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);
+			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $this->get('id'));
 	    
         	$message = array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
         }
@@ -155,6 +148,8 @@ class Content extends Oauth_Controller
         {
 	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
         }
+        
+//    	$message = array('status' => 'debug', 'postdata' => $content_data, 'updatedata' => $update);
 
 	    $this->response($message, 200);
     }

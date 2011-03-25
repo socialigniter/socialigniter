@@ -107,7 +107,7 @@ class Social_igniter
     		// Has Title
     		if (($has_title) && ($data->title))
     		{	    		
-	    		if ($has_url)	$title_link = $type.' <a href="'.$data->url.'">'.$data->title.'</a>';
+	    		if ($has_url)	$title_link = $type.' <a href="'.$data->url.'">'.character_limiter($data->title, 25).'</a>';
 	    		else			$title_link = $data->title; 	
     		}
     		else

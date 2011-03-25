@@ -71,6 +71,16 @@ function cleanFieldEmpty(id, placeholder)
 	return false;
 }
 
+function cleanAllFieldsEmpty(validation_rules)
+{
+	$.each(validation_rules, function(key, item)
+	{
+		cleanFieldEmpty(item.element, item.holder);
+	});
+	
+	return false;
+}
+
 function makePlaceholders(validation_rules)
 {
 	$.each(validation_rules, function(key, item)
@@ -81,6 +91,8 @@ function makePlaceholders(validation_rules)
 	return false;
 }
 
+// Really simple validator... should add rules
+// If message is set it gets added to validate
 function validationRules(validation_rules)
 {
 	var check_count = 0;
@@ -487,7 +499,7 @@ function getMap(lat_long, element)
 	geocoder = new google.maps.Geocoder();
 	var myOptions =
 	{
-  		zoom				: 13,
+  		zoom				: 14,
   		center				: lat_long,
 		panControl			: false,
 		zoomControl			: true,

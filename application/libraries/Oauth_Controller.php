@@ -30,14 +30,14 @@ class Oauth_Controller extends Rest_Controller
         {
             if (!$this->social_auth->request_is_signed())
             {
-                return $this->response(array('status' => 'error', 'message' => 'Request is not signed.'), 401);
+                return $this->response(array('status' => 'error', 'message' => 'Request is not signed.'), 200);
             }
 
 	        $this->oauth_user_id = $this->social_auth->get_oauth_user_id();
 
             if (!$this->oauth_user_id)
             {
-                return $this->response(array('status' => 'error', 'message' => 'Invalid OAuth signature!'), 401);
+                return $this->response(array('status' => 'error', 'message' => 'Invalid OAuth signature!'), 200);
             }
             
             $method = $authd_method;

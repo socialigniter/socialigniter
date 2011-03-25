@@ -1,3 +1,46 @@
+	// Makes Word From content.status
+	function displayContentStatus(status, approval)
+	{
+		var result = '';
+		
+		if (approval != '')
+		{
+		    if (status == 'P' && approval == 'Y')
+		    {
+		    	result = 'published'; 
+		    }
+		    else if (status == 'P' && approval == 'N') 	
+		    {
+		    	result = 'awaiting approval';
+			}
+			else if (status == 'S' && approval == 'Y')
+			{
+				result = 'saved';	        
+			}
+			else
+			{
+				result = 'saved';
+			}
+		}
+		else
+		{
+		    if (status == 'P')
+		    {
+		    	result = 'published'; 
+		    }
+		    else if (status == 'S') 	
+		    {
+		    	result = 'saveddddd';
+			}
+			else
+			{
+				result = 'unpublished';	        
+			}	
+		}
+	
+		return result;
+	}
+
 $(document).ready(function()
 {
 	// Highlights New Item
@@ -47,27 +90,6 @@ $(document).ready(function()
 		});
 	}
 	
-	
-	// Makes Word From content.status
-	function displayContentStatus(status)
-	{
-		var result = '';
-	
-	    if (status == 'P')
-	    {
-	    	result = 'Published'; 
-	    }
-	    else if (status == 'S') 	
-	    {
-	    	result = 'Saved';
-		}
-		else if (status == 'U')
-		{
-			result = 'Unpublished';	        
-		}
-	
-		return result;
-	}
 
 	// Hide Things
 	$('.error').hide();

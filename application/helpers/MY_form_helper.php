@@ -16,11 +16,11 @@
 
 function form_submit_publish($status)
 {
-    if ($status == "Publish")
+    if ($status == "publish")
     {
     	$status = "P"; 
     }
-    elseif ($status == "Save") 	
+    elseif ($status == "save") 	
     {
     	$status = "S";		
 	}

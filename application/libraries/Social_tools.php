@@ -464,6 +464,11 @@ class Social_tools
 			return FALSE;
 		}
 	}
+	
+	function update_place($place_data)
+	{
+		return $this->ci->places_model->update_place($place_data);
+	}
 
 	/* Ratings */
 	function get_ratings()

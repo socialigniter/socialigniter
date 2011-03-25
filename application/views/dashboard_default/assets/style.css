@@ -163,7 +163,7 @@ div.stage_marker_on 		{ background: url(images/button_basic.png) 0 0 repeat-x; b
 span.stage_marker 			{ display: block; border: 1px solid #666666; color: #efefef; text-shadow:1px 1px 1px #555555; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; }
 
 /* Specific Pages */
-#content_status				{ color: #999999; font-style: italic; font-weight: bold; text-shadow:1px 1px 1px #ffffff; }
+#content_status				{ color: #999999; font-style: italic; font-weight: bold; text-shadow:1px 1px 1px #ffffff; text-transform: capitalize; }
 #content_status span		{ margin: 0 6px 0 0; }
 
 /* Publisher */

@@ -33,7 +33,7 @@ class Places extends Oauth_Controller
 		// Validation Rules
 	   	$this->form_validation->set_rules('address', 'Address', 'required');
 	   	$this->form_validation->set_rules('title', 'Title', 'required');
-	   	$this->form_validation->set_rules('content', 'Content', 'required');
+	   	$this->form_validation->set_rules('locality', 'City', 'required');
 
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
@@ -102,63 +102,69 @@ class Places extends Oauth_Controller
     
     function modify_authd_post()
     { 
-/*      
-    	$content = $this->social_igniter->get_content($this->get('id'));
-    
-		// Access Rules
-	   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
-	   	
-    	$viewed			= 'Y';
-    	$approval		= 'A'; 
-   
-    	$content_data = array(
-    		'content_id'		=> $this->get('id'),
-			'parent_id'			=> $this->input->post('parent_id'),
-			'category_id'		=> $this->input->post('category_id'),
-			'order'				=> $this->input->post('order'),
-			'title'				=> $this->input->post('title'),
-			'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
-			'content'			=> $this->input->post('content'),
-			'details'			=> $this->input->post('details'),
-			'access'			=> $this->input->post('access'),
-			'comments_allow'	=> $this->input->post('comments_allow'),
-			'geo_lat'			=> $this->input->post('geo_lat'),
-			'geo_long'			=> $this->input->post('geo_long'),
-			'viewed'			=> $viewed,
-			'approval'			=> $approval,
-			'status'			=> form_submit_publish($this->input->post('status'))
-    	);
-    									
-		// Insert
-		$update = $this->social_igniter->update_content($content_data, $this->oauth_user_id); 
-        
-	    if ($update)
+		// Validation Rules
+	   	$this->form_validation->set_rules('address', 'Address', 'required');
+	   	$this->form_validation->set_rules('title', 'Title', 'required');
+	   	$this->form_validation->set_rules('locality', 'City', 'required');
+
+		// Passes Validation
+	    if ($this->form_validation->run() == true)
 	    {
-			// Process Tags    
-			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);
-							
-			// Add Place
-			$place_data = array(
-				'content_id'	=> $result['content']->content_id,
-				'address'		=> $this->input->post('address'),
-				'district'		=> $this->input->post('district'),
-				'locality'		=> $this->input->post('locality'),
-				'region'		=> $this->input->post('region'),
-				'country'		=> $this->input->post('country'),
-				'postal'		=> $this->input->post('postal')
-			);
-			
-			$place = $this->social_tools->add_place($place_data);			
-			
+	    	$content = $this->social_igniter->get_content($this->get('id'));
 	    
-        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your place', 'data' => $update);
-        }
-        else
-        {
-	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to update this place');
-        }  
-*/              
-	    $message = array('status' => 'error', 'message' => 'You be right here');
+			// Access Rules
+		   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
+	   
+	    	$content_data = array(
+	    		'content_id'		=> $this->get('id'),
+				'parent_id'			=> $this->input->post('parent_id'),
+				'category_id'		=> $this->input->post('category_id'),
+				'order'				=> $this->input->post('order'),
+				'title'				=> $this->input->post('title'),
+				'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
+				'content'			=> $this->input->post('content'),
+				'details'			=> $this->input->post('details'),
+				'access'			=> $this->input->post('access'),
+				'comments_allow'	=> $this->input->post('comments_allow'),
+				'geo_lat'			=> $this->input->post('geo_lat'),
+				'geo_long'			=> $this->input->post('geo_long'),
+				'viewed'			=> 'Y',
+				'approval'			=> 'Y',
+				'status'			=> form_submit_publish($this->input->post('status'))
+	    	);
+	    									
+			// Update
+			$update = $this->social_igniter->update_content($content_data, $this->oauth_user_id); 
+	        
+		    if ($update)
+		    {
+				// Process Tags    
+				if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);
+								
+				// Add Place
+				$place_data = array(
+					'content_id'	=> $content->content_id,
+					'address'		=> $this->input->post('address'),
+					'district'		=> $this->input->post('district'),
+					'locality'		=> $this->input->post('locality'),
+					'region'		=> $this->input->post('region'),
+					'country'		=> $this->input->post('country'),
+					'postal'		=> $this->input->post('postal')
+				);
+				
+				$place = $this->social_tools->update_place($place_data);			
+				
+	        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your place', 'data' => $update, 'place' => $place_data);
+	        }
+	        else
+	        {
+		        $message = array('status' => 'error', 'message' => 'Oops, we were unable to update this place');
+	        }	
+		}
+		else 
+		{
+	        $message = array('status' => 'error', 'message' => validation_errors());
+		}
         
         $this->response($message, 200);
     }

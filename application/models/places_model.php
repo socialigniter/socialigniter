@@ -61,10 +61,10 @@ class Places_model extends CI_Model
     	}
     }
 
-    function update_places($place_id, $data)
+    function update_place($place_data)
     {
-		$this->db->where('place_id', $place_id);
-		$this->db->update('places', array('data' => $data));        
+		$this->db->where('content_id', $place_data['content_id']);
+		$this->db->update('places', $place_data);        
     }
     
 }

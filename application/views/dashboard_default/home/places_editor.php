@@ -14,7 +14,7 @@
 				<input type="text" name="region" id="region" class="input_mini" value="<?= $region ?>">
 				<input type="text" name="postal" id="postal" class="input_small" value="<?= $postal ?>">
 			</p>
-			<div id="place_country"><?= country_dropdown($country, config_item('countries')) ?></div>
+			<div id="place_country"><?= country_dropdown('country', config_item('countries'), $country) ?></div>
 			<a href="#" id="place_map_it">Map It</a>
 			<div class="clear"></div>
 		</div>
@@ -62,7 +62,6 @@
 <script type="text/javascript">
 
 // Elements for Placeholder
-// If message is set it gets added to validate
 var validation_rules = [{
 	'element' 	: '#title', 
 	'holder'	: 'Joes Oyster Shack', 
