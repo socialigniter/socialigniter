@@ -414,6 +414,43 @@ class Social_tools
 		
 		return TRUE;
 	}
+	
+	function make_comments_section($content_id, $type, $logged_user_id, $logged_user_level_id)
+	{
+		// Get Comments
+		$comments 							= $this->get_comments_content($content_id);
+		$comments_count						= $this->get_comments_content_count($content_id);
+		
+		if ($comments_count)	$comments_title = $comments_count;
+		else					$comments_title = 'Write';
+
+		$this->data['content_id']			= $content_id;
+		$this->data['comments_title']		= $comments_title;
+		$this->data['comments_list'] 		= $this->render_comments_children($comments, '0', $logged_user_id, $logged_user_level_id);
+
+		// Write
+		$this->data['comment_name']			= $this->ci->session->flashdata('comment_name');
+		$this->data['comment_email']		= $this->ci->session->flashdata('comment_email');
+		$this->data['comment_write_text'] 	= $this->ci->session->flashdata('comment_write_text');
+		$this->data['reply_to_id']			= $this->ci->session->flashdata('reply_to_id');
+		$this->data['comment_type']			= $type;
+		$this->data['geo_lat']				= $this->ci->session->flashdata('geo_lat');
+		$this->data['geo_long']				= $this->ci->session->flashdata('geo_long');
+		$this->data['comment_error']		= $this->ci->session->flashdata('comment_error');
+
+		// ReCAPTCHA Enabled
+		if ((config_item('comments_recaptcha') == 'TRUE') && (!$this->ci->social_auth->logged_in()))
+		{			
+			$this->load->library('recaptcha');
+			$this->data['recaptcha']		= $this->recaptcha->get_html();
+		}
+		else
+		{
+			$this->data['recaptcha']		= '';
+		}	
+	
+		return $this->ci->load->view(config_item('site_theme').'/partials/comments_view', $this->data, true);
+	}
 
 	function render_comments_children($comments, $reply_to_id, $user_id, $user_level_id)
 	{

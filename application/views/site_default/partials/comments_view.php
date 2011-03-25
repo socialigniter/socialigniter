@@ -1,3 +1,10 @@
+<div id="comments">
+	<h3><span id="comments_count"><?= $comments_title ?></span> Comments</h3>
+	
+	<ol id="comments_list">
+		<?php if($comments_list) echo $comments_list ?>
+	</ol>
+
 <form action="<?= $comments_post ?>" method="post" name="comments_write_form" id="<?= $comments_write_form ?>">
 	<?php if($this->social_auth->logged_in()): ?>
 	<a href="<?= $link_profile ?>"><span class="comment_thumbnail"><img src="<?= $logged_image ?>" border="0" /></span></a>
@@ -202,13 +209,9 @@ $(document).ready(function()
 					$('#comments_count').html(comment_count_updated);
 			 	}	
 		 	}
-		});		
-		
-		
-		
-		
+		});
 	});
-
 });
-
 </script>
+
+</div>

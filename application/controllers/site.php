@@ -21,42 +21,11 @@ class Site extends Site_Controller
 		{
 			redirect(404);
 		}					
-		
-		// Comments Widget
+				
+		// Comments
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{
-			// Get Comments
-			$comments 							= $this->social_tools->get_comments_content($page->content_id);
-			$comments_count						= $this->social_tools->get_comments_content_count($page->content_id);
-			
-			if ($comments_count)	$comments_title = $comments_count;
-			else					$comments_title = 'Write';
-
-			$this->data['comments_title']		= $comments_title;
-			$this->data['comments_list'] 		= $this->social_tools->render_comments_children($comments, '0', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
-
-			// Write
-			$this->data['comment_name']			= $this->session->flashdata('comment_name');
-			$this->data['comment_email']		= $this->session->flashdata('comment_email');
-			$this->data['comment_write_text'] 	= $this->session->flashdata('comment_write_text');
-			$this->data['reply_to_id']			= $this->session->flashdata('reply_to_id');
-			$this->data['comment_type']			= 'page';
-			$this->data['geo_lat']				= $this->session->flashdata('geo_lat');
-			$this->data['geo_long']				= $this->session->flashdata('geo_long');
-			$this->data['comment_error']		= $this->session->flashdata('comment_error');
-
-			// ReCAPTCHA Enabled
-			if ((config_item('comments_recaptcha') == 'TRUE') && (!$this->social_auth->logged_in()))
-			{			
-				$this->load->library('recaptcha');
-				$this->data['recaptcha']		= $this->recaptcha->get_html();
-			}
-			else
-			{
-				$this->data['recaptcha']		= '';
-			}
-
-			$this->data['comments_write']		= $this->load->view(config_item('site_theme').'/partials/comments_write', $this->data, true);
+			$this->data['comments_view'] = $this->social_tools->make_comments_section($page->content_id, 'page', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
 		}
 
 		// Load Login Is Enabled
@@ -101,41 +70,10 @@ class Site extends Site_Controller
 			$this->data['comments_allow']		= $page->comments_allow;
 		}				
 		
-		// Comments Widget
+		// Comments
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{
-			// Get Comments
-			$comments 							= $this->social_tools->get_comments_content($page->content_id);
-			$comments_count						= $this->social_tools->get_comments_content_count($page->content_id);
-			
-			if ($comments_count)	$comments_title = $comments_count;
-			else					$comments_title = 'Write';
-
-			$this->data['comments_title']		= $comments_title;
-			$this->data['comments_list'] 		= $this->social_tools->render_comments_children($comments, '0', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
-
-			// Write
-			$this->data['comment_name']			= $this->session->flashdata('comment_name');
-			$this->data['comment_email']		= $this->session->flashdata('comment_email');
-			$this->data['comment_write_text'] 	= $this->session->flashdata('comment_write_text');
-			$this->data['reply_to_id']			= $this->session->flashdata('reply_to_id');
-			$this->data['comment_type']			= 'page';
-			$this->data['geo_lat']				= $this->session->flashdata('geo_lat');
-			$this->data['geo_long']				= $this->session->flashdata('geo_long');
-			$this->data['comment_error']		= $this->session->flashdata('comment_error');
-
-			// ReCAPTCHA Enabled
-			if ((config_item('comments_recaptcha') == 'TRUE') && (!$this->social_auth->logged_in()))
-			{			
-				$this->load->library('recaptcha');
-				$this->data['recaptcha']		= $this->recaptcha->get_html();
-			}
-			else
-			{
-				$this->data['recaptcha']		= '';
-			}
-
-			$this->data['comments_write']		= $this->load->view(config_item('site_theme').'/partials/comments_write', $this->data, true);
+			$this->data['comments_view'] = $this->social_tools->make_comments_section($page->content_id, 'page', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
 		}
 
 		// Load Login Is Enabled
@@ -310,7 +248,7 @@ class Site extends Site_Controller
 		$this->data['page_title'] = 'Oops, Page Not Found';
     	$this->render();
     }
-    
+
     
     /* Widgets */
 	function widgets_sidebar()
@@ -319,6 +257,5 @@ class Site extends Site_Controller
 		{
 			$this->load->view('partials/widget_sidebar', $this->data);
 		}
-	
 	}
 }

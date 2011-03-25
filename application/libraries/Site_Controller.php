@@ -30,6 +30,7 @@ class Site_Controller extends MY_Controller
         $this->data['sidebar']				= '';
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
 		$this->data['message']				= $this->session->userdata('message');
+		$this->data['comments_view'] 		= '';
 
 		// If Modules Exist		
 		if ($this->modules_scan)
@@ -68,7 +69,7 @@ class Site_Controller extends MY_Controller
     }
 
     function render($layout='site')
-    {
+    {    
       	// Is Module
        	if ($this->module_name)
     	{
