@@ -104,6 +104,9 @@ $(document).ready(function()
 	// Slugify Title
 	$('#title').slugify({url:base_url + 'places/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
+	// Autocomplete Tags
+	autocomplete("[name=tags]", 'api/tags/all');
+
 	// Initialize Map
     var initial_place = new google.maps.LatLng(<?= $geo_lat ?>, <?= $geo_long ?>);	
 	getMap(initial_place, 'place_map_map');

@@ -413,7 +413,7 @@ class Home extends Dashboard_Controller
 		$this->load->view(config_item('dashboard_theme').'/partials/category_editor');
 	}
 	
-	/* Widget Editors */
+	/* Widget Editor */
 	function widget_editor()
 	{
 		if ($this->uri->segment(3)) $editor_type = $this->uri->segment(3);

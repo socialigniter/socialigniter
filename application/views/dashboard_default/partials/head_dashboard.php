@@ -39,4 +39,5 @@ var base_url 		= '<?= base_url() ?>';
 var current_module	= jQuery.url.segment(1);
 </script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/social.autocomplete.js"></script>
 <script type="text/javascript" src="<?= $dashboard_assets ?>dashboard.js"></script>

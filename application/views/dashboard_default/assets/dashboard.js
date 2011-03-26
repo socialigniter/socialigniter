@@ -1,46 +1,120 @@
-	// Makes Word From content.status
-	function displayContentStatus(status, approval)
+// Makes Word From content.status
+function displayContentStatus(status, approval)
+{
+	var result = '';
+	
+	if (approval != '')
 	{
-		var result = '';
-		
-		if (approval != '')
+	    if (status == 'P' && approval == 'Y')
+	    {
+	    	result = 'published'; 
+	    }
+	    else if (status == 'P' && approval == 'N') 	
+	    {
+	    	result = 'awaiting approval';
+		}
+		else if (status == 'S' && approval == 'Y')
 		{
-		    if (status == 'P' && approval == 'Y')
-		    {
-		    	result = 'published'; 
-		    }
-		    else if (status == 'P' && approval == 'N') 	
-		    {
-		    	result = 'awaiting approval';
-			}
-			else if (status == 'S' && approval == 'Y')
-			{
-				result = 'saved';	        
-			}
-			else
-			{
-				result = 'saved';
-			}
+			result = 'saved';	        
 		}
 		else
 		{
-		    if (status == 'P')
-		    {
-		    	result = 'published'; 
-		    }
-		    else if (status == 'S') 	
-		    {
-		    	result = 'saveddddd';
-			}
-			else
-			{
-				result = 'unpublished';	        
-			}	
+			result = 'saved';
 		}
-	
-		return result;
+	}
+	else
+	{
+	    if (status == 'P')
+	    {
+	    	result = 'published'; 
+	    }
+	    else if (status == 'S') 	
+	    {
+	    	result = 'saveddddd';
+		}
+		else
+		{
+			result = 'unpublished';	        
+		}	
 	}
 
+	return result;
+}
+
+// Gets Count of Feed Items
+function getCountNew(element)
+{
+	var request 		= $(element).attr('id');
+	var current_class	= $(element).attr('class');
+	var type			= $(element).attr('rel');
+	
+	$(this).oauthAjax(
+	{
+		oauth 		: user_data,		
+		url			: base_url + 'api/' + type + '/new',
+		type		: 'GET',
+		dataType	: 'json',
+	  	success		: function(result)
+	  	{	  	  	
+			if(result.status == 'success')
+			{	// Adds msg_notifation class to feed_count_new
+				$('#' + request).html(result.data).addClass(current_class + ' msg_notification');
+			}		  	
+	  	}		
+	});	
+}
+
+// Marks Item In Feed New
+function markNewItem(item_id)
+{
+	$('#' + item_id).addClass('item_created');
+	$('#' + item_id).oneTime(4000, function()
+	{
+		$('#' + item_id).removeClass('item_created').addClass('item');
+	});
+}
+
+
+/* Geo Location */
+function geo_get()
+{
+	if (navigator.geolocation)
+	{
+		return navigator.geolocation.getCurrentPosition(geo_success);
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function geo_success(position)
+{
+	//On success, if we have localStorage (IE8,Opera,FF,WebKit,iPhone,etc)
+	//we'll store their location in localStorage so we can get it whenever
+	current_time = new Date().getTime();
+	hours_ago = (current_time/1000/60/60)-(localStorage.getItem('geo_date')/1000/60/60);
+	//If it's been more than 3hrs save it, otherwise, nevermind.
+	if(hours_ago >= 3)
+	{
+		if(localStorage)
+		{
+			localStorage.setItem('geo_lat',position.coords.latitude);
+			localStorage.setItem('geo_long',position.coords.longitude);
+			localStorage.setItem('geo_date',current_time);
+		}
+	}
+}
+
+
+//Initial get, use it elsewhere to update location
+$(window).load(function()
+{
+	geo_get();
+});
+
+
+// On Ready
 $(document).ready(function()
 {
 	// Highlights New Item
@@ -55,41 +129,6 @@ $(document).ready(function()
 
 	// Generates Uniform
 	$("select, input:checkbox, input:radio, input:file").uniform();
-	
-	
-	// Gets Count of Feed Items
-	function getCountNew(element)
-	{
-		var request 		= $(element).attr('id');
-		var current_class	= $(element).attr('class');
-		var type			= $(element).attr('rel');
-		
-		$(this).oauthAjax(
-		{
-			oauth 		: user_data,		
-			url			: base_url + 'api/' + type + '/new',
-			type		: 'GET',
-			dataType	: 'json',
-		  	success		: function(result)
-		  	{	  	  	
-				if(result.status == 'success')
-				{	// Adds msg_notifation class to feed_count_new
-					$('#' + request).html(result.data).addClass(current_class + ' msg_notification');
-				}		  	
-		  	}		
-		});	
-	}
-	
-	// Marks Item In Feed New
-	function markNewItem(item_id)
-	{
-		$('#' + item_id).addClass('item_created');
-		$('#' + item_id).oneTime(4000, function()
-		{
-			$('#' + item_id).removeClass('item_created').addClass('item');
-		});
-	}
-	
 
 	// Hide Things
 	$('.error').hide();
@@ -283,44 +322,7 @@ $(document).ready(function()
 				}
 		  	}		
 		});			
-	});		
-	
-	/* Geolocation */
-	function geo_get()
-	{
-		if (navigator.geolocation)
-		{
-			return navigator.geolocation.getCurrentPosition(geo_success);
-		}
-		else{
-			return false;
-		}
-	}
-	
-	function geo_success(position)
-	{
-		//On success, if we have localStorage (IE8,Opera,FF,WebKit,iPhone,etc)
-		//we'll store their location in localStorage so we can get it whenever
-		current_time = new Date().getTime();
-		hours_ago = (current_time/1000/60/60)-(localStorage.getItem('geo_date')/1000/60/60);
-		//If it's been more than 3hrs save it, otherwise, nevermind.
-		if(hours_ago >= 3)
-		{
-			if(localStorage)
-			{
-				localStorage.setItem('geo_lat',position.coords.latitude);
-				localStorage.setItem('geo_long',position.coords.longitude);
-				localStorage.setItem('geo_date',current_time);
-			}
-		}
-	}
-	
-	//Initial get, use it elsewhere to update location
-	$(window).load(function()
-	{
-//		geo_get();
 	});
-	/* End Geolocation stuff */
 	
 	
 	/* Start the comment functionality */

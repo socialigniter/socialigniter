@@ -62,6 +62,9 @@ $(document).ready(function()
 	// Slugify
 	$('#title').slugify({url:base_url + 'pages/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
+	// Autocomplete Tags
+	autocomplete("[name=tags]", 'api/tags/all');
+
 	// Add Category
 	$('[name=category_id]').change(function()
 	{	

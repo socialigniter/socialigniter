@@ -95,20 +95,20 @@ class Dashboard_Controller extends MY_Controller
 		}
 		// Module but uses 'home activity feed' like '/home/blog'
 		elseif (($this->uri->segment(1) == 'home') && (in_array($this->uri->segment(2), $this->modules_scan)))
-		{
-			$this->data['modules_assets'] = base_url().'application/modules/'.$module_name.'/assets/';
-					
-			$first_name				= $this->uri->segment(1);
+		{					
 			$module_name 			= $this->uri->segment(2);
+			
+			$this->data['modules_assets'] = base_url().'application/modules/'.$module_name.'/assets/';        
+        
         	$navigation_path		= '../modules/'.$module_name.'/views/partials/navigation_home.php';
     	    $content_path 			= config_item('dashboard_theme').'/home/module.php';
 		}
 		elseif (($this->uri->segment(1) == 'home') && (in_array($this->uri->segment(2), $this->modules_scan)))
-		{
-			$this->data['modules_assets'] = base_url().'application/modules/'.$module_name.'/assets/';
-		
-			$first_name				= $this->uri->segment(1);
+		{		
 			$module_name 			= $this->uri->segment(2);
+
+			$this->data['modules_assets'] = base_url().'application/modules/'.$module_name.'/assets/';
+			        
         	$navigation_path		= '../modules/'.$module_name.'/views/partials/navigation_home.php';
     	    $content_path 			= config_item('dashboard_theme').'/home/module.php';
 		}
@@ -121,8 +121,6 @@ class Dashboard_Controller extends MY_Controller
 		// Comments, Locations, and Pages *Kind of nasty solution but works. Should perhaps be rethought in the future
 		elseif ($this->uri->segment(2) == 'comments')
 		{
-			// Need to add a way to drilldown through Comments. One idea is a dropdown menu... but breaks nav style
-			// Without dropdown runs the risk of being too many modules and totally ruining the nav
 	        $navigation_path 		= config_item('dashboard_theme').'/partials/navigation_comments.php';
         	$content_path 			= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
 		}
