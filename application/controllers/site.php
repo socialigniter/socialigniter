@@ -25,7 +25,17 @@ class Site extends Site_Controller
 		// Comments
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{
-			$this->data['comments_view'] = $this->social_tools->make_comments_section($page->content_id, 'page', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
+			// ReCaptcha
+			$recaptcha_config = array(
+				'recaptcha_public'	=> config_item('services_recaptcha_public'),
+				'recaptcha_private' => config_item('services_recaptcha_private'),
+				'recaptcha_theme'	=> config_item('services_recaptcha_theme'),
+				'site_theme'		=> config_item('site_theme')
+			);
+	
+	    	$this->load->library('recaptcha');
+				
+			$this->data['comments_view'] = $this->social_tools->make_comments_section($page->content_id, 'page', $this->data['logged_user_id'], $this->data['logged_user_level_id'], $recaptcha_config);
 		}
 
 		// Load Login Is Enabled

@@ -69,7 +69,7 @@ class Site_Controller extends MY_Controller
     }
 
     function render($layout='site')
-    {    
+    {
       	// Is Module
        	if ($this->module_name)
     	{
