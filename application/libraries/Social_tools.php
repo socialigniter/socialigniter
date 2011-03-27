@@ -415,7 +415,7 @@ class Social_tools
 		return TRUE;
 	}
 	
-	function make_comments_section($content_id, $type, $logged_user_id, $logged_user_level_id, $recaptcha)
+	function make_comments_section($content_id, $type, $logged_user_id, $logged_user_level_id)
 	{
 		// Get Comments
 		$comments 							= $this->get_comments_content($content_id);
@@ -441,7 +441,11 @@ class Social_tools
 		// ReCAPTCHA Enabled
 		if ((config_item('comments_recaptcha') == 'TRUE') && (!$this->ci->social_auth->logged_in()))
 		{
-			$this->data['recaptcha']		= $this->ci->recaptcha->get_html($recaptcha);
+
+	
+	    	$this->ci->load->library('recaptcha');
+		
+			$this->data['recaptcha']		= $this->ci->recaptcha->get_html();
 		}
 		else
 		{

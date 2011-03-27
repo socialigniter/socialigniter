@@ -45,7 +45,7 @@ class Recaptcha
 	function __construct()
 	{	
 		$this->ci =& get_instance();
-	    $this->ci->lang->load('recaptcha');
+	    $this->ci->lang->load('recaptcha');    
 	    
 	    log_message('info', $this->ci->lang->line('recaptcha_class_initialized'));
 	}
@@ -111,11 +111,11 @@ class Recaptcha
     *  @param boolean $use_ssl Should the request be made over ssl? (optional, default is false)
     *  @return string - The HTML to be embedded in the user's form.
     */
-	function get_html($recaptcha_config, $lang='en', $use_ssl=false) 
+	function get_html($lang='en', $use_ssl=false) 
 	{
 		log_message('debug','Recaptcha::get_html('.$use_ssl.')');
 		
-		if ($recaptcha_config['recaptcha_public'] == '') 
+		if (config_item('services_recaptcha_public') == '') 
 		{
 			log_message('error', 'no private key '.$this->ci->lang->line('recaptcha_no_private_key'));
 			return $this->ci->lang->line('recaptcha_html_error');
@@ -139,14 +139,14 @@ class Recaptcha
 		
 		$html_data = array(
 			'server'	=> $server,
-			'key'		=> $recaptcha_config['recaptcha_public'],
-			'theme'		=> $recaptcha_config['recaptcha_theme'],
+			'key'		=> config_item('services_recaptcha_public'),
+			'theme'		=> config_item('services_recaptcha_private'),
 			'lang'		=> $lang,
 			'errorpart' => $errorpart
 		);
 		
 		//load a view - more configurable than embedding HTML in the library
-		return $this->ci->load->view($recaptcha_config['site_theme'].'/partials/recaptcha', $html_data, TRUE); 
+		return $this->ci->load->view(config_item('site_theme').'/partials/recaptcha', $html_data, TRUE); 
 	}
   
    /* gets a URL where the user can sign up for reCAPTCHA. If your application
