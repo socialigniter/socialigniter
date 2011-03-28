@@ -31,6 +31,7 @@ $lang['verbs']['rsvp-no'] 				= 'is not going to attend';
 $lang['verbs']['comment']				= 'commented';
 $lang['verbs']['purchase']				= 'purchased';
 $lang['verbs']['download']				= 'downloaded';
+$lang['verbs']['checkin']				= 'checked in at';
 
 // Social Igniter Object Articles
 $lang['object_articles']['article']		= 'an';
@@ -57,7 +58,6 @@ $lang['object_articles']['status']		= '';
 $lang['object_articles']['video']		= 'a';
 $lang['object_articles']['event']		= 'an';
 $lang['object_articles']['page'] 		= 'the';
-
 
 // ActivitySteams Object Types
 $lang['object_types']['article']		= 'article';
