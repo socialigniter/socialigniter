@@ -90,10 +90,14 @@ class Users extends Oauth_Controller
     
     function set_userdata_signup_email_post()
 	{
+        log_message('debug', 'AHHHHH At Top Of Shizzle');
+
     	$this->form_validation->set_rules('signup_email', 'Email Address', 'required|valid_email');
 
         if ($this->form_validation->run() == true)
         {
+        	log_message('debug', 'AHHHHH Inside Validator');
+        
         	$email = $this->input->post('signup_email');
 
 			if ($user = $this->social_auth->get_user('email', $email))
@@ -110,6 +114,8 @@ class Users extends Oauth_Controller
         } 
 		else
 		{ 
+        	log_message('debug', 'AHHHHH Not valid');
+
 			$message = array('message' => 'Oops '.validation_errors());
         }
         
