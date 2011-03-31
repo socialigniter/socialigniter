@@ -535,6 +535,13 @@ class Social_igniter
 		return $this->ci->activity_model->get_timeline($where, $limit);
 	}
 	
+	function get_timeline_user_view($user_id, $parameter, $value, $limit)
+	{
+		$where = array('activity.user_id' => $user_id, 'activity.'.$parameter => $value);
+	
+		return $this->ci->activity_model->get_timeline($where, $limit);
+	}
+	
 	function get_activity($activity_id)
 	{
 		return $this->ci->activity_model->get_activity($activity_id);
