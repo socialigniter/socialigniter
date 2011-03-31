@@ -68,7 +68,7 @@ function getCountNew(element)
 function markNewItem(item_id)
 {
 	$('#' + item_id).addClass('item_created');
-	$('#' + item_id).oneTime(4000, function()
+	$('#' + item_id).oneTime(18000, function()
 	{
 		$('#' + item_id).removeClass('item_created').addClass('item');
 	});

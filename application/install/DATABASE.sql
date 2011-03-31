@@ -92,9 +92,9 @@ CREATE TABLE `content` (
   PRIMARY KEY (`content_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index', 'E', 'Y', 3, NULL, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '2010-12-06 00:45:45');
-INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 2, 1, 'Contact', 'contact', 'Please contact us', 'site', NULL, 'N', 0, NULL, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site', 'S', 'A', 0, NULL, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '2010-12-06 00:59:42');
+INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index', 'E', 'Y', 3, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '2010-12-06 00:45:45');
+INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 2, 1, 'Contact', 'contact', 'Please contact us', 'site', NULL, 'N', 0, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site', 'S', 'A', 0, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '2010-12-06 00:59:42');
 
 CREATE TABLE `content_meta` (
   `content_meta_id` int(11) unsigned NOT NULL AUTO_INCREMENT,

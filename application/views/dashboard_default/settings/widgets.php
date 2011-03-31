@@ -121,10 +121,6 @@ $(document).ready(function()
 	
 	// Edit Partial
 	var edit_html = '<p>Oops, something went wrong! Close and try again in a few seconds.</p>';
-	$.get(base_url + 'home/widget_editor/standard',function(html)
-	{		
-		edit_html = html;
-	});
 
     // Edit Event
     $('.widget_edit').click(function(eve)
@@ -132,56 +128,72 @@ $(document).ready(function()
     	eve.preventDefault();
 		var settings_id = $(this).attr('href');
 		
+/*		
+		$.modalMaker({
+			'partial'	: '',
+			'api'		: '',
+			'template'	: {
+				'{TITLE}'	: 
+			}
+		});
+*/				
 		$.get(base_url + 'api/settings/setting/id/' + settings_id, function(json)
 		{
 			var widget = jQuery.parseJSON(json.data.value);
-			     
-			edit_html = $('<div />').html(edit_html).find('textarea').val(widget.content).end();
-			$('<div />').html(edit_html).dialog(
+
+			$.get(base_url + 'home/widget_editor/' + widget.editor,function(html)
 			{
-				width	: 450,
-				modal	: true,
-				title	: widget.name,
-				create	: function()
+				edit_html = html;
+
+				edit_html = $('<div />').html(edit_html).find('textarea').val(widget.content).end();
+				edit_html = $('<div />').html(edit_html).find('input').val(widget.title).end();
+
+				$('<div />').html(edit_html).dialog(
 				{
-					//Here we save "this" dialog so we can reference it in "sub scopes"
-					$parent_dialog = $(this);               
-				},
-				buttons:
-				{
-					'Save':function()
+					width	: 450,
+					modal	: true,
+					title	: widget.name,
+					create	: function()
 					{
-						var widget_data = $('#widget_setting').serializeArray();
-						//widget_data.push({'name':'module','value':'users'});		
-					
-					    //var $setting_dialog = $(this);
-					
-						$(this).find('form').oauthAjax(
+						//Here we save "this" dialog so we can reference it in "sub scopes"
+						$parent_dialog = $(this);               
+					},
+					buttons:
+					{
+						'Save':function()
 						{
-							oauth 		: user_data,
-							url			: base_url + 'api/settings/modify/id/' + settings_id,
-							type		: 'POST',
-							dataType	: 'json',
-							data		: widget_data,
-					  		success		: function(result)
-					  		{
-					  			if (result.status == 'success')
-					  			{
-									$(this).dialog('close');
-								}
-								else
-								{
-									alert('Could not save');
-								}	
-						 	}
-						});				  
-				  },			
-				  'Close':function()
-				  {
-				  	$(this).dialog('close');
-				  }
-				}			
-	    	});
+							var widget_data = $('#widget_setting').serializeArray();
+							//widget_data.push({'name':'module','value':'users'});		
+						
+						    //var $setting_dialog = $(this);
+						
+							$(this).find('form').oauthAjax(
+							{
+								oauth 		: user_data,
+								url			: base_url + 'api/settings/modify/id/' + settings_id,
+								type		: 'POST',
+								dataType	: 'json',
+								data		: widget_data,
+						  		success		: function(result)
+						  		{
+						  			if (result.status == 'success')
+						  			{
+										$(this).dialog('close');
+									}
+									else
+									{
+										alert('Could not save');
+									}	
+							 	}
+							});				  
+					  },			
+					  'Close':function()
+					  {
+					  	$(this).dialog('close');
+					  }
+					}			
+		    	});
+			});
 	    });
 	});
        

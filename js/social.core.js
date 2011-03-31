@@ -471,9 +471,9 @@ $(function(){ $('input').attr('autocomplete','off'); });
     		template:{},
     		callback:function() {}
   		}
-  		
+
 		var settings = $.extend(defaults,options);
-		
+
 		$.get(settings.partial, function(html)
 		{
 			var modal_html = html;

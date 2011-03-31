@@ -161,14 +161,14 @@ class Users extends Oauth_Controller
 					// Upload & Sizes
 					$file_data		= $this->upload->data();
 					$image_sizes	= array('full', 'large', 'medium', 'small');
-					$create_path	= config_item('users_images_folder').$user->user_id.'/';
-					
-					// Do Resizes					
-					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);										
-					
-					// Delete Upload
-					$file_data['deleted'] = unlink(config_item('uploads_folder').$file_data['file_name']);
-					$user_picture = $file_data['file_name'];		
+	
+					// Process New Images
+					$image_size 	= getimagesize(config_item('uploads_folder').$image_save);
+					$file_data		= array('file_name'	=> $image_save, 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
+					$image_sizes	= array('full', 'large', 'medium', 'small');
+					$create_path	= config_item('users_images_folder').$user_id.'/';
+	
+					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
 				}	
 			}
 	*/
