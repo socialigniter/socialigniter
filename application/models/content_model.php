@@ -7,7 +7,6 @@ class Content_model extends CI_Model {
         parent::__construct();
     }
 
-	/* The 'content' Table */
     function check_content_duplicate($user_id, $title, $content)
     {
  		$this->db->select('*');

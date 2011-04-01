@@ -440,5 +440,10 @@ class Home extends Dashboard_Controller
 	
 		$this->load->view(config_item('dashboard_theme').'/partials/widget_editor_'.$editor_type);
 	}
+	
+	function widget_add()
+	{
+		$this->load->view(config_item('dashboard_theme').'/partials/widget_editor_add');		
+	}
 
 }

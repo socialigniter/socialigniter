@@ -1,9 +1,10 @@
 <ul id="available_widgets"></ul>
 
-<h3>Layout</h3>
 <div id="layout_options">
+<h3>Layout</h3>
+
 <?php foreach ($layouts as $layout): ?>
-	<a id="layout_<?= $layout ?>" class="layout_picker" href="#"><?= display_nice_file_name($layout) ?></a>
+	<a id="layout_<?= $layout ?>" class="layout_picker <?php if ($layout == $layout_selected) echo 'layout_selected'; ?>" href="#"><?= display_nice_file_name($layout) ?></a>
 <?php endforeach; ?>
 </div>
 <div class="clear"></div>
@@ -68,27 +69,6 @@
 <script type="text/javascript">
 $(document).ready(function()
 {
-	// Add Widget
-	$('.widget_add').live('click', function()
-	{	
-		var location = $(this).attr('rel');
-
-		$.get(base_url+'api/settings/module/widgets', function(result)
-		{		
-			$.each(result.data, function()
-			{							
-				if (this.setting == location)
-				{		
-					var widget = jQuery.parseJSON(this.value);
-
-					$("<li></li>").html(widget.name).appendTo('#available_widgets');
-				}
-			});
-			
-			alert('ADD A ' + location + ' WIDGET NOW! Pick one of these: ');
-		});
-	});
-
 	// Draggable	
 	$('.widget_border').sortable(
 	{	
@@ -126,37 +106,105 @@ $(document).ready(function()
 			}
 		}
 	});	
-	
-	// Edit Partial
-	var edit_html = '<p>Oops, something went wrong! Close and try again in a few seconds.</p>';
 
+	// Error Partial
+	var partial_html = '<p>Oops, something went wrong! Close and try again in a few seconds.</p>';	
+	
+	// Add Widget
+	$('.widget_add').live('click', function()
+	{	
+		var widget_location = $(this).attr('rel');
+
+		$.get(base_url+'api/settings/module/widgets', function(result)
+		{					
+			$.get(base_url + 'home/widget_add',function(html)
+			{
+				partial_html = html;
+			
+				$.each(result.data, function()
+				{
+					if (this.setting == widget_location)
+					{		
+						var widget = jQuery.parseJSON(this.value);
+	
+						//$("<li></li>").html(widget.name).appendTo('#available_widgets');
+						console.log('widget ' + this.setting);
+	
+						partial_html = $('<div />').html(partial_html).find('#widgets_available').append('<li>' + widget.name + ' <a class="widget_edit" href=""><span class="actions action_edit"></span>Add</a></li>').end();
+
+					}
+				});
+
+				$('<div />').html(partial_html).dialog(
+				{
+					width	: 375,
+					modal	: true,
+					title	: 'Add ' + widget_location + ' Widget',
+					create	: function()
+					{
+						//Here we save "this" dialog so we can reference it in "sub scopes"
+						$parent_dialog = $(this);               
+					},
+					buttons:
+					{
+						'Save':function()
+						{
+							var widget_data = $('#widget_setting').serializeArray();
+							//widget_data.push({'name':'module','value':'users'});		
+						
+						    //var $setting_dialog = $(this);
+						
+							$(this).find('form').oauthAjax(
+							{
+								oauth 		: user_data,
+								url			: base_url + 'api/settings/modify/id/' + settings_id,
+								type		: 'POST',
+								dataType	: 'json',
+								data		: widget_data,
+						  		success		: function(result)
+						  		{
+						  			if (result.status == 'success')
+						  			{
+										$(this).dialog('close');
+									}
+									else
+									{
+										alert('Could not save');
+									}	
+							 	}
+							});				  
+					  },			
+					  'Close':function()
+					  {
+					  	$(this).dialog('close');
+					  }
+					}			
+		    	});			
+			
+			
+			});
+			
+			//alert('ADD A ' + location + ' WIDGET NOW! Pick one of these: ');
+		});
+	});	
+	
     // Edit Event
     $('.widget_edit').click(function(eve)
     {
     	eve.preventDefault();
 		var settings_id = $(this).attr('href');
-		
-/*		
-		$.modalMaker({
-			'partial'	: '',
-			'api'		: '',
-			'template'	: {
-				'{TITLE}'	: 
-			}
-		});
-*/				
+				
 		$.get(base_url + 'api/settings/setting/id/' + settings_id, function(json)
 		{
 			var widget = jQuery.parseJSON(json.data.value);
 
 			$.get(base_url + 'home/widget_editor/' + widget.editor,function(html)
 			{
-				edit_html = html;
+				partial_html = html;
+				partial_html = $('<div />').html(partial_html).find('textarea').val(widget.content).end();
+				partial_html = $('<div />').html(partial_html).find('input').val(widget.title).end();
 
-				edit_html = $('<div />').html(edit_html).find('textarea').val(widget.content).end();
-				edit_html = $('<div />').html(edit_html).find('input').val(widget.title).end();
-
-				$('<div />').html(edit_html).dialog(
+				$('<div />').html(partial_html).dialog(
 				{
 					width	: 450,
 					modal	: true,

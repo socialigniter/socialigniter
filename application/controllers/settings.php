@@ -111,7 +111,8 @@ class Settings extends Dashboard_Controller
 	{
 		$this->data['sub_title'] 		= 'Widgets';
 		$this->data['this_module']		= 'widgets';
-		$this->data['layouts']			= $this->social_igniter->scan_layouts(config_item('site_theme'));		
+		$this->data['layouts']			= $this->social_igniter->scan_layouts(config_item('site_theme'));
+		$this->data['layout_selected']	= 'site';	
 		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 
 		// Build Widget Arrays
