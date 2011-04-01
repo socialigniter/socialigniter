@@ -1,4 +1,4 @@
-<?php if ($social_post = $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>')): ?>
+<?php if ($social_post = $this->social_igniter->get_social_post($this->session->userdata('user_id'), 'social_post')): ?>
 <h3>Share</h3>
 <?= $social_post ?>
 <?php endif; ?>
@@ -25,7 +25,7 @@ $(document).ready(function()
 
 			var status		= $(this).attr('name');		
 			var form_data	= $form.serializeArray();
-			form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
+			form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'type','value':'<?= $form_type ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
 
 			console.log(form_data);
 
