@@ -140,7 +140,7 @@ class Site extends Site_Controller
         
         $logout = $this->social_auth->logout();
 			    
-        redirect(base_url(), 'refresh');
+        redirect($this->session->userdata('previous_page'), 'refresh');
     }
     
     function signup()

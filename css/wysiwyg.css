@@ -10,7 +10,7 @@
 #wysiwyg_media a { margin: 0px 10px 0px 0px; }
 
 /* CSS for WYSIWYG editor */
-div.wysiwyg { border: 1px solid #ccc; padding: 5px; background-color: #fff; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+div.wysiwyg { border: 1px solid #ccc; margin: 0 0 20px 0 !important; padding: 5px; background-color: #fff; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 div.wysiwyg * { margin: 0; padding: 0; }
 
 div.wysiwyg ul.toolbar { width: 100%; border-bottom: 1px solid #ccc; float: left; padding: 3px 0 7px 0; margin: 0; }

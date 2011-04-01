@@ -6,7 +6,7 @@ class Home extends Dashboard_Controller
         parent::__construct();
     }
  
- 	// Home Feed
+ 	/* Home Feed - All modules when URL is 'home/blog' this method shows all activity for specified module */
  	function index()
  	{
  		$timeline		= NULL;
@@ -94,12 +94,57 @@ class Home extends Dashboard_Controller
 		$this->render();
  	}
 	
-	function view()
+ 	/* Manage - All modules base manage page when URL is 'home/blog/manage' this method shows all 'content' from specified module */
+	function manage()
 	{
-		$this->render();
-	}
+		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2), 'all');
+		$manage_view 		= NULL;
 
-	// Dashboard Comments
+		// Title Stuff
+		$this->data['page_title']	= ucwords($this->uri->segment(2));
+		$this->data['sub_title']	= 'Manage';
+		
+		if (!empty($content_module))
+		{		 
+			foreach($content_module as $content)
+			{
+				$this->data['item_id'] 				= $content->content_id;
+				$this->data['item_type']			= $content->type;
+				$this->data['item_viewed']			= item_viewed('item_manage', $content->viewed);
+	
+				$this->data['title']				= item_title($content->title, $content->type);
+				$this->data['title_link']			= base_url().$content->module.'/view/'.$content->content_id;
+				$this->data['comments_count']		= manage_comments_count($content->comments_count);
+				$this->data['publish_date']			= manage_published_date($content->created_at, $content->updated_at);
+				
+				// MAKE FOR CHECK RELVANT TO USER_LEVEL
+				$this->data['item_status']			= display_content_status($content->status);
+				$this->data['item_approval']		= $content->approval;
+	
+				// Alerts
+				$this->data['item_alerts']			= item_alerts_content($content);			
+				
+				// Actions
+				$this->data['item_approve']			= base_url().'api/content/approve/id/'.$content->content_id;
+				$this->data['item_edit']			= base_url().'home/'.$content->module.'/manage/'.$content->content_id;
+				$this->data['item_delete']			= base_url().'api/content/destroy/id/'.$content->content_id;
+				
+				// View
+				$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);
+			}	
+		}
+	 	else
+	 	{
+	 		$manage_view = '<li>Nothing to manage from anyone!</li>';
+ 		}
+
+		// Final Output
+		$this->data['timeline_view'] 	= $manage_view;				
+		
+		$this->render('dashboard_wide');
+	}	
+
+	/* Dashboard Comments */
  	function comments()
  	{
  	    $this->data['page_title'] 	= "Comments";
@@ -161,6 +206,12 @@ class Home extends Dashboard_Controller
 		
 		$this->data['comments_view'] = $comments_view;	
 				
+		$this->render();
+	}
+	
+	/* Exists for home status click??? */
+	function view()
+	{
 		$this->render();
 	}
 	
@@ -249,14 +300,25 @@ class Home extends Dashboard_Controller
 			if (!$page) redirect(base_url().'home/error');			
 							
 			// Non Form Fields
+			$this_page_id					= $page->content_id;
 			$this->data['sub_title']		= $page->title;
 			$this->data['form_url']			= base_url().'api/content/modify/id/'.$this->uri->segment(4);
 			
 			// Form Fields
 			$this->data['title'] 			= $page->title;
 			$this->data['title_url'] 		= $page->title_url;
+			
+			if ($page->details == 'site')
+			{
+				$this->data['slug_pre']		= base_url().'pages/';
+			}
+			else
+			{
+				$this->data['slug_pre']		= base_url().'';
+			}
+			
 			$this->data['wysiwyg_value']	= $page->content;
-			$this->data['category_id']		= $page->category_id;
+			$this->data['parent_id']		= $page->parent_id;
 			$this->data['details'] 			= $page->details;
 			$this->data['access']			= $page->access;
 			$this->data['comments_allow']	= $page->comments_allow;
@@ -267,16 +329,18 @@ class Home extends Dashboard_Controller
 		else
 		{		
 			// Non Form Fields
+			$this_page_id					= 0;
 			$this->data['sub_title']		= 'Create';
 			$this->data['form_url']			= base_url().'api/content/create';
 			
 			// Form Fields
 			$this->data['title'] 			= '';
 			$this->data['title_url']		= '';
+			$this->data['slug_pre']			= base_url().'pages';
 			$this->data['layouts']			= '';
 			$this->data['wysiwyg_value']	= $this->input->post('content');
-			$this->data['category_id']		= '';
-			$this->data['details'] 			= '';			
+			$this->data['parent_id']		= '';
+			$this->data['details'] 			= 'site';			
 			$this->data['access']			= 'E';
 			$this->data['comments_allow']	= '';
 			$this->data['geo_lat']			= '';
@@ -284,73 +348,26 @@ class Home extends Dashboard_Controller
 			$this->data['status']			= display_content_status('U');
 		}
 	
-		$this->data['layouts']				= $this->social_igniter->scan_layouts(config_item('site_theme'));
-
-		$this->data['wysiwyg_name']			= 'content';
-		$this->data['wysiwyg_id']			= 'wysiwyg_content';
-		$this->data['wysiwyg_class']		= 'wysiwyg_norm_full';
-		$this->data['wysiwyg_width']		= 640;
-		$this->data['wysiwyg_height']		= 300;
-		$this->data['wysiwyg_resize']		= TRUE;
-		$this->data['wysiwyg_media']		= TRUE;			
-		$this->data['wysiwyg']	 			= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);
+		// WYSIWYG for 'pages'
+		if ($this->data['details'] == 'site')
+		{
+			$this->data['wysiwyg_name']		= 'content';
+			$this->data['wysiwyg_id']		= 'wysiwyg_content';
+			$this->data['wysiwyg_class']	= 'wysiwyg_norm_full';
+			$this->data['wysiwyg_width']	= 640;
+			$this->data['wysiwyg_height']	= 300;
+			$this->data['wysiwyg_resize']	= TRUE;
+			$this->data['wysiwyg_media']	= TRUE;			
+			$this->data['wysiwyg']	 		= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);
+		}
 		
 		$this->data['form_module']			= 'pages';
 		$this->data['form_type']			= 'page';		
 		$this->data['form_name']			= 'pages_editor';		
-		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown('module', 'pages', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));	
+		$this->data['parent_pages'] 		= $this->social_igniter->make_pages_dropdown($this_page_id);
 	 	$this->data['content_publisher'] 	= $this->load->view(config_item('dashboard_theme').'/partials/content_publisher', $this->data, true);
 
  		$this->render('dashboard_wide');
-	}	
-	
-	function manage()
-	{
-		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2), 'all');
-		$manage_view 		= NULL;
-
-		// Title Stuff
-		$this->data['page_title']	= ucwords($this->uri->segment(2));
-		$this->data['sub_title']	= 'Manage';
-		
-		if (!empty($content_module))
-		{		 
-			foreach($content_module as $content)
-			{
-				$this->data['item_id'] 				= $content->content_id;
-				$this->data['item_type']			= $content->type;
-				$this->data['item_viewed']			= item_viewed('item_manage', $content->viewed);
-	
-				$this->data['title']				= item_title($content->title, $content->type);
-				$this->data['title_link']			= base_url().$content->module.'/view/'.$content->content_id;
-				$this->data['comments_count']		= manage_comments_count($content->comments_count);
-				$this->data['publish_date']			= manage_published_date($content->created_at, $content->updated_at);
-				
-				// MAKE FOR CHECK RELVANT TO USER_LEVEL
-				$this->data['item_status']			= display_content_status($content->status);
-				$this->data['item_approval']		= $content->approval;
-	
-				// Alerts
-				$this->data['item_alerts']			= item_alerts_content($content);			
-				
-				// Actions
-				$this->data['item_approve']			= base_url().'api/content/approve/id/'.$content->content_id;
-				$this->data['item_edit']			= base_url().'home/'.$content->module.'/manage/'.$content->content_id;
-				$this->data['item_delete']			= base_url().'api/content/destroy/id/'.$content->content_id;
-				
-				// View
-				$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);
-			}	
-		}
-	 	else
-	 	{
-	 		$manage_view = '<li>Nothing to manage from anyone!</li>';
- 		}
-
-		// Final Output
-		$this->data['timeline_view'] 	= $manage_view;				
-		
-		$this->render('dashboard_wide');
 	}
 	
 	/* Error */

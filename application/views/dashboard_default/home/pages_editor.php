@@ -5,20 +5,15 @@
 		<input type="text" name="title" id="title" class="input_full" value="<?= $title ?>">
 		<p id="title_slug" class="slug_url"></p>
 	
+	<?php if ($details == 'site'): ?>
 		<h3>Content</h3>
 		<?= $wysiwyg ?>
-		
-		<h3>Layout</h3>
-		<div id="layout_options">
-		<?php foreach ($layouts as $layout): ?>
-			<a id="layout_<?= $layout ?>" class="layout_picker <?php if ($layout == $details) echo 'layout_selected'; ?>" href="#"><?= $layout ?></a>
-		<?php endforeach; ?>
-		</div>
-		<div class="clear"></div>		
 
-	    <h3>Category</h3>
-	    <p><?= form_dropdown('category_id', $categories, $category_id) ?></p>
-	    
+	    <h3>Parent Page</h3>
+	    <p><?= form_dropdown('content_id', $parent_pages, $parent_id) ?></p>
+
+	<?php endif; ?>		
+
 	    <h3>Tags</h3>
 	    <p><input name="tags" type="text" id="tags" size="75" /></p>
 
@@ -28,7 +23,7 @@
 		<h3>Comments</h3>
 		<p><?= form_dropdown('comments_allow', config_item('comments_allow'), $comments_allow) ?></p>
 		
-		<input type="hidden" name="details" id="layout" value="<?= $details ?>">
+		<input type="hidden" name="details" id="details" value="<?= $details ?>">
 		<input type="hidden" name="geo_lat" id="geo_lat" value="<?= $geo_lat ?>" />
 		<input type="hidden" name="geo_long" id="geo_long" value="<?= $geo_long ?>" />
 
@@ -60,7 +55,7 @@ $(document).ready(function()
 	makePlaceholders(validation_rules);
 
 	// Slugify
-	$('#title').slugify({url:base_url + 'pages/', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
+	$('#title').slugify({url:'<?= $slug_pre ?>', slug:'#title_slug', name:'title_url', slugValue:'<?= $title_url ?>'});
 
 	// Autocomplete Tags
 	autocomplete("[name=tags]", 'api/tags/all');

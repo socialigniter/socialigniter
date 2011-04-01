@@ -1,5 +1,13 @@
 <ul id="available_widgets"></ul>
 
+<h3>Layout</h3>
+<div id="layout_options">
+<?php foreach ($layouts as $layout): ?>
+	<a id="layout_<?= $layout ?>" class="layout_picker" href="#"><?= display_nice_file_name($layout) ?></a>
+<?php endforeach; ?>
+</div>
+<div class="clear"></div>
+
 <form name="settings_update" id="settings_update" method="post" action="<?= base_url() ?>api/settings/modify" enctype="multipart/form-data">
 	<div id="widget_content_area" class="widget_area">		
 		<h3>Content</h3> <input type="button" name="widget_add_content" class="widget_add" rel="content" value="Add">

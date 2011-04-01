@@ -66,7 +66,9 @@ a.button_basic_on span	{ position: relative; top: 7px; left: 0px; }
 #content a:hover				{ font-weight: normal; color:#ff3300; text-decoration: underline; }
 #content a:active				{ font-weight: normal; text-decoration: none; }
 
-#main 							{ width: 700px; margin: 0; text-align: left; float: left; line-height: 24px; }
+#main 							{ width: 650px; margin: 0; text-align: left; float: left; line-height: 24px; }
+#main_profile 					{ width: 700px; margin: 0; text-align: left; float: left; line-height: 24px; }
+
 #content_message				{ min-width: 615; max-width: 855px; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; font-size: 14px; margin:0 0 15px 0; }
 
 div.message_normal				{ padding: 0; }
@@ -90,7 +92,7 @@ div.norm_mid 					{ width: 700px; background: url('images/content_norm_mid.png')
 div.norm_bot 					{ width: 700px; height: 12px; background: url('images/content_norm_bot.png') 0 0 no-repeat; margin: 0 0 15px 0; }
 div.norm_separator				{ width: 671px; height: 18px; margin: 6px auto 12px auto; background: url(images/content_norm_separator.png) 0 0 no-repeat; }
 
-#sidebar 						{ width: 240px; float: left; margin: 0; text-align: left; }
+#sidebar 						{ width: 240px; float: left; margin: 0 0 0 45px; text-align: left; }
 #sidebar ul 					{ margin: 0; }
 #sidebar li 					{ text-align: left; }
 

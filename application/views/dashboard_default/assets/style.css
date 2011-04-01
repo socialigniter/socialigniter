@@ -314,7 +314,7 @@ span.item_right a:hover		{ text-decoration: underline; }
 #new_category > input[type=text] {width:375px;}
 #new_category > input[type=submit] {float:right;} 
 #new_category > textarea { width: 375px; }
-.slug_url { font-style:italic; height:22px; line-height:22px; color:#999999; margin: 6px 0 6px 4px; }
+.slug_url { font-style: italic; height:22px; line-height: 22px; color: #999999; margin: 13px 0 18px 4px !important; }
 .slug_url span {border-bottom:1px dashed #aaa;}
 .slug_url span:hover {border-bottom:1px dashed #dddd00;cursor:pointer;background:#f2e3af}
 .slug_url_edit {width:100px;height:15px !important;padding:3px !important; }
