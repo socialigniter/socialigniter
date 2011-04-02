@@ -106,14 +106,6 @@ function geo_success(position)
 	}
 }
 
-
-//Initial get, use it elsewhere to update location
-$(window).load(function()
-{
-	geo_get();
-});
-
-
 // On Ready
 $(document).ready(function()
 {

@@ -1,11 +1,12 @@
 <ul id="available_widgets"></ul>
 
 <div id="layout_options">
-<h3>Layout</h3>
+<h3>Layouts</h3>
 
 <?php foreach ($layouts as $layout): ?>
 	<a id="layout_<?= $layout ?>" class="layout_picker <?php if ($layout == $layout_selected) echo 'layout_selected'; ?>" href="#"><?= display_nice_file_name($layout) ?></a>
 <?php endforeach; ?>
+
 </div>
 <div class="clear"></div>
 
@@ -124,14 +125,12 @@ $(document).ready(function()
 				$.each(result.data, function()
 				{
 					if (this.setting == widget_location)
-					{		
+					{
 						var widget = jQuery.parseJSON(this.value);
-	
-						//$("<li></li>").html(widget.name).appendTo('#available_widgets');
+
 						console.log('widget ' + this.setting);
 	
-						partial_html = $('<div />').html(partial_html).find('#widgets_available').append('<li>' + widget.name + ' <a class="widget_edit" href=""><span class="actions action_edit"></span>Add</a></li>').end();
-
+						partial_html = $('<div />').html(partial_html).find('#widgets_available').append('<li><span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span><span class="widget_name">' + widget.name + '</span><a class="widget_add" href=""><span class="actions action_add"></span>Add</a></li>').end();
 					}
 				});
 
@@ -146,34 +145,7 @@ $(document).ready(function()
 						$parent_dialog = $(this);               
 					},
 					buttons:
-					{
-						'Save':function()
-						{
-							var widget_data = $('#widget_setting').serializeArray();
-							//widget_data.push({'name':'module','value':'users'});		
-						
-						    //var $setting_dialog = $(this);
-						
-							$(this).find('form').oauthAjax(
-							{
-								oauth 		: user_data,
-								url			: base_url + 'api/settings/modify/id/' + settings_id,
-								type		: 'POST',
-								dataType	: 'json',
-								data		: widget_data,
-						  		success		: function(result)
-						  		{
-						  			if (result.status == 'success')
-						  			{
-										$(this).dialog('close');
-									}
-									else
-									{
-										alert('Could not save');
-									}	
-							 	}
-							});				  
-					  },			
+					{			
 					  'Close':function()
 					  {
 					  	$(this).dialog('close');

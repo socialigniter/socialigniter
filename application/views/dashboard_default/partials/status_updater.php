@@ -22,6 +22,9 @@
 // Placeholder
 doPlaceholder('#status_update_text', "<?= $home_greeting ?>");
 
+// Do Geo
+geo_get();
+
 // Status
 $("#status_update").bind("submit", function(eve)
 {
