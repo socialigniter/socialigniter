@@ -43,18 +43,23 @@ class Settings extends Oauth_Controller
     {
     	$this->load->config('widgets');
 
-    	$widgets[] = config_item('widgets');
+    	$widgets[] = config_item('core_widgets');
 
-    	
-    	$this->load->config('blog/blog');
+		// Scan Modules
+		$modules = $this->social_igniter->scan_modules();
+		foreach ($modules as $module)
+		{
+    		$this->load->config($module.'/'.$module);
 
-    
-    	$widgets[] = config_item('blog/widgets');
-    
-    	$message = array('status' => 'success', 'message' => 'Blah blah blah', 'data' => $widgets);
-    
+			//if (config_item($module.'_widgets'))
+			//{
+			 $widgets[] = config_item($module.'_widgets');
+			//}
+    	}
 
-        $this->response($message, 200);    
+    	$message = array('status' => 'success', 'message' => 'Yay we found some widgets', 'modules' => $this->social_igniter->scan_modules(), 'data' => $widgets);
+
+     	$this->response($message, 200);    
     }
     
 	function view_get()

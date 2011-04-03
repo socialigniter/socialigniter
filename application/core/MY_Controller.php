@@ -184,7 +184,7 @@ class MY_Controller extends MX_Controller
       	$this->module_name     				= $this->router->fetch_module();
         $this->module_controller 			= $this->router->fetch_class();
         
-		// Scann Modules directory
+		// Scan Modules
 		$this->modules_scan = $this->social_igniter->scan_modules();        
 
         // For Debugging

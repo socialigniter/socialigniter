@@ -140,30 +140,18 @@ $(document).ready(function()
 					title	: 'Add ' + widget_location + ' Widget',
 					create	: function()
 					{
-						//Here we save "this" dialog so we can reference it in "sub scopes"
+						// Save "this" dialog so can reference in "sub scopes"
 						$parent_dialog = $(this);
 						
 						$('.widget_add_instance').live('click', function()
 						{
-							var this_widget_add = $(this).attr('id');
-							
+							var this_widget_add = $(this).attr('id');							
 							
 							console.log(this_widget_add + ' asdasdasdkajdklajdlkjakljad');	
 							
-							
 							$parent_dialog.dialog('close');					
-						});
-						
+						});	
 					},
-					/*
-					buttons:
-					{			
-					  'Close':function()
-					  {
-					  	
-					  }
-					}
-					*/
 		    	});	
 			
 			});			

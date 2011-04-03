@@ -21,7 +21,7 @@ $config['countries']					= array('US', 'FR', 'DE', 'ES', 'IT');
 
 // Settings
 $config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','places','text');
-$config['ignore_modules']				= array('index.html', 'text');
+$config['ignore_modules']				= array('text');
 $config['site_modules']					= array('site','themes','design','widgets','services');
 $config['user_settings']				= array('profile','details','password','mobile','connections');
 $config['user_meta_details']			= array('company','location','url','bio');

@@ -299,7 +299,8 @@ class Social_igniter
 
 	function scan_modules()
 	{
-		return $modules_scan = directory_map('./application/modules/', TRUE);
+		$modules = directory_map('./application/modules/', TRUE);
+		return element_remove('index.html', $modules);
 	}
 
 	function scan_layouts($theme)
