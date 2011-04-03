@@ -47,6 +47,7 @@ class Settings extends Oauth_Controller
 
 		// Scan Modules
 		$modules = $this->social_igniter->scan_modules();
+				
 		foreach ($modules as $module)
 		{
     		$this->load->config($module.'/'.$module);
@@ -57,7 +58,7 @@ class Settings extends Oauth_Controller
 			//}
     	}
 
-    	$message = array('status' => 'success', 'message' => 'Yay we found some widgets', 'modules' => $this->social_igniter->scan_modules(), 'data' => $widgets);
+    	$message = array('status' => 'success', 'message' => 'Yay we found some widgets', 'data' => $widgets);
 
      	$this->response($message, 200);    
     }

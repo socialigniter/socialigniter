@@ -18,6 +18,6 @@ function element_remove($element, $array)
 	$key			= array_search($element, $array);
 	$array[$key]	= NULL;
 	$array			= array_filter($array); 
-
+ 
 	return $array;
 }
