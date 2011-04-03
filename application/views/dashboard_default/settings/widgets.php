@@ -126,40 +126,55 @@ $(document).ready(function()
 				{
 					if (this.setting == widget_location)
 					{
-						var widget = jQuery.parseJSON(this.value);
+						var widget		= jQuery.parseJSON(this.value);						
+						var this_assets = displayModuleAssets(widget.module, core_modules, core_assets);
 
-						console.log('widget ' + this.setting);
-	
-						partial_html = $('<div />').html(partial_html).find('#widgets_available').append('<li><span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span><span class="widget_name">' + widget.name + '</span><a class="widget_add" href=""><span class="actions action_add"></span>Add</a></li>').end();
+						partial_html = $('<div />').html(partial_html).find('#widgets_available').append('<li class="widget_add_instance" id="widget_' + this.settings_id  + '"><span class="widget_icon"><img src="' + this_assets + widget.module + '_24.png"></span><span class="widget_name">' + widget.name + '</span><a class="widget_add" href=""><span class="actions action_add"></span>Add</a></li>').end();
 					}
 				});
 
 				$('<div />').html(partial_html).dialog(
 				{
-					width	: 375,
+					width	: 325,
 					modal	: true,
 					title	: 'Add ' + widget_location + ' Widget',
 					create	: function()
 					{
 						//Here we save "this" dialog so we can reference it in "sub scopes"
-						$parent_dialog = $(this);               
+						$parent_dialog = $(this);
+						
+						$('.widget_add_instance').live('click', function()
+						{
+							var this_widget_add = $(this).attr('id');
+							
+							
+							console.log(this_widget_add + ' asdasdasdkajdklajdlkjakljad');	
+							
+							
+							$parent_dialog.dialog('close');					
+						});
+						
 					},
+					/*
 					buttons:
 					{			
 					  'Close':function()
 					  {
-					  	$(this).dialog('close');
+					  	
 					  }
-					}			
-		    	});			
+					}
+					*/
+		    	});	
 			
-			
-			});
-			
-			//alert('ADD A ' + location + ' WIDGET NOW! Pick one of these: ');
+			});			
 		});
 	});	
 	
+	$('#tikla').click(function() {  
+    dialog1.load('./browser.php').dialog('open');
+	});   
+	
+		
     // Edit Event
     $('.widget_edit').click(function(eve)
     {
@@ -170,11 +185,10 @@ $(document).ready(function()
 		{
 			var widget = jQuery.parseJSON(json.data.value);
 
-			$.get(base_url + 'home/widget_editor/' + widget.editor,function(html)
+			$.get(base_url + 'home/widget_editor/standard',function(html)
 			{
 				partial_html = html;
 				partial_html = $('<div />').html(partial_html).find('textarea').val(widget.content).end();
-				partial_html = $('<div />').html(partial_html).find('input').val(widget.title).end();
 
 				$('<div />').html(partial_html).dialog(
 				{

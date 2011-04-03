@@ -39,6 +39,24 @@ class Settings extends Oauth_Controller
         $this->response($message, 200);
     }
     
+    function widgets_config_get()
+    {
+    	$this->load->config('widgets');
+
+    	$widgets[] = config_item('widgets');
+
+    	
+    	$this->load->config('blog/blog');
+
+    
+    	$widgets[] = config_item('blog/widgets');
+    
+    	$message = array('status' => 'success', 'message' => 'Blah blah blah', 'data' => $widgets);
+    
+
+        $this->response($message, 200);    
+    }
+    
 	function view_get()
     {
     	$search_by	= $this->uri->segment(4);

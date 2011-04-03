@@ -15,7 +15,6 @@
 $config['content'] = array('pages', 'page', 'install', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index');
 $config['content'] = array('pages', 'page', 'install', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site');
 $config['content'] = array('pages', 'page', 'install', 2, 1, 'Contact', 'contact', 'Please contact us', 'site');
-
 $config['settings'] = array('site', 'title', 'Awesome Website');
 $config['settings'] = array('site', 'tagline', 'Where I Post All My Awesome Things');
 $config['settings'] = array('site', 'keywords', 'awesome, things, pictures, videos, poems, watermelons, cats, ninjas');
@@ -106,9 +105,9 @@ $config['settings'] = array('users', 'images_folder', 'uploads/profiles/');
 $config['settings'] = array('users', 'images_max_dimensions', '3000');
 $config['settings'] = array('users', 'images_sizes_original', 'yes');
 
-$config['sites'] = array('http://social-igniter.com', 'default', 'Social-Igniter', 'A Really Simple Open Source Social Web Application Template', 'Social-Igniter is a really simple open source social web application template', 'social, web application, open source, codeigniter, php');
+$config['sites'] 		= array('http://social-igniter.com', 'default', 'Social-Igniter', 'A Really Simple Open Source Social Web Application Template', 'Social-Igniter is a really simple open source social web application template', 'social, web application, open source, codeigniter, php');
 
-$config['users_level'] = array('superadmin', 'Super Admin', 'Super Admins are the head honchos who have power to do anything they want on your install of Social Igniter');
-$config['users_level'] = array('admin', 'Admin', 'Admins can do most things, not all, but most things needed on a site');
-$config['users_level'] = array('superuser', 'Super User', 'Supers Users help keep the ship on course, they do some things, but not all');
-$config['users_level'] = array('user', 'User', 'Users are just regular Joes or Joesephines. They use your application as it is intended for the general public');
+$config['users_level']	= array('superadmin', 'Super Admin', 'Super Admins are the head honchos who have power to do anything they want on your install of Social Igniter');
+$config['users_level']	= array('admin', 'Admin', 'Admins can do most things, not all, but most things needed on a site');
+$config['users_level'] 	= array('superuser', 'Super User', 'Supers Users help keep the ship on course, they do some things, but not all');
+$config['users_level'] 	= array('user', 'User', 'Users are just regular Joes or Joesephines. They use your application as it is intended for the general public');

@@ -61,6 +61,17 @@ function isWysiwygValid(id, placeholder, error)
 	return true;
 }
 
+function isCoreModule(module, core_modules)
+{
+	if (jQuery.inArray(module, core_modules) !== -1)
+	{	
+		return true;
+	};
+
+	return false;
+}
+
+
 function cleanFieldEmpty(id, placeholder)
 {	
 	if ($(id).val() == placeholder)
@@ -118,6 +129,20 @@ function validationRules(validation_rules)
 	return false;
 }
 
+
+function displayModuleAssets(module, core_modules, core_assets)
+{
+	if (isCoreModule(module, core_modules) == true)
+	{
+		path = core_assets;
+	}
+	else
+	{
+		path = base_url + 'application/modules/' + module + '/assets/';
+	}
+
+	return path;
+}
 
 
 //For God's sake, disable autocomplete!

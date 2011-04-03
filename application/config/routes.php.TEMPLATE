@@ -91,6 +91,8 @@ $route['api/relationships/']						= 'api/relationships/';
 /* Settings */
 $route['api/settings/module/(:any)']				= 'api/settings/module/$1';
 $route['api/settings/setting/(:any)']				= 'api/settings/setting/$1';
+$route['api/settings/widgets_config/(:any)/(:any)']	= 'api/settings/widgets_config/$1/$2';
+$route['api/settings/widgets_config']				= 'api/settings/widgets_config';
 $route['api/settings/modify_widget/(:any)/(:any)']	= 'api/settings/modify_widget/$1/$2';
 $route['api/settings/modify']						= 'api/settings/modify';
 $route['api/settings']								= 'api/settings';
