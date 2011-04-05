@@ -1,6 +1,6 @@
 <form name="occurrence_editor" method="post" id="occurrence_editor" action="{FORM_URL}" enctype="multipart/form-data">
 
-	<a href="#" id="delete_widget">Delete Widget</a>
+	<a href="#" class="widget_delete">Delete Widget</a>
 
 	<p><input type="text" name="widget_title"></p>
 

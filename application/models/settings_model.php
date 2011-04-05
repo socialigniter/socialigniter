@@ -81,7 +81,11 @@ class Settings_model extends CI_Model {
     function update_setting($setting_id, $update_data)
     {
 		$this->db->where('settings_id', $setting_id);
-		$this->db->update('settings', $update_data);
+		return $this->db->update('settings', $update_data);
     }
     
+	function delete_setting($settings_id)
+	{
+		return $this->db->delete('settings', array('settings_id' => $settings_id));
+	}    
 }

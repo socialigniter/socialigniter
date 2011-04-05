@@ -16,7 +16,7 @@
 		<div class="clear"></div>	
 		<div class="widget_border">
 			<?php if ($content_widgets): foreach ($content_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-			<div class="widget_instance" id="<?= $json_widget->settings_id ?>">
+			<div class="widget_instance" id="widget_<?= $json_widget->settings_id ?>">
 				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span>
 				<span class="widget_name"><?= $widget->name ?></span>
 				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>
@@ -34,7 +34,7 @@
 		<div class="clear"></div>
 		<div class="widget_border">
 			<?php if ($sidebar_widgets): foreach ($sidebar_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-			<div class="widget_instance" id="<?= $json_widget->settings_id ?>">
+			<div class="widget_instance" id="widget_<?= $json_widget->settings_id ?>">
 				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span>
 				<span class="widget_name"><?= $widget->name ?></span>
 				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>
@@ -54,7 +54,7 @@
 		<div class="widget_border">
 
 			<?php if ($wide_widgets): foreach ($wide_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-			<div class="widget_instance" id="<?= $widget->order ?>">
+			<div class="widget_instance" id="widget_<?= $widget->order ?>">
 				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons', '').$widget->module ?>_24.png"></span>
 				<span class="widget_name"><?= $widget->name ?></span>
 				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>				
@@ -83,7 +83,7 @@ $(document).ready(function()
 				this_elements.each(function()
 				{
 					count++;
-					var settings_id = $(this).attr('id');
+					var settings_id	= $(this).attr('id').split('_')[1];
 					var widget_json = $(this).find('textarea').val();
 					var widget_data = $.parseJSON(widget_json);
 	
@@ -112,19 +112,21 @@ $(document).ready(function()
 	var partial_html = '<p>Oops, something went wrong! Close and try again in a few seconds.</p>';	
 	
 	// Add Widget
-	$('.widget_add').live('click', function()
+	$('.widget_add').bind('click', function()
 	{	
-		var widget_location = $(this).attr('rel');
+		var widget_region = $(this).attr('rel');
 
-		$.get(base_url+'api/settings/module/widgets', function(result)
+		$.get(base_url+'api/settings/widgets_available/region/' + widget_region, function(result)
 		{					
 			$.get(base_url + 'home/widget_add',function(html)
 			{
 				partial_html = html;
 			
+				console.log(result.data);
+			
 				$.each(result.data, function()
 				{
-					if (this.setting == widget_location)
+					if (this.setting == widget_region)
 					{
 						var widget		= jQuery.parseJSON(this.value);						
 						var this_assets = displayModuleAssets(widget.module, core_modules, core_assets);
@@ -137,10 +139,9 @@ $(document).ready(function()
 				{
 					width	: 325,
 					modal	: true,
-					title	: 'Add ' + widget_location + ' Widget',
+					title	: 'Add ' + widget_region + ' Widget',
 					create	: function()
 					{
-						// Save "this" dialog so can reference in "sub scopes"
 						$parent_dialog = $(this);
 						
 						$('.widget_add_instance').live('click', function()
@@ -156,17 +157,14 @@ $(document).ready(function()
 			
 			});			
 		});
-	});	
-	
-	$('#tikla').click(function() {  
-    dialog1.load('./browser.php').dialog('open');
-	});   
-	
+	});
 		
     // Edit Event
-    $('.widget_edit').click(function(eve)
+    $('.widget_edit').bind('click', function(eve)
     {
+		eve.stopPropagation();
     	eve.preventDefault();
+
 		var settings_id = $(this).attr('href');
 				
 		$.get(base_url + 'api/settings/setting/id/' + settings_id, function(json)
@@ -185,8 +183,33 @@ $(document).ready(function()
 					title	: widget.name,
 					create	: function()
 					{
-						//Here we save "this" dialog so we can reference it in "sub scopes"
-						$parent_dialog = $(this);               
+						$parent_dialog = $(this);
+						$('.widget_delete').bind('click', function(eve)
+						{
+							eve.stopPropagation();
+						
+							console.log(settings_id + ' asdasdasdkajdklajdlkjakljad');	
+						
+							$(this).oauthAjax(
+							{
+								oauth 		: user_data,		
+								url			: base_url + 'api/settings/destroy/id/' + settings_id,
+								type		: 'DELETE',
+								dataType	: 'json',
+							  	success		: function(result)
+							  	{
+									if (result.status == 'success')
+									{			
+										$('#widget_'+settings_id).delay(200).fadeOut('normal', function()
+										{
+											$(this).delay(750).remove();
+										});
+
+										$parent_dialog.dialog('close');
+									}		  	
+							  	}		
+							});
+						});						              
 					},
 					buttons:
 					{
@@ -194,9 +217,7 @@ $(document).ready(function()
 						{
 							var widget_data = $('#widget_setting').serializeArray();
 							//widget_data.push({'name':'module','value':'users'});		
-						
-						    //var $setting_dialog = $(this);
-						
+						    //var $setting_dialog = $(this);						
 							$(this).find('form').oauthAjax(
 							{
 								oauth 		: user_data,

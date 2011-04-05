@@ -66,15 +66,15 @@ class Settings extends Oauth_Controller
 				}
 			}
     	}
-  	
+/*  	
 		echo '<pre>';
 		print_r($widgets_current);
 		echo '<hr>';
 		print_r($widgets);
 		echo '</pre>';
-
-    	//$message = array('status' => 'success', 'message' => 'Yay we found some widgets', 'data' => $widgets);
-     	//$this->response($message, 200);    
+*/
+    	$message = array('status' => 'success', 'message' => 'Yay we found some widgets', 'data' => $widgets);
+     	$this->response($message, 200);    
     }
     
 	function view_get()
@@ -153,11 +153,11 @@ class Settings extends Oauth_Controller
     /* DELETE types */
     function destroy_delete()
     {		
-		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
+		$access = TRUE;//$this->social_tools->has_access_to_delete('comment', $this->get('id'));
     	
     	if ($access)
         {   
-        	$this->social_tools->delete_comment($this->get('id'));
+        	$this->social_igniter->delete_setting($this->get('id'));
         
 			// Reset comments with this reply_to_id
 			//$this->social_igniter->update_content_comments_count($this->get('id'));

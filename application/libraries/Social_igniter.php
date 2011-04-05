@@ -524,6 +524,11 @@ class Social_igniter
 		return $this->ci->settings_model->update_setting($setting_id, $update_data);
 	}
 
+	function delete_setting($settings_id)
+	{
+		return $this->ci->settings_model->delete_setting($settings_id);
+	}
+
 	/* Activity */
 	function get_timeline($module, $limit)
 	{
