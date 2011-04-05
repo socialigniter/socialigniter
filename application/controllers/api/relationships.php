@@ -45,7 +45,7 @@ class Relationships extends Oauth_Controller
        	{
 			if ($exists->status == 'Y')
 			{
-	        	$message = array('status' => 'error', 'message' => 'You already follow that user');
+	        	$message = array('status' => 'error', 'message' => 'You already follow this person');
 			}
 			elseif ($exists->status == 'D')
 			{
@@ -56,7 +56,7 @@ class Relationships extends Oauth_Controller
 		}
 		else
 		{
-	    	$user = $this->social_auth->get_user($this->get('id'));
+	    	$user = $this->social_auth->get_user('user_id', $this->get('id'));
 	    	
 			if ($user->privacy) $follow_data['status'] = 'N';
 			else $follow_data['status'] = 'Y';

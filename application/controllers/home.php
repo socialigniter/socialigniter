@@ -97,6 +97,8 @@ class Home extends Dashboard_Controller
  	/* Manage - All modules base manage page when URL is 'home/blog/manage' this method shows all 'content' from specified module */
 	function manage()
 	{
+		if ($this->session->userdata('user_level_id') > 3) redirect(base_url().'home');
+	
 		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2), 'all');
 		$manage_view 		= NULL;
 

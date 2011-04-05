@@ -36,14 +36,21 @@ class Profile extends Site_Controller
 			$this->data['follows']			= $this->social_tools->get_relationships_follows($this->user->user_id);
 
 			// Links
-			if ($this->social_tools->check_relationship_exists(array('site_id' => config_item('site_id'), 'owner_id' => 2, 'user_id' => $this->user->user_id, 'module' => 'site', 'type' => 'follow', 'status' => 'Y')))
+			if ($this->social_auth->logged_in())
 			{
-		 		$this->data['follow_word']	= 'unfollow';
+				if ($this->social_tools->check_relationship_exists(array('site_id' => config_item('site_id'), 'owner_id' => $this->session->userdata('user_id'), 'user_id' => $this->user->user_id, 'module' => 'site', 'type' => 'follow', 'status' => 'Y')))
+				{
+			 		$this->data['follow_word']	= 'unfollow';
+				}
+				else
+				{
+			 		$this->data['follow_word']	= 'follow';				
+				}		
 			}
 			else
 			{
-		 		$this->data['follow_word']	= 'follow';				
-			}		
+			 	$this->data['follow_word']	= 'follow';			
+			}
 
 	 		$this->data['message_url'] 		= base_url().'api/message/send/id/'.$this->user->user_id;
 	 		

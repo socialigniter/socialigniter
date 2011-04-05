@@ -456,18 +456,37 @@ class Social_igniter
 	
 	function make_widgets_order($widgets)
 	{
-		$da_widgets = array();
+		$widgets_view = array();
 	
 		foreach ($widgets as $json_widget)
 		{
 			$widget = json_decode($json_widget->value);
 		
-			$da_widgets[$widget->order.'-'.$json_widget->settings_id] = $json_widget;
+			$widgets_view[$widget->order.'-'.$json_widget->settings_id] = $json_widget;
 		}
 		
-		ksort($da_widgets);
+		ksort($widgets_view);
 					
-		return $da_widgets;
+		return $widgets_view;
+	}
+	
+	function render_available_widgets($region, $widgets, $current_widgets)
+	{	
+		$return = array();
+		
+		foreach ($widgets as $widget)
+		{
+			if (in_array($region, $widget['regions']))
+			{
+				$return[] = $widget['widget'];
+			}
+			else
+			{
+				$return = FALSE;
+			}
+		}
+
+		return $return;
 	}
 
 	function update_settings($module, $settings_update_array)

@@ -39,28 +39,42 @@ class Settings extends Oauth_Controller
         $this->response($message, 200);
     }
     
-    function widgets_config_get()
+    function widgets_available_get()
     {
+    	$region			 = $this->get('region');
+    	$widgets_current = $this->social_igniter->get_settings_setting($region); 
+		$widgets		 = array();
+
+    	// Core Widgets
     	$this->load->config('widgets');
 
-    	$widgets[] = config_item('core_widgets');
+    	$widgets[] = $this->social_igniter->render_available_widgets($region, config_item('core_widgets'), $widgets_current);
 
-		// Scan Modules
+		// Module Widgets
 		$modules = $this->social_igniter->scan_modules();
 				
 		foreach ($modules as $module)
 		{
-    		$this->load->config($module.'/'.$module);
+    		$this->load->config($module.'/widgets');
 
-			//if (config_item($module.'_widgets'))
-			//{
-			 $widgets[] = config_item($module.'_widgets');
-			//}
+			// If Has Widgets
+			if ($module_widgets = config_item($module.'_widgets'))
+			{
+				if ($these_widgets = $this->social_igniter->render_available_widgets($region, $module_widgets, $widgets_current))
+				{
+					$widgets[] = $these_widgets;
+				}
+			}
     	}
+  	
+		echo '<pre>';
+		print_r($widgets_current);
+		echo '<hr>';
+		print_r($widgets);
+		echo '</pre>';
 
-    	$message = array('status' => 'success', 'message' => 'Yay we found some widgets', 'data' => $widgets);
-
-     	$this->response($message, 200);    
+    	//$message = array('status' => 'success', 'message' => 'Yay we found some widgets', 'data' => $widgets);
+     	//$this->response($message, 200);    
     }
     
 	function view_get()

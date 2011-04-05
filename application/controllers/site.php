@@ -74,7 +74,7 @@ class Site extends Site_Controller
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{
 			$this->data['comments_view'] = $this->social_tools->make_comments_section($page->content_id, 'page', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
-		}
+		}	
 
 		// Load Login Is Enabled
 		if (config_item('users_login') == 'TRUE')

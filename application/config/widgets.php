@@ -1,20 +1,18 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:			Widgets : Config
+* Name:			Social Igniter : Core : Widgets
 * Author: 		Brennan Novak
 * 		  		contact@social-igniter.com
 *         		@brennannovak
 *          
-* Created:		Brennan Novak
-*
 * Project:		http://social-igniter.com/
 * Source: 		http://github.com/socialigniter/
 *
-* Description: 	widgets.php config file contains all the base site  for Social Igniter
+* Description: 	Widgets in core install of Social Igniter
 */
 
 $config['core_widgets'][] = array(
-	'regions'	=> array('sidebar', 'content'),
+	'regions'	=> array('sidebar', 'content'),	// Regions in a layout for an App. Make sure the region exists in the Theme / Layout
 	'widget'	=> array(
 		'module'	=> "users",					// Module that partials deals with
 		'editor'    => "standard", 				// Route to editor template. is appended to 'home/widget_editor/standard'
@@ -22,9 +20,9 @@ $config['core_widgets'][] = array(
 		'method'	=> "view",					// Options: 'text' for simple blob, 'view' to load view, or 'run' for running a module controller route
 		'path'		=> "partials/widget_login",	// Path to either partial or controller route
 		'enabled'	=> "TRUE",					// If module is enabled or not
-		'multiple'	=> "FALSE",
-		'order'		=> "1",
-		'content'	=> ""
+		'multiple'	=> "FALSE",					// Can you install multiple instances of this widget in a given region
+		'order'		=> "1",						// Order of widget in relation to other widgets
+		'content'	=> ""						// Simple text blob if widget is set to display it
 	)
 );
 
