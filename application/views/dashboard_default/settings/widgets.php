@@ -14,7 +14,7 @@
 	<div id="widget_content_area" class="widget_area">		
 		<h3>Content</h3> <input type="button" name="widget_add_content" class="widget_add" rel="content" value="Add">
 		<div class="clear"></div>	
-		<div class="widget_border">
+		<div class="widget_border" id="widget_content_container">
 			<?php if ($content_widgets): foreach ($content_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
 			<div class="widget_instance" id="widget_<?= $json_widget->settings_id ?>">
 				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span>
@@ -24,7 +24,7 @@
 				<div class="clear"></div>				
 			</div>
 			<?php endforeach; else: ?>
-			<div class="widget_instance_none">No Widgets</div>
+			<div class="widget_instance_none" id="no_content_widgets">No Widgets</div>
 			<?php endif; ?>	
 		</div>			
 	</div>
@@ -32,7 +32,7 @@
 	<div id="widget_sidebar_area" class="widget_area">
 		<h3>Sidebar</h3> <input type="button" name="widget_add_sidebar" class="widget_add" rel="sidebar" value="Add">
 		<div class="clear"></div>
-		<div class="widget_border">
+		<div class="widget_border" id="widget_sidebar_container">
 			<?php if ($sidebar_widgets): foreach ($sidebar_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
 			<div class="widget_instance" id="widget_<?= $json_widget->settings_id ?>">
 				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span>
@@ -42,7 +42,7 @@
 				<div class="clear"></div>				
 			</div>
 			<?php endforeach; else: ?>
-			<div class="widget_instance_none">No Widgets</div>
+			<div class="widget_instance_none" id="no_sidebar_widgets">No Widgets</div>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -51,8 +51,7 @@
 	<div id="widget_wide_area" class="widget_area">
 		<h3>Wide</h3> <input type="button" name="widget_add_wide" class="widget_add" rel="wide" value="Add">
 		<div class="clear"></div>
-		<div class="widget_border">
-
+		<div class="widget_border" id="widget_wide_container">
 			<?php if ($wide_widgets): foreach ($wide_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
 			<div class="widget_instance" id="widget_<?= $widget->order ?>">
 				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons', '').$widget->module ?>_24.png"></span>
@@ -61,7 +60,7 @@
 				<div class="clear"></div>
 			</div>
 			<?php endforeach; else: ?>
-			<div class="widget_instance_none">No Widgets</div>			
+			<div class="widget_instance_none" id="no_wide_widgets">No Widgets</div>			
 			<?php endif; ?>
 		</div>	
 	</div>
@@ -100,7 +99,7 @@ $(document).ready(function()
 						data	 : new_widget_data,
 				  		success	 : function(result)
 				  		{
-							console.log(result);
+							//console.log(result);
 					 	}
 					});
 				});	
@@ -115,6 +114,7 @@ $(document).ready(function()
 	$('.widget_add').bind('click', function()
 	{	
 		var widget_region = $(this).attr('rel');
+		var widget_count  = $('#widget_' + widget_region + '_container').find('.widget_instance').length;
 
 		$.get(base_url+'api/settings/widgets_available/region/' + widget_region, function(result)
 		{					
@@ -161,46 +161,49 @@ $(document).ready(function()
 								data		: widget_data,
 							  	success		: function(result)
 							  	{
-									console.log(result);	
-
 									if (result.status == 'success')
 									{	
 										var widget		 = jQuery.parseJSON(result.data.value);
 										var this_assets	 = displayModuleAssets(widget.module, core_modules, core_assets);
 										var added_widget = '<div class="widget_instance" id="widget_' + result.data.settings_id + '"><span class="widget_icon"><img src="' + this_assets + widget.module + '_24.png"></span><span class="widget_name">' + widget.name + '</span><a class="widget_edit" href="' + result.data.settings_id + '"><span class="actions action_edit"></span>Edit</a><textarea name="widget_data" style="display:none">' + result.data.value + '</textarea><div class="clear"></div></div>';
 									
-										$('#widget_' + widget_region + '_area').delay(500, function() {
-											
+										// Hide No Widgets									
+										if (widget_count === 0)
+										{
+											$('#no_' + widget_region + '_widgets').hide('fast');
+										}
+								
+										// Add New Widget
+										$('#widget_' + widget_region + '_area').delay(500, function()
+										{	
 											$(this).find('div.widget_border').append(added_widget).fadeIn('normal');
 										});
-
-										$parent_dialog.dialog('close');
 									}
 									else
 									{
 										$('html, body').animate({scrollTop:0});
 										$('#content_message').notify({scroll:true,status:result.status,message:result.message});									
-
-										$parent_dialog.dialog('close');
-									}		  	
+									}
+								
+									// Close Dialog
+									$parent_dialog.dialog('close');
 							  	}		
 							});						
-							
 						});	
 					},
-		    	});	
-			
-			});			
+		    	});			
+			});	
 		});
 	});
-		
+
     // Edit Event
     $('.widget_edit').bind('click', function(eve)
     {
-		eve.stopPropagation();
+    	eve.stopPropagation();
     	eve.preventDefault();
 
-		var settings_id = $(this).attr('href');
+		var settings_id 	= $(this).attr('href');
+		var widget_count	= $('#' + $(this).parent().parent().attr('id')).find('.widget_instance').length;
 				
 		$.get(base_url + 'api/settings/setting/id/' + settings_id, function(json)
 		{
@@ -220,19 +223,27 @@ $(document).ready(function()
 					{
 						$parent_dialog = $(this);
 						$('.widget_delete').bind('click', function(eve)
-						{
+						{												
 							eve.stopPropagation();
-												
+
 							$(this).oauthAjax(
 							{
-								oauth 		: user_data,		
+								oauth 		: user_data,
 								url			: base_url + 'api/settings/destroy/id/' + settings_id,
 								type		: 'DELETE',
 								dataType	: 'json',
 							  	success		: function(result)
 							  	{
 									if (result.status == 'success')
-									{			
+									{	
+										// No Widgets
+										var widget_new_count = widget_count - 1;										
+										if (widget_new_count === 0)
+										{
+											$('#widget_' + json.data.setting + '_container').delay(500).append('<div class="widget_instance_none" id="no_' + json.data.setting + '_widgets">No Widgets</div>');
+										}
+									
+										// Remove Widget	
 										$('#widget_'+settings_id).delay(200).fadeOut('normal', function()
 										{
 											$(this).delay(750).remove();
