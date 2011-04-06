@@ -470,23 +470,35 @@ class Social_igniter
 		return $widgets_view;
 	}
 	
-	function render_available_widgets($region, $widgets, $current_widgets)
-	{	
-		$return = array();
-		
-		foreach ($widgets as $widget)
+	function check_can_widget_be_used($region, $check_widget)
+	{
+		if ($check_widget['multiple'] === 'TRUE')
 		{
-			if (in_array($region, $widget['regions']))
+			return $check_widget;
+		}
+	
+		$region_widgets = $this->get_settings_setting($region);
+				
+		foreach ($region_widgets as $this_widget)
+		{
+			$widget = json_decode($this_widget->value);
+			
+			if ($widget->name == $check_widget['name'])
 			{
-				$return[] = $widget['widget'];
+				return FALSE;
 			}
 			else
 			{
-				$return = FALSE;
+				continue;	
 			}
 		}
 
-		return $return;
+		return $check_widget;
+	}
+
+	function add_setting($setting_data)
+	{
+		return $this->ci->settings_model->add_setting($setting_data);
 	}
 
 	function update_settings($module, $settings_update_array)

@@ -147,9 +147,7 @@ class Content extends Oauth_Controller
         else
         {
 	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
-        }
-        
-//    	$message = array('status' => 'debug', 'postdata' => $content_data, 'updatedata' => $update);
+        }        
 
 	    $this->response($message, 200);
     }

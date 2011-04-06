@@ -121,18 +121,12 @@ $(document).ready(function()
 			$.get(base_url + 'home/widget_add',function(html)
 			{
 				partial_html = html;
-			
-				console.log(result.data);
-			
+						
 				$.each(result.data, function()
-				{
-					if (this.setting == widget_region)
-					{
-						var widget		= jQuery.parseJSON(this.value);						
-						var this_assets = displayModuleAssets(widget.module, core_modules, core_assets);
-
-						partial_html = $('<div />').html(partial_html).find('#widgets_available').append('<li class="widget_add_instance" id="widget_' + this.settings_id  + '"><span class="widget_icon"><img src="' + this_assets + widget.module + '_24.png"></span><span class="widget_name">' + widget.name + '</span><a class="widget_add" href=""><span class="actions action_add"></span>Add</a></li>').end();
-					}
+				{				
+					var this_assets = displayModuleAssets(this.module, core_modules, core_assets);
+					var widget_json = JSON.stringify(this);
+					partial_html = $('<div />').html(partial_html).find('#widgets_available').append("<li class='widget_add_instance'><form name='widget_add'><span class='widget_icon'><img src='" + this_assets + this.module + "_24.png'></span><span class='widget_name'>" + this.name + "</span><a class='widget_add' href=''><span class='actions action_add'></span>Add</a><input name='value' type='hidden' value='" + widget_json + "'></form></li>").end();
 				});
 
 				$('<div />').html(partial_html).dialog(
@@ -144,13 +138,54 @@ $(document).ready(function()
 					{
 						$parent_dialog = $(this);
 						
-						$('.widget_add_instance').live('click', function()
+						$('.widget_add_instance').bind('click', function(eve)
 						{
-							var this_widget_add = $(this).attr('id');							
+							eve.stopPropagation();
 							
-							console.log(this_widget_add + ' asdasdasdkajdklajdlkjakljad');	
+							var widget_form = $(this).find('form');
+							var widget_data	= widget_form.serializeArray();
+							var this_widget_json = $(widget_form).find('input').val();
 							
-							$parent_dialog.dialog('close');					
+							//console.log(this_widget_json);
+							
+							widget_data.push({'name':'module','value':'widgets'},{'name':'setting','value':widget_region});
+
+							console.log(widget_data);
+
+							$(this).oauthAjax(
+							{
+								oauth 		: user_data,		
+								url			: base_url + 'api/settings/create',
+								type		: 'POST',
+								dataType	: 'json',
+								data		: widget_data,
+							  	success		: function(result)
+							  	{
+									console.log(result);	
+
+									if (result.status == 'success')
+									{	
+										var widget		 = jQuery.parseJSON(result.data.value);
+										var this_assets	 = displayModuleAssets(widget.module, core_modules, core_assets);
+										var added_widget = '<div class="widget_instance" id="widget_' + result.data.settings_id + '"><span class="widget_icon"><img src="' + this_assets + widget.module + '_24.png"></span><span class="widget_name">' + widget.name + '</span><a class="widget_edit" href="' + result.data.settings_id + '"><span class="actions action_edit"></span>Edit</a><textarea name="widget_data" style="display:none">' + result.data.value + '</textarea><div class="clear"></div></div>';
+									
+										$('#widget_' + widget_region + '_area').delay(500, function() {
+											
+											$(this).find('div.widget_border').append(added_widget).fadeIn('normal');
+										});
+
+										$parent_dialog.dialog('close');
+									}
+									else
+									{
+										$('html, body').animate({scrollTop:0});
+										$('#content_message').notify({scroll:true,status:result.status,message:result.message});									
+
+										$parent_dialog.dialog('close');
+									}		  	
+							  	}		
+							});						
+							
 						});	
 					},
 		    	});	
@@ -187,9 +222,7 @@ $(document).ready(function()
 						$('.widget_delete').bind('click', function(eve)
 						{
 							eve.stopPropagation();
-						
-							console.log(settings_id + ' asdasdasdkajdklajdlkjakljad');	
-						
+												
 							$(this).oauthAjax(
 							{
 								oauth 		: user_data,		
@@ -237,11 +270,7 @@ $(document).ready(function()
 									}	
 							 	}
 							});				  
-					  },			
-					  'Close':function()
-					  {
-					  	$(this).dialog('close');
-					  }
+						}
 					}			
 		    	});
 			});

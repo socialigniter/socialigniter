@@ -63,19 +63,10 @@ class Settings_model extends CI_Model {
  		return $result->result(); 
     }
     
-    function add_setting($user_id, $status_data)
-    {
- 		$data = array(
-			'user_id' 	 			=> $user_id,
-			'source'				=> $status_data['source'],
-			'text'  	 			=> $status_data['text'],
-			'lat'		 			=> $status_data['lat'],
-			'long'					=> $status_data['long'],
-			'created_at' 			=> unix_to_mysql(now())
-		);	
-		$insert 	= $this->db->insert('status', $data);
-		$status_id 	= $this->db->insert_id();
-		return $this->db->get_where('status', array('status_id' => $status_id))->row();	
+    function add_setting($setting_data)
+    {		
+		$insert = $this->db->insert('settings', $setting_data);
+		return $this->db->get_where('settings', array('settings_id' => $this->db->insert_id()))->row();	
     }   
 
     function update_setting($setting_id, $update_data)

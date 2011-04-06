@@ -7,7 +7,9 @@ class Categories extends Oauth_Controller
 {
     function __construct()
     {
-        parent::__construct();      
+        parent::__construct();
+        
+    	$this->form_validation->set_error_delimiters('', '');              
 	}
 	
     function all_get()

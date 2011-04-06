@@ -7,7 +7,9 @@ class Settings extends Oauth_Controller
 {
     function __construct()
     {
-        parent::__construct();      
+        parent::__construct(); 
+        
+    	$this->form_validation->set_error_delimiters('', '');             
 	}
 	
     /* GET types */
@@ -48,32 +50,49 @@ class Settings extends Oauth_Controller
     	// Core Widgets
     	$this->load->config('widgets');
 
-    	$widgets[] = $this->social_igniter->render_available_widgets($region, config_item('core_widgets'), $widgets_current);
+		// If Has Widgets
+		if ($core_widgets = config_item('core_widgets'))
+		{	
+			foreach ($core_widgets as $core_widget)
+			{
+				if (in_array($region, $core_widget['regions']))
+				{
+					if ($this->social_igniter->check_can_widget_be_used($this->get('region'), $core_widget['widget']))
+					{
+						$widgets[] = $core_widget['widget'];
+					}
+				}
+			}
+    	}
 
-		// Module Widgets
-		$modules = $this->social_igniter->scan_modules();
-				
-		foreach ($modules as $module)
+		// Module Widgets				
+		foreach ($this->social_igniter->scan_modules() as $module)
 		{
     		$this->load->config($module.'/widgets');
 
 			// If Has Widgets
-			if ($module_widgets = config_item($module.'_widgets'))
+			if ($modules_widgets = config_item($module.'_widgets'))
 			{
-				if ($these_widgets = $this->social_igniter->render_available_widgets($region, $module_widgets, $widgets_current))
+				foreach ($modules_widgets as $modules_widget)
 				{
-					$widgets[] = $these_widgets;
+					if (in_array($region, $modules_widget['regions']))
+					{
+						if ($this->social_igniter->check_can_widget_be_used($this->get('region'), $modules_widget['widget']))
+						{
+							$widgets[] = $modules_widget['widget'];
+						}
+					}
 				}
 			}
-    	}
-/*  	
+    	} 	
+/*
 		echo '<pre>';
-		print_r($widgets_current);
+		//print_r($widgets_current);
 		echo '<hr>';
 		print_r($widgets);
 		echo '</pre>';
 */
-    	$message = array('status' => 'success', 'message' => 'Yay we found some widgets', 'data' => $widgets);
+	   	$message = array('status' => 'success', 'message' => 'Yay we found some widgets', 'data' => $widgets);
      	$this->response($message, 200);    
     }
     
@@ -93,7 +112,50 @@ class Settings extends Oauth_Controller
         }
 
         $this->response($message, 200);
-    }    
+    }   
+    
+    function create_authd_post()
+    {
+		// Validation Rules
+	   	$this->form_validation->set_rules('module', 'Module', 'required');
+	   	$this->form_validation->set_rules('setting', 'Setting', 'required');
+	   	$this->form_validation->set_rules('value', 'Value', 'required');
+
+		// Passes Validation
+	    if ($this->form_validation->run() == true)
+	    {
+			if (!$this->input->post('site_id')) $site_id = config_item('site_id');
+			else $site_id = $this->input->post('site_id');
+				    
+			$setting_data = array(
+				'site_id'	=> $site_id,
+				'module'	=> $this->input->post('module'),
+				'setting'	=> $this->input->post('setting'),
+				'value'		=> $this->input->post('value')
+			);
+	    
+	      	
+			// Insert
+			$result = $this->social_igniter->add_setting($setting_data);	    	
+
+	    	if ($result)
+		    {
+				// API Response
+	        	$message = array('status' => 'success', 'message' => 'Awesome we posted your setting', 'data' => $result);
+	        }
+	        else
+	        {
+		        $message = array('status' => 'error', 'message' => 'Oops we were unable to post your setting');
+	        }	
+		}
+		else 
+		{
+	        $message = array('status' => 'error', 'message' => validation_errors());
+		}
+
+	    $this->response($message, 200);
+    
+    } 
     
     // Only works if there are no duplicate 'setting' values in $_POST data
     function modify_authd_post()
