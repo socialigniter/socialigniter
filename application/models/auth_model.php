@@ -447,9 +447,9 @@ class Auth_model extends CI_Model
 			$this->db->select('*');
 	 		$this->db->from('users');
 			$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
-			$this->db->where('users.'.$parameter, $where);
+			$this->db->where('users.'.$parameter, $value);
 	 		$result = $this->db->get();	
-	 		return $result->result();		
+	 		return $result->result();
 		}
 		else
 		{

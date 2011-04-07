@@ -22,10 +22,10 @@ class Profile extends Site_Controller
 			$this->data['created_on'] 		= $this->user->created_on;
 			
 			// User Meta
-			$this->data['company']			= $this->social_auth->find_user_meta_value('company', $this->user_meta);;
-			$this->data['location']			= $this->social_auth->find_user_meta_value('location', $this->user_meta);;
-			$this->data['url']				= $this->social_auth->find_user_meta_value('url', $this->user_meta);;
-			$this->data['bio']				= $this->social_auth->find_user_meta_value('bio', $this->user_meta);;
+			$this->data['company']			= $this->social_auth->find_user_meta_value('company', $this->user_meta);
+			$this->data['location']			= $this->social_auth->find_user_meta_value('location', $this->user_meta);
+			$this->data['url']				= $this->social_auth->find_user_meta_value('url', $this->user_meta);
+			$this->data['bio']				= $this->social_auth->find_user_meta_value('bio', $this->user_meta);
 
 			
 			// Social Connections

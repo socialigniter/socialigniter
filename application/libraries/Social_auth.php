@@ -445,9 +445,9 @@ class Social_auth
 	    return $this->ci->auth_model->profile($email);
 	}
 	
-	function get_users($group_name=false)
+	function get_users($parameter, $value)
 	{
-	    return $this->ci->auth_model->get_users($group_name)->result();
+	    return $this->ci->auth_model->get_users($parameter, $value);
 	}
 	
 	function get_user($parameter, $value)

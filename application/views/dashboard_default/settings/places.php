@@ -11,7 +11,7 @@
 	<h3>Permissions</h3>
 
 	<p>Create / Manage
-	<?= form_dropdown('crud_permission', config_item('users_levels'), $settings['pages']['crud_permission']) ?>
+	<?= form_dropdown('crud_permission', config_item('users_levels'), $settings['places']['crud_permission']) ?>
 	</p>		
 
 </div>	
