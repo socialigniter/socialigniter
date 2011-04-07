@@ -259,8 +259,8 @@ class Site extends Site_Controller
     	$uri = $this->uri->segment(2);
     	preg_match('/@/', $uri, $matches);
     	if ($matches){
-    		preg_match('/acct:(.*?)@/',$uri, $matches);
-    		$username = $matches[1];
+    		preg_match('/(acct:|^)(.*?)@/',$uri, $matches);
+    		$username = $matches[2];
     		$this->data['uri'] = $uri;
 	    	$this->data['username'] = $username;
 	    	$this->load->view('site_default/partials/webfinger_user', $this->data);
