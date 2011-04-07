@@ -7,12 +7,19 @@
 		<p><?= form_dropdown('enabled', config_item('enable_disable'), $settings['places']['enabled']) ?></p>
 	</div>
 
-
 	<h3>Permissions</h3>
 
-	<p>Create / Manage
-	<?= form_dropdown('crud_permission', config_item('users_levels'), $settings['places']['crud_permission']) ?>
-	</p>		
+	<p>Write
+	<?= form_dropdown('create_permission', config_item('users_levels'), $settings['places']['create_permission']) ?>
+	</p>
+
+	<p>Publish
+	<?= form_dropdown('publish_permission', config_item('users_levels'), $settings['places']['publish_permission']) ?>	
+	</p>
+
+	<p>Manage	
+	<?= form_dropdown('manage_permission', config_item('users_levels'), $settings['places']['manage_permission']) ?>	
+	</p>	
 
 </div>	
 	

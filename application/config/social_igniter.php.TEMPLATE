@@ -31,7 +31,7 @@ $config['user_mobile_types']			= array('mobile','home','work');
 $config['user_mobile_verify']			= array('borogoves','gyre','jabberwocky','jubjub','frumious','bandersnatch','vorpal','tumtum','tulgey','burbled','snicker','snack','galumph','callooh','brillig','slithy','gimble');
 
 // Users & Login
-$config['users_levels']					= array(1 => 'Super Admin', 2 => 'Admin', 3 => 'Super User', 4 => 'User');
+$config['users_levels']					= array(1 => 'Super Administrator', 2 => 'Administrator', 3 => 'Super User', 4 => 'User');
 $config['super_admin_group']         	= 'superadmin';			// Super administrators group
 $config['admin_group']         			= 'admin';				// Admin group
 $config['default_group']       			= 'user';				// Default group

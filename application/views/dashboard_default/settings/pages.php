@@ -9,8 +9,16 @@
 
 	<h3>Permissions</h3>
 
-	<p>Create / Manage
-	<?= form_dropdown('crud_permission', config_item('users_levels'), $settings['pages']['crud_permission']) ?>
+	<p>Create
+	<?= form_dropdown('create_permission', config_item('users_levels'), $settings['pages']['create_permission']) ?>
+	</p>
+
+	<p>Publish
+	<?= form_dropdown('publish_permission', config_item('users_levels'), $settings['pages']['publish_permission']) ?>	
+	</p>
+
+	<p>Manage	
+	<?= form_dropdown('manage_permission', config_item('users_levels'), $settings['pages']['manage_permission']) ?>	
 	</p>
 		
 </div>
