@@ -249,6 +249,27 @@ class Site extends Site_Controller
     	$this->render();
     }
 
+    /* Webfinger */
+    function webfinger(){
+    	$this->data['this'] = $this;
+    	$this->load->view('site_default/partials/webfinger', $this->data);
+    }
+
+    function webfinger_user(){
+    	$uri = $this->uri->segment(2);
+    	preg_match('/^acct:/', $uri, $matches);
+    	if ($matches){
+    		preg_match('/acct:(.*?)@/',$uri, $matches);
+    		$username = $matches[1];
+    		$this->data['uri'] = $uri;
+	    	$this->data['username'] = $username;
+	    	$this->load->view('site_default/partials/webfinger_user', $this->data);
+		}
+		else {
+			$this->error_404();
+		}
+    }
+
     
     /* Widgets */
 	function widgets_sidebar()
