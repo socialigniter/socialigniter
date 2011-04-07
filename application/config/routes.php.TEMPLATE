@@ -165,6 +165,7 @@ $route['home/(:any)'] 								= 'home';
 
 /* Profiles */
 $route['profile/:any/image'] 						= 'profile/image';
+$route['profile/:any/feed']							= 'profile/feed';
 $route['profile/:any'] 								= 'profile/index';
 
 /* Settings */
