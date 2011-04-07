@@ -209,6 +209,8 @@ $route['activate/(:any)']							= 'site/activate';
 $route['activate']									= 'site/activate';
 $route['pages(:any)']								= 'site/pages';
 $route['index']										= 'site/index';
+$route['.well-known/host-meta']						= 'site/webfinger';
+$route['webfinger/(:any)']							= 'site/webfinger_user';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
