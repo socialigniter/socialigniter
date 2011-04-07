@@ -257,7 +257,7 @@ class Site extends Site_Controller
 
     function webfinger_user(){
     	$uri = $this->uri->segment(2);
-    	preg_match('/^acct:/', $uri, $matches);
+    	preg_match('/@/', $uri, $matches);
     	if ($matches){
     		preg_match('/acct:(.*?)@/',$uri, $matches);
     		$username = $matches[1];
