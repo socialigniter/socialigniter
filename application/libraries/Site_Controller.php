@@ -105,15 +105,15 @@ class Site_Controller extends MY_Controller
     		{
     			$widget = json_decode($site_widget->value);
     		
-    			if (($widget->method == 'view') && ($widget->enabled == 'TRUE'))
+    			if ($widget->method == 'view')
  				{   		
     				$widgets .= $this->load->view(config_item('site_theme').'/'.$widget->path, $this->data, true);
     			}
-    			elseif (($widget->method == 'run') && ($widget->enabled == 'TRUE'))
+    			elseif ($widget->method == 'run')
     			{
     				$widgets .= modules::run($widget->module.'/'.$widget->path);
     			}
-    			elseif (($widget->method == 'text') && ($widget->enabled == 'TRUE'))
+    			elseif ($widget->method == 'text')
 				{
     				$widgets .= $widget->content;				
 				}

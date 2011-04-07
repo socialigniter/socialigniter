@@ -53,8 +53,8 @@
 		<div class="clear"></div>
 		<div class="widget_border" id="widget_wide_container">
 			<?php if ($wide_widgets): foreach ($wide_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-			<div class="widget_instance" id="widget_<?= $widget->order ?>">
-				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons', '').$widget->module ?>_24.png"></span>
+			<div class="widget_instance" id="widget_<?= $json_widget->settings_id ?>">
+				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span>
 				<span class="widget_name"><?= $widget->name ?></span>
 				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>				
 				<div class="clear"></div>
@@ -97,10 +97,7 @@ $(document).ready(function()
 						type	 : 'POST',
 						dataType : 'json',
 						data	 : new_widget_data,
-				  		success	 : function(result)
-				  		{
-							//console.log(result);
-					 	}
+				  		success	 : function(result) {}
 					});
 				});	
 			}
@@ -111,8 +108,11 @@ $(document).ready(function()
 	var partial_html = '<p>Oops, something went wrong! Close and try again in a few seconds.</p>';	
 	
 	// Add Widget
-	$('.widget_add').bind('click', function()
-	{	
+	$('.widget_add').bind('click', function(eve)
+    {
+    	//eve.stopPropagation();
+    	eve.preventDefault();
+    	
 		var widget_region = $(this).attr('rel');
 		var widget_count  = $('#widget_' + widget_region + '_container').find('.widget_instance').length;
 
@@ -138,21 +138,18 @@ $(document).ready(function()
 					{
 						$parent_dialog = $(this);
 						
-						$('.widget_add_instance').bind('click', function(eve)
+						// Add Event
+						$('.widget_add_instance').bind('click', function(add_eve)
 						{
-							eve.stopPropagation();
-							
-							var widget_form = $(this).find('form');
-							var widget_data	= widget_form.serializeArray();
-							var this_widget_json = $(widget_form).find('input').val();
-							
-							//console.log(this_widget_json);
-							
-							widget_data.push({'name':'module','value':'widgets'},{'name':'setting','value':widget_region});
+							//	add_eve.stopPropagation();							
+					    	eve.preventDefault();
 
-							console.log(widget_data);
+							var widget_data	= [];
+							var widget_json = jQuery.parseJSON($(this).find('input').val());
+							widget_json.order = widget_count + 1;							
+							widget_data.push({'name':'module','value':'widgets'},{'name':'setting','value':widget_region},{'name':'value','value':JSON.stringify(widget_json)});
 
-							$(this).oauthAjax(
+							 $(this).find('form').oauthAjax(
 							{
 								oauth 		: user_data,		
 								url			: base_url + 'api/settings/create',
@@ -160,24 +157,24 @@ $(document).ready(function()
 								dataType	: 'json',
 								data		: widget_data,
 							  	success		: function(result)
-							  	{
+							  	{							  	
 									if (result.status == 'success')
 									{	
 										var widget		 = jQuery.parseJSON(result.data.value);
 										var this_assets	 = displayModuleAssets(widget.module, core_modules, core_assets);
 										var added_widget = '<div class="widget_instance" id="widget_' + result.data.settings_id + '"><span class="widget_icon"><img src="' + this_assets + widget.module + '_24.png"></span><span class="widget_name">' + widget.name + '</span><a class="widget_edit" href="' + result.data.settings_id + '"><span class="actions action_edit"></span>Edit</a><textarea name="widget_data" style="display:none">' + result.data.value + '</textarea><div class="clear"></div></div>';
-									
+																		
 										// Hide No Widgets									
 										if (widget_count === 0)
 										{
 											$('#no_' + widget_region + '_widgets').hide('fast');
 										}
-								
-										// Add New Widget
-										$('#widget_' + widget_region + '_area').delay(500, function()
-										{	
-											$(this).find('div.widget_border').append(added_widget).fadeIn('normal');
-										});
+										
+										// Add New Widget										
+										setTimeout(function()
+										{
+											$('#widget_' + widget_region + '_area').find('div.widget_border').append(added_widget).fadeIn('normal');
+										}, 500);
 									}
 									else
 									{
@@ -213,18 +210,20 @@ $(document).ready(function()
 			{
 				partial_html = html;
 				partial_html = $('<div />').html(partial_html).find('textarea').val(widget.content).end();
+				partial_html = $('<div />').html(partial_html).find('input').val(json.data.value).end();
 
 				$('<div />').html(partial_html).dialog(
 				{
 					width	: 450,
 					modal	: true,
-					title	: widget.name,
+					title	: 'Edit ' + widget.name,
 					create	: function()
 					{
 						$parent_dialog = $(this);
-						$('.widget_delete').bind('click', function(eve)
+						$('.widget_delete').bind('click', function(del_eve)
 						{												
-							eve.stopPropagation();
+							del_eve.stopPropagation();
+					    	del_eve.preventDefault();
 
 							$(this).oauthAjax(
 							{
@@ -250,6 +249,7 @@ $(document).ready(function()
 										});
 
 										$parent_dialog.dialog('close');
+										$parent_dialog.remove();
 									}		  	
 							  	}		
 							});
@@ -259,28 +259,32 @@ $(document).ready(function()
 					{
 						'Save':function()
 						{
-							var widget_data = $('#widget_setting').serializeArray();
-							//widget_data.push({'name':'module','value':'users'});		
-						    //var $setting_dialog = $(this);						
+							var widget_data     = [];
+							var widget_json     = jQuery.parseJSON($(this).find('input').val());
+							widget_json.content = $(this).find('textarea').val();
+							widget_data.push({'name':'value','value':JSON.stringify(widget_json)});
+							
 							$(this).find('form').oauthAjax(
 							{
 								oauth 		: user_data,
-								url			: base_url + 'api/settings/modify/id/' + settings_id,
+								url			: base_url + 'api/settings/modify_widget/id/' + settings_id,
 								type		: 'POST',
 								dataType	: 'json',
 								data		: widget_data,
 						  		success		: function(result)
-						  		{
+						  		{	
+						  			console.log(result);
+						  							  		
 						  			if (result.status == 'success')
 						  			{
-										$(this).dialog('close');
+										$parent_dialog.dialog('close');
 									}
 									else
 									{
 										alert('Could not save');
 									}	
 							 	}
-							});				  
+							});								
 						}
 					}			
 		    	});
