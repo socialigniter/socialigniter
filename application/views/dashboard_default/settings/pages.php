@@ -7,6 +7,19 @@
 		<p><?= form_dropdown('enabled', config_item('enable_disable'), $settings['pages']['enabled']) ?></p>
 	</div>
 
+	<h3>Permissions</h3>
+
+	<p>Create / Manage
+	<?= form_dropdown('crud_permission', config_item('users_levels'), $settings['pages']['crud_permission']) ?>
+	</p>
+		
+</div>
+
+<span class="item_separator"></span>
+
+
+<div class="content_wrap_inner">
+
 	<h3>Display</h3>
 
 	<p>Ratings
@@ -15,11 +28,12 @@
 
 	<p>Display Tags
 	<?= form_dropdown('tags_display', config_item('yes_or_no'), $settings['pages']['tags_display']) ?>
-	</p>
+	</p>	
 		
 </div>
 
 <span class="item_separator"></span>
+
 
 <div class="content_wrap_inner">
 	

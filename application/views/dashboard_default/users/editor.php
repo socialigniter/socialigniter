@@ -1,18 +1,9 @@
-<h3>Create User</h3>
-
-<div id="message"><?= $message;?></div>
-
 <form id="user_create" method="post" action="<?= base_url()."users/create";?>">
 
 <table border="0" cellpadding="0" cellspacing="0">
 <tr>
 	<td>Level:</td>
-	<td><select name="level">
-		<?php foreach ($users_levels as $level) : ?>
-		<option value="<?= $level->level ?>"><?= $level->level_name ?></option>
-		<?php endforeach; ?>
-	</select>
-	</td>    	
+	<td><?= form_dropdown('user_level_id', config_item('users_levels'), $user_level_id) ?></td>    	
 </tr>
 <tr>
 	<td>Name:</td>
@@ -35,10 +26,6 @@
 	<td><input type="password" name="password_confirm" value=""></td>
 </tr>		
 <tr>		
-	<td>Phone:</td>
-	<td><input type="text" name="phone" value="<?= $phone ?>"></td>
-</tr>
-<tr>		
 	<td>Company:</td>
 	<td><input type="text" name="company" value="<?= $company ?>"></td>
 </tr>
@@ -56,7 +43,7 @@
 </tr>
 <tr>		
 	<td colspan="2"><input type="submit" value="<?= $sub_title ?> User" /></td>
-	</tr>
-	</table>
+</tr>
+</table>
 
 </form>
