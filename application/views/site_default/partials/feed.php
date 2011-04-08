@@ -12,15 +12,16 @@
 	</author>
 	<link rel='hub' href='http://pubsubhubbub.appspot.com/'/>
 	<link href='<?= base_url() ?>profile/<?= $username ?>'/>
+	<? $counter = 0 ?>
 	<? foreach($activities as $activity): ?>
 		<? if ($activity->type == "status"): ?>
 		    <entry>
-		    	<id>http://damn.this.spec.is.hard</id>
+		    	<id>http://damn.this.spec.is.hard/<?= $counter ?></id>
 				<title>Status Update</title> 
 				<link href='http://need.to.add.com'/>
 				<summary><?= $social_igniter->render_item($activity); ?></summary>
 				<updated><?= date('Y-m-d\TH:i:s\Z', strtotime($activity->created_at)) ?></updated>
-
+				<?php $counter += 1 ?>
 			</entry>
 		<? endif; ?>
 	<? endforeach; ?>
