@@ -622,9 +622,13 @@ class Social_igniter
 	{
 		if ($activity_id = $this->ci->activity_model->add_activity($activity_info, $activity_data))
 		{
-			$this->ci->load->library('curl');
 			$username = $this->ci->activity_model->get_activity($activity_id)->username;
-			$this->ci->curl->simple_post('http://www.psychicwarlock.com/', array('hub.mode'=>'publish', 'hub.url' => base_url() . "profile/". $username));
+			$hub = 'http://www.psychicwarlock.com/';
+			$hubargs = array('hub.mode'=>'publish', 'hub.url' => base_url() . "profile/". $username.'/feed');
+			$this->ci->load->library('curl');
+			
+			$this->ci->curl->simple_post($hub, $hubargs);
+			$this->ci->curl->simple_post('http://social.pdxbrain.com:3232', $hubargs);
 			return $this->ci->activity_model->get_activity($activity_id);
 		}
 		
