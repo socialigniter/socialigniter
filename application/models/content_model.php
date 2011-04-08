@@ -125,6 +125,7 @@ class Content_model extends CI_Model {
  		$result = $this->db->get()->row();	
  		return $result;      
     }
+
     
     function get_content_category_count($category_id)
     {
