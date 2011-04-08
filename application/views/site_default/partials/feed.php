@@ -16,7 +16,7 @@
 	<? foreach($activities as $activity): ?>
 		<? if ($activity->type == "status"): ?>
 		    <entry>
-		    	<id>http://damn.this.spec.is.hard/<?= $counter ?></id>
+		    	<id>http://damn.this.spec.is.hard/<?= $activity->activity_id ?></id>
 				<title>Status Update</title> 
 				<link href='http://need.to.add.com'/>
 				<summary><?= $social_igniter->render_item($activity); ?></summary>
