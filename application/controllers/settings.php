@@ -174,7 +174,7 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title'] 	= 'Comments';
 		$this->data['this_module']	= 'comments';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
-    	$this->render();
+    	$this->render('dashboard_wide');
     }	
 
 	function home()
@@ -182,7 +182,7 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title'] 	= 'Home';
 		$this->data['this_module']	= 'home';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
-    	$this->render();
+    	$this->render('dashboard_wide');
     }
 
 	function users()
@@ -190,7 +190,7 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title']	= 'Users';
 		$this->data['this_module']	= 'users';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
-    	$this->render();
+    	$this->render('dashboard_wide');
     }
 
 	function places()
@@ -198,7 +198,7 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title'] 	= 'Places';
 		$this->data['this_module']	= 'places';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
-    	$this->render();
+    	$this->render('dashboard_wide');
     } 
 	
 	function pages()
@@ -206,7 +206,7 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title'] 	= 'Pages';
 		$this->data['this_module']	= 'pages';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
-    	$this->render();
+    	$this->render('dashboard_wide');
     }    
 
 	function api()
@@ -214,7 +214,7 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title'] 	= 'API';
 		$this->data['this_module']	= 'users';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
-    	$this->render();
+    	$this->render('dashboard_wide');
     }
 
     /* Modules Settings */
@@ -225,12 +225,12 @@ class Settings extends Dashboard_Controller
 		$this->data['ignore_modules']	= config_item('ignore_modules');
 		$this->data['modules']			= $this->social_igniter->scan_modules();
 		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
-		$this->render();
+		$this->render('dashboard_wide');
 	}
 	
 	function get_apps()
 	{
 		$this->data['sub_title']		= 'Get Apps';	
-		$this->render();
+		$this->render('dashboard_wide');
 	}
 }

@@ -34,56 +34,6 @@ class Social_tools
 		$this->view_comments = NULL;
 	}
 	
-	/* Access Tools */
-	function has_access_to_create($type, $user_id)
-	{
-		// Is Super or Admin
-		if ($this->ci->session->userdata('user_level_id') <= 2)
-		{
-			return 'A';
-		}	
-
-		return FALSE;	
-	}
-	
-	function has_access_to_modify($type, $object, $user_id, $user_level_id=NULL)
-	{
-		// Types of objects
-		if ($type == 'content')
-		{		
-			if ($user_id == $object->user_id)
-			{
-				return TRUE;
-			}		
-		}
-		elseif ($type == 'activity')
-		{
-			if ($user_id == $object->user_id)
-			{
-				return TRUE;
-			}
-		}
-		elseif ($type == 'comment')
-		{
-			if ($user_id == $object->user_id)
-			{
-				return TRUE;
-			}	
-		}
-		else
-		{
-			return FALSE;
-		}
-		
-		// Is Super or Admin
-		if ($this->ci->session->userdata('user_level_id') <= 2)
-		{
-			return TRUE;
-		}
-				
-		return FALSE;
-	}
-	
 	/* Categories */	
 	function get_categories()
 	{
@@ -469,7 +419,7 @@ class Social_tools
 				$this->data['comment_id']		= $child->comment_id;
 				$this->data['comment_text']		= $child->comment;
 				$this->data['reply_id']			= $child->comment_id;
-				$this->data['item_can_modify']	= $this->has_access_to_modify('comment', $child, $user_id, $user_level_id);
+				$this->data['item_can_modify']	= $this->ci->social_auth->has_access_to_modify('comment', $child, $user_id, $user_level_id);
 
 				$this->view_comments  	       .= $this->ci->load->view(config_item('site_theme').'/partials/comments_list', $this->data, true);
 				

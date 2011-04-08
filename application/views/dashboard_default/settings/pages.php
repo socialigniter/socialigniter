@@ -17,7 +17,7 @@
 	<?= form_dropdown('publish_permission', config_item('users_levels'), $settings['pages']['publish_permission']) ?>	
 	</p>
 
-	<p>Manage	
+	<p>Manage All
 	<?= form_dropdown('manage_permission', config_item('users_levels'), $settings['pages']['manage_permission']) ?>	
 	</p>
 		

@@ -44,7 +44,7 @@ class Tags extends Oauth_Controller
     	$content = $this->social_tools->get_tag($this->get('id'));
     
 		// Access Rules
-	   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
+	   	//$this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
 	   	
     	$viewed			= 'Y';
     	$approval		= 'A'; 

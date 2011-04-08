@@ -9,7 +9,7 @@
 
 	<h3>Permissions</h3>
 
-	<p>Write
+	<p>Create
 	<?= form_dropdown('create_permission', config_item('users_levels'), $settings['places']['create_permission']) ?>
 	</p>
 
@@ -17,7 +17,7 @@
 	<?= form_dropdown('publish_permission', config_item('users_levels'), $settings['places']['publish_permission']) ?>	
 	</p>
 
-	<p>Manage	
+	<p>Manage All	
 	<?= form_dropdown('manage_permission', config_item('users_levels'), $settings['places']['manage_permission']) ?>	
 	</p>	
 
