@@ -18,7 +18,7 @@
 				<title>Status Update</title> 
 				<link href='#TODO add link'/>
 				<summary><?= $social_igniter->render_item($activity); ?></summary>
-				<updated><?= $item_date ?></updated>
+				<updated><?= date('Y-m-d\TH:i:s\Z', strtotime($activity->created_at)) ?></updated>
 
 			</entry>
 		<? endif; ?>
