@@ -127,6 +127,7 @@ class Profile extends Site_Controller
 
  	function feed()
  	{
+ 		$this->output->set_header('Content-type:application/atom+xml');
  		$this->load->view('site_default/partials/feed', $this->data);
  	}
  	
