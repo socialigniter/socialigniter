@@ -9,7 +9,7 @@
 
 		</name>
 	</author>
-	<link rel='hub' href='http://www.psychicwarlock.com/'/>
+	<link rel='hub' href='http://pubsubhubbub.appspot.com/'/>
 	<link href='<?= base_url() ?>profile/<?= $username ?>'/>
 	<? foreach($activities as $activity): ?>
 		<? if ($activity->type == "status"): ?>
