@@ -1,4 +1,5 @@
 <? echo '<' ?>?xml version='1.0'?<? echo '>' ?>
+
 <? $twitter = $this->load->module('twitter/home'); ?>
 <XRD xmlns='http://docs.oasis-open.org/ns/xri/xrd-1.0'>
 	<Subject><?= $uri ?></Subject>
