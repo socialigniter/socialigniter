@@ -27,7 +27,7 @@ class Site extends Site_Controller
 		{				
 			$this->data['comments_view'] = $this->social_tools->make_comments_section($page->content_id, 'page', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
 		}
-
+		
 		// Load Login Is Enabled
 		$this->data['sidebar'] = $this->render_widgets('sidebar');		
 
@@ -44,6 +44,9 @@ class Site extends Site_Controller
 		{
 			$page_comment = '#comment-'.$this->uri->segment(4);
 		}
+		
+		// Load Login Is Enabled
+		$this->data['sidebar'] = $this->render_widgets('sidebar');		
 		
 		redirect($page_link.$page_comment);
 	}
@@ -74,13 +77,10 @@ class Site extends Site_Controller
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{
 			$this->data['comments_view'] = $this->social_tools->make_comments_section($page->content_id, 'page', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
-		}	
-
-		// Load Login Is Enabled
-		if (config_item('users_login') == 'TRUE')
-		{
-			$this->data['sidebar'] .= $this->load->view(config_item('site_theme').'/partials/widget_login', $this->data, true);	
 		}
+		
+		// Load Login Is Enabled
+		$this->data['sidebar'] = $this->render_widgets('sidebar');		
 
 		$this->render();	
 	}

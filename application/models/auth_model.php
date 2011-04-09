@@ -298,6 +298,13 @@ class Auth_model extends CI_Model
         
 		$password = $this->hash_password($password, $salt);
 		
+		
+		if (array_key_exists('name', $additional_data))	$name = $additional_data['name'];
+		else $name = '';
+		
+		if (array_key_exists('image', $additional_data)) $image = $additional_data['image'];
+		else $image = '';
+		
         // Users table.
 		$user_data = array(
 			'username'   		=> $username, 
@@ -305,8 +312,8 @@ class Auth_model extends CI_Model
   			'salt'				=> $salt,
   			'email'      		=> $email,
   			'gravatar'			=> md5($email),
-  			'name'				=> $additional_data['name'],
-  			'image'				=> $additional_data['image'],
+  			'name'				=> $name,
+  			'image'				=> $image,
 			'user_level_id'   	=> $user_level_id,
 			'ip_address' 		=> $this->input->ip_address(),
         	'created_on' 		=> now(),

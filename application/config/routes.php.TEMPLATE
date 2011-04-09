@@ -60,6 +60,7 @@ $route['api/comments/destroy/(:any)/(:any)']		= 'api/comments/destroy/$1/$2';
 $route['api/comments/content']						= 'api/comments/content';
 $route['api/comments/recent']						= 'api/comments/recent';
 $route['api/comments/create']						= 'api/comments/create';
+$route['api/comments/create_public']				= 'api/comments/create_public';
 $route['api/comments/public']						= 'api/comments/public';
 $route['api/comments/new']							= 'api/comments/new';
 
