@@ -26,16 +26,7 @@ class Home extends Dashboard_Controller
 	
 	}
 
-	function username()
-	{
-		//$user = $this->tweet->call('get', 'users/show', array('screen_name' => 'tylergillies'));
-		$user = $this->tweet->call('get', 'users/show');
-		$stuff = $this->social_auth->get_connections_user($this->session->userdata('user_id'));
-		//var_dump($stuff);
-		$username = $stuff[0]->connection_username;
-		//var_dump($username);
-		return $username;
-	}
+
 	
 	function timeline()
 	{

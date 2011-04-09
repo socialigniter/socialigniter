@@ -9,9 +9,9 @@
 		type='application/atom+xml'
 		href='<?= base_url() ?>profile/<?= $username ?>/feed'/>
 	
-	<? if ($twitter): ?>
-	<Link rel='http://webfinger.com#twitter'
-		href='http://www.twitter.com/<?= $twitter->username() ?>' />
+	<? if ($screen_name): ?>
+	<Link rel='webfinger#twitter'
+		href='http://www.twitter.com/<?= $screen_name ?>' />
 	<? endif; ?>
 
 </XRD>

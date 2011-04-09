@@ -261,12 +261,22 @@ class Site extends Site_Controller
     	if ($matches){
     		preg_match('/(acct:|^)(.*?)@/',$uri, $matches);
     		$username = $matches[2];
-    		$twitter = $this->load->module('twitter/home');
     		$this->data['uri'] = $uri;
-    		$this->data['twitter'] = $twitter;
 	    	$this->data['username'] = $username;
-	    	//$this->output->set_header('Transfer-Encoding:chunked');
-	    	//$this->output->set_header('Content-type:application/xrd+xml');
+	    	$user = $this->social_auth->get_user('username', $username); 
+			if ($user)
+			{
+			  $connections = $this->social_auth->get_connections_user($user->user_id); 		
+			}
+			foreach($connections as $connection)
+			{
+				//var_dump($connection);
+				if ($connection->module == "twitter"){
+					$screen_name = $connection->connection_username;
+				}
+			}
+			//var_dump($screen_name);
+			$this->data['screen_name'] = $screen_name;
 	    	$this->load->view('site_default/partials/webfinger_user', $this->data);
 		}
 		else {
