@@ -11,7 +11,7 @@
   		href='<?= base_url() ?>profile/<?= $username ?>/feed'/>
   	<? if ($twitter)
   		{ ?>
-  	<Link rel'webfinger#twitter'
+  	<Link rel='webfinger#twitter'
   		href='http://www.twitter.com/<?= $twitter->username() ?>' />
   		<?
   		}
