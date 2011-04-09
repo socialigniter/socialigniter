@@ -80,7 +80,9 @@ function geo_get()
 {
 	if (navigator.geolocation)
 	{
-		return navigator.geolocation.getCurrentPosition(geo_success);
+		if (!(navigator.userAgent.match(/Mac/) && navigator.userAgent.match(/Chrome/)){
+			return navigator.geolocation.getCurrentPosition(geo_success);
+		}
 	}
 	else
 	{
