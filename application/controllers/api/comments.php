@@ -320,7 +320,7 @@ class Comments extends Oauth_Controller
 		$comment = $this->social_tools->get_comment($this->get('id'));
 		
 		// Make sure user has access to do this func    	
-    	if ($access = $this->social_tools->has_access_to_modify('comment', $comment, $this->oauth_user_id))
+    	if ($access = $this->social_auth->has_access_to_modify('comment', $comment, $this->oauth_user_id))
         {       
         	$this->social_tools->delete_comment($comment->comment_id);
         

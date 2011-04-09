@@ -60,8 +60,20 @@ class Content extends Oauth_Controller
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
 	    {
+	 		$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);   
+	    
 	    	$viewed			= 'Y';
-	    	$approval		= 'N'; 
+	    
+	    	if ($user->user_level_id <= config_item($this->input->post('module').'_publish_permission'))
+	    	{
+	    		$approval	= 'Y';
+	    	}
+	    	else
+	    	{
+	    		$approval	= 'N';
+	    	}
+	    	
+	    	
 
 	    	$content_data = array(
 	    		'site_id'			=> config_item('site_id'),
@@ -114,7 +126,7 @@ class Content extends Oauth_Controller
     	$content = $this->social_igniter->get_content($this->get('id'));
     
 		// Access Rules
-	   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
+	   	//$this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
 	   	   
     	$content_data = array(
     		'content_id'		=> $this->get('id'),
@@ -214,7 +226,7 @@ class Content extends Oauth_Controller
     {
     	$content = $this->social_igniter->get_content($this->get('id'));
     
-    	if ($access = $this->social_tools->has_access_to_modify('content', $content, $this->oauth_user_id))
+    	if ($access = $this->social_auth->has_access_to_modify('content', $content, $this->oauth_user_id))
         {
 			if ($delete = $this->social_igniter->update_content_value(array('content_id' => $content->content_id, 'status' => 'D')))
 			{						        

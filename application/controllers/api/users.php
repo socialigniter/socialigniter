@@ -369,6 +369,17 @@ class Users extends Oauth_Controller
     	$this->response($message, 200);
     }
     
+    
+    /* Advanced Fields */
+    function advanced_authd_post()
+    {
+    
+    	$message = array('status' => 'success', 'message' => 'User advanced settings updated');
+    
+    	$this->response($message, 200);    
+    }
+    
+    
 	// Activate User
 	function activate_authd_put() 
 	{		

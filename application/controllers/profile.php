@@ -91,7 +91,8 @@ class Profile extends Site_Controller
 				 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
 				 	$this->data['item_comment_avatar']	= $this->data['logged_image'];
 
-				 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify('activity', $activity, $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));			 	
+
+				 	$this->data['item_can_modify']		= $this->social_auth->has_access_to_modify('activity', $activity, $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));			 	
 					$this->data['item_edit']			= base_url().'home/'.$activity->module.'/manage/'.$activity->content_id;
 					$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
 

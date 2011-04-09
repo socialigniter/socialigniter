@@ -6,6 +6,7 @@
 	<?= navigation_list_btn('settings/mobile', 'Mobile') ?>
 	<?= navigation_list_btn('settings/password', 'Password') ?>
 	<?= navigation_list_btn('settings/connections', 'Connections') ?>
+	<?= navigation_list_btn('settings/advanced', 'Advanced') ?>
 </ul>
 <?php elseif (is_uri_value($this->uri->segment(2), config_item('core_modules'))): ?>
 <h2 class="content_title">
