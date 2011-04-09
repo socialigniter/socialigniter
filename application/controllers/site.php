@@ -261,8 +261,12 @@ class Site extends Site_Controller
     	if ($matches){
     		preg_match('/(acct:|^)(.*?)@/',$uri, $matches);
     		$username = $matches[2];
+    		$twitter = $this->load->module('twitter/home');
     		$this->data['uri'] = $uri;
+    		$this->data['twitter'] = $twitter;
 	    	$this->data['username'] = $username;
+	    	//$this->output->set_header('Transfer-Encoding:chunked');
+	    	//$this->output->set_header('Content-type:application/xrd+xml');
 	    	$this->load->view('site_default/partials/webfinger_user', $this->data);
 		}
 		else {
