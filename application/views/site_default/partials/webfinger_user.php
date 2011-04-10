@@ -8,10 +8,12 @@
 	<Link rel='http://schemas.google.com/g/2010#updates-from'
 		type='application/atom+xml'
 		href='<?= base_url() ?>profile/<?= $username ?>/feed'/>
-	
-	<? if ($screen_name): ?>
+	<Link rel='webfinger#friend'
+		href='<?= base_url() ?>profile/add_friend/{uri}' />
+	<? if (isset($screen_name)): ?>
 	<Link rel='webfinger#twitter'
 		href='http://www.twitter.com/<?= $screen_name ?>' />
 	<? endif; ?>
+
 
 </XRD>
