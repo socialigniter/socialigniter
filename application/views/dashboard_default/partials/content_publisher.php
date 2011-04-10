@@ -27,8 +27,6 @@ $(document).ready(function()
 			var form_data	= $form.serializeArray();
 			form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'type','value':'<?= $form_type ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
 
-			console.log(form_data);
-
 			$form.oauthAjax(
 			{
 				oauth 		: user_data,
@@ -42,9 +40,7 @@ $(document).ready(function()
 					$('#content_message').notify({scroll:true,status:result.status,message:result.message});
 					
 					if (result.status == 'success')
-					{
-						console.log(result.data);
-					
+					{					
 						var new_status = displayContentStatus(result.data.status, result.data.approval);
 						$('#content_status').html('<span class="actions action_' + new_status + '"></span> ' + new_status);	
 					}

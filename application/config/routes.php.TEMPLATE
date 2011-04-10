@@ -114,6 +114,7 @@ $route['api/users/activate/(:any)/(:any)']			= 'api/users/activate/$1/$2';
 $route['api/users/recent']							= 'api/users/recent';
 $route['api/users/password']						= 'api/users/password';
 $route['api/users/create']							= 'api/users/create';
+$route['api/users/login']							= 'api/users/login';
 $route['api/users/set_userdata_signup_email']		= 'api/users/set_userdata_signup_email';
 
 /* Upload */

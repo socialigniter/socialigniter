@@ -318,7 +318,7 @@ class Social_auth
 
 			// Get User
 		    $user = $this->get_user('user_id', $user_id);
-		    
+
 			// Add Activity
 			$activity_info = array(
 				'site_id'		=> config_item('site_id'),
@@ -333,9 +333,8 @@ class Social_auth
 				'title'	=> config_item('site_title')
 			);
 	
-			// Add Activity
 			$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);		    
-		    
+
 
 			// Send Welcome Email				
 			$data = array(

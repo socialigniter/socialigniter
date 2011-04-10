@@ -45,7 +45,7 @@ class Profile extends Site_Controller
 				else
 				{
 			 		$this->data['follow_word']	= 'follow';				
-				}				
+				}0				
 			}
 			else
 			{

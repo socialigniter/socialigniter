@@ -31,26 +31,43 @@
 <?= $this->social_igniter->get_social_logins('<div class="social_login">', '</div>'); ?>
 
 <script type="text/javascript">
+
+// Elements for Placeholder
+var validation_rules = [{
+	'element' 	: '[name=name]', 
+	'holder'	: 'Joe Smith', 
+	'message'	: 'Enter your name'
+},{
+	'element' 	: '[name=email]', 
+	'holder'	: 'your@email.com', 
+	'message'	: 'Enter your email'	
+},{
+	'element' 	: '[name=password]', 
+	'holder'	: 'password', 
+	'message'	: 'password123'	
+},{
+	'element' 	: '[name=password_confirm]', 
+	'holder'	: 'password', 
+	'message'	: 'password123'
+}]
+
 $(document).ready(function()
 {
-	doPlaceholder('[name=name]', 'Joe Smith');
-	doPlaceholder('[name=email]', 'your@email.com');
-	doPlaceholder('[name=password]', 'password');
-	doPlaceholder('[name=password_confirm]', 'password');
+	// Placeholders
+	makePlaceholders(validation_rules);
 
-	$("#user_signup").bind("submit", function(eve)
+	$("#user_signup").bind('submit', function(eve)
 	{	
-		eve.preventDefault();
+		eve.preventDefault();	
+
+		var email_valid	= validateEmailAddress($('[name=email]').val());					
 		
-		var name				= isFieldValid('[name=name]', 'Joe Smith', 'Enter your name');
-		var password			= isFieldValid('[name=password]', 'password', 'password123');
-		var password_confirm	= isFieldValid('[name=password_confirm]', 'password', 'password123');
-		var email				= isFieldValid('[name=email]', 'your@email.com', 'Enter your email address');
-		var email_valid			= validateEmailAddress($('[name=email]').val());				
-		
-		// Is Valid		
-		if (name == true && password == true && password_confirm == true && email == true && email_valid == true)
-		{					
+		// Validation	
+		if (validationRules(validation_rules) && email_valid == true)
+		{
+			// Strip Empty
+			cleanAllFieldsEmpty(validation_rules);
+							
 			var signup_data = $('#user_signup').serializeArray();
 		
 			$.ajax(
@@ -65,12 +82,34 @@ $(document).ready(function()
 					
 					if (result.status == 'success')
 					{
-						$('#content_message').notify({scroll:true,status:result.status,message:result.message + '. You will now be redirected to login',complete:'redirect',redirect:base_url + 'login'});
-
-						$('[name=name]').val('');
-						$('[name=email]').val('');
-						$('[name=password]').val('');
-						$('[name=password_confirm]').val('');
+						// Do Login
+						$.ajax(
+						{
+							url			: base_url + 'api/users/login',
+							type		: 'POST',
+							dataType	: 'json',
+							data		: signup_data,
+					  		success		: function(result)
+					  		{
+					  			console.log('inside login');
+					  		
+								$('html, body').animate({scrollTop:0});
+						
+								$('[name=name]').val('');
+								$('[name=email]').val('');
+								$('[name=password]').val('');
+								$('[name=password_confirm]').val('');						
+								
+								if (result.status == 'success')
+								{
+									$('#content_message').notify({scroll:true,status:result.status,message:result.message + '. You will now be logged in',complete:'redirect',redirect: base_url + 'home'});								
+								}
+								else
+								{
+									$('#content_message').notify({scroll:true,status:result.status,message:result.message});					
+								}
+						 	}
+						});
 					}
 					else
 					{
@@ -79,7 +118,7 @@ $(document).ready(function()
 			 	}
 			});	
 		}
-		else if (email == true && email_valid == false)
+		else if (validationRules(validation_rules) && email_valid == false)
 		{
 			$('#email_error').html('That email address is invalid').show('slow');
 			$('#email_error').delay(2500).hide('slow');		
