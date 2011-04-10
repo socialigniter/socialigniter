@@ -499,11 +499,11 @@ class Social_tools
 		
 		if ($relationship)	
 		{
-			$user = $this->ci->social_auth->get_user('user_id', $relationship->owner_id);
+			$user = $this->ci->social_auth->get_user('user_id', $relationship->user_id);
 				
 			$activity_info = array(
 				'site_id'		=> $relationship->site_id,
-				'user_id'		=> $relationship->user_id,
+				'user_id'		=> $relationship->owner_id,
 				'verb'			=> $relationship->type,
 				'module'		=> $relationship->module,
 				'type'			=> $relationship->type,
@@ -511,11 +511,9 @@ class Social_tools
 			);
 				
 			$activity_data = array(
-				'title'		=> $user->name
-			);			
-	
-			// Permalink
-			$activity_data['url'] = base_url().'profile/'.$user->username;
+				'title'		=> $user->name,
+				'url'		=> base_url().'profile/'.$user->username
+			);	
 	
 			// Add Activity
 			$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);		
