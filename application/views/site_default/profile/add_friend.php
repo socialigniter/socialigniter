@@ -2,7 +2,11 @@
 <p>
 	Are you sure you want to add <?= $webfinger ?><br><br>
 	<p>
-		YES
+		<button id='confirm'>YES</button>
 	</p>
+	<script>
+	$(button).bind("click", function(){
+		window.location.href = document.referrer;
+	})
 </p>
 </div>
