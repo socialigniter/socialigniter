@@ -495,7 +495,33 @@ class Social_tools
 	
 	function add_relationship($relationship_data)
 	{
-		return $this->ci->relationships_model->add_relationship($relationship_data);
+		$relationship = $this->ci->relationships_model->add_relationship($relationship_data);
+		
+		if ($relationship)	
+		{
+			$user = $this->ci->social_auth->get_user('user_id', $relationship->owner_id);
+				
+			$activity_info = array(
+				'site_id'		=> $relationship->site_id,
+				'user_id'		=> $relationship->user_id,
+				'verb'			=> $relationship->type,
+				'module'		=> $relationship->module,
+				'type'			=> $relationship->type,
+				'content_id'	=> 0
+			);
+				
+			$activity_data = array(
+				'title'		=> $user->name
+			);			
+	
+			// Permalink
+			$activity_data['url'] = base_url().'profile/'.$user->username;
+	
+			// Add Activity
+			$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);		
+		}
+	
+		return $relationship;
 	}
 	
 	function update_relationship($relationship_id, $relationship_data)

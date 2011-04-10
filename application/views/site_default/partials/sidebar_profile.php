@@ -48,7 +48,7 @@ $(document).ready(function()
 		eve.preventDefault();
 		var follow_word = $('#follow_button').attr('value').toLowerCase();
 		var follow_data = $('#follow_button').serializeArray();
-		follow_data.push({'name':'module','value':'site'});
+		follow_data.push({'name':'module','value':'users'});
 
 		$(this).oauthAjax(
 		{

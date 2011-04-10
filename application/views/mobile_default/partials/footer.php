@@ -1,7 +1,4 @@
-<ul>
-  	<li><a href="#">Download</a></li>
-  	<li><a href="#">About</a></li>
-  	<li><a href="#">Developers</a></li>
-  	<li><a href="#">Contact</a></li>
-	<li>© <?= date('Y').' '.$site_title ?></li>
-</ul>
+<li><a href="<?= $link_home ?>">Home</a></li>
+<li><a href="<?= $link_profile ?>">Profile</a></li>	
+<li><a href="<?= $link_settings ?>">Settings</a></li>	
+<li><a href="<?= $link_logout ?>">Log Out</a></li>

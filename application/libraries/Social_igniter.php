@@ -84,6 +84,7 @@ class Social_igniter
     	$has_url	= property_exists($data, 'url');
     	$has_title	= property_exists($data, 'title');    
     	$has_new	= property_exists($data, 'new');
+    	$has_status = property_exists($data, 'status'); 
     
     	// Status
     	if ($activity->type == 'status')
@@ -92,13 +93,10 @@ class Social_igniter
 		}
 				
 		// Has Status
-    	$has_status = property_exists($data, 'status');
-
 		if ($has_status)
 		{
 			return $object->status;
 		}
-		// Makes 'posted an article'
        	else
     	{
     		$verb		= item_verb($this->ci->lang->line('verbs'), $activity->verb);
@@ -108,7 +106,7 @@ class Social_igniter
     		// Has Title
     		if (($has_title) && ($data->title))
     		{	    		
-	    		if ($has_url)	$title_link = $type.' <a href="'.$data->url.'">'.character_limiter($data->title, 25).'</a>';
+	    		if ($has_url)	$title_link = $type.' <a href="'.$data->url.'">'.character_limiter($data->title, 22).'</a>';
 	    		else			$title_link = $data->title; 	
     		}
     		else
@@ -124,7 +122,7 @@ class Social_igniter
     // Generate Content
     function render_item_content($type, $object)
     {
-        $has_thumb	= property_exists($object, 'thumb');
+        $has_thumb	  = property_exists($object, 'thumb');
     
 		$render_function = 'render_item_'.$type;
 		$callable_method = array($this, $render_function);
@@ -150,9 +148,13 @@ class Social_igniter
 		{
 			$content = '<a href="'.$object->url.'"><img src="'.$object->thumb.'" border="0"></a>'.$object->content;
 		}
-		else
+		elseif (property_exists($object, 'content') AND property_exists($object, 'url'))
 		{
 			$content = '<span class="item_content_detail">"'.$object->content.'" <a href="'.$object->url.'">read</a></span>';
+		}
+		else
+		{
+			$content = '';
 		}
 	    
     	return $content;

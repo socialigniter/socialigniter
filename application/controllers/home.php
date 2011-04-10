@@ -235,6 +235,12 @@ class Home extends Dashboard_Controller
 			$this->data['sub_title']		= $place->title;
 			$this->data['form_url']			= base_url().'api/places/modify/id/'.$this->uri->segment(4);
 			
+			if ($place->geo_lat) $geo_lat = $place->geo_lat;
+			else $geo_lat = '0.00';
+
+			if ($place->geo_long) $geo_long = $place->geo_long;
+			else $geo_long = '0.00';			
+			
 			// Form Fields
 			$this->data['title'] 			= $place->title;
 			$this->data['title_url'] 		= $place->title_url;
@@ -243,8 +249,8 @@ class Home extends Dashboard_Controller
 			$this->data['details'] 			= $place->details;
 			$this->data['access']			= $place->access;
 			$this->data['comments_allow']	= $place->comments_allow;
-			$this->data['geo_lat']			= $place->geo_lat;
-			$this->data['geo_long']			= $place->geo_long;
+			$this->data['geo_lat']			= $geo_lat;
+			$this->data['geo_long']			= $geo_long;
 			$this->data['status']			= display_content_status($place->status, $place->approval);
 
 			// Place
@@ -269,8 +275,8 @@ class Home extends Dashboard_Controller
 			$this->data['details'] 			= '';
 			$this->data['access']			= 'E';
 			$this->data['comments_allow']	= '';
-			$this->data['geo_lat']			= '45.52342768';
-			$this->data['geo_long']			= '-122.67522811';
+			$this->data['geo_lat']			= '0.00';
+			$this->data['geo_long']			= '0.00';
 			$this->data['status']			= display_content_status('U');
 
 			// Place
