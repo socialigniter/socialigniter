@@ -5,7 +5,7 @@
 		<button id='confirm'>YES</button>
 	</p>
 	<script>
-	$(button).bind("click", function(){
+	$('#confirm').bind("click", function(){
 		window.location.href = document.referrer;
 	});
 	</script>
