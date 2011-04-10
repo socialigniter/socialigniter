@@ -85,10 +85,7 @@ $(document).ready(function()
 		else
 		{
 			eve.preventDefault();
-		}		
-	
+		}
 	});
-		
-		
 });
 </script>

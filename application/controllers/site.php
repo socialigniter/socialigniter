@@ -90,46 +90,14 @@ class Site extends Site_Controller
 	/* Login Pages */
     function login() 
     {
+    	// Logged In or Disabled
     	if ($this->social_auth->logged_in()) redirect(base_url()."home", 'refresh');
-    	if (config_item('users_login') == 'FALSE') redirect(base_url(), 'refresh');
-    	        
-        // Validate form input
-    	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
-	    $this->form_validation->set_rules('password', 'Password', 'required');
+    	if (config_item('users_login') == 'FALSE') redirect(base_url(), 'refresh');    	        
 
-        if ($this->form_validation->run() == true)
-        {	
-        	// Check "remember me"
-        	if ($this->input->post('remember') == 1)
-        	{
-        		$remember = TRUE;
-        	}
-        	else
-        	{
-        		$remember = FALSE;
-        	}
-        	
-        	// Attempt Login
-        	if ($this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
-        	{
-	        	$this->session->set_flashdata('message', "Logged In Successfully");
-	        	redirect(base_url().'home', 'refresh');
-	        }
-	        else
-	        {
-	        	$this->session->set_flashdata('message', "Login In-Correct");
-	        	redirect("login", 'refresh');
-	        }
-        }
-		else
-		{
-			// The user is not logging in so display the login page	    
-	        $this->data['message'] 			= (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->data['email']      		= $this->input->post('email');
-            $this->data['password']   		= "";
-        	$this->data['password_confirm'] = "";
-	        $this->data['page_title'] 		= "Login";	            	
-		}
+		$this->data['email']      		= '';
+        $this->data['password']   		= "";
+    	$this->data['password_confirm'] = "";
+        $this->data['page_title'] 		= "Login";	            	
 		
     	$this->render();
     }
@@ -145,7 +113,9 @@ class Site extends Site_Controller
     
     function signup()
     {
+    	// Logged In or Disabled 
     	if ($this->social_auth->logged_in()) redirect(base_url()."home", 'refresh'); 
+     	if (config_item('users_signup') == 'FALSE') redirect(base_url(), 'refresh');
                   
         // Display The Create User Form
 		$this->data['name']      		= "";			    
