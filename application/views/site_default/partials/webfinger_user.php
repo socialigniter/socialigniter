@@ -9,7 +9,7 @@
 		type='application/atom+xml'
 		href='<?= base_url() ?>profile/<?= $username ?>/feed'/>
 	<Link rel='webfinger#friend'
-		href='<?= base_url() ?>profile/add_friend/{uri}' />
+		href='<?= base_url() ?>profile/<?= $username ?>/add_friend/{uri}' />
 	<? if (isset($screen_name)): ?>
 	<Link rel='webfinger#twitter'
 		href='http://www.twitter.com/<?= $screen_name ?>' />
