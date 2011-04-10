@@ -7,6 +7,7 @@
 	<script>
 	$(button).bind("click", function(){
 		window.location.href = document.referrer;
-	})
+	});
+	</script>
 </p>
 </div>
