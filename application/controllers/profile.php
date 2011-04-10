@@ -6,7 +6,7 @@ class Profile extends Site_Controller
         parent::__construct();
 
 		if (!$this->uri->segment(2) || (config_item('users_profile') != 'TRUE')) redirect(base_url());	
-	
+		$timeline_view = null;
 		$this->user = $this->social_auth->get_user('username', $this->uri->segment(2)); 
  	
 		if($this->user)
@@ -129,6 +129,12 @@ class Profile extends Site_Controller
  	{
  		$this->output->set_header('Content-type:application/atom+xml');
  		$this->load->view('site_default/partials/feed', $this->data);
+ 	}
+
+ 	function add_friend()
+ 	{
+ 		$this->data['webfinger'] = $this->uri->segment(4);
+ 		$this->render('profile');
  	}
  	
  	function image()
