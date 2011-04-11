@@ -1,6 +1,6 @@
 <h1>Login</h1>
 
-<form method="post" action="<?= base_url() ?>login">
+<form method="post" name="user_login" id="user_login" action="<?= base_url() ?>login">
 <table border="0" cellpadding="0" cellspacing="0">
 <tr>
   <td>Email</td>
@@ -32,7 +32,6 @@
 <?= $this->social_igniter->get_social_logins('<div class="social_login">', '</div>'); ?>
 
 <script type="text/javascript">
-
 // Elements for Placeholder
 var validation_rules = [{
 	'element' 	: '[name=email]', 
@@ -49,19 +48,23 @@ $(document).ready(function()
 	// Placeholders
 	makePlaceholders(validation_rules);
 
-	$("#user_signup").bind('submit', function(eve)
+	$("#user_login").bind('submit', function(eve)
 	{	
-		eve.preventDefault();				
+		eve.preventDefault();
+
+		var email_valid	= validateEmailAddress($('[name=email]').val());		
 		
 		// Validation	
 		if (validationRules(validation_rules) && email_valid == true)
 		{
+			var login_data = $('#user_login').serializeArray();		
+		
 			$.ajax(
 			{
 				url			: base_url + 'api/users/login',
 				type		: 'POST',
 				dataType	: 'json',
-				data		: signup_data,
+				data		: login_data,
 		  		success		: function(result)
 		  		{
 					$('html, body').animate({scrollTop:0});

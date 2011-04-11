@@ -148,7 +148,7 @@ class Social_igniter
 		{
 			$content = '<a href="'.$object->url.'"><img src="'.$object->thumb.'" border="0"></a>'.$object->content;
 		}
-		elseif (property_exists($object, 'content') AND property_exists($object, 'url'))
+		elseif (property_exists($object, 'content') AND property_exists($object, 'url') AND $object->content != '')
 		{
 			$content = '<span class="item_content_detail">"'.$object->content.'" <a href="'.$object->url.'">read</a></span>';
 		}
