@@ -39,19 +39,15 @@
 */
 class Recaptcha 
 {
-	var $_rConfig;
-	var $_CI;
+	var $ci;
 	var $_error;
 	
-	function __construct() 
-	{
-		$this->_CI =& get_instance();
-	    $this->_CI->lang->load('recaptcha');
+	function __construct()
+	{	
+		$this->ci =& get_instance();
+	    $this->ci->lang->load('recaptcha');    
 	    
-	    // Declare ReCAPTCHA config
-	    $this->_rConfig = $this->_CI->config->item('recaptcha');
-	    
-	    log_message('info',$this->_CI->lang->line('recaptcha_class_initialized'));
+	    log_message('info', $this->ci->lang->line('recaptcha_class_initialized'));
 	}
 	
 	/* Calls an HTTP POST function to verify if the user's guess was correct
@@ -62,19 +58,19 @@ class Recaptcha
     *  @param array $extra_params an array of extra variables to post to the server
     *  @return ReCaptchaResponse
     */
-	function check_answer ($remoteip, $challenge, $response, $extra_params = array()) 
+	function check_answer($remoteip, $challenge, $response, $extra_params = array()) 
 	{
-		log_message('debug','Recaptcha::check_answer('.$remoteip.','.$challenge.','.$response.','.print_r($extra_params,TRUE).')');
+		log_message('debug', 'Recaptcha::check_answer('.$remoteip.','.$challenge.','.$response.','.print_r($extra_params,TRUE).')');
 		
-		if (config_item('site_recaptcha_private') == '') 
+		if ($recaptcha_config['site_recaptcha_private'] == '') 
 		{
-			log_message('error',$this->_CI->lang->line('recaptcha_no_private_key'));
+			log_message('error',$this->ci->lang->line('recaptcha_no_private_key'));
 			return FALSE;
 		}
 	
 		if ($remoteip == null || $remoteip == '') 
 		{
-			log_message('error',$this->_CI->lang->line('recaptcha_no_remoteip'));
+			log_message('error',$this->ci->lang->line('recaptcha_no_remoteip'));
 			return FALSE;
 		}
 	
@@ -86,7 +82,7 @@ class Recaptcha
 		}
 		
 		$response = $this->_http_post('api-verify.recaptcha.net', "/verify", array(
-				'privatekey'	=> config_item('site_recaptcha_private'),
+				'privatekey'	=> $recaptcha_config['site_recaptcha_private'],
 				'remoteip'		=> $remoteip,
 				'challenge'		=> $challenge,
 				'response'		=> $response
@@ -115,14 +111,14 @@ class Recaptcha
     *  @param boolean $use_ssl Should the request be made over ssl? (optional, default is false)
     *  @return string - The HTML to be embedded in the user's form.
     */
-	function get_html ($lang = 'en',$use_ssl = false) 
+	function get_html($lang='en', $use_ssl=false) 
 	{
 		log_message('debug','Recaptcha::get_html('.$use_ssl.')');
 		
-		if (config_item('site_recaptcha_public') == '') 
+		if (config_item('services_recaptcha_public') == '') 
 		{
-			log_message('error',$this->_CI->lang->line('recaptcha_no_private_key'));
-			return $this->_CI->lang->line('recaptcha_html_error');
+			log_message('error', 'no private key '.$this->ci->lang->line('recaptcha_no_private_key'));
+			return $this->ci->lang->line('recaptcha_html_error');
 		}
 		
 		if ($use_ssl) 
@@ -143,14 +139,14 @@ class Recaptcha
 		
 		$html_data = array(
 			'server'	=> $server,
-			'key'		=> config_item('site_recaptcha_public'),
-			'theme'		=> config_item('site_recaptcha_theme'),
+			'key'		=> config_item('services_recaptcha_public'),
+			'theme'		=> config_item('services_recaptcha_private'),
 			'lang'		=> $lang,
 			'errorpart' => $errorpart
 		);
 		
 		//load a view - more configurable than embedding HTML in the library
-		return $this->_CI->load->view(config_item('site_theme').'/partials/recaptcha', $html_data, TRUE); 
+		return $this->ci->load->view(config_item('site_theme').'/partials/recaptcha', $html_data, TRUE); 
 	}
   
    /* gets a URL where the user can sign up for reCAPTCHA. If your application
@@ -199,7 +195,7 @@ class Recaptcha
 
 		if (false == ($fs = @fsockopen($host, $port, $errno, $errstr, 10))) 
 		{
-			log_message('error',$this->_CI->lang->line('recaptcha_socket_fail'));
+			log_message('error',$this->ci->lang->line('recaptcha_socket_fail'));
 		}
 	
 		fwrite($fs, $http_request);

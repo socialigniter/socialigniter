@@ -7,7 +7,9 @@ class Categories extends Oauth_Controller
 {
     function __construct()
     {
-        parent::__construct();      
+        parent::__construct();
+        
+    	$this->form_validation->set_error_delimiters('', '');              
 	}
 	
     function all_get()
@@ -55,7 +57,7 @@ class Categories extends Oauth_Controller
 		// Validation
 		if ($this->form_validation->run() == true)
 		{
-			$access = TRUE; //$this->social_igniter->has_access_to_create('category', $user_id);
+			$access = TRUE; //$this->social_auth->has_access_to_create('category', $user_id);
 			
 			if (!$this->input->post('site_id')) $site_id = config_item('site_id');
 			else $site_id = $this->input->post('site_id');
@@ -105,7 +107,7 @@ class Categories extends Oauth_Controller
     	$content = $this->social_igniter->get_content($this->get('id'));
     
 		// Access Rules
-	   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
+	   	//$this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
 	   	
     	$viewed			= 'Y';
     	$approval		= 'A'; 
@@ -139,7 +141,7 @@ class Categories extends Oauth_Controller
     function destroy_delete()
     {		
 		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_modify('comment', $this->social_tools->get_comment($this->get('id')));
+		$access = $this->social_auth->has_access_to_modify('comment', $this->social_tools->get_comment($this->get('id')));
     	
     	if ($access)
         {   

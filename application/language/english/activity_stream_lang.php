@@ -12,25 +12,27 @@
 * 
 */
 // ActivitySteams Verbs
-$lang['verbs']['favorite'] 		= 'favorited';
-$lang['verbs']['follow'] 		= 'started following';
-$lang['verbs']['like'] 			= 'liked';
-$lang['verbs']['make-friend'] 	= 'is now friends with';
-$lang['verbs']['join'] 			= 'joined';
-$lang['verbs']['play'] 			= 'played';
-$lang['verbs']['post'] 			= 'posted';
-$lang['verbs']['save'] 			= 'saved';
-$lang['verbs']['share'] 		= 'shared';
-$lang['verbs']['tag'] 			= 'was tagged in';
-$lang['verbs']['update'] 		= 'updated';
-$lang['verbs']['rsvp-yes'] 		= 'is going to attend';
-$lang['verbs']['rsvp-maybe'] 	= 'might attend';
-$lang['verbs']['rsvp-no'] 		= 'is not going to attend';
+$lang['verbs']['favorite'] 				= 'favorited';
+$lang['verbs']['follow'] 				= 'started following';
+$lang['verbs']['like'] 					= 'liked';
+$lang['verbs']['make-friend'] 			= 'is now friends with';
+$lang['verbs']['join'] 					= 'joined';
+$lang['verbs']['play'] 					= 'played';
+$lang['verbs']['post'] 					= 'created';
+$lang['verbs']['save'] 					= 'saved';
+$lang['verbs']['share'] 				= 'shared';
+$lang['verbs']['tag'] 					= 'was tagged in';
+$lang['verbs']['update'] 				= 'updated';
+$lang['verbs']['rsvp-yes'] 				= 'is going to attend';
+$lang['verbs']['rsvp-maybe'] 			= 'might attend';
+$lang['verbs']['rsvp-no'] 				= 'is not going to attend';
 
 // Social Igniter Verbs
-$lang['verbs']['comment']		= 'commented';
-$lang['verbs']['purchase']		= 'purchased';
-$lang['verbs']['download']		= 'downloaded';
+$lang['verbs']['register']				= 'signed up';
+$lang['verbs']['comment']				= 'commented';
+$lang['verbs']['purchase']				= 'purchased';
+$lang['verbs']['download']				= 'downloaded';
+$lang['verbs']['checkin']				= 'checked in at';
 
 // Social Igniter Object Articles
 $lang['object_articles']['article']		= 'an';
@@ -43,12 +45,12 @@ $lang['object_articles']['folder']		= 'created the';
 $lang['object_articles']['group']		= 'the';
 $lang['object_articles']['list']		= 'a';
 $lang['object_articles']['note']		= 'a';
-$lang['object_articles']['person']		= '';
+$lang['object_articles']['person']		= 'on';
 $lang['object_articles']['photo']		= 'a';
 $lang['object_articles']['photo-album']	= 'the';
 $lang['object_articles']['image']		= 'an';
 $lang['object_articles']['image-album']	= 'an';
-$lang['object_articles']['place']		= 'a';
+$lang['object_articles']['place']		= 'the';
 $lang['object_articles']['playlist']	= 'the';
 $lang['object_articles']['product']		= 'a';
 $lang['object_articles']['review']		= 'a';
@@ -57,7 +59,6 @@ $lang['object_articles']['status']		= '';
 $lang['object_articles']['video']		= 'a';
 $lang['object_articles']['event']		= 'an';
 $lang['object_articles']['page'] 		= 'the';
-
 
 // ActivitySteams Object Types
 $lang['object_types']['article']		= 'article';

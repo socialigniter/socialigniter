@@ -23,6 +23,7 @@ class Social_tools
 		// Load Models
 		$this->ci->load->model('categories_model');
 		$this->ci->load->model('comments_model');
+		$this->ci->load->model('places_model');		
 		$this->ci->load->model('ratings_model');
 		$this->ci->load->model('relationships_model');
 		$this->ci->load->model('tags_model');
@@ -31,56 +32,6 @@ class Social_tools
 
 		// Define Variables
 		$this->view_comments = NULL;
-	}
-	
-	/* Access Tools */
-	function has_access_to_create($type, $user_id)
-	{
-		// Is Super or Admin
-		if ($this->ci->session->userdata('user_level_id') <= 2)
-		{
-			return 'A';
-		}	
-
-		return FALSE;	
-	}
-	
-	function has_access_to_modify($type, $object, $user_id, $user_level_id=NULL)
-	{
-		// Types of objects
-		if ($type == 'content')
-		{		
-			if ($user_id == $object->user_id)
-			{
-				return TRUE;
-			}		
-		}
-		elseif ($type == 'activity')
-		{
-			if ($user_id == $object->user_id)
-			{
-				return TRUE;
-			}
-		}
-		elseif ($type == 'comment')
-		{
-			if ($user_id == $object->user_id)
-			{
-				return TRUE;
-			}	
-		}
-		else
-		{
-			return FALSE;
-		}
-		
-		// Is Super or Admin
-		if ($this->ci->session->userdata('user_level_id') <= 2)
-		{
-			return TRUE;
-		}
-				
-		return FALSE;
 	}
 	
 	/* Categories */	
@@ -413,6 +364,46 @@ class Social_tools
 		
 		return TRUE;
 	}
+	
+	function make_comments_section($content_id, $type, $logged_user_id, $logged_user_level_id)
+	{
+		// Get Comments
+		$comments 							= $this->get_comments_content($content_id);
+		$comments_count						= $this->get_comments_content_count($content_id);
+		
+		if ($comments_count)	$comments_title = $comments_count;
+		else					$comments_title = 'Write';
+
+		$this->data['content_id']			= $content_id;
+		$this->data['comments_title']		= $comments_title;
+		$this->data['comments_list'] 		= $this->render_comments_children($comments, '0', $logged_user_id, $logged_user_level_id);
+
+		// Write
+		$this->data['comment_name']			= $this->ci->session->flashdata('comment_name');
+		$this->data['comment_email']		= $this->ci->session->flashdata('comment_email');
+		$this->data['comment_write_text'] 	= $this->ci->session->flashdata('comment_write_text');
+		$this->data['reply_to_id']			= $this->ci->session->flashdata('reply_to_id');
+		$this->data['comment_type']			= $type;
+		$this->data['geo_lat']				= $this->ci->session->flashdata('geo_lat');
+		$this->data['geo_long']				= $this->ci->session->flashdata('geo_long');
+		$this->data['comment_error']		= $this->ci->session->flashdata('comment_error');
+
+		// ReCAPTCHA Enabled
+		if ((config_item('comments_recaptcha') == 'TRUE') && (!$this->ci->social_auth->logged_in()))
+		{
+
+	
+	    	$this->ci->load->library('recaptcha');
+		
+			$this->data['recaptcha']		= $this->ci->recaptcha->get_html();
+		}
+		else
+		{
+			$this->data['recaptcha']		= '';
+		}
+
+		return $this->ci->load->view(config_item('site_theme').'/partials/comments_view', $this->data, true);
+	}
 
 	function render_comments_children($comments, $reply_to_id, $user_id, $user_level_id)
 	{
@@ -428,7 +419,7 @@ class Social_tools
 				$this->data['comment_id']		= $child->comment_id;
 				$this->data['comment_text']		= $child->comment;
 				$this->data['reply_id']			= $child->comment_id;
-				$this->data['item_can_modify']	= $this->has_access_to_modify('comment', $child, $user_id, $user_level_id);
+				$this->data['item_can_modify']	= $this->ci->social_auth->has_access_to_modify('comment', $child, $user_id, $user_level_id);
 
 				$this->view_comments  	       .= $this->ci->load->view(config_item('site_theme').'/partials/comments_list', $this->data, true);
 				
@@ -439,7 +430,35 @@ class Social_tools
 			
 		return $this->view_comments;
 	}
+	
+	
+	/* Places */
+	function get_place($parameter, $value)
+	{
+		return $this->ci->places_model->get_place($parameter, $value);
+	}
 
+	function get_places_view($parameter, $value)
+	{
+		return $this->ci->places_model->get_places_view($parameter, $value);
+	}
+	
+	function add_place($place_data)
+	{
+		if ($place = $this->ci->places_model->add_place($place_data))
+		{			
+			return $place;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	function update_place($place_data)
+	{
+		return $this->ci->places_model->update_place($place_data);
+	}
 
 	/* Ratings */
 	function get_ratings()
@@ -476,7 +495,31 @@ class Social_tools
 	
 	function add_relationship($relationship_data)
 	{
-		return $this->ci->relationships_model->add_relationship($relationship_data);
+		$relationship = $this->ci->relationships_model->add_relationship($relationship_data);
+		
+		if ($relationship)	
+		{
+			$user = $this->ci->social_auth->get_user('user_id', $relationship->user_id);
+				
+			$activity_info = array(
+				'site_id'		=> $relationship->site_id,
+				'user_id'		=> $relationship->owner_id,
+				'verb'			=> $relationship->type,
+				'module'		=> $relationship->module,
+				'type'			=> $relationship->type,
+				'content_id'	=> 0
+			);
+				
+			$activity_data = array(
+				'title'		=> $user->name,
+				'url'		=> base_url().'profile/'.$user->username
+			);	
+	
+			// Add Activity
+			$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);		
+		}
+	
+		return $relationship;
 	}
 	
 	function update_relationship($relationship_id, $relationship_data)

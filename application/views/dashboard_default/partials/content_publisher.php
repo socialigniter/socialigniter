@@ -1,4 +1,4 @@
-<?php if ($social_post = $this->social_igniter->get_social_post('<ul class="social_post">', '</ul>')): ?>
+<?php if ($social_post = $this->social_igniter->get_social_post($this->session->userdata('user_id'), 'social_post')): ?>
 <h3>Share</h3>
 <?= $social_post ?>
 <?php endif; ?>
@@ -12,35 +12,46 @@
 $(document).ready(function()
 {
 	// Publishes / Saves Content
-	$('#content_publish, #content_save').bind('click', function()
-	{	
-		$(this).attr('disabled', 'disabled');
-		$form = $('#classes_media');
-		
-		var status		= $(this).attr('name');			
-		var form_data	= $form.serializeArray();
-		form_data.push({'name':'source','value':'website'},{'name':'status','value':status});
+	$('#content_publish, #content_save').bind('click', function(eve)
+	{
+		eve.preventDefault();
+		$form = $('#<?= $form_name ?>');
 
-		$form.oauthAjax(
+		// Validation	
+		if (validationRules(validation_rules))
 		{
-			oauth 		: user_data,
-			url			: $form.attr('ACTION'),
-			type		: 'POST',
-			dataType	: 'json',
-			data		: form_data,
-	  		success		: function(result)
-	  		{			  			  			
-				if (result.status == 'success')
-				{
-					alert(status + ' performed successfully');
+			// Strip Empty
+			cleanAllFieldsEmpty(validation_rules);
+
+			var status		= $(this).attr('name');		
+			var form_data	= $form.serializeArray();
+			form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'type','value':'<?= $form_type ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
+
+			$form.oauthAjax(
+			{
+				oauth 		: user_data,
+				url			: '<?= $form_url ?>',
+				type		: 'POST',
+				dataType	: 'json',
+				data		: form_data,
+		  		success		: function(result)
+		  		{		  		
+					$('html, body').animate({scrollTop:0});
+					$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+					
+					if (result.status == 'success')
+					{					
+						var new_status = displayContentStatus(result.data.status, result.data.approval);
+						$('#content_status').html('<span class="actions action_' + new_status + '"></span> ' + new_status);	
+					}
 			 	}
-			 	else
-			 	{
-				 	$('#content_message').html(result.message).addClass('message_alert').show('normal');
-				 	$('#content_message').oneTime(3000, function(){$('#content_message').hide('fast')});			
-			 	}	
-		 	}
-		});		
+			});
+				
+		}
+		else
+		{		
+			eve.preventDefault();
+		}	
 	});
 });
 </script>

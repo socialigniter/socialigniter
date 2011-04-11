@@ -1,28 +1,46 @@
-<div class="content_norm_top"></div>	
-<div class="content_norm_mid">
+<form method="post" name="change_password" id="change_password" action="<?= base_url() ?>api/users/password">
 
-		<form method="post" action="<?= base_url()."settings/password"; ?>">
-		<table border="0" cellpadding="0" cellspacing="0">
-	    <tr>
-			<td valign="top">Current Password:</td>
-			<td>
-				<input type="password" name="old_password" value="<?= set_value('old_password', $old_password) ?>"><br>
-				<a href="<?= base_url() ?>login/forgot_password">Forgot your password?</a>
-			</td>
-		</tr>
-	    <tr>
-			<td>New Password:</td>
-			<td><input type="password" name="new_password" value="<?= set_value('new_password', $new_password) ?>"></td>
-		</tr>
-	    <tr>	
-			<td>Confirm New Password:</td>
-			<td><input type="password" name="new_password_confirm" value="<?= set_value('new_password_confirm', $new_password_confirm) ?>"></td>
-		</tr>
-	    <tr>		
-			<td colspan="2"><input type="submit" value="Change" /></td>
-	  	</tr>			
-		</table>
-		</form>
+	<h3>Change Password</h3>
 	
-</div>
-<div class="content_norm_bot"></div>
+	<p>Old Password</p>
+	<input type="password" name="old_password" size="32" value="<?= set_value('old_password', $old_password) ?>"> <a href="<?= base_url() ?>forgot_password">Forgot password?</a>
+	
+	<p>New Password</p>
+	<input type="password" name="new_password" size="32" value="<?= set_value('new_password', $new_password) ?>">
+
+	<p>Confirm New</p>
+	<input type="password" name="new_password_confirm" size="32" value="<?= set_value('new_password_confirm', $new_password_confirm) ?>">
+
+	<p><input type="submit" value="Change" /></p>
+
+</form>
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+	// Write Article
+	$("#change_password").bind("submit", function(e)
+	{
+		e.preventDefault();
+	
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: $(this).attr('ACTION'),
+			type		: 'POST',
+			dataType	: 'json',
+			data		: $('#change_password').serializeArray(),
+	  		success		: function(result)
+	  		{
+				$('html, body').animate({scrollTop:0});
+	  							
+			 	$('[name=old_password]').val('');
+			 	$('[name=new_password]').val('');
+			 	$('[name=new_password_confirm]').val('');
+	  				  					  			  			
+				$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+		 	}
+		});		
+	});	
+});
+</script>

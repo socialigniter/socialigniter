@@ -156,6 +156,16 @@ class MY_Controller extends MX_Controller
 			// Site Forms
 			$this->data['comments_write_form']	= 'comments_public_form';
 		}
+		
+    	// Sets Previous Page
+		if (isset($_SERVER['HTTP_REFERER']))
+		{
+			$this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']);
+		}
+		else
+		{
+			$this->session->set_userdata('previous_page', '');
+		}		
 
 		// Site Paths
 		$this->data['shared_images']		= base_url().'images/shared/';
@@ -174,7 +184,7 @@ class MY_Controller extends MX_Controller
       	$this->module_name     				= $this->router->fetch_module();
         $this->module_controller 			= $this->router->fetch_class();
         
-		// Scann Modules directory
+		// Scan Modules
 		$this->modules_scan = $this->social_igniter->scan_modules();        
 
         // For Debugging

@@ -14,7 +14,7 @@ class Users extends Dashboard_Controller {
  	function index()
  	{   		
 		// Get Users
-		$users 			= $this->social_auth->get_users();
+		$users 			= $this->social_auth->get_users('active', 1);
 		$users_view 	= NULL;
 
 		// Title Stuff
@@ -56,37 +56,37 @@ class Users extends Dashboard_Controller {
 	{
 		if (($this->uri->segment(2) == 'manage') && ($this->uri->segment(3)))
 		{	
-			$user = $this->social_auth->get_user($this->uri->segment(3));
+			$user 		= $this->social_auth->get_user('user_id', $this->uri->segment(3));
+			if (!$user) redirect(base_url().'users');
+	 		$user_meta	= $this->social_auth->get_user_meta($user->user_id);		
+
 		
         	$this->data['sub_title'] 	= "Edit";
-       
+ 
+ 			$this->data['user_level_id']= $user->user_level_id;      
        		$this->data['name']			= $user->name;
        		$this->data['username']		= $user->username;
        		$this->data['email']		= $user->email;
-       		$this->data['company']		= $user->company;
-       		$this->data['phone']		= $user->phone;
-       		$this->data['location']		= $user->location;
-       		$this->data['url']			= $user->url;
-       		$this->data['bio']			= $user->bio;
+       		$this->data['company']		= $this->social_auth->find_user_meta_value('company', $user_meta);
+       		$this->data['location']		= $this->social_auth->find_user_meta_value('location', $user_meta);
+       		$this->data['url']			= $this->social_auth->find_user_meta_value('url', $user_meta);
+       		$this->data['bio']			= $this->social_auth->find_user_meta_value('bio', $user_meta);
 
         }
         else
         {        
-        	$this->data['sub_title'] = 'Create';
+        	$this->data['sub_title'] 	= 'Create';
 
+			$this->data['user_level_id']= 4;
        		$this->data['name']			= '';
        		$this->data['username']		= '';
        		$this->data['email']		= '';
        		$this->data['name']			= '';
-       		$this->data['phone']		= '';
        		$this->data['company']		= '';
        		$this->data['location']		= '';
        		$this->data['url']			= '';
        		$this->data['bio']			= '';
-       
         }
-        				
-		$this->data['users_levels'] = $this->social_auth->get_users_levels();		
 				
 		$this->render('dashboard_wide');
     }

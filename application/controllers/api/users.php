@@ -88,12 +88,53 @@ class Users extends Oauth_Controller
         $this->response($message, 200);
     }
     
+    function login_post()
+    {
+        // Validate form input
+    	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
+	    $this->form_validation->set_rules('password', 'Password', 'required');
+
+        if ($this->form_validation->run() == true)
+        {
+        	// Check "remember me"
+        	if ($this->input->post('remember') == 1)
+        	{
+        		$remember = TRUE;
+        	}
+        	else
+        	{
+        		$remember = FALSE;
+        	}
+        	
+        	// Attempt Login
+        	if ($this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
+        	{
+		        $message = array('status' => 'success', 'message' => 'User successfully logged in');
+	        }
+	        else
+	        {
+		        $message = array('status' => 'error', 'message' => 'Oops could not log you in');
+	        } 
+        } 
+		else
+		{ 
+			$message = array('message' => 'Oops '.validation_errors());
+        }
+        
+        $this->response($message, 200);    
+    
+    }
+    
     function set_userdata_signup_email_post()
 	{
+        log_message('debug', 'AHHHHH At Top Of Shizzle');
+
     	$this->form_validation->set_rules('signup_email', 'Email Address', 'required|valid_email');
 
         if ($this->form_validation->run() == true)
         {
+        	log_message('debug', 'AHHHHH Inside Validator');
+        
         	$email = $this->input->post('signup_email');
 
 			if ($user = $this->social_auth->get_user('email', $email))
@@ -110,6 +151,8 @@ class Users extends Oauth_Controller
         } 
 		else
 		{ 
+        	log_message('debug', 'AHHHHH Not valid');
+
 			$message = array('message' => 'Oops '.validation_errors());
         }
         
@@ -161,14 +204,14 @@ class Users extends Oauth_Controller
 					// Upload & Sizes
 					$file_data		= $this->upload->data();
 					$image_sizes	= array('full', 'large', 'medium', 'small');
-					$create_path	= config_item('users_images_folder').$user->user_id.'/';
-					
-					// Do Resizes					
-					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);										
-					
-					// Delete Upload
-					$file_data['deleted'] = unlink(config_item('uploads_folder').$file_data['file_name']);
-					$user_picture = $file_data['file_name'];		
+	
+					// Process New Images
+					$image_size 	= getimagesize(config_item('uploads_folder').$image_save);
+					$file_data		= array('file_name'	=> $image_save, 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
+					$image_sizes	= array('full', 'large', 'medium', 'small');
+					$create_path	= config_item('users_images_folder').$user_id.'/';
+	
+					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
 				}	
 			}
 	*/
@@ -362,6 +405,17 @@ class Users extends Oauth_Controller
     
     	$this->response($message, 200);
     }
+    
+    
+    /* Advanced Fields */
+    function advanced_authd_post()
+    {
+    
+    	$message = array('status' => 'success', 'message' => 'User advanced settings updated');
+    
+    	$this->response($message, 200);    
+    }
+    
     
 	// Activate User
 	function activate_authd_put() 

@@ -30,6 +30,7 @@ class Site_Controller extends MY_Controller
         $this->data['sidebar']				= '';
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
 		$this->data['message']				= $this->session->userdata('message');
+		$this->data['comments_view'] 		= '';
 
 		// If Modules Exist		
 		if ($this->modules_scan)
@@ -69,16 +70,6 @@ class Site_Controller extends MY_Controller
 
     function render($layout='site')
     {
-    	// Sets Previous Page
-		if (isset($_SERVER['HTTP_REFERER']))
-		{
-			$this->session->set_userdata('previous_page', $_SERVER['HTTP_REFERER']);
-		}
-		else
-		{
-			$this->session->set_userdata('previous_page', '');
-		}
-
       	// Is Module
        	if ($this->module_name)
     	{
@@ -104,29 +95,31 @@ class Site_Controller extends MY_Controller
     
     function render_widgets($section)
     {
-    	$section_widgets = '';
+    	$widgets = '';
+    	
+    	$site_widgets = $this->social_igniter->make_widgets_order($this->site_widgets);
     
-    	foreach ($this->site_widgets as $site_widget)
+    	foreach ($site_widgets as $site_widget)
     	{
     		if ($site_widget->setting == $section)
     		{
     			$widget = json_decode($site_widget->value);
-
-    			if (($widget->method == 'view') && ($widget->enabled == 'TRUE'))
- 				{
-    				$section_widgets .= $this->load->view(config_item('site_theme').'/'.$widget->path, $this->data, true);
+    		
+    			if ($widget->method == 'view')
+ 				{   		
+    				$widgets .= $this->load->view(config_item('site_theme').'/'.$widget->path, $this->data, true);
     			}
-    			elseif (($widget->method == 'run') && ($widget->enabled == 'TRUE'))
+    			elseif ($widget->method == 'run')
     			{
-    				$section_widgets .= modules::run($widget->module.'/'.$widget->path);
+    				$widgets .= modules::run($widget->module.'/'.$widget->path);
     			}
-    			elseif (($widget->method == 'text') && ($widget->enabled == 'TRUE'))
+    			elseif ($widget->method == 'text')
 				{
-    				$section_widgets .= $widget->content;				
+    				$widgets .= $widget->content;				
 				}
     		}
     	}
 
-		return $section_widgets;
+		return $widgets;
     }
 }

@@ -167,7 +167,7 @@ $config['subclass_prefix'] = 'MY_';
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-@';
 
 
 /*
@@ -276,13 +276,13 @@ $config['encryption_key'] = "ff91fd16832111f1a5ffdb0f37e1a756";
 |
 */
 $config['sess_cookie_name']		= 'users_session';
-$config['sess_expiration']		= 7200;
+$config['sess_expiration']		= 14400;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'users_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
-$config['sess_time_to_update'] 	= 300;
+$config['sess_time_to_update'] 	= 18800;
 
 /*
 |--------------------------------------------------------------------------

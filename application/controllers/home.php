@@ -6,7 +6,7 @@ class Home extends Dashboard_Controller
         parent::__construct();
     }
  
- 	// Home Feed
+ 	/* Home Feed - All modules when URL is 'home/blog' this method shows all activity for specified module */
  	function index()
  	{
  		$timeline		= NULL;
@@ -76,7 +76,7 @@ class Home extends Dashboard_Controller
 			 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
 			 	$this->data['item_comment_avatar']	= $this->data['logged_image'];
 			 	
-			 	$this->data['item_can_modify']		= $this->social_tools->has_access_to_modify('activity', $activity, $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
+			 	$this->data['item_can_modify']		= $this->social_auth->has_access_to_modify('activity', $activity, $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
 				$this->data['item_edit']			= base_url().'home/'.$activity->module.'/manage/'.$activity->content_id;
 				$this->data['item_delete']			= base_url().'api/activity/destroy/id/'.$activity->activity_id;
 
@@ -94,12 +94,59 @@ class Home extends Dashboard_Controller
 		$this->render();
  	}
 	
-	function view()
+ 	/* Manage - All modules base manage page when URL is 'home/blog/manage' this method shows all 'content' from specified module */
+	function manage()
 	{
-		$this->render();
-	}
+		if ($this->session->userdata('user_level_id') > 3) redirect(base_url().'home');
+	
+		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2), 'all');
+		$manage_view 		= NULL;
 
-	// Dashboard Comments
+		// Title Stuff
+		$this->data['page_title']	= ucwords($this->uri->segment(2));
+		$this->data['sub_title']	= 'Manage';
+		
+		if (!empty($content_module))
+		{		 
+			foreach($content_module as $content)
+			{
+				$this->data['item_id'] 				= $content->content_id;
+				$this->data['item_type']			= $content->type;
+				$this->data['item_viewed']			= item_viewed('item_manage', $content->viewed);
+	
+				$this->data['title']				= item_title($content->title, $content->type);
+				$this->data['title_link']			= base_url().$content->module.'/view/'.$content->content_id;
+				$this->data['comments_count']		= manage_comments_count($content->comments_count);
+				$this->data['publish_date']			= manage_published_date($content->created_at, $content->updated_at);
+				
+				// MAKE FOR CHECK RELVANT TO USER_LEVEL
+				$this->data['item_status']			= display_content_status($content->status);
+				$this->data['item_approval']		= $content->approval;
+	
+				// Alerts
+				$this->data['item_alerts']			= item_alerts_content($content);			
+				
+				// Actions
+				$this->data['item_approve']			= base_url().'api/content/approve/id/'.$content->content_id;
+				$this->data['item_edit']			= base_url().'home/'.$content->module.'/manage/'.$content->content_id;
+				$this->data['item_delete']			= base_url().'api/content/destroy/id/'.$content->content_id;
+				
+				// View
+				$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);
+			}	
+		}
+	 	else
+	 	{
+	 		$manage_view = '<li>Nothing to manage from anyone!</li>';
+ 		}
+
+		// Final Output
+		$this->data['timeline_view'] 	= $manage_view;				
+		
+		$this->render('dashboard_wide');
+	}	
+
+	/* Dashboard Comments */
  	function comments()
  	{
  	    $this->data['page_title'] 	= "Comments";
@@ -164,53 +211,171 @@ class Home extends Dashboard_Controller
 		$this->render();
 	}
 	
-	function manage()
+	/* Exists for home status click??? */
+	function view()
 	{
-		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2), 'all');
-		$manage_view 		= NULL;
+		$this->render();
+	}
+	
+	/* Places */
+	function places_editor()
+	{
+		$this->load->config('locations');
+					
+		$this->data['page_title'] = 'Places';
 
-		// Title Stuff
-		$this->data['page_title']	= ucwords($this->uri->segment(2));
-		$this->data['sub_title']	= 'Manage';
-		
-		if (!empty($content_module))
-		{		 
-			foreach($content_module as $content)
-			{
-				$this->data['item_id'] 				= $content->content_id;
-				$this->data['item_type']			= $content->type;
-				$this->data['item_viewed']			= item_viewed('item_manage', $content->viewed);
+		if (($this->uri->segment(3) == 'manage') && ($this->uri->segment(4)))
+		{
+			// Need is valid & access and such
+			$place = $this->social_igniter->get_content($this->uri->segment(4));
+			if (!$place) redirect(base_url().'home/error');
+			$place_details = $this->social_tools->get_place('content_id', $place->content_id);
 	
-				$this->data['title']				= item_title($content->title, $content->type);
-				$this->data['title_link']			= base_url().$content->module.'/view/'.$content->content_id;
-				$this->data['comments_count']		= manage_comments_count($content->comments_count);
-				$this->data['publish_date']			= manage_published_date($content->created_at, $content->updated_at);
-				
-				// MAKE FOR CHECK RELVANT TO USER_LEVEL
-				$this->data['item_status']			= display_content_status($content->status);
-				$this->data['item_approval']		= $content->approval;
-	
-				// Alerts
-				$this->data['item_alerts']			= item_alerts_content($content);			
-				
-				// Actions
-				$this->data['item_approve']			= base_url().'api/content/approve/id/'.$content->content_id;
-				$this->data['item_edit']			= base_url().'home/'.$content->module.'/manage/'.$content->content_id;
-				$this->data['item_delete']			= base_url().'api/content/destroy/id/'.$content->content_id;
-				
-				// View
-				$manage_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_manage.php', $this->data, true);
-			}	
+			// Non Form Fields
+			$this->data['sub_title']		= $place->title;
+			$this->data['form_url']			= base_url().'api/places/modify/id/'.$this->uri->segment(4);
+			
+			if ($place->geo_lat) $geo_lat = $place->geo_lat;
+			else $geo_lat = '0.00';
+
+			if ($place->geo_long) $geo_long = $place->geo_long;
+			else $geo_long = '0.00';			
+			
+			// Form Fields
+			$this->data['title'] 			= $place->title;
+			$this->data['title_url'] 		= $place->title_url;
+			$this->data['content']			= $place->content;
+			$this->data['category_id']		= $place->category_id;
+			$this->data['details'] 			= $place->details;
+			$this->data['access']			= $place->access;
+			$this->data['comments_allow']	= $place->comments_allow;
+			$this->data['geo_lat']			= $geo_lat;
+			$this->data['geo_long']			= $geo_long;
+			$this->data['status']			= display_content_status($place->status, $place->approval);
+
+			// Place
+			$this->data['address']			= $place_details->address;
+			$this->data['district']			= $place_details->district;
+			$this->data['locality']			= $place_details->locality;
+			$this->data['region']			= $place_details->region;
+			$this->data['country']			= $place_details->country;
+			$this->data['postal']			= $place_details->postal;
 		}
-	 	else
-	 	{
-	 		$manage_view = '<li>Nothing to manage from anyone!</li>';
- 		}
+		else
+		{
+			// Non Form Fields
+			$this->data['sub_title']		= 'Create';
+			$this->data['form_url']			= base_url().'api/places/create';
 
-		// Final Output
-		$this->data['timeline_view'] 	= $manage_view;				
+			// Form Fields
+			$this->data['title'] 			= '';
+			$this->data['title_url']		= '';
+			$this->data['content']			= '';
+			$this->data['category_id']		= '';
+			$this->data['details'] 			= '';
+			$this->data['access']			= 'E';
+			$this->data['comments_allow']	= '';
+			$this->data['geo_lat']			= '0.00';
+			$this->data['geo_long']			= '0.00';
+			$this->data['status']			= display_content_status('U');
+
+			// Place
+			$this->data['address']			= '';
+			$this->data['district']			= '';
+			$this->data['locality']			= '';
+			$this->data['region']			= '';
+			$this->data['country']			= 'US';
+			$this->data['postal']			= '';			
+		}
+
+		$this->data['form_module']			= 'places';
+		$this->data['form_type']			= 'place';
+		$this->data['form_name']			= 'places_editor';
+		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown('module', 'places', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));	
+	 	$this->data['content_publisher'] 	= $this->load->view(config_item('dashboard_theme').'/partials/content_publisher', $this->data, true);
+
+ 		$this->render('dashboard_wide');
+	}	
+	
+	
+	/* Pages */
+	function pages_editor()
+	{				
+		if (($this->uri->segment(3) == 'manage') && ($this->uri->segment(4)))
+		{
+			// Need is valid & access and such
+			$page = $this->social_igniter->get_content($this->uri->segment(4));
+			if (!$page) redirect(base_url().'home/error');			
+							
+			// Non Form Fields
+			$this_page_id					= $page->content_id;
+			$this->data['sub_title']		= $page->title;
+			$this->data['form_url']			= base_url().'api/content/modify/id/'.$this->uri->segment(4);
+			
+			// Form Fields
+			$this->data['title'] 			= $page->title;
+			$this->data['title_url'] 		= $page->title_url;
+			
+			if ($page->details == 'site')
+			{
+				$this->data['slug_pre']		= base_url().'pages/';
+			}
+			else
+			{
+				$this->data['slug_pre']		= base_url().'';
+			}
+			
+			$this->data['wysiwyg_value']	= $page->content;
+			$this->data['parent_id']		= $page->parent_id;
+			$this->data['details'] 			= $page->details;
+			$this->data['access']			= $page->access;
+			$this->data['comments_allow']	= $page->comments_allow;
+			$this->data['geo_lat']			= $page->geo_lat;
+			$this->data['geo_long']			= $page->geo_long;			
+			$this->data['status']			= display_content_status($page->status, $page->approval);
+		}
+		else
+		{		
+			// Non Form Fields
+			$this_page_id					= 0;
+			$this->data['sub_title']		= 'Create';
+			$this->data['form_url']			= base_url().'api/content/create';
+			
+			// Form Fields
+			$this->data['title'] 			= '';
+			$this->data['title_url']		= '';
+			$this->data['slug_pre']			= base_url().'pages';
+			$this->data['layouts']			= '';
+			$this->data['wysiwyg_value']	= $this->input->post('content');
+			$this->data['parent_id']		= '';
+			$this->data['details'] 			= 'site';			
+			$this->data['access']			= 'E';
+			$this->data['comments_allow']	= '';
+			$this->data['geo_lat']			= '';
+			$this->data['geo_long']			= '';			
+			$this->data['status']			= display_content_status('U');
+		}
+	
+		// WYSIWYG for 'pages'
+		if ($this->data['details'] == 'site')
+		{
+			$this->data['wysiwyg_name']		= 'content';
+			$this->data['wysiwyg_id']		= 'wysiwyg_content';
+			$this->data['wysiwyg_class']	= 'wysiwyg_norm_full';
+			$this->data['wysiwyg_width']	= 640;
+			$this->data['wysiwyg_height']	= 300;
+			$this->data['wysiwyg_resize']	= TRUE;
+			$this->data['wysiwyg_media']	= TRUE;			
+			$this->data['wysiwyg']	 		= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);
+		}
 		
-		$this->render('dashboard_wide');
+		$this->data['form_module']			= 'pages';
+		$this->data['form_type']			= 'page';		
+		$this->data['form_name']			= 'pages_editor';		
+		$this->data['parent_pages'] 		= $this->social_igniter->make_pages_dropdown($this_page_id);
+	 	$this->data['content_publisher'] 	= $this->load->view(config_item('dashboard_theme').'/partials/content_publisher', $this->data, true);
+
+ 		$this->render('dashboard_wide');
 	}
 	
 	/* Error */
@@ -269,14 +434,24 @@ class Home extends Dashboard_Controller
 		$this->load->view(config_item('dashboard_theme').'/partials/item_manage', $this->data);
 	}
 	
+	/* Partials */
 	function category_editor()
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/category_editor');
 	}
 	
-	function widget_picker()
+	/* Widget Editor */
+	function widget_editor()
 	{
-		$this->load->view(config_item('dashboard_theme').'/partials/widget_picker');
+		if ($this->uri->segment(3)) $editor_type = $this->uri->segment(3);
+		else $editor_type = 'standard';
+	
+		$this->load->view(config_item('dashboard_theme').'/partials/widget_editor_'.$editor_type);
+	}
+	
+	function widget_add()
+	{
+		$this->load->view(config_item('dashboard_theme').'/partials/widget_editor_add');		
 	}
 
 }

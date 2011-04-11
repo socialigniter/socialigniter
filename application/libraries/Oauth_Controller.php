@@ -24,20 +24,18 @@ class Oauth_Controller extends Rest_Controller
         // if CI gives us "foo", we need to check if "foo_authd_<request_method>" exists. 
         // if so, ensure authentication and pass "foo_authd" to REST controller otherwise
         // pass the method name unchanged to REST controller for normal processing (including 404)
-        $authd_method = $method . "_authd";
+        $authd_method = $method."_authd";
         
         if ($this->rest_method_exists($authd_method))
         {
             if (!$this->social_auth->request_is_signed())
             {
-                return $this->response(array('status' => 'error', 'message' => 'Request is not signed.'), 401);
+                return $this->response(array('status' => 'error', 'message' => 'Request is not signed.'), 200);
             }
 
-	        $this->oauth_user_id = $this->social_auth->get_oauth_user_id();
-
-            if (!$this->oauth_user_id)
+            if (!$this->oauth_user_id = $this->social_auth->get_oauth_user_id())
             {
-                return $this->response(array('status' => 'error', 'message' => 'Invalid OAuth signature!'), 401);
+                return $this->response(array('status' => 'error', 'message' => 'Invalid OAuth signature!'), 200);
             }
             
             $method = $authd_method;

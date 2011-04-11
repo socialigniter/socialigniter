@@ -139,7 +139,6 @@ class Comments_model extends CI_Model
 			'comment'			=> $comment_data['comment'],
 			'geo_lat'			=> $comment_data['geo_lat'],
 			'geo_long'			=> $comment_data['geo_long'],
-			'geo_accuracy'		=> $comment_data['geo_accuracy'],
 			'viewed'			=> $viewed,
 			'approval'			=> $comment_data['approval'],
 			'created_at' 		=> unix_to_mysql(now())

@@ -28,7 +28,6 @@ var user_data = {
 	"geo_enabled":"<?= $logged_geo_enabled ?>",
 	"geo_lat":"",
 	"geo_long":"",
-	"geo_accuracy":"",	
 	"privacy":"<?= $logged_privacy ?>",	 
 	"consumer_key": "<?= $oauth_consumer_key ?>",
 	"consumer_secret": "<?= $oauth_consumer_secret ?>",
@@ -38,6 +37,8 @@ var user_data = {
 
 var base_url 		= '<?= base_url() ?>';
 var current_module	= jQuery.url.segment(1);
+var core_modules	= jQuery.parseJSON('<?= json_encode(config_item('core_modules')) ?>');
+var core_assets		= '<?= $dashboard_assets.'icons/' ?>';
 
 $(document).ready(function()
 {

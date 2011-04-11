@@ -34,13 +34,16 @@
 		</div>
 	</div>
 	<div class="clear"></div>
+
 </div>
 
 <div id="footer">
 	<div class="wrap">		
 		<?= $footer ?>
 	</div>
+	<div class="clear"></div>
 </div>
+
 <?= $settings['services']['google_analytics'] ?>
 </body>
 </html>

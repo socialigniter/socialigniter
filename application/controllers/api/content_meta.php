@@ -52,7 +52,7 @@ class Content_meta extends Oauth_Controller
 	// Create Content - if module needs content to do more funky things, write an API controller in that module
 	function create_authd_post()
 	{
-   		//$this->social_tools->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
+   		//$this->social_auth->has_access_to_create($this->input->post('type'), $this->oauth_user_id);
    	
 		// Process Content Meta
 		// MAKE INTO A $_POST loop that gets all elements sent over
@@ -80,7 +80,7 @@ class Content_meta extends Oauth_Controller
     	$content = $this->social_igniter->get_content($this->get('id'));
     
 		// Access Rules
-	   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
+	   	//$this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
    
     	$meta_data = array(
     		'site_id'		=> config_item('site_id'),
@@ -113,7 +113,7 @@ class Content_meta extends Oauth_Controller
     function destroy_authd_delete()
     {		
 		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_modify('content', $this->get('id'), $this->oauth_user_id);
+		$access = $this->social_auth->has_access_to_modify('content', $this->get('id'), $this->oauth_user_id);
     	
     	// Move this up to result of "user_has_access"
     	if ($access)

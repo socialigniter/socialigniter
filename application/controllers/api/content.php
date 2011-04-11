@@ -60,8 +60,20 @@ class Content extends Oauth_Controller
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
 	    {
+	 		$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);   
+	    
 	    	$viewed			= 'Y';
-	    	$approval		= 'N'; 
+	    
+	    	if ($user->user_level_id <= config_item($this->input->post('module').'_publish_permission'))
+	    	{
+	    		$approval	= 'Y';
+	    	}
+	    	else
+	    	{
+	    		$approval	= 'N';
+	    	}
+	    	
+	    	
 
 	    	$content_data = array(
 	    		'site_id'			=> config_item('site_id'),
@@ -80,10 +92,9 @@ class Content extends Oauth_Controller
 				'comments_allow'	=> $this->input->post('comments_allow'),
 				'geo_lat'			=> $this->input->post('geo_lat'),
 				'geo_long'			=> $this->input->post('geo_long'),
-				'geo_accuracy'		=> $this->input->post('geo_accuracy'),
 				'viewed'			=> $viewed,
 				'approval'			=> $approval,
-				'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))  			
+				'status'			=> form_submit_publish($this->input->post('status'))
 	    	);
 
 			// Insert
@@ -109,25 +120,18 @@ class Content extends Oauth_Controller
 
 	    $this->response($message, 200);
 	}
-        
     
-    /* PUT types */
     function modify_authd_post()
     {
     	$content = $this->social_igniter->get_content($this->get('id'));
     
 		// Access Rules
-	   	//$this->social_tools->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
-	   	
-    	$viewed			= 'Y';
-    	$approval		= 'A'; 
-   
+	   	//$this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
+	   	   
     	$content_data = array(
     		'content_id'		=> $this->get('id'),
 			'parent_id'			=> $this->input->post('parent_id'),
 			'category_id'		=> $this->input->post('category_id'),
-			'module'			=> $this->input->post('module'),
-			'type'				=> $this->input->post('type'),
 			'order'				=> $this->input->post('order'),
 			'title'				=> $this->input->post('title'),
 			'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
@@ -137,26 +141,25 @@ class Content extends Oauth_Controller
 			'comments_allow'	=> $this->input->post('comments_allow'),
 			'geo_lat'			=> $this->input->post('geo_lat'),
 			'geo_long'			=> $this->input->post('geo_long'),
-			'geo_accuracy'		=> $this->input->post('geo_accuracy'),
-			'viewed'			=> $viewed,
-			'approval'			=> $approval,
-			'status'			=> form_submit_publish($this->input->post('publish'), $this->input->post('save_draft'))
+			'viewed'			=> 'Y',
+			'approval'			=> 'Y',
+			'status'			=> form_submit_publish($this->input->post('status'))
     	);
-    									
+    	    									
 		// Insert
-		$update = $this->social_igniter->update_content($content_data, $this->oauth_user_id); 
-				 		     		
+		$update = $this->social_igniter->update_content($content_data, $this->oauth_user_id);
+
 	    if ($update)
 	    {
 			// Process Tags    
-			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $content->content_id);
+			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $this->get('id'));
 	    
         	$message = array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
         }
         else
         {
 	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
-        }
+        }        
 
 	    $this->response($message, 200);
     }
@@ -223,7 +226,7 @@ class Content extends Oauth_Controller
     {
     	$content = $this->social_igniter->get_content($this->get('id'));
     
-    	if ($access = $this->social_tools->has_access_to_modify('content', $content, $this->oauth_user_id))
+    	if ($access = $this->social_auth->has_access_to_modify('content', $content, $this->oauth_user_id))
         {
 			if ($delete = $this->social_igniter->update_content_value(array('content_id' => $content->content_id, 'status' => 'D')))
 			{						        

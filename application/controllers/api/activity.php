@@ -88,7 +88,7 @@ class Activity extends Oauth_Controller
     {		
 		$activity = $this->social_igniter->get_activity($this->get('id'));
 	
-    	if ($access = $this->social_tools->has_access_to_modify('activity', $activity, $this->oauth_user_id))
+    	if ($access = $this->social_auth->has_access_to_modify('activity', $activity, $this->oauth_user_id))
         {        
         	if ($this->social_igniter->delete_activity($activity->activity_id, $this->oauth_user_id))
         	{

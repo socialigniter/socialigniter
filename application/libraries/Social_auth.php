@@ -128,6 +128,56 @@ class Social_auth
         $token_and_secret = $store->exchangeConsumerRequestForAccessToken($token_info['token']);
         return $token_and_secret;
     }
+
+	/* Create / Modify Permissions */
+	function has_access_to_create($type, $user_id)
+	{
+		// Is Super or Admin
+		if ($this->ci->session->userdata('user_level_id') <= 2)
+		{
+			return 'A';
+		}	
+
+		return FALSE;	
+	}   
+	
+	function has_access_to_modify($type, $object, $user_id, $user_level_id=NULL)
+	{
+		// Types of objects
+		if ($type == 'content')
+		{		
+			if ($user_id == $object->user_id)
+			{
+				return TRUE;
+			}		
+		}
+		elseif ($type == 'activity')
+		{
+			if ($user_id == $object->user_id)
+			{
+				return TRUE;
+			}
+		}
+		elseif ($type == 'comment')
+		{
+			if ($user_id == $object->user_id)
+			{
+				return TRUE;
+			}	
+		}
+		else
+		{
+			return FALSE;
+		}
+		
+		// Is Super or Admin
+		if ($this->ci->session->userdata('user_level_id') <= 2)
+		{
+			return TRUE;
+		}
+				
+		return FALSE;
+	}	 
 	
 	
 	/* Normal Authentication */	
@@ -268,6 +318,23 @@ class Social_auth
 
 			// Get User
 		    $user = $this->get_user('user_id', $user_id);
+
+			// Add Activity
+			$activity_info = array(
+				'site_id'		=> config_item('site_id'),
+				'user_id'		=> $user->user_id,
+				'verb'			=> 'register',
+				'module'		=> 'users',
+				'type'			=> 'person',
+				'content_id'	=> 0
+			);
+				
+			$activity_data = array(
+				'title'	=> config_item('site_title')
+			);
+	
+			$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);		    
+
 
 			// Send Welcome Email				
 			$data = array(
@@ -445,9 +512,9 @@ class Social_auth
 	    return $this->ci->auth_model->profile($email);
 	}
 	
-	function get_users($group_name=false)
+	function get_users($parameter, $value)
 	{
-	    return $this->ci->auth_model->get_users($group_name)->result();
+	    return $this->ci->auth_model->get_users($parameter, $value);
 	}
 	
 	function get_user($parameter, $value)

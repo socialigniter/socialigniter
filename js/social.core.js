@@ -61,6 +61,17 @@ function isWysiwygValid(id, placeholder, error)
 	return true;
 }
 
+function isCoreModule(module, core_modules)
+{
+	if (jQuery.inArray(module, core_modules) !== -1)
+	{	
+		return true;
+	};
+
+	return false;
+}
+
+
 function cleanFieldEmpty(id, placeholder)
 {	
 	if ($(id).val() == placeholder)
@@ -71,6 +82,67 @@ function cleanFieldEmpty(id, placeholder)
 	return false;
 }
 
+function cleanAllFieldsEmpty(validation_rules)
+{
+	$.each(validation_rules, function(key, item)
+	{
+		cleanFieldEmpty(item.element, item.holder);
+	});
+	
+	return false;
+}
+
+function makePlaceholders(validation_rules)
+{
+	$.each(validation_rules, function(key, item)
+	{
+		doPlaceholder(item.element, item.holder);
+	});
+	
+	return false;
+}
+
+// Really simple validator... should add rules
+// If message is set it gets added to validate
+function validationRules(validation_rules)
+{
+	var check_count = 0;
+	var valid_count = 0;
+	
+	$.each(validation_rules, function(key, item)
+	{			 
+		if (item.message != '')
+		{				
+			check_count++;
+			if (isFieldValid(item.element, item.holder, item.message) == true)
+			{
+				valid_count++;
+			}	
+		}
+	});
+	
+	if (check_count == valid_count)
+	{
+		return true;
+	}
+	
+	return false;
+}
+
+
+function displayModuleAssets(module, core_modules, core_assets)
+{
+	if (isCoreModule(module, core_modules) == true)
+	{
+		path = core_assets;
+	}
+	else
+	{
+		path = base_url + 'application/modules/' + module + '/assets/';
+	}
+
+	return path;
+}
 
 
 //For God's sake, disable autocomplete!
@@ -410,6 +482,124 @@ $(function(){ $('input').attr('autocomplete','off'); });
 		});
 	};
 })(jQuery);
+
+
+/* Modal Maker */
+(function($)
+{	
+	$.modalMaker = function(options)
+	{
+		var defaults = 
+		{
+    		partial	:'',
+    		api		:'',
+    		template:{},
+    		callback:function() {}
+  		}
+
+		var settings = $.extend(defaults,options);
+
+		$.get(settings.partial, function(html)
+		{
+			var modal_html = html;
+			
+			$.get(settings.api, function(json)
+			{
+				modal_html = $.template(modal_html, settings.template);
+				settings.callback.call(this, modal_html);
+			});
+		});
+	};
+})(jQuery);
+
+
+/* Google Maps API Functions */
+var geocoder;
+var map;
+var markersArray = [];
+
+// Loads Map Title
+function getMap(lat_long, element)
+{		
+	geocoder = new google.maps.Geocoder();
+	var myOptions =
+	{
+  		zoom				: 14,
+  		center				: lat_long,
+		panControl			: false,
+		zoomControl			: true,
+		mapTypeControl		: false,
+		scaleControl		: true,
+		streetViewControl	: false,
+		overviewMapControl	: false,	  		
+  		mapTypeId: google.maps.MapTypeId.ROADMAP
+	}
+
+	map = new google.maps.Map(document.getElementById(element), myOptions);
+	
+	addMarker(lat_long);	
+}
+
+function getMapGeocode(address)
+{		
+	geocoder.geocode({'address' : address}, function(results, status)
+	{
+		if (status == google.maps.GeocoderStatus.OK)
+		{
+			// Center Tile
+	    	map.setCenter(results[0].geometry.location);
+		
+			// Clear & Make Markers
+	    	clearOverlays();
+	    	deleteOverlays();	
+	    	addMarker(results[0].geometry.location);
+	    	
+	    	// Set Geo
+	    	$("[name=geo_lat]").val(results[0].geometry.location.Aa);
+	    	$("[name=geo_long]").val(results[0].geometry.location.Ca);
+		}
+		else
+		{
+			console.log("Could not get Google map");
+		}
+	}); 
+}
+
+function addMarker(location)
+{
+	marker = new google.maps.Marker(
+  	{
+  		position: location,
+    	map: map
+  });
+  
+  markersArray.push(marker);
+}
+
+function clearOverlays()
+{
+	if (markersArray)
+	{
+		for (i in markersArray)
+		{
+			markersArray[i].setMap(null);
+		}
+	}
+}		
+
+function deleteOverlays()
+{
+	if (markersArray)
+	{
+		for (i in markersArray)
+		{
+			markersArray[i].setMap(null);
+		}
+	
+		markersArray.length = 0;
+	}
+}
+
 
 /**
  * @requires jQuery

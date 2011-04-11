@@ -44,7 +44,6 @@ CREATE TABLE `comments` (
   `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   `geo_lat` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `geo_long` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `geo_accuracy` varchar(8) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `viewed` char(1) NOT NULL,
   `approval` char(1) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -79,13 +78,12 @@ CREATE TABLE `content` (
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `title_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `details` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `details` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `access` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `comments_allow` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'Y',
   `comments_count` int(6) DEFAULT NULL,
   `geo_lat` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `geo_long` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `geo_accuracy` varchar(8) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `viewed` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `approval` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -94,9 +92,9 @@ CREATE TABLE `content` (
   PRIMARY KEY (`content_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index', 'E', 'Y', 3, NULL, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '2010-12-06 00:45:45');
-INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 2, 1, 'Contact', 'contact', 'Please contact us', 'site', NULL, 'N', 0, NULL, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site', 'S', 'A', 0, NULL, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '2010-12-06 00:59:42');
+INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index', 'E', 'Y', 3, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '2010-12-06 00:45:45');
+INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 2, 1, 'Contact', 'contact', 'Please contact us', 'site', NULL, 'N', 0, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site', 'S', 'A', 0, NULL, NULL, '', '', 'P', '2010-07-17 00:00:00', '2010-12-06 00:59:42');
 
 CREATE TABLE `content_meta` (
   `content_meta_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -108,6 +106,18 @@ CREATE TABLE `content_meta` (
   `updated_At` datetime NOT NULL,
   PRIMARY KEY (`content_meta_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+CREATE TABLE `places` (
+  `place_id` int(11) NOT NULL AUTO_INCREMENT,
+  `content_id` int(11) DEFAULT NULL,
+  `address` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `district` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `locality` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `region` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `country` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `postal` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`place_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 CREATE TABLE `oauth_server_nonce` (
   `osn_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -205,7 +215,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'site_theme', 'site_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'dashboard_theme', 'dashboard_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'mobile_theme', 'mobile_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'widgets', 'sidebar', '{"module":"users","name":"Login","method":"view","path":"partials/widget_login","enabled":"TRUE","order":"1"}');
-INSERT INTO `settings` VALUES(NULL, 1, 'widgets', 'sidebar', '{"module":"widgets","name":"Text","method":"text","path":"","enabled":"TRUE","order":"2","content":"<h2>Hello</h2><p>Thanks for stopping by. We absolutely love visitors. Take off your digital shoes, relax, and feast your eyes on our pretty pixels!</p>"}');
+INSERT INTO `settings` VALUES(NULL, 1, 'widgets', 'sidebar', '{"module":"text","name":"Text","method":"text","path":"","enabled":"TRUE","order":"2","content":"<h2>Hello</h2><p>Thanks for stopping by. We absolutely love visitors. Take off your digital shoes, relax, and feast your eyes on our pretty pixels!</p>"}');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'email_protocol', 'mail');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_host', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_user', '');
@@ -234,9 +244,20 @@ INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'email_replies', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'akismet', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'recaptcha', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'date_style', 'ELAPSED');
+INSERT INTO `settings` VALUES(NULL, 1, 'places', 'enabled', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'places', 'create_permission', '3');
+INSERT INTO `settings` VALUES(NULL, 1, 'places', 'publish_permission', '2');
+INSERT INTO `settings` VALUES(NULL, 1, 'places', 'manage_permission', '1');
+INSERT INTO `settings` VALUES(NULL, 1, 'places', 'ratings_allow', 'no');
+INSERT INTO `settings` VALUES(NULL, 1, 'places', 'comments_per_page', '5');
+INSERT INTO `settings` VALUES(NULL, 1, 'places', 'comments_allow', 'no');
+INSERT INTO `settings` VALUES(NULL, 1, 'places', 'tags_display', 'no');
 INSERT INTO `settings` VALUES(NULL, 1, 'ratings', 'enabled', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'ratings', 'rate_type', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'enabled', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'create_permission', '3');
+INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'publish_permission', '2');
+INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'manage_permission', '1');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'ratings_allow', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'tags_display', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'comments_allow', 'TRUE');
@@ -253,6 +274,8 @@ INSERT INTO `settings` VALUES(NULL, 1, 'users', 'signup', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'signup_recaptcha', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'login', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'login_recaptcha', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'create_permission', '2');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'manage_permission', '2');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'profile', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'profile_activity', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'profile_relationships', 'TRUE');

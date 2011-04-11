@@ -13,6 +13,8 @@ Handles a ton of parts of the the core install.
 class Social_igniter
 {
 	protected $ci;
+	protected $widgets;
+	protected $pages_view;	
 
 	function __construct()
 	{
@@ -82,6 +84,7 @@ class Social_igniter
     	$has_url	= property_exists($data, 'url');
     	$has_title	= property_exists($data, 'title');    
     	$has_new	= property_exists($data, 'new');
+    	$has_status = property_exists($data, 'status'); 
     
     	// Status
     	if ($activity->type == 'status')
@@ -90,13 +93,10 @@ class Social_igniter
 		}
 				
 		// Has Status
-    	$has_status = property_exists($data, 'status');
-
 		if ($has_status)
 		{
 			return $object->status;
 		}
-		// Makes 'posted an article'
        	else
     	{
     		$verb		= item_verb($this->ci->lang->line('verbs'), $activity->verb);
@@ -106,7 +106,7 @@ class Social_igniter
     		// Has Title
     		if (($has_title) && ($data->title))
     		{	    		
-	    		if ($has_url)	$title_link = $type.' <a href="'.$data->url.'">'.$data->title.'</a>';
+	    		if ($has_url)	$title_link = $type.' <a href="'.$data->url.'">'.character_limiter($data->title, 22).'</a>';
 	    		else			$title_link = $data->title; 	
     		}
     		else
@@ -122,7 +122,7 @@ class Social_igniter
     // Generate Content
     function render_item_content($type, $object)
     {
-        $has_thumb	= property_exists($object, 'thumb');
+        $has_thumb	  = property_exists($object, 'thumb');
     
 		$render_function = 'render_item_'.$type;
 		$callable_method = array($this, $render_function);
@@ -148,9 +148,13 @@ class Social_igniter
 		{
 			$content = '<a href="'.$object->url.'"><img src="'.$object->thumb.'" border="0"></a>'.$object->content;
 		}
-		else
+		elseif (property_exists($object, 'content') AND property_exists($object, 'url'))
 		{
 			$content = '<span class="item_content_detail">"'.$object->content.'" <a href="'.$object->url.'">read</a></span>';
+		}
+		else
+		{
+			$content = '';
 		}
 	    
     	return $content;
@@ -238,7 +242,7 @@ class Social_igniter
 					{
 						if ($exists->module == $social)
 						{
-							$post_to .= '<li><input type="checkbox" value="1" id="post_'.$social.'" checked="checked" name="post_'.$social.'" /> '.ucwords($social).'</li>';
+							$post_to .= '<li><input type="checkbox" value="1" id="post_'.$social.'" checked="checked" name="post_'.$social.'" /> '.ucwords($social).'<div class="clear"></div></li>';
 						}
 					}		
 				}
@@ -297,7 +301,8 @@ class Social_igniter
 
 	function scan_modules()
 	{
-		return $modules_scan = directory_map('./application/modules/', TRUE);
+		$modules = directory_map('./application/modules/', TRUE);
+		return element_remove('index.html', $modules);
 	}
 
 	function scan_layouts($theme)
@@ -396,11 +401,44 @@ class Social_igniter
 		return $this->ci->pages_model->get_menu(config_item('site_id'));	
 	}
 	
+	function make_pages_dropdown($content_id)
+	{
+		$pages_query 			= $this->get_content_view('type', 'page', 'all');
+		$this->pages_view 		= array(0 => '----select----');
+		$pages 					= $this->render_pages_children($pages_query, 0, $content_id);
+				
+		return $this->pages_view;
+	}
+	
+	function render_pages_children($pages_query, $parent_id, $content_id)
+	{		
+		foreach ($pages_query as $child)
+		{
+			if ($parent_id == $child->parent_id AND $child->details != 'index' AND $child->details != 'module_page' AND $child->content_id != $content_id)
+			{
+				if ($parent_id != '0') $page_display = ' - '.$child->title;
+				else $page_display = $child->title;
+
+				$this->pages_view[$child->content_id] = $page_display;
+
+				// Recursive Call
+				$this->render_pages_children($pages_query, $child->content_id, $content_id);
+			}
+		}
+			
+		return $this->pages_view;
+	}	
+	
 	
 	/* Settings */	
 	function get_settings($module=NULL)
 	{
 		return $this->ci->settings_model->get_settings(config_item('site_id'), $module);
+	}
+
+	function get_setting($settings_id)
+	{
+		return $this->ci->settings_model->get_setting($settings_id);
 	}
 
 	function get_settings_setting($setting)
@@ -416,7 +454,54 @@ class Social_igniter
 	function get_settings_module($module)
 	{
 		return $this->ci->settings_model->get_settings_module($module);
-	}	
+	}
+	
+	function make_widgets_order($widgets)
+	{
+		$widgets_view = array();
+	
+		foreach ($widgets as $json_widget)
+		{
+			$widget = json_decode($json_widget->value);
+		
+			$widgets_view[$widget->order.'-'.$json_widget->settings_id] = $json_widget;
+		}
+		
+		ksort($widgets_view);
+					
+		return $widgets_view;
+	}
+	
+	function check_can_widget_be_used($region, $check_widget)
+	{
+		if ($check_widget['multiple'] === 'TRUE')
+		{
+			return $check_widget;
+		}
+	
+		$region_widgets = $this->get_settings_setting($region);
+				
+		foreach ($region_widgets as $this_widget)
+		{
+			$widget = json_decode($this_widget->value);
+			
+			if ($widget->name == $check_widget['name'])
+			{
+				return FALSE;
+			}
+			else
+			{
+				continue;	
+			}
+		}
+
+		return $check_widget;
+	}
+
+	function add_setting($setting_data)
+	{
+		return $this->ci->settings_model->add_setting($setting_data);
+	}
 
 	function update_settings($module, $settings_update_array)
 	{
@@ -445,9 +530,19 @@ class Social_igniter
 			next($settings_update_array);
 		}
 		
-		return;
+		return TRUE;
 	}
-	
+
+	function update_setting($setting_id, $update_data)
+	{
+		return $this->ci->settings_model->update_setting($setting_id, $update_data);
+	}
+
+	function delete_setting($settings_id)
+	{
+		return $this->ci->settings_model->delete_setting($settings_id);
+	}
+
 	/* Activity */
 	function get_timeline($module, $limit)
 	{
@@ -508,6 +603,13 @@ class Social_igniter
 		return $this->ci->activity_model->get_timeline($where, $limit);
 	}
 	
+	function get_timeline_user_view($user_id, $parameter, $value, $limit)
+	{
+		$where = array('activity.user_id' => $user_id, 'activity.'.$parameter => $value);
+	
+		return $this->ci->activity_model->get_timeline($where, $limit);
+	}
+	
 	function get_activity($activity_id)
 	{
 		return $this->ci->activity_model->get_activity($activity_id);
@@ -522,6 +624,13 @@ class Social_igniter
 	{
 		if ($activity_id = $this->ci->activity_model->add_activity($activity_info, $activity_data))
 		{
+			$username = $this->ci->activity_model->get_activity($activity_id)->username;
+			$hub = 'http://pubsubhubbub.appspot.com/';
+			$hubargs = array('hub.mode'=>'publish', 'hub.url' => base_url() . "profile/". $username.'/feed');
+			$this->ci->load->library('curl');
+			
+			$this->ci->curl->simple_post($hub, $hubargs);
+			//$this->ci->curl->simple_post('http://social.pdxbrain.com:3232', $hubargs);
 			return $this->ci->activity_model->get_activity($activity_id);
 		}
 		

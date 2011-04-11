@@ -7,7 +7,6 @@ class Content_model extends CI_Model {
         parent::__construct();
     }
 
-	/* The 'content' Table */
     function check_content_duplicate($user_id, $title, $content)
     {
  		$this->db->select('*');
@@ -71,20 +70,21 @@ class Content_model extends CI_Model {
 	 		{
 		 		$this->db->where('content.status', 'S');
 				$this->db->where('content.approval', 'Y');
+				$this->db->limit($limit);
 	 		}
 	 		elseif ($status == 'awaiting')
 	 		{
 				$this->db->where('content.approval', 'N');
+				$this->db->limit($limit);	 		 
 	 		}
 	 		else
 	 		{
 		 		$this->db->where('content.status', 'P');
 				$this->db->where('content.approval', 'Y');
-	 		}
-	 		
+				$this->db->limit($limit);
+	 		}	
 	 		
 	 		$this->db->order_by('created_at', 'desc');
-			$this->db->limit($limit);	 		 
 	 		$result = $this->db->get();	
 	 		return $result->result();	      
 		}
@@ -125,6 +125,7 @@ class Content_model extends CI_Model {
  		$result = $this->db->get()->row();	
  		return $result;      
     }
+
     
     function get_content_category_count($category_id)
     {
@@ -155,7 +156,6 @@ class Content_model extends CI_Model {
 			'comments_count'  	=> 0,
 			'geo_lat'			=> $content_data['geo_lat'],
 			'geo_long'			=> $content_data['geo_long'],
-			'geo_accuracy'		=> $content_data['geo_accuracy'],
 			'viewed'			=> $content_data['viewed'],
 			'approval'			=> $content_data['approval'],
 			'status'			=> $content_data['status'],

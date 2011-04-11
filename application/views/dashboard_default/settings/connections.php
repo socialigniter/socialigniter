@@ -1,5 +1,5 @@
 <?php if ($social_connections): ?>
-<table border="0" cellpadding="0" cellspacing="0" width="450">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
 <?php foreach($social_connections as $social): $connection_set[$social->module] = FALSE; ?>
 <tr>
 	<td width="30"><img src="<?= base_url().'/application/modules/'.$social->module.'/assets/'.$social->module ?>_24.png" border="0" /></td>
