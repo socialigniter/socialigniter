@@ -624,14 +624,19 @@ class Social_igniter
 	{
 		if ($activity_id = $this->ci->activity_model->add_activity($activity_info, $activity_data))
 		{
-			$username = $this->ci->activity_model->get_activity($activity_id)->username;
-			$hub = 'http://pubsubhubbub.appspot.com/';
-			$hubargs = array('hub.mode'=>'publish', 'hub.url' => base_url() . "profile/". $username.'/feed');
-			$this->ci->load->library('curl');
+			$activity = $this->ci->activity_model->get_activity($activity_id);
+		
+			if ($activity)
+			{
+				$username	= $activity->username;
+				$hub		= 'http://pubsubhubbub.appspot.com/';
+				$hubargs	= array('hub.mode'=>'publish', 'hub.url' => base_url() . "profile/". $username.'/feed');
 			
-			$this->ci->curl->simple_post($hub, $hubargs);
-			//$this->ci->curl->simple_post('http://social.pdxbrain.com:3232', $hubargs);
-			return $this->ci->activity_model->get_activity($activity_id);
+				$this->ci->load->library('curl');	
+				$this->ci->curl->simple_post($hub, $hubargs);
+			}
+
+			return $activity;
 		}
 		
 		return FALSE;
