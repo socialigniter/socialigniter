@@ -391,9 +391,9 @@ CREATE TABLE  `users_meta` (
   `user_meta_id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
   `user_id` INT( 11 ) NOT NULL ,
   `site_id` INT( 6 ) NOT NULL ,
-  `module` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-  `meta` CHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+  `module` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL ,
+  `meta` CHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL ,
+  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL ,
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
   `updated_at` datetime DEFAULT '0000-00-00 00:00:00'
 ) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_unicode_ci;
