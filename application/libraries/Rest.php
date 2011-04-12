@@ -1,12 +1,21 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @author Philip Sturgeon
- * @created 04/06/2009
+ * CodeIgniter REST Class
+ *
+ * Mske REST requests to RESTful services with simple syntax.
+ *
+ * @package        	CodeIgniter
+ * @subpackage    	Libraries
+ * @category    	Libraries
+ * @author        	Philip Sturgeon
+ * @created			04/06/2009
+ * @license         http://philsturgeon.co.uk/code/dbad-license
+ * @link			http://github.com/philsturgeon/codeigniter-restclient
  */
 
-class Rest
+class REST
 {
-    private $ci; // CodeIgniter instance
+    private $_ci;
 
     private $rest_server;
 
@@ -15,6 +24,7 @@ class Rest
 		'json' 				=> 'application/json',
 		'serialize' 		=> 'application/vnd.php.serialized',
 		'php' 				=> 'text/plain',
+    	'csv'				=> 'text/csv'
 	);
 
     private $auto_detect_formats = array(
@@ -22,32 +32,40 @@ class Rest
 		'text/xml' 			=> 'xml',
 		'application/json' 	=> 'json',
 		'text/json' 		=> 'json',
+		'text/csv' 			=> 'csv',
+		'application/csv' 	=> 'csv',
     	'application/vnd.php.serialized' => 'serialize'
 	);
 
 	private $format;
 	private $mime_type;
+
     private $response_string;
 
     function __construct($config = array())
     {
-        $this->ci =& get_instance();
+        $this->_ci =& get_instance();
         log_message('debug', 'REST Class Initialized');
 
-		$this->ci->load->library('curl');
+		$this->_ci->load->library('curl');
 
 		// If a URL was passed to the library
-		if(!empty($config))
+		if ( ! empty($config))
 		{
 			$this->initialize($config);
 		}
     }
 
+	function __destruct()
+	{
+		$this->_ci->curl->set_default();
+	}
+
     public function initialize($config)
     {
 		$this->rest_server = @$config['server'];
 
-		if(substr($this->rest_server, -1, 1) != '/')
+		if (substr($this->rest_server, -1, 1) != '/')
 		{
 			$this->rest_server .= '/';
 		}
@@ -60,7 +78,7 @@ class Rest
 
     public function get($uri, $params = array(), $format = NULL)
     {
-        if($params)
+        if ($params)
         {
         	$uri .= '?'.(is_array($params) ? http_build_query($params) : $params);
         }
@@ -88,22 +106,22 @@ class Rest
 
     public function api_key($key, $name = 'X-API-KEY')
 	{
-		$this->ci->curl->http_header($name, $key);
+		$this->_ci->curl->http_header($name, $key);
 	}
 
     public function language($lang)
 	{
-		if(is_array($lang))
+		if (is_array($lang))
 		{
 			$lang = implode(', ', $lang);
 		}
 
-		$this->ci->curl->http_header('Accept-Language', $lang);
+		$this->_ci->curl->http_header('Accept-Language', $lang);
 	}
 
     private function _call($method, $uri, $params = array(), $format = NULL)
     {
-    	if($format !== NULL)
+    	if ($format !== NULL)
 		{
 			$this->format($format);
 		}
@@ -111,22 +129,22 @@ class Rest
 		$this->_set_headers();
 
         // Initialize cURL session
-        $this->ci->curl->create($this->rest_server.$uri);
+        $this->_ci->curl->create($this->rest_server.$uri);
 
         // If authentication is enabled use it
-        if($this->http_auth != '' && $this->http_user != '')
+        if ($this->http_auth != '' && $this->http_user != '')
         {
-        	$this->ci->curl->http_login($this->http_user, $this->http_pass, $this->http_auth);
+        	$this->_ci->curl->http_login($this->http_user, $this->http_pass, $this->http_auth);
         }
 
         // We still want the response even if there is an error code over 400
-        $this->ci->curl->option('failonerror', FALSE);
+        $this->_ci->curl->option('failonerror', FALSE);
 
         // Call the correct method with parameters
-        $this->ci->curl->{$method}($params);
+        $this->_ci->curl->{$method}($params);
 
         // Execute and return the response from the REST server
-        $response = $this->ci->curl->execute();
+        $response = $this->_ci->curl->execute();
 
         // Format and return
         return $this->_format_response($response);
@@ -136,7 +154,7 @@ class Rest
     // If a type is passed in that is not supported, use it as a mime type
     public function format($format)
 	{
-		if(array_key_exists($format, $this->supported_formats))
+		if (array_key_exists($format, $this->supported_formats))
 		{
 			$this->format = $format;
 			$this->mime_type = $this->supported_formats[$format];
@@ -152,20 +170,65 @@ class Rest
 
 	public function debug()
 	{
-		$request = $this->ci->curl->debug_request();
-		
-		$data['request_url']		= $request['url'];
-		$data['response_string']	= $this->response_string;
-		$data['error_string']		= $this->ci->curl->error_string;
-		$data['error_code']			= $this->ci->curl->error_code;
-		$data['info'] 				= $this->ci->curl->info;
+		$request = $this->_ci->curl->debug_request();
 
-		return $this->ci->load->view('api/sandbox_debug', $data, true);
+		echo "=============================================<br/>\n";
+		echo "<h2>REST Test</h2>\n";
+		echo "=============================================<br/>\n";
+		echo "<h3>Request</h3>\n";
+		echo $request['url']."<br/>\n";
+		echo "=============================================<br/>\n";
+		echo "<h3>Response</h3>\n";
+
+		if ($this->response_string)
+		{
+			echo "<code>".nl2br(htmlentities($this->response_string))."</code><br/>\n\n";
+		}
+
+		else
+		{
+			echo "No response<br/>\n\n";
+		}
+
+		echo "=============================================<br/>\n";
+
+		if ($this->_ci->curl->error_string)
+		{
+			echo "<h3>Errors</h3>";
+			echo "<strong>Code:</strong> ".$this->_ci->curl->error_code."<br/>\n";
+			echo "<strong>Message:</strong> ".$this->_ci->curl->error_string."<br/>\n";
+			echo "=============================================<br/>\n";
+		}
+
+		echo "<h3>Call details</h3>";
+		echo "<pre>";
+		print_r($this->_ci->curl->info);
+		echo "</pre>";
+
+	}
+
+
+	// Return HTTP status code
+	public function status()
+	{
+		return $this->info('http_code');
+	}
+
+	// Return curl info by specified key, or whole array
+	public function info($key = null)
+	{
+		return $key === null ? $this->_ci->curl->info : @$this->_ci->curl->info[$key];
+	}
+
+	// Set custom options
+	public function option($code, $value)
+	{
+		$this->_ci->curl->option($code, $value);
 	}
 
 	private function _set_headers()
 	{
-		$this->ci->curl->http_header('Accept: '.$this->mime_type);
+		$this->_ci->curl->http_header('Accept: '.$this->mime_type);
 	}
 
 	private function _format_response($response)
@@ -173,23 +236,23 @@ class Rest
 		$this->response_string =& $response;
 
 		// It is a supported format, so just run its formatting method
-		if(array_key_exists($this->format, $this->supported_formats))
+		if (array_key_exists($this->format, $this->supported_formats))
 		{
 			return $this->{"_".$this->format}($response);
 		}
 
 		// Find out what format the data was returned in
-		$returned_mime = @$this->ci->curl->info['content_type'];
+		$returned_mime = @$this->_ci->curl->info['content_type'];
 
 		// If they sent through more than just mime, stip it off
-		if(strpos($returned_mime, ';'))
+		if (strpos($returned_mime, ';'))
 		{
 			list($returned_mime)=explode(';', $returned_mime);
 		}
 
 		$returned_mime = trim($returned_mime);
 
-		if(array_key_exists($returned_mime, $this->auto_detect_formats))
+		if (array_key_exists($returned_mime, $this->auto_detect_formats))
 		{
 			return $this->{'_'.$this->auto_detect_formats[$returned_mime]}($response);
 		}
@@ -201,7 +264,31 @@ class Rest
     // Format XML for output
     private function _xml($string)
     {
-    	return (array) simplexml_load_string($string);
+    	return (array) simplexml_load_string($string, 'SimpleXMLElement', LIBXML_NOCDATA);
+    }
+
+    // Format HTML for output
+    // This function is DODGY! Not perfect CSV support but works with my REST_Controller
+    private function _csv($string)
+    {
+		$data = array();
+
+		// Splits
+		$rows = explode("\n", trim($string));
+		$headings = explode(',', array_shift($rows));
+		foreach( $rows as $row )
+		{
+			// The substr removes " from start and end
+			$data_fields = explode('","', trim(substr($row, 1, -1)));
+
+			if (count($data_fields) == count($headings))
+			{
+				$data[] = array_combine($headings, $data_fields);
+			}
+
+		}
+
+		return $data;
     }
 
     // Encode as JSON
@@ -226,7 +313,6 @@ class Rest
     }
 
 }
-// END REST Class
 
 /* End of file REST.php */
 /* Location: ./application/libraries/REST.php */

@@ -175,9 +175,9 @@ span.stage_marker 			{ display: block; border: 1px solid #666666; color: #efefef
 #status_find_place span		{ width: 110px; display: block; position: relative; top: 4px; left: 30px; }
 
 #social_post				{ margin: 0; position: relative; top: -2px; left: 5px; }
-#social_post li				{ width: 100px; margin: 0 0 15px 0; }
+#social_post li				{ margin: 0 0 15px 0; }
 #social_post_horizontal		{ margin: 0; position: relative; top: -2px; left: 5px; }
-#social_post_horizontal li	{ width: 120px; margin: 0; float: left; }
+#social_post_horizontal li	{ margin: 0; float: left; }
 
 #social_post .checker 				{ position: relative; top: -2px; left: 0; }
 #social_post_connections_avail		{ display: none; width: 80px; background: #333333; color: #eeeeee; font-size: 12px; padding: 8px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; }

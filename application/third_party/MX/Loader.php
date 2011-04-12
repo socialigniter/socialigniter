@@ -51,13 +51,15 @@ class MX_Loader extends CI_Loader
 	}
 	
 	/** Initialize the module **/
-	public function _init() {
+	public function _init($controller) {
 		
 		/* references to ci loader variables */
 		foreach (get_class_vars('CI_Loader') as $var => $val) {
 			if ($var != '_ci_ob_level') $this->$var =& CI::$APP->load->$var;
 		}
- 		
+		
+		/* set a reference to the module controller */
+ 		$this->controller = $controller;
  		$this->__construct();
 	}
 
@@ -76,7 +78,7 @@ class MX_Loader extends CI_Loader
 	}	
 	
 	/** Load a module config file **/
-	public function config($file = '', $use_sections = FALSE, $fail_gracefully = FALSE) {
+	public function config($file = 'config', $use_sections = FALSE, $fail_gracefully = FALSE) {
 		return CI::$APP->config->load($file, $use_sections, $fail_gracefully, $this->_module);
 	}
 
@@ -116,16 +118,12 @@ class MX_Loader extends CI_Loader
 	}
 
 	/** Load a module language file **/
-	public function language($langfile, $lang = '', $return = FALSE)	{
-		
-		if (is_array($langfile)) return $this->languages($langfile);
-		
-		return CI::$APP->lang->load($langfile, $lang, $return, $this->_module);
+	public function language($langfile, $idiom = '', $return = FALSE, $add_suffix = TRUE, $alt_path = '') {
+		return CI::$APP->lang->load($langfile, $idiom, $return, $add_suffix, $alt_path, $this->_module);
 	}
-
-	/** Load an array of languages **/
+	
 	public function languages($languages) {
-		foreach ($languages as $_language) $this->language($_language);	
+		foreach($languages as $_language) $this->language($language);
 	}
 	
 	/** Load a module library **/
@@ -264,7 +262,7 @@ class MX_Loader extends CI_Loader
 	} 
 
 	public function __get($class) {
-		return CI::$APP->$class;
+		return (isset($this->controller)) ? $this->controller->$class : CI::$APP->$class;
 	}
 
 	function _ci_load($_ci_data) {
@@ -331,8 +329,8 @@ class MX_Loader extends CI_Loader
 				
 		/* autoload config */
 		if (isset($autoload['config'])){
-			foreach ($autoload['config'] as $key => $val){
-				$this->config($val);
+			foreach ($autoload['config'] as $config){
+				$this->config($config);
 			}
 		}
 
