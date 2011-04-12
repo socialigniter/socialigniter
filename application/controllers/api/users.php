@@ -316,7 +316,6 @@ class Users extends Oauth_Controller
     
     function mobile_add_authd_post()
     {
-
    		$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
 
         if ($this->form_validation->run() == true)
