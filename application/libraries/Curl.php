@@ -15,7 +15,7 @@
 class Curl {
 
 	private $_ci;				// CodeIgniter instance
-	private $response = '';		  // Contains the cURL response for debug
+	private $response;		  // Contains the cURL response for debug
 	private $session;		   // Contains the cURL handler for a session
 	private $url;			   // URL of the session
 	private $options = array(); // Populates curl_setopt_array
@@ -29,7 +29,7 @@ class Curl {
 		$this->_ci = & get_instance();
 		log_message('debug', 'cURL Class Initialized');
 
-		if ( ! $this->is_enabled())
+		if (!$this->is_enabled())
 		{
 			log_message('error', 'cURL Class - PHP was not built with cURL enabled. Rebuild PHP with --with-curl to use cURL.');
 		}
@@ -53,22 +53,13 @@ class Curl {
 	 * Using these methods you can make a quick and easy cURL call with one line.
 	 * ================================================================================= */
 
+	// Return a get request results
 	public function _simple_call($method, $url, $params = array(), $options = array())
 	{
-		// Get acts differently, as it doesnt accept parameters in the same way
-		if ($method === 'get')
-		{
-			// If a URL is provided, create new session
-			$this->create($url.($params ? '?'.http_build_query($params) : ''));
-		}
+		// If a URL is provided, create new session
+		$this->create($url);
 
-		else
-		{
-			// If a URL is provided, create new session
-			$this->create($url);
-
-			$this->{$method}($params);
-		}
+		$this->{$method}($params, $options);
 
 		// Add in the specific options provided
 		$this->options($options);
@@ -79,7 +70,7 @@ class Curl {
 	public function simple_ftp_get($url, $file_path, $username = '', $password = '')
 	{
 		// If there is no ftp:// or any protocol entered, add ftp://
-		if ( ! preg_match('!^(ftp|sftp)://! i', $url))
+		if (!preg_match('!^(ftp|sftp)://! i', $url))
 		{
 			$url = 'ftp://' . $url;
 		}
@@ -248,8 +239,11 @@ class Curl {
 	// Start a session from a URL
 	public function create($url)
 	{
+		// Reset the class
+		$this->set_defaults();
+
 		// If no a protocol in URL, assume its a CI link
-		if ( ! preg_match('!^\w+://! i', $url))
+		if (!preg_match('!^\w+://! i', $url))
 		{
 			$this->_ci->load->helper('url');
 			$url = site_url($url);
@@ -265,30 +259,24 @@ class Curl {
 	public function execute()
 	{
 		// Set two default options, and merge any extra ones in
-		if ( ! isset($this->options[CURLOPT_TIMEOUT]))
-		{
+		if (!isset($this->options[CURLOPT_TIMEOUT]))
 			$this->options[CURLOPT_TIMEOUT] = 30;
-		}
-		if ( ! isset($this->options[CURLOPT_RETURNTRANSFER]))
-		{
+		if (!isset($this->options[CURLOPT_RETURNTRANSFER]))
 			$this->options[CURLOPT_RETURNTRANSFER] = TRUE;
-		}
-		if ( ! isset($this->options[CURLOPT_FAILONERROR]))
-		{
+		if (!isset($this->options[CURLOPT_FAILONERROR]))
 			$this->options[CURLOPT_FAILONERROR] = TRUE;
-		}
 
 		// Only set follow location if not running securely
-		if ( ! ini_get('safe_mode') && !ini_get('open_basedir'))
+		if (!ini_get('safe_mode') && !ini_get('open_basedir'))
 		{
 			// Ok, follow location is not set already so lets set it to true
-			if ( ! isset($this->options[CURLOPT_FOLLOWLOCATION]))
+			if (!isset($this->options[CURLOPT_FOLLOWLOCATION]))
 			{
 				$this->options[CURLOPT_FOLLOWLOCATION] = TRUE;
 			}
 		}
 
-		if ( ! empty($this->headers))
+		if (!empty($this->headers))
 		{
 			$this->option(CURLOPT_HTTPHEADER, $this->headers);
 		}
@@ -306,8 +294,7 @@ class Curl {
 			$this->error_string = curl_error($this->session);
 
 			curl_close($this->session);
-			$this->set_defaults();
-
+			$this->session = NULL;
 			return FALSE;
 		}
 
@@ -315,9 +302,8 @@ class Curl {
 		else
 		{
 			curl_close($this->session);
-			$response = $this->response;
-			$this->set_defaults();
-			return $response;
+			$this->session = NULL;
+			return $this->response;
 		}
 	}
 
@@ -359,11 +345,10 @@ class Curl {
 	private function set_defaults()
 	{
 		$this->response = '';
-		$this->headers = array();
+		$this->info = array();
 		$this->options = array();
-		$this->error_code = NULL;
+		$this->error_code = 0;
 		$this->error_string = '';
-		$this->session = NULL;
 	}
 
 }
