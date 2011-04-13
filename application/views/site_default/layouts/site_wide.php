@@ -37,6 +37,8 @@
 		<div class="clear"></div>
 	</div>
 </div>
+<script type="text/javascript">
 <?= $settings['services']['google_analytics'] ?>
+</script>
 </body>
 </html>
