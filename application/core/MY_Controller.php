@@ -100,6 +100,16 @@ class MY_Controller extends MX_Controller
         }
 
 		$this->config->set_item('mobile_theme', $this->data['settings']['themes']['mobile_theme']);
+		
+		// Google Analytics
+		if (config_item('services_google_analytics'))
+		{
+			$this->data['google_analytics']	= $this->load->view(config_item('dashboard_theme').'/partials/google_analytics', $this->data, true);
+		}
+		else
+		{
+			$this->data['google_analytics'] = '';
+		}
 
 		// Dashboard & Public values for logged
 		if ($this->social_auth->logged_in())
