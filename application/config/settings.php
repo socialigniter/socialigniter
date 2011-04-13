@@ -119,3 +119,9 @@ $config['bitly_domain'] = array(
 	'bit.ly'	=> 'http://bit.ly',
 	'j.mp'		=> 'http://j.mp'
 );
+
+/* Actions for Link */
+$config['ratings_type']	= array(
+	'thumbs' 		=> 'Thumbs Up / Down',
+	'one_to_five'	=> 'One to Five'
+);
