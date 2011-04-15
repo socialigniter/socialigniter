@@ -29,9 +29,6 @@
 			<div id="content_message" class="message_normal"><?= $message ?></div>
 			<?= $content ?>
 		</div>
-		<div id="sidebar">
-			<?= $sidebar ?>
-		</div>
 	</div>
 	<div class="clear"></div>
 
@@ -43,7 +40,6 @@
 	</div>
 	<div class="clear"></div>
 </div>
-
-<?= $settings['services']['google_analytics'] ?>
+<?= $google_analytics ?>
 </body>
 </html>
