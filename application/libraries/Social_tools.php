@@ -558,35 +558,38 @@ class Social_tools
 			$tags_array = array(explode(", ", $tags_post));
 				
 			foreach ($tags_array[0] as $tag)
-			{  	
-				// Check for tag existence
-				$tag_exists 	= $this->get_tag($tag);
-	
-				// Insert New Tag			
-				if (!$tag_exists)
-				{			
-					$tag_url	= url_username($tag, 'dash', TRUE);
-					$tag_id		= $this->ci->tags_model->add_tag($tag, $tag_url);				
-				}
-				else
-				{
-					$tag_id		= $tag_exists->tag_id;
-				}
-				
-				// Insert Link
-				$insert_link	= $this->ci->tags_model->add_tags_link($tag_id, $content_id);			
-							
-				// Check Taxonomy Existence
-				$tag_total		= $this->ci->tags_model->get_tag_total($tag);			
-				$tag_taxonomy	= $this->ci->taxonomy_model->get_taxonomy($tag_id, 'tag');
+			{
+				if ($tag != '')
+				{			 	
+					// Check for tag existence
+					$tag_exists 	= $this->get_tag($tag);
+		
+					// Insert New Tag			
+					if (!$tag_exists)
+					{			
+						$tag_url	= url_username($tag, 'dash', TRUE);
+						$tag_id		= $this->ci->tags_model->add_tag($tag, $tag_url);				
+					}
+					else
+					{
+						$tag_id		= $tag_exists->tag_id;
+					}
 					
-				if ($tag_taxonomy)
-				{
-					$update_taxonomy = $this->ci->taxonomy_model->update_taxonomy($tag_taxonomy->taxonomy_id, $tag_total);
-				}				
-				else
-				{
-					$insert_taxonomy = $this->ci->taxonomy_model->add_taxonomy($tag_id, 'tag', $tag_total);
+					// Insert Link
+					$insert_link	= $this->ci->tags_model->add_tags_link($tag_id, $content_id);			
+								
+					// Check Taxonomy Existence
+					$tag_total		= $this->ci->tags_model->get_tag_total($tag);			
+					$tag_taxonomy	= $this->ci->taxonomy_model->get_taxonomy($tag_id, 'tag');
+						
+					if ($tag_taxonomy)
+					{
+						$update_taxonomy = $this->ci->taxonomy_model->update_taxonomy($tag_taxonomy->taxonomy_id, $tag_total);
+					}				
+					else
+					{
+						$insert_taxonomy = $this->ci->taxonomy_model->add_taxonomy($tag_id, 'tag', $tag_total);
+					}
 				}	
 			}
 			
