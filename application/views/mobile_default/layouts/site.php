@@ -43,7 +43,6 @@
 	</div>
 	<div class="clear"></div>
 </div>
-
-<?= $settings['services']['google_analytics'] ?>
+<?= $google_analytics ?>
 </body>
 </html>
