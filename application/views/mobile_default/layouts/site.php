@@ -29,6 +29,9 @@
 			<div id="content_message" class="message_normal"><?= $message ?></div>
 			<?= $content ?>
 		</div>
+		<div id="sidebar">
+			<?= $sidebar ?>
+		</div>
 	</div>
 	<div class="clear"></div>
 
