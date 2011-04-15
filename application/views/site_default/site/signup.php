@@ -1,4 +1,4 @@
-<h1>Signup</h1>
+<h2>Signup</h2>
 
 <?php if (config_item('users_signup') == 'TRUE'): ?>
 <form method="post" name="user_signup" id="user_signup" action="<?= base_url() ?>api/users/signup">

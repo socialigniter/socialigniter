@@ -51,7 +51,7 @@ a.button_basic_on span	{ position: relative; top: 7px; left: 0px; }
 #header_not_logged 		{ float: right; position: relative; top: 85px; right: 0; }
 #header_not_logged li 	{ float: left; margin: 0 0 0 25px; }
 
-#content 						{ width: 100%; min-height: 100%; margin: 0; padding: 45px 0 150px 0; background: url(images/content_background.png) 0 0 repeat-x #fff; }
+#content 						{ width: 100%; min-height: 70%; margin: 0; padding: 45px 0 150px 0; background: url(images/content_background.png) 0 0 repeat-x #fff; }
 #content table					{ margin: 0 0 25px 0; }
 #content table td 				{ padding: 10px 10px 10px 0; }
 #content h1						{ margin: 0 0 15px 0; }
@@ -70,6 +70,7 @@ a.button_basic_on span	{ position: relative; top: 7px; left: 0px; }
 #main_profile 					{ width: 700px; margin: 0; text-align: left; float: left; line-height: 21px; }
 #main_nav 						{ float: left; position: relative; top: 35px; left: 0; margin: 0; padding: 0; }
 #main_nav li 					{ float: left; margin: 0 40px 0 0; padding: 0; text-decoration: none; font-weight: bold; list-style-type: none; }
+#main_wide						{ width: 950px; margin: 25px 0 65px 0; }
 
 #sidebar 						{ width: 240px; float: left; margin: 0 0 0 55px; padding: 0; text-align: left; }
 #sidebar ul 					{ margin: 0; }
@@ -113,7 +114,6 @@ div.norm_top 					{ width: 700px; height: 12px; background: url('images/content_
 div.norm_mid 					{ width: 700px; background: url('images/content_norm_mid.png') 0 0 repeat-y; margin: 0 0; padding: 10px 0; }
 div.norm_bot 					{ width: 700px; height: 12px; background: url('images/content_norm_bot.png') 0 0 no-repeat; margin: 0 0 15px 0; }
 div.norm_separator				{ width: 671px; height: 18px; margin: 6px auto 12px auto; background: url(images/content_norm_separator.png) 0 0 no-repeat; }
-
 
 /* Misc Yet Important ????? */
 div.social_login				{ width: 165px; margin: 0 0 5px 0; }

@@ -32,9 +32,11 @@
 		<div id="sidebar">
 			<?= $sidebar ?>
 		</div>
+		<div class="clear"></div>
+		<div id="main_wide">
+			<?= $wide ?>
+		</div>	
 	</div>
-	<div class="clear"></div>
-
 </div>
 
 <div id="footer">
