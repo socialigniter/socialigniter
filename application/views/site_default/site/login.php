@@ -1,4 +1,4 @@
-<h1>Login</h1>
+<h2>Login</h2>
 
 <form method="post" name="user_login" id="user_login" action="<?= base_url() ?>login">
 <table border="0" cellpadding="0" cellspacing="0">

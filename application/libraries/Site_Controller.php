@@ -28,6 +28,7 @@ class Site_Controller extends MY_Controller
         $this->data['content']				= '';
         $this->data['shared_ajax']			= '';        
         $this->data['sidebar']				= '';
+        $this->data['wide']					= '';
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
 		$this->data['message']				= $this->session->userdata('message');
 		$this->data['comments_view'] 		= '';
@@ -90,6 +91,13 @@ class Site_Controller extends MY_Controller
         	$this->data['content'] .= 'Oops that content file is mising';
         }
 
+ 		// Get Widget Regions
+ 		foreach ($this->site_theme->regions as $region)
+ 		{ 		
+			$this->data[$region] .= $this->render_widgets($region);	
+ 		}
+ 		
+		// Render View
         $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);
     }
     

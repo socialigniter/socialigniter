@@ -1,4 +1,4 @@
-<h1>Signup with <?= ucwords($signup_module) ?></h1>
+<h2>Signup with <?= ucwords($signup_module) ?></h2>
 
 <h3>Howdi <?= $name ?></h3>
 

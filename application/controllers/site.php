@@ -3,7 +3,7 @@ class Site extends Site_Controller
 { 
     function __construct()
     {
-        parent::__construct();
+        parent::__construct();    
     }
 
 	function index()
@@ -26,10 +26,7 @@ class Site extends Site_Controller
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{				
 			$this->data['comments_view'] = $this->social_tools->make_comments_section($page->content_id, 'page', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
-		}
-		
-		// Load Login Is Enabled
-		$this->data['sidebar'] = $this->render_widgets('sidebar');		
+		}	
 
 		$this->render();
 	}
@@ -44,10 +41,7 @@ class Site extends Site_Controller
 		{
 			$page_comment = '#comment-'.$this->uri->segment(4);
 		}
-		
-		// Load Login Is Enabled
-		$this->data['sidebar'] = $this->render_widgets('sidebar');		
-		
+				
 		redirect($page_link.$page_comment);
 	}
 	
@@ -60,7 +54,6 @@ class Site extends Site_Controller
 			if ($page->details == 'index')	redirect();
 			else							redirect(base_url().'pages/'.$page->title_url, 'refresh');
 		}
-		// Pages
 		elseif ($this->uri->segment(1))
 		{
 			$page = $this->social_igniter->get_page($this->uri->segment(2));
@@ -77,15 +70,10 @@ class Site extends Site_Controller
 		if ((config_item('comments_enabled') == 'TRUE') && ($page->comments_allow != 'N'))
 		{
 			$this->data['comments_view'] = $this->social_tools->make_comments_section($page->content_id, 'page', $this->data['logged_user_id'], $this->data['logged_user_level_id']);
-		}
-		
-		// Load Login Is Enabled
-		$this->data['sidebar'] = $this->render_widgets('sidebar');		
+		}		
 
 		$this->render();	
-	}
-	
-	
+	}	
 	
 	/* Login Pages */
     function login() 
@@ -99,7 +87,7 @@ class Site extends Site_Controller
     	$this->data['password_confirm'] = "";
         $this->data['page_title'] 		= "Login";	            	
 		
-    	$this->render();
+    	$this->render('site_wide');
     }
     
 	function logout() 
@@ -123,7 +111,7 @@ class Site extends Site_Controller
         $this->data['password']   		= "";
     	$this->data['password_confirm'] = "";    		
         $this->data['page_title'] 		= "Signup";
-    	$this->render();
+    	$this->render('site_wide');
     }  
     
     function signup_social()
@@ -135,7 +123,7 @@ class Site extends Site_Controller
 		$this->data['name']				= $this->session->userdata('signup_name');
 		$this->data['signup_email']		= $this->session->userdata('social_email');
 		$this->data['return_url']		= $this->session->userdata('connection_return_url');
-		$this->render();  
+    	$this->render('site_wide');
     }  
 
 	function forgot_password() 
@@ -159,7 +147,7 @@ class Site extends Site_Controller
 			}
 	    }
 	    
-    	$this->render();
+    	$this->render('site_wide');
 	}
 	
 	function reset_password() 
@@ -202,7 +190,7 @@ class Site extends Site_Controller
     function activation()
     {    
 	    $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-    	$this->render();
+    	$this->render('site_wide');
     }
 
 	function places()

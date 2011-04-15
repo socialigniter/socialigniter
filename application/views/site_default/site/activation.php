@@ -1,3 +1,3 @@
-<h1>Almost done!</h1>
+<h2>Almost done!</h2>
 
 <div id="info_message"><?= $message; ?></div>
