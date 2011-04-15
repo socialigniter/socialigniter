@@ -19,7 +19,7 @@ class Users extends Oauth_Controller
     
     function recent_get()
     {
-        $users = $this->social_auth->get_users(10);
+        $users = $this->social_auth->get_users('active', 1);
         
         if($users)
         {

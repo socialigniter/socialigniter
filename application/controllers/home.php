@@ -434,10 +434,24 @@ class Home extends Dashboard_Controller
 		$this->load->view(config_item('dashboard_theme').'/partials/item_manage', $this->data);
 	}
 	
-	/* Partials */
 	function category_editor()
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/category_editor');
+	}
+	
+	function partial_add_place()
+	{		
+		$this->data['title']	= '';
+		$this->data['address']	= '';
+		$this->data['district'] = '';
+		$this->data['locality'] = '';
+		$this->data['region']	= '';
+		$this->data['postal']	= '';
+		$this->data['country'] 	= 'US';
+		$this->data['geo_lat']	= '';
+		$this->data['geo_long']	= '';
+
+		$this->load->view(config_item('dashboard_theme').'/partials/add_place', $this->data);		
 	}
 	
 	/* Widget Editor */

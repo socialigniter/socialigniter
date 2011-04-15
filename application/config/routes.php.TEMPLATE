@@ -152,6 +152,7 @@ $route['home/error'] 								= 'home/error';
 $route['home/item_timeline']						= 'home/item_timeline';
 $route['home/item_manage']							= 'home/item_manage';
 $route['home/category_editor']						= 'home/category_editor';
+$route['home/partial_add_place']					= 'home/partial_add_place';
 $route['home/widget_editor/(:any)']					= 'home/widget_editor/$1';
 $route['home/widget_editor']						= 'home/widget_editor';
 $route['home/widget_add']							= 'home/widget_add';

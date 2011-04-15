@@ -164,6 +164,28 @@ class Social_igniter
     {
     	return '<span class="item_content_detail">"'.$object->content.'" <a href="'.$object->url.'">read</a>"</span>';
     }
+
+    function render_item_place($object, $has_thumb)
+    {
+		$place = '<span class="item_content_detail_sm">';
+    
+        if (property_exists($object, 'address'))
+        {
+        	$place .= $object->address.'<br>';
+        }
+        
+        if (property_exists($object, 'locality'))
+        {
+        	$place .= $object->locality.', ';
+        }
+        
+        if (property_exists($object, 'region'))
+        {
+        	$place .= $object->region;
+        }
+    
+    	return $place.'</span></span>';
+    }
     
     function render_item_image($object, $has_thumb)
     {    
@@ -725,6 +747,25 @@ class Social_igniter
     function get_content_category_count($category_id)
 	{
 		return $this->ci->content_model->get_content_category_count($category_id);
+	}
+	
+	function make_content_dropdown($parameter, $value,  $content_permissions=1, $user_level_id=NULL, $add_label=NULL)
+	{
+		$content_query 	= $this->get_content_view($parameter, $value, 'all');
+		$dropdown 		= array(0 => '----select----');
+		
+		foreach($content_query as $content)
+		{
+			$dropdown[$content->content_id] = $content->title;			
+		}
+		
+		// Addible if Admin
+		if ($user_level_id AND $user_level_id <= $content_permissions)
+		{
+			$dropdown['add_content'] = $add_label;	
+		}
+
+		return $dropdown;
 	}
 	
 	// Adds Content & Activity

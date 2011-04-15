@@ -207,8 +207,8 @@ span.item_verb				{ color: #999999; }
 span.item_content_body		{ width: 450px; float: left; }
 span.item_content_body_small{ width: 375px; float: left; word-wrap: break-word; word-break: inherit;  }
 img.item_content_thumb		{ width: 125px; display: block; float: left; margin: 0 15px 0 0; }
-span.item_content_detail	{ width: 350px; display: block; float: left; margin: 4px 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }
-span.item_content_detail_sm	{ width: 250px; display: block; float: left; margin: 0 0 2px 0; color: #999999; font-size: 12px; line-height: 21px; }
+span.item_content_detail	{ width: 350px; display: block; float: left; margin: 4px 0; color: #999999; font-size: 12px; line-height: 21px; }
+span.item_content_detail_sm	{ width: 250px; display: block; float: left; margin: 4px 0; color: #999999; font-size: 12px; line-height: 21px; }
 span.item_meta 				{ height: 12px; display: block; margin: 5px 0 0 0; font-size: 12px; line-height: 12px; color: #999; width: 100px; float: left; }
 
 /* Manage */

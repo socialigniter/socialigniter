@@ -214,7 +214,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'site', 'admin_email', 'you@email.com');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'site_theme', 'site_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'dashboard_theme', 'dashboard_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'mobile_theme', 'mobile_default');
-INSERT INTO `settings` VALUES(NULL, 1, 'widgets', 'sidebar', '{"module":"users","name":"Login","method":"view","path":"widgets/login","enabled":"TRUE","order":"1"}');
+INSERT INTO `settings` VALUES(NULL, 1, 'widgets', 'sidebar', '{"module":"users","name":"Login","method":"view","path":"login","enabled":"TRUE","order":"1"}');
 INSERT INTO `settings` VALUES(NULL, 1, 'widgets', 'sidebar', '{"module":"text","name":"Text","method":"text","path":"","enabled":"TRUE","order":"2","content":"<h2>Hello</h2><p>Thanks for stopping by. We absolutely love visitors. Take off your digital shoes, relax, and feast your eyes on our pretty pixels!</p>"}');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'email_protocol', 'mail');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_host', '');
