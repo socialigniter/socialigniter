@@ -44,7 +44,7 @@
 
 	<p><input type="text" name="google_webmaster" value="<?= $settings['services']['google_webmaster'] ?>"> Google Webmaster</p>
 	
-	<p><input type="text" name="google_analytics" value="<?= $settings['services']['google_analytics'] ?>"> Google Analytics</p>
+	<p><input type="text" name="google_analytics" value="<?= $settings['services']['google_analytics'] ?>"> Google Analytics - Web Property ID</p>
 
 	<p><input type="text" name="bing_webmaster" value="<?= $settings['services']['bing_webmaster'] ?>"> Bing Webmaster</p>
 

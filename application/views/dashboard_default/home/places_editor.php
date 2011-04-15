@@ -46,8 +46,8 @@
 		
 		</div>
 		
-		<input type="hidden" name="geo_lat" value="<?= $geo_lat ?>" />
-		<input type="hidden" name="geo_long" value="<?= $geo_long ?>" />
+		<input type="hidden" name="geo_lat" id="geo_lat" value="<?= $geo_lat ?>" />
+		<input type="hidden" name="geo_long" id="geo_long" value="<?= $geo_long ?>" />
 
 	</div>
 	
@@ -68,7 +68,7 @@ var validation_rules = [{
 	'message'	: 'You need a place title'
 },{
 	'element' 	: '#address', 
-	'holder'	: '15229 Ocean St.', 
+	'holder'	: '15229 Some St.', 
 	'message'	: 'You need an address'
 },{
 	'element' 	: '#district', 
@@ -76,15 +76,15 @@ var validation_rules = [{
 	'message'	: ''	
 },{
 	'element' 	: '#locality', 
-	'holder'	: 'Los Angeles', 
+	'holder'	: 'Someville', 
 	'message'	: 'You need a city'	
 },{
 	'element' 	: '#region', 
-	'holder'	: 'CA', 
+	'holder'	: 'DC', 
 	'message'	: ''	
 },{
 	'element' 	: '#postal', 
-	'holder'	: '91405', 
+	'holder'	: '90000', 
 	'message'	: ''	
 },{
 	'element' 	: '#place_content', 
@@ -117,7 +117,7 @@ $(document).ready(function()
 		if ($("[name=postal]").val().length > 0 && $("[name=locality]").val().length > 0 && $("[name=region]").val().length > 0 && $("[name=address]").val().length > 0) 
 		{
 			var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();
-			getMapGeocode(address);
+			getMapGeocode(address, '#geo_lat', '#geo_long');
 		}
 	});
 
@@ -126,7 +126,8 @@ $(document).ready(function()
 	{
 		eve.preventDefault();
 		var address = $('[name=address]').val() + " " + $('[name=locality]').val() + ", " + $('[name=region]').val() + " " + $('[name=postal]').val();	
-		getMapGeocode(address);
+		getMapGeocode(address, '#geo_lat', '#geo_long');
+	
 	});
 
 	// Add Details

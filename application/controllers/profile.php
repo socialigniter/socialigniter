@@ -6,7 +6,7 @@ class Profile extends Site_Controller
         parent::__construct();
 
 		if (!$this->uri->segment(2) || (config_item('users_profile') != 'TRUE')) redirect(base_url());	
-	
+		$timeline_view = null;
 		$this->user = $this->social_auth->get_user('username', $this->uri->segment(2)); 
  	
 		if($this->user)
@@ -91,6 +91,7 @@ class Profile extends Site_Controller
 				 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;
 				 	$this->data['item_comment_avatar']	= $this->data['logged_image'];
 
+
 				 	$this->data['item_can_modify']		= $this->social_auth->has_access_to_modify('activity', $activity, $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));			 	
 					$this->data['item_edit']			= base_url().'home/'.$activity->module.'/manage/'.$activity->content_id;
 					$this->data['item_delete']			= base_url().'status/delete/'.$activity->activity_id;
@@ -129,6 +130,12 @@ class Profile extends Site_Controller
  	{
  		$this->output->set_header('Content-type:application/atom+xml');
  		$this->load->view('site_default/partials/feed', $this->data);
+ 	}
+
+ 	function add_friend()
+ 	{
+ 		$this->data['webfinger'] = $this->uri->segment(4);
+ 		$this->render('profile');
  	}
  	
  	function image()

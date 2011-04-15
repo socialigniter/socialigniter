@@ -113,9 +113,15 @@ $config['ratings_type']	= array(
 	'one_to_five'	=> 'One to Five'
 );
 
-
 /* Bit.ly Settings */
 $config['bitly_domain'] = array(
 	'bit.ly'	=> 'http://bit.ly',
 	'j.mp'		=> 'http://j.mp'
+);
+
+/* Link Actions */
+$config['link_actions']	= array(
+	'link' 		=> 'Link',
+	'slideshow'	=> 'Slideshow',
+	'lightbox'	=> 'Lightbox'
 );

@@ -63,8 +63,17 @@ class Places extends Oauth_Controller
 				'status'			=> form_submit_publish($this->input->post('status'))  			
 	    	);
 
+			$activity_data = array(
+				'title'			=> $this->input->post('title'),
+				'address'		=> $this->input->post('address'),
+				'locality'		=> $this->input->post('locality'),
+				'region'		=> $this->input->post('region'),
+				'geo_lat'		=> $this->input->post('geo_lat'),
+				'geo_long'		=> $this->input->post('geo_long')
+			);
+
 			// Insert
-			$result = $this->social_igniter->add_content($content_data);	    	
+			$result = $this->social_igniter->add_content($content_data, $activity_data);    	
 
 	    	if ($result)
 		    {
@@ -132,9 +141,18 @@ class Places extends Oauth_Controller
 				'approval'			=> 'Y',
 				'status'			=> form_submit_publish($this->input->post('status'))
 	    	);
+
+			$activity_data = array(
+				'title'			=> $this->input->post('title'),
+				'address'		=> $this->input->post('address'),
+				'locality'		=> $this->input->post('locality'),
+				'region'		=> $this->input->post('region'),
+				'geo_lat'		=> $this->input->post('geo_lat'),
+				'geo_long'		=> $this->input->post('geo_long')
+			);	    	
 	    									
 			// Update
-			$update = $this->social_igniter->update_content($content_data, $this->oauth_user_id); 
+			$update = $this->social_igniter->update_content($content_data, $this->oauth_user_id, $activity_data); 
 	        
 		    if ($update)
 		    {
