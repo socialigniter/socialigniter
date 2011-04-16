@@ -120,34 +120,45 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title'] 		= 'Widgets';
 		$this->data['this_module']		= 'widgets';
 		$this->data['layouts']			= $this->social_igniter->scan_layouts(config_item('site_theme'));
-		$this->data['layout_selected']	= 'site';	
+		$this->data['layout_selected']	= 'sidebar';	
 		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 
 		// Build Widget Arrays
-		// Will have to redo for different layouts
-		$content_widgets	= array();		
-		$sidebar_widgets	= array();
-		$wide_widgets		= array();		
+		// Will have to redo for different layouts		
+		$current_widgets = array();		
 				
 		foreach ($this->site_widgets as $site_widget)
 		{
-			if ($site_widget->setting == 'content')
-			{
-				$content_widgets[] = $site_widget;
-			}
-			elseif ($site_widget->setting == 'sidebar')
-			{
-				$sidebar_widgets[] = $site_widget;			
-			}
-			elseif ($site_widget->setting == 'wide')
-			{
-				$wide_widgets[] = $site_widget;			
-			}
+			$current_widgets[$site_widget->setting][] = $site_widget;
 		}
-
+/*
 		$this->data['content_widgets']	= $this->social_igniter->make_widgets_order($content_widgets);
 		$this->data['sidebar_widgets']  = $this->social_igniter->make_widgets_order($sidebar_widgets);
 		$this->data['wide_widgets']		= $this->social_igniter->make_widgets_order($wide_widgets);
+*/		
+		// SET BASED ON URL
+		$layout = 'sidebar';		
+
+ 		// Widget Regions	 		
+ 		foreach ($this->site_theme->layouts as $key => $site_layout)
+ 		{ 		
+ 			if ($key == $layout)
+ 			{
+ 				foreach ($site_layout as $region)
+ 				{
+ 					if (array_key_exists($region, $current_widgets))
+ 					{	
+						$this->data[$region.'_widgets'] = $this->social_igniter->make_widgets_order($current_widgets[$region]);	
+ 					}
+ 					else
+ 					{
+ 						$this->data[$region.'_widgets'] = '';
+ 					}
+ 				} 			
+ 			}
+ 		} 		
+ 		
+		
 
 		$this->render('dashboard_wide');
 	}
