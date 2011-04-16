@@ -18,17 +18,28 @@ class Site_Controller extends MY_Controller
     {
         parent::__construct();
 
-		// Global Required Quries
-		$this->data['navigation_menu']		= $this->social_igniter->get_menu();
+	// Global Required Quries
+	$this->data['navigation_menu']	= $this->social_igniter->get_menu();
 
         // Load Views
-        $this->data['head']					= $this->load->view(config_item('site_theme').'/partials/head_site.php', $this->data, true);
-        $this->data['logged']				= $this->load->view(config_item('site_theme').'/partials/logged.php', $this->data, true);
-        $this->data['navigation']			= $this->load->view(config_item('site_theme').'/partials/navigation_site.php', $this->data, true);
-        $this->data['content']				= '';
+        $this->data['head']			= $this->load->view(config_item('site_theme').'/partials/head_site.php', $this->data, true);
+        $this->data['logged']		= $this->load->view(config_item('site_theme').'/partials/logged.php', $this->data, true);
+        $this->data['navigation']	= $this->load->view(config_item('site_theme').'/partials/navigation_site.php', $this->data, true);
+        $this->data['content']		= '';
+        
+ 		// Widget Regions	 		
+ 		foreach ($this->site_theme->layouts as $key => $site_layout)
+ 		{ 		
+ 			if ($key == 'sidebar')
+ 			{
+ 				foreach ($site_layout as $region)
+ 				{
+					$this->data[$region] = '';			
+ 				} 			
+ 			}
+ 		}
+
         $this->data['shared_ajax']			= '';        
-        $this->data['sidebar']				= '';
-        $this->data['wide']					= '';
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
 		$this->data['message']				= $this->session->userdata('message');
 		$this->data['comments_view'] 		= '';
@@ -69,7 +80,7 @@ class Site_Controller extends MY_Controller
 		}
     }
 
-    function render($layout='site')
+    function render($layout='sidebar')
     {
       	// Is Module
        	if ($this->module_name)
@@ -91,11 +102,17 @@ class Site_Controller extends MY_Controller
         	$this->data['content'] .= 'Oops that content file is mising';
         }
 
- 		// Get Widget Regions
- 		foreach ($this->site_theme->regions as $region)
+ 		// Widget Regions
+ 		foreach ($this->site_theme->layouts as $key => $site_layout)
  		{ 		
-			$this->data[$region] .= $this->render_widgets($region);	
- 		}
+ 			if ($key == $layout)
+ 			{
+ 				foreach ($site_layout as $region)
+ 				{
+					$this->data[$region] .= $this->render_widgets($region);	
+ 				} 			
+ 			}
+ 		} 		
  		
 		// Render View
         $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);
