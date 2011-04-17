@@ -369,6 +369,12 @@ class Home extends Dashboard_Controller
 			$this->data['wysiwyg']	 		= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);
 		}
 		
+		// Not currently working
+		// Don't know where to store layout value
+		$this->data['layouts']				= $this->social_igniter->scan_layouts(config_item('site_theme'));
+		$this->data['layout_selected']		= 'sidebar';	
+		
+		
 		$this->data['form_module']			= 'pages';
 		$this->data['form_type']			= 'page';		
 		$this->data['form_name']			= 'pages_editor';		
