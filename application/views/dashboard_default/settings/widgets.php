@@ -90,9 +90,10 @@ $(document).ready(function()
 							//	add_eve.stopPropagation();							
 					    	eve.preventDefault();
 
-							var widget_data	= [];
-							var widget_json = jQuery.parseJSON($(this).find('input').val());
-							widget_json.order = widget_count + 1;							
+							var widget_data		= [];
+							var widget_json		= jQuery.parseJSON($(this).find('input').val());
+							widget_json.order	= widget_count + 1;
+							widget_json.layout	= '<?= $layout_selected ?>';							
 							widget_data.push({'name':'module','value':'widgets'},{'name':'setting','value':widget_region},{'name':'value','value':JSON.stringify(widget_json)});
 
 							 $(this).find('form').oauthAjax(

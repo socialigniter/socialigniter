@@ -149,7 +149,7 @@ class Settings extends Dashboard_Controller
  				{
  					if (array_key_exists($region, $current_widgets))
  					{	
-						$this->data[$region.'_widgets'] = $this->social_igniter->make_widgets_order($current_widgets[$region]);	
+						$this->data[$region.'_widgets'] = $this->social_igniter->make_widgets_order($current_widgets[$region], $layout);	
  					}
  					else
  					{
@@ -162,7 +162,6 @@ class Settings extends Dashboard_Controller
  		// Load Regions From "Site Theme" folder
  		$this->data['layout_regions']	= $this->load->view(config_item('site_theme').'/partials/layout_regions_'.$layout, $this->data, true);	
 		$this->data['layout_selected']	= $layout;
-
 
 		$this->render('dashboard_wide');
 	}

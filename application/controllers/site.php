@@ -87,7 +87,7 @@ class Site extends Site_Controller
     	$this->data['password_confirm'] = "";
         $this->data['page_title'] 		= "Login";	            	
 		
-    	$this->render('site_wide');
+    	$this->render('wide');
     }
     
 	function logout() 
@@ -111,7 +111,8 @@ class Site extends Site_Controller
         $this->data['password']   		= "";
     	$this->data['password_confirm'] = "";    		
         $this->data['page_title'] 		= "Signup";
-    	$this->render('site_wide');
+        
+    	$this->render('wide');
     }  
     
     function signup_social()
@@ -123,7 +124,8 @@ class Site extends Site_Controller
 		$this->data['name']				= $this->session->userdata('signup_name');
 		$this->data['signup_email']		= $this->session->userdata('social_email');
 		$this->data['return_url']		= $this->session->userdata('connection_return_url');
-    	$this->render('site_wide');
+    	
+    	$this->render('wide');
     }  
 
 	function forgot_password() 
@@ -147,7 +149,7 @@ class Site extends Site_Controller
 			}
 	    }
 	    
-    	$this->render('site_wide');
+    	$this->render('wide');
 	}
 	
 	function reset_password() 
@@ -190,7 +192,7 @@ class Site extends Site_Controller
     function activation()
     {    
 	    $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-    	$this->render('site_wide');
+    	$this->render('wide');
     }
 
 	function places()
@@ -204,7 +206,7 @@ class Site extends Site_Controller
     function error_404()
     {
 		$this->data['page_title'] = 'Oops, Page Not Found';
-    	$this->render();
+    	$this->render('wide');
     }
 
     /* Webfinger */
@@ -240,15 +242,6 @@ class Site extends Site_Controller
 		else {
 			$this->error_404();
 		}
-    }
+    }    
 
-    
-    /* Widgets */
-	function widgets_sidebar()
-	{
-		if ($this->uri->segment(1) != 'login')
-		{
-			$this->load->view('partials/widget_sidebar', $this->data);
-		}
-	}
 }

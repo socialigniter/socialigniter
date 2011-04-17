@@ -478,7 +478,7 @@ class Social_igniter
 		return $this->ci->settings_model->get_settings_module($module);
 	}
 	
-	function make_widgets_order($widgets)
+	function make_widgets_order($widgets, $layout)
 	{
 		$widgets_view = array();
 	
@@ -486,7 +486,10 @@ class Social_igniter
 		{
 			$widget = json_decode($json_widget->value);
 		
-			$widgets_view[$widget->order.'-'.$json_widget->settings_id] = $json_widget;
+			if ($widget->layout == $layout)
+			{
+				$widgets_view[$widget->order.'-'.$json_widget->settings_id] = $json_widget;
+			}
 		}
 		
 		ksort($widgets_view);
