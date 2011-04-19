@@ -124,7 +124,6 @@ class Site_Controller extends MY_Controller
     function render_widgets($region, $layout=NULL)
     {
     	$widgets = '';
-    	
     	$site_widgets = $this->social_igniter->make_widgets_order($this->site_widgets, $layout);
     
     	foreach ($site_widgets as $site_widget)
