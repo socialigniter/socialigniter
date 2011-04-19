@@ -213,7 +213,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'site', 'languages_default', 'en');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'admin_email', 'you@email.com');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'site_theme', '{"theme":"site_default","name":"Default Site","created":"2011-04-14","updated":"2011-04-14","creator":"Brennan Novak","layouts":{"sidebar":["content","sidebar","wide"],"wide":["wide"],"profile":["content","sidebar"]}}');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'dashboard_theme', 'dashboard_default');
-INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'mobile_theme', 'mobile_default');
+INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'mobile_theme', '{"theme":"mobile_default","name":"Default Site","created":"2011-04-14","updated":"2011-04-14","creator":"Brennan Novak","layouts":{"sidebar":["content"],"wide":["content"],"profile":["content"]}}');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'email_protocol', 'mail');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_host', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_user', '');
