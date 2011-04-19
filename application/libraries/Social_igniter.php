@@ -497,6 +497,16 @@ class Social_igniter
 		return $widgets_view;
 	}
 	
+	function check_setting_exists($setting_data)
+	{
+		if ($this->ci->settings_model->check_setting_exists($setting_data))
+		{
+			return TRUE;
+		}
+
+		return FALSE;	
+	}
+	
 	function check_can_widget_be_used($region, $check_widget)
 	{
 		if ($check_widget['multiple'] === 'TRUE')
