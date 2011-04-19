@@ -62,6 +62,16 @@ class Settings_model extends CI_Model {
  		$result = $this->db->get();	
  		return $result->result(); 
     }
+
+    function check_setting_exists($setting_data)
+    {
+ 		$this->db->select('*');
+ 		$this->db->from('settings');
+		$this->db->where($setting_data);
+		$this->db->limit(1);    
+ 		$result = $this->db->get()->row();	
+ 		return $result;
+    }
     
     function add_setting($setting_data)
     {		

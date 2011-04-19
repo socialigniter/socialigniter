@@ -91,7 +91,8 @@ class MY_Controller extends MX_Controller
 		// Themes
         if ($this->agent->is_mobile())
         {
-            $this->config->set_item('site_theme', $this->data['settings']['themes']['mobile_theme']);
+        	$this->site_theme = json_decode($this->data['settings']['themes']['mobile_theme']);        	        
+            $this->config->set_item('site_theme', $this->site_theme->theme);
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['mobile_theme']);
         }
         else

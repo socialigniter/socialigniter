@@ -457,7 +457,6 @@ $(document).ready(function()
 		parent.$("#what option[value='value']").attr('selected', 'selected');        
 		parent.$.fancybox.close();	
 	});
-		
 	
 	
 	/* More Pannels */
@@ -470,20 +469,7 @@ $(document).ready(function()
 
 		$(this).hide('normal');				
 		$('#'+show_pannel).show('fast');
-	});	
-	
-
-	/* Page Edit */
-	$('.layout_picker').live('click', function(eve)
-	{
-		eve.preventDefault();
-		var value		= $(this).attr('id');
-		var layout 		= value.replace('layout_','');
-		$('#layout').val(layout);
-		$('.layout_picker').removeClass('layout_selected');
-		$(this).addClass('layout_selected');
 	});
-
 
 
 	/* Category Editor Plugin */

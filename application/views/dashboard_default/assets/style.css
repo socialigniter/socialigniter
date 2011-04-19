@@ -365,13 +365,11 @@ span.item_right a:hover		{ text-decoration: underline; }
 
 #layout_options				{ height: 40px; margin: 0 0 20px 10px;  }
 .layout_picker				{ width: 75px; height: 24px; margin: 0 15px 0 0; padding: 10px 8px 2px 8px; display: block; text-align: center; float: left; background: url(images/gradients_horizontal.png) 0 0 repeat-x #f9f9f9; border: 1px solid #c3c3c3; color: #999999 !important; text-shadow:1px 1px 1px #ffffff; font-size: 14px; font-weight: bold; text-align: center; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; }
-.layout_picker:hover		{ color: #2078ce !important; text-decoration: none; }
+.layout_picker:hover		{ color: #2078ce !important; text-decoration: none !important; }
 .layout_selected			{ background: url(images/gradients_horizontal.png) 0 -50px repeat-x #f9f9f9; border: 1px solid #b3b3b3; color: #666666; }
+.layout_selected:hover		{ color: #999999 !important; }
 
 /* Settings - Widget */
-#widget_content_area 				{ width: 545px; padding:0 0 0 12px; margin: 0 0 10px 0; float: left; }
-#widget_sidebar_area 				{ width: 275px; padding:0 0 0 12px; margin: 0 0 10px 35px; float: left; }
-#widget_wide_area 	 				{ width: 870px; padding:0 0 0 12px; margin: 0 0 25px 0; }
 div.widget_area h3					{ float: left; }
 div.widget_area input[type=button] 	{ float: right; display: block; position: relative; top: 12px; right: -10px; }
 div.widget_border					{ width: 100%; min-height: 25px; border: 4px dashed #999999; }

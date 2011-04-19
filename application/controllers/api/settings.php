@@ -12,7 +12,6 @@ class Settings extends Oauth_Controller
     	$this->form_validation->set_error_delimiters('', '');             
 	}
 	
-    /* GET types */
     function module_get()
     {    	
         if ($settings = $this->social_igniter->get_settings_module($this->uri->segment(4)))
@@ -41,6 +40,72 @@ class Settings extends Oauth_Controller
         $this->response($message, 200);
     }
     
+	function install_get()
+	{
+		$this->load->config($this->get('app').'/install');
+		
+		if (config_item($this->get('app').'_settings'))
+		{
+			$current_settings 	= $this->social_igniter->get_settings_module($this->get('app'));
+			$config_settings	= config_item($this->get('app').'_settings');
+			$add_settings		= array();
+			$current_count		= count($current_settings);
+			$config_count		= count(config_item($this->get('app').'_settings'));
+		
+			// Clean Current
+			if ($this->uri->segment(3) == 'reinstall')
+			{				
+				foreach ($current_settings as $setting)
+				{
+					$this->social_igniter->delete_setting($setting->settings_id);
+				}
+			
+				$current_count = 0;			
+			}		
+			
+			// Maybe Install or Update
+			if ($current_count != $config_count)
+			{
+				foreach ($config_settings as $key => $setting)
+				{
+					$setting_data = array(
+						'site_id'	=> config_item('site_id'),
+						'module'	=> $this->get('app'),
+						'setting'	=> $key,
+						'value'		=> $setting
+					);
+					
+					if (!$this->social_igniter->check_setting_exists($setting_data))
+					{
+						$add_settings[] = $this->social_igniter->add_setting($setting_data);
+					}
+				}
+				
+				// Properly Handled
+				$now_settings = count($add_settings) + $current_count;
+				
+				if ($now_settings == $config_count)
+				{
+					$message = array('status' => 'success', 'message' => 'Settings have been added', 'data' => $add_settings);
+				}
+				else
+				{
+					$message = array('status' => 'error', 'message' => 'Shucks the settings were not properly added');				
+				}
+			}
+			else
+			{
+				$message = array('status' => 'error', 'message' => 'Settings are currently up to date');			
+			}			
+		}
+		else
+		{
+			$message = array('status' => 'error', 'message' => 'There are no settings to install');
+		}
+
+     	$this->response($message, 200);
+	}    
+    
     function widgets_available_get()
     {
     	$region			 = $this->get('region');
@@ -50,7 +115,7 @@ class Settings extends Oauth_Controller
     	// Core Widgets
     	$this->load->config('widgets');
 
-		// If Has Widgets
+		// Has Widgets
 		if ($core_widgets = config_item('core_widgets'))
 		{	
 			foreach ($core_widgets as $core_widget)
@@ -70,7 +135,7 @@ class Settings extends Oauth_Controller
 		{
     		$this->load->config($module.'/widgets');
 
-			// If Has Widgets
+			// Has Widgets
 			if ($modules_widgets = config_item($module.'_widgets'))
 			{
 				foreach ($modules_widgets as $modules_widget)
@@ -85,13 +150,7 @@ class Settings extends Oauth_Controller
 				}
 			}
     	} 	
-/*
-		echo '<pre>';
-		//print_r($widgets_current);
-		echo '<hr>';
-		print_r($widgets);
-		echo '</pre>';
-*/
+
 	   	$message = array('status' => 'success', 'message' => 'Yay we found some widgets', 'data' => $widgets);
      	$this->response($message, 200);    
     }
@@ -133,14 +192,11 @@ class Settings extends Oauth_Controller
 				'setting'	=> $this->input->post('setting'),
 				'value'		=> $this->input->post('value')
 			);
-	    
 	      	
-			// Insert
 			$result = $this->social_igniter->add_setting($setting_data);	    	
 
 	    	if ($result)
 		    {
-				// API Response
 	        	$message = array('status' => 'success', 'message' => 'Awesome we posted your setting', 'data' => $result);
 	        }
 	        else

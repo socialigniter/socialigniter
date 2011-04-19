@@ -120,8 +120,6 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title'] 		= 'Widgets';
 		$this->data['this_module']		= 'widgets';
 		$this->data['layouts']			= $this->social_igniter->scan_layouts(config_item('site_theme'));
-		$this->data['layout_selected']	= 'sidebar';	
-		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 
 		// Build Widget Arrays
 		// Will have to redo for different layouts		
@@ -131,13 +129,16 @@ class Settings extends Dashboard_Controller
 		{
 			$current_widgets[$site_widget->setting][] = $site_widget;
 		}
-/*
-		$this->data['content_widgets']	= $this->social_igniter->make_widgets_order($content_widgets);
-		$this->data['sidebar_widgets']  = $this->social_igniter->make_widgets_order($sidebar_widgets);
-		$this->data['wide_widgets']		= $this->social_igniter->make_widgets_order($wide_widgets);
-*/		
+	
 		// SET BASED ON URL
-		$layout = 'sidebar';		
+		if (!$this->uri->segment(3))
+		{
+			$layout = config_item('default_layout');		
+		}
+		else
+		{
+			$layout = $this->uri->segment(3);
+		}
 
  		// Widget Regions	 		
  		foreach ($this->site_theme->layouts as $key => $site_layout)
@@ -148,7 +149,7 @@ class Settings extends Dashboard_Controller
  				{
  					if (array_key_exists($region, $current_widgets))
  					{	
-						$this->data[$region.'_widgets'] = $this->social_igniter->make_widgets_order($current_widgets[$region]);	
+						$this->data[$region.'_widgets'] = $this->social_igniter->make_widgets_order($current_widgets[$region], $layout);	
  					}
  					else
  					{
@@ -156,9 +157,11 @@ class Settings extends Dashboard_Controller
  					}
  				} 			
  			}
- 		} 		
+ 		}
  		
-		
+ 		// Load Regions From "Site Theme" folder
+ 		$this->data['layout_regions']	= $this->load->view(config_item('site_theme').'/partials/layout_regions_'.$layout, $this->data, true);	
+		$this->data['layout_selected']	= $layout;
 
 		$this->render('dashboard_wide');
 	}

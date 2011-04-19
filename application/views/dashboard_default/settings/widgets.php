@@ -4,67 +4,13 @@
 <h3>Layouts</h3>
 
 <?php foreach ($layouts as $layout): ?>
-	<a id="layout_<?= $layout ?>" class="layout_picker <?php if ($layout == $layout_selected) echo 'layout_selected'; ?>" href="#"><?= display_nice_file_name($layout) ?></a>
+	<a class="layout_picker <?php if ($layout == $layout_selected) echo 'layout_selected'; ?>" href="<?= base_url().'settings/widgets/'.$layout ?>"><?= display_nice_file_name($layout) ?></a>
 <?php endforeach; ?>
 
 </div>
 <div class="clear"></div>
 
-<form name="settings_update" id="settings_update" method="post" action="<?= base_url() ?>api/settings/modify" enctype="multipart/form-data">
-	<div id="widget_content_area" class="widget_area">		
-		<h3>Content</h3> <input type="button" name="widget_add_content" class="widget_add" rel="content" value="Add">
-		<div class="clear"></div>	
-		<div class="widget_border" id="widget_content_container">
-			<?php if ($content_widgets): foreach ($content_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-			<div class="widget_instance" id="widget_<?= $json_widget->settings_id ?>">
-				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span>
-				<span class="widget_name"><?= $widget->name ?></span>
-				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>
-				<textarea name="widget_data" style="display:none"><?= $json_widget->value ?></textarea>
-				<div class="clear"></div>				
-			</div>
-			<?php endforeach; else: ?>
-			<div class="widget_instance_none" id="no_content_widgets">No Widgets</div>
-			<?php endif; ?>	
-		</div>			
-	</div>
-
-	<div id="widget_sidebar_area" class="widget_area">
-		<h3>Sidebar</h3> <input type="button" name="widget_add_sidebar" class="widget_add" rel="sidebar" value="Add">
-		<div class="clear"></div>
-		<div class="widget_border" id="widget_sidebar_container">
-			<?php if ($sidebar_widgets): foreach ($sidebar_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-			<div class="widget_instance" id="widget_<?= $json_widget->settings_id ?>">
-				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span>
-				<span class="widget_name"><?= $widget->name ?></span>
-				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>
-				<textarea name="widget_data" style="display:none"><?= $json_widget->value ?></textarea>
-				<div class="clear"></div>				
-			</div>
-			<?php endforeach; else: ?>
-			<div class="widget_instance_none" id="no_sidebar_widgets">No Widgets</div>
-			<?php endif; ?>
-		</div>
-	</div>
-	<div class="clear"></div>
-
-	<div id="widget_wide_area" class="widget_area">
-		<h3>Wide</h3> <input type="button" name="widget_add_wide" class="widget_add" rel="wide" value="Add">
-		<div class="clear"></div>
-		<div class="widget_border" id="widget_wide_container">
-			<?php if ($wide_widgets): foreach ($wide_widgets as $json_widget): $widget = json_decode($json_widget->value); ?>
-			<div class="widget_instance" id="widget_<?= $json_widget->settings_id ?>">
-				<span class="widget_icon"><img src="<?= display_module_assets($widget->module, $dashboard_assets.'icons/', '').$widget->module ?>_24.png"></span>
-				<span class="widget_name"><?= $widget->name ?></span>
-				<a class="widget_edit" href="<?= $json_widget->settings_id ?>"><span class="actions action_edit"></span>Edit</a>				
-				<div class="clear"></div>
-			</div>
-			<?php endforeach; else: ?>
-			<div class="widget_instance_none" id="no_wide_widgets">No Widgets</div>			
-			<?php endif; ?>
-		</div>	
-	</div>
-</form>
+<?= $layout_regions ?>
 
 <script type="text/javascript">
 $(document).ready(function()
@@ -144,9 +90,10 @@ $(document).ready(function()
 							//	add_eve.stopPropagation();							
 					    	eve.preventDefault();
 
-							var widget_data	= [];
-							var widget_json = jQuery.parseJSON($(this).find('input').val());
-							widget_json.order = widget_count + 1;							
+							var widget_data		= [];
+							var widget_json		= jQuery.parseJSON($(this).find('input').val());
+							widget_json.order	= widget_count + 1;
+							widget_json.layout	= '<?= $layout_selected ?>';							
 							widget_data.push({'name':'module','value':'widgets'},{'name':'setting','value':widget_region},{'name':'value','value':JSON.stringify(widget_json)});
 
 							 $(this).find('form').oauthAjax(
@@ -294,6 +241,3 @@ $(document).ready(function()
        
 });
 </script>
-
-
-<?= $shared_ajax ?>

@@ -200,7 +200,7 @@ CREATE TABLE `settings` (
   `site_id` int(6) NOT NULL,
   `module` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `setting` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `value` text COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`settings_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
