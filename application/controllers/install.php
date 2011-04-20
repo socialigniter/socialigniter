@@ -61,13 +61,15 @@ class Install extends Dashboard_Controller
 	{
 		$this->load->library('unzip');
 
-		$name 			= $this->uri->segment(3);	
+		$name 			= $this->uri->segment(3);
+		$save_file		= APPPATH.'modules/'.$name;		
 		$extract		= $this->unzip->extract('./uploads/apps/'.$name.'.zip', APPPATH.'modules');
 		$single_file	= explode("/", $extract[0]);
-		rename(APPPATH.'modules/'.$single_file[2], APPPATH.'modules/'.$name);		
+		rename(APPPATH.'modules/'.$single_file[2], $save_file);
 
 		print_r($extract);
 
+		recursive_chmod($save_file, 0644, 0755);
 	}
 
 }
