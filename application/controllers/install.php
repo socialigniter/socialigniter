@@ -69,8 +69,7 @@ class Install extends Dashboard_Controller
 
 		print_r($extract);
 
-		recursive_chmod($save_file, 0644, 0755);		
-
+		recursive_chmod($save_file, 0644, 0755);
 	}
 
 }
