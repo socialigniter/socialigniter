@@ -535,8 +535,6 @@ function getMap(lat_long, element)
   		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
 
-  console.log(document.getElementById(element))
-
 	map = new google.maps.Map(document.getElementById(element), myOptions);
 	
 	addMarker(lat_long);	
