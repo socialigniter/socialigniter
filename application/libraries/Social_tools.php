@@ -259,7 +259,7 @@ class Social_tools
 	
 	function update_category($category_id, $category_data)
 	{	
-		return $this->ci->content_model->update_category($content_id, $category_data);
+		return $this->ci->categories_model->update_category($category_id, $category_data);
 	}		
 	
 	

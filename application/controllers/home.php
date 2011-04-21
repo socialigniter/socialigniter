@@ -292,7 +292,7 @@ class Home extends Dashboard_Controller
 		$this->data['form_type']			= 'place';
 		$this->data['form_name']			= 'places_editor';
 		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown('module', 'places', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));	
-	 	$this->data['content_publisher'] 	= $this->load->view(config_item('dashboard_theme').'/partials/content_publisher', $this->data, true);
+	 	$this->data['content_publisher'] 	= $this->social_igniter->make_content_publisher($this->data, 'form');
 
  		$this->render('dashboard_wide');
 	}	
@@ -374,12 +374,11 @@ class Home extends Dashboard_Controller
 		$this->data['layouts']				= $this->social_igniter->scan_layouts(config_item('site_theme'));
 		$this->data['layout_selected']		= 'sidebar';	
 		
-		
 		$this->data['form_module']			= 'pages';
 		$this->data['form_type']			= 'page';		
 		$this->data['form_name']			= 'pages_editor';		
 		$this->data['parent_pages'] 		= $this->social_igniter->make_pages_dropdown($this_page_id);
-	 	$this->data['content_publisher'] 	= $this->load->view(config_item('dashboard_theme').'/partials/content_publisher', $this->data, true);
+	 	$this->data['content_publisher'] 	= $this->social_igniter->make_content_publisher($this->data, 'form');
 
  		$this->render('dashboard_wide');
 	}

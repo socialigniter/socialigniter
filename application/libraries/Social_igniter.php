@@ -781,6 +781,14 @@ class Social_igniter
 		return $dropdown;
 	}
 	
+	function make_content_publisher($data, $state, $content_id='')
+	{
+		$data['state']		= $state;
+		$data['content_id']	= $content_id;
+	
+		return $this->ci->load->view(config_item('dashboard_theme').'/partials/content_publisher', $data, true);
+	}
+	
 	// Adds Content & Activity
 	function add_content($content_data, $activity_data=FALSE)
 	{
