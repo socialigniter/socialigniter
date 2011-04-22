@@ -94,6 +94,47 @@ class Content_model extends CI_Model {
 		}
     }
 
+    function get_content_view_multiple($where, $status, $limit)
+    {
+ 		if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id')))
+    	{
+	 		$this->db->select('content.*, users.username, users.gravatar, users.name, users.image');
+	 		$this->db->from('content');
+ 			$this->db->join('users', 'users.user_id = content.user_id');
+	 		$this->db->where($where);
+	 		
+	 		if ($status == 'all')
+	 		{
+		 		$this->db->where('content.status !=', 'D');	 		
+	 		}
+	 		elseif ($status == 'saved')
+	 		{
+		 		$this->db->where('content.status', 'S');
+				$this->db->where('content.approval', 'Y');
+				$this->db->limit($limit);
+	 		}
+	 		elseif ($status == 'awaiting')
+	 		{
+				$this->db->where('content.approval', 'N');
+				$this->db->limit($limit);	 		 
+	 		}
+	 		else
+	 		{
+		 		$this->db->where('content.status', 'P');
+				$this->db->where('content.approval', 'Y');
+				$this->db->limit($limit);
+	 		}	
+	 		
+	 		$this->db->order_by('created_at', 'desc');
+	 		$result = $this->db->get();	
+	 		return $result->result();	      
+		}
+		else
+		{
+			return FALSE;
+		}
+    }
+
     function get_content_new_count($module)
     {
  		$this->db->from('content')->where(array('module' => $module, 'viewed' => 'N', 'approval !=' => 'D'));
@@ -132,6 +173,15 @@ class Content_model extends CI_Model {
  		$this->db->select('category_id');
  		$this->db->from('content');
  		$this->db->where('category_id', $category_id);
+	 	$this->db->where('content.status !=', 'D');
+ 		return $this->db->count_all_results();
+    }
+
+    function get_content_multiple_count($where)
+    {
+ 		$this->db->select('content_id');
+ 		$this->db->from('content');
+ 		$this->db->where($where);
 	 	$this->db->where('content.status !=', 'D');
  		return $this->db->count_all_results();
     }
