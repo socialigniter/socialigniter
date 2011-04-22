@@ -762,6 +762,11 @@ class Social_igniter
 		return $this->ci->content_model->get_content_category_count($category_id);
 	}
 	
+	function get_content_multiple_count($where)
+	{
+		return $this->ci->content_model->get_content_multiple_count($where);	
+	}	
+	
 	function make_content_dropdown($parameter, $value,  $content_permissions=1, $user_level_id=NULL, $add_label=NULL)
 	{
 		$content_query 	= $this->get_content_view($parameter, $value, 'all');
