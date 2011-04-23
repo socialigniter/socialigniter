@@ -57,6 +57,13 @@ class Connections_model extends CI_Model
 		return $this->db->select('*')->where($where)->limit(1)->get('connections')->row();	
  	}
 
+ 	function check_connection_username($connection_username, $site_id)
+ 	{
+ 		$where = array('connection_username' => $connection_username, 'site_id' => $site_id);
+		return $this->db->select('*')->where($where)->limit(1)->get('connections')->row();	
+ 	}
+
+
  	function get_connection($connection_id)
  	{
  	 	$this->db->select('*');

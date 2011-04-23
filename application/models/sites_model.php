@@ -55,4 +55,11 @@ class Sites_model extends CI_Model
 			return FALSE;
 		}		
  	}
+ 	
+ 	function add_site($site_data)
+ 	{		
+		$insert = $this->db->insert('sites', $site_data);
+   		return $this->db->insert_id();
+ 	}
+
 }

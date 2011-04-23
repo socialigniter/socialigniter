@@ -379,6 +379,11 @@ class Social_igniter
 	{
 		return $this->ci->sites_model->get_site_view_row($parameter, $value);
 	}
+
+	function add_site($site_data)
+	{
+		return $this->ci->sites_model->add_site($site_data);
+	}	
 	
 	function get_themes($theme_type='site')
 	{
@@ -449,7 +454,7 @@ class Social_igniter
 		}
 			
 		return $this->pages_view;
-	}	
+	}
 	
 	
 	/* Settings */	

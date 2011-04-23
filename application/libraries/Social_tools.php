@@ -351,10 +351,8 @@ class Social_tools
 	}
 	
 	function delete_comments_content($content_id)
-	{
-		$comments = $this->get_comments_content($content_id);
-		
-		if ($comments)
+	{		
+		if ($comments = $this->get_comments_content($content_id))
 		{
 			foreach ($comments as $comment)
 			{
