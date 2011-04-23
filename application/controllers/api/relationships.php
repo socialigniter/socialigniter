@@ -77,7 +77,7 @@ class Relationships extends Oauth_Controller
     }
 
 	// For decentralized goodness!!!
-    function follow_remote_get()
+    function follow_remote_authd_post()
     {   	
 		$webfinger = $this->get('webfinger_id');
 
@@ -147,7 +147,7 @@ class Relationships extends Oauth_Controller
 	
 	    	$follow_data = array(
 				'site_id'	=> $site_id,		
-	    		'owner_id'	=> 1,//$this->oauth_user_id,
+	    		'owner_id'	=> $this->oauth_user_id,
 	    		'user_id'	=> $user_id,
 				'module'	=> 'users',
 				'type'		=> 'follow',
