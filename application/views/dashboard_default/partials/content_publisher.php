@@ -11,7 +11,8 @@
 <script type="text/javascript">
 $(document).ready(function()
 {
-	// Publishes / Saves Content
+	<?php if ($state == 'form'): ?>
+	// Publishes / Saves Content from form
 	$('#content_publish, #content_save').bind('click', function(eve)
 	{
 		eve.preventDefault();
@@ -27,8 +28,6 @@ $(document).ready(function()
 			var form_data	= $form.serializeArray();
 			form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'type','value':'<?= $form_type ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
 
-			console.log(form_data);
-
 			$form.oauthAjax(
 			{
 				oauth 		: user_data,
@@ -37,25 +36,55 @@ $(document).ready(function()
 				dataType	: 'json',
 				data		: form_data,
 		  		success		: function(result)
-		  		{		  		
+		  		{
+		  			console.log(result);
+		  				  		
 					$('html, body').animate({scrollTop:0});
 					$('#content_message').notify({scroll:true,status:result.status,message:result.message});
 					
 					if (result.status == 'success')
-					{
-						console.log(result.data);
-					
+					{					
 						var new_status = displayContentStatus(result.data.status, result.data.approval);
 						$('#content_status').html('<span class="actions action_' + new_status + '"></span> ' + new_status);	
 					}
 			 	}
 			});
-				
 		}
 		else
 		{		
 			eve.preventDefault();
-		}	
+		}
+	});			
+	<?php elseif ($state == 'button'): ?>
+	// Publish / Saves Simple Button
+	$('#content_publish, #content_save').bind('click', function(eve)
+	{
+		eve.preventDefault();
+		var type = $(this).attr('name');
+		
+		console.log('type: '+type);
+				
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: base_url + 'api/content/' + type + '/id/<?= $content_id ?>',
+			type		: 'PUT',
+			dataType	: 'json',
+	  		success		: function(result)
+	  		{		  		
+				$('html, body').animate({scrollTop:0});
+				$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+				
+				if (result.status == 'success')
+				{					
+					var new_status = displayContentStatus(result.data.status, result.data.approval);
+					$('#content_status').html('<span class="actions action_' + new_status + '"></span> ' + new_status);	
+				}
+		 	}
+		});
 	});
+		
+	<?php else: endif; ?>
+
 });
 </script>

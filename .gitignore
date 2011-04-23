@@ -14,6 +14,10 @@ application/modules/
 images/site/
 uploads/
 system/logs/
+<<<<<<< HEAD
 application/views/
 application/views/dashboard_default/.DS_Store
 application/views/site_default/.DS_Store
+=======
+application/views/
+>>>>>>> 2e953d8c0eb72047e8a71dfe8fd5b3d65d386f91

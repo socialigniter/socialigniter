@@ -60,7 +60,7 @@ $route['api/comments/destroy/(:any)/(:any)']		= 'api/comments/destroy/$1/$2';
 $route['api/comments/content']						= 'api/comments/content';
 $route['api/comments/recent']						= 'api/comments/recent';
 $route['api/comments/create']						= 'api/comments/create';
-$route['api/comments/public']						= 'api/comments/public';
+$route['api/comments/create_public']				= 'api/comments/create_public';
 $route['api/comments/new']							= 'api/comments/new';
 
 /* Content */
@@ -91,6 +91,8 @@ $route['api/relationships/']						= 'api/relationships/';
 /* Settings */
 $route['api/settings/module/(:any)']				= 'api/settings/module/$1';
 $route['api/settings/setting/(:any)']				= 'api/settings/setting/$1';
+$route['api/settings/install/(:any)/(:any)']		= 'api/settings/install/$1/$2';
+$route['api/settings/reinstall/(:any)/(:any)']		= 'api/settings/install/$1/$2';
 $route['api/settings/widgets_available/(:any)/(:any)']	= 'api/settings/widgets_available/$1/$2';
 $route['api/settings/widgets_available']				= 'api/settings/widgets_available';
 $route['api/settings/modify_widget/(:any)/(:any)']	= 'api/settings/modify_widget/$1/$2';
@@ -114,6 +116,7 @@ $route['api/users/activate/(:any)/(:any)']			= 'api/users/activate/$1/$2';
 $route['api/users/recent']							= 'api/users/recent';
 $route['api/users/password']						= 'api/users/password';
 $route['api/users/create']							= 'api/users/create';
+$route['api/users/login']							= 'api/users/login';
 $route['api/users/set_userdata_signup_email']		= 'api/users/set_userdata_signup_email';
 
 /* Upload */
@@ -151,6 +154,7 @@ $route['home/error'] 								= 'home/error';
 $route['home/item_timeline']						= 'home/item_timeline';
 $route['home/item_manage']							= 'home/item_manage';
 $route['home/category_editor']						= 'home/category_editor';
+$route['home/partial_add_place']					= 'home/partial_add_place';
 $route['home/widget_editor/(:any)']					= 'home/widget_editor/$1';
 $route['home/widget_editor']						= 'home/widget_editor';
 $route['home/widget_add']							= 'home/widget_add';
@@ -170,6 +174,8 @@ $route['profile/:any/feed']							= 'profile/feed';
 $route['profile/:any'] 								= 'profile/index';
 
 /* Settings */
+$route['settings/(:any)/install'] 					= '$1/settings/install';
+$route['settings/(:any)/reinstall'] 				= '$1/settings/install';
 $route['settings/profile'] 							= 'settings/profile';
 $route['settings/account'] 							= 'settings/account';
 $route['settings/details'] 							= 'settings/details';
@@ -180,6 +186,7 @@ $route['settings/advanced'] 						= 'settings/advanced';
 $route['settings/site']								= 'settings/site';
 $route['settings/themes']							= 'settings/themes';
 $route['settings/design']							= 'settings/design';
+$route['settings/widgets/(:any)']					= 'settings/widgets/$1';
 $route['settings/widgets']							= 'settings/widgets';
 $route['settings/services']							= 'settings/services';
 $route['settings/home']								= 'settings/home';
@@ -190,6 +197,8 @@ $route['settings/update']							= 'settings/update';
 $route['settings/users']							= 'settings/users';
 $route['settings/pages']							= 'settings/pages';
 $route['settings/apps'] 							= 'settings/apps';
+$route['settings/get_apps'] 						= 'settings/get_apps';
+$route['settings/(:any)/widgets'] 					= '$1/settings/widgets';
 $route['settings/(:any)'] 							= '$1/settings';
 $route['settings'] 									= 'settings';
 

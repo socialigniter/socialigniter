@@ -73,6 +73,7 @@ $(document).ready(function()
 						console.log(new_profile);
 						window.location.href = new_profile;
 
+
 					}
 					 
 				});

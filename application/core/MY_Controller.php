@@ -29,6 +29,7 @@ class MY_Controller extends MX_Controller
     protected $module_controller;
     protected $module;
     protected $modules_navigation;
+    protected $site_theme;
     public $modules_scan 			= array();
 
 	function __construct()
@@ -90,16 +91,28 @@ class MY_Controller extends MX_Controller
 		// Themes
         if ($this->agent->is_mobile())
         {
-            $this->config->set_item('site_theme', $this->data['settings']['themes']['mobile_theme']);
+        	$this->site_theme = json_decode($this->data['settings']['themes']['mobile_theme']);        	        
+            $this->config->set_item('site_theme', $this->site_theme->theme);
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['mobile_theme']);
         }
         else
-        {
-			$this->config->set_item('site_theme', $this->data['settings']['themes']['site_theme']);
+        {        
+        	$this->site_theme = json_decode($this->data['settings']['themes']['site_theme']);
+			$this->config->set_item('site_theme', $this->site_theme->theme);
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['dashboard_theme']);
         }
 
 		$this->config->set_item('mobile_theme', $this->data['settings']['themes']['mobile_theme']);
+		
+		// Google Analytics
+		if (config_item('services_google_analytics'))
+		{
+			$this->data['google_analytics']	= $this->load->view(config_item('dashboard_theme').'/partials/google_analytics', $this->data, true);
+		}
+		else
+		{
+			$this->data['google_analytics'] = '';
+		}
 
 		// Dashboard & Public values for logged
 		if ($this->social_auth->logged_in())
@@ -171,9 +184,9 @@ class MY_Controller extends MX_Controller
 		$this->data['shared_images']		= base_url().'images/shared/';
 		$this->data['site_images']			= base_url().'uploads/sites/'.config_item('site_id').'/';
 		$this->data['views']				= base_url().'application/views/';
-		$this->data['site_assets']			= base_url().'application/views/'.$this->data['settings']['themes']['site_theme'].'/assets/';
-		$this->data['dashboard_assets']		= base_url().'application/views/'.$this->data['settings']['themes']['dashboard_theme'].'/assets/';	
-		$this->data['mobile_assets']		= base_url().'application/views/'.$this->data['settings']['themes']['mobile_theme'].'/assets/';
+		$this->data['site_assets']			= base_url().'application/views/'.config_item('site_theme').'/assets/';
+		$this->data['dashboard_assets']		= base_url().'application/views/'.config_item('dashboard_theme').'/assets/';	
+		$this->data['mobile_assets']		= base_url().'application/views/'.config_item('mobile_theme').'/assets/';
 		$this->data['profiles']				= base_url().'profile/';
 
         // Set the current controller and action name

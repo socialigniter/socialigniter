@@ -235,6 +235,12 @@ class Home extends Dashboard_Controller
 			$this->data['sub_title']		= $place->title;
 			$this->data['form_url']			= base_url().'api/places/modify/id/'.$this->uri->segment(4);
 			
+			if ($place->geo_lat) $geo_lat = $place->geo_lat;
+			else $geo_lat = '0.00';
+
+			if ($place->geo_long) $geo_long = $place->geo_long;
+			else $geo_long = '0.00';			
+			
 			// Form Fields
 			$this->data['title'] 			= $place->title;
 			$this->data['title_url'] 		= $place->title_url;
@@ -243,8 +249,8 @@ class Home extends Dashboard_Controller
 			$this->data['details'] 			= $place->details;
 			$this->data['access']			= $place->access;
 			$this->data['comments_allow']	= $place->comments_allow;
-			$this->data['geo_lat']			= $place->geo_lat;
-			$this->data['geo_long']			= $place->geo_long;
+			$this->data['geo_lat']			= $geo_lat;
+			$this->data['geo_long']			= $geo_long;
 			$this->data['status']			= display_content_status($place->status, $place->approval);
 
 			// Place
@@ -269,8 +275,8 @@ class Home extends Dashboard_Controller
 			$this->data['details'] 			= '';
 			$this->data['access']			= 'E';
 			$this->data['comments_allow']	= '';
-			$this->data['geo_lat']			= '45.52342768';
-			$this->data['geo_long']			= '-122.67522811';
+			$this->data['geo_lat']			= '0.00';
+			$this->data['geo_long']			= '0.00';
 			$this->data['status']			= display_content_status('U');
 
 			// Place
@@ -286,7 +292,7 @@ class Home extends Dashboard_Controller
 		$this->data['form_type']			= 'place';
 		$this->data['form_name']			= 'places_editor';
 		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown('module', 'places', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));	
-	 	$this->data['content_publisher'] 	= $this->load->view(config_item('dashboard_theme').'/partials/content_publisher', $this->data, true);
+	 	$this->data['content_publisher'] 	= $this->social_igniter->make_content_publisher($this->data, 'form');
 
  		$this->render('dashboard_wide');
 	}	
@@ -363,11 +369,16 @@ class Home extends Dashboard_Controller
 			$this->data['wysiwyg']	 		= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);
 		}
 		
+		// Not currently working
+		// Don't know where to store layout value
+		$this->data['layouts']				= $this->social_igniter->scan_layouts(config_item('site_theme'));
+		$this->data['layout_selected']		= 'sidebar';	
+		
 		$this->data['form_module']			= 'pages';
 		$this->data['form_type']			= 'page';		
 		$this->data['form_name']			= 'pages_editor';		
 		$this->data['parent_pages'] 		= $this->social_igniter->make_pages_dropdown($this_page_id);
-	 	$this->data['content_publisher'] 	= $this->load->view(config_item('dashboard_theme').'/partials/content_publisher', $this->data, true);
+	 	$this->data['content_publisher'] 	= $this->social_igniter->make_content_publisher($this->data, 'form');
 
  		$this->render('dashboard_wide');
 	}
@@ -428,10 +439,24 @@ class Home extends Dashboard_Controller
 		$this->load->view(config_item('dashboard_theme').'/partials/item_manage', $this->data);
 	}
 	
-	/* Partials */
 	function category_editor()
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/category_editor');
+	}
+	
+	function partial_add_place()
+	{		
+		$this->data['title']	= '';
+		$this->data['address']	= '';
+		$this->data['district'] = '';
+		$this->data['locality'] = '';
+		$this->data['region']	= '';
+		$this->data['postal']	= '';
+		$this->data['country'] 	= 'US';
+		$this->data['geo_lat']	= '';
+		$this->data['geo_long']	= '';
+
+		$this->load->view(config_item('dashboard_theme').'/partials/add_place', $this->data);		
 	}
 	
 	/* Widget Editor */

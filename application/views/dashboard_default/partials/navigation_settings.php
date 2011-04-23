@@ -13,6 +13,7 @@
 	<img src="<?= $dashboard_assets.'icons/'.$this->uri->segment(2) ?>_32.png"> <?= ucwords($this->uri->segment(2)) ?> Settings
 </h2>
 <ul class="content_navigation">
+	 <?= navigation_list_btn('settings/'.$this->uri->segment(2).'/widgets', 'Settings') ?>
 	 <?= navigation_list_btn('settings/'.$this->uri->segment(2), 'Settings') ?>
 	 <?= navigation_list_btn('settings/apps', 'Back To Apps') ?>
 </ul>
@@ -36,13 +37,14 @@
 <h2 class="content_title"><img src="<?= $dashboard_assets ?>icons/installer_32.png"> Apps</h2>
 <ul class="content_navigation">
 	<?= navigation_list_btn('settings/apps', 'Installed') ?> 
-	<?= navigation_list_btn('settings/get_apps', 'Get New Apps') ?> 
+	<?= navigation_list_btn('settings/get_apps', 'Get Apps') ?> 
 </ul>
 <?php elseif ($this->uri->segment(2) != 'apps'): ?>
 <h2 class="content_title">
 	<img src="<?= $modules_assets.$this_module ?>_32.png"> <?= display_nice_file_name($this_module) ?> Settings
 </h2>
 <ul class="content_navigation">
+	 <?= navigation_list_btn('settings/'.$this->uri->segment(2).'/widgets', 'Widgets') ?>
 	 <?= navigation_list_btn('settings/'.$this_module, 'Settings') ?>
 	 <?= navigation_list_btn('settings/apps', 'Back To Apps') ?>
 </ul>
@@ -50,6 +52,6 @@
 <h2 class="content_title"><img src="<?= $dashboard_assets ?>icons/installer_32.png"> Apps</h2>
 <ul class="content_navigation">
 	<?= navigation_list_btn('settings/apps', 'Installed') ?> 
-	<?= navigation_list_btn('settings/get_apps', 'Get New Apps') ?> 
+	<?= navigation_list_btn('settings/get_apps', 'Get Apps') ?> 
 </ul>
 <?php endif; ?>

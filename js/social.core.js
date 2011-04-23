@@ -540,8 +540,8 @@ function getMap(lat_long, element)
 	addMarker(lat_long);	
 }
 
-function getMapGeocode(address)
-{		
+function getMapGeocode(address, lat_field, long_field)
+{	
 	geocoder.geocode({'address' : address}, function(results, status)
 	{
 		if (status == google.maps.GeocoderStatus.OK)
@@ -553,16 +553,16 @@ function getMapGeocode(address)
 	    	clearOverlays();
 	    	deleteOverlays();	
 	    	addMarker(results[0].geometry.location);
-	    	
-	    	// Set Geo
-	    	$("[name=geo_lat]").val(results[0].geometry.location.Aa);
-	    	$("[name=geo_long]").val(results[0].geometry.location.Ca);
+	    		    	
+	    	// Set Geo	    	
+	    	$(lat_field).val(results[0].geometry.location.Da);
+	    	$(long_field).val(results[0].geometry.location.Ea);
 		}
 		else
 		{
 			console.log("Could not get Google map");
 		}
-	}); 
+	});
 }
 
 function addMarker(location)

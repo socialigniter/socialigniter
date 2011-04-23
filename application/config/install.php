@@ -12,9 +12,9 @@
 *
 * Description: 	various values that get installed to the database on installing Social Igniter 
 */
-$config['content'] = array('pages', 'page', 'install', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index');
-$config['content'] = array('pages', 'page', 'install', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site');
-$config['content'] = array('pages', 'page', 'install', 2, 1, 'Contact', 'contact', 'Please contact us', 'site');
+$config['content'][] = array('pages', 'page', 'install', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index');
+$config['content'][] = array('pages', 'page', 'install', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site');
+$config['content'][] = array('pages', 'page', 'install', 2, 1, 'Contact', 'contact', 'Please contact us', 'site');
 $config['settings'] = array('site', 'title', 'Awesome Website');
 $config['settings'] = array('site', 'tagline', 'Where I Post All My Awesome Things');
 $config['settings'] = array('site', 'keywords', 'awesome, things, pictures, videos, poems, watermelons, cats, ninjas');

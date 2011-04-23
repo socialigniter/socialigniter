@@ -28,6 +28,16 @@ class Connections_model extends CI_Model
         parent::__construct();
     }
 
+ 	function check_connection_auth($module, $auth_one, $auth_two)
+ 	{ 		
+ 		$this->db->select('*');
+ 		$this->db->from('connections');    
+ 		$this->db->where(array('module' => $module, 'auth_one' => $auth_one, 'auth_two' => $auth_two));
+ 		$this->db->limit(1);
+ 		$result = $this->db->get()->row(); 		
+		return $result;
+ 	}
+
  	function check_connection_id($connection_id)
  	{
  		$where = array('connection_id' => $connection_id);
@@ -38,33 +48,13 @@ class Connections_model extends CI_Model
  	{
  		$where = array('user_id' => $user_id, 'module' => $module, 'type' => $type);
 		$result = $this->db->select('*')->where($where)->limit(1)->get('connections')->row();
-		
-		if ($result)
-		{
-			return $result;
-		}
-		
-		return FALSE;
+		return $result;
  	}
 
  	function check_connection_user_id($connection_user_id, $module)
  	{
  		$where = array('connection_user_id' => $connection_user_id, 'module' => $module);
 		return $this->db->select('*')->where($where)->limit(1)->get('connections')->row();	
- 	}
-
- 	function check_connection_auth($module, $connection_user_id)
- 	{
- 		$where = array('module' => $module, 'connection_user_id' => $connection_user_id);
- 		 	
- 		$result = $this->db->select('*')->where($where)->limit(1)->get('connections')->row(); 	
- 		 		
- 		if (!$result) 
- 		{
- 			return FALSE;
- 		}
- 		
-		return $result;
  	}
 
  	function get_connection($connection_id)

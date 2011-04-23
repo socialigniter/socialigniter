@@ -12,7 +12,14 @@
 	    <h3>Parent Page</h3>
 	    <p><?= form_dropdown('content_id', $parent_pages, $parent_id) ?></p>
 
-	<?php endif; ?>		
+	<?php endif; ?>
+
+		<h3>Layout</h3>
+		<p><?php foreach ($layouts as $layout): ?>
+			<a id="layout_<?= $layout ?>" class="layout_picker <?php if ($layout == $layout_selected) echo 'layout_selected'; ?>" href="#"><?= display_nice_file_name($layout) ?></a>
+		<?php endforeach; ?>
+		<div class="clear"></div>
+		</p>
 
 	    <h3>Tags</h3>
 	    <p><input name="tags" type="text" id="tags" size="75" /></p>
@@ -59,6 +66,19 @@ $(document).ready(function()
 
 	// Autocomplete Tags
 	autocomplete("[name=tags]", 'api/tags/all');
+	
+	
+	/* Pick Layout */
+	$('.layout_picker').live('click', function(eve)
+	{
+		eve.preventDefault();
+		var value		= $(this).attr('id');
+		var layout 		= value.replace('layout_','');
+		$('#layout').val(layout);
+		$('.layout_picker').removeClass('layout_selected');
+		$(this).addClass('layout_selected');
+	});
+	
 
 	// Add Category
 	$('[name=category_id]').change(function()

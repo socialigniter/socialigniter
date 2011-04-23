@@ -37,15 +37,15 @@ class Profile extends Site_Controller
 
 			// Links
 			if ($this->social_auth->logged_in())
-			{
-				if ($this->social_tools->check_relationship_exists(array('site_id' => config_item('site_id'), 'owner_id' => $this->session->userdata('user_id'), 'user_id' => $this->user->user_id, 'module' => 'site', 'type' => 'follow', 'status' => 'Y')))
+			{			
+				if ($follow_check = $this->social_tools->check_relationship_exists(array('site_id' => config_item('site_id'), 'owner_id' => $this->session->userdata('user_id'), 'user_id' => $this->user->user_id, 'module' => 'users', 'type' => 'follow', 'status' => 'Y')))
 				{
 			 		$this->data['follow_word']	= 'unfollow';
 				}
 				else
 				{
 			 		$this->data['follow_word']	= 'follow';				
-				}		
+				}			
 			}
 			else
 			{

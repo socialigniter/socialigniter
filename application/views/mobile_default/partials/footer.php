@@ -1,7 +1,14 @@
+<div id="ticker">
+	<h3><?= $site_tagline ?></h3>
+</div>
 <ul>
-  	<li><a href="#">Download</a></li>
-  	<li><a href="#">About</a></li>
-  	<li><a href="#">Developers</a></li>
-  	<li><a href="#">Contact</a></li>
-	<li>© <?= date('Y').' '.$site_title ?></li>
+<?php foreach ($navigation_menu as $nav): ?>
+	<?php if ($nav->type == 'page'): ?>
+	<li><a class="dark_nav" href="<?= base_url().'pages/'.$nav->title_url ?>"><?= $nav->title ?></a></li>
+	<?php else: ?>
+	<li><a class="dark_nav" href="<?= base_url().$nav->title_url ?>"><?= $nav->title ?></a></li>
+	<?php endif; ?>
+<?php endforeach; ?>
+	<li><a class="dark_nav" href="<?= base_url() ?>api">Api</a></li>
 </ul>
+<span id="copyright" class="dark_nav"><?= date('Y') ?> Social Igniter</span>

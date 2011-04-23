@@ -60,6 +60,7 @@ class Content extends Oauth_Controller
 		// Passes Validation
 	    if ($this->form_validation->run() == true)
 	    {
+/*
 	 		$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);   
 	    
 	    	$viewed			= 'Y';
@@ -72,8 +73,10 @@ class Content extends Oauth_Controller
 	    	{
 	    		$approval	= 'N';
 	    	}
-	    	
-	    	
+*/	    	
+		    $viewed		= 'Y';
+	    	$approval	= 'Y';
+    	
 
 	    	$content_data = array(
 	    		'site_id'			=> config_item('site_id'),

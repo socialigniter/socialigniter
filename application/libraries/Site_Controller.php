@@ -18,16 +18,28 @@ class Site_Controller extends MY_Controller
     {
         parent::__construct();
 
-		// Global Required Quries
-		$this->data['navigation_menu']		= $this->social_igniter->get_menu();
+	// Global Required Quries
+	$this->data['navigation_menu']	= $this->social_igniter->get_menu();
 
         // Load Views
-        $this->data['head']					= $this->load->view(config_item('site_theme').'/partials/head_site.php', $this->data, true);
-        $this->data['logged']				= $this->load->view(config_item('site_theme').'/partials/logged.php', $this->data, true);
-        $this->data['navigation']			= $this->load->view(config_item('site_theme').'/partials/navigation_site.php', $this->data, true);
-        $this->data['content']				= '';
+        $this->data['head']			= $this->load->view(config_item('site_theme').'/partials/head_site.php', $this->data, true);
+        $this->data['logged']		= $this->load->view(config_item('site_theme').'/partials/logged.php', $this->data, true);
+        $this->data['navigation']	= $this->load->view(config_item('site_theme').'/partials/navigation_site.php', $this->data, true);
+        $this->data['content']		= '';
+        
+ 		// Widget Regions	 		
+ 		foreach ($this->site_theme->layouts as $key => $site_layout)
+ 		{ 		
+ 			if ($key == 'sidebar')
+ 			{
+ 				foreach ($site_layout as $region)
+ 				{
+					$this->data[$region] = '';			
+ 				} 			
+ 			}
+ 		}
+
         $this->data['shared_ajax']			= '';        
-        $this->data['sidebar']				= '';
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
 		$this->data['message']				= $this->session->userdata('message');
 		$this->data['comments_view'] 		= '';
@@ -68,8 +80,11 @@ class Site_Controller extends MY_Controller
 		}
     }
 
-    function render($layout='site')
+    function render($layout=NULL)
     {
+    	// Default Layout
+    	if (!$layout) $layout = config_item('default_layout');
+    
       	// Is Module
        	if ($this->module_name)
     	{
@@ -88,26 +103,38 @@ class Site_Controller extends MY_Controller
         else
         {
         	$this->data['content'] .= 'Oops that content file is mising';
-        }
+        }        
 
+ 		// Widget Regions
+ 		foreach ($this->site_theme->layouts as $key => $site_layout)
+ 		{
+ 			if ($key == $layout)
+ 			{
+ 				foreach ($site_layout as $region)
+ 				{ 				
+					$this->data[$region] .= $this->render_widgets($region, $layout);	
+ 				} 			
+ 			}
+ 		} 		
+ 		
+		// Render View
         $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);
     }
     
-    function render_widgets($section)
+    function render_widgets($region, $layout=NULL)
     {
     	$widgets = '';
-    	
-    	$site_widgets = $this->social_igniter->make_widgets_order($this->site_widgets);
+    	$site_widgets = $this->social_igniter->make_widgets_order($this->site_widgets, $layout);
     
     	foreach ($site_widgets as $site_widget)
     	{
-    		if ($site_widget->setting == $section)
-    		{
-    			$widget = json_decode($site_widget->value);
-    		
+    		$widget = json_decode($site_widget->value);
+    	
+    		if ($site_widget->setting == $region AND $widget->layout == $layout)
+    		{    		
     			if ($widget->method == 'view')
  				{   		
-    				$widgets .= $this->load->view(config_item('site_theme').'/'.$widget->path, $this->data, true);
+    				$widgets .= $this->load->view(config_item('site_theme').'/widgets/'.$widget->path, $this->data, true);
     			}
     			elseif ($widget->method == 'run')
     			{

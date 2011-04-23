@@ -19,7 +19,7 @@ class Users extends Oauth_Controller
     
     function recent_get()
     {
-        $users = $this->social_auth->get_users(10);
+        $users = $this->social_auth->get_users('active', 1);
         
         if($users)
         {
@@ -86,6 +86,43 @@ class Users extends Oauth_Controller
         }
         
         $this->response($message, 200);
+    }
+    
+    function login_post()
+    {
+        // Validate form input
+    	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
+	    $this->form_validation->set_rules('password', 'Password', 'required');
+
+        if ($this->form_validation->run() == true)
+        {
+        	// Check "remember me"
+        	if ($this->input->post('remember') == 1)
+        	{
+        		$remember = TRUE;
+        	}
+        	else
+        	{
+        		$remember = FALSE;
+        	}
+        	
+        	// Attempt Login
+        	if ($this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
+        	{
+		        $message = array('status' => 'success', 'message' => 'User successfully logged in');
+	        }
+	        else
+	        {
+		        $message = array('status' => 'error', 'message' => 'Oops could not log you in');
+	        } 
+        } 
+		else
+		{ 
+			$message = array('message' => 'Oops '.validation_errors());
+        }
+        
+        $this->response($message, 200);    
+    
     }
     
     function set_userdata_signup_email_post()
@@ -279,7 +316,6 @@ class Users extends Oauth_Controller
     
     function mobile_add_authd_post()
     {
-
    		$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
 
         if ($this->form_validation->run() == true)

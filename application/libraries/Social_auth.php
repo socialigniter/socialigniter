@@ -319,6 +319,23 @@ class Social_auth
 			// Get User
 		    $user = $this->get_user('user_id', $user_id);
 
+			// Add Activity
+			$activity_info = array(
+				'site_id'		=> config_item('site_id'),
+				'user_id'		=> $user->user_id,
+				'verb'			=> 'register',
+				'module'		=> 'users',
+				'type'			=> 'person',
+				'content_id'	=> 0
+			);
+				
+			$activity_data = array(
+				'title'	=> config_item('site_title')
+			);
+	
+			$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);		    
+
+
 			// Send Welcome Email				
 			$data = array(
 				'name'	   => $user->name,
@@ -396,6 +413,24 @@ class Social_auth
 			
 			// Add Oauth Tokens
 			$this->oauth_register($email, $user_id, $additional_data['name']);
+			
+			
+			// Add Activity
+			$activity_info = array(
+				'site_id'		=> config_item('site_id'),
+				'user_id'		=> $user_id,
+				'verb'			=> 'register',
+				'module'		=> 'users',
+				'type'			=> 'person',
+				'content_id'	=> 0
+			);
+				
+			$activity_data = array(
+				'title'	=> config_item('site_title').' with '.$additional_data['connection']
+			);
+	
+			$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);			
+			
 			
 			return $user_id;
 		}

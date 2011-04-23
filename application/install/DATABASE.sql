@@ -56,8 +56,8 @@ CREATE TABLE `connections` (
   `user_id` int(11) unsigned DEFAULT NULL,
   `module` char(32) NOT NULL,
   `type` char(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `connection_user_id` int(64) DEFAULT NULL,
-  `connection_username` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `connection_user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `connection_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `auth_one` varchar(255) DEFAULT NULL,
   `auth_two` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
@@ -200,7 +200,7 @@ CREATE TABLE `settings` (
   `site_id` int(6) NOT NULL,
   `module` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `setting` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `value` text COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`settings_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -211,11 +211,9 @@ INSERT INTO `settings` VALUES(NULL, 1, 'site', 'description', 'This is my awesom
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'url', 'http://domainname.com');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'languages_default', 'en');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'admin_email', 'you@email.com');
-INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'site_theme', 'site_default');
+INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'site_theme', '{"theme":"site_default","name":"Default Site","created":"2011-04-14","updated":"2011-04-14","creator":"Brennan Novak","layouts":{"sidebar":["content","sidebar","wide"],"wide":["wide"],"profile":["content","sidebar"]}}');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'dashboard_theme', 'dashboard_default');
-INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'mobile_theme', 'mobile_default');
-INSERT INTO `settings` VALUES(NULL, 1, 'widgets', 'sidebar', '{"module":"users","name":"Login","method":"view","path":"partials/widget_login","enabled":"TRUE","order":"1"}');
-INSERT INTO `settings` VALUES(NULL, 1, 'widgets', 'sidebar', '{"module":"text","name":"Text","method":"text","path":"","enabled":"TRUE","order":"2","content":"<h2>Hello</h2><p>Thanks for stopping by. We absolutely love visitors. Take off your digital shoes, relax, and feast your eyes on our pretty pixels!</p>"}');
+INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'mobile_theme', '{"theme":"mobile_default","name":"Default Site","created":"2011-04-14","updated":"2011-04-14","creator":"Brennan Novak","layouts":{"sidebar":["content"],"wide":["content"],"profile":["content"]}}');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'email_protocol', 'mail');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_host', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'services', 'smtp_user', '');
@@ -391,9 +389,9 @@ CREATE TABLE  `users_meta` (
   `user_meta_id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
   `user_id` INT( 11 ) NOT NULL ,
   `site_id` INT( 6 ) NOT NULL ,
-  `module` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-  `meta` CHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+  `module` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL ,
+  `meta` CHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL ,
+  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL ,
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
   `updated_at` datetime DEFAULT '0000-00-00 00:00:00'
 ) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_unicode_ci;

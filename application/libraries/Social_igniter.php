@@ -84,6 +84,7 @@ class Social_igniter
     	$has_url	= property_exists($data, 'url');
     	$has_title	= property_exists($data, 'title');    
     	$has_new	= property_exists($data, 'new');
+    	$has_status = property_exists($data, 'status'); 
     
     	// Status
     	if ($activity->type == 'status')
@@ -92,13 +93,10 @@ class Social_igniter
 		}
 				
 		// Has Status
-    	$has_status = property_exists($data, 'status');
-
 		if ($has_status)
 		{
 			return $object->status;
 		}
-		// Makes 'posted an article'
        	else
     	{
     		$verb		= item_verb($this->ci->lang->line('verbs'), $activity->verb);
@@ -108,7 +106,7 @@ class Social_igniter
     		// Has Title
     		if (($has_title) && ($data->title))
     		{	    		
-	    		if ($has_url)	$title_link = $type.' <a href="'.$data->url.'">'.character_limiter($data->title, 25).'</a>';
+	    		if ($has_url)	$title_link = $type.' <a href="'.$data->url.'">'.character_limiter($data->title, 22).'</a>';
 	    		else			$title_link = $data->title; 	
     		}
     		else
@@ -124,7 +122,7 @@ class Social_igniter
     // Generate Content
     function render_item_content($type, $object)
     {
-        $has_thumb	= property_exists($object, 'thumb');
+        $has_thumb	  = property_exists($object, 'thumb');
     
 		$render_function = 'render_item_'.$type;
 		$callable_method = array($this, $render_function);
@@ -150,9 +148,13 @@ class Social_igniter
 		{
 			$content = '<a href="'.$object->url.'"><img src="'.$object->thumb.'" border="0"></a>'.$object->content;
 		}
-		else
+		elseif (property_exists($object, 'content') AND property_exists($object, 'url') AND $object->content != '')
 		{
 			$content = '<span class="item_content_detail">"'.$object->content.'" <a href="'.$object->url.'">read</a></span>';
+		}
+		else
+		{
+			$content = '';
 		}
 	    
     	return $content;
@@ -161,6 +163,28 @@ class Social_igniter
     function render_item_page($object, $has_thumb)
     {
     	return '<span class="item_content_detail">"'.$object->content.'" <a href="'.$object->url.'">read</a>"</span>';
+    }
+
+    function render_item_place($object, $has_thumb)
+    {
+		$place = '<span class="item_content_detail_sm">';
+    
+        if (property_exists($object, 'address'))
+        {
+        	$place .= $object->address.'<br>';
+        }
+        
+        if (property_exists($object, 'locality'))
+        {
+        	$place .= $object->locality.', ';
+        }
+        
+        if (property_exists($object, 'region'))
+        {
+        	$place .= $object->region;
+        }
+    
+    	return $place.'</span></span>';
     }
     
     function render_item_image($object, $has_thumb)
@@ -252,7 +276,7 @@ class Social_igniter
 					$connections .= '<li>'.ucwords($social).'</li>';
 				}			
 			
-				$post_to = '<li><a href="'.base_url().'settings/connections" id="social_post_connections_add"><span class="actions action_share"></span> Add Connections</a> <ul id="social_post_connections_avail">'.$connections.'</ul></li>';
+				$post_to = '<li><a href="'.base_url().'settings/connections" id="social_post_connections_add"><span class="actions action_share"></span> Add Connections</a> </li>';
 			}
 			
 			if ($post_to)
@@ -454,7 +478,7 @@ class Social_igniter
 		return $this->ci->settings_model->get_settings_module($module);
 	}
 	
-	function make_widgets_order($widgets)
+	function make_widgets_order($widgets, $layout)
 	{
 		$widgets_view = array();
 	
@@ -462,12 +486,25 @@ class Social_igniter
 		{
 			$widget = json_decode($json_widget->value);
 		
-			$widgets_view[$widget->order.'-'.$json_widget->settings_id] = $json_widget;
+			if ($widget->layout == $layout)
+			{
+				$widgets_view[$widget->order.'-'.$json_widget->settings_id] = $json_widget;
+			}
 		}
 		
 		ksort($widgets_view);
 					
 		return $widgets_view;
+	}
+	
+	function check_setting_exists($setting_data)
+	{
+		if ($this->ci->settings_model->check_setting_exists($setting_data))
+		{
+			return TRUE;
+		}
+
+		return FALSE;	
 	}
 	
 	function check_can_widget_be_used($region, $check_widget)
@@ -622,14 +659,19 @@ class Social_igniter
 	{
 		if ($activity_id = $this->ci->activity_model->add_activity($activity_info, $activity_data))
 		{
-			$username = $this->ci->activity_model->get_activity($activity_id)->username;
-			$hub = 'http://pubsubhubbub.appspot.com/';
-			$hubargs = array('hub.mode'=>'publish', 'hub.url' => base_url() . "profile/". $username.'/feed');
-			$this->ci->load->library('curl');
+			$activity = $this->ci->activity_model->get_activity($activity_id);
+		
+			if ($activity)
+			{
+				$username	= $activity->username;
+				$hub		= 'http://pubsubhubbub.appspot.com/';
+				$hubargs	= array('hub.mode'=>'publish', 'hub.url' => base_url() . "profile/". $username.'/feed');
 			
-			$this->ci->curl->simple_post($hub, $hubargs);
-			//$this->ci->curl->simple_post('http://social.pdxbrain.com:3232', $hubargs);
-			return $this->ci->activity_model->get_activity($activity_id);
+				$this->ci->load->library('curl');	
+				$this->ci->curl->simple_post($hub, $hubargs);
+			}
+
+			return $activity;
 		}
 		
 		return FALSE;
@@ -718,6 +760,38 @@ class Social_igniter
     function get_content_category_count($category_id)
 	{
 		return $this->ci->content_model->get_content_category_count($category_id);
+	}
+	
+	function get_content_multiple_count($where)
+	{
+		return $this->ci->content_model->get_content_multiple_count($where);	
+	}	
+	
+	function make_content_dropdown($parameter, $value,  $content_permissions=1, $user_level_id=NULL, $add_label=NULL)
+	{
+		$content_query 	= $this->get_content_view($parameter, $value, 'all');
+		$dropdown 		= array(0 => '----select----');
+		
+		foreach($content_query as $content)
+		{
+			$dropdown[$content->content_id] = $content->title;			
+		}
+		
+		// Addible if Admin
+		if ($user_level_id AND $user_level_id <= $content_permissions)
+		{
+			$dropdown['add_content'] = $add_label;	
+		}
+
+		return $dropdown;
+	}
+	
+	function make_content_publisher($data, $state, $content_id='')
+	{
+		$data['state']		= $state;
+		$data['content_id']	= $content_id;
+	
+		return $this->ci->load->view(config_item('dashboard_theme').'/partials/content_publisher', $data, true);
 	}
 	
 	// Adds Content & Activity

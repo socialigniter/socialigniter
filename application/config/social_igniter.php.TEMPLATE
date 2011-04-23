@@ -18,6 +18,7 @@ $config['site_id']						= 1;
 $config['superadmin_user_id']			= 1;
 $config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian');
 $config['countries']					= array('US', 'FR', 'DE', 'ES', 'IT');
+$config['default_layout']				= 'sidebar';
 
 // Settings
 $config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','places','text');
@@ -62,5 +63,6 @@ $config['email_forgot_password_complete']= 'new_password.php'; 	// Forgot Passwo
 $config['email_send']  					= 'send.php';			// Template for a message being sent as an email
 
 // Image Options
-$config['uploads_folder']				= "temp/";
+$config['temp_folder']					= "temp/";
+$config['uploads_folder']				= "uploads/";
 $config['profile_nopicture']			= "nopicture.png";
