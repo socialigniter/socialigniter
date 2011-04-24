@@ -103,15 +103,31 @@ class Relationships extends Oauth_Controller
 				}
 				else
 				{
+					$this->load->library('simple_html_dom');
+					$this->load->library('curl');
+					
+					$site	= $this->curl->simple_get(prep_url($remote_site), array(CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1'));	
+					$html	= str_get_html($site);
+					$title	= $html->find('title', 0);
+					
+					if (isset($title->plaintext))
+					{
+						$title = $title->plaintext;	
+					}
+					else
+					{
+						$title = $remote_site;
+					}
+				
 					$site_data = array(
 						'url'		=> $remote_site,
 						'module'	=> 'site',
 						'type'		=> 'remote',
-						'title'		=> '',
+						'title'		=> $title,
 						'favicon'	=> ''
 					);
-				
-					$site_id = $this->social_igniter->add_site($site_data);	
+
+					$site_id = $this->social_igniter->add_site($site_data);
 				}
 								
 				// Check Connection
@@ -192,7 +208,7 @@ class Relationships extends Oauth_Controller
 	        $message = array('status' => 'error', 'message' => 'Oops, no web finger id was specified');
         }
 
-        $this->response($message, 200);
+		$this->response($message, 200);
     }
     
 
