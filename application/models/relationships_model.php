@@ -14,16 +14,7 @@ class Relationships_model extends CI_Model
  		$this->db->where($relationship_data); 
  		$this->db->limit(1);
 		$result = $this->db->get();		
-  		return $result->row();
-
- 		if ($this->db->count_all_results() == 1)
- 		{
- 			return $result->row();
- 		}
- 		else
- 		{
- 			return FALSE;
- 		}    
+  		return $result->row(); 
     }
 
     function get_relationships_followers($user_id)

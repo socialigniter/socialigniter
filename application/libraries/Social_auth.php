@@ -424,13 +424,15 @@ class Social_auth
 				'type'			=> 'person',
 				'content_id'	=> 0
 			);
-				
-			$activity_data = array(
-				'title'	=> config_item('site_title').' with '.$additional_data['connection']
-			);
-	
-			$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);			
 			
+			if (array_key_exists('connection', $additional_data))
+			{			
+				$activity_data = array(
+					'title'	=> config_item('site_title').' with '.$additional_data['connection']
+				);
+		
+				$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);			
+			}				
 			
 			return $user_id;
 		}
@@ -776,6 +778,11 @@ class Social_auth
 	function check_connection_user_id($connection_user_id, $module)
 	{
 		return $this->ci->connections_model->check_connection_user_id($connection_user_id, $module);
+	}
+
+	function check_connection_username($connection_username, $site_id)
+	{
+		return $this->ci->connections_model->check_connection_username($connection_username, $site_id);
 	}
 
 	function get_connection($connection_id)
