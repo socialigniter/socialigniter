@@ -180,14 +180,12 @@ class Relationships extends Oauth_Controller
 				}
 				elseif ($exists->status == 'D')
 				{
-					$follow = $this->social_tools->update_relationship($exists->relationship_id, array('status' => 'Y'));
-					
+					$follow	 = $this->social_tools->update_relationship($exists->relationship_id, array('status' => 'Y'));
 					$message = array('status' => 'success', 'message' => 'You now follow that user', 'data' => $follow);
 				}
 				else
 				{
-					$follow = $this->social_tools->add_relationship($follow_data);
-
+					$follow  = $this->social_tools->add_relationship($follow_data);
 					$message = array('status' => 'success', 'message' => 'You now follow that user', 'data' => $follow);
 				}
 			}
