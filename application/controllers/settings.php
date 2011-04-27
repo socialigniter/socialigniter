@@ -4,6 +4,8 @@ class Settings extends Dashboard_Controller
     function __construct() 
     {
         parent::__construct();
+
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');        
         
         $this->data['page_title'] = 'Settings';
     } 

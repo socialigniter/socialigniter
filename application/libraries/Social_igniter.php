@@ -144,9 +144,13 @@ class Social_igniter
     function render_item_default($object, $has_thumb)
     {
 	    // Has Thumbnail
-		if ($has_thumb) 
+		if (property_exists($object, 'content') AND $has_thumb) 
 		{
-			$content = '<a href="'.$object->url.'"><img src="'.$object->thumb.'" border="0"></a>'.$object->content;
+			$content = '<span class="item_content_detail"><a href="'.$object->url.'"><img class="item_content_thumb" src="'.$object->thumb.'" border="0"></a>'.$object->content.'</span>';
+		}
+		elseif (!property_exists($object, 'content') AND $has_thumb) 
+		{
+			$content = '<span class="item_content_detail"><a href="'.$object->url.'"><img class="item_content_thumb" src="'.$object->thumb.'" border="0"></a></span>';
 		}
 		elseif (property_exists($object, 'content') AND property_exists($object, 'url') AND $object->content != '')
 		{
