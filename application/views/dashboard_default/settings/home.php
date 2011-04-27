@@ -2,6 +2,26 @@
 
 <div class="content_wrap_inner">
 
+	<h3>Permission</h3>
+
+	<p>View
+	<?= form_dropdown('view_permission', config_item('users_levels'), $settings['home']['view_permission']) ?>
+	</p>
+
+	<p>Create
+	<?= form_dropdown('create_permission', config_item('users_levels'), $settings['home']['create_permission']) ?>
+	</p>
+
+	<p>Redirect<br>
+	<?= base_url() ?> <input type="text" size="20" name="view_redirect" value="<?= $settings['home']['view_redirect'] ?>" />
+	</p>
+		
+</div>
+
+<span class="item_separator"></span>
+
+<div class="content_wrap_inner">
+
 	<h3>Display</h3>
 
 	<p>Public Timeline

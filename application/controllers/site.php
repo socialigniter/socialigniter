@@ -236,7 +236,9 @@ class Site extends Site_Controller
 				}
 			}
 			//var_dump($screen_name);
-			$this->data['screen_name'] = $screen_name;
+			if(isset($screen_name)){
+				$this->data['screen_name'] = $screen_name;
+			}
 	    	$this->load->view('site_default/partials/webfinger_user', $this->data);
 		}
 		else {

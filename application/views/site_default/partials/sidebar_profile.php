@@ -49,7 +49,38 @@ $(document).ready(function()
 		var follow_word = $('#follow_button').attr('value').toLowerCase();
 		var follow_data = $('#follow_button').serializeArray();
 		follow_data.push({'name':'module','value':'users'});
+		
+		<? $logged = $this->session->userdata("user_id"); 
+			if (!$logged){
+		?>
+		$webfinger = prompt('Enter your webfinger id');
+		$match = $webfinger.match(/(.*?)@(.*)/);
+		//console.log($match);
+		//console.log($match[1]);
+		//console.log($match[2]);
+		var username = window.path.split('/')[1];
+		var host = window.location.host;
+		//window.location.href = "http://"+$match[2]+"/profile/"+$match[1];
+		$.ajax({
+	        type: "GET",
+			url: "http://"+$match[2]+"/webfinger/"+$match[1]+"@"+$match[2],
+			dataType: "xml",
+			success: function(xml) {
+				$(xml).find('Link').each(function(){ 
+					if($(this).attr('rel') == "webfinger#friend"){
+						var twitter_profile = $(this).attr('href');
+						new_profile = twitter_profile.replace(/{uri}/,username+"@"+host);
+						console.log(new_profile);
+						window.location.href = new_profile;
 
+
+					}
+					 
+				});
+			}
+		});
+		return;
+		<? } ?>
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,
