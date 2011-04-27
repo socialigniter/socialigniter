@@ -6,8 +6,36 @@
 	</p>
 	<script>
 	$('#confirm').bind("click", function(){
-		window.location.href = document.referrer;
+
+		$(document).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: base_url + 'api/relationships/follow_remote/webfinger_id/<?= $webfinger ?>',
+			type		: 'POST',
+			dataType	: 'json',
+			data		: '',
+	  		success		: function(result)
+	  		{	
+	  			console.log(result);	  			
+	  				  			
+				if (result.status == 'success')
+				{
+
+			 	}
+			 	else
+			 	{
+					alert(result.message);
+			 	}
+		 	}
+		})
 	});
+	
+	
+	
+	
+		//window.location.href = document.referrer;
 	</script>
 </p>
 </div>
+
+
