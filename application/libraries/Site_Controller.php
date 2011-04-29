@@ -80,19 +80,20 @@ class Site_Controller extends MY_Controller
 		}
     }
 
-    function render($layout=NULL)
+    function render($layout=NULL, $content=NULL)
     {
     	// Default Layout
-    	if (!$layout) $layout = config_item('default_layout');
+    	if (!$layout)	$layout	 = config_item('default_layout');
+    	if (!$content)	$content = $this->action_name;
     
       	// Is Module
        	if ($this->module_name)
     	{
-    	    $content_path = '../modules/'.$this->module_name.'/views/'.$this->module_controller.'/'.$this->action_name.'.php';
+    	    $content_path = '../modules/'.$this->module_name.'/views/'.$this->module_controller.'/'.$content.'.php';    	    
 		}
 		else
 		{
-        	$content_path = config_item('site_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
+        	$content_path = config_item('site_theme').'/'.$this->controller_name.'/'.$content.'.php';
 		}
 
     	// Content file exists
