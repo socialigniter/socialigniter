@@ -127,7 +127,7 @@ class Rest_Controller extends MX_Controller
 		// Get that useless shitty key out of here
 		if (config_item('rest_enable_keys') AND $use_key AND $this->_allow === FALSE)
 		{
-			$this->response(array('status' => 0, 'error' => 'Invalid API Key.'), 403);
+			$this->response(array('status' => 'error', 'message' => 'Oops, your API Key is Invalid'), 200);
 			return;
 		}
 
@@ -135,7 +135,7 @@ class Rest_Controller extends MX_Controller
 		if ( ! method_exists($this, $controller_method))
 		{
 			log_message('debug', 'method not found:'.$controller_method);
-			$this->response(array('status' => 0, 'error' => 'Unknown method.'), 404);
+			$this->response(array('status' => 'error', 'message' => 'Oops, that is an unknown method.'), 200);
 			return;
 		}
 
@@ -145,7 +145,7 @@ class Rest_Controller extends MX_Controller
 			// Check the limit
 			if ( config_item('rest_enable_limits') AND ! $this->_check_limit($controller_method))
 			{
-				$this->response(array('status' => 0, 'error' => 'This API key has reached the hourly limit for this method.'), 401);
+				$this->response(array('status' => 'error', 'message' => 'This API key has reached the hourly limit for this method.'), 200);
 				return;
 			}
 
@@ -164,7 +164,7 @@ class Rest_Controller extends MX_Controller
 			// They don't have good enough perms
 			if ( ! $authorized)
 			{
-				$this->response(array('status' => 0, 'error' => 'This API key does not have enough permissions.'), 401);
+				$this->response(array('status' => 'error', 'message' => 'This API key does not have enough permissions.'), 200);
 				return;
 			}
 		}
