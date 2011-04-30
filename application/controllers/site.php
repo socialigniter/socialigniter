@@ -245,5 +245,22 @@ class Site extends Site_Controller
 			$this->error_404();
 		}
     }    
+    function test_me()
+ 	{
+ 	    $this->load->library('webfinger');
+        //include 'findbyemail/webfinger.php';
+        $id = "tjgillies@gmail.com";
+        //var_dump($this->webfinger);
+        $webfinger = $this->webfinger->webfinger_find_by_email($id);
+        $name = $webfinger['webfinger']['display_name'];
+        $photo = $webfinger['webfinger']['portrait_url'];
+        if (preg_match('/https:\/\/profiles.google.com\/\/(.*?)$/',$photo, $matches)){
+         //var_dump($matches);
+         $photo = 'http://' . $matches[1];
+        }
+        echo "Webfinger: $id, Full Name: $name <img src=$photo>";
+        //var_dump($webfinger);
+        
+    } 	
 
 }

@@ -1,10 +1,11 @@
+<div class="vcard">
 <div id="profile_image">
-	<img src="<?= $this->social_igniter->profile_image($user_id, $image, $gravatar, 'large'); ?>" border="0">
+	<img class="photo" src="<?= $this->social_igniter->profile_image($user_id, $image, $gravatar, 'large'); ?>" border="0">
 </div>
 
-<div id="profile_info" class="vcard">
+<div id="profile_info">
 	<ul>
-		<li><h1><span class="fn"><?= $name ?></span></h1></li>
+		<li><h1 class="fn"><?= $name ?></h1></li>
 		<li><h3>@<?= $username ?></h3></li>
 		<?= display_value("li", "", "", $company); ?>
 		<?= display_value("li", "", "", $location); ?>
@@ -23,3 +24,4 @@
 <?php if ($timeline_count > 8): ?>
 <input type="button" id="profile_feed_see_more" value="See More">
 <?php endif; ?>
+</div>
