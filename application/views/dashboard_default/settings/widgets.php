@@ -176,7 +176,7 @@ $(document).ready(function()
 							{
 								oauth 		: user_data,
 								url			: base_url + 'api/settings/destroy/id/' + settings_id,
-								type		: 'DELETE',
+								type		: 'GET',
 								dataType	: 'json',
 							  	success		: function(result)
 							  	{

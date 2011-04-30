@@ -379,7 +379,7 @@ class Users extends Oauth_Controller
     	$this->response($message, 200);
     }
     
-    function mobile_destroy_authd_delete()
+    function mobile_destroy_authd_get()
     {
  	   	$user = $this->social_auth->get_user($this->session->userdata('user_id'));
 
@@ -417,7 +417,7 @@ class Users extends Oauth_Controller
     
     
 	// Activate User
-	function activate_authd_put() 
+	function activate_authd_get() 
 	{		
         if ($activation = $this->social_auth->activate($this->get('id'), $this->get('code')))
         {
@@ -432,14 +432,14 @@ class Users extends Oauth_Controller
     }
     
     // Deactivate User
-	function deactivate_authd_delete($id) 
+	function deactivate_authd_get($id) 
 	{
 	    $this->social_auth->deactivate($id);
 
         $this->response($message, $response);
     }    
     
-    function destroy_delete()
+    function destroy_get()
     {
     	// $this->some_model->deletesomething($this->get('id'));
         $message = array('status' => 'success', 'message' => 'User was deleted');

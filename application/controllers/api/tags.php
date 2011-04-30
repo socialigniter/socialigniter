@@ -75,7 +75,7 @@ class Tags extends Oauth_Controller
 	    $this->response($message, 200);
     }
     
-    function destroy_authd_delete()
+    function destroy_authd_get()
     {  
     	// Determine delete
     	if ($this->get('tag_id'))

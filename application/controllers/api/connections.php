@@ -24,7 +24,7 @@ class Connections extends Oauth_Controller
         }
     }	
 	
-	function destroy_authd_delete()
+	function destroy_authd_get()
 	{
 		$connection = $this->social_auth->get_connection($this->uri->segment(3));
 		
