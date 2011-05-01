@@ -68,7 +68,7 @@ $(document).ready(function()
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/content/' + type + '/id/<?= $content_id ?>',
-			type		: 'PUT',
+			type		: 'GET',
 			dataType	: 'json',
 	  		success		: function(result)
 	  		{		  		

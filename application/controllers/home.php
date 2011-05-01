@@ -4,6 +4,8 @@ class Home extends Dashboard_Controller
     function __construct() 
     {
         parent::__construct();
+
+		if ($this->session->userdata('user_level_id') > config_item('home_view_permission')) redirect(base_url().config_item('home_view_redirect'));
     }
  
  	/* Home Feed - All modules when URL is 'home/blog' this method shows all activity for specified module */

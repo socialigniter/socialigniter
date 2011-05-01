@@ -169,7 +169,7 @@ class Content extends Oauth_Controller
     
 
     /* PUT types */
-    function viewed_authd_put()
+    function viewed_authd_get()
     {    
         if ($this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'viewed' => 'Y')))
         {
@@ -183,7 +183,7 @@ class Content extends Oauth_Controller
 	    $this->response($message, 200);            
     }   
     
-    function approve_authd_put()
+    function approve_authd_get()
     {
         if ($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'approval' => 'Y')))
         {
@@ -197,7 +197,7 @@ class Content extends Oauth_Controller
 	    $this->response($message, 200);        
     }
     
-    function save_authd_put()
+    function save_authd_get()
     {
         if ($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'S')))
         {
@@ -211,7 +211,7 @@ class Content extends Oauth_Controller
 	    $this->response($message, 200);        
     }       
 
-    function publish_authd_put()
+    function publish_authd_get()
     {
         if($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'status' => 'P')))
         {
@@ -225,7 +225,7 @@ class Content extends Oauth_Controller
 	    $this->response($message, 200);
     }       
 
-    function destroy_authd_delete()
+    function destroy_authd_get()
     {
     	$content = $this->social_igniter->get_content($this->get('id'));
     

@@ -269,7 +269,7 @@ class Settings extends Oauth_Controller
     }
 
     /* DELETE types */
-    function destroy_delete()
+    function destroy_get()
     {		
 		$access = TRUE;//$this->social_tools->has_access_to_delete('comment', $this->get('id'));
     	

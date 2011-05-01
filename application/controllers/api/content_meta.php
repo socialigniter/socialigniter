@@ -110,7 +110,7 @@ class Content_meta extends Oauth_Controller
     } 
 
     /* DELETE types */
-    function destroy_authd_delete()
+    function destroy_authd_get()
     {		
 		// Make sure user has access to do this func
 		$access = $this->social_auth->has_access_to_modify('content', $this->get('id'), $this->oauth_user_id);

@@ -68,7 +68,7 @@ class Activity extends Oauth_Controller
         $this->response($message, 200);
     }
     
-    function update_authd_put()
+    function update_authd_get()
     {
 		$viewed = $this->social_tools->update_activity_viewed($this->get('id'));			
     	
@@ -84,7 +84,7 @@ class Activity extends Oauth_Controller
         $this->response($message, 200);           
     }  
 
-    function destroy_authd_delete()
+    function destroy_authd_get()
     {		
 		$activity = $this->social_igniter->get_activity($this->get('id'));
 	
