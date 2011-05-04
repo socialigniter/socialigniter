@@ -229,11 +229,9 @@ class Social_igniter
     	}
     	    
     	return $thumb.$title.$details;    
-    }
-   
+    }		
 		
-		
-	/* Social */
+	/* Social */	
 	function get_social_logins($html_start, $html_end)
 	{
 		$social_logins 		= NULL;
@@ -243,8 +241,13 @@ class Social_igniter
 		{
 			if (config_item($login.'_enabled') == 'TRUE')
 			{
-				$data['assets']	   = base_url().'application/modules/'.$login.'/assets/';
-				$social_logins 	  .= $html_start.$this->ci->load->view('../modules/'.$login.'/views/partials/social_login.php', $data, true).$html_end;
+				$partial_path = '/modules/'.$login.'/views/partials/social_login.php';
+				
+				if (file_exists(APPPATH.$partial_path))
+        		{
+					$data['assets']	   = base_url().'application/modules/'.$login.'/assets/';
+					$social_logins 	  .= $html_start.$this->ci->load->view('../'.$partial_path, $data, true).$html_end;
+				}
 			}
 		}
 		return $social_logins;
