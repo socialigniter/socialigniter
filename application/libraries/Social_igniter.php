@@ -741,6 +741,11 @@ class Social_igniter
 	{
 		return $this->ci->content_model->get_content($content_id);
 	}
+
+	function get_content_multiple($parameter, $value_array)
+	{
+		return $this->ci->content_model->get_content_multiple($parameter, $value_array);
+	}
 	
 	function get_content_recent($type, $limit=10)
 	{

@@ -10,6 +10,7 @@ class Places_model extends CI_Model
     {
  		$this->db->select('*');
  		$this->db->from('places');
+  		$this->db->join('content', 'places.content_id = content.content_id');		  
  		$this->db->where($parameter, $value);
 		$this->db->limit(1);    
  		return $this->db->get()->row();	
