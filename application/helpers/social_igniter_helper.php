@@ -35,17 +35,37 @@ function connection_has_auth($connection)
 	}
 }
 
-function login_redirect()
+function login_redirect($redirect=FALSE)
 {
     $ci =& get_instance();    
-
-	if ($ci->config->item('home_view_redirect') != '' AND $ci->config->item('home_view_redirect') != 'home')
+	
+	if ($redirect)
+	{
+		$redirect = base_url().$redirect;
+	}
+	elseif ($ci->config->item('home_view_redirect') != '' AND $ci->config->item('home_view_redirect') != 'home')
 	{
 		$redirect = base_url().config_item('home_view_redirect');
 	}
 	else
 	{
 		$redirect = base_url().'home';
+	}
+	
+	return $redirect;
+}
+
+function connections_redirect($redirect=FALSE)
+{
+    $ci =& get_instance();    
+	
+	if ($redirect)
+	{
+		$redirect = base_url().$redirect;
+	}
+	else
+	{
+		$redirect = base_url().'settings/connections';
 	}
 	
 	return $redirect;
