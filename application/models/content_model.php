@@ -76,7 +76,8 @@ class Content_model extends CI_Model {
 	 		
 	 		if ($status == 'all')
 	 		{
-		 		$this->db->where('content.status !=', 'D');	 		
+		 		$this->db->where('content.status !=', 'D');
+				$this->db->limit($limit);	 		 		
 	 		}
 	 		elseif ($status == 'saved')
 	 		{
@@ -120,7 +121,8 @@ class Content_model extends CI_Model {
  		
  		if ($status == 'all')
  		{
-	 		$this->db->where('content.status !=', 'D');	 		
+	 		$this->db->where('content.status !=', 'D');	
+			$this->db->limit($limit);	 		 		
  		}
  		elseif ($status == 'saved')
  		{
