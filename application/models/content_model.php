@@ -7,6 +7,7 @@ class Content_model extends CI_Model {
         parent::__construct();
     }
 
+	/* Content */
     function check_content_duplicate($user_id, $title, $content)
     {
  		$this->db->select('*');
@@ -28,6 +29,17 @@ class Content_model extends CI_Model {
 		$this->db->limit(1);    
  		$result = $this->db->get()->row();	
  		return $result;
+    }
+
+    function get_content_multiple($parameter, $value_array)
+    {
+ 		$this->db->select('content.*, users.username, users.gravatar, users.name, users.image');
+ 		$this->db->from('content');
+  		$this->db->join('users', 'users.user_id = content.user_id');
+ 		$this->db->or_where_in($parameter, $value_array);	 	
+	 	$this->db->where('content.status !=', 'D');
+ 		$result = $this->db->get();	
+ 		return $result->result();
     }
 
     function get_content_recent($site_id, $type, $limit)
@@ -251,7 +263,7 @@ class Content_model extends CI_Model {
 		return TRUE;
     }   
     
-	/* The 'content_meta' Table */
+	/* Content Meta */
     function get_meta($content_meta_id)
     {
  		$this->db->select('*');
