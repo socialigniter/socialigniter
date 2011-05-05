@@ -34,7 +34,7 @@ class Content extends Oauth_Controller
     {
     	$search_by	= $this->uri->segment(4);
     	$search_for	= $this->uri->segment(5);
-		$content	= $this->social_igniter->get_content_view($search_by, $search_for, 50);    
+		$content	= $this->social_igniter->get_content_view($search_by, $search_for, 20);    
    		 	
         if($content)
         {

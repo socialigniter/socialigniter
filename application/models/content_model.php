@@ -77,6 +77,11 @@ class Content_model extends CI_Model {
 				$this->db->where('content.approval', 'N');
 				$this->db->limit($limit);	 		 
 	 		}
+	 		elseif ($status == 'new')
+	 		{
+				$this->db->where('content.viewed', 'N');
+				$this->db->limit($limit);	 		 
+	 		}
 	 		else
 	 		{
 		 		$this->db->where('content.status', 'P');
