@@ -4,8 +4,6 @@ class Settings extends Dashboard_Controller
     function __construct() 
     {
         parent::__construct();
-
-		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');        
         
         $this->data['page_title'] = 'Settings';
     } 
@@ -91,6 +89,8 @@ class Settings extends Dashboard_Controller
 	/* Site Settings */
 	function site()
 	{
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');        
+	
 		$this->data['sub_title'] 	= 'Site';
 		$this->data['this_module']	= 'site';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
@@ -99,6 +99,8 @@ class Settings extends Dashboard_Controller
 
 	function themes()
 	{
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');        
+
 		$this->data['site']					= $this->social_igniter->get_site();
 		$this->data['site_themes']			= $this->social_igniter->get_themes('site');
 		$this->data['dashboard_themes']		= $this->social_igniter->get_themes('dashboard');
@@ -111,6 +113,8 @@ class Settings extends Dashboard_Controller
 	
 	function design()
 	{
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');        
+	
 		$this->data['sub_title'] 			= 'Design';
 		$this->data['this_module']			= 'design';
 		$this->data['shared_ajax'] 		   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
@@ -119,6 +123,8 @@ class Settings extends Dashboard_Controller
 
 	function widgets()
 	{
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');        
+
 		$this->data['sub_title'] 		= 'Widgets';
 		$this->data['this_module']		= 'widgets';
 		$this->data['layouts']			= $this->social_igniter->scan_layouts(config_item('site_theme'));
@@ -170,6 +176,8 @@ class Settings extends Dashboard_Controller
 
 	function services()
 	{
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');
+	
 		$mobile_modules = $this->social_igniter->get_settings_setting('is_mobile_module');
 	
 		$this->data['mobile_modules']['none'] = '--none--';
@@ -186,7 +194,9 @@ class Settings extends Dashboard_Controller
 	}
 	
 	function comments()
-	{	
+	{
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');
+		
 		$this->data['sub_title'] 	= 'Comments';
 		$this->data['this_module']	= 'comments';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
@@ -195,6 +205,8 @@ class Settings extends Dashboard_Controller
 
 	function home()
 	{
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');
+
 		$this->data['sub_title'] 	= 'Home';
 		$this->data['this_module']	= 'home';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
@@ -203,6 +215,8 @@ class Settings extends Dashboard_Controller
 
 	function users()
 	{	
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');
+
 		$this->data['sub_title']	= 'Users';
 		$this->data['this_module']	= 'users';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
@@ -211,6 +225,8 @@ class Settings extends Dashboard_Controller
 
 	function places()
 	{	
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');
+
 		$this->data['sub_title'] 	= 'Places';
 		$this->data['this_module']	= 'places';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
@@ -219,6 +235,8 @@ class Settings extends Dashboard_Controller
 	
 	function pages()
 	{	
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');
+
 		$this->data['sub_title'] 	= 'Pages';
 		$this->data['this_module']	= 'pages';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
@@ -227,6 +245,8 @@ class Settings extends Dashboard_Controller
 
 	function api()
 	{
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');
+
 		$this->data['sub_title'] 	= 'API';
 		$this->data['this_module']	= 'users';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
@@ -236,6 +256,8 @@ class Settings extends Dashboard_Controller
     /* Modules Settings */
 	function apps()
 	{
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');
+
 		$this->data['sub_title']		= 'Apps';
 		$this->data['core_modules']		= config_item('core_modules');
 		$this->data['ignore_modules']	= config_item('ignore_modules');
@@ -246,6 +268,8 @@ class Settings extends Dashboard_Controller
 	
 	function get_apps()
 	{
+		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('view_redirect'), 'refresh');
+
 		$this->data['sub_title']		= 'Get Apps';	
 		$this->render('dashboard_wide');
 	}

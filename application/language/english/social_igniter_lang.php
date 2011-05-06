@@ -51,5 +51,5 @@ $lang['connection_create_exists'] 	 			= 'Connection Already Exists';
 // Greetings & Salutations
 $lang['home_greeting']							= array('There is no place like home','Welcome home buddy','Good news you are home','Sweet home interwebs','Home again, home again, jigity jog');
 $lang['cool_salutations']						= array('Yo','Howdi','Hola','Bonjour','Aloha','Wassup','Hey');
-$lang['cool_phrases']							= array('wicked sweet','dope sick','super fresh','super duper','totally boss','Ÿber tight','dang sexy','beautiful');
+$lang['cool_phrases']							= array('wicked sweet','dope sick','super fresh','super duper','totally boss','uber tight','dang sexy','beautiful');
 ?>

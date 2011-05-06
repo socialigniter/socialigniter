@@ -196,7 +196,7 @@ $(document).ready(function()
 		{
 			oauth 		: user_data,
 			url			: comment_delete,
-			type		: 'DELETE',
+			type		: 'GET',
 			dataType	: 'json',
 		  	success		: function(result)
 		  	{		  	

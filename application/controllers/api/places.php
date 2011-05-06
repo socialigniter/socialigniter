@@ -187,7 +187,7 @@ class Places extends Oauth_Controller
         $this->response($message, 200);
     }
     
-    function destroy_delete()
+    function destroy_get()
     {
         $message 	= array('id' => $this->get('id'), 'message' => 'DELETED!');
         $response	= 200;

@@ -225,7 +225,7 @@ class Content extends Oauth_Controller
 	    $this->response($message, 200);
     }       
 
-    function destroy_authd_delete()
+    function destroy_authd_get()
     {
     	$content = $this->social_igniter->get_content($this->get('id'));
     

@@ -138,7 +138,7 @@ class Categories extends Oauth_Controller
 	    $this->response($message, 200);
     }
 
-    function destroy_delete()
+    function destroy_get()
     {		
 		// Make sure user has access to do this func
 		$access = $this->social_auth->has_access_to_modify('comment', $this->social_tools->get_comment($this->get('id')));

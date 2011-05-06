@@ -245,5 +245,38 @@ class Site extends Site_Controller
 			$this->error_404();
 		}
     }    
+    function test_me()
+ 	{
+ 	    $this->load->library('simplepie');
+ 	    $simple = new SimplePie();
+ 	    $feedurl = "http://social.pdxbrain.com/profile/tyler/feed";
+ 	    $simple->set_feed_url($feedurl);
+ 	    $simple->init();
+ 	    $simple->handle_content_type();
+ 	    //echo $simple->get_author();
+ 	    $items = $simple->get_items();
+ 	    foreach($items as $item){
+ 	        echo $item->get_description()."<br>";
+ 	        echo $item->get_id()."<br>";
+ 	    }
+ 	    //var_dump($simple);
+ 	    /*
+ 	    $this->load->library('webfinger');
+        /*
+        $id = "tyler@social.pdxbrain.com";
+        $webfinger = $this->webfinger->webfinger_find_by_email($id);
+        var_dump($webfinger);
+        $name = $webfinger['webfinger']['display_name'];
+        $photo = $webfinger['webfinger']['portrait_url'];
+        if (preg_match('/https:\/\/profiles.google.com\/\/(.*?)$/',$photo, $matches)){
+         //var_dump($matches);
+         $photo = 'http://' . $matches[1];
+        }
+        echo "Webfinger: $id, Full Name: $name <img src=$photo>";
+        //var_dump($webfinger);
+        */
+        echo 'test';
+        
+    } 	
 
 }

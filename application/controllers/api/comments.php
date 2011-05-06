@@ -304,7 +304,7 @@ class Comments extends Oauth_Controller
     
     
     /* PUT types */
-    function viewed_authd_put()
+    function viewed_authd_get()
     {				
         if($this->social_tools->update_comment_viewed($this->get('id')))
         {
@@ -318,7 +318,7 @@ class Comments extends Oauth_Controller
         $this->response($message, 200);            
     }   
     
-    function approve_authd_put()
+    function approve_authd_get()
     {
     	$approve = $this->social_tools->update_comment_approve($this->get('id'));	
 
@@ -334,7 +334,7 @@ class Comments extends Oauth_Controller
         $this->response($message, 200);        
     } 
 
-    function destroy_authd_delete()
+    function destroy_authd_get()
     {		
 		$comment = $this->social_tools->get_comment($this->get('id'));
 		
