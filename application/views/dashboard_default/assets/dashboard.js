@@ -159,7 +159,7 @@ $(document).ready(function()
 		{
 			oauth 		: user_data,		
 			url			: url_new,
-			type		: 'PUT',
+			type		: 'GET',
 			dataType	: 'json',
 		  	success		: function(result)
 		  	{
@@ -197,7 +197,7 @@ $(document).ready(function()
 		{
 			oauth 		: user_data,		
 			url			: item_url,
-			type		: 'PUT',
+			type		: 'GET',
 			dataType	: 'json',
 		  	success		: function(result)
 		  	{
@@ -223,7 +223,7 @@ $(document).ready(function()
 		{
 			oauth 		: user_data,		
 			url			: item_url,
-			type		: 'PUT',
+			type		: 'GET',
 			dataType	: 'json',
 		  	success		: function(result)
 		  	{		  	
@@ -250,7 +250,7 @@ $(document).ready(function()
 		{
 			oauth 		: user_data,		
 			url			: item_url,
-			type		: 'PUT',
+			type		: 'GET',
 			dataType	: 'json',
 		  	success		: function(result)
 		  	{		  	
@@ -306,7 +306,7 @@ $(document).ready(function()
 		{
 			oauth 		: user_data,		
 			url			: item_url,
-			type		: 'PUT',
+			type		: 'GET',
 			dataType	: 'json',
 		  	success		: function(result)
 		  	{	  	
