@@ -231,7 +231,7 @@ class Home extends Dashboard_Controller
 			// Need is valid & access and such
 			$place = $this->social_igniter->get_content($this->uri->segment(4));
 			if (!$place) redirect(base_url().'home/error');
-			$place_details = $this->social_tools->get_place('content_id', $place->content_id);
+			$place_details = $this->social_tools->get_place('places.content_id', $place->content_id);
 	
 			// Non Form Fields
 			$this->data['sub_title']		= $place->title;
