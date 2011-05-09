@@ -338,7 +338,7 @@ div.uploader span.action {
   width: 85px;
   text-align: center;
   text-shadow: #fff 0px 1px 0px;
-  background-color: #ececec;
+  background-color: transparent;
   font-size: 11px;
   font-weight: bold;
 }
@@ -441,7 +441,6 @@ div.radio input {
 
 div.uploader {
   position: relative;
-  float: left;
   overflow: hidden;
   cursor: default;
 }

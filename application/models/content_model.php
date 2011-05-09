@@ -67,7 +67,7 @@ class Content_model extends CI_Model {
     
     function get_content_view($parameter, $value, $status, $limit)
     {
- 		if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id')))
+ 		if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id', 'details')))
     	{
 	 		$this->db->select('content.*, users.username, users.gravatar, users.name, users.image');
 	 		$this->db->from('content');
@@ -76,7 +76,8 @@ class Content_model extends CI_Model {
 	 		
 	 		if ($status == 'all')
 	 		{
-		 		$this->db->where('content.status !=', 'D');	 		
+		 		$this->db->where('content.status !=', 'D');
+				$this->db->limit($limit);	 		 		
 	 		}
 	 		elseif ($status == 'saved')
 	 		{
@@ -87,6 +88,11 @@ class Content_model extends CI_Model {
 	 		elseif ($status == 'awaiting')
 	 		{
 				$this->db->where('content.approval', 'N');
+				$this->db->limit($limit);	 		 
+	 		}
+	 		elseif ($status == 'new')
+	 		{
+				$this->db->where('content.viewed', 'N');
 				$this->db->limit($limit);	 		 
 	 		}
 	 		else
@@ -108,43 +114,42 @@ class Content_model extends CI_Model {
 
     function get_content_view_multiple($where, $status, $limit)
     {
- 		if (in_array($parameter, array('site_id','parent_id','category_id', 'module','type','user_id')))
-    	{
-	 		$this->db->select('content.*, users.username, users.gravatar, users.name, users.image');
-	 		$this->db->from('content');
- 			$this->db->join('users', 'users.user_id = content.user_id');
-	 		$this->db->where($where);
-	 		
-	 		if ($status == 'all')
-	 		{
-		 		$this->db->where('content.status !=', 'D');	 		
-	 		}
-	 		elseif ($status == 'saved')
-	 		{
-		 		$this->db->where('content.status', 'S');
-				$this->db->where('content.approval', 'Y');
-				$this->db->limit($limit);
-	 		}
-	 		elseif ($status == 'awaiting')
-	 		{
-				$this->db->where('content.approval', 'N');
-				$this->db->limit($limit);	 		 
-	 		}
-	 		else
-	 		{
-		 		$this->db->where('content.status', 'P');
-				$this->db->where('content.approval', 'Y');
-				$this->db->limit($limit);
-	 		}	
-	 		
-	 		$this->db->order_by('created_at', 'desc');
-	 		$result = $this->db->get();	
-	 		return $result->result();	      
-		}
-		else
-		{
-			return FALSE;
-		}
+ 		$this->db->select('content.*, users.username, users.gravatar, users.name, users.image');
+ 		$this->db->from('content');
+		$this->db->join('users', 'users.user_id = content.user_id');
+ 		$this->db->where($where);
+ 		
+ 		if ($status == 'all')
+ 		{
+	 		$this->db->where('content.status !=', 'D');	
+			$this->db->limit($limit);	 		 		
+ 		}
+ 		elseif ($status == 'saved')
+ 		{
+	 		$this->db->where('content.status', 'S');
+			$this->db->where('content.approval', 'Y');
+			$this->db->limit($limit);
+ 		}
+ 		elseif ($status == 'awaiting')
+ 		{
+			$this->db->where('content.approval', 'N');
+			$this->db->limit($limit);	 		 
+ 		}
+ 		elseif ($status == 'new')
+ 		{
+			$this->db->where('content.viewed', 'N');
+			$this->db->limit($limit);	 		 
+ 		}
+ 		else
+ 		{
+	 		$this->db->where('content.status', 'P');
+			$this->db->where('content.approval', 'Y');
+			$this->db->limit($limit);
+ 		}
+
+ 		$this->db->order_by('created_at', 'desc');
+ 		$result = $this->db->get();
+ 		return $result->result();
     }
 
     function get_content_new_count($module)

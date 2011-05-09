@@ -764,6 +764,11 @@ class Social_igniter
 		return $this->ci->content_model->get_content_view($parameter, $value, $status, $limit);	
 	}
 	
+	function get_content_view_multiple($where, $status=FALSE, $limit=10)
+	{
+		return $this->ci->content_model->get_content_view_multiple($where, $status, $limit);	
+	}
+
 	function get_content_title_url($type, $title_url)
 	{
 		return $this->ci->content_model->get_content_title_url($type, $title_url);
