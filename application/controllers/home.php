@@ -101,7 +101,7 @@ class Home extends Dashboard_Controller
 	{
 		if ($this->session->userdata('user_level_id') > 3) redirect(base_url().'home');
 	
-		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2), 'all');
+		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2), 'all', 150);
 		$manage_view 		= NULL;
 
 		// Title Stuff
