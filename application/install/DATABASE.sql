@@ -303,7 +303,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_folder', 'uploads/profil
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_max_dimensions', '3000');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_sizes_original', 'yes');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'settings_level', '4');
-
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'settings_redirect', '');
 
 CREATE TABLE `sites` (
   `site_id` int(6) unsigned NOT NULL AUTO_INCREMENT,

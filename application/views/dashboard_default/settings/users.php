@@ -48,6 +48,10 @@
 	<p>Editible Level
 	<?= form_dropdown('settings_level', config_item('users_levels'), $settings['users']['settings_level']) ?>
 	</p>
+
+	<p>Redirect<br>
+	<?= base_url() ?> <input type="text" size="30" name="settings_redirect" value="<?= $settings['users']['settings_redirect'] ?>" />
+	</p>		
 	
 </div>	
 
