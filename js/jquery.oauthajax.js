@@ -10,7 +10,7 @@
 
 		var accessor = { 
 			consumerSecret	: oauth_consumer_secret,
-			tokenSecret		: oauth_token_secret,
+			tokenSecret		: oauth_token_secret
 		};	
 		
 		var parameters = [
