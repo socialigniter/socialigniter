@@ -538,7 +538,7 @@ if ( ! function_exists('redirect'))
 
 		switch($method)
 		{
-			case 'refresh'	: header("Refresh:0;url=".$uri);
+			case 'refresh'	: header("Location: ".$uri, TRUE, $http_response_code);
 				break;
 			default			: header("Location: ".$uri, TRUE, $http_response_code);
 				break;

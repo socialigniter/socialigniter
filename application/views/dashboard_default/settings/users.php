@@ -41,10 +41,25 @@
 
 <span class="item_separator"></span>
 
+<div class="content_wrap_inner">
+
+	<h3>Settings</h3>
+
+	<p>Editible Level
+	<?= form_dropdown('settings_level', config_item('users_levels'), $settings['users']['settings_level']) ?>
+	</p>
+
+	<p>Redirect<br>
+	<?= base_url() ?> <input type="text" size="30" name="settings_redirect" value="<?= $settings['users']['settings_redirect'] ?>" />
+	</p>		
+	
+</div>	
+
+<span class="item_separator"></span>
 
 <div class="content_wrap_inner">
 
-	<h3>Signups</h3>
+	<h3>Signup</h3>
 
 	<div class="content_inner_top_right">	
 		<p>Enabled

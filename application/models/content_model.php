@@ -169,7 +169,7 @@ class Content_model extends CI_Model {
  		$this->db->order_by('created_at', 'desc');
 		$this->db->limit(1);	 		 
 	 	$result = $this->db->get()->row();	
-	 	return $result; 
+	 	return $result;
     }       
 
     function get_content_user($content_id)
