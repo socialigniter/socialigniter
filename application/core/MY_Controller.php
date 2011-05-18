@@ -50,13 +50,11 @@ class MY_Controller extends MX_Controller
         $this->load->library('user_agent');
 
         // Disable IE7's constant caching
-        /*
         $this->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
         $this->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
         $this->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
         $this->output->set_header('Pragma: no-cache');
-		*/
 
 		// Create Settings
 		foreach ($this->social_igniter->get_settings() as $setting)
