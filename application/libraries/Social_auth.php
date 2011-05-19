@@ -130,15 +130,22 @@ class Social_auth
     }
 
 	/* Create / Modify Permissions */
-	function has_access_to_create($type, $user_id)
+	function has_access_to_create($permission, $user_id, $user_level_id=NULL)
 	{
-		// Is Super or Admin
-		if ($this->ci->session->userdata('user_level_id') <= 2)
+		// Get User
+		if (!$user_level_id)
 		{
-			return 'A';
-		}	
+			$user			= $this->get_user('user_id', $user_id);
+			$user_level_id	= $user->user_level_id;
+		}
+		
+		// Get Level
+		if ($user_level_id <= $permission)
+		{
+			return 'Y';
+		}
 
-		return FALSE;	
+		return 'N';	
 	}   
 	
 	function has_access_to_modify($type, $object, $user_id, $user_level_id=NULL)
@@ -170,8 +177,15 @@ class Social_auth
 			return FALSE;
 		}
 		
+		// Get User
+		if (!$user_level_id)
+		{
+			$user			= $this->get_user('user_id', $user_id);
+			$user_level_id	= $user->user_level_id;
+		}		
+		
 		// Is Super or Admin
-		if ($this->ci->session->userdata('user_level_id') <= 2)
+		if ($user_level_id <= 2)
 		{
 			return TRUE;
 		}
