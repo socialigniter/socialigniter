@@ -187,7 +187,14 @@ class Content extends Oauth_Controller
     {
         if ($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'approval' => 'Y')))
         {
-            $message = array('status' => 'success', 'message' => 'Content approved', 'data' => $update);
+			if ($this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id'), $this->oauth_user_id))
+			{			
+            	$message = array('status' => 'success', 'message' => 'Content was approved', 'data' => $update);
+        	}
+        	else
+        	{
+            	$message = array('status' => 'error', 'message' => 'Sorry, you do not have access to approve that');        	
+        	}
         }
         else
         {
@@ -237,7 +244,7 @@ class Content extends Oauth_Controller
 	        }
 	        else
 	        {
-	            $message = array('status' => 'error', 'message' => 'Could not delete that comment');
+	            $message = array('status' => 'error', 'message' => 'Could not delete that content');
 	        }
         }
         else
