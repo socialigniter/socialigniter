@@ -90,6 +90,11 @@ class Content_model extends CI_Model {
 				$this->db->where('content.approval', 'N');
 				$this->db->limit($limit);	 		 
 	 		}
+	 		elseif ($status == 'deleted')
+	 		{
+				$this->db->where('content.status', 'D');
+				$this->db->limit($limit);	 		 
+	 		}
 	 		elseif ($status == 'new')
 	 		{
 				$this->db->where('content.viewed', 'N');
@@ -135,6 +140,11 @@ class Content_model extends CI_Model {
 			$this->db->where('content.approval', 'N');
 			$this->db->limit($limit);	 		 
  		}
+ 		elseif ($status == 'deleted')
+ 		{
+			$this->db->where('content.status', 'D');
+			$this->db->limit($limit);	 		 
+ 		} 		
  		elseif ($status == 'new')
  		{
 			$this->db->where('content.viewed', 'N');
@@ -169,7 +179,7 @@ class Content_model extends CI_Model {
  		$this->db->order_by('created_at', 'desc');
 		$this->db->limit(1);	 		 
 	 	$result = $this->db->get()->row();	
-	 	return $result;
+	 	return $result; 
     }       
 
     function get_content_user($content_id)

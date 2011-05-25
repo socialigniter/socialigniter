@@ -124,6 +124,9 @@ $route['api/users/set_userdata_signup_email']		= 'api/users/set_userdata_signup_
 $route['api/upload/create_expectation']				= 'api/upload/create_expectation';
 
 /* API Modules */
+$route['api/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)'] = '$1/api/$2/$3/$4/$5/$6/$7';	
+$route['api/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)'] = '$1/api/$2/$3/$4/$5/$6';
+$route['api/(:any)/(:any)/(:any)/(:any)/(:any)']	= '$1/api/$2/$3/$4/$5';
 $route['api/(:any)/(:any)/(:any)/(:any)'] 			= '$1/api/$2/$3/$4';
 $route['api/(:any)/(:any)/(:any)'] 					= '$1/api/$2/$3';
 $route['api/(:any)/(:any)'] 						= '$1/api/$2';

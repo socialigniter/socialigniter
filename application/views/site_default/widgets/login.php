@@ -7,6 +7,9 @@
 	<td><input type="text" name="email" value=""></td>
 </tr>
 <tr>
+	<td colspan="2"><div class="asdasd" id="email_error"></div></td>
+</tr>
+<tr>
 	<td>Password:</td>
 	<td><input type="password" name="password" value=""></td>
 </tr>
@@ -75,7 +78,7 @@ $(document).ready(function()
 			});
 		}
 		else if (validationRules(validation_rules) && email_valid == false)
-		{
+		{		
 			$('#email_error').html('That email address is invalid').show('slow');
 			$('#email_error').delay(2500).hide('slow');		
 		}
