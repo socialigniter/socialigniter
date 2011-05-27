@@ -588,5 +588,135 @@ $(document).ready(function()
 		};
 	})( jQuery );
 	
+	/* Category Manager Plugin */
+	(function($)
+	{
+		$.categoryManager = function(options)
+		{
+			var settings = {
+				url_api		: '',
+				url_pre		: '',
+				url_sub		: '',
+				module		: '',
+				type		: '',
+				title		: '',
+				slug_value	: '',
+				details		: '',
+				trigger		: '',
+				after 		: function(){}
+			};
+			
+			options = $.extend({},settings,options);
+			
+			// Repopulates trigger dropdown
+			function update_category_select(where_to)
+			{
+				$.get(options.url_api, function(json)
+				{
+					if (json.status == 'success')
+					{
+						for(x in json.data)
+						{
+							$(where_to).append('<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>');
+						}
+						$.uniform.update(where_to);
+						
+						$(where_to).prepend('<option value="0">---select---</option>');
+						$(where_to).append('<option value="add_category">+ Add Category</option>');
+					}
+				});
+			}					
+		
+			// Gets the HTML template
+			$.get(base_url + 'home/category_manager',{},function(category_editor)
+			{				
+				var category_parents 	= '';
+				var slug_url			= options.url_pre + '/';
+	
+				// API to get categories for parent
+				$.get(options.url_api, function(json)
+				{
+					if (json.status == 'success')
+					{
+						for(x in json.data)
+						{
+							category_parents = category_parents+'<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>';
+						}
+					}
+							
+					// Update HTML
+					html = $(category_editor)
+						.find('#editor_title').html(options.title).end()
+						.find('#category_access').uniform().end()
+						.find('#category_thumbnail').uniform().end()
+						.find('#category_parent_id').append(category_parents).uniform().end()
+					.html();
+
+					$('<div />').html(html).dialog(
+					{
+						width	: 525,
+						modal	: true,
+						title	: options.title,
+						create	: function()
+						{
+							$('#category_parent_id').live('change', function(){$.uniform.update(this);});							
+							$('#category_name').slugify({slug:'#category_slug', url:options.url_pre, name:'category_url', slugValue:options.slug_value });						
+						},
+						buttons	:
+						{
+				        	'Close':function()
+				        	{
+				          		$(this).dialog('close');
+				        	},
+				        	'Save':function()
+				        	{
+				        		alert('will be saved');
+				        		
+								// Create Category
+/*								$('#new_category').bind('submit',function(e)
+								{
+									e.preventDefault();
+									e.stopPropagation();
+									
+									var category_data = $('#new_category').serializeArray();
+									category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type},{'name':'details','value':options.details});
+									
+									console.log(category_data)
+								
+									$(this).oauthAjax(
+									{
+										oauth 		: user_data,
+										url			: options.url_sub,
+										type		: 'POST',
+										dataType	: 'json',
+										data		: category_data,
+										success		: function(json)
+										{
+											console.log(json)
+																			  	
+											if(json.status == 'error')
+											{
+												generic_error();
+											}
+											else
+											{
+												$(options.trigger).empty();
+												update_category_select(options.trigger);
+												$.fancybox.close();
+											}	
+										}
+									});
+									
+									return false;
+								});
+*/				        					        		
+				        	}
+				        }				    
+				    });				
+				});
+			});
+		};
+	})(jQuery);
+	
 
 });

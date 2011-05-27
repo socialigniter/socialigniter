@@ -275,4 +275,49 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title']		= 'Get Apps';	
 		$this->render('dashboard_wide');
 	}
+	
+	/* Categories */
+	function categories()
+	{
+		$this->data['sub_title']		= 'Categories';
+		
+		$categories			= $this->social_tools->get_categories_view('module', $this->uri->segment(2));
+		$categories_view	= NULL;
+		
+		if (!empty($categories))
+		{		 
+			foreach($categories as $category)
+			{
+				$this->data['item_id'] 			= $category->category_id;
+				$this->data['item_type']		= $category->type;
+	
+				$this->data['title']			= $category->category;
+				$this->data['title_link']		= base_url().$category->module.'/view/'.$category->category_id;
+				$this->data['contents_count']	= manage_contents_count($category->contents_count);
+				$this->data['publish_date']		= manage_published_date($category->created_at, $category->updated_at);
+	
+				// Alerts
+				$this->data['item_alerts']		= '';
+
+				// Actions
+				$this->data['item_edit']		= base_url().'api/categories/manage/'.$category->category_id;
+				$this->data['item_delete']		= base_url().'api/categories/destroy/id/'.$category->category_id;
+				
+				// View
+				$categories_view .= $this->load->view(config_item('dashboard_theme').'/partials/item_categories.php', $this->data, true);
+			}
+		}
+	 	else
+	 	{
+	 		$categories_view = '<li>There are no '.ucwords($this->uri->segment(2)).' Categories</li>';
+ 		}
+
+		// Final Output
+		$this->data['categories_view'] = $categories_view;		
+	
+		
+		$this->render('dashboard_wide');
+	}
+
+	
 }
