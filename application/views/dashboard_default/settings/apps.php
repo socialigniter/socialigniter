@@ -18,11 +18,16 @@
 	<?php if (config_item($module.'_enabled') == 'TRUE'): ?>
 	<span class="item_right">		
 		<a href="<?= $module ?>">Settings</a>
-	</span>	
+	</span>
+	<?php if (config_item($module.'_categories') == 'TRUE'): ?>
+	<span class="item_right">
+		<a href="<?= $module ?>/categories">Categories</a>
+	</span>
+	<?php endif; if (config_item($module.'_widgets') == 'TRUE'): ?>
 	<span class="item_right">
 		<a href="<?= $module ?>/widgets">Widgets</a>
 	</span>
-	<?php else: ?>
+	<?php endif; else: ?>
 	<span class="item_right">
 		<a href="<?= base_url().'settings/'.$module.'/install' ?>">Install</a>
 	</span>
