@@ -203,7 +203,20 @@ function manage_comments_count($comments_count)
 	}
 	
 	return $count;
+}
+
+function manage_contents_count($contents_count)
+{
+	if ($contents_count)
+	{
+		$count = $contents_count.' Pieces of Content';
+	}
+	else
+	{
+		$count = 'No Content';
+	}
 	
+	return $count;
 }
 
 function manage_published_date($created_at, $updated_at)

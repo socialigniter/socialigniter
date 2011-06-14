@@ -445,6 +445,11 @@ class Home extends Dashboard_Controller
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/category_editor');
 	}
+
+	function category_manager()
+	{
+		$this->load->view(config_item('dashboard_theme').'/partials/category_manager');
+	}
 	
 	function partial_add_place()
 	{		

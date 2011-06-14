@@ -125,5 +125,11 @@ class Install extends Dashboard_Controller
 
 		recursive_chmod($save_file, 0644, 0755);
 	}
+	
+	function upload()
+	{
+		
+		$this->load->view('upload');
+	}
 
 }

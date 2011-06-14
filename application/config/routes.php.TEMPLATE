@@ -114,6 +114,7 @@ $route['api/users/activate/(:any)/(:any)']			= 'api/users/activate/$1/$2';
 $route['api/users/details/(:any)/(:any)']			= 'api/users/details/$1/$2';
 $route['api/users/advanced/(:any)/(:any)']			= 'api/users/advanced/$1/$2';
 $route['api/users/activate/(:any)/(:any)']			= 'api/users/activate/$1/$2';
+$route['api/users/find/(:any)/(:any)']				= 'api/users/find/$1/$2';
 $route['api/users/recent']							= 'api/users/recent';
 $route['api/users/password']						= 'api/users/password';
 $route['api/users/create']							= 'api/users/create';
@@ -124,6 +125,9 @@ $route['api/users/set_userdata_signup_email']		= 'api/users/set_userdata_signup_
 $route['api/upload/create_expectation']				= 'api/upload/create_expectation';
 
 /* API Modules */
+$route['api/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)'] = '$1/api/$2/$3/$4/$5/$6/$7';	
+$route['api/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)'] = '$1/api/$2/$3/$4/$5/$6';
+$route['api/(:any)/(:any)/(:any)/(:any)/(:any)']	= '$1/api/$2/$3/$4/$5';
 $route['api/(:any)/(:any)/(:any)/(:any)'] 			= '$1/api/$2/$3/$4';
 $route['api/(:any)/(:any)/(:any)'] 					= '$1/api/$2/$3';
 $route['api/(:any)/(:any)'] 						= '$1/api/$2';

@@ -560,7 +560,7 @@ function getMapGeocode(address, lat_field, long_field)
 		}
 		else
 		{
-			console.log("Could not get Google map");
+			alert("Could not get Google map");
 		}
 	});
 }

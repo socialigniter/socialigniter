@@ -33,18 +33,17 @@ class Users extends Oauth_Controller
         $this->response($message, 200);        
     }
 
-	function view_get()
+	function find_get()
     {
-        if(!$this->get('user_id'))
-        {
-        	$message = array('status' => 'error', 'message' => 'You must specific a user_id in the url');
-        }
-
-        $user = $this->social_auth->get_user($this->get('id'));
-    	
+    	$search_by	= $this->uri->segment(4);
+    	$search_for	= $this->uri->segment(5);
+        $user		= $this->social_auth->get_user($search_by, $search_for);    	
+        
         if($user)
         {
-            $mesage = array('status' => 'success', 'message' => 'User found', 'data' => $user);
+        	$user_meta = $this->social_auth->get_user_meta($user->user_id);
+
+            $message = array('status' => 'success', 'message' => 'User found', 'data' => $user, 'meta' => $user_meta);
         }
         else
         {
@@ -157,7 +156,6 @@ class Users extends Oauth_Controller
         }
         
         $this->response($message, 200);	
-	
 	}
 
 	// Update User    
@@ -179,42 +177,7 @@ class Users extends Oauth_Controller
 	    	{
 	    		$user_picture = '';
 	    	}
-	/*    
-	    	// Upload Picture
-			if (!$this->input->post('userfile'))
-			{
-				$config['upload_path'] 		= config_item('uploads_folder');
-				$config['allowed_types'] 	= config_item('users_images_formats');		
-				$config['overwrite']		= true;
-				$config['max_size']			= config_item('users_images_max_size');
-				$config['max_width']  		= config_item('users_images_max_dimensions');
-				$config['max_height']  		= config_item('users_images_max_dimensions');
-			
-				$this->load->library('upload',$config);
-				
-				if (!$this->upload->do_upload())
-				{
-					$error = array('error' => $this->upload->display_errors());
-				}	
-				else
-				{
-					// Load Image Model
-					$this->load->model('image_model');
-					
-					// Upload & Sizes
-					$file_data		= $this->upload->data();
-					$image_sizes	= array('full', 'large', 'medium', 'small');
-	
-					// Process New Images
-					$image_size 	= getimagesize(config_item('uploads_folder').$image_save);
-					$file_data		= array('file_name'	=> $image_save, 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
-					$image_sizes	= array('full', 'large', 'medium', 'small');
-					$create_path	= config_item('users_images_folder').$user_id.'/';
-	
-					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
-				}	
-			}
-	*/
+
 	    	$update_data = array(
 	    		'username'		=> url_username($this->input->post('username'), 'none', true),
 	        	'email'			=> $this->input->post('email'),
@@ -247,6 +210,51 @@ class Users extends Oauth_Controller
         
         $this->response($message, 200);
     }
+    
+    function upload_profile_picture_post()
+    {
+    	$user = $this->social_auth->get_user('user_id', $this->get('id'));
+    	
+    	
+    
+    	// Upload Picture
+		if (!$this->input->post('userfile'))
+		{
+			$config['upload_path'] 		= config_item('uploads_folder');
+			$config['allowed_types'] 	= config_item('users_images_formats');		
+			$config['overwrite']		= true;
+			$config['max_size']			= config_item('users_images_max_size');
+			$config['max_width']  		= config_item('users_images_max_dimensions');
+			$config['max_height']  		= config_item('users_images_max_dimensions');
+		
+			$this->load->library('upload',$config);
+			
+			if (!$this->upload->do_upload())
+			{
+				$error = array('error' => $this->upload->display_errors());
+			}	
+			else
+			{
+				// Load Image Model
+				$this->load->model('image_model');
+				
+				// Upload & Sizes
+				$file_data		= $this->upload->data();
+				$image_sizes	= array('full', 'large', 'medium', 'small');
+
+				// Process New Images
+				$image_size 	= getimagesize(config_item('uploads_folder').$image_save);
+				$file_data		= array('file_name'	=> $image_save, 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
+				$image_sizes	= array('full', 'large', 'medium', 'small');
+				$create_path	= config_item('users_images_folder').$user_id.'/';
+
+				$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
+			}	
+		}
+    
+    
+    }
+    
     
     function details_authd_post()
     {
