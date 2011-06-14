@@ -14,7 +14,7 @@ class Places extends Oauth_Controller
 
     function index_get()
     {
-        $locations = $this->locations_model->get_locations();
+        $locations = $this->places_model->get_locations();
         
         if($locations)
         {

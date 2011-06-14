@@ -436,6 +436,11 @@ class Social_tools
 		return $this->ci->places_model->get_place($parameter, $value);
 	}
 
+	function get_places($parameter, $value)
+	{
+		return $this->ci->places_model->get_places_view($parameter, $value);
+	}
+
 	function get_places_view($parameter, $value)
 	{
 		return $this->ci->places_model->get_places_view($parameter, $value);
