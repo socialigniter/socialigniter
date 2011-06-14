@@ -162,9 +162,7 @@ $(document).ready(function()
 			type		: 'GET',
 			dataType	: 'json',
 		  	success		: function(result)
-		  	{
-		  		console.log(result);
-		  	
+		  	{		  	
 				if (result.status == 'success')
 				{			
 					$('#item_alert_new_' + item_id).fadeOut('normal');
@@ -552,9 +550,7 @@ $(document).ready(function()
 								
 								var category_data = $('#new_category').serializeArray();
 								category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type},{'name':'details','value':options.details});
-								
-								console.log(category_data)
-							
+															
 								$(this).oauthAjax(
 								{
 									oauth 		: user_data,
@@ -563,9 +559,7 @@ $(document).ready(function()
 									dataType	: 'json',
 									data		: category_data,
 									success		: function(json)
-									{
-										console.log(json)
-																		  	
+									{																		  	
 										if(json.status == 'error')
 										{
 											generic_error();
@@ -680,9 +674,7 @@ $(document).ready(function()
 									
 									var category_data = $('#new_category').serializeArray();
 									category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type},{'name':'details','value':options.details});
-									
-									console.log(category_data)
-								
+																	
 									$(this).oauthAjax(
 									{
 										oauth 		: user_data,
@@ -691,9 +683,7 @@ $(document).ready(function()
 										dataType	: 'json',
 										data		: category_data,
 										success		: function(json)
-										{
-											console.log(json)
-																			  	
+										{																			  	
 											if(json.status == 'error')
 											{
 												generic_error();

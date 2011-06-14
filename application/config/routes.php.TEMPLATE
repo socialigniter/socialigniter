@@ -114,6 +114,7 @@ $route['api/users/activate/(:any)/(:any)']			= 'api/users/activate/$1/$2';
 $route['api/users/details/(:any)/(:any)']			= 'api/users/details/$1/$2';
 $route['api/users/advanced/(:any)/(:any)']			= 'api/users/advanced/$1/$2';
 $route['api/users/activate/(:any)/(:any)']			= 'api/users/activate/$1/$2';
+$route['api/users/find/(:any)/(:any)']				= 'api/users/find/$1/$2';
 $route['api/users/recent']							= 'api/users/recent';
 $route['api/users/password']						= 'api/users/password';
 $route['api/users/create']							= 'api/users/create';
