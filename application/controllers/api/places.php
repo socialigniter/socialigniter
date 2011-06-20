@@ -12,13 +12,11 @@ class Places extends Oauth_Controller
     	$this->form_validation->set_error_delimiters('', '');
     }
 
-    function index_get()
-    {
-        $locations = $this->places_model->get_locations();
-        
-        if($locations)
+    function all_get()
+    {        
+        if($places = $this->social_tools->get_places_view('type', 'place', FALSE, 'all'))
         {
-            $message = array('status' => 'success', 'data' => $locations);
+            $message = array('status' => 'success', 'data' => $places);
         }
         else
         {
