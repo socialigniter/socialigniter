@@ -8,19 +8,56 @@ class Places_model extends CI_Model
 
     function get_place($parameter, $value)
     {
- 		$this->db->select('*');
- 		$this->db->from('places');
-  		$this->db->join('content', 'places.content_id = content.content_id');		  
- 		$this->db->where($parameter, $value);
+ 		$this->db->select('content.*, places.*, users.username, users.gravatar, users.name, users.image');    
+ 		$this->db->from('content');
+  		$this->db->join('users', 'users.user_id = content.user_id');		  
+ 		$this->db->join('places', 'places.content_id = content.content_id');
+ 		$this->db->where('content.'.$parameter, $value);
 		$this->db->limit(1);    
  		return $this->db->get()->row();	
     }
     
-    function get_places_view($key, $value)
+    function get_places_view($parameter, $value, $status, $limit)
     {
- 		$this->db->select('*');
- 		$this->db->from('places');
- 		$this->db->where($key, $value);
+ 		$this->db->select('content.*, places.*, users.username, users.gravatar, users.name, users.image');    
+ 		$this->db->from('content');
+  		$this->db->join('users', 'users.user_id = content.user_id');		  
+ 		$this->db->join('places', 'places.content_id = content.content_id');
+ 		$this->db->where('content.'.$parameter, $value);
+
+ 		if ($status == 'all')
+ 		{
+	 		$this->db->where('content.status !=', 'D');
+			$this->db->limit($limit);	 		 		
+ 		}
+ 		elseif ($status == 'saved')
+ 		{
+	 		$this->db->where('content.status', 'S');
+			$this->db->where('content.approval', 'Y');
+			$this->db->limit($limit);
+ 		}
+ 		elseif ($status == 'awaiting')
+ 		{
+			$this->db->where('content.approval', 'N');
+			$this->db->limit($limit);	 		 
+ 		}
+ 		elseif ($status == 'deleted')
+ 		{
+			$this->db->where('content.status', 'D');
+			$this->db->limit($limit);	 		 
+ 		}
+ 		elseif ($status == 'new')
+ 		{
+			$this->db->where('content.viewed', 'N');
+			$this->db->limit($limit);	 		 
+ 		}
+ 		else
+ 		{
+	 		$this->db->where('content.status', 'P');
+			$this->db->where('content.approval', 'Y');
+			$this->db->limit($limit);
+ 		}	
+
  		$result = $this->db->get();	
  		return $result->result();
     }
