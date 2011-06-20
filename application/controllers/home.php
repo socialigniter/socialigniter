@@ -229,9 +229,8 @@ class Home extends Dashboard_Controller
 		if (($this->uri->segment(3) == 'manage') && ($this->uri->segment(4)))
 		{
 			// Need is valid & access and such
-			$place = $this->social_igniter->get_content($this->uri->segment(4));
+			$place = $this->social_tools->get_place('content_id', $this->uri->segment(4));
 			if (!$place) redirect(base_url().'home/error');
-			$place_details = $this->social_tools->get_place('content_id', $place->content_id);
 	
 			// Non Form Fields
 			$this->data['sub_title']		= $place->title;
@@ -256,12 +255,12 @@ class Home extends Dashboard_Controller
 			$this->data['status']			= display_content_status($place->status, $place->approval);
 
 			// Place
-			$this->data['address']			= $place_details->address;
-			$this->data['district']			= $place_details->district;
-			$this->data['locality']			= $place_details->locality;
-			$this->data['region']			= $place_details->region;
-			$this->data['country']			= $place_details->country;
-			$this->data['postal']			= $place_details->postal;
+			$this->data['address']			= $place->address;
+			$this->data['district']			= $place->district;
+			$this->data['locality']			= $place->locality;
+			$this->data['region']			= $place->region;
+			$this->data['country']			= $place->country;
+			$this->data['postal']			= $place->postal;
 		}
 		else
 		{
