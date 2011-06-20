@@ -181,6 +181,7 @@ class MY_Controller extends MX_Controller
 		}		
 
 		// Site Paths
+		$this->data['previous_page']		= $this->session->userdata('previous_page');
 		$this->data['shared_images']		= base_url().'images/shared/';
 		$this->data['site_images']			= base_url().'uploads/sites/'.config_item('site_id').'/';
 		$this->data['views']				= base_url().'application/views/';

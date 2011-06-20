@@ -13,8 +13,9 @@ class Places_model extends CI_Model
   		$this->db->join('users', 'users.user_id = content.user_id');		  
  		$this->db->join('places', 'places.content_id = content.content_id');
  		$this->db->where('content.'.$parameter, $value);
-		$this->db->limit(1);    
- 		return $this->db->get()->row();	
+	 	$this->db->where('content.status !=', 'D');
+		$this->db->limit(1);
+ 		return $this->db->get()->row();
     }
     
     function get_places_view($parameter, $value, $status, $limit)
