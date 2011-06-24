@@ -72,6 +72,9 @@ class MY_Controller extends MX_Controller
 			if (($setting->setting == 'social_post') 		&& ($setting->value == 'TRUE')) $this->social_post[] 		= $setting->module;
 			if (($setting->setting == 'social_checkin') 	&& ($setting->value == 'TRUE')) $this->social_checkin[] 	= $setting->module;
 		}
+
+		// Makes Base URL
+		$this->config->set_item('base_url', config_item('site_url'));
 		
 		// Site Values
 		$this->data['site_url']				= config_item('site_url');
