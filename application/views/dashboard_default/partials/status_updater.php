@@ -25,38 +25,6 @@ doPlaceholder('#status_update_text', "<?= $home_greeting ?>");
 // Do Geo
 geo_get();
 
-$('#test_click').live('click', function()
-{
-	$form = $('#status_update');
-
-	var status_data	= $form.serializeArray();
-	status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
-
-	var social_api = $('#test_module').val();
-	
-	console.log('clicked here');
-	
-	if ($('#social_post_' + social_api).is(':checked'))
-	{	
-		console.log('posting to: ' + social_api);
-	
-		$form.oauthAjax(
-		{
-			oauth 		: user_data,
-			url			: base_url + 'api/' + social_api + '/social_post',
-			type		: 'POST',
-			dataType	: 'json',
-			data		: status_data,
-		  	success		: function(social_result)
-		  	{
-				console.log(social_result);
-			}
-		});
-	}
-
-});
-
-
 // Status
 $("#status_update").bind("submit", function(eve)
 {
@@ -89,9 +57,7 @@ $("#status_update").bind("submit", function(eve)
 							var social_api = $(this).attr('name');
 
 							if ($('#social_post_' + social_api).is(':checked'))
-							{
-								console.log('doing this ' + social_api);
-							
+							{							
 								$form.oauthAjax(
 								{
 									oauth 		: user_data,
@@ -101,7 +67,8 @@ $("#status_update").bind("submit", function(eve)
 									data		: status_data,
 								  	success		: function(social_result)
 								  	{
-										console.log(social_result);							
+								  		// Need to do some notification
+										// console.log(social_result);							
 									}
 								});
 							}
