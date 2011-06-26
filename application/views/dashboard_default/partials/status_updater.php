@@ -30,16 +30,14 @@ $("#status_update").bind("submit", function(eve)
 {
 	eve.preventDefault();
 
-	var status_update		= $('#status_update_text').val();
-	var valid_status_update = isFieldValid('#status_update_text', "<?= $home_greeting ?>", 'Please write something');
-
 	// Valid		
-	if (valid_status_update == true)
-	{		
-		var status_data	= $('#status_update').serializeArray();
+	if (isFieldValid('#status_update_text', "<?= $home_greeting ?>", 'Please write something') == true)
+	{
+		$form = $('#status_update');
+		var status_data	= $form.serializeArray();
 		status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
 
-		$(this).oauthAjax(
+		$form.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/content/create',
@@ -49,7 +47,34 @@ $("#status_update").bind("submit", function(eve)
 		  	success		: function(result)
 		  	{		  		  	
 				if (result.status == 'success')
-				{									
+				{
+					// Social Post
+					var social_post = $('input.social_post');
+					if (social_post.length > 0)
+					{
+						$.each(social_post, function()
+						{
+							var social_api = $(this).attr('name');
+
+							if ($('#social_post_' + social_api).is(':checked'))
+							{							
+								$form.oauthAjax(
+								{
+									oauth 		: user_data,
+									url			: base_url + 'api/' + social_api + '/social_post',
+									type		: 'POST',
+									dataType	: 'json',
+									data		: status_data,
+								  	success		: function(social_result)
+								  	{
+								  		// Need to do some notification
+										// console.log(social_result);							
+									}
+								});
+							}
+						});
+					}				
+													
 					$.get(base_url + 'home/item_timeline',function(html)
 					{
 						var newHTML = $.template(html,

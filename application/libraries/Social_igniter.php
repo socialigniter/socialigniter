@@ -271,7 +271,7 @@ class Social_igniter
 					{
 						if ($exists->module == $social)
 						{
-							$post_to .= '<li><input type="checkbox" value="1" id="post_'.$social.'" checked="checked" name="post_'.$social.'" /> '.ucwords($social).'<div class="clear"></div></li>';
+							$post_to .= '<li><input type="checkbox" value="1" id="social_post_'.$social.'" class="social_post" checked="checked" name="'.$social.'" /> '.ucwords($social).'<div class="clear"></div></li>';
 						}
 					}		
 				}
