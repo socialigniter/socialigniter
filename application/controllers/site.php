@@ -13,7 +13,6 @@ class Site extends Site_Controller
 			$page = $this->social_igniter->get_index_page();
 
 			$this->data['content_id']			= $page->content_id;
-			$this->data['page_title']			= $page->title;
 			$this->data['page_content']			= $page->content;
 			$this->data['comments_allow']		= $page->comments_allow;
 		}
@@ -61,7 +60,6 @@ class Site extends Site_Controller
 			if (!$page)	redirect(404);
 
 			$this->data['content_id']			= $page->content_id;
-			$this->data['page_title']			= $page->title;
 			$this->data['page_content']			= $page->content;
 			$this->data['comments_allow']		= $page->comments_allow;
 		}				
