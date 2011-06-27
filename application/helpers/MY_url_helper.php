@@ -15,7 +15,6 @@
 */
 function url_username($str, $separator = 'dash', $lowercase = FALSE)
 {
-
 	if ($separator == 'dash')
 	{
 		$search		= '_';
