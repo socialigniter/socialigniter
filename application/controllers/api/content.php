@@ -62,9 +62,7 @@ class Content extends Oauth_Controller
 	    {
 /*
 	 		$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);   
-	    
-	    	$viewed			= 'Y';
-	    
+	    	    
 	    	if ($user->user_level_id <= config_item($this->input->post('module').'_publish_permission'))
 	    	{
 	    		$approval	= 'Y';
@@ -91,11 +89,12 @@ class Content extends Oauth_Controller
 				'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url')),
 				'content'			=> $this->input->post('content'),
 				'details'			=> $this->input->post('details'),
+				'canonical'			=> $this->input->post('canonical'),
 				'access'			=> $this->input->post('access'),
 				'comments_allow'	=> $this->input->post('comments_allow'),
 				'geo_lat'			=> $this->input->post('geo_lat'),
 				'geo_long'			=> $this->input->post('geo_long'),
-				'viewed'			=> $viewed,
+				'viewed'			=> 'N',
 				'approval'			=> $approval,
 				'status'			=> form_submit_publish($this->input->post('status'))
 	    	);
@@ -140,6 +139,7 @@ class Content extends Oauth_Controller
 			'title_url'			=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
 			'content'			=> $this->input->post('content'),
 			'details'			=> $this->input->post('details'),
+			'canonical'			=> $this->input->post('canonical'),
 			'access'			=> $this->input->post('access'),
 			'comments_allow'	=> $this->input->post('comments_allow'),
 			'geo_lat'			=> $this->input->post('geo_lat'),

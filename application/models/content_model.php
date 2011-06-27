@@ -228,6 +228,7 @@ class Content_model extends CI_Model {
 			'title_url'			=> $content_data['title_url'],
 			'content'			=> $content_data['content'],
 			'details'			=> $content_data['details'],
+			'canonical'			=> $content_data['canonical'],
 			'access'			=> $content_data['access'],
 			'comments_allow'  	=> $content_data['comments_allow'],
 			'comments_count'  	=> 0,
