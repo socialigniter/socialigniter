@@ -121,6 +121,8 @@ $route['api/users/create']								= 'api/users/create';
 $route['api/users/login']								= 'api/users/login';
 $route['api/users/set_userdata_signup_email']			= 'api/users/set_userdata_signup_email';
 $route['api/users/upload_profile_picture/(:any)/(:any)']= 'api/users/upload_profile_picture/$1/$2';
+$route['api/users/delete_profile_picture/(:any)/(:any)']= 'api/users/delete_profile_picture/$1/$2';
+
 
 /* Upload */
 $route['api/upload/create_expectation']					= 'api/upload/create_expectation';

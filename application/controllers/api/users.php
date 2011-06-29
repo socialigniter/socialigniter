@@ -213,25 +213,24 @@ class Users extends Oauth_Controller
 			{
 				// Image Model
 				$this->load->model('image_model');
-				
+
 				// Upload & Sizes
 				$file_data		= $this->upload->data();
-				$image_save		= $file_data['file_name'];
-				$image_sizes	= array('full', 'large', 'medium', 'small');
-
-				// Process New Images
-				$image_size 	= getimagesize(config_item('uploads_folder').$image_save);
-				$file_data		= array('file_name'	=> $image_save, 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
+				$image_size 	= getimagesize(config_item('uploads_folder').$file_data['file_name']);
+				$file_data		= array('file_name'	=> $file_data['file_name'], 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
 				$image_sizes	= array('full', 'large', 'medium', 'small');
 				$create_path	= config_item('users_images_folder').$this->get('id').'/';
 
-				// Make Sizes
+				// Make Sizes / Delete Old Files
 				$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
-				
-				// Update DB						    	
-		    	$this->social_auth->update_user($this->get('id'), array('image' => $image_save));
+	
+				// Update DB
+		    	$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));
 		    	
-		    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'data' => $image_save);
+		    	// Update Userdata
+		    	$this->session->set_userdata('image', $file_data['file_name']);
+
+		    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'data' => $file_data['file_name']);
 			}	
 		}
 		else
@@ -246,6 +245,8 @@ class Users extends Oauth_Controller
     {
 		if ($this->social_auth->update_user($this->get('id'), array('image' => '')))
 		{
+			$this->load->helper('file');
+		
 			delete_files(config_item('users_images_folder').$this->get('id').'/');
 		
 		    $message = array('status' => 'success', 'message' => 'Profile picture deleted');	
@@ -256,7 +257,6 @@ class Users extends Oauth_Controller
 		}
 
     	$this->response($message, 200);
-    
     }
     
     
