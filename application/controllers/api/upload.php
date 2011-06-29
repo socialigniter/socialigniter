@@ -14,21 +14,22 @@ class Upload extends Oauth_Controller
 	
     function create_expectation_authd_post()
     {
+    	// Checks for MD5 filename hash
 		$this->form_validation->set_rules('file_hash', 'File Hash', 'required');
 
 		// Validation
 		if ($this->form_validation->run() == true)
 		{
-			$user 				= $this->social_auth->get_user('user_id', $this->oauth_user_id);
-			$check_expectation	= $this->social_tools->verify_upload($user->consumer_key, $this->input->post('file_hash'));
+			$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);
 			
-			if ($check_expectation)
+			if ($check_expectation = $this->social_tools->verify_upload($user, $this->input->post('file_hash')))
 			{			
 		        $message = array('status' => 'error', 'message' => 'This upload token already exists', 'data' => $check_expectation);
 			}
 			else
 			{
 	        	$upload_data = array(
+	        		'user_id'		=> $this->oauth_user_id,
 	        		'consumer_key'	=> $user->consumer_key,
 	    			'file_hash'		=> $this->input->post('file_hash')	    			
 	        	);

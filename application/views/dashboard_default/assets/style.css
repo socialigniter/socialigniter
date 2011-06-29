@@ -257,7 +257,7 @@ span.item_type				{ width: 38px; height: 32px; display: block; float: right; bac
 span.type_comment			{ background-position: 0 -35px; }
 span.type_event				{ background-position: 42px -38px; }
 span.type_events			{ background-position: 42px -70px; }
-span.type_image				{ background-position: 0 -105px; }
+span.type_photo				{ background-position: 0 -105px; }
 span.type_audio				{ background-position: 0 -140px; }
 span.type_page				{ background-position: 0 -175px; }
 span.type_product			{ background-position: 0 -210px; }

@@ -727,9 +727,9 @@ class Social_igniter
 		return FALSE;
 	}
 	
-	function check_content_duplicate($user_id, $title, $content)
+	function check_content_duplicate($parameter, $value, $user_id=NULL)
 	{
-		if ($this->ci->content_model->check_content_duplicate($user_id, $title, $content))
+		if ($this->ci->content_model->check_content_duplicate($parameter, $value, $user_id))
 		{
 			return FALSE;
 		}

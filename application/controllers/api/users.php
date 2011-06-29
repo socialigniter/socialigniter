@@ -126,14 +126,10 @@ class Users extends Oauth_Controller
     
     function set_userdata_signup_email_post()
 	{
-        log_message('debug', 'AHHHHH At Top Of Shizzle');
-
     	$this->form_validation->set_rules('signup_email', 'Email Address', 'required|valid_email');
 
         if ($this->form_validation->run() == true)
-        {
-        	log_message('debug', 'AHHHHH Inside Validator');
-        
+        {        
         	$email = $this->input->post('signup_email');
 
 			if ($user = $this->social_auth->get_user('email', $email))
@@ -149,9 +145,7 @@ class Users extends Oauth_Controller
     		}
         } 
 		else
-		{ 
-        	log_message('debug', 'AHHHHH Not valid');
-
+		{
 			$message = array('message' => 'Oops '.validation_errors());
         }
         
@@ -163,27 +157,13 @@ class Users extends Oauth_Controller
     { 
     	if ($this->oauth_user_id == $this->get('id'))
     	{
-			// User
-			$user_id = $this->oauth_user_id;
-    	  
-	    	// Delete Picture   
-	    	if ($this->input->post('delete_pic') == 1)
-	    	{
-				$this->load->helper('file');
-	    		delete_files($this->config->item('profile_images').$user->user_id."/");
-	    		$user_picture = '';
-	    	} 
-	    	else   
-	    	{
-	    		$user_picture = '';
-	    	}
-
+			// Update Data
+			$user_id = $this->oauth_user_id;    	  
 	    	$update_data = array(
 	    		'username'		=> url_username($this->input->post('username'), 'none', true),
 	        	'email'			=> $this->input->post('email'),
 	        	'gravatar'		=> md5($this->input->post('email')),
 	        	'name'			=> $this->input->post('name'),
-	        	'image'			=> $user_picture,
 	        	'time_zone'		=> $this->input->post('time_zone'),
 	        	'privacy'		=> $this->input->post('privacy'),
 	        	'language'		=> $this->input->post('language'),
@@ -213,13 +193,9 @@ class Users extends Oauth_Controller
     
     function upload_profile_picture_post()
     {
-    	$user = $this->social_auth->get_user('user_id', $this->get('id'));
-    	
-    	
-    
-    	// Upload Picture
-		if (!$this->input->post('userfile'))
-		{
+    	// If File Exists
+		if (!$this->input->post('file'))
+		{		
 			$config['upload_path'] 		= config_item('uploads_folder');
 			$config['allowed_types'] 	= config_item('users_images_formats');		
 			$config['overwrite']		= true;
@@ -227,31 +203,59 @@ class Users extends Oauth_Controller
 			$config['max_width']  		= config_item('users_images_max_dimensions');
 			$config['max_height']  		= config_item('users_images_max_dimensions');
 		
-			$this->load->library('upload',$config);
+			$this->load->library('upload', $config);
 			
-			if (!$this->upload->do_upload())
+			if (!$this->upload->do_upload('file'))
 			{
-				$error = array('error' => $this->upload->display_errors());
+		    	$message = array('status' => 'error', 'message' => $this->upload->display_errors());
 			}	
 			else
 			{
-				// Load Image Model
+				// Image Model
 				$this->load->model('image_model');
 				
 				// Upload & Sizes
 				$file_data		= $this->upload->data();
+				$image_save		= $file_data['file_name'];
 				$image_sizes	= array('full', 'large', 'medium', 'small');
 
 				// Process New Images
 				$image_size 	= getimagesize(config_item('uploads_folder').$image_save);
 				$file_data		= array('file_name'	=> $image_save, 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
 				$image_sizes	= array('full', 'large', 'medium', 'small');
-				$create_path	= config_item('users_images_folder').$user_id.'/';
+				$create_path	= config_item('users_images_folder').$this->get('id').'/';
 
+				// Make Sizes
 				$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
+				
+				// Update DB						    	
+		    	$this->social_auth->update_user($this->get('id'), array('image' => $image_save));
+		    	
+		    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'data' => $image_save);
 			}	
 		}
+		else
+		{
+			$message = array('status' => 'error', 'message' => 'No image file was sent');
+		}
+
+    	$this->response($message, 200);
+    }
     
+    function delete_profile_picture_authd_get()
+    {
+		if ($this->social_auth->update_user($this->get('id'), array('image' => '')))
+		{
+			delete_files(config_item('users_images_folder').$this->get('id').'/');
+		
+		    $message = array('status' => 'success', 'message' => 'Profile picture deleted');	
+		}
+		else
+		{
+			$message = array('status' => 'error', 'message' => 'Could not delete profile picture');
+		}
+
+    	$this->response($message, 200);
     
     }
     
