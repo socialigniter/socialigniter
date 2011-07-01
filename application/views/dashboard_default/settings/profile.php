@@ -95,7 +95,7 @@ $(document).ready(function()
 		url : base_url + 'api/users/upload_profile_picture/id/' + user_data.user_id,
 		flash_swf_url : base_url + 'js/plupload.flash.swf',
 		multipart : true,
-		multipart_params : { 'hullloooooo there' : 'ding dong' },		
+		multipart_params : { 'file_hash' : '', 'consumer_key' : user_data.consumer_key },		
 		filters : [
 			{title : "Image files", extensions : "jpg,gif,png"}
 		]
@@ -111,43 +111,64 @@ $(document).ready(function()
 	// Add Files & Start Upload
 	uploader.bind('FilesAdded', function(up, files)
 	{
-		console.log('files added');
-		console.log(files[0].name);
-
-		$('#profile_picture_change').hide();
-		$('#profile_picture_create').hide();
-		$('#profile_picture_uploading').html('<li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span></li><li class="small_details"><span class="actions_blank"></span>' + files[0].name + ' (' + plupload.formatSize(files[0].size) + ')</li>');
-
-		up.refresh();
+		console.log('files added' + files[0].name);		
 		
-		// Start Upload		
-		uploader.start();
-	});
+		var file_hash		= md5(files[0].name);
+		var picture_data 	= $('#user_profile').serializeArray();
+		picture_data.push({'name':'file_hash','value':file_hash});
+		
+		console.log(picture_data);
+		
+		// Create Expectation Token (OAuth 1.0 signed request)	
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: base_url + 'api/upload/create_expectation',
+			type		: 'POST',
+			dataType	: 'json',
+			data		: picture_data,
+	  		success		: function(result)
+	  		{
+	  			console.log(result);	
+	  			  		
+				if (result.status == 'success')
+				{
+					uploader.settings.multipart_params.file_hash = file_hash;
+				
+					console.log(uploader.settings.multipart_params);
 
+					$('#profile_picture_change').hide();
+					$('#profile_picture_create').hide();
+					$('#profile_picture_uploading').html('<li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span></li><li class="small_details"><span class="actions_blank"></span>' + files[0].name + ' (' + plupload.formatSize(files[0].size) + ')</li>');
+			
+					up.refresh();
+					
+					// Start Upload		
+					uploader.start();
+				}
+		 	}
+		});		
+		
+	});
 
 	// Upload Progress
 	uploader.bind('UploadProgress', function(up, file)
 	{
-		console.log('upload progress ' + file.percent);
-	
+		console.log('upload progress ' + file.percent);	
 		$('#file_uploading_progress').html(file.percent + "%");
 	});
 
 	uploader.bind('Error', function(up, err)
 	{
 		console.log('oops an error');	
-	
 		$('#file_uploading').append("<div>Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "") + "</div>");
-
 		up.refresh();
 	});
 
 	uploader.bind('FileUploaded', function(up, file, res)
 	{
 		console.log(res.response);
-	
 		$('#' + file.id + " b").html("100%");
-		
 		var response = JSON.parse(res.response);
 		
 		$('#profile_picture_uploading').hide();
@@ -184,6 +205,8 @@ $(document).ready(function()
 	{	
 		e.preventDefault();
 		var profile_data = $('#user_profile').serializeArray();
+	
+		console.log(profile_data);
 	
 		$(this).oauthAjax(
 		{
