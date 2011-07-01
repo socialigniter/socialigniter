@@ -193,49 +193,60 @@ class Users extends Oauth_Controller
     
     function upload_profile_picture_post()
     {
-    	// If File Exists
-		if (!$this->input->post('file'))
-		{		
-			$config['upload_path'] 		= config_item('uploads_folder');
-			$config['allowed_types'] 	= config_item('users_images_formats');		
-			$config['overwrite']		= true;
-			$config['max_size']			= config_item('users_images_max_size');
-			$config['max_width']  		= config_item('users_images_max_dimensions');
-			$config['max_height']  		= config_item('users_images_max_dimensions');
-		
-			$this->load->library('upload', $config);
+    	if ($upload = $this->social_tools->get_upload($this->input->post('upload_id')))
+    	{
+	    	// If File Exists
+			if ($upload->file_hash == $this->input->post('file_hash'))
+			{	
+				// Delete Expectation
+				$this->social_tools->delete_upload($this->input->post('upload_id'));
+				
+				// Upload Settings
+				$config['upload_path'] 		= config_item('uploads_folder');
+				$config['allowed_types'] 	= config_item('users_images_formats');		
+				$config['overwrite']		= true;
+				$config['max_size']			= config_item('users_images_max_size');
+				$config['max_width']  		= config_item('users_images_max_dimensions');
+				$config['max_height']  		= config_item('users_images_max_dimensions');
 			
-			if (!$this->upload->do_upload('file'))
-			{
-		    	$message = array('status' => 'error', 'message' => $this->upload->display_errors());
-			}	
+				$this->load->library('upload', $config);
+				
+				if (!$this->upload->do_upload('file'))
+				{
+			    	$message = array('status' => 'error', 'message' => $this->upload->display_errors());
+				}	
+				else
+				{
+					// Image Model
+					$this->load->model('image_model');
+	
+					// Upload & Sizes
+					$file_data		= $this->upload->data();
+					$image_size 	= getimagesize(config_item('uploads_folder').$file_data['file_name']);
+					$file_data		= array('file_name'	=> $file_data['file_name'], 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
+					$image_sizes	= array('full', 'large', 'medium', 'small');
+					$create_path	= config_item('users_images_folder').$this->get('id').'/';
+	
+					// Make Sizes / Delete Old Files
+					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
+		
+					// Update DB
+			    	$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));
+			    	
+			    	// Update Userdata
+			    	$this->session->set_userdata('image', $file_data['file_name']);
+	
+			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'data' => $file_data['file_name']);
+				}	
+			}
 			else
 			{
-				// Image Model
-				$this->load->model('image_model');
-
-				// Upload & Sizes
-				$file_data		= $this->upload->data();
-				$image_size 	= getimagesize(config_item('uploads_folder').$file_data['file_name']);
-				$file_data		= array('file_name'	=> $file_data['file_name'], 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
-				$image_sizes	= array('full', 'large', 'medium', 'small');
-				$create_path	= config_item('users_images_folder').$this->get('id').'/';
-
-				// Make Sizes / Delete Old Files
-				$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
-	
-				// Update DB
-		    	$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));
-		    	
-		    	// Update Userdata
-		    	$this->session->set_userdata('image', $file_data['file_name']);
-
-		    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'data' => $file_data['file_name']);
-			}	
+				$message = array('status' => 'error', 'message' => 'No image file was sent or the hash was bad');
+			}
 		}
 		else
 		{
-			$message = array('status' => 'error', 'message' => 'No image file was sent');
+			$message = array('status' => 'error', 'message' => 'No matching upload token was found');
 		}
 
     	$this->response($message, 200);

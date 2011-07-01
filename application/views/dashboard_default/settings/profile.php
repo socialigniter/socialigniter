@@ -95,7 +95,7 @@ $(document).ready(function()
 		url : base_url + 'api/users/upload_profile_picture/id/' + user_data.user_id,
 		flash_swf_url : base_url + 'js/plupload.flash.swf',
 		multipart : true,
-		multipart_params : { 'file_hash' : '', 'consumer_key' : user_data.consumer_key },		
+		multipart_params : {'file_hash':'','upload_id':'','consumer_key':user_data.consumer_key},		
 		filters : [
 			{title : "Image files", extensions : "jpg,gif,png"}
 		]
@@ -110,9 +110,7 @@ $(document).ready(function()
 
 	// Add Files & Start Upload
 	uploader.bind('FilesAdded', function(up, files)
-	{
-		console.log('files added' + files[0].name);		
-		
+	{		
 		var file_hash		= md5(files[0].name);
 		var picture_data 	= $('#user_profile').serializeArray();
 		picture_data.push({'name':'file_hash','value':file_hash});
@@ -128,18 +126,16 @@ $(document).ready(function()
 			dataType	: 'json',
 			data		: picture_data,
 	  		success		: function(result)
-	  		{
-	  			console.log(result);	
-	  			  		
+	  		{	  			  		
 				if (result.status == 'success')
 				{
+					uploader.settings.multipart_params.file_hash = files[0].name;
 					uploader.settings.multipart_params.file_hash = file_hash;
-				
-					console.log(uploader.settings.multipart_params);
+					uploader.settings.multipart_params.upload_id = result.data;					
 
 					$('#profile_picture_change').hide();
 					$('#profile_picture_create').hide();
-					$('#profile_picture_uploading').html('<li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span></li><li class="small_details"><span class="actions_blank"></span>' + files[0].name + ' (' + plupload.formatSize(files[0].size) + ')</li>');
+					$('#profile_picture_uploading').html('<li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span>' + files[0].name + ' (' + plupload.formatSize(files[0].size) + ')</li>');
 			
 					up.refresh();
 					
@@ -148,32 +144,36 @@ $(document).ready(function()
 				}
 		 	}
 		});		
-		
 	});
 
 	// Upload Progress
 	uploader.bind('UploadProgress', function(up, file)
 	{
-		console.log('upload progress ' + file.percent);	
 		$('#file_uploading_progress').html(file.percent + "%");
 	});
-
+	
+	// Upload Error
 	uploader.bind('Error', function(up, err)
 	{
-		console.log('oops an error');	
-		$('#file_uploading').append("<div>Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "") + "</div>");
+		$('#content_message').notify({scroll:true,status:'error',message:'Error: ' + err.code + ', Message: ' + err.message + (err.file ? ', File: ' + err.file.name : '')}); 
 		up.refresh();
 	});
 
+	// Upload Success
 	uploader.bind('FileUploaded', function(up, file, res)
 	{
-		console.log(res.response);
-		$('#' + file.id + " b").html("100%");
+		$('#file_uploading_progress').html("100%");
 		var response = JSON.parse(res.response);
 		
-		$('#profile_picture_uploading').hide();
-		$('#profile_picture_change').fadeIn();
-		$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/1/small_' + response.data)
+		$('#profile_picture_uploading').delay(750).fadeOut();
+		$('#profile_picture_change').delay(1250).fadeIn();		
+
+		$('#content_message').notify({scroll:true,status:response.status,message:response.message});
+		
+		if (response.status == 'success')
+		{
+			$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/1/small_' + response.data)
+		}
 	});	
 
 	// Delete Picture

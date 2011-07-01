@@ -630,6 +630,11 @@ class Social_tools
 	}
 	
 	/* Upload */
+	function get_upload($upload_id)
+	{
+		return $this->ci->upload_model->get_upload($upload_id);
+	}
+	
     function verify_upload($user, $file_hash, $delete=FALSE)
 	{			
 		$check_upload = $this->ci->upload_model->check_upload_hash($user, $file_hash);
