@@ -27,9 +27,9 @@ class Upload_model extends CI_Model {
     {
 		$this->db->select('*');
 		$this->db->from('uploads');
-		$this->db->where('user_id', $user->user_id);
 		$this->db->where('consumer_key', $user->consumer_key);
 		$this->db->where('file_hash', $file_hash);
+		$this->db->where('status !=', 'D');
 		$this->db->limit(1);    
 		$result = $this->db->get()->row();	
         

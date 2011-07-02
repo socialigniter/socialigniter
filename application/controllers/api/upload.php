@@ -29,7 +29,6 @@ class Upload extends Oauth_Controller
 			else
 			{
 	        	$upload_data = array(
-	        		'user_id'		=> $this->oauth_user_id,
 	        		'consumer_key'	=> $user->consumer_key,
 	    			'file_hash'		=> $this->input->post('file_hash')	    			
 	        	);

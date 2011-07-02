@@ -283,7 +283,7 @@ ul.item_actions li a:hover 	{ color: #2078ce; font-size: 12px; }
 
 /* Actions - Vertical List */
 ul.item_actions_list 		{ margin: 0 !important; padding: 0; list-style: none; }
-ul.item_actions_list li		{ margin: 0 0 15px 0; color: #999999; }
+ul.item_actions_list li		{ margin: 0 0 11px 0; color: #999999; }
 ul.item_actions_list li a 	{ color: #999999; font-size: 14px; }
 ul.item_actions_list li a:visited	{ color: #999999; font-size: 14px; }
 ul.item_actions_list li a:hover 	{ color: #2078ce; font-size: 14px; }

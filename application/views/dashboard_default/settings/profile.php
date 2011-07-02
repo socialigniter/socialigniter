@@ -7,18 +7,15 @@
 			<img id="profile_thumbnail" src="<?= $thumbnail ?>" border="0">
 		</div>
 		<div id="profile_picture_uploader">
+		<ul id="profile_picture_container" class="item_actions_list">
 		<?php if ($image): ?>
-		<ul id="profile_picture_change" class="item_actions_list">
 			<li><a id="pickfiles" href="#"><span class="actions action_edit"></span> Change Picture</a></li>
 			<li><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
-		</ul>
 		<?php else: ?>
-		<ul id="profile_picture_create" class="item_actions_list">
 			<li><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
 			<li class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size in these formats <?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?></li>			
-		</ul>
 		<?php endif; ?>
-		<ul id="profile_picture_uploading" class="item_actions_list"></ul>
+		</ul>
 		</div>	
 		</td>
 	</tr>
@@ -58,35 +55,16 @@
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.flash.js"></script>
 <script type="text/javascript">
 $(document).ready(function()
-{	
-	// Do Expectation Token
-	$('#userfile').change(function(eve)
-	{	
-		eve.preventDefault();
-		var file_hash		= md5($(this).val());
-		var picture_data 	= $('#user_picture').serializeArray();
-		picture_data.push({'name':'file_hash','value':file_hash});
-	
-		console.log(picture_data);
-		// Create Expectation Token (OAuth 1.0 signed request)	
-		$(this).oauthAjax(
-		{
-			oauth 		: user_data,
-			url			: base_url + 'api/upload/create_expectation',
-			type		: 'POST',
-			dataType	: 'json',
-			data		: picture_data,
-	  		success		: function(result)
-	  		{
-	  			console.log(result);	  		
-				if (result.status == 'success')
-				{
-				}
-		 	}
-		});		
-	});
+{
+	var uploader_parent		= '#profile_picture_uploader';
+	var uploader_list		= '#profile_picture_container';
+	var uploader_create 	= '<ul id="profile_picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li><li class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size in these formats <?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?></li></ul>';
+	var uploader_change 	= '<ul id="profile_picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_edit"></span> Change Picture</a></li><li><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li></ul>';
+	var uploader_working	= '<ul id="profile_picture_container" class="item_actions_list"><li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li></ul>';
 
-	var uploader = new plupload.Uploader({
+	// Uploader Params
+	var uploader = new plupload.Uploader(
+	{
 		runtimes : 'html5,flash',
 		browse_button : 'pickfiles',
 		container : 'container',
@@ -110,14 +88,14 @@ $(document).ready(function()
 
 	// Add Files & Start Upload
 	uploader.bind('FilesAdded', function(up, files)
-	{		
+	{	
+		console.log('inside files added');
+		
 		var file_hash		= md5(files[0].name);
 		var picture_data 	= $('#user_profile').serializeArray();
 		picture_data.push({'name':'file_hash','value':file_hash});
 		
-		console.log(picture_data);
-		
-		// Create Expectation Token (OAuth 1.0 signed request)	
+		// Create Expectation (OAuth1 signed request)	
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,
@@ -126,21 +104,26 @@ $(document).ready(function()
 			dataType	: 'json',
 			data		: picture_data,
 	  		success		: function(result)
-	  		{	  			  		
+	  		{
+	  			console.log(result);
+	  			  			  		
 				if (result.status == 'success')
 				{
 					uploader.settings.multipart_params.file_hash = files[0].name;
 					uploader.settings.multipart_params.file_hash = file_hash;
 					uploader.settings.multipart_params.upload_id = result.data;					
 
-					$('#profile_picture_change').hide();
-					$('#profile_picture_create').hide();
-					$('#profile_picture_uploading').html('<li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span>' + files[0].name + ' (' + plupload.formatSize(files[0].size) + ')</li>');
-			
-					up.refresh();
-					
+					$(uploader_list).replaceWith(uploader_working);
+			 		
+			 		$('#file_uploading_name').append(files[0].name + '(' + plupload.formatSize(files[0].size) + ')');
+								
 					// Start Upload		
+					uploader.refresh();
 					uploader.start();
+				}
+				else
+				{
+					$('#content_message').notify({scroll:true,status:result.status,message:result.message});	
 				}
 		 	}
 		});		
@@ -156,7 +139,7 @@ $(document).ready(function()
 	uploader.bind('Error', function(up, err)
 	{
 		$('#content_message').notify({scroll:true,status:'error',message:'Error: ' + err.code + ', Message: ' + err.message + (err.file ? ', File: ' + err.file.name : '')}); 
-		up.refresh();
+		uploader.refresh();
 	});
 
 	// Upload Success
@@ -165,11 +148,18 @@ $(document).ready(function()
 		$('#file_uploading_progress').html("100%");
 		var response = JSON.parse(res.response);
 		
-		$('#profile_picture_uploading').delay(750).fadeOut();
-		$('#profile_picture_change').delay(1250).fadeIn();		
+		$(uploader_list).delay(750).fadeOut(function()
+		{
+			$(uploader_list).remove();
+			$(uploader_parent).append(uploader_change);
+			$(uploader_list).delay(1250).fadeIn();
+			
+			uploader.init();
+		});
 
 		$('#content_message').notify({scroll:true,status:response.status,message:response.message});
 		
+		// Change Image
 		if (response.status == 'success')
 		{
 			$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/1/small_' + response.data)
@@ -179,6 +169,8 @@ $(document).ready(function()
 	// Delete Picture
 	$('#delete_picture').bind('click', function(eve)
 	{
+		console.log('delete click');
+	
 		eve.preventDefault();
 		$(this).oauthAjax(
 		{
@@ -192,9 +184,16 @@ $(document).ready(function()
 			
 				if (result.status == 'success')
 				{
-					$('#profile_picture_change').fadeOut();
-					$('#profile_picture_create').fadeIn();
-					$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/medium_nopicture.png');
+					$(uploader_list).fadeOut(function()
+					{
+						$(uploader_list).remove();
+						$(uploader_parent).append(uploader_create);
+						$(uploader_list).fadeIn('slow');
+						
+						uploader.init();
+						
+						$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/medium_nopicture.png');
+					});
 				}	
 		 	}
 		});
