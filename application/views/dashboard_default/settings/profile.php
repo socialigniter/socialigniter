@@ -79,18 +79,12 @@ $(document).ready(function()
 		]
 	});
 
-	uploader.bind('Init', function(up, params)
-	{
-		console.log("Current runtime: " + params.runtime);
-	});
-
+	uploader.bind('Init', function(up, params){});
 	uploader.init();
 
 	// Add Files & Start Upload
 	uploader.bind('FilesAdded', function(up, files)
-	{	
-		console.log('inside files added');
-		
+	{		
 		var file_hash		= md5(files[0].name);
 		var picture_data 	= $('#user_profile').serializeArray();
 		picture_data.push({'name':'file_hash','value':file_hash});
@@ -104,9 +98,7 @@ $(document).ready(function()
 			dataType	: 'json',
 			data		: picture_data,
 	  		success		: function(result)
-	  		{
-	  			console.log(result);
-	  			  			  		
+	  		{	  			  			  		
 				if (result.status == 'success')
 				{
 					uploader.settings.multipart_params.file_hash = files[0].name;
@@ -114,7 +106,6 @@ $(document).ready(function()
 					uploader.settings.multipart_params.upload_id = result.data;					
 
 					$(uploader_list).replaceWith(uploader_working);
-			 		
 			 		$('#file_uploading_name').append(files[0].name + '(' + plupload.formatSize(files[0].size) + ')');
 								
 					// Start Upload		
@@ -153,24 +144,27 @@ $(document).ready(function()
 			$(uploader_list).remove();
 			$(uploader_parent).append(uploader_change);
 			$(uploader_list).delay(1250).fadeIn();
-			
+	
 			uploader.init();
 		});
-
-		$('#content_message').notify({scroll:true,status:response.status,message:response.message});
+	
+		console.log(response);
 		
 		// Change Image
 		if (response.status == 'success')
 		{
+		
 			$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/1/small_' + response.data)
 		}
-	});	
-
-	// Delete Picture
-	$('#delete_picture').bind('click', function(eve)
-	{
-		console.log('delete click');
+		else
+		{
+			$('#content_message').notify({scroll:true,status:response.status,message:response.message});	
+		}
+	});
 	
+	// Delete Picture
+	$('#delete_picture').live('click', function(eve)
+	{	
 		eve.preventDefault();
 		$(this).oauthAjax(
 		{
@@ -179,9 +173,7 @@ $(document).ready(function()
 			type		: 'GET',
 			dataType	: 'json',
 	  		success		: function(result)
-	  		{				
-				$('#content_message').notify({scroll:true,status:result.status,message:result.message});			
-			
+	  		{			
 				if (result.status == 'success')
 				{
 					$(uploader_list).fadeOut(function()
@@ -194,10 +186,14 @@ $(document).ready(function()
 						
 						$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/medium_nopicture.png');
 					});
-				}	
+				}
+				else
+				{
+					$('#content_message').notify({scroll:true,status:result.status,message:result.message});			
+				}
 		 	}
 		});
-	});
+	});		
 
 	// Update Profile Data
 	$("#user_profile").bind('submit', function(e)
@@ -228,4 +224,41 @@ $(document).ready(function()
 		});		
 	});	
 });
+
+function deletePicture()
+{
+	// Delete Picture
+	$('#delete_picture').live('click', function(eve)
+	{
+		console.log('delete click');
+	
+		eve.preventDefault();
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: base_url + 'api/users/delete_profile_picture/id/' + user_data.user_id,
+			type		: 'GET',
+			dataType	: 'json',
+	  		success		: function(result)
+	  		{				
+				$('#content_message').notify({scroll:true,status:result.status,message:result.message});			
+			
+				if (result.status == 'success')
+				{
+					$(uploader_list).fadeOut(function()
+					{
+						$(uploader_list).remove();
+						$(uploader_parent).append(uploader_create);
+						$(uploader_list).fadeIn('slow');
+						
+						uploader.init();
+						
+						$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/medium_nopicture.png');
+					});
+				}	
+		 	}
+		});
+	});
+}
+
 </script>

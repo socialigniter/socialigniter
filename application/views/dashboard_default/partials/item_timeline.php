@@ -10,7 +10,7 @@
 		<?php if ($item_type): ?><span class="item_type<?= $item_type ?>"></span><?php endif; ?>
 		
 		<div class="clear"></div>
-		<span class="item_meta"><?= $item_date ?></span>
+		<span class="item_meta"><?= $item_date ?><?= $item_source ?></span>
 			
 		<ul class="item_actions" rel="timeline">
 			<?php if ((config_item('home_comments_allow') == 'TRUE') && ($item_content_id)): ?>
