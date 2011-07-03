@@ -52,8 +52,8 @@ class Home extends Dashboard_Controller
  			$this->data['status_updater']	= '';
 
 			$timeline 						= $this->social_igniter->get_timeline($this->uri->segment(2), 10); 
- 	    }	    
- 	     	     	    
+ 	    }
+
 		// Build Feed				 			
 		if (!empty($timeline))
 		{

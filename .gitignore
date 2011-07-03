@@ -1,5 +1,6 @@
 *.DS_Store
 application/views/.DS_Store
+cron.log
 .ftpquota
 crossdomain.xml
 favicon.ico

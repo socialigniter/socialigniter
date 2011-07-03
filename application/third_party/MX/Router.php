@@ -51,7 +51,8 @@ class MX_Router extends CI_Router
 		if ($located = $this->locate($segments)) return $located;
 		
 		/* use a default 404_override controller */
-		if (isset($this->routes['404_override']) AND $segments = explode('/', $this->routes['404_override'])) {
+		if (isset($this->routes['404_override']) AND $this->routes['404_override']) {
+			$segments = explode('/', $this->routes['404_override']);
 			if ($located = $this->locate($segments)) return $located;
 		}
 		

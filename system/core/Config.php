@@ -80,7 +80,7 @@ class CI_Config {
 	 */
 	function load($file = '', $use_sections = FALSE, $fail_gracefully = FALSE)
 	{
-		$file = ($file == '') ? 'config' : str_replace(EXT, '', $file);
+		$file = ($file == '') ? 'config' : str_replace('.php', '', $file);
 		$found = FALSE;
 		$loaded = FALSE;
 
@@ -92,7 +92,7 @@ class CI_Config {
 
 			foreach ($check_locations as $location)
 			{
-				$file_path = $path.'config/'.$location.EXT;
+				$file_path = $path.'config/'.$location.'.php';
 
 				if (in_array($file_path, $this->is_loaded, TRUE))
 				{
@@ -144,6 +144,7 @@ class CI_Config {
 
 			$loaded = TRUE;
 			log_message('debug', 'Config file loaded: '.$file_path);
+			break;
 		}
 
 		if ($loaded === FALSE)
@@ -152,7 +153,7 @@ class CI_Config {
 			{
 				return FALSE;
 			}
-			show_error('The configuration file '.$file.EXT.' does not exist.');
+			show_error('The configuration file '.$file.'.php'.' does not exist.');
 		}
 
 		return TRUE;
