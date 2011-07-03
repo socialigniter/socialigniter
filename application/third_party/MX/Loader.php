@@ -35,10 +35,9 @@
  **/
 class MX_Loader extends CI_Loader
 {
-	protected $_module;
+	private $_module;
 	
-	public $_ci_plugins = array();
-	public $_ci_cached_vars = array();
+	public $_ci_plugins;
 	
 	public function __construct() {
 		
@@ -209,7 +208,7 @@ class MX_Loader extends CI_Loader
 	}
 
 	/** Load an array of models **/
-	public function models($models) {
+	function models($models) {
 		foreach ($models as $_model) $this->model($_model);	
 	}
 
@@ -266,7 +265,7 @@ class MX_Loader extends CI_Loader
 		return (isset($this->controller)) ? $this->controller->$class : CI::$APP->$class;
 	}
 
-	public function _ci_load($_ci_data) {
+	function _ci_load($_ci_data) {
 		
 		foreach (array('_ci_view', '_ci_vars', '_ci_path', '_ci_return') as $_ci_val) {
 			$$_ci_val = ( ! isset($_ci_data[$_ci_val])) ? FALSE : $_ci_data[$_ci_val];

@@ -32,7 +32,7 @@
  *  Define the CodeIgniter Version
  * ------------------------------------------------------
  */
-	define('CI_VERSION', '2.0.2');
+	define('CI_VERSION', '2.0.1');
 
 /*
  * ------------------------------------------------------
@@ -46,20 +46,20 @@
  *  Load the global functions
  * ------------------------------------------------------
  */
-	require(BASEPATH.'core/Common.php');
+	require(BASEPATH.'core/Common'.EXT);
 
 /*
  * ------------------------------------------------------
  *  Load the framework constants
  * ------------------------------------------------------
  */
-	if (defined('ENVIRONMENT') AND file_exists(APPPATH.'config/'.ENVIRONMENT.'/constants.php'))
+	if (defined('ENVIRONMENT') AND file_exists(APPPATH.'config/'.ENVIRONMENT.'/constants'.EXT))
 	{
-		require(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
+		require(APPPATH.'config/'.ENVIRONMENT.'/constants'.EXT);
 	}
 	else
 	{
-		require(APPPATH.'config/constants.php');
+		require(APPPATH.'config/constants'.EXT);
 	}
 
 /*
@@ -224,7 +224,7 @@
  *
  */
 	// Load the base controller class
-	require BASEPATH.'core/Controller.php';
+	require BASEPATH.'core/Controller'.EXT;
 
 	function &get_instance()
 	{
@@ -232,20 +232,20 @@
 	}
 
 
-	if (file_exists(APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller.php'))
+	if (file_exists(APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller'.EXT))
 	{
-		require APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller.php';
+		require APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller'.EXT;
 	}
 
 	// Load the local application controller
 	// Note: The Router class automatically validates the controller path using the router->_validate_request().
 	// If this include fails it means that the default controller in the Routes.php file is not resolving to something valid.
-	if ( ! file_exists(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php'))
+	if ( ! file_exists(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().EXT))
 	{
 		show_error('Unable to load your default controller. Please make sure the controller specified in your Routes.php file is valid.');
 	}
 
-	include(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php');
+	include(APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().EXT);
 
 	// Set a mark point for benchmarking
 	$BM->mark('loading_time:_base_classes_end');
@@ -318,12 +318,12 @@
 				$method = (isset($x[1]) ? $x[1] : 'index');
 				if ( ! class_exists($class))
 				{
-					if ( ! file_exists(APPPATH.'controllers/'.$class.'.php'))
+					if ( ! file_exists(APPPATH.'controllers/'.$class.EXT))
 					{
 						show_404("{$class}/{$method}");
 					}
 
-					include_once(APPPATH.'controllers/'.$class.'.php');
+					include_once(APPPATH.'controllers/'.$class.EXT);
 					unset($CI);
 					$CI = new $class();
 				}

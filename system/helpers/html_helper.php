@@ -40,10 +40,9 @@
  */
 if ( ! function_exists('heading'))
 {
-	function heading($data = '', $h = '1', $attributes = '')
+	function heading($data = '', $h = '1')
 	{
-		$attributes = ($attributes != '') ? ' '.$attributes : $attributes;
-		return "<h".$h.$attributes.">".$data."</h".$h.">";
+		return "<h".$h.">".$data."</h".$h.">";
 	}
 }
 
@@ -259,13 +258,13 @@ if ( ! function_exists('doctype'))
 
 		if ( ! is_array($_doctypes))
 		{
-			if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/doctypes.php'))
+			if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/doctypes'.EXT))
 			{
-				include(APPPATH.'config/'.ENVIRONMENT.'/doctypes.php');
+				include(APPPATH.'config/'.ENVIRONMENT.'/doctypes'.EXT);
 			}
-			elseif (is_file(APPPATH.'config/doctypes.php'))
+			elseif (is_file(APPPATH.'config/doctypes'.EXT))
 			{
-				include(APPPATH.'config/doctypes.php');
+				include(APPPATH.'config/doctypes'.EXT);
 			}
 
 			if ( ! is_array($_doctypes))

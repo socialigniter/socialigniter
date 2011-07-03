@@ -58,9 +58,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	var $ar_cache_having		= array();
 	var $ar_cache_orderby		= array();
 	var $ar_cache_set			= array();
-	
-	var $ar_no_escape 			= array();
-	var $ar_cache_no_escape     = array();
+
 
 	// --------------------------------------------------------------------
 
@@ -75,6 +73,12 @@ class CI_DB_active_record extends CI_DB_driver {
 	 */
 	function select($select = '*', $escape = NULL)
 	{
+		// Set the global value if this was sepecified
+		if (is_bool($escape))
+		{
+			$this->_protect_identifiers = $escape;
+		}
+
 		if (is_string($select))
 		{
 			$select = explode(',', $select);
@@ -87,13 +91,11 @@ class CI_DB_active_record extends CI_DB_driver {
 			if ($val != '')
 			{
 				$this->ar_select[] = $val;
-				$this->ar_no_escape[] = $escape;
 
 				if ($this->ar_caching === TRUE)
 				{
 					$this->ar_cache_select[] = $val;
 					$this->ar_cache_exists[] = 'select';
-					$this->ar_cache_no_escape[] = $escape;
 				}
 			}
 		}
@@ -439,10 +441,10 @@ class CI_DB_active_record extends CI_DB_driver {
 
 					$v = ' '.$this->escape($v);
 				}
-				
+
 				if ( ! $this->_has_operator($k))
 				{
-					$k .= ' = ';
+					$k .= ' =';
 				}
 			}
 			else
@@ -1716,7 +1718,7 @@ class CI_DB_active_record extends CI_DB_driver {
 				// is because until the user calls the from() function we don't know if there are aliases
 				foreach ($this->ar_select as $key => $val)
 				{
-					$this->ar_select[$key] = $this->_protect_identifiers($val, FALSE, $this->ar_no_escape[$key]);
+					$this->ar_select[$key] = $this->_protect_identifiers($val);
 				}
 
 				$sql .= implode(', ', $this->ar_select);
@@ -1751,7 +1753,9 @@ class CI_DB_active_record extends CI_DB_driver {
 
 		if (count($this->ar_where) > 0 OR count($this->ar_like) > 0)
 		{
-			$sql .= "\nWHERE ";
+			$sql .= "\n";
+
+			$sql .= "WHERE ";
 		}
 
 		$sql .= implode("\n", $this->ar_where);
@@ -1934,17 +1938,16 @@ class CI_DB_active_record extends CI_DB_driver {
 	{
 		$this->_reset_run(
 							array(
-									'ar_cache_select'		=> array(),
-									'ar_cache_from'			=> array(),
-									'ar_cache_join'			=> array(),
-									'ar_cache_where'		=> array(),
-									'ar_cache_like'			=> array(),
-									'ar_cache_groupby'		=> array(),
-									'ar_cache_having'		=> array(),
-									'ar_cache_orderby'		=> array(),
-									'ar_cache_set'			=> array(),
-									'ar_cache_exists'		=> array(),
-									'ar_cache_no_escape'	=> array()
+									'ar_cache_select'	=> array(),
+									'ar_cache_from'		=> array(),
+									'ar_cache_join'		=> array(),
+									'ar_cache_where'	=> array(),
+									'ar_cache_like'		=> array(),
+									'ar_cache_groupby'	=> array(),
+									'ar_cache_having'	=> array(),
+									'ar_cache_orderby'	=> array(),
+									'ar_cache_set'		=> array(),
+									'ar_cache_exists'	=> array()
 								)
 							);
 	}
@@ -1986,8 +1989,6 @@ class CI_DB_active_record extends CI_DB_driver {
 		{
 			$this->_track_aliases($this->ar_from);
 		}
-
-		$this->ar_no_escape = $this->ar_cache_no_escape;
 	}
 
 	// --------------------------------------------------------------------
@@ -2031,7 +2032,6 @@ class CI_DB_active_record extends CI_DB_driver {
 								'ar_orderby'		=> array(),
 								'ar_wherein'		=> array(),
 								'ar_aliased_tables'	=> array(),
-								'ar_no_escape'		=> array(),
 								'ar_distinct'		=> FALSE,
 								'ar_limit'			=> FALSE,
 								'ar_offset'			=> FALSE,
