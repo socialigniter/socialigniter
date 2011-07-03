@@ -9,10 +9,11 @@ class Activity_model extends CI_Model
     
     function get_timeline($where, $limit)
     {
- 		$this->db->select('activity.*, sites.url, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
+ 		$this->db->select('activity.*, content.canonical, sites.url, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('activity');    
  		$this->db->join('sites', 'sites.site_id = activity.site_id');
  		$this->db->join('users', 'users.user_id = activity.user_id'); 				
+ 		$this->db->join('content', 'content.content_id = activity.content_id'); 				
     	$this->db->where($where);
 	 	$this->db->where('activity.status !=', 'D');    	
  		$this->db->order_by('created_at', 'desc'); 
