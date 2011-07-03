@@ -219,9 +219,7 @@ $(document).ready(function()
 								dataType	: 'json',
 								data		: widget_data,
 						  		success		: function(result)
-						  		{	
-						  			console.log(result);
-						  							  		
+						  		{						  							  		
 						  			if (result.status == 'success')
 						  			{
 										$parent_dialog.dialog('close');

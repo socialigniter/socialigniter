@@ -44,6 +44,7 @@ class Settings extends Oauth_Controller
 	{
 		$this->load->config($this->get('app').'/install');
 		
+		// App Settings Exists
 		if (config_item($this->get('app').'_settings'))
 		{
 			$current_settings 	= $this->social_igniter->get_settings_module($this->get('app'));
