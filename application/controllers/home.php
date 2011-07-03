@@ -77,7 +77,7 @@ class Home extends Dashboard_Controller
 		
 				if ($activity->site_id != config_item('site_id'))
 				{
-					$this->data['item_source']		= ' via <a href="'.prep_url($activity->url).'" target="_blank">'.$activity->title.'</a>';
+					$this->data['item_source']		= ' via <a href="'.prep_url(property_exists($activity,'canonical')&&$activity->canonical?$activity->canonical:$activity->url).'" target="_blank">'.$activity->title.'</a>';
 				}
 
 
