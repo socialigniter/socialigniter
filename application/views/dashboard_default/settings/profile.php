@@ -114,7 +114,7 @@ $(document).ready(function()
 				}
 				else
 				{
-					$('#content_message').notify({scroll:true,status:result.status,message:result.message});	
+					$('#content_message').notify({status:result.status,message:result.message});	
 				}
 		 	}
 		});		
@@ -129,7 +129,7 @@ $(document).ready(function()
 	// Upload Error
 	uploader.bind('Error', function(up, err)
 	{
-		$('#content_message').notify({scroll:true,status:'error',message:'Error: ' + err.code + ', Message: ' + err.message + (err.file ? ', File: ' + err.file.name : '')}); 
+		$('#content_message').notify({status:'error',message:'Error: ' + err.code + ', Message: ' + err.message + (err.file ? ', File: ' + err.file.name : '')}); 
 		uploader.refresh();
 	});
 
@@ -158,7 +158,7 @@ $(document).ready(function()
 		}
 		else
 		{
-			$('#content_message').notify({scroll:true,status:response.status,message:response.message});	
+			$('#content_message').notify({status:response.status,message:response.message});	
 		}
 	});
 	
@@ -189,7 +189,7 @@ $(document).ready(function()
 				}
 				else
 				{
-					$('#content_message').notify({scroll:true,status:result.status,message:result.message});			
+					$('#content_message').notify({status:result.status,message:result.message});			
 				}
 		 	}
 		});
@@ -213,7 +213,7 @@ $(document).ready(function()
 	  		success		: function(result)
 	  		{
 				$('html, body').animate({scrollTop:0});
-				$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+				$('#content_message').notify({status:result.status,message:result.message});
 				
 				if (result.status == 'success')
 				{
@@ -241,7 +241,7 @@ function deletePicture()
 			dataType	: 'json',
 	  		success		: function(result)
 	  		{				
-				$('#content_message').notify({scroll:true,status:result.status,message:result.message});			
+				$('#content_message').notify({status:result.status,message:result.message});			
 			
 				if (result.status == 'success')
 				{

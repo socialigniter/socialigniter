@@ -102,18 +102,18 @@ $(document).ready(function()
 								
 								if (result.status == 'success')
 								{
-									$('#content_message').notify({scroll:true,status:result.status,message:result.message + '. You will now be logged in',complete:'redirect',redirect: base_url + 'home'});								
+									$('#content_message').notify({status:result.status,message:result.message + '. You will now be logged in',complete:'redirect',redirect: base_url + 'home'});								
 								}
 								else
 								{
-									$('#content_message').notify({scroll:true,status:result.status,message:result.message});					
+									$('#content_message').notify({status:result.status,message:result.message});					
 								}
 						 	}
 						});
 					}
 					else
 					{
-						$('#content_message').notify({scroll:true,status:result.status,message:result.message});					
+						$('#content_message').notify({status:result.status,message:result.message});					
 					}
 			 	}
 			});	

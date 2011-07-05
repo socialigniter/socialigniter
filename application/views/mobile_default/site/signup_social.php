@@ -42,11 +42,11 @@ $(document).ready(function()
 
 					if (result.status == 'success')
 					{
-						$('#content_message').notify({scroll:true,status:result.status,message:result.message,complete:'redirect',redirect:'<?= $return_url ?>'});
+						$('#content_message').notify({status:result.status,message:result.message,complete:'redirect',redirect:'<?= $return_url ?>'});
 					}
 					else
 					{
-						$('#content_message').notify({scroll:true,status:result.status,message:result.message});					
+						$('#content_message').notify({status:result.status,message:result.message});					
 					}
 			 	}
 			});
