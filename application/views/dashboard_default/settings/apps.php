@@ -29,7 +29,7 @@
 	</span>
 	<?php endif; else: ?>
 	<span class="item_right">
-		<a href="<?= base_url().'install/'.$module ?>" class="install_app">Install</a>
+		<a href="<?= base_url().'api/'.$module.'/install' ?>" rel="<?= $module ?>" class="install_app">Install</a>
 	</span>
 	<?php endif; ?>
 	<div class="clear"></div>
@@ -46,6 +46,9 @@ $(document).ready(function()
 	{
 		eve.preventDefault();
 		var install_url = $(this).attr('href');
+		var install_app = $(this).attr('rel');
+		
+		console.log(install_url);
 	
 		$(this).oauthAjax(
 		{
@@ -53,11 +56,16 @@ $(document).ready(function()
 			url			: install_url,
 			type		: 'GET',
 			dataType	: 'json',
-			data		: settings_data,
 	  		success		: function(result)
 	  		{
+	  			console.log(result);
+	  		
 				$('html, body').animate({scrollTop:0});
-				$('#content_message').notify({scroll:true,status:result.status,message:result.message});			 		
+				
+				if (result.status == 'success')
+				{
+					$('#content_message').notify({scroll:true,status:result.status,message:result.message + ' You will now be direct to setup.',complete:'redirect',redirect: base_url + 'settings/' + install_app});			 		
+		 		}
 		 	}
 		});		
 	});	

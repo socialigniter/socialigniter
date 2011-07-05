@@ -12,15 +12,18 @@ class Install extends Oauth_Controller
 	{
 		$this->installer->download();
 
-		echo 'great now <a href="'.base_url().'install/uncompress/'.$name.'">uncompress that sucker</a>';		
+		$message = array('status' => 'success', 'message' => 'great now <a href="'.base_url().'install/uncompress/'.$name.'">uncompress that sucker</a>');		
+
+		$this->response($message, 200);
 	}
 
 	function custom_get()
 	{
 		$this->installer->download_custom();
 		
-		echo $message;
-		echo 'great now <a href="'.base_url().'install/uncompress/'.$name.'">uncompress that sucker</a>';
+		$message = array('status' => 'success', 'message' => 'great now <a href="'.base_url().'install/uncompress/'.$name.'">uncompress that sucker</a>');
+		
+		$this->response($message, 200);
 	}
 	
 	function uncompress_get()
@@ -33,10 +36,28 @@ class Install extends Oauth_Controller
 		$single_file	= explode("/", $extract[0]);
 
 		rename(APPPATH.'modules/'.$single_file[2], $save_file);
-
-		print_r($extract);
-
 		recursive_chmod($save_file, 0644, 0755);
+
+		$message = array('status' => 'success', 'message' => 'App uncompressed', 'data' => $extract);
+
+		$this->response($message, 200);
+	}
+
+	function uninstall_authd_get()
+	{	
+		$settings	= $this->installer->uninstall_settings($this->get('app'));
+		$files		= $this->installer->delete_app($this->get('app'));
+	
+		if ($settings == true AND $files == true)
+		{		
+            $message = array('status' => 'success', 'message' => 'The '.$this->get('app').' App was unistalled', 'data' => array($settings, $files));
+        }
+        else
+        {
+            $message = array('status' => 'error', 'message' => 'Dang, the '.$this->get('app').' App could not be uninstalled', 'data' => array($settings, $files));
+        }		
+		
+		$this->response($message, 200);	
 	}
 
 }

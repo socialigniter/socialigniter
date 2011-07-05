@@ -18,7 +18,8 @@ class Installer
 	{
 		$this->ci =& get_instance();
 		
-		// Load Models
+		// Load Things
+  		$this->ci->load->helper('file');		
 		$this->ci->load->model('settings_model');
 		$this->ci->load->model('sites_model');
 	}	
@@ -103,80 +104,111 @@ class Installer
 	    return $message;
 	}
 	
-	// Installs app data into the 'settings' table
-	function install_settings($app)
+	// Deletes App Files from /application/modules
+	function delete_app($app)
 	{
-		if (config_item($app.'_settings'))
-		{
-			$current_settings 	= $this->ci->social_igniter->get_settings_module($app);
-			$config_settings	= config_item($app.'_settings');
-			$add_settings		= array();
-			$current_count		= count($current_settings);
-			$config_count		= count(config_item($app.'_settings'));
+		delete_files(APPPATH.'modules/'.$app);
+	
+		return TRUE;
+	}
 		
-			// Clean Current
-			if ($this->uri->segment(3) == 'reinstall')
-			{				
-				foreach ($current_settings as $setting)
-				{
-					$this->ci->social_igniter->delete_setting($setting->settings_id);
-				}
-			
-				$current_count = 0;			
-			}		
-			
-			// Maybe Install or Update
-			if ($current_count != $config_count)
+	
+	function create_folders($app_folders)
+	{	
+		foreach ($app_folders as $folder)
+		{
+			make_folder(config_item('uploads_folder').$folder);
+		}
+		
+		return TRUE;
+	}	
+	
+
+	// Installs data into 'content' table
+	function install_content()
+	{
+	
+	
+	}
+	
+	
+	// Installs app data into the 'settings' table
+	function install_settings($app, $app_settings, $reinstall=FALSE)
+	{
+		$current_settings 	= $this->ci->social_igniter->get_settings_module($app);
+		$add_settings		= array();
+		$current_count		= count($current_settings);
+		$config_count		= count($app_settings);
+	
+		// Delete Current
+		if ($reinstall)
+		{				
+			foreach ($current_settings as $setting)
 			{
-				foreach ($config_settings as $key => $setting)
-				{
-					$setting_data = array(
-						'site_id'	=> config_item('site_id'),
-						'module'	=> $app,
-						'setting'	=> $key,
-						'value'		=> $setting
-					);
-					
-					if (!$this->ci->social_igniter->check_setting_exists($setting_data))
-					{
-						$add_settings[] = $this->ci->social_igniter->add_setting($setting_data);
-					}
-				}
-				
-				// Properly Handled
-				$now_settings = count($add_settings) + $current_count;
-				
-				if ($now_settings == $config_count)
-				{
-					$message = array('status' => 'success', 'message' => 'Settings have been added');
-				}
-				else
-				{
-					$message = array('status' => 'error', 'message' => 'Shucks the settings were not properly added');				
-				}
+				$this->ci->social_igniter->delete_setting($setting->settings_id);
 			}
-			else
+		
+			$current_count = 0;			
+		}		
+		
+		// Install Settings
+		foreach ($app_settings as $key => $setting)
+		{
+			$setting_data = array(
+				'site_id'	=> config_item('site_id'),
+				'module'	=> $app,
+				'setting'	=> $key,
+				'value'		=> $setting
+			);
+			
+			if (!$this->ci->social_igniter->check_setting_exists($setting_data))
 			{
-				$message = array('status' => 'error', 'message' => 'Settings are currently up to date');			
-			}			
+				$add_settings[] = $this->ci->social_igniter->add_setting($setting_data);
+			}
+		}
+		
+		// Properly Added
+		$now_settings = count($add_settings) + $current_count;
+		
+		if ($now_settings == $config_count)
+		{
+			$result = TRUE;
 		}
 		else
 		{
-			$message = array('status' => 'error', 'message' => 'There are no settings to install');
-		}	
+			$result = FALSE;				
+		}
+
+		return $result;
+	}
 	
-		return $message;
+	function uninstall_settings($app)
+	{
+		$current_settings	= $this->ci->social_igniter->get_settings_module($app);
+		$delete_count		= array();
+					
+		foreach ($current_settings as $setting)
+		{
+			$delete_count[$setting->settings_id] = $this->ci->social_igniter->delete_setting($setting->settings_id);
+		}
+				
+		if (count($current_settings) == count($delete_count))
+		{
+			return array($current_settings, $delete_count);//TRUE;	
+		}
+		else
+		{
+			return array($current_settings, $delete_count);//FALSE;
+		}
 	}
 	
 	// Installs app data into the 'sites' table
-	function install_site()
+	function install_site($app, $app_sites)
 	{
 		
+		
+		$this->ci->social_igniter->add_site($site);	
 	}
 
-	function create_folders()
-	{
-	
-	}
 	
 }

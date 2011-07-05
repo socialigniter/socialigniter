@@ -21,6 +21,28 @@ $(document).ready(function()
 				$('#content_message').notify({scroll:true,status:result.status,message:result.message});			 		
 		 	}
 		});		
-	});	
+	});
+
+	$('#app_uninstall').live('click', function(eve)
+	{
+		console.log('clicked');
+	
+		eve.preventDefault();
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: base_url + 'api/<?= $this_module ?>/uninstall',
+			type		: 'GET',
+			dataType	: 'json',
+	  		success		: function(result)
+	  		{
+	  			console.log(result);
+	  		
+				$('html, body').animate({scrollTop:0});
+				$('#content_message').notify({scroll:true,status:result.status,message:result.message});			 		
+		 	}
+		});		
+	});
+	
 });
 </script>

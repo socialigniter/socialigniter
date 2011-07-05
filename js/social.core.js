@@ -435,9 +435,7 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	};
 })(jQuery);
 
-/*
-	Takes a DOM element and then converts it to an editable text/textarea field
-*/
+/* Takes a DOM element and then converts it to an editable text/textarea field */
 (function($){
 	$.fn.editify = function(options) 
 	{

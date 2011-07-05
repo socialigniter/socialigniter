@@ -231,7 +231,7 @@ class Social_igniter
     	return $thumb.$title.$details;    
     }		
 		
-	/* Social */	
+	/* Social Integration */	
 	function get_social_logins($html_start, $html_end)
 	{
 		$social_logins 		= NULL;
@@ -295,8 +295,8 @@ class Social_igniter
 		return NULL;
 	}
 
-	// NEEDS TO BE FIXED
-	function get_social_checkin($user_id)
+	// THE FOLLOWING NEED TO BE CREATED
+	function get_social_checkin($user_id, $id='social_checkin')
 	{
 		$checkin 			= NULL;
 		$social_checkin		= config_item('social_checkin');
@@ -320,6 +320,31 @@ class Social_igniter
 			
 		return NULL;
 	}
+	
+	function get_social_photos($user_id, $id='social_photos')
+	{
+		$social_photos = config_item('social_photos');
+		return NULL;
+	}
+
+	function get_social_videos($user_id, $id='social_videos')
+	{
+		$social_photos = config_item('social_videos');
+		return NULL;
+	}
+
+	function get_social_audio($user_id, $id='social_audio')
+	{
+		$social_photos = config_item('social_audio');
+		return NULL;
+	}
+
+	function get_social_files($user_id, $id='social_files')
+	{
+		$social_photos = config_item('social_files');
+		return NULL;
+	}
+
 	
 	
 	/* File & Directory Scanning */
