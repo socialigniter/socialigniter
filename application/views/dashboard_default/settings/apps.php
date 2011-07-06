@@ -29,7 +29,7 @@
 	</span>
 	<?php endif; else: ?>
 	<span class="item_right">
-		<a href="<?= base_url().'api/'.$module.'/install' ?>" rel="<?= $module ?>" class="install_app">Install</a>
+		<a href="<?= base_url().'api/install/install/app/'.$module ?>" rel="<?= $module ?>" class="install_app">Install</a>
 	</span>
 	<?php endif; ?>
 	<div class="clear"></div>
@@ -64,7 +64,7 @@ $(document).ready(function()
 				
 				if (result.status == 'success')
 				{
-					$('#content_message').notify({scroll:true,status:result.status,message:result.message + ' You will now be direct to setup.',complete:'redirect',redirect: base_url + 'settings/' + install_app});			 		
+					$('#content_message').notify({status:result.status,message:result.message + ' You will now be direct to setup.',complete:'redirect',redirect: base_url + 'settings/' + install_app});			 		
 		 		}
 		 	}
 		});		

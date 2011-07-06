@@ -104,6 +104,21 @@ class Installer
 	    return $message;
 	}
 	
+	function uncompress_app($app)
+	{
+		$this->ci->load->library('unzip');
+
+		$save_file		= APPPATH.'modules/'.$app;		
+		$extract		= $this->unzip->extract('./uploads/apps/'.$app.'.zip', APPPATH.'modules');
+		$single_file	= explode("/", $extract[0]);
+
+		rename(APPPATH.'modules/'.$single_file[2], $save_file);
+		recursive_chmod($save_file, 0644, 0755);
+
+		return $extract;
+	}
+	
+	
 	// Deletes App Files from /application/modules
 	function delete_app($app)
 	{

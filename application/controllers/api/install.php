@@ -8,7 +8,7 @@ class Install extends Oauth_Controller
     	$this->load->library('installer');
     }
 	
-	function download_get()
+	function install_get()
 	{
 		$this->installer->download();
 
@@ -28,15 +28,7 @@ class Install extends Oauth_Controller
 	
 	function uncompress_get()
 	{
-		$this->load->library('unzip');
-
-		$name 			= $this->uri->segment(3);
-		$save_file		= APPPATH.'modules/'.$name;		
-		$extract		= $this->unzip->extract('./uploads/apps/'.$name.'.zip', APPPATH.'modules');
-		$single_file	= explode("/", $extract[0]);
-
-		rename(APPPATH.'modules/'.$single_file[2], $save_file);
-		recursive_chmod($save_file, 0644, 0755);
+		$this->installer->uncompress_app($app);
 
 		$message = array('status' => 'success', 'message' => 'App uncompressed', 'data' => $extract);
 

@@ -20,7 +20,7 @@ class Settings extends Dashboard_Controller
 
 		$user = $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 
 
-	    $this->data['sub_title'] 	= "Profile";     
+	    $this->data['sub_title'] 	= 'Profile';     
  	 	$this->data['image']		= $user->image;
 	 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar, 'small');
 		$this->data['name']			= $user->name;
@@ -51,7 +51,7 @@ class Settings extends Dashboard_Controller
  	
 	function password() 
 	{	
-	    $this->data['sub_title']			= "Password";			 
+	    $this->data['sub_title']			= 'Password';			 
     	$this->data['old_password']   		= $this->input->post('old_password');
     	$this->data['new_password']   		= $this->input->post('new_password');
     	$this->data['new_password_confirm'] = $this->input->post('new_password_confirm');
@@ -64,7 +64,7 @@ class Settings extends Dashboard_Controller
  	   	$user 		= $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 	
  		$user_meta	= $this->social_auth->get_user_meta_meta($this->session->userdata('user_id'), 'phone');
  	
- 	    $this->data['sub_title'] 	= "Mobile";
+ 	    $this->data['sub_title'] 	= 'Mobile';
  		$this->data['phones']		= $user_meta;
     	
  		$this->render('dashboard_wide');	
@@ -72,7 +72,7 @@ class Settings extends Dashboard_Controller
  	
   	function connections()
  	{
- 	    $this->data['sub_title'] 			= "Connections";
+ 	    $this->data['sub_title'] 			= 'Connections';
 		$this->data['social_connections']	= $this->social_igniter->get_settings_setting_value('social_connection', 'TRUE');
 		$this->data['user_connections']		= $this->social_auth->get_connections_user($this->session->userdata('user_id'));
 	    $this->data['message'] 				= validation_errors();
@@ -82,7 +82,7 @@ class Settings extends Dashboard_Controller
  	
 	function advanced() 
 	{	
-	    $this->data['sub_title']			= "Advanced";			 
+	    $this->data['sub_title']			= 'Advanced';			 
 
         
 		$this->render('dashboard_wide');
@@ -314,10 +314,13 @@ class Settings extends Dashboard_Controller
 
 		// Final Output
 		$this->data['categories_view'] = $categories_view;		
-	
-		
+
 		$this->render('dashboard_wide');
 	}
 
-	
+	/* Partials */
+	function mobile_phone_editor()
+	{
+		$this->load->view(config_item('dashboard_theme').'/partials/mobile_phone_editor');
+	}
 }
