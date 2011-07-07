@@ -343,7 +343,8 @@ class Users extends Oauth_Controller
 
         if ($this->form_validation->run() == true)
         {
-        /*	if ($user->phone_verify == 'verified') { $phone = $user->phone; }
+        /*	// IMPLEMENT phone number verification via SMS later
+        	if ($user->phone_verify == 'verified') { $phone = $user->phone; }
 	        else { $phone = ereg_replace("[^0-9]", "", $this->input->post('phone')); }
 	                
 	        if ($user->phone_verify == 'verified') { $phone_verify = $user->phone_verify; }
@@ -354,7 +355,7 @@ class Users extends Oauth_Controller
 			$phone_data = array(
 				'phone_number'	=> ereg_replace("[^0-9]", "", $this->input->post('phone_number')),
 	        	'phone_verify'	=> $phone_verify,
-	        	'phone_active'	=> $this->input->post('phone_active'),
+	        	'phone_private'	=> $this->input->post('phone_private'),
 	        	'phone_search'	=> $this->input->post('phone_search'),
 	        	'phone_type'	=> $this->input->post('phone_type')
 			);

@@ -1061,3 +1061,20 @@ function ISODateString(d){
       + pad(d.getUTCHours())+':'
       + pad(d.getUTCMinutes())+':'
       + pad(d.getUTCSeconds())+'Z'}
+
+/* Takes a phone number like 3235551212 and converts it to (323) 555-1212 */
+function toPhoneFormat(phone)
+{	
+	arrChars=phone.split('');
+	formatedString='';
+	for(i=0;i < phone.length;i++)
+	{
+		if(i==0) formatedString+='(';
+		if(i==3) formatedString+=') ';
+		if(i==6) formatedString+='-';
+	
+		formatedString+=arrChars[i];
+	}
+	
+	return formatedString;
+} 

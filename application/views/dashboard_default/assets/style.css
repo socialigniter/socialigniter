@@ -286,6 +286,10 @@ span.type_class				{ background-position: 0 -554px; }
 span.type_class				{ background-position: 0 -554px; }
 span.type_photo-album		{ background-position: 42px -105px; }
 span.type_category			{ background-position: 42px -140px; }
+span.type_phone				{ background-position: 42px -140px; }
+span.type_mobile_phone		{ background-position: 42px -140px; }
+
+
 
 /* Actions - Feed */
 ul.item_actions 					{ margin: 0px 0 0 0; padding: 0; list-style: none; float: right; visibility: hidden; }
@@ -321,6 +325,8 @@ span.action_unpublished		{ background-position: -300px 0; }
 span.action_add				{ background-position: -325px 0; }
 span.action_sync			{ background-position: -350px 0; }
 span.action_upload			{ background-position: -375px 0; }
+span.action_mobile_phone	{ background-position: -400px 0; }
+span.action_phone			{ background-position: -425px 0; }
 
 /* Feed Specific */
 span.item_comment_left		{ width: 24px; height: 32px; display: block; float: left; background: url(images/item_type_icons.png) 0 -455px; position: relative; left: 0; top: 4px; }
