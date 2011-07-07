@@ -59,12 +59,12 @@ class Settings extends Dashboard_Controller
 		$this->render('dashboard_wide');
 	}
 
-  	function mobile()
+  	function contact()
  	{
  	   	$user 		= $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 	
  		$user_meta	= $this->social_auth->get_user_meta_meta($this->session->userdata('user_id'), 'phone');
  	
- 	    $this->data['sub_title'] 	= 'Mobile';
+ 	    $this->data['sub_title'] 	= 'Contact';
  		$this->data['phones']		= $user_meta;
     	
  		$this->render('dashboard_wide');	
