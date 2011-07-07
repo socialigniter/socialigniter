@@ -250,6 +250,15 @@ span.item_manage_user_meta	{ width: 450px; display: block; float: left; margin: 
 span.item_manage_last_login	{ width: 225px; display: block; float: left; }
 span.item_manage_publish	{ width: 200px; display: block; float: left; }
 
+/* List Data */
+li.item_data						{ width: auto; height: 18px; background: url(images/gradients_horizontal.png) 0 0 repeat-x #f9f9f9; border: 1px solid #c3c3c3; margin: 15px 15px 15px 0; padding: 13px; font-size: 14px; font-weight: normal; color: #999999; text-shadow:1px 1px 1px #ffffff; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+li.item_data:hover ul.item_actions	{ visibility: visible; position: relative; top: -8px; right: 2px !important; }
+li.item_data:hover ul.item_actions span.actions { position: relative; top: -1px; left: 0; margin: 0 4px 0 0; }
+li.item_data:active					{ width: auto; background: url(images/gradients_horizontal.png) 0 -50px repeat-x #f9f9f9; border: 1px solid #b3b3b3; color: #999999; cursor: move; }
+
+span.item_data_title				{ width: 40%; display: block; float: left; margin: 0 15px 0 0; position: relative; top: 2px; left: 0px; }
+span.item_data_meta					{ width: 20%; display: block; float: left; position: relative; top: 2px; left: 0px; }
+
 /* Item Alerts */
 span.item_alerts			{ height: 30px; float: right; display: block; margin: 10px 0; }
 span.item_alert_new			{ width: 22px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #b54545; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0 0px 0 10px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #333333; text-align: center; }
@@ -279,16 +288,16 @@ span.type_photo-album		{ background-position: 42px -105px; }
 span.type_category			{ background-position: 42px -140px; }
 
 /* Actions - Feed */
-ul.item_actions 			{ margin: 0px 0 0 0; padding: 0; list-style: none; float: right; visibility: hidden; }
-ul.item_actions li			{ float: left; margin: 0 0 0 20px; }
-ul.item_actions li a 		{ color: #999999; font-size: 12px; }
-ul.item_actions li a:visited{ color: #999999; font-size: 12px; }
-ul.item_actions li a:hover 	{ color: #2078ce; font-size: 12px; }
+ul.item_actions 					{ margin: 0px 0 0 0; padding: 0; list-style: none; float: right; visibility: hidden; }
+ul.item_actions li					{ float: left; margin: 0 0 0 20px; }
+ul.item_actions li a 				{ color: #999999; font-size: 12px; }
+ul.item_actions li a:visited		{ color: #999999; font-size: 12px; }
+ul.item_actions li a:hover 			{ color: #2078ce; font-size: 12px; }
 
 /* Actions - Vertical List */
-ul.item_actions_list 		{ margin: 0 !important; padding: 0; list-style: none; }
-ul.item_actions_list li		{ margin: 0 0 11px 0; color: #999999; }
-ul.item_actions_list li a 	{ color: #999999; font-size: 14px; }
+ul.item_actions_list 				{ margin: 0 !important; padding: 0; list-style: none; }
+ul.item_actions_list li				{ margin: 0 0 11px 0; color: #999999; }
+ul.item_actions_list li a 			{ color: #999999; font-size: 14px; }
 ul.item_actions_list li a:visited	{ color: #999999; font-size: 14px; }
 ul.item_actions_list li a:hover 	{ color: #2078ce; font-size: 14px; }
 ul.item_actions_list li span		{ margin: 0 6px 0 0; position: relative; top: -1px; left: 0px; }
@@ -312,7 +321,6 @@ span.action_unpublished		{ background-position: -300px 0; }
 span.action_add				{ background-position: -325px 0; }
 span.action_sync			{ background-position: -350px 0; }
 span.action_upload			{ background-position: -375px 0; }
-
 
 /* Feed Specific */
 span.item_comment_left		{ width: 24px; height: 32px; display: block; float: left; background: url(images/item_type_icons.png) 0 -455px; position: relative; left: 0; top: 4px; }

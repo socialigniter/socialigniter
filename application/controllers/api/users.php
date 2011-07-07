@@ -356,7 +356,8 @@ class Users extends Oauth_Controller
 				'phone_number'	=> $this->input->post('phone_number'),
 	        	'phone_verify'	=> $phone_verify,
 	        	'phone_active'	=> $phone_active,
-	        	'phone_search'	=> $this->input->post('phone_search')
+	        	'phone_search'	=> $this->input->post('phone_search'),
+	        	'phone_type'	=> $this->input->post('phone_type')
 			);
 
 	    	$meta_data = array(
