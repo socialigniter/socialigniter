@@ -350,12 +350,11 @@ class Users extends Oauth_Controller
 	        else { $phone_verify = random_element(config_item('mobile_verify')); }
 		*/
 			$phone_verify = 'yes';
-			$phone_active = 'yes';
 		
 			$phone_data = array(
-				'phone_number'	=> $this->input->post('phone_number'),
+				'phone_number'	=> ereg_replace("[^0-9]", "", $this->input->post('phone_number')),
 	        	'phone_verify'	=> $phone_verify,
-	        	'phone_active'	=> $phone_active,
+	        	'phone_active'	=> $this->input->post('phone_active'),
 	        	'phone_search'	=> $this->input->post('phone_search'),
 	        	'phone_type'	=> $this->input->post('phone_type')
 			);
@@ -404,26 +403,17 @@ class Users extends Oauth_Controller
     
     function mobile_destroy_authd_get()
     {
- 	   	$user = $this->social_auth->get_user($this->oauth_user_id);
+ 	   	$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);
 
-		if ($user->phone != "")
-		{
-        	$update_data = array(
-	        	'phone'			=> "",
-	        	'phone_verify'	=> "",
-	        	'phone_active'	=> "",
-	        	'phone_search'	=> ""
-			);
-        	
-        	if ($this->social_auth->update_user($this->oauth_user_id, $update_data))
-        	{
-		        $message = array('status' => 'success', 'message' => 'Phone number deleted');
-       		}
-       		else
-       		{
-	       		$message = array('status' => 'error', 'message' => 'Could not delete phone number');
-       		}		
-		}    
+		// NEEDS TO CHECK FOR USER ACCESS
+    	if ($this->social_auth->delete_user_meta($this->get('id')))
+    	{
+	        $message = array('status' => 'success', 'message' => 'Phone number deleted');
+   		}
+   		else
+   		{
+       		$message = array('status' => 'error', 'message' => 'Could not delete phone number');
+   		}		
     
     	$this->response($message, 200);
     }
@@ -431,8 +421,7 @@ class Users extends Oauth_Controller
     
     /* Advanced Fields */
     function advanced_authd_post()
-    {
-    
+    {    
     	$message = array('status' => 'success', 'message' => 'User advanced settings updated');
     
     	$this->response($message, 200);    
