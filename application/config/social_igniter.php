@@ -28,7 +28,7 @@ $config['user_settings']				= array('profile','details','password','contact','co
 $config['user_meta_details']			= array('company','location','url','bio');
 $config['user_data']					= array('user_id','username','user_level_id','gravatar','name','image','language','time_zone','geo_enabled','privacy','consumer_key','consumer_secret','token','token_secret');	
 $config['user_data_meta']				= array('location','url');
-$config['user_phone_types']				= array('phone' => 'Phone','mobile_phone' => 'Mobile Phone');
+$config['user_phone_types']				= array('phone' => 'Phone','mobile_phone' => 'Mobile');
 $config['user_mobile_verify']			= array('borogoves','gyre','jabberwocky','jubjub','frumious','bandersnatch','vorpal','tumtum','tulgey','burbled','snicker','snack','galumph','callooh','brillig','slithy','gimble');
 
 // Users & Login

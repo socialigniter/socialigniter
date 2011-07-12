@@ -370,6 +370,8 @@ class Users extends Oauth_Controller
         	
         	if ($user_meta = $this->social_auth->add_user_meta($meta_data))
         	{
+        		
+        	
 		        $message = array('status' => 'success', 'message' => 'Yay, phone number was added', 'data' => $user_meta);
        		}
        		else

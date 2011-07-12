@@ -1,27 +1,45 @@
-<h3>Addresses</h3>
-<ul style="width: 450px">
-</ul>
-<?php if ($phones): ?>
-<h3>Phone Numbers</h3>	
-<ul style="width: 450px">
-<?php foreach ($phones as $phone): $phone_data = json_decode($phone->value) ?>	
-	<li class="item_data" id="phone_<?= $phone->user_meta_id ?>">
-		<span class="item_data_title">+1 <?= format_phone_number($phone_data->phone_number) ?></span>
-		<span class="item_data_meta"><span class="actions action_<?= $phone_data->phone_type ?>"></span> <?= config_item('user_phone_types', $phone_data->phone_type); ?></span>
-		<ul class="item_actions">
-			<li><a href="<?= base_url().'api/users/mobile_modify/id/'.$phone->user_meta_id ?>" class="edit_mobile_phone"><span class="actions action_edit"></span> Edit</a></li>
-			<li><a href="<?= base_url().'api/users/mobile_destroy/id/'.$phone->user_meta_id ?>" class="delete_mobile_phone" rel="<?= $phone_data->phone_number ?>"><span class="actions action_delete"></span> Delete</a></li>
-		</ul>
-	</li>
-<?php endforeach; ?>
-</ul>
+<div class="content_columns width_435">
+	<?php if ($phones): ?>
+	<h3>Phone Numbers</h3>	
+	<ul id="phone_numbers">
+	<?php foreach ($phones as $phone): $phone_data = json_decode($phone->value) ?>	
+		<li class="item_data" id="phone_<?= $phone->user_meta_id ?>">
+			<span class="actions action_<?= $phone_data->phone_type ?>"></span> +1 <?= format_phone_number($phone_data->phone_number) ?>
+			<ul class="item_actions">
+				<li><a href="<?= base_url().'api/users/mobile_modify/id/'.$phone->user_meta_id ?>" class="edit_mobile_phone"><span class="actions action_edit"></span> Edit</a></li>
+				<li><a href="<?= base_url().'api/users/mobile_destroy/id/'.$phone->user_meta_id ?>" class="delete_mobile_phone" rel="<?= $phone_data->phone_number ?>"><span class="actions action_delete"></span> Delete</a></li>
+			</ul>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+	
+	<?php else: ?>
+	<p>No Phone Numbers Added</p>
+	<?php endif; ?>
+	<p><input type="button" name="button_add_phone" id="button_add_phone" value="Add A Phone"></p>
+</div>
 
-<?php else: ?>
-<p>Looks like you haven't added a mobile phone yet</p>
-<?php endif; ?>
+<div class="content_columns width_435">
+	<h3>Addresses</h3>
+	<ul id="addresses">
+		<li class="item_data" id="address_1">
+			<span class="actions action_address"></span>
+			<span class="item_data_title">My Rad Crib, 20 NW 16th Ave...</span>
+			<ul class="item_actions">
+				<li><a href="<?= base_url().'api/users/mobile_modify/id/'.$phone->user_meta_id ?>" class="edit_mobile_phone"><span class="actions action_edit"></span> Edit</a></li>
+				<li><a href="<?= base_url().'api/users/mobile_destroy/id/'.$phone->user_meta_id ?>" class="delete_mobile_phone" rel="<?= $phone_data->phone_number ?>"><span class="actions action_delete"></span> Delete</a></li>
+			</ul>
+		</li>
+		<li class="item_data">
+			<span class="actions action_address"></span>
+			<span class="">This will be implemented with tie-in to the Places</span>
+		
+		</li>
+	</ul>
+	<p><input type="button" name="button_add_address" id="button_add_address" value="Add An Address"></p>
+</div>
 
-<p><input type="button" name="button_add_phone" id="button_add_phone" value="Add A Phone"></p>
-
+<div class="clear"></div>
 <script type="text/javascript">
 $(document).ready(function()
 {
@@ -67,7 +85,12 @@ $(document).ready(function()
 							 	}
 							});
 						}				
-					}
+					},
+					'Cancel': function()
+					{
+						$parent_dialog.dialog('close');
+						$parent_dialog.remove();						
+					}					
 				}
 			});		
 		});
@@ -163,8 +186,13 @@ $(document).ready(function()
 				}
 			}
 		});		
-	
 	});
-	
+
+
+	// Add Address
+	$('#button_add_address').live('click', function(eve)
+	{
+		
+	});
 });
 </script>
