@@ -52,8 +52,8 @@ class Home extends Dashboard_Controller
  			$this->data['status_updater']	= '';
 
 			$timeline 						= $this->social_igniter->get_timeline($this->uri->segment(2), 10); 
- 	    }	    
- 	     	     	    
+ 	    }
+
 		// Build Feed				 			
 		if (!empty($timeline))
 		{
@@ -73,6 +73,13 @@ class Home extends Dashboard_Controller
 				$this->data['item_content']			= $this->social_igniter->render_item($activity);
 				$this->data['item_content_id']		= $activity->content_id;
 				$this->data['item_date']			= format_datetime(config_item('home_date_style'), $activity->created_at);			
+				$this->data['item_source']			= '';
+		
+				if ($activity->site_id != config_item('site_id'))
+				{
+					$this->data['item_source']		= ' via <a href="'.prep_url(property_exists($activity,'canonical')&&$activity->canonical?$activity->canonical:$activity->url).'" target="_blank">'.$activity->title.'</a>';
+				}
+
 
 		 		// Actions
 			 	$this->data['item_comment']			= base_url().'comment/item/'.$activity->activity_id;

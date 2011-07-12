@@ -8,13 +8,17 @@ class Content_model extends CI_Model {
     }
 
 	/* Content */
-    function check_content_duplicate($user_id, $title, $content)
+    function check_content_duplicate($parameter, $value, $user_id)
     {
  		$this->db->select('*');
  		$this->db->from('content');  
- 		$this->db->where('user_id', $user_id);
- 		$this->db->where('title', $title);
- 		$this->db->where('content', $content);
+ 		$this->db->where($parameter, $value);
+
+		if ($user_id)
+		{
+	 		$this->db->where('user_id', $user_id);	
+		}
+
  		$result = $this->db->count_all_results();	
  		return $result; 
     }

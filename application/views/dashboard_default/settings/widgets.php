@@ -126,7 +126,7 @@ $(document).ready(function()
 									else
 									{
 										$('html, body').animate({scrollTop:0});
-										$('#content_message').notify({scroll:true,status:result.status,message:result.message});									
+										$('#content_message').notify({status:result.status,message:result.message});									
 									}
 								
 									// Close Dialog
@@ -219,9 +219,7 @@ $(document).ready(function()
 								dataType	: 'json',
 								data		: widget_data,
 						  		success		: function(result)
-						  		{	
-						  			console.log(result);
-						  							  		
+						  		{						  							  		
 						  			if (result.status == 'success')
 						  			{
 										$parent_dialog.dialog('close');

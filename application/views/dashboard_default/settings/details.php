@@ -42,7 +42,7 @@ $(document).ready(function()
 	  		success		: function(result)
 	  		{
 				$('html, body').animate({scrollTop:0});
-				$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+				$('#content_message').notify({status:result.status,message:result.message});
 		 	}
 		});		
 	});	

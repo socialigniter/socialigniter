@@ -16,6 +16,8 @@ class MY_Form_validation extends CI_Form_validation {
 	// Validates phone number
 	function valid_phone_number($value)
 	{
+		$this->CI->form_validation->set_message('valid_phone_number', 'The %s is not valid');
+
 	    $value = trim($value);
 	    if ($value == '') {
 	            return TRUE;

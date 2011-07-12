@@ -38,7 +38,7 @@ $(document).ready(function()
 			 	$('[name=new_password]').val('');
 			 	$('[name=new_password_confirm]').val('');
 	  				  					  			  			
-				$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+				$('#content_message').notify({status:result.status,message:result.message});
 		 	}
 		});		
 	});	

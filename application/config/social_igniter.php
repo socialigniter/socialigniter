@@ -24,11 +24,11 @@ $config['default_layout']				= 'sidebar';
 $config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','places','text');
 $config['ignore_modules']				= array('text');
 $config['site_modules']					= array('site','themes','design','widgets','services');
-$config['user_settings']				= array('profile','details','password','mobile','connections','advanced');
+$config['user_settings']				= array('profile','details','password','contact','connections','advanced');
 $config['user_meta_details']			= array('company','location','url','bio');
 $config['user_data']					= array('user_id','username','user_level_id','gravatar','name','image','language','time_zone','geo_enabled','privacy','consumer_key','consumer_secret','token','token_secret');	
 $config['user_data_meta']				= array('location','url');
-$config['user_mobile_types']			= array('mobile','home','work');
+$config['user_phone_types']				= array('phone' => 'Phone','mobile_phone' => 'Mobile');
 $config['user_mobile_verify']			= array('borogoves','gyre','jabberwocky','jubjub','frumious','bandersnatch','vorpal','tumtum','tulgey','burbled','snicker','snack','galumph','callooh','brillig','slithy','gimble');
 
 // Users & Login
@@ -58,11 +58,10 @@ $config['email_templates']     			= 'emails/';			// Folder where email templates
 $config['email_launch']  				= 'launch.php';			// Activate Account Email Template Default : activate.php
 $config['email_signup']					= 'signup.php';			// New user signup
 $config['email_activate']   			= 'activate.php';		// Activate Account Email Template Default : activate.php
-$config['email_forgot_password']   		= 'forgot_password.php';	// Forgot Password Email Template Default : forgot_password.php
+$config['email_forgot_password']   		= 'forgot_password.php';// Forgot Password Email Template Default : forgot_password.php
 $config['email_forgot_password_complete']= 'new_password.php'; 	// Forgot Password Complete Email Template Default : new_password.php
 $config['email_send']  					= 'send.php';			// Template for a message being sent as an email
 
 // Image Options
-$config['temp_folder']					= "temp/";
 $config['uploads_folder']				= "uploads/";
 $config['profile_nopicture']			= "nopicture.png";

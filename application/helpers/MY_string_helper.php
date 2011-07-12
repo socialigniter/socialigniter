@@ -64,7 +64,22 @@ if(!function_exists('uuid_secure'))
       
         return sprintf('%08s-%04s-%04x-%04x-%012s', $time_low, $time_mid, $time_hi_and_version, $clock_seq_hi_and_reserved, $node);
     }
-
 }
 
+if(!function_exists('format_phone_number'))
+{
+	function format_phone_number($str)
+	{
+        $strPhone = preg_replace("[^0-9]", '', $str);
+        if (strlen($strPhone) != 10)
+            return $strPhone;
+
+        $strArea	= substr($strPhone, 0, 3);
+        $strPrefix	= substr($strPhone, 3, 3);
+        $strNumber	= substr($strPhone, 6, 4);
+        $strPhone	= "(" . $strArea . ") " . $strPrefix . "-" . $strNumber;
+
+        return ($strPhone);
+    } 
+}
 ?>

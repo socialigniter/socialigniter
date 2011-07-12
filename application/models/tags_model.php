@@ -81,13 +81,13 @@ class Tags_model extends CI_Model {
 		);	
 		$insert 		= $this->db->insert('tags_link', $data);
 		$tag_link_id 	= $this->db->insert_id();
-		return $this->db->get_where('tags_link', array('tag_link_id' => $tag_link_id))->row();	
+		return $this->db->get_where('tags_link', array('tag_link_id' => $tag_link_id))->row();
     }
     
     function delete_tag($tag_id)
     {
     	$this->db->where('tag_id', $tag_id);
-    	$this->db->delete('tags'); 
+    	$this->db->delete('tags');
 		return TRUE;
     }
     

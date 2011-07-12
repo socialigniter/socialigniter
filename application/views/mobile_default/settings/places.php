@@ -3,7 +3,7 @@
 <div class="content_wrap_inner">
 	
 	<div class="content_inner_top_right">
-		<h3>Module</h3>
+		<h3>Places</h3>
 		<p><?= form_dropdown('enabled', config_item('enable_disable'), $settings['places']['enabled']) ?></p>
 	</div>
 

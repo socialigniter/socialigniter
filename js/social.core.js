@@ -435,9 +435,7 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	};
 })(jQuery);
 
-/*
-	Takes a DOM element and then converts it to an editable text/textarea field
-*/
+/* Takes a DOM element and then converts it to an editable text/textarea field */
 (function($){
 	$.fn.editify = function(options) 
 	{
@@ -1051,15 +1049,31 @@ function md5 (str) {
     return temp.toLowerCase();
 }
 
-/**
- *Converts a date to a ISO8601 format
- *@returns {string} Something like 2009-09-28T19:03:12Z
- **/
-function ISODateString(d){
- function pad(n){return n<10 ? '0'+n : n}
- return d.getUTCFullYear()+'-'
-      + pad(d.getUTCMonth()+1)+'-'
-      + pad(d.getUTCDate())+'T'
-      + pad(d.getUTCHours())+':'
-      + pad(d.getUTCMinutes())+':'
-      + pad(d.getUTCSeconds())+'Z'}
+/* Converts a date to a ISO8601 format and returns something like 2009-09-28T19:03:12Z */
+function ISODateString(d)
+{
+	function pad(n){return n<10 ? '0'+n : n}
+	return d.getUTCFullYear()+'-'
+	  + pad(d.getUTCMonth()+1)+'-'
+	  + pad(d.getUTCDate())+'T'
+	  + pad(d.getUTCHours())+':'
+	  + pad(d.getUTCMinutes())+':'
+	  + pad(d.getUTCSeconds())+'Z'
+}
+
+/* Takes a phone number like 3235551212 and converts it to (323) 555-1212 */
+function toPhoneFormat(phone)
+{	
+	arrChars=phone.split('');
+	formatedString='';
+	for(i=0;i < phone.length;i++)
+	{
+		if(i==0) formatedString+='(';
+		if(i==3) formatedString+=') ';
+		if(i==6) formatedString+='-';
+	
+		formatedString+=arrChars[i];
+	}
+	
+	return formatedString;
+} 

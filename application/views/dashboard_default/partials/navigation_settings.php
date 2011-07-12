@@ -3,7 +3,7 @@
 <ul class="content_navigation">
 	<?= navigation_list_btn('settings/profile', 'Profile') ?>
 	<?= navigation_list_btn('settings/details', 'Details') ?>
-	<?= navigation_list_btn('settings/mobile', 'Mobile') ?>
+	<?= navigation_list_btn('settings/contact', 'Contact') ?>
 	<?= navigation_list_btn('settings/password', 'Password') ?>
 	<?= navigation_list_btn('settings/connections', 'Apps') ?>
 	<?= navigation_list_btn('settings/advanced', 'Advanced') ?>
