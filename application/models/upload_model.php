@@ -7,12 +7,29 @@ class Upload_model extends CI_Model {
         parent::__construct();
     }
     
-    function check_upload_hash($consumer_key, $file_hash)
+    function get_upload($upload_id)
     {
 		$this->db->select('*');
 		$this->db->from('uploads');
-		$this->db->where('consumer_key', $consumer_key);
+		$this->db->where('upload_id', $upload_id);
+		$this->db->limit(1);    
+		$result = $this->db->get()->row();	
+        
+		if ($result)
+		{
+		    return $result;
+		}    
+    
+ 		return FALSE;    	
+    }
+    
+    function check_upload_hash($user, $file_hash)
+    {
+		$this->db->select('*');
+		$this->db->from('uploads');
+		$this->db->where('consumer_key', $user->consumer_key);
 		$this->db->where('file_hash', $file_hash);
+		$this->db->where('status !=', 'D');
 		$this->db->limit(1);    
 		$result = $this->db->get()->row();	
         
@@ -23,17 +40,7 @@ class Upload_model extends CI_Model {
     
  		return FALSE;
     }
-    
-    function get_upload($upload_id)
-    {
-		$this->db->select('*');
- 		$this->db->from('uploads');
-		$this->db->where('upload_id', $upload_id);
-		$this->db->limit(1);    
- 		$result = $this->db->get()->row();	
- 		return $result;    
-    }
-       
+
     function add_upload($upload_data)
     {
  		$upload_data['status']		= 'P';

@@ -9,10 +9,11 @@ class Activity_model extends CI_Model
     
     function get_timeline($where, $limit)
     {
- 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
+ 		$this->db->select('activity.*, content.canonical, sites.url, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('activity');    
  		$this->db->join('sites', 'sites.site_id = activity.site_id');
  		$this->db->join('users', 'users.user_id = activity.user_id'); 				
+ 		$this->db->join('content', 'content.content_id = activity.content_id', 'left'); 				
     	$this->db->where($where);
 	 	$this->db->where('activity.status !=', 'D');    	
  		$this->db->order_by('created_at', 'desc'); 
@@ -23,10 +24,11 @@ class Activity_model extends CI_Model
     
     function get_activity($activity_id)
     {
-	 	$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
+	 	$this->db->select('activity.*, content.canonical, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('activity'); 
  		$this->db->join('sites', 'sites.site_id = activity.site_id');
- 		$this->db->join('users', 'users.user_id = activity.user_id');  		 
+ 		$this->db->join('users', 'users.user_id = activity.user_id');
+ 		$this->db->join('content', 'content.content_id = activity.content_id', 'left'); 				 
  		$this->db->where('activity_id', $activity_id);
 	 	$this->db->where('activity.status !=', 'D');
 		$this->db->limit(1);    
@@ -38,10 +40,11 @@ class Activity_model extends CI_Model
     {
     	if (in_array($parameter, array('site_id','user_id','verb', 'module','type','content_id')))
     	{    
-	 		$this->db->select('activity.*, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
+	 		$this->db->select('activity.*, content.canonical, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
 	 		$this->db->from('activity');
 	 		$this->db->join('sites', 'sites.site_id = activity.site_id');
 	 		$this->db->join('users', 'users.user_id = activity.user_id');
+	 		$this->db->join('content', 'content.content_id = activity.content_id', 'left');
 	 		$this->db->where('activity.'.$parameter, $value);
 	 		$this->db->where('activity.status !=', 'D');
 	 		$this->db->order_by('activity.created_at', 'desc'); 

@@ -126,14 +126,10 @@ class Users extends Oauth_Controller
     
     function set_userdata_signup_email_post()
 	{
-        log_message('debug', 'AHHHHH At Top Of Shizzle');
-
     	$this->form_validation->set_rules('signup_email', 'Email Address', 'required|valid_email');
 
         if ($this->form_validation->run() == true)
-        {
-        	log_message('debug', 'AHHHHH Inside Validator');
-        
+        {        
         	$email = $this->input->post('signup_email');
 
 			if ($user = $this->social_auth->get_user('email', $email))
@@ -149,9 +145,7 @@ class Users extends Oauth_Controller
     		}
         } 
 		else
-		{ 
-        	log_message('debug', 'AHHHHH Not valid');
-
+		{
 			$message = array('message' => 'Oops '.validation_errors());
         }
         
@@ -163,27 +157,13 @@ class Users extends Oauth_Controller
     { 
     	if ($this->oauth_user_id == $this->get('id'))
     	{
-			// User
-			$user_id = $this->oauth_user_id;
-    	  
-	    	// Delete Picture   
-	    	if ($this->input->post('delete_pic') == 1)
-	    	{
-				$this->load->helper('file');
-	    		delete_files($this->config->item('profile_images').$user->user_id."/");
-	    		$user_picture = '';
-	    	} 
-	    	else   
-	    	{
-	    		$user_picture = '';
-	    	}
-
+			// Update Data
+			$user_id = $this->oauth_user_id;    	  
 	    	$update_data = array(
 	    		'username'		=> url_username($this->input->post('username'), 'none', true),
 	        	'email'			=> $this->input->post('email'),
 	        	'gravatar'		=> md5($this->input->post('email')),
 	        	'name'			=> $this->input->post('name'),
-	        	'image'			=> $user_picture,
 	        	'time_zone'		=> $this->input->post('time_zone'),
 	        	'privacy'		=> $this->input->post('privacy'),
 	        	'language'		=> $this->input->post('language'),
@@ -213,46 +193,81 @@ class Users extends Oauth_Controller
     
     function upload_profile_picture_post()
     {
-    	$user = $this->social_auth->get_user('user_id', $this->get('id'));
-    	
-    	
-    
-    	// Upload Picture
-		if (!$this->input->post('userfile'))
-		{
-			$config['upload_path'] 		= config_item('uploads_folder');
-			$config['allowed_types'] 	= config_item('users_images_formats');		
-			$config['overwrite']		= true;
-			$config['max_size']			= config_item('users_images_max_size');
-			$config['max_width']  		= config_item('users_images_max_dimensions');
-			$config['max_height']  		= config_item('users_images_max_dimensions');
-		
-			$this->load->library('upload',$config);
+    	if ($upload = $this->social_tools->get_upload($this->input->post('upload_id')))
+    	{
+	    	// If File Exists
+			if ($upload->file_hash == $this->input->post('file_hash'))
+			{	
+				// Delete Expectation
+				$this->social_tools->delete_upload($this->input->post('upload_id'));
+				
+				// Upload Settings
+				$config['upload_path'] 		= config_item('uploads_folder');
+				$config['allowed_types'] 	= config_item('users_images_formats');		
+				$config['overwrite']		= true;
+				$config['max_size']			= config_item('users_images_max_size');
+				$config['max_width']  		= config_item('users_images_max_dimensions');
+				$config['max_height']  		= config_item('users_images_max_dimensions');
 			
-			if (!$this->upload->do_upload())
-			{
-				$error = array('error' => $this->upload->display_errors());
-			}	
+				$this->load->library('upload', $config);
+				
+				if (!$this->upload->do_upload('file'))
+				{
+			    	$message = array('status' => 'error', 'message' => $this->upload->display_errors());
+				}	
+				else
+				{
+					// Image Model
+					$this->load->model('image_model');
+	
+					// Upload & Sizes
+					$file_data		= $this->upload->data();
+					$image_size 	= getimagesize(config_item('uploads_folder').$file_data['file_name']);
+					$file_data		= array('file_name'	=> $file_data['file_name'], 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
+					$image_sizes	= array('full', 'large', 'medium', 'small');
+					$create_path	= config_item('users_images_folder').$this->get('id').'/';
+	
+					// Make Sizes / Delete Old Files
+					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
+		
+					// Update DB
+			    	$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));
+			    	
+			    	// Update Userdata
+			    	$this->session->set_userdata('image', $file_data['file_name']);
+	
+			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'data' => $file_data['file_name']);
+				}	
+			}
 			else
 			{
-				// Load Image Model
-				$this->load->model('image_model');
-				
-				// Upload & Sizes
-				$file_data		= $this->upload->data();
-				$image_sizes	= array('full', 'large', 'medium', 'small');
-
-				// Process New Images
-				$image_size 	= getimagesize(config_item('uploads_folder').$image_save);
-				$file_data		= array('file_name'	=> $image_save, 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
-				$image_sizes	= array('full', 'large', 'medium', 'small');
-				$create_path	= config_item('users_images_folder').$user_id.'/';
-
-				$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
-			}	
+				$message = array('status' => 'error', 'message' => 'No image file was sent or the hash was bad');
+			}
 		}
+		else
+		{
+			$message = array('status' => 'error', 'message' => 'No matching upload token was found');
+		}
+
+    	$this->response($message, 200);
+    }
     
-    
+    function delete_profile_picture_authd_get()
+    {
+		if ($this->social_auth->update_user($this->get('id'), array('image' => '')))
+		{
+			$this->load->helper('file');
+		
+			delete_files(config_item('users_images_folder').$this->get('id').'/');
+		
+		    $message = array('status' => 'success', 'message' => 'Profile picture deleted');	
+		}
+		else
+		{
+			$message = array('status' => 'error', 'message' => 'Could not delete profile picture');
+		}
+
+    	$this->response($message, 200);
     }
     
     
@@ -266,7 +281,7 @@ class Users extends Oauth_Controller
 			$user_id = $this->oauth_user_id;
 			
 			// Site
-	    	if ($this->input->post('site_id')) $site_id = $this->input-->post('site_id');
+	    	if ($this->input->post('site_id')) $site_id = $this->input->post('site_id');
 	    	else $site_id = config_item('site_id');			
 			
 			// Build Meta
@@ -324,91 +339,84 @@ class Users extends Oauth_Controller
     
     function mobile_add_authd_post()
     {
-   		$this->form_validation->set_rules('phone', 'Phone', 'required|valid_phone_number');
+   		$this->form_validation->set_rules('phone_number', 'Phone Number', 'required|valid_phone_number');
 
         if ($this->form_validation->run() == true)
         {
-	        if ($user->phone_verify == 'verified') { $phone = $user->phone; }
+        /*	// IMPLEMENT phone number verification via SMS later
+        	if ($user->phone_verify == 'verified') { $phone = $user->phone; }
 	        else { $phone = ereg_replace("[^0-9]", "", $this->input->post('phone')); }
 	                
 	        if ($user->phone_verify == 'verified') { $phone_verify = $user->phone_verify; }
 	        else { $phone_verify = random_element(config_item('mobile_verify')); }
-
-	    	$update_data = array(
-	        	'phone'			=> $phone,
+		*/
+			$phone_verify = 'yes';
+		
+			$phone_data = array(
+				'phone_number'	=> ereg_replace("[^0-9]", "", $this->input->post('phone_number')),
 	        	'phone_verify'	=> $phone_verify,
-	        	'phone_active'	=> $this->input->post('phone_active'),
-	        	'phone_search'	=> $this->input->post('phone_search')
+	        	'phone_private'	=> $this->input->post('phone_private'),
+	        	'phone_search'	=> $this->input->post('phone_search'),
+	        	'phone_type'	=> $this->input->post('phone_type')
+			);
+
+	    	$meta_data = array(
+	    		'user_id'		=> $this->oauth_user_id,
+	    		'site_id'		=> config_item('site_id'),
+	    		'module'		=> $this->input->post('users'),
+	    		'meta'			=> 'phone',
+	    		'value'			=> json_encode($phone_data)
 			);
         	
-        	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
+        	if ($user_meta = $this->social_auth->add_user_meta($meta_data))
         	{
-        		$this->session->set_flashdata('message', "Phone Number Added");
-       			redirect('settings/mobile', 'refresh');
+        		
+        	
+		        $message = array('status' => 'success', 'message' => 'Yay, phone number was added', 'data' => $user_meta);
        		}
        		else
        		{
-       			redirect('settings/mobile', 'refresh');
+ 	       		$message = array('status' => 'error', 'message' => 'Dang, could not add phone number');
        		}
-		} 
-		else 
-		{ 	
-	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			
-	 		$this->data['phone']		    	= $this->input->post('phone');
-	 		$this->data['phone_active_array'] 	= array('1'=>'Yes','0'=>'No');
-	 		$this->data['phone_active']     	= $this->input->post('phone_active');
-
-			if ($user->phone_search) { $phone_search_checked = true; }
-			else { $phone_search_checked = false; }	
-	    
-			$this->data['phone_search'] = array(
-			    'name'      => 'phone_search',
-	    		'id'        => 'phone_search',
-			    'value'     => $user->phone_search,
-			    'checked'   => $phone_search_checked,
-			);      
-		}	    
-
- 		$this->data['phone']		    = is_empty($user->phone);
-        $this->data['phone_verify']     = $user->phone_verify;
-        $this->data['phone_active']     = $user->phone_active;
-
-		if ($user->phone_search) { $phone_search_checked = true; }
-		else { $phone_search_checked = false; }	
+		}
+		else
+		{
+	        $message = array('status' => 'error', 'message' => validation_errors(), 'data' => $_POST);
+		}
     
-		$this->data['phone_search'] = array(
-		    'name'      => 'phone_search',
-    		'id'        => 'phone_search',
-		    'value'     => $user->phone_search,
-		    'checked'   => $phone_search_checked,
-		);    
+    	$this->response($message, 200);
+    }
     
+    function mobile_modify_authd_post()
+    {
+    	$this->social_auth->update_user_meta($this->get('id'));
+    
+    
+    	if ($this->social_auth->update_user($this->oauth_user_id, $update_data))
+    	{
+	        $message = array('status' => 'success', 'message' => 'Phone number updated');
+   		}
+   		else
+   		{
+       		$message = array('status' => 'error', 'message' => 'Could not update phone number');
+   		}
+
     	$this->response($message, 200);
     }
     
     function mobile_destroy_authd_get()
     {
- 	   	$user = $this->social_auth->get_user($this->session->userdata('user_id'));
+ 	   	$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);
 
-		if ($user->phone != "")
-		{
-        	$update_data = array(
-	        	'phone'			=> "",
-	        	'phone_verify'	=> "",
-	        	'phone_active'	=> "",
-	        	'phone_search'	=> ""
-			);
-        	
-        	if ($this->social_auth->update_user($this->session->userdata('user_id'), $update_data))
-        	{
-		        $message = array('status' => 'success', 'message' => 'Phone number deleted');
-       		}
-       		else
-       		{
-	       		$message = array('status' => 'error', 'message' => 'Could not delete phone number');
-       		}		
-		}    
+		// NEEDS TO CHECK FOR USER ACCESS
+    	if ($this->social_auth->delete_user_meta($this->get('id')))
+    	{
+	        $message = array('status' => 'success', 'message' => 'Phone number deleted');
+   		}
+   		else
+   		{
+       		$message = array('status' => 'error', 'message' => 'Could not delete phone number');
+   		}		
     
     	$this->response($message, 200);
     }
@@ -416,8 +424,7 @@ class Users extends Oauth_Controller
     
     /* Advanced Fields */
     function advanced_authd_post()
-    {
-    
+    {    
     	$message = array('status' => 'success', 'message' => 'User advanced settings updated');
     
     	$this->response($message, 200);    

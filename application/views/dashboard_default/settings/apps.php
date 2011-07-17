@@ -29,7 +29,7 @@
 	</span>
 	<?php endif; else: ?>
 	<span class="item_right">
-		<a href="<?= base_url().'settings/'.$module.'/install' ?>">Install</a>
+		<a href="<?= base_url().'api/install/install/app/'.$module ?>" rel="<?= $module ?>" class="install_app">Install</a>
 	</span>
 	<?php endif; ?>
 	<div class="clear"></div>
@@ -38,3 +38,36 @@
 <?php endif; endforeach; ?>
 </ol>
 <div class="clear"></div>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	// Write Article
+	$('.install_app').bind('click', function(eve)
+	{
+		eve.preventDefault();
+		var install_url = $(this).attr('href');
+		var install_app = $(this).attr('rel');
+		
+		console.log(install_url);
+	
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: install_url,
+			type		: 'GET',
+			dataType	: 'json',
+	  		success		: function(result)
+	  		{
+	  			console.log(result);
+	  		
+				$('html, body').animate({scrollTop:0});
+				
+				if (result.status == 'success')
+				{
+					$('#content_message').notify({status:result.status,message:result.message + ' You will now be direct to setup.',complete:'redirect',redirect: base_url + 'settings/' + install_app});			 		
+		 		}
+		 	}
+		});		
+	});	
+});
+</script>

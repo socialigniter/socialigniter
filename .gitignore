@@ -1,5 +1,6 @@
 *.DS_Store
 application/views/.DS_Store
+cron.log
 .ftpquota
 crossdomain.xml
 favicon.ico
@@ -7,7 +8,6 @@ error_log
 application/config/config.php
 application/config/database.php
 application/config/custom.php
-application/config/social_igniter.php
 application/config/routes.php
 application/helpers/custom_helper.php
 application/logs/

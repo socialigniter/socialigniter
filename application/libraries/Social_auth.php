@@ -663,6 +663,11 @@ class Social_auth
     	return FALSE;
 	}
 	
+	function delete_user_meta($user_meta_id)
+	{
+		return $this->ci->auth_model->delete_user_meta($user_meta_id);
+	}
+	
 	
 	/* User Levels */
 	function get_users_levels()

@@ -601,6 +601,13 @@ class Auth_model extends CI_Model
 		return TRUE;		
 	}
 	
+	function delete_user_meta($user_meta_id)
+	{
+    	$this->db->where('user_meta_id', $user_meta_id);
+    	$this->db->delete('users_meta');
+		return TRUE;
+	}
+	
 	/* Remember Login */
 	function update_last_login($user_id)
 	{

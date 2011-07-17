@@ -39,9 +39,8 @@ class Image_model extends CI_Model
 	    $raw_path 			= config_item('uploads_folder').$file_data['file_name'];
 	    $original_width		= 0;
 	    $original_height	= 0;
-
-			$aspect = $file_data['image_width'] / $file_data['image_height'];
-			$set_master_dim = '';
+		$aspect 			= $file_data['image_width'] / $file_data['image_height'];
+		$set_master_dim 	= '';
 
 	    // Raw width larger than allowed
 		if ($file_data['image_width'] >= config_item($module.'_images_'.$size.'_width'))
@@ -128,72 +127,74 @@ class Image_model extends CI_Model
 			copy($raw_path, $working_path); 	    	   
  
 	    // Largest Possible Cropped Image	 
-			$crop_config['image_library']	= 'gd2';
-	    $crop_config['source_image'] 	= $working_path;
-	    $crop_config['maintain_ratio']	= FALSE;
-	    if ($x_axis) $crop_config['x_axis']		 	= $x_axis;
-	    if ($y_axis) $crop_config['y_axis'] 			= $y_axis;
-	    $crop_config['width'] 			= $resize_width;
-	    $crop_config['height'] 			= $resize_height;
-	    
-		//echo "x_axis: $x_axis - y_axis: $y_axis -- resize_width: $resize_width - resize_height: $resize_height - upload_width - $file_data['image_width'] - upload_height - $file_data['image_height'] -- constrained width - " . config_item($module.'_images_'.$size.'_width') .  " constrained_height - " . config_item($module.'_images_'.$size.'_height') . " master_dim - $set_master_dim<br><br>";
-    
+		$crop_config['image_library']		= 'gd2';
+	    $crop_config['source_image'] 		= $working_path;
+	    $crop_config['maintain_ratio']		= FALSE;
+	    if ($x_axis) $crop_config['x_axis']	= $x_axis;
+	    if ($y_axis) $crop_config['y_axis'] = $y_axis;
+	    $crop_config['width'] 				= $resize_width;
+	    $crop_config['height'] 				= $resize_height;
+	        
 	    $this->image_lib->initialize($crop_config);
 	    
-			if (!$this->image_lib->resize()) {
-	        echo "error resizing 1";
-	        echo $this->image_lib->display_errors();
-			}
+		if (!$this->image_lib->resize())
+		{
+        	echo "error resizing 1";
+        	echo $this->image_lib->display_errors();
+		}
 
-			copy($working_path, $img_output_path);
-			unlink($working_path);
-	    
-			$crop_config['source_image'] 	= $img_output_path;
+		copy($working_path, $img_output_path);
+		unlink($working_path);
 
+		$crop_config['source_image'] 	= $img_output_path;
 	    $crop_config['width'] 			= $resize_width - $x_axis;
  	    $crop_config['height'] 			= $resize_height - $y_axis;
 				    
-  	  $this->image_lib->clear();
-			$this->image_lib->initialize($crop_config);
+  	  	$this->image_lib->clear();
+		$this->image_lib->initialize($crop_config);
 
-			if ($x_axis || $y_axis) {
-		    if (!$this->image_lib->crop())
-		    {
-		        echo $this->image_lib->display_errors();
-		        return false;
-		    }	    
-			}	
+		if ($x_axis || $y_axis)
+		{
+			if (!$this->image_lib->crop())
+			{
+				echo $this->image_lib->display_errors();
+			    return false;
+			}	    
+		}	
 
-			$crop_config['rotation_angle'] = 180;
+		$crop_config['rotation_angle'] = 180;
 
 	    $this->image_lib->initialize($crop_config);
  			
-			if (!$this->image_lib->rotate()) {
-				echo "error rotation 1";
-				echo $this->image_lib->display_errors();
-				return false;
-			}
+		if (!$this->image_lib->rotate())
+		{
+			echo "error rotation 1";
+			echo $this->image_lib->display_errors();
+			return false;
+		}
 
-			$this->image_lib->clear();
-			$crop_config['width'] = $crop_config['width'] - $x_axis;
-			$crop_config['height'] = $crop_config['height'] - $y_axis;
-			unset($crop_config['rotation_angle']);
+		$this->image_lib->clear();
+		$crop_config['width'] = $crop_config['width'] - $x_axis;
+		$crop_config['height'] = $crop_config['height'] - $y_axis;
+		unset($crop_config['rotation_angle']);
 	    $this->image_lib->initialize($crop_config);
 
-			if (!$this->image_lib->crop()) {
-				echo "error crop 2";
-				echo $this->image_lib->display_errors();
-			}	
+		if (!$this->image_lib->crop())
+		{
+			echo "error crop 2";
+			echo $this->image_lib->display_errors();
+		}	
   	  
-			$this->image_lib->clear();
+		$this->image_lib->clear();
 	    $crop_config['rotation_angle'] = 180;
-			$this->image_lib->initialize($crop_config);
+		$this->image_lib->initialize($crop_config);
 
- 			if (!$this->image_lib->rotate()) {
-				echo "error rotation 1";
-				echo $this->image_lib->display_errors();
-				return false;
-			}
+		if (!$this->image_lib->rotate())
+		{
+			echo "error rotation 1";
+			echo $this->image_lib->display_errors();
+			return false;
+		}
 			
   	   $this->image_lib->clear(); 		
 	}
