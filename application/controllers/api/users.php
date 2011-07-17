@@ -200,17 +200,24 @@ class Users extends Oauth_Controller
 			{	
 				// Delete Expectation
 				$this->social_tools->delete_upload($this->input->post('upload_id'));
-				
+								
 				// Upload Settings
-				$config['upload_path'] 		= config_item('uploads_folder');
+				$create_path				= config_item('users_images_folder').$this->get('id').'/';
+				$config['upload_path'] 		= $create_path; //config_item('uploads_folder');
 				$config['allowed_types'] 	= config_item('users_images_formats');		
 				$config['overwrite']		= true;
 				$config['max_size']			= config_item('users_images_max_size');
 				$config['max_width']  		= config_item('users_images_max_dimensions');
 				$config['max_height']  		= config_item('users_images_max_dimensions');
-			
+
+				$this->load->helper('file');	
 				$this->load->library('upload', $config);
+
+				// Delete / Make Folder
+				delete_files($create_path);
+				make_folder($create_path);
 				
+				// Upload
 				if (!$this->upload->do_upload('file'))
 				{
 			    	$message = array('status' => 'error', 'message' => $this->upload->display_errors());
@@ -222,22 +229,21 @@ class Users extends Oauth_Controller
 	
 					// Upload & Sizes
 					$file_data		= $this->upload->data();
-					$image_size 	= getimagesize(config_item('uploads_folder').$file_data['file_name']);
+					$image_size 	= getimagesize($create_path.$file_data['file_name']);
 					$file_data		= array('file_name'	=> $file_data['file_name'], 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
 					$image_sizes	= array('full', 'large', 'medium', 'small');
-					$create_path	= config_item('users_images_folder').$this->get('id').'/';
 	
 					// Make Sizes / Delete Old Files
-					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
+					$this->image_model->make_images($create_path, $file_data, 'users', $image_sizes);
 		
 					// Update DB
 			    	$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));
 			    	
-			    	// Update Userdata
+			    	// Update Userdata Image
 			    	$this->session->set_userdata('image', $file_data['file_name']);
 	
 			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'data' => $file_data['file_name']);
-				}	
+				}
 			}
 			else
 			{

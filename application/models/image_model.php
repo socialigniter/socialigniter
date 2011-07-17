@@ -10,16 +10,9 @@ class Image_model extends CI_Model
 	    $this->load->library('image_lib');
     }
 
-	function make_images($file_data, $module, $image_sizes, $create_path, $delete_files)
-	{
-		make_folder($create_path);
-		
-		if ($delete_files)
-		{
-			delete_files($create_path);
- 		}
- 
-	    $raw_path = config_item('uploads_folder').$file_data['file_name'];
+	function make_images($create_path, $file_data, $module, $image_sizes)
+	{		
+	    $raw_path = $create_path.$file_data['file_name'];
 		
 		// Loop through sizes...
 		foreach ($image_sizes as $size)
@@ -29,14 +22,19 @@ class Image_model extends CI_Model
 			{ 
 				$this->make_cropped($file_data, $module, $create_path, $size);
 			}
-		}			
-	    
+		}
+		
+		if (config_item($module.'_images_sizes_original') == 'no')
+		{
+			unlink($raw_path);
+		}
+
 	    return true;	    
 	}
 	
 	function make_cropped($file_data, $module, $create_path, $size)
 	{
-	    $raw_path 			= config_item('uploads_folder').$file_data['file_name'];
+	    $raw_path 			= $create_path.$file_data['file_name'];
 	    $original_width		= 0;
 	    $original_height	= 0;
 		$aspect 			= $file_data['image_width'] / $file_data['image_height'];
@@ -65,26 +63,34 @@ class Image_model extends CI_Model
 		}
 			
 		// in the case where both upload dimensions are larger than the specified size, let the smaller specified dimension govern  
-		if ($file_data['image_width'] >= config_item($module.'_images_'.$size.'_height') && $file_data['image_height'] >= config_item($module.'_images_'.$size.'_height') ) {
+		if ($file_data['image_width'] >= config_item($module.'_images_'.$size.'_height') && $file_data['image_height'] >= config_item($module.'_images_'.$size.'_height')) 
+		{
 			//special case for square images
-			if (config_item($module.'_images_'.$size.'_width')  == config_item($module.'_images_'.$size.'_height') ) {
-				if ($file_data['image_width'] > $file_data['image_height']) {
+			if (config_item($module.'_images_'.$size.'_width')  == config_item($module.'_images_'.$size.'_height'))
+			{
+				if ($file_data['image_width'] > $file_data['image_height'])
+				{
 					$set_master_dim = 'height';
-				} else {
+				}
+				else
+				{
 					$set_master_dim = 'width';
 				}
-			} else {
-				if (config_item($module.'_images_'.$size.'_width')  > config_item($module.'_images_'.$size.'_height') ) {
+			}
+			else
+			{
+				if (config_item($module.'_images_'.$size.'_width') > config_item($module.'_images_'.$size.'_height'))
+				{
 					$set_master_dim = 'width';
-				} else {
+				}
+				else
+				{
 					$set_master_dim = 'height';
 				}
 			}
-		} 
+		}
 
-   	       
-	    // Horizontal or Vertical Picture	   
-		// using config sizes will enlarge small pictures to size 
+	    // Horizontal or Vertical Picture using config sizes will enlarge small pictures to size 
 	    if($set_master_dim == 'width')
 	    {
 	        $resize_width 	= $original_width; 
@@ -96,35 +102,42 @@ class Image_model extends CI_Model
 	        $resize_height 	= $original_height;
 	    }
 	    
-	    // Calculate Offset
-    	// Horizontal crop
-        if( $resize_width > config_item($module.'_images_'.$size.'_width')) {
+	    // Calculate Offset & Horizontal crop
+        if( $resize_width > config_item($module.'_images_'.$size.'_width')) 
+        {
 	        $diff = $resize_width - config_item($module.'_images_'.$size.'_width');
         	$x_axis = round($diff / 2);
-				} else {
-					$x_axis = 0;
-				}
+		}
+		else
+		{
+			$x_axis = 0;
+		}
+    	
     	// Vertical crop
-        if ($resize_height > config_item($module.'_images_'.$size.'_height')) {
-       	  $diff = $resize_height - config_item($module.'_images_'.$size.'_height');
+        if ($resize_height > config_item($module.'_images_'.$size.'_height')) 
+        {
+       	 	$diff = $resize_height - config_item($module.'_images_'.$size.'_height');
         	$y_axis = round($diff / 2);
-				} else {
-					$y_axis = 0;
-				}
+		}
+		else
+		{
+			$y_axis = 0;
+		}
 		
-			// define paths	
-			$img_output_path =  getcwd() . '/' . $create_path.$size."_".$file_data['file_name'];
-			$raw_path = getcwd() . '/' . $raw_path;
-			$working_path =  getcwd() . '/' . $create_path."/working_".$file_data['file_name'];
+		// define paths	
+		$img_output_path =  getcwd() . '/' . $create_path.$size."_".$file_data['file_name'];
+		$raw_path = getcwd() . '/' . $raw_path;
+		$working_path =  getcwd() . '/' . $create_path."/working_".$file_data['file_name'];
 /*
-			if (stristr(PHP_OS, 'WIN')) {
-				$raw_path = str_replace('/', '\\', $raw_path);
-				$working_path = str_replace('/', '\\', $working_path);
-				$img_output_path = str_replace('/', '\\', $img_output_path);
-			}
-*/			
-			// make a working copy
-			copy($raw_path, $working_path); 	    	   
+		if (stristr(PHP_OS, 'WIN'))
+		{
+			$raw_path = str_replace('/', '\\', $raw_path);
+			$working_path = str_replace('/', '\\', $working_path);
+			$img_output_path = str_replace('/', '\\', $img_output_path);
+		}
+*/
+		// make a working copy
+		copy($raw_path, $working_path); 	    	   
  
 	    // Largest Possible Cropped Image	 
 		$crop_config['image_library']		= 'gd2';
@@ -196,7 +209,7 @@ class Image_model extends CI_Model
 			return false;
 		}
 			
-  	   $this->image_lib->clear(); 		
+  		$this->image_lib->clear(); 		
 	}
 		
 	// Makes Image that does not need cropping

@@ -195,6 +195,7 @@ $(document).ready(function()
 		});
 	});		
 
+
 	// Update Profile Data
 	$("#user_profile").bind('submit', function(e)
 	{	
