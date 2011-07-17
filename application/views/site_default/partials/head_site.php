@@ -1,6 +1,4 @@
-<link rel="alternate" type="application/rss+xml" title="<?= $site_title ?> RSS 2.0 Feed" href="<?= base_url() ?>feed" />
-<link rel="alternate" type="application/rss+xml" title="<?= $site_title ?> RSS 2.0 Comments" href="<?= base_url() ?>feed/comments" />
-
+<link rel="icon" type="image/png" href="<?= $site_images ?>favicon.png" />
 <link type="text/css" href="<?= base_url() ?>css/common.css" rel="stylesheet" media="screen" />
 <link type="text/css" href="<?= $site_assets ?>style.css" rel="stylesheet" media="screen" />
 <link type="text/css" href="<?= base_url() ?>css/uniform.default.css" rel="stylesheet" media="screen" charset="utf-8" />

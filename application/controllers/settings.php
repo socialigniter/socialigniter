@@ -62,10 +62,12 @@ class Settings extends Dashboard_Controller
   	function contact()
  	{
  	   	$user 		= $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 	
- 		$user_meta	= $this->social_auth->get_user_meta_meta($this->session->userdata('user_id'), 'phone');
- 	
+ 		$phones		= $this->social_auth->get_user_meta_meta($this->session->userdata('user_id'), 'phone');
+ 		$addresses	= $this->social_auth->get_user_meta_meta($this->session->userdata('user_id'), 'address');
+
  	    $this->data['sub_title'] 	= 'Contact';
- 		$this->data['phones']		= $user_meta;
+ 		$this->data['phones']		= $phones;
+ 		$this->data['addresses']	= 'asdasd'; //$addresses;
     	
  		$this->render('dashboard_wide');	
  	}

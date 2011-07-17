@@ -710,3 +710,8 @@ $(document).ready(function()
 	
 
 });
+
+/* HTML Partial Vars */
+var partials = {
+	"item_data":"<li class='item_data' id='item_data_'><span class='actions action_'></span><span class='item_data'></span><ul class='item_actions'><li><a href='' class='mobile_edit_data'><span class='actions action_edit'></span> Edit</a></li><li><a href='' class='mobile_delete_data' rel=''><span class='actions action_delete'></span> Delete</a></li></ul><input type='hidden' id='data_' value=''></li>"
+}

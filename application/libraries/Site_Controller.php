@@ -18,13 +18,14 @@ class Site_Controller extends MY_Controller
     {
         parent::__construct();
 
-	// Global Required Quries
-	$this->data['navigation_menu']	= $this->social_igniter->get_menu();
+		// Global Required Quries
+		$this->data['navigation_menu']	= $this->social_igniter->get_menu();
 
         // Load Views
         $this->data['head']			= $this->load->view(config_item('site_theme').'/partials/head_site.php', $this->data, true);
         $this->data['logged']		= $this->load->view(config_item('site_theme').'/partials/logged.php', $this->data, true);
         $this->data['navigation']	= $this->load->view(config_item('site_theme').'/partials/navigation_site.php', $this->data, true);
+        $this->data['site_image']	= '';
         $this->data['content']		= '';
         
  		// Widget Regions	 		
