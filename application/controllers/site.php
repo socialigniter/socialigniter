@@ -198,7 +198,6 @@ class Site extends Site_Controller
 		$this->data['page_title'] = 'Doggy';
 		$this->render();
 	}
-
     
     // Page Not Found
     function error_404()
@@ -245,6 +244,7 @@ class Site extends Site_Controller
     }    
     function test_me()
  	{
+ 	    /*
  	    $this->load->library('simplepie');
  	    $simple = new SimplePie();
  	    $feedurl = "http://social.pdxbrain.com/profile/tyler/feed";
@@ -258,9 +258,8 @@ class Site extends Site_Controller
  	        echo $item->get_id()."<br>";
  	    }
  	    //var_dump($simple);
- 	    /*
+
  	    $this->load->library('webfinger');
-        /*
         $id = "tyler@social.pdxbrain.com";
         $webfinger = $this->webfinger->webfinger_find_by_email($id);
         var_dump($webfinger);
@@ -272,9 +271,8 @@ class Site extends Site_Controller
         }
         echo "Webfinger: $id, Full Name: $name <img src=$photo>";
         //var_dump($webfinger);
-        */
         echo 'test';
-        
+      */
     } 	
 
 }

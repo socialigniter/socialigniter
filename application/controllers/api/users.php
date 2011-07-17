@@ -354,9 +354,8 @@ class Users extends Oauth_Controller
 		
 			$phone_data = array(
 				'phone_number'	=> ereg_replace("[^0-9]", "", $this->input->post('phone_number')),
-	        	'phone_verify'	=> $phone_verify,
+	        	'phone_verified'=> $phone_verify,
 	        	'phone_private'	=> $this->input->post('phone_private'),
-	        	'phone_search'	=> $this->input->post('phone_search'),
 	        	'phone_type'	=> $this->input->post('phone_type')
 			);
 
