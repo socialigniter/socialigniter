@@ -21,12 +21,14 @@ class Profile extends Site_Controller
 			$this->data['image'] 			= $this->user->image; 
 			$this->data['created_on'] 		= $this->user->created_on;
 			
+			// Meta Tags			
+			$this->data['site_image']		= base_url().config_item('users_images_folder').$this->user->user_id.'/large_'.$this->user->image;
+			
 			// User Meta
 			$this->data['company']			= $this->social_auth->find_user_meta_value('company', $this->user_meta);
 			$this->data['location']			= $this->social_auth->find_user_meta_value('location', $this->user_meta);
 			$this->data['url']				= $this->social_auth->find_user_meta_value('url', $this->user_meta);
 			$this->data['bio']				= $this->social_auth->find_user_meta_value('bio', $this->user_meta);
-
 			
 			// Social Connections
 			$this->data['connections']		= $this->social_auth->get_connections_user($this->user->user_id);
@@ -34,6 +36,7 @@ class Profile extends Site_Controller
 			// Relationships
 			$this->data['followers']		= $this->social_tools->get_relationships_followers($this->user->user_id);
 			$this->data['follows']			= $this->social_tools->get_relationships_follows($this->user->user_id);
+			$this->data['follow_word']		= 'follow';			
 
 			// Links
 			if ($this->social_auth->logged_in())
@@ -47,17 +50,11 @@ class Profile extends Site_Controller
 			 		$this->data['follow_word']	= 'follow';				
 				}	
 			}
-			else
-			{
-			 	$this->data['follow_word']	= 'follow';			
-			}
-
+			
 	 		$this->data['message_url'] 		= base_url().'api/message/send/id/'.$this->user->user_id;
 	 		
-
 			// Sidebar
 			$this->data['sidebar_profile'] = $this->load->view(config_item('site_theme').'/partials/sidebar_profile.php', $this->data, true);	
-			
 			
 			// Timeline 		
 			$timeline 							= $this->social_igniter->get_timeline_user($this->user->user_id, 8);
@@ -111,18 +108,11 @@ class Profile extends Site_Controller
 		}
 		$this->data['timeline_view'] 	= $timeline_view; 		
  		$this->data['timeline_count']	= $timeline_count;
-
     }
 
  	function index()
  	{ 		
  		$this->data['page_title'] = $this->data['name']."'s profile";
- 		
-
-
-		// Final Output
-
- 		
 		$this->render('profile');
  	}
 
@@ -142,7 +132,6 @@ class Profile extends Site_Controller
  	function image()
  	{
  		$this->data['page_title'] = $this->data['name']."'s profile picture";	
-
  		$this->render('profile');
  	} 
 }

@@ -13,6 +13,7 @@ application/helpers/custom_helper.php
 application/logs/
 application/modules/
 images/site/
+temp/
 uploads/
 system/logs/
 application/views/
