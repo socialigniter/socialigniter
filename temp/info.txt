@@ -1,2 +1,0 @@
-TEMP DIRECTORY
-This is a temp directory where files get uploaded. You can and should delete this file as it's only here to git includes it with the repo
