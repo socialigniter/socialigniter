@@ -68,7 +68,7 @@ $(document).ready(function()
 		runtimes : 'html5,flash',
 		browse_button : 'pickfiles',
 		container : 'container',
-		max_file_size : '10mb',
+		max_file_size : '<?= config_item('users_images_max_size') / 1024 ?>mb',
 		max_file_count: 1,
 		url : base_url + 'api/users/upload_profile_picture/id/' + user_data.user_id,
 		flash_swf_url : base_url + 'js/plupload.flash.swf',

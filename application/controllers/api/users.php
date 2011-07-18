@@ -220,21 +220,18 @@ class Users extends Oauth_Controller
 				// Upload
 				if (!$this->upload->do_upload('file'))
 				{
-			    	$message = array('status' => 'error', 'message' => $this->upload->display_errors());
+			    	$message = array('status' => 'error', 'here' => 'aahhh', 'message' => $this->upload->display_errors('', ''));
 				}	
 				else
 				{
 					// Image Model
 					$this->load->model('image_model');
 	
-					// Upload & Sizes
-					$file_data		= $this->upload->data();
-					$image_size 	= getimagesize($create_path.$file_data['file_name']);
-					$file_data		= array('file_name'	=> $file_data['file_name'], 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
-					$image_sizes	= array('full', 'large', 'medium', 'small');
+					// Upload Data
+					$file_data = $this->upload->data();
 	
 					// Make Sizes / Delete Old Files
-					$this->image_model->make_images($create_path, $file_data, 'users', $image_sizes);
+					$this->image_model->make_images($create_path, $file_data, 'users', array('full', 'large', 'medium', 'small'));
 		
 					// Update DB
 			    	$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));
