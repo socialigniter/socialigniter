@@ -56,6 +56,9 @@
 <script type="text/javascript">
 $(document).ready(function()
 {
+	var uploader_form		= '#user_profile';
+	var uploader_thumb		= '#profile_thumbnail';
+	var uploader_notify		= '#content_message';
 	var uploader_parent		= '#profile_picture_uploader';
 	var uploader_list		= '#profile_picture_container';
 	var uploader_create 	= '<ul id="profile_picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li><li class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size in these formats <?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?></li></ul>';
@@ -86,7 +89,7 @@ $(document).ready(function()
 	uploader.bind('FilesAdded', function(up, files)
 	{		
 		var file_hash		= md5(files[0].name);
-		var picture_data 	= $('#user_profile').serializeArray();
+		var picture_data 	= $(uploader_form).serializeArray();
 		picture_data.push({'name':'file_hash','value':file_hash});
 		
 		// Create Expectation (OAuth1 signed request)	
@@ -114,7 +117,7 @@ $(document).ready(function()
 				}
 				else
 				{
-					$('#content_message').notify({status:result.status,message:result.message});	
+					$(uploader_notify).notify({status:result.status,message:result.message});	
 				}
 		 	}
 		});		
@@ -129,7 +132,7 @@ $(document).ready(function()
 	// Upload Error
 	uploader.bind('Error', function(up, err)
 	{
-		$('#content_message').notify({status:'error',message:'Error: ' + err.code + ', Message: ' + err.message + (err.file ? ', File: ' + err.file.name : '')}); 
+		$(uploader_notify).notify({status:'error',message:'Error: ' + err.code + ', Message: ' + err.message + (err.file ? ', File: ' + err.file.name : '')}); 
 		uploader.refresh();
 	});
 
@@ -153,12 +156,11 @@ $(document).ready(function()
 		// Change Image
 		if (response.status == 'success')
 		{
-		
-			$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/1/small_' + response.data)
+			$(uploader_thumb).attr('src', base_url + 'uploads/profiles/1/small_' + response.data)
 		}
 		else
 		{
-			$('#content_message').notify({status:response.status,message:response.message});	
+			$(uploader_notify).notify({status:response.status,message:response.message});	
 		}
 	});
 	
@@ -226,6 +228,7 @@ $(document).ready(function()
 	});	
 });
 
+/*
 function deletePicture()
 {
 	// Delete Picture
@@ -261,5 +264,5 @@ function deletePicture()
 		});
 	});
 }
-
+*/
 </script>
