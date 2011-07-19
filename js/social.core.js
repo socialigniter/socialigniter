@@ -502,10 +502,10 @@ function getMapGeocode(address, lat_field, long_field)
 	    	clearOverlays();
 	    	deleteOverlays();	
 	    	addMarker(results[0].geometry.location);
-	    		    	
-	    	// Set Geo	    	
-	    	$(lat_field).val(results[0].geometry.location.Da);
-	    	$(long_field).val(results[0].geometry.location.Ea);
+
+	    	// Set Geo
+	    	$(lat_field).val(results[0].geometry.location.lat());
+	    	$(long_field).val(results[0].geometry.location.lng());
 		}
 		else
 		{

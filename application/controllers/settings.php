@@ -20,6 +20,7 @@ class Settings extends Dashboard_Controller
 
 		$user = $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 
 
+		// Profile Data
 	    $this->data['sub_title'] 	= 'Profile';     
  	 	$this->data['image']		= $user->image;
 	 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar, 'small');
@@ -30,6 +31,10 @@ class Settings extends Dashboard_Controller
 		$this->data['time_zone']	= $user->time_zone;
 		$this->data['geo_enabled']	= $user->geo_enabled;
 		$this->data['privacy'] 		= $user->privacy;
+		
+		// Image Upload Settings
+        $this->data['upload_size']	  = config_item('users_images_max_size') / 1024;
+        $this->data['upload_formats'] = str_replace('|', ',', config_item('users_images_formats'));
         
 		$this->render('dashboard_wide');
  	}

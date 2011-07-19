@@ -5,18 +5,13 @@
 	{	
 		var settings =
 		{
-			'form'			: '',
-			'thumb'			: '',
-			'notify'		: '',
-			'parent'		: '',
-			'list'			: '',
-			'create' 		: '<ul id="picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li><li class="small_details"><span class="actions_blank"></span></li></ul>',
-			'change' 		: '<ul id="picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_edit"></span> Change Picture</a></li><li><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li></ul>',
-			'working'		: '<ul id="picture_container" class="item_actions_list"><li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li></ul>',
 			'max_size'		: '',
 			'create_url'	: '',
-			'file_formats'	: ''
+			'formats'		: '',
+			'start'			: function(){},
+			'complete'		: function(){}
 		};
+		
 		return this.each(function()
 		{			
 			options = $.extend({}, settings, options);
@@ -34,7 +29,7 @@
 				flash_swf_url	: base_url + 'js/plupload.flash.swf',
 				multipart 		: true,
 				multipart_params: {'file_hash':'', 'upload_id':'', 'consumer_key':user_data.consumer_key},		
-				filters 		: [options.file_formats]
+				filters 		: [options.formats]
 			});
 		
 			// Initialize
@@ -45,7 +40,7 @@
 			uploader.bind('FilesAdded', function(up, files)
 			{		
 				var file_hash	= md5(files[0].name);
-				var file_data 	= $(options.form).serializeArray();
+				var file_data 	= [];
 				file_data.push({'name':'file_hash','value':file_hash});
 				
 				// Create Expectation (OAuth1 signed request)	
@@ -57,25 +52,22 @@
 					dataType	: 'json',
 					data		: file_data,
 			  		success		: function(result)
-			  		{	  			  			  		
+			  		{
 						if (result.status == 'success')
 						{
 							// Update Multipart Form Variables
 							uploader.settings.multipart_params.file_hash = files[0].name;
 							uploader.settings.multipart_params.file_hash = file_hash;
-							uploader.settings.multipart_params.upload_id = result.data;					
-		
-							// Show Uploading Status - upload size - plupload.formatSize(files[0].size)
-							$(options.list).replaceWith(options.working);
-					 		$('#file_uploading_name').append(files[0].name);
-										
-							// Start Upload		
+							uploader.settings.multipart_params.upload_id = result.data;
+
+							// Start Upload	& Callback	
 							uploader.refresh();
 							uploader.start();
+							options.start(files);
 						}
 						else
 						{
-							$(options.notify).notify({status:result.status,message:result.message});	
+							$('#content_message').notify({status:result.status,message:result.message});	
 						}
 				 	}
 				});		
@@ -91,7 +83,7 @@
 			uploader.bind('Error', function(up, err)
 			{
 				// err.code err.file
-				$(options.notify).notify({status:'error', message:err.message}); 
+				$('#content_message').notify({status:'error', message:err.message}); 
 				uploader.refresh();
 			});
 		
@@ -100,24 +92,9 @@
 			{
 				$('#file_uploading_progress').html("100%");
 				var response = JSON.parse(res.response);
-				
-				$(options.list).delay(750).fadeOut(function()
-				{
-					$(options.list).remove();
-					$(options.parent).append(options.change);
-					$(options.list).delay(1250).fadeIn();
-					uploader.init();
-				});
 
-				// Change Image
-				if (response.status == 'success')
-				{
-					$(options.thumb).attr('src', base_url + 'uploads/profiles/1/small_' + response.data)
-				}
-				else
-				{
-					$(options.notify).notify({status:response.status,message:response.message});	
-				}
+				options.complete(response);
+				uploader.init();				
 			});
 		})
 	}

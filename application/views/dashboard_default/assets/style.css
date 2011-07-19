@@ -52,7 +52,7 @@ textarea.textarea_full		{ width: 625px; }
 .width_300					{ width: 300px; }
 .width_435					{ width: 435px; }
 
-.button_basic_on			{ position: relative; top: -8px; left: 0; width: auto; height: 27px; background: url(images/button_basic.png) 0 0 repeat-x; display: block; border: 1px solid #666666; color: #efefef; text-shadow:1px 1px 1px #555555; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 14px; padding: 0 12px; }
+.button_basic_on			{ position: relative; top: -8px; left: 0; width: auto; height: 27px; background: url(images/button_basic.png) 0 0 repeat-x; display: block; cursor: pointer; border: 1px solid #666666; color: #efefef; text-shadow:1px 1px 1px #555555; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 14px; padding: 0 12px; }
 .button_basic_on:hover		{ background: url(images/button_basic_hover.png) 0 0 repeat-x #888888; display: block; border: 1px solid #666666; color: #efefef; text-shadow:1px 1px 1px #555555; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 14px; padding: 0 12px;  }
 .button_basic_on span		{ position: relative; top: 7px; left: 0; }
 .button_basic_on a			{ color: #efefef !important; text-shadow:1px 1px 1px #222222 !important; text-decoration: none; }

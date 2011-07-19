@@ -203,7 +203,7 @@ class Users extends Oauth_Controller
 								
 				// Upload Settings
 				$create_path				= config_item('users_images_folder').$this->get('id').'/';
-				$config['upload_path'] 		= $create_path; //config_item('uploads_folder');
+				$config['upload_path'] 		= $create_path;
 				$config['allowed_types'] 	= config_item('users_images_formats');		
 				$config['overwrite']		= true;
 				$config['max_size']			= config_item('users_images_max_size');
@@ -230,7 +230,7 @@ class Users extends Oauth_Controller
 					// Upload Data
 					$file_data = $this->upload->data();
 	
-					// Make Sizes / Delete Old Files
+					// Make Sizes
 					$this->image_model->make_images($create_path, $file_data, 'users', array('full', 'large', 'medium', 'small'));
 		
 					// Update DB
