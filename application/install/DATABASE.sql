@@ -296,7 +296,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_medium_height', '48');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_small_width', '45');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_small_height', '25');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_formats', 'gif|jpg|jpeg|png');
-INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_max_size', '25600');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_max_size', '2560');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_full_width', '750');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_full_height', '750');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_sizes_full', 'yes');
