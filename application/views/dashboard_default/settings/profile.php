@@ -51,118 +51,25 @@
 	<p><input type="submit" value="Save"></p>
 </form>
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/plupload.html5.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/plupload.flash.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/jquery.mediaUploader.js"></script>
 <script type="text/javascript">
 $(document).ready(function()
 {
-	var uploader_form		= '#user_profile';
-	var uploader_thumb		= '#profile_thumbnail';
-	var uploader_notify		= '#content_message';
-	var uploader_parent		= '#profile_picture_uploader';
-	var uploader_list		= '#profile_picture_container';
-	var uploader_create 	= '<ul id="profile_picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li><li class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size in these formats <?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?></li></ul>';
-	var uploader_change 	= '<ul id="profile_picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_edit"></span> Change Picture</a></li><li><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li></ul>';
-	var uploader_working	= '<ul id="profile_picture_container" class="item_actions_list"><li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li></ul>';
-
-	// Uploader Params
-	var uploader = new plupload.Uploader(
+	// Upload Image Plugin
+	$(this).mediaUploader(
 	{
-		runtimes : 'html5,flash',
-		browse_button : 'pickfiles',
-		container : 'container',
-		max_file_size : '<?= config_item('users_images_max_size') / 1024 ?>mb',
-		max_file_count: 1,
-		url : base_url + 'api/users/upload_profile_picture/id/' + user_data.user_id,
-		flash_swf_url : base_url + 'js/plupload.flash.swf',
-		multipart : true,
-		multipart_params : {'file_hash':'','upload_id':'','consumer_key':user_data.consumer_key},		
-		filters : [
-			{title : "Image files", extensions : "jpg,gif,png"}
-		]
-	});
-
-	uploader.bind('Init', function(up, params){});
-	uploader.init();
-
-	// Add Files & Start Upload
-	uploader.bind('FilesAdded', function(up, files)
-	{		
-		var file_hash		= md5(files[0].name);
-		var picture_data 	= $(uploader_form).serializeArray();
-		picture_data.push({'name':'file_hash','value':file_hash});
-		
-		// Create Expectation (OAuth1 signed request)	
-		$(this).oauthAjax(
-		{
-			oauth 		: user_data,
-			url			: base_url + 'api/upload/create_expectation',
-			type		: 'POST',
-			dataType	: 'json',
-			data		: picture_data,
-	  		success		: function(result)
-	  		{	  			  			  		
-				if (result.status == 'success')
-				{
-					uploader.settings.multipart_params.file_hash = files[0].name;
-					uploader.settings.multipart_params.file_hash = file_hash;
-					uploader.settings.multipart_params.upload_id = result.data;					
-
-					$(uploader_list).replaceWith(uploader_working);
-			 		$('#file_uploading_name').append(files[0].name + '(' + plupload.formatSize(files[0].size) + ')');
-								
-					// Start Upload		
-					uploader.refresh();
-					uploader.start();
-				}
-				else
-				{
-					$(uploader_notify).notify({status:result.status,message:result.message});	
-				}
-		 	}
-		});		
-	});
-
-	// Upload Progress
-	uploader.bind('UploadProgress', function(up, file)
-	{
-		$('#file_uploading_progress').html(file.percent + "%");
-	});
-	
-	// Upload Error
-	uploader.bind('Error', function(up, err)
-	{
-		$(uploader_notify).notify({status:'error',message:'Error: ' + err.code + ', Message: ' + err.message + (err.file ? ', File: ' + err.file.name : '')}); 
-		uploader.refresh();
-	});
-
-	// Upload Success
-	uploader.bind('FileUploaded', function(up, file, res)
-	{
-		$('#file_uploading_progress').html("100%");
-		var response = JSON.parse(res.response);
-		
-		$(uploader_list).delay(750).fadeOut(function()
-		{
-			$(uploader_list).remove();
-			$(uploader_parent).append(uploader_change);
-			$(uploader_list).delay(1250).fadeIn();
-	
-			uploader.init();
-		});
-	
-		console.log(response);
-		
-		// Change Image
-		if (response.status == 'success')
-		{
-			$(uploader_thumb).attr('src', base_url + 'uploads/profiles/1/small_' + response.data)
-		}
-		else
-		{
-			$(uploader_notify).notify({status:response.status,message:response.message});	
-		}
-	});
+		form		: '#user_profile',
+		thumb		: '#profile_thumbnail',
+		notify		: '#content_message',
+		parent		: '#profile_picture_uploader',
+		list		: '#profile_picture_container',
+		create 		: '<ul id="profile_picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li><li class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size in these formats <?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?></li></ul>',
+		change 		: '<ul id="profile_picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_edit"></span> Change Picture</a></li><li><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li></ul>',
+		working		: '<ul id="profile_picture_container" class="item_actions_list"><li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li></ul>',
+		max_size	: '<?= config_item('users_images_max_size') / 1024 ?>mb',
+		create_url	: base_url + 'api/users/upload_profile_picture/id/' + user_data.user_id,
+		file_formats: {title : 'Image Files', extensions : 'jpg,gif,png'}
+	});			
 	
 	// Delete Picture
 	$('#delete_picture').live('click', function(eve)
@@ -197,11 +104,10 @@ $(document).ready(function()
 		});
 	});		
 
-
 	// Update Profile Data
-	$("#user_profile").bind('submit', function(e)
+	$("#user_profile").bind('submit', function(eve)
 	{	
-		e.preventDefault();
+		eve.preventDefault();
 		var profile_data = $('#user_profile').serializeArray();
 	
 		console.log(profile_data);
@@ -217,52 +123,8 @@ $(document).ready(function()
 	  		{
 				$('html, body').animate({scrollTop:0});
 				$('#content_message').notify({status:result.status,message:result.message});
-				
-				if (result.status == 'success')
-				{
-					// Update Viewed User Data
-					$('#logged_name').html(result.data.name);
-				}
 		 	}
 		});		
 	});	
 });
-
-/*
-function deletePicture()
-{
-	// Delete Picture
-	$('#delete_picture').live('click', function(eve)
-	{
-		console.log('delete click');
-	
-		eve.preventDefault();
-		$(this).oauthAjax(
-		{
-			oauth 		: user_data,
-			url			: base_url + 'api/users/delete_profile_picture/id/' + user_data.user_id,
-			type		: 'GET',
-			dataType	: 'json',
-	  		success		: function(result)
-	  		{				
-				$('#content_message').notify({status:result.status,message:result.message});			
-			
-				if (result.status == 'success')
-				{
-					$(uploader_list).fadeOut(function()
-					{
-						$(uploader_list).remove();
-						$(uploader_parent).append(uploader_create);
-						$(uploader_list).fadeIn('slow');
-						
-						uploader.init();
-						
-						$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/medium_nopicture.png');
-					});
-				}	
-		 	}
-		});
-	});
-}
-*/
 </script>

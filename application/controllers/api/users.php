@@ -220,7 +220,7 @@ class Users extends Oauth_Controller
 				// Upload
 				if (!$this->upload->do_upload('file'))
 				{
-			    	$message = array('status' => 'error', 'here' => 'aahhh', 'message' => $this->upload->display_errors('', ''));
+			    	$message = array('status' => 'error', 'message' => $this->upload->display_errors('', ''));
 				}	
 				else
 				{

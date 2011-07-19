@@ -194,7 +194,7 @@ $(function(){ $('input').attr('autocomplete','off'); });
 			}
 		});
 	};
-})( jQuery );
+})(jQuery);
 
 
 /* Allows for easy dynamic "sluggable" urls to be previewed to the user based on an input field and the current URL */
@@ -356,65 +356,14 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	};
 })(jQuery);
 
-
-/* Uploadigy - makes upload forms work via AJAX, just add water */
-(function($){
-	$.fn.uploadify = function(options)
-	{
-		var defaults = {
-			type		:'text',
-			onUpload	:function(){},
-			afterUpload	:function(){}
-		};
-		
-		return this.each(function(i)
-		{
-			options = $.extend(true, defaults, options);
-			
-			$this = $(this);
-			
-			//Make sure the form is set to send binary, and if not fix that
-			if($this.attr('enctype')!=='multipart/form-data')
-			{
-				$this.attr('enctype','multipart/form-data');
-			}
-			
-			//Make sure the form is set to POST the data, if not, fix that
-			if($this.attr('method')!=='post')
-			{
-				$this.attr('method','post');
-			}
-			
-			$this.attr('target','upload_target_'+i).append('<iframe style="display:none;" src="" id="upload_target_'+i+'" class="uploadify-iframe"></iframe>');			
-			
-			$this.bind('submit',function(e)
-			{
-				options.onUpload();
-				
-				$('#upload_target_'+i).load(function()
-				{
-					_returnValue = $(this).contents().find('body').html();
-					
-					if(options.type == 'json')
-					{
-						_returnValue = JSON.parse(_returnValue);
-					}
-					
-					options.afterUpload.call(this,_returnValue);
-					$(this).replaceWith($(this).clone());
-				});
-			});
-		});
-	};
-})(jQuery);
-
-
 /* Ellipsify - allows you to trim a line and add ellipsis after a string passes the max amount of characters you specify */
-(function($){
+(function($)
+{
 	$.fn.ellipsify = function(options)
 	{
-		var defaults = {
-			max:140
+		var defaults = 
+		{
+			max : 140
 		};
 		return this.each(function()
 		{
@@ -436,15 +385,17 @@ $(function(){ $('input').attr('autocomplete','off'); });
 })(jQuery);
 
 /* Takes a DOM element and then converts it to an editable text/textarea field */
-(function($){
+(function($)
+{
 	$.fn.editify = function(options) 
 	{
-		var defaults = {
-			type:'input',
-			autoWidth:'auto',
-			autoHeight:'auto',
-			content:'auto',
-			on:'click'
+		var defaults = 
+		{
+			type		: 'input',
+			autoWidth	: 'auto',
+			autoHeight	: 'auto',
+			content		: 'auto',
+			on			: 'click'
 		};
 		return this.each(function() 
 		{
@@ -608,12 +559,15 @@ function deleteOverlays()
  * @todo make it accept future dates
  * @todo have it auto update times
  **/
-(function($){
-	$.relativetime = function(options) {
-		var defaults = {
-			time:new Date(),
-			suffix:'ago',
-			prefix:''
+(function($)
+{
+	$.relativetime = function(options)
+	{
+		var defaults = 
+		{
+			time	: new Date(),
+			suffi	: 'ago',
+			prefix	: ''
 		};
 
 		options = $.extend(true, defaults, options);
@@ -834,7 +788,7 @@ var mysqlDateParser = function(str){
 	return api;
 }
 
-function utf8_encode ( argString ) {
+function utf8_encode(argString) {
     var string = (argString+''); // .replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 
     var utftext = "";
@@ -874,7 +828,7 @@ function utf8_encode ( argString ) {
  * @returns {string} a MD5 hash of the string you give it
  * @requires utf8_encode()
  **/
-function md5 (str) {
+function md5(str) {
     var xl;
 
     var rotateLeft = function (lValue, iShiftBits) {
