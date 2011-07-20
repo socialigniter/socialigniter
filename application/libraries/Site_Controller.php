@@ -79,6 +79,12 @@ class Site_Controller extends MY_Controller
 				}
 			}
 		}
+		
+		// This Module Assets
+		if ($this->module_name)
+		{
+			$this->data['this_module_assets'] = base_url().'application/modules/'.$this->module_name.'/assets/';
+		}
     }
 
     function render($layout=NULL, $content=NULL)
