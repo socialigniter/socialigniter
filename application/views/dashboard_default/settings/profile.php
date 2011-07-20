@@ -13,7 +13,7 @@
 			<li><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
 		<?php else: ?>
 			<li><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
-			<li class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size in these formats <?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?></li>			
+			<li class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>			
 		<?php endif; ?>
 		</ul>
 		</div>	

@@ -156,7 +156,7 @@ span.msg_notification		{ display: block; padding: 6px; color: #f2edda; backgroun
 #content_wide_content h3 	{ margin: 0 0 10px 0; }
 
 #content_wide_toolbar 		{ float: left; width: 175px; margin: 0 0 0 25px; padding: 0; text-align: left; }
-#content_wide_toolbar h3	{ margin: 0 0 10px 0 !important; }
+#content_wide_toolbar h3	{ margin: 0 0 20px 0 !important; }
 #content_wide_toolbar ul	{ margin: 25px 0 25px 0 !important; }
 
 #create_stages 				{ margin: 8px 0 30px 15px; }
@@ -319,7 +319,7 @@ span.action_comment 		{ background-position: -100px 0; }
 span.action_get_place		{ background-position: -125px 0; }
 span.action_link			{ background-position: -150px 0; }
 span.action_approve			{ background-position: -175px 0; }
-span.action_see				{ background-position: -225px 0; }
+span.action_search			{ background-position: -225px 0; }
 span.action_edit			{ background-position: -200px 0; }
 span.action_saved			{ background-position: -250px 0; }
 span.action_published		{ background-position: -275px 0; }

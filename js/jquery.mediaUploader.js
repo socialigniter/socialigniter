@@ -35,7 +35,7 @@
 			// Initialize
 			uploader.bind('Init', function(up, params){});
 			uploader.init();
-		
+
 			// Add Files & Start Upload
 			uploader.bind('FilesAdded', function(up, files)
 			{		
@@ -82,19 +82,19 @@
 			// Upload Error
 			uploader.bind('Error', function(up, err)
 			{
-				// err.code err.file
 				$('#content_message').notify({status:'error', message:err.message}); 
 				uploader.refresh();
 			});
 		
 			// Upload Success
 			uploader.bind('FileUploaded', function(up, file, res)
-			{
+			{			
 				$('#file_uploading_progress').html("100%");
 				var response = JSON.parse(res.response);
 
-				options.complete(response);
-				uploader.init();				
+				uploader.refresh();
+				uploader.init();
+				options.complete(response);							
 			});
 		})
 	}

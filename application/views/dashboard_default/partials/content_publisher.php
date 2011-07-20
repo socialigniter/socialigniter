@@ -36,9 +36,7 @@ $(document).ready(function()
 				dataType	: 'json',
 				data		: form_data,
 		  		success		: function(result)
-		  		{
-		  			console.log(result);
-		  				  		
+		  		{		  				  		
 					$('html, body').animate({scrollTop:0});
 					$('#content_message').notify({status:result.status,message:result.message});
 					
@@ -61,9 +59,7 @@ $(document).ready(function()
 	{
 		eve.preventDefault();
 		var type = $(this).attr('name');
-		
-		console.log('type: '+type);
-				
+
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,
@@ -82,9 +78,7 @@ $(document).ready(function()
 				}
 		 	}
 		});
-	});
-		
+	});		
 	<?php else: endif; ?>
-
 });
 </script>
