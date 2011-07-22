@@ -10,7 +10,6 @@
 * 
 * Description:  English language file for various date values
 */
-
 $lang['months_of_year'] = array(
 	'01' => 'January',
 	'02' => 'February',
