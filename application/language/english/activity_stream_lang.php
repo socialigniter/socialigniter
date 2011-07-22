@@ -48,8 +48,6 @@ $lang['object_articles']['note']		= 'a';
 $lang['object_articles']['person']		= 'on';
 $lang['object_articles']['photo']		= 'a';
 $lang['object_articles']['photo-album']	= 'the';
-$lang['object_articles']['image']		= 'an';
-$lang['object_articles']['image-album']	= 'an';
 $lang['object_articles']['place']		= 'the';
 $lang['object_articles']['playlist']	= 'the';
 $lang['object_articles']['product']		= 'a';
@@ -86,5 +84,3 @@ $lang['object_types']['page'] 			= 'page';
 // Social Igniter Types
 $lang['object_types']['category'] 		= 'category';
 $lang['object_types']['class'] 			= 'a class';
-$lang['object_types']['image']			= 'image';
-$lang['object_types']['image-album']	= 'album';

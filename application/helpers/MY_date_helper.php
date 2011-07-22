@@ -21,16 +21,16 @@ if ( ! function_exists('standard_date'))
 	function standard_date($fmt = 'DATE_RFC822', $time = '')
 	{
 		$formats = array(
-						'DATE_ATOM'		=>	'%Y-%m-%dT%H:%i:%s%Q',
-						'DATE_COOKIE'	=>	'%l, %d-%M-%y %H:%i:%s UTC',
-						'DATE_ISO8601'	=>	'%Y-%m-%dT%H:%i:%s%O',
-						'DATE_RFC822'	=>	'%D, %d %M %y %H:%i:%s %O',
-						'DATE_RFC850'	=>	'%l, %d-%M-%y %H:%m:%i UTC',
-						'DATE_RFC1036'	=>	'%D, %d %M %y %H:%i:%s %O',
-						'DATE_RFC1123'	=>	'%D, %d %M %Y %H:%i:%s %O',
-						'DATE_RSS'		=>	'%D, %d %M %Y %H:%i:%s %O',
-						'DATE_W3C'		=>	'%Y-%m-%dT%H:%i:%s%Q',
-						);
+			'DATE_ATOM'		=>	'%Y-%m-%dT%H:%i:%s%Q',
+			'DATE_COOKIE'	=>	'%l, %d-%M-%y %H:%i:%s UTC',
+			'DATE_ISO8601'	=>	'%Y-%m-%dT%H:%i:%s%O',
+			'DATE_RFC822'	=>	'%D, %d %M %y %H:%i:%s %O',
+			'DATE_RFC850'	=>	'%l, %d-%M-%y %H:%m:%i UTC',
+			'DATE_RFC1036'	=>	'%D, %d %M %y %H:%i:%s %O',
+			'DATE_RFC1123'	=>	'%D, %d %M %Y %H:%i:%s %O',
+			'DATE_RSS'		=>	'%D, %d %M %Y %H:%i:%s %O',
+			'DATE_W3C'		=>	'%Y-%m-%dT%H:%i:%s%Q',
+		);
 
 		if ( ! isset($formats[$fmt]))
 		{
@@ -80,7 +80,6 @@ function human_time($fmt='HOUR_MINUTE', $time = '')
 
 	return mdate($formats[$fmt], $time);
 }
-
 
 function elapsed_date($seconds='', $time='')
 {
@@ -170,13 +169,13 @@ function friendly_to_mysql_time($time = '')
 function date_parser($fmt = 'WHOLE', $time = '')
 {
 	$formats = array(
-					'WHOLE'		=>  '%M %d, %Y %g:%i %A',
-					'YEAR'		=>  '%Y',
-					'MONTH'		=>  '%m',
-					'DAY'		=>  '%d'
-					);
+		'WHOLE'	=>  '%M %d, %Y %g:%i %A',
+		'YEAR'	=>  '%Y',
+		'MONTH'	=>  '%m',
+		'DAY'	=>  '%d'
+	);
 
-	if ( ! isset($formats[$fmt]))
+	if (!isset($formats[$fmt]))
 	{
 		return FALSE;
 	}
@@ -318,4 +317,30 @@ function timezone_datetime_to_elapsed($date)
 			return sprintf("%s seconds ago", $res['sec']);
 		}
 	}
+}
+
+/* Returns @array of years from the start of the specified */
+function get_years($year_start, $year_end)
+{
+	$dates = array();
+	for ($year = $year_end; $year >= $year_start; $year--)
+	{		
+		$dates[$year] = $year;	
+	}
+
+	return $dates;
+}
+
+/* Returns @array of days if month is specified */
+function get_days_in_month($month=FALSE)
+{
+	$days		= array();
+	$day_end	= 31;
+
+	for ($day = 1; $day <= $day_end; $day++)
+	{
+		$days[$day] = $day;
+	}
+
+	return $days;
 }
