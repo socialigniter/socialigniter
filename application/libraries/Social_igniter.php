@@ -544,15 +544,13 @@ class Social_igniter
 		return FALSE;	
 	}
 	
-	function check_can_widget_be_used($region, $check_widget)
+	function check_can_widget_be_used($layout, $region, $check_widget, $region_widgets)
 	{
 		if ($check_widget['multiple'] === 'TRUE')
 		{
 			return $check_widget;
 		}
-	
-		$region_widgets = $this->get_settings_setting($region);
-				
+					
 		foreach ($region_widgets as $this_widget)
 		{
 			$widget = json_decode($this_widget->value);

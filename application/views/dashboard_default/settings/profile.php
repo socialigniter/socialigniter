@@ -7,12 +7,11 @@
 			<img id="profile_thumbnail" src="<?= $thumbnail ?>" border="0">
 		</div>
 		<div id="profile_picture_uploader">
-		<ul id="profile_picture_container" class="item_actions_list">
+		<ul id="profile_picture_change" class="item_actions_list">
+			<li><a id="pickfiles" href="#"><span class="actions action_edit"></span> Upload A Picture</a></li>
 		<?php if ($image): ?>
-			<li><a id="pickfiles" href="#"><span class="actions action_edit"></span> Change Picture</a></li>
 			<li><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
 		<?php else: ?>
-			<li><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
 			<li class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>			
 		<?php endif; ?>
 		</ul>
@@ -53,7 +52,6 @@
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.mediaUploader.js"></script>
 <script type="text/javascript">
-
 $(document).ready(function()
 {
 	// Profile Picture
@@ -69,19 +67,18 @@ $(document).ready(function()
 			$('#file_uploading_name').append(files[0].name);
 		},
 		complete	: function(response)
-		{
+		{			
 			// Hide Upload
 			$('#profile_picture_container').delay(750).fadeOut(function()
 			{
 				// Replace Uploading Status
-				$('#profile_picture_container').remove();
 				$('#profile_picture_uploader').append('<ul id="profile_picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_edit"></span> Change Picture</a></li><li><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li></ul>');
 				$('#profile_picture_container').delay(1250).fadeIn();
 			});
 		
 			if (response.status == 'success')
 			{
-				$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/1/small_' + response.data)
+				$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/' + user_data.user_id + '/small_' + response.data)
 			}
 			else
 			{
@@ -109,9 +106,7 @@ $(document).ready(function()
 						$(uploader_list).remove();
 						$(uploader_parent).append(uploader_create);
 						$(uploader_list).fadeIn('slow');
-						
-						uploader.init();
-						
+												
 						$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/medium_nopicture.png');
 					});
 				}
