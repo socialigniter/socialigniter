@@ -14,6 +14,8 @@
 		
 		return this.each(function()
 		{			
+			console.log('plugin getting run');
+
 			options = $.extend({}, settings, options);
 			var $this = $(this);
 
@@ -93,7 +95,6 @@
 				var response = JSON.parse(res.response);
 
 				uploader.refresh();
-				uploader.init();
 				options.complete(response);							
 			});
 		})
