@@ -56,7 +56,7 @@ class Settings extends Oauth_Controller
 			{
 				if (in_array($region, $core_widget['regions']))
 				{
-					if ($this->social_igniter->check_can_widget_be_used($this->get('region'), $core_widget['widget']))
+					if ($this->social_igniter->check_can_widget_be_used($this->get('layout'), $this->get('region'), $core_widget['widget'], $widgets_current))
 					{
 						$widgets[] = $core_widget['widget'];
 					}
@@ -76,7 +76,7 @@ class Settings extends Oauth_Controller
 				{
 					if (in_array($region, $modules_widget['regions']))
 					{
-						if ($this->social_igniter->check_can_widget_be_used($this->get('region'), $modules_widget['widget']))
+						if ($this->social_igniter->check_can_widget_be_used($this->get('layout'), $this->get('region'), $modules_widget['widget'], $widgets_current))
 						{
 							$widgets[] = $modules_widget['widget'];
 						}

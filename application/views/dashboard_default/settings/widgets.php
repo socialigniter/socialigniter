@@ -1,14 +1,14 @@
-<ul id="available_widgets"></ul>
-
 <div id="layout_options">
 <h3>Layouts</h3>
 
 <?php foreach ($layouts as $layout): ?>
 	<a class="layout_picker <?php if ($layout == $layout_selected) echo 'layout_selected'; ?>" href="<?= base_url().'settings/widgets/'.$layout ?>"><?= display_nice_file_name($layout) ?></a>
 <?php endforeach; ?>
+<div class="clear"></div>
+
+<input type="hidden" name="this_layout" id="this_layout" value="<?= $layout_selected ?>">
 
 </div>
-<div class="clear"></div>
 
 <?= $layout_regions ?>
 
@@ -56,18 +56,18 @@ $(document).ready(function()
 	// Add Widget
 	$('.widget_add').bind('click', function(eve)
     {
-    	//eve.stopPropagation();
     	eve.preventDefault();
-    	
+    	var widget_layout = $('#this_layout').val();
 		var widget_region = $(this).attr('rel');
 		var widget_count  = $('#widget_' + widget_region + '_container').find('.widget_instance').length;
-
-		$.get(base_url+'api/settings/widgets_available/region/' + widget_region, function(result)
-		{					
-			$.get(base_url + 'home/widget_add',function(html)
+		
+		// Get Available Widgets 
+		$.get(base_url+'api/settings/widgets_available/region/' + widget_region + '/layout/' + widget_layout, function(result)
+		{	
+			// Get Add Dialog
+			$.get(base_url + 'home/widget_add',function(partial_html)
 			{
-				partial_html = html;
-						
+				// Loop Through Available and Add to Dialog				
 				$.each(result.data, function()
 				{				
 					var this_assets = displayModuleAssets(this.module, core_modules, core_assets);
@@ -87,7 +87,6 @@ $(document).ready(function()
 						// Add Event
 						$('.widget_add_instance').bind('click', function(add_eve)
 						{
-							//	add_eve.stopPropagation();							
 					    	eve.preventDefault();
 
 							var widget_data		= [];
