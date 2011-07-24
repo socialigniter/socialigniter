@@ -92,18 +92,12 @@ class Site_Controller extends MY_Controller
     	// Default Layout
     	if (!$layout)	$layout	 = config_item('default_layout');
     	if (!$content)	$content = $this->action_name;
-    
- 		// Get Widgets		
- 		foreach ($this->site_theme->layouts as $key => $site_layout)
- 		{
- 			if ($key == $layout)
- 			{
- 				foreach ($site_layout as $region)
- 				{
-					$this->data[$region] .= $this->render_widgets($region, $layout);	
- 				}
- 			}
- 		}
+
+ 		// Get Widgets
+		foreach ($this->site_theme->layouts->$layout as $region)
+		{
+			$this->data[$region] = $this->render_widgets($region, $layout);	
+		}
 
       	// Is Module
        	if ($this->module_name)

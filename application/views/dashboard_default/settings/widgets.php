@@ -1,16 +1,14 @@
-<ul id="available_widgets"></ul>
-
 <div id="layout_options">
 <h3>Layouts</h3>
 
 <?php foreach ($layouts as $layout): ?>
 	<a class="layout_picker <?php if ($layout == $layout_selected) echo 'layout_selected'; ?>" href="<?= base_url().'settings/widgets/'.$layout ?>"><?= display_nice_file_name($layout) ?></a>
 <?php endforeach; ?>
+<div class="clear"></div>
 
 <input type="hidden" name="this_layout" id="this_layout" value="<?= $layout_selected ?>">
 
 </div>
-<div class="clear"></div>
 
 <?= $layout_regions ?>
 
