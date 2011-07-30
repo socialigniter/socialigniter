@@ -5,7 +5,7 @@
  * @requires jQuery UI
  * @requires jQuery UI Autocomplete module and all of it's dependcies
  */
-var autocomplete = function(trigger_element, api_data)
+var autocomplete = function(trigger_element, api_data, field)
 {
   	$.get(base_url + api_data,function(json)
   	{
@@ -13,7 +13,7 @@ var autocomplete = function(trigger_element, api_data)
 		var tags = [];
 		for(x in data)
 		{
-			tags[x] = data[x].tag;
+			tags[x] = data[x][field];
 		}
 		suggestions(tags);
 	});
