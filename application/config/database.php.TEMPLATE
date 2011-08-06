@@ -37,11 +37,11 @@
 $active_group = "dev";
 $active_record = TRUE;
 
-$db['dev']['hostname'] = "localhost";
-$db['dev']['username'] = "root";
-$db['dev']['password'] = "";
-$db['dev']['database'] = "social-igniter";
-$db['dev']['dbdriver'] = "mysql";
+$db['dev']['hostname'] = 'localhost';
+$db['dev']['username'] = 'root';
+$db['dev']['password'] = '';
+$db['dev']['database'] = 'social-igniter';
+$db['dev']['dbdriver'] = 'mysql';
 $db['dev']['dbprefix'] = "";
 $db['dev']['pconnect'] = TRUE;
 $db['dev']['db_debug'] = TRUE;
