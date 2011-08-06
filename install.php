@@ -10,25 +10,28 @@ file_put_contents("./application/config/config.php", $current);
 $hostname = $_POST["hostname"];
 $username= $_POST["username"];
 $password= $_POST["password"];
-$datbase_name = $_POST["database_name"];
+$database_name = $_POST["database_name"];
 
 
 $database_file = file_get_contents("./application/config/database.php.TEMPLATE", FILE_USE_INCLUDE_PATH);
 
-$database_file = str_replace("['dev']['hostname'] = 'localhost'", "['dev']['hostname'] = $hostname", $database_file);
+$database_file = str_replace("['dev']['hostname'] = 'localhost'", "['dev']['hostname'] = '$hostname'", $database_file);
 
-$database_file = str_replace("['dev']['username'] = 'root'", "['dev']['username'] = $username", $database_file);
+$database_file = str_replace("['dev']['username'] = 'root'", "['dev']['username'] = '$username'", $database_file);
 
-$database_file = str_replace("['dev']['password'] = ''", "['dev']['password'] = $password", $database_file);
+$database_file = str_replace("['dev']['password'] = ''", "['dev']['password'] = '$password'", $database_file);
 
-$database_file = str_replace("['dev']['database'] = 'social-igniter'", "['dev']['password'] = $database_name", $database_file);
+$database_file = str_replace("['dev']['database'] = 'social-igniter'", "['dev']['database'] = '$database_name'", $database_file);
 
 
 file_put_contents("./application/config/database.php", $database_file);
 
+copy("./application/config/routes.php.TEMPLATE","./application/config/routes.php");
+copy("./application/config/custom.php.TEMPLATE","./application/config/custom.php");
+copy("./application/helpers/custom_helper.php.TEMPLATE","./application/helpers/custom_helper.php");
 
 
-header("Location: '/');
+header("Location: /");
 
 }
 else{
