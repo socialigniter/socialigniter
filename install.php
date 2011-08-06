@@ -24,13 +24,12 @@ $database_file = str_replace("['dev']['password'] = ''", "['dev']['password'] = 
 $database_file = str_replace("['dev']['database'] = 'social-igniter'", "['dev']['password'] = $database_name", $database_file);
 
 
-var_dump($database_file);
+file_put_contents("./application/config/database.php", $database_file);
 
 
-?>
-Setting Variables......... hostname is <?= $_POST["hostname"] ?>
 
-<?php
+header("Location: '/');
+
 }
 else{
 ?>
