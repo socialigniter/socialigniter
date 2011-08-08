@@ -379,7 +379,7 @@ g(v);return a.join('');},parse:function(text){try{return!(/[^,:{}[]0-9.-+Eaeflnr
                       };
                   
                   adUnitDiv.setAttribute("class","google-maps-adsense "+adUnitOptions.publisherId);
-                  adUnit = new google.maps.adsense.AdUnit(adUnitDiv, adUnitOptions);
+                  //adUnit = new google.maps.adsense.AdUnit(adUnitDiv, adUnitOptions);
                   
                    var closeInfoWindow = function() {
                      infoWindow.close();
