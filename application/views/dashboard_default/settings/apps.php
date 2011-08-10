@@ -29,7 +29,7 @@
 	</span>
 	<?php endif; else: ?>
 	<span class="item_right">
-		<a href="<?= base_url().'api/install/install/app/'.$module ?>" rel="<?= $module ?>" class="install_app">Install</a>
+		<a href="<?= base_url().'api/'.$module.'/install/' ?>" rel="<?= $module ?>" class="install_app">Install</a>
 	</span>
 	<?php endif; ?>
 	<div class="clear"></div>
@@ -45,15 +45,12 @@ $(document).ready(function()
 	$('.install_app').bind('click', function(eve)
 	{
 		eve.preventDefault();
-		var install_url = $(this).attr('href');
 		var install_app = $(this).attr('rel');
-		
-		console.log(install_url);
 	
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,
-			url			: install_url,
+			url			: $(this).attr('href'),
 			type		: 'GET',
 			dataType	: 'json',
 	  		success		: function(result)
