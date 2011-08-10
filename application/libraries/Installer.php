@@ -218,13 +218,14 @@ class Installer
 	}
 	
 	// Installs app data into the 'sites' table
-	function install_sites($app, $app_sites)
+	function install_sites($app_sites)
 	{
 		foreach ($app_sites as $site)
 		{
 			$this->ci->social_igniter->add_site($site);	
 		}
 		
+		return TRUE;
 	}
 
 	
