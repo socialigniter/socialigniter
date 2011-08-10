@@ -209,20 +209,22 @@ class Installer
 				
 		if (count($current_settings) == count($delete_count))
 		{
-			return array($current_settings, $delete_count);//TRUE;	
+			return array($current_settings, $delete_count);	
 		}
 		else
 		{
-			return array($current_settings, $delete_count);//FALSE;
+			return array($current_settings, $delete_count);
 		}
 	}
 	
 	// Installs app data into the 'sites' table
-	function install_site($app, $app_sites)
+	function install_sites($app, $app_sites)
 	{
+		foreach ($app_sites as $site)
+		{
+			$this->ci->social_igniter->add_site($site);	
+		}
 		
-		
-		$this->ci->social_igniter->add_site($site);	
 	}
 
 	
