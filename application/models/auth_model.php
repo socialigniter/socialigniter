@@ -466,7 +466,7 @@ class Auth_model extends CI_Model
 	
 	function get_user($parameter, $value)
 	{
-    	if (($value) && (in_array($parameter, array('user_id','username', 'email','gravatar', 'consumer_key', 'token'))))
+    	if (($value) && (in_array($parameter, array('user_id','username', 'email','gravatar', 'consumer_key', 'token', 'forgotten_password_code'))))
     	{
 			$this->db->select('*');
 	 		$this->db->from('users');

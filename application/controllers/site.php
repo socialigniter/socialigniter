@@ -152,25 +152,69 @@ class Site extends Site_Controller
 	
 	function reset_password() 
 	{
+		// Has URL Code
 		if (!$this->uri->segment(2)) redirect(base_url().'forgot_password');
-	
-		$reset = $this->social_auth->forgotten_password_complete($this->uri->segment(2));
 		
-		if ($reset)
+		$user = $this->social_auth->get_user('forgotten_password_code', $this->uri->segment(2));
+		
+		// Reset Password
+		if ($new_password = $this->social_auth->forgotten_password_complete($user))
 		{
-			$this->session->set_flashdata('message', 'An email has been sent with your new password, check your inbox.');
-            redirect("login", 'refresh');
+			// Config Email	
+			$this->load->library('email');
+			
+			$config_email['protocol']  	= config_item('services_email_protocol');
+			$config_email['mailtype']  	= 'html';
+			$config_email['charset']  	= 'UTF-8';
+			$config_email['crlf']		= '\r\n';
+			$config_email['newline'] 	= '\r\n'; 			
+			$config_email['wordwrap']  	= FALSE;
+			$config_email['validate']	= TRUE;
+			$config_email['priority']	= 1;
+				
+			if (config_item('services_email_protocol') == 'smtp')
+			{			
+				$config_email['smtp_host'] 	= config_item('services_smtp_host');
+				$config_email['smtp_user'] 	= config_item('services_smtp_user');
+				$config_email['smtp_pass'] 	= config_item('services_smtp_pass');
+				$config_email['smtp_port'] 	= config_item('services_smtp_port');
+			}
+
+			$this->email->initialize($config_email);
+
+			$data = array(
+				'email' 		=> $user->email, 
+				'new_password'	=> $new_password
+			);
+
+			$message = $this->load->view(config_item('email_templates').config_item('email_forgot_password_complete'), $data, true);
+
+			$this->email->from(config_item('site_admin_email'), config_item('site_title'));
+			$this->email->to($user->email);
+			$this->email->subject(config_item('site_title') . ' - New Password');
+			$this->email->message($message);
+
+			if ($this->email->send())
+			{
+				$this->session->set_flashdata('message', 'An email has been sent with your new password, check your inbox.');
+	            redirect("login", 'refresh');
+			}
+			else
+			{
+				$this->session->set_flashdata('message', 'The email failed to send, try again.');
+			}
 		}
 		else
 		{
-			$this->session->set_flashdata('message', 'The email failed to send, try again.');
-            redirect("forgot_password", 'refresh');
+			$this->session->set_flashdata('message', 'Shoot, we could not reset your password. Please try again.');
 		}
-	}    
 
-	// Activate the user. This URL is hit by email as theere site links to it
-	function activate() 
-	{  
+		redirect("forgot_password", 'refresh');		
+	}
+
+	// Activate the User
+	function activate()
+	{
 		if ((!$this->uri->segment(2)) OR (!$this->uri->segment(3))) redirect(base_url().'forgot_password');	
 	      
 		$activation = $this->social_auth->activate($this->uri->segment(2), $this->uri->segment(3));
