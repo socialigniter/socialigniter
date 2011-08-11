@@ -62,11 +62,9 @@ class Users extends Oauth_Controller
     	$search_for	= $this->uri->segment(5);
         $user		= $this->social_auth->get_user($search_by, $search_for);    	
         
-        if($user)
+        if ($user)
         {
-        	$user_meta = $this->social_auth->get_user_meta($user->user_id);
-
-            $message = array('status' => 'success', 'message' => 'User found', 'data' => $user, 'meta' => $user_meta);
+            $message = array('status' => 'success', 'message' => 'User found', 'data' => $user, 'meta' => $this->social_auth->get_user_meta($user->user_id));
         }
         else
         {
@@ -176,7 +174,7 @@ class Users extends Oauth_Controller
         	{
         		$remember = FALSE;
         	}
-        	
+
         	// Attempt Login
         	if ($this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
         	{
@@ -193,7 +191,6 @@ class Users extends Oauth_Controller
         }
         
         $this->response($message, 200);    
-    
     }
     
     function set_userdata_signup_email_post()
