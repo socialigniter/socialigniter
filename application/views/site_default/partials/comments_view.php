@@ -78,6 +78,7 @@ $(document).ready(function()
 						$('#reply_to_id').val('');
 						$('#comments_count').html(comment_count_updated);
 						doPlaceholder('#comment_write_text', 'Write comment...');
+						<?= $callback ?>					
 				 	}
 				 	else
 				 	{					 		
@@ -119,9 +120,7 @@ $(document).ready(function()
 
 		// Is Valid		
 		if (name == true && email == true && email_valid == true && comment == true)
-		{
-			console.log('inside validation');
-		
+		{		
 			$.ajax(
 			{
 				url			: base_url + 'api/comments/create_public',
@@ -129,9 +128,7 @@ $(document).ready(function()
 				dataType	: "json",
 				data		: $('#comments_public_form').serialize(),	
 			  	success		: function(result)
-			  	{	
-			  		console.log(result);
-			  				  		  				  	
+			  	{			  				  		  				  	
 					if(result.status == 'error')
 					{
 						$('#comment_error').html('');	
