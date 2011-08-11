@@ -1,4 +1,4 @@
 RewriteEngine On
 Header add Access-Control-Allow-Origin "*"
-RewriteCond $1 !^(index\.php|favicon\.ico|installer.php|css|js|images|uploads|temp|crossdomain\.xml|robots\.txt|xd_receiver.htm|application/views/*|application/modules/*)
+RewriteCond $1 !^(index\.php|favicon\.ico|installer.php|css|js|images|uploads|temp|crossdomain\.xml|robots\.txt|xd_receiver.htm|application/views/*|application/modules/*|install.php)
 RewriteRule ^(.*)$ index.php/$1 [L]

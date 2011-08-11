@@ -47,6 +47,8 @@ $(document).ready(function()
 	
 	// Hides Things
 	$('.error').hide();
+	
+	if ($('#content_message').html() != '') $('#content_message').notify({status:'success',message:$('#content_message').html()});	
 
 });
 </script>

@@ -35,9 +35,7 @@ $(document).ready(function()
 			type		: 'GET',
 			dataType	: 'json',
 	  		success		: function(result)
-	  		{
-	  			console.log(result);
-	  		
+	  		{	  		
 				$('html, body').animate({scrollTop:0});
 				$('#content_message').notify({status:result.status,message:result.message});			 		
 		 	}

@@ -9,6 +9,7 @@ application/config/config.php
 application/config/database.php
 application/config/custom.php
 application/config/routes.php
+application/config/social_igniter.php
 application/helpers/custom_helper.php
 application/logs/
 application/modules/

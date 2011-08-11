@@ -42,7 +42,6 @@ class Site_Controller extends MY_Controller
 
         $this->data['shared_ajax']			= '';        
 		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
-		$this->data['message']				= $this->session->userdata('message');
 		$this->data['comments_view'] 		= '';
 
 		// If Modules Exist		

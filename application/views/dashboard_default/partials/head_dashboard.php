@@ -41,6 +41,11 @@ var base_url 		= '<?= base_url() ?>';
 var current_module	= jQuery.url.segment(1);
 var core_modules	= jQuery.parseJSON('<?= json_encode(config_item('core_modules')) ?>');
 var core_assets		= '<?= $dashboard_assets.'icons/' ?>';
+
+$(document).ready(function()
+{
+	if ($('#content_message').html() != '') $('#content_message').notify({status:'success',message:$('#content_message').html()});
+});
 </script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.autocomplete.js"></script>

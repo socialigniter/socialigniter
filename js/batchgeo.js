@@ -362,7 +362,8 @@ g(v);return a.join('');},parse:function(text){try{return!(/[^,:{}[]0-9.-+Eaeflnr
                   var mapSettings = {
                         center: new google.maps.LatLng(tempMapObj[0].LatLng.Ba,tempMapObj[0].LatLng.Ca),
                         mapTypeId: google.maps.MapTypeId[mapOptions.mapType.toUpperCase()],
-                        disableDefaultUI: mapOptions.controls
+                        disableDefaultUI: mapOptions.controls,
+                        zoom:16
                       }
                   ,   map = new google.maps.Map(Sizzle(sel)[0], mapSettings)
                   ,   infoWindow = new google.maps.InfoWindow()
@@ -379,7 +380,7 @@ g(v);return a.join('');},parse:function(text){try{return!(/[^,:{}[]0-9.-+Eaeflnr
                       };
                   
                   adUnitDiv.setAttribute("class","google-maps-adsense "+adUnitOptions.publisherId);
-                  adUnit = new google.maps.adsense.AdUnit(adUnitDiv, adUnitOptions);
+                  //adUnit = new google.maps.adsense.AdUnit(adUnitDiv, adUnitOptions);
                   
                    var closeInfoWindow = function() {
                      infoWindow.close();
@@ -463,7 +464,7 @@ g(v);return a.join('');},parse:function(text){try{return!(/[^,:{}[]0-9.-+Eaeflnr
                     
                   }
                   
-                  map.fitBounds(latLngBounds);
+                  //map.fitBounds(latLngBounds);
                   
                   //Show traffic layer if they want it
                   if(mapOptions.traffic == true){
