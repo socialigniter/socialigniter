@@ -181,7 +181,17 @@ class MY_Controller extends MX_Controller
 		else
 		{
 			$this->session->set_userdata('previous_page', '');
-		}		
+		}	
+		
+		// Set Message
+		if ($this->session->flashdata('message') != '')
+		{
+			$this->data['message']			= $this->session->flashdata('message');
+		}
+		else
+		{
+			$this->data['message']			= '';
+		}
 
 		// Site Paths
 		$this->data['shared_images']		= base_url().'images/shared/';

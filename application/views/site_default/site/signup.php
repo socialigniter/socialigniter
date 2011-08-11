@@ -90,9 +90,7 @@ $(document).ready(function()
 							dataType	: 'json',
 							data		: signup_data,
 					  		success		: function(result)
-					  		{
-					  			console.log('inside login');
-					  		
+					  		{					  		
 								$('html, body').animate({scrollTop:0});
 						
 								$('[name=name]').val('');
@@ -102,7 +100,7 @@ $(document).ready(function()
 								
 								if (result.status == 'success')
 								{
-									$('#content_message').notify({status:result.status,message:result.message + '. You will now be logged in',complete:'redirect',redirect: base_url + 'home'});								
+									$('#content_message').notify({status:result.status,message:result.message,complete:'redirect',redirect: base_url + 'home'});								
 								}
 								else
 								{
