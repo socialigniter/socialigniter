@@ -37,7 +37,6 @@ class Users extends Oauth_Controller
 		}
 
 		$this->email->initialize($config_email);    	
-    	            
 	}
     
     function recent_get()
