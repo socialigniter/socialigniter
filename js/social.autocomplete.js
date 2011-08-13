@@ -5,16 +5,34 @@
  * @requires jQuery UI
  * @requires jQuery UI Autocomplete module and all of it's dependcies
  */
-var autocomplete = function(trigger_element, api_data)
+var autocomplete = function(trigger_element, api_data, field)
 {
   	$.get(base_url + api_data,function(json)
   	{
+      console.log(json.data);
 		var data = json.data;
 		var tags = [];
-		for(x in data)
-		{
-			tags[x] = data[x].tag;
-		}
+  
+  if(typeof field == 'string')
+  {
+   console.log('string')
+   for(x in data)
+   {
+    tags[x] = data[x][field];
+   }
+  }
+  else if(field instanceof Array)
+  {
+   console.log('array')
+   for(x in data)
+   {
+      tags[x] = [];
+      for(y in field)
+      {
+          tags[x][y] = data[x][field[y]];
+      }
+   }
+  }
 		suggestions(tags);
 	});
 		
@@ -66,6 +84,15 @@ var autocomplete = function(trigger_element, api_data)
 					this.value = terms.join(", ");
 					return false;
 				}
-		});
+		})
+   .data('autocomplete')._renderItem = function(ul, item) {
+         var returnedValue = item.label;
+         if(field instanceof Array){
+            returnedValue = item[0];
+            item.label = item[0];
+            item.value = item[0];
+         }
+        return $("<li>").data("item.autocomplete", item).append("<a>"+returnedValue+"</a>").appendTo(ul);
+    };
 	} 
 }

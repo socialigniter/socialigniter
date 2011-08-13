@@ -2,11 +2,11 @@
 /*
 * Name:  	Social Auth Library
 * 
-* Author:  	Brennan Novak severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
+* Author:  	Brennan Novak severely hacked Ben Edmunds 'Ion Auth' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
 * 		   	contact@social-igniter.com
 *			@socialigniter
 *
-* Location: http://github.com/socialigniter/core
+* Location: http://github.com/socialigniter/socialigniter
 */
 require_once(APPPATH.'libraries/Oauth/OauthRequestVerifier.php');
 
@@ -32,30 +32,7 @@ class Social_auth
 			
 		// Load Models
 		$this->ci->load->model('auth_model');
-		$this->ci->load->model('connections_model');
-		
-		// Config Email	
-		$this->ci->load->library('email');
-		
-		$this->config_email['protocol']  	= config_item('site_email_protocol');
-		$this->config_email['mailtype']  	= 'html';
-		$this->config_email['charset']  	= 'UTF-8';
-		$this->config_email['crlf']			= "\r\n";
-		$this->config_email['newline'] 		= "\r\n"; 			
-		$this->config_email['wordwrap']  	= FALSE;
-		$this->config_email['validate']		= TRUE;
-		$this->config_email['priority']		= 1;
-		
-		if (config_item('site_email_protocol') == 'smtp')
-		{
-			$this->config_email['smtp_host'] 	= config_item('site_smtp_host');
-			$this->config_email['smtp_user'] 	= config_item('site_smtp_user');
-			$this->config_email['smtp_pass'] 	= config_item('site_smtp_pass');
-			$this->config_email['smtp_port'] 	= config_item('site_smtp_port');
-		}
-
-		$this->ci->email->initialize($this->config_email);
-				
+		$this->ci->load->model('connections_model');				
 		
 		// Auto-login user if they're remembered
 		if (!$this->logged_in() && get_cookie('email') && get_cookie('remember_code'))
@@ -239,82 +216,27 @@ class Social_auth
 	{
 		if ($this->ci->auth_model->forgotten_password($email)) 
 		{
-			$profile = $this->ci->auth_model->profile($email);
-
-			$data = array(
-				'email' 					=> $profile->email, 
-				'forgotten_password_code'	=> $profile->forgotten_password_code
-			);			
-
-			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password'), $data, true);	
-
-			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
-			$this->ci->email->to($profile->email);
-			$this->ci->email->subject(config_item('site_title') . ' - Forgotten Password Verification');
-			$this->ci->email->message($message);
-			
-			if ($this->ci->email->send())
-			{
-				log_message('debug', 'emailssss debugger: '. $this->ci->email->print_debugger());
-			
-				$this->set_error('forgot_password_successful');
-				return TRUE;
-			}
-			else
-			{
-				$this->set_error('forgot_password_unsuccessful');
-				return FALSE;
-			}
+			return TRUE;
 		}
 		else 
 		{
-			$this->set_error('forgot_password_unsuccessful');
 			return FALSE;
 		}
 	}
 
-	function forgotten_password_complete($code)
+	function forgotten_password_complete($user)
 	{
-	    $profile = $this->ci->auth_model->profile($code);
-
-        if (!is_object($profile)) 
+        if (!is_object($user)) 
         {
-            $this->set_error('password_change_unsuccessful');
             return FALSE;
         }
 
-		$new_password = $this->ci->auth_model->forgotten_password_complete($code, $profile->salt);
-
-		if ($new_password) 
+		if ($new_password = $this->ci->auth_model->forgotten_password_complete($user->forgotten_password_code, $user->salt)) 
 		{
-			$data = array(
-				'email' 		=> $profile->email, 
-				'new_password'	=> $new_password
-			);
-            
-			$message = $this->ci->load->view(config_item('email_templates').config_item('email_forgot_password_complete'), $data, true);
-
-			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
-			$this->ci->email->to($profile->email);
-			$this->ci->email->subject(config_item('site_title') . ' - New Password');
-			$this->ci->email->message($message);
-
-			if ($this->ci->email->send())
-			{
-				$this->set_error('password_change_successful');
-				return TRUE;
-			}
-			else
-			{
-				$this->set_error('password_change_unsuccessful');
-				return FALSE;
-			}
+			return $new_password;
 		}
 		else
 		{
-			$this->set_error('password_change_unsuccessful');
 			return FALSE;
 		}
 	}
@@ -342,80 +264,20 @@ class Social_auth
 				'type'			=> 'person',
 				'content_id'	=> 0
 			);
-				
+
 			$activity_data = array(
 				'title'	=> config_item('site_title')
 			);
-	
-			$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);		    
 
+			$activity = $this->ci->social_igniter->add_activity($activity_info, $activity_data);
 
-			// Send Welcome Email				
-			$data = array(
-				'name'	   => $user->name,
-				'username' => $user->username,
-        		'email'    => $user->email
-			);
-
-			// If Activation Email
-			if (config_item('email_activation') == false)
-			{
-				$message = $this->ci->load->view(config_item('email_templates').config_item('email_signup'), $data, true);
-	
-				$this->ci->email->set_newline("\r\n");	            
-				$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
-				$this->ci->email->to($user->email);
-				$this->ci->email->subject(config_item('site_title').' thanks you for signing up');
-				$this->ci->email->message($message);
-				
-				if ($this->ci->email->send() == TRUE) 
-				{
-					$this->set_message('activation_email_successful');
-					return TRUE;
-				}
-				else 
-				{
-					$this->set_error('activation_email_unsuccessful');
-					return FALSE;
-				}
-			}
-			else
-			{
-				$activation_code = $this->ci->auth_model->activation_code;
-	
-				$data = array(
-					'email'   	 => $user->email,
-					'user_id'    => $user->user_id,
-					'email'      => $user->email,
-					'activation' => $activation_code,
-				);
-	            
-				$message = $this->ci->load->view(config_item('email_templates').config_item('email_activate'), $data, true);
-	
-				$this->ci->email->set_newline("\r\n");            
-				$this->ci->email->from(config_item('site_admin_email'), config_item('site_title'));
-				$this->ci->email->to($user->email);
-				$this->ci->email->subject(config_item('site_title') . ' - Account Activation');
-				$this->ci->email->message($message);
-				
-				if ($this->ci->email->send() == TRUE) 
-				{
-					$this->set_message('activation_email_successful');
-					return TRUE;
-				}
-				else 
-				{
-					$this->set_error('activation_email_unsuccessful');
-					return FALSE;
-				}
-			}			
+			return $user;
 		}
-		else 
+		else
 		{
-			$this->set_error('account_creation_unsuccessful');
 			return FALSE;
-		}	            	
-	}	
+		}
+	}
 
 	function social_register($username, $email, $additional_data)
 	{
@@ -539,13 +401,12 @@ class Social_auth
 		return (bool) $this->ci->session->userdata('email');
 	}
 		
-	function profile()
+	function profile($email)
 	{
-	    $email = $this->ci->session->userdata('email');
-	    
+	    if (!$email) $email = $this->ci->session->userdata('email');
 	    return $this->ci->auth_model->profile($email);
 	}
-	
+
 	function get_users($parameter, $value)
 	{
 	    return $this->ci->auth_model->get_users($parameter, $value);

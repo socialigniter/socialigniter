@@ -31,7 +31,6 @@ class Dashboard_Controller extends MY_Controller
         $this->data['sidebar_admin']			= $this->load->view(config_item('dashboard_theme').'/partials/sidebar_admin.php', $this->data, true);
 		$this->data['footer']					= $this->load->view(config_item('dashboard_theme').'/partials/footer.php', $this->data, true);
 		$this->data['modules_assets']			= NULL;
-		$this->data['message']					= NULL;
 
     	// Set This Module Vars
        	if ($this->module_name) 

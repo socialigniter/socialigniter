@@ -14,7 +14,30 @@ class Users extends Oauth_Controller
     {
         parent::__construct();
 
-    	$this->form_validation->set_error_delimiters('', '');            
+    	$this->form_validation->set_error_delimiters('', '');
+    	
+		// Config Email	
+		$this->load->library('email');
+		
+		$config_email['protocol']  	= config_item('services_email_protocol');
+		$config_email['mailtype']  	= 'html';
+		$config_email['charset']  	= 'UTF-8';
+		$config_email['crlf']		= '\r\n';
+		$config_email['newline'] 	= '\r\n'; 			
+		$config_email['wordwrap']  	= FALSE;
+		$config_email['validate']	= TRUE;
+		$config_email['priority']	= 1;
+			
+		if (config_item('services_email_protocol') == 'smtp')
+		{			
+			$config_email['smtp_host'] 	= config_item('services_smtp_host');
+			$config_email['smtp_user'] 	= config_item('services_smtp_user');
+			$config_email['smtp_pass'] 	= config_item('services_smtp_pass');
+			$config_email['smtp_port'] 	= config_item('services_smtp_port');
+		}
+
+		$this->email->initialize($config_email);    	
+    	            
 	}
     
     function recent_get()
@@ -39,11 +62,9 @@ class Users extends Oauth_Controller
     	$search_for	= $this->uri->segment(5);
         $user		= $this->social_auth->get_user($search_by, $search_for);    	
         
-        if($user)
+        if ($user)
         {
-        	$user_meta = $this->social_auth->get_user_meta($user->user_id);
-
-            $message = array('status' => 'success', 'message' => 'User found', 'data' => $user, 'meta' => $user_meta);
+            $message = array('status' => 'success', 'message' => 'User found', 'data' => $user, 'meta' => $this->social_auth->get_user_meta($user->user_id));
         }
         else
         {
@@ -70,9 +91,58 @@ class Users extends Oauth_Controller
 	    		'image'			=> ''
 	    	);
 	    	        	
-	    	if ($this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group')))
+	    	if ($user = $this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group')))
 	    	{
-		        $message = array('status' => 'success', 'message' => 'User successfully created');
+				$data = array(
+					'name'	   => $user->name,
+					'username' => $user->username,
+	        		'email'    => $user->email
+				);
+	
+				// If Activation Email
+				if (config_item('email_activation') == false)
+				{
+					$message = $this->load->view(config_item('email_templates').config_item('email_signup'), $data, true);
+		
+					$this->email->from(config_item('site_admin_email'), config_item('site_title'));
+					$this->email->to($user->email);
+					$this->email->subject(config_item('site_title').' thanks you for signing up');
+					$this->email->message($message);
+					
+					if ($this->email->send() == TRUE) 
+					{
+						$message = array('status' => 'success', 'message' => 'User successfully created', 'data' => $user);
+					}
+					else
+					{
+						$message = array('status' => 'error', 'message' => 'User successfully created, email could not be sent', 'data' => $user);
+					}
+				}
+				else
+				{		
+					$data = array(
+						'email'   	 => $user->email,
+						'user_id'    => $user->user_id,
+						'email'      => $user->email,
+						'activation' => $user->activation_code,
+					);
+		            
+					$message = $this->load->view(config_item('email_templates').config_item('email_activate'), $data, true);
+		
+					$this->email->from(config_item('site_admin_email'), config_item('site_title'));
+					$this->email->to($user->email);
+					$this->email->subject(config_item('site_title') . ' - Account Activation');
+					$this->email->message($message);
+					
+					if ($this->ci->email->send() == TRUE) 
+					{
+						$message = array('status' => 'success', 'message' => 'User successfully created', 'data' => $user);
+					}
+					else 
+					{
+						$message = array('status' => 'error', 'message' => 'User successfully created, activation email could not be sent', 'data' => $user);
+					}
+				}
 	   		}
 	   		else
 	   		{
@@ -104,24 +174,23 @@ class Users extends Oauth_Controller
         	{
         		$remember = FALSE;
         	}
-        	
+
         	// Attempt Login
         	if ($this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
         	{
-		        $message = array('status' => 'success', 'message' => 'User successfully logged in');
+		        $message = array('status' => 'success', 'message' => 'Success you will now be logged in');
 	        }
 	        else
 	        {
 		        $message = array('status' => 'error', 'message' => 'Oops could not log you in');
-	        } 
-        } 
+	        }
+        }
 		else
 		{ 
 			$message = array('message' => 'Oops '.validation_errors());
         }
         
         $this->response($message, 200);    
-    
     }
     
     function set_userdata_signup_email_post()
@@ -339,6 +408,53 @@ class Users extends Oauth_Controller
 	    
 	    $this->response($message, 200);    
     }
+    
+    function password_forgot_post()
+    {
+		$this->form_validation->set_rules('email', 'Email Address', 'required');
+		
+	    if ($this->form_validation->run() == false)
+	    {	
+ 	        $message = array('status' => 'error', 'message' => 'inside not valid' . validation_errors());
+	    }
+	    else
+	    {
+			if ($this->social_auth->forgotten_password($this->input->post('email')))
+			{
+				$profile = $this->social_auth->get_user('email', $this->input->post('email'));
+	
+				// Email Data
+				$data = array(
+					'email' 					=> $profile->email, 
+					'forgotten_password_code'	=> $profile->forgotten_password_code,
+					'site'						=> config_item('site_title'),
+					'site_url'					=> base_url()
+				);
+
+				$message = $this->load->view(config_item('email_templates').config_item('email_forgot_password'), $data, true);	
+	
+				$this->email->from(config_item('site_admin_email'), config_item('site_title'));
+				$this->email->to($profile->email);
+				$this->email->subject(config_item('site_title') . ' - Forgotten Password');
+				$this->email->message($message);
+				
+				if ($this->email->send())
+				{			
+					$message = array('status' => 'success', 'message' => 'Password has been reset and an email has been sent. check your inbox.');
+				}
+				else
+				{
+		        	$message = array('status' => 'error', 'message' => 'The email failed to send, please try again.');    		
+				}
+			}
+			else
+			{
+		        $message = array('status' => 'error', 'message' => 'The email failed to send, please try again.');    		
+			}
+	    }
+	
+		$this->response($message, 200);
+	}    
     
     function mobile_add_authd_post()
     {

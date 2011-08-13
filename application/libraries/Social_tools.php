@@ -363,7 +363,7 @@ class Social_tools
 		return TRUE;
 	}
 	
-	function make_comments_section($content_id, $type, $logged_user_id, $logged_user_level_id)
+	function make_comments_section($content_id, $type, $logged_user_id, $logged_user_level_id, $callback=FALSE)
 	{
 		// Get Comments
 		$comments 							= $this->get_comments_content($content_id);
@@ -371,6 +371,9 @@ class Social_tools
 		
 		if ($comments_count)	$comments_title = $comments_count;
 		else					$comments_title = 'Write';
+		
+		if ($callback)			$this->data['callback'] = $callback;
+		else					$this->data['callback'] = '';
 
 		$this->data['content_id']			= $content_id;
 		$this->data['comments_title']		= $comments_title;
@@ -389,10 +392,7 @@ class Social_tools
 		// ReCAPTCHA Enabled
 		if ((config_item('comments_recaptcha') == 'TRUE') && (!$this->ci->social_auth->logged_in()))
 		{
-
-	
 	    	$this->ci->load->library('recaptcha');
-		
 			$this->data['recaptcha']		= $this->ci->recaptcha->get_html();
 		}
 		else

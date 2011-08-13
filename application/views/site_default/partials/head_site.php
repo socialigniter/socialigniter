@@ -37,6 +37,7 @@ var base_url 		= '<?= base_url() ?>';
 var current_module	= jQuery.url.segment(1);
 var core_modules	= jQuery.parseJSON('<?= json_encode(config_item('core_modules')) ?>');
 var core_assets		= '<?= $dashboard_assets.'icons/' ?>';
+var site_assets		= '<?= $site_assets ?>';
 
 $(document).ready(function()
 {
@@ -47,6 +48,8 @@ $(document).ready(function()
 	
 	// Hides Things
 	$('.error').hide();
+	
+	if ($('#content_message').html() != '') $('#content_message').notify({status:'success',message:$('#content_message').html()});	
 
 });
 </script>
