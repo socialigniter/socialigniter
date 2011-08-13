@@ -37,6 +37,7 @@ var base_url 		= '<?= base_url() ?>';
 var current_module	= jQuery.url.segment(1);
 var core_modules	= jQuery.parseJSON('<?= json_encode(config_item('core_modules')) ?>');
 var core_assets		= '<?= $dashboard_assets.'icons/' ?>';
+var site_assets		= '<?= $site_assets ?>';
 
 $(document).ready(function()
 {
