@@ -94,6 +94,27 @@ $config['amount_increments_five'] = array(
 	'all'	=> 'All'
 );
 
+$config['time_increments_fifteen'] = array(
+	'00'	=> '00',
+	'15' 	=> '15',
+	'30' 	=> '30',
+	'45'	=> '45',
+);
+
+$config['time_increments_fifteen'] = array(
+	'00'	=> '00',
+	'05'	=> '05',
+	'10' 	=> '10',
+	'15' 	=> '15',
+	'25' 	=> '25',
+	'30' 	=> '30',
+	'35' 	=> '35',
+	'40' 	=> '40',
+	'45'	=> '45',
+	'50'	=> '50',
+	'55'	=> '55'
+);
+
 /* Misc Form Options */
 $config['access'] = array(
 	'E' => 'Everyone',

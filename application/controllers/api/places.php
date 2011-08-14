@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /* 
- * Locations API : Core : Social-Igniter
+ * Places API : Core : Social-Igniter
  *
  */
 class Places extends Oauth_Controller
