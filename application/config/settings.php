@@ -109,7 +109,7 @@ $config['time_increments_hours_twelve'] = array(
 	'12'	=> '12'
 );
 
-$config['time_increments_minnutes_fifteen'] = array(
+$config['time_increments_minutes_fifteen'] = array(
 	'00'	=> '00',
 	'15' 	=> '15',
 	'30' 	=> '30',
