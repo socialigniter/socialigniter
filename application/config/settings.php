@@ -94,14 +94,29 @@ $config['amount_increments_five'] = array(
 	'all'	=> 'All'
 );
 
-$config['time_increments_fifteen'] = array(
+$config['time_increments_hours_twelve'] = array(
+	'01'	=> '1',
+	'02' 	=> '2',
+	'03' 	=> '3',
+	'04'	=> '4',
+	'05'	=> '5',
+	'06'	=> '6',
+	'07'	=> '7',
+	'08'	=> '8',
+	'09'	=> '9',
+	'10'	=> '10',
+	'11'	=> '11',
+	'12'	=> '12'
+);
+
+$config['time_increments_minnutes_fifteen'] = array(
 	'00'	=> '00',
 	'15' 	=> '15',
 	'30' 	=> '30',
-	'45'	=> '45',
+	'45'	=> '45'
 );
 
-$config['time_increments_fifteen'] = array(
+$config['time_increments_minutes_five'] = array(
 	'00'	=> '00',
 	'05'	=> '05',
 	'10' 	=> '10',
