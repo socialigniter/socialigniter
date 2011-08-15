@@ -130,6 +130,11 @@ $config['time_increments_minutes_five'] = array(
 	'55'	=> '55'
 );
 
+$config['time_meridian'] = array(
+	'AM'	=> 'AM',
+	'PM'	=> 'PM'
+);
+
 /* Misc Form Options */
 $config['access'] = array(
 	'E' => 'Everyone',
