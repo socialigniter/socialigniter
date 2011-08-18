@@ -349,7 +349,7 @@ $(function(){ $('input').attr('autocomplete','off'); });
 				}
 				//This is a anon function to be called if the user wants after the
 				//checkbox is toggled.
-				options.afterToggle();
+				options.afterToggle.call($('[name='+_matchingInput+']'),$this);
 			});
 		});
 		
