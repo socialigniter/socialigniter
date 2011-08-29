@@ -34,8 +34,8 @@ class Profile extends Site_Controller
 			$this->data['connections']		= $this->social_auth->get_connections_user($this->user->user_id);
 			
 			// Relationships
-			$this->data['followers']		= $this->social_tools->get_relationships_followers($this->user->user_id);
-			$this->data['follows']			= $this->social_tools->get_relationships_follows($this->user->user_id);
+			$this->data['followers']		= $this->social_tools->get_relationships_user($this->user->user_id, 'users', 'follow');
+			$this->data['follows']			= $this->social_tools->get_relationships_owner($this->user->user_id, 'users', 'follow');
 			$this->data['follow_word']		= 'follow';			
 
 			// Links

@@ -31,7 +31,7 @@ class Home extends Dashboard_Controller
 	 	    $this->data['page_title'] 		= 'Friends';
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
-			if ($friends = $this->social_tools->get_relationships_follows($this->session->userdata('user_id')))
+			if ($friends = $this->social_tools->get_relationships_owner($this->session->userdata('user_id'), 'user', 'follow'))
 			{
 				$timeline = $this->social_igniter->get_timeline_friends($friends, 10);
 			}
