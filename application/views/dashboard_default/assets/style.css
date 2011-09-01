@@ -374,6 +374,13 @@ span.item_right a:hover				{ text-decoration: underline; }
 .comment_list li img.comment_thumb 	{ width: 34px; display: block; float: left; margin: 0 10px 10px 0; }
 .comment_list #comment_write 		{ margin: 5px 0 0 0; }
 
+/* Selectables Default */
+div.selectable { width: 145px; height: 35px; float: left; margin: 0 25px 25px 0; padding: 10px 0; border-radius: 10px; border: 1px solid #C3C3C3; font-size: 12px; line-height: 18px; word-wrap: normal; cursor: pointer; text-align: center; color: #999999; text-shadow: 1px 1px 1px #ffffff; }
+div.selectable:hover { color: #2078CE; }
+div.selectable_waiting { color: #999999; background-image: -moz-linear-gradient(top, #f5f4f4, #d7d6d6); background-image: -webkit-gradient(linear, center top, center bottom, from(#f5f4f4), to(#d7d6d6)); }
+div.selectable_chosen { color: #777777; border: 1px solid #a3a3a3; background-image: -moz-linear-gradient(bottom, #e3e3e3, #c3c3c3); background-image: -webkit-gradient(linear, center bottom, center top, from(#e3e3e3), to(#c3c3c3)); }
+div.selectable_chosen:hover { color: #777777; }
+
 /* Auto complete drop down styles */
 .ui-autocomplete 					{ background:#fff;background:rgba(255,255,255,0.97);width:200px;border:1px solid #CCC; }
 .ui-autocomplete li 				{ cursor:pointer !important; }
@@ -452,4 +459,7 @@ div.widget_instance a.widget_edit span.actions 		{ position: relative; top: -2px
 #widgets_available li 		a.widget_add:visited	{ color: #999999; }
 #widgets_available li 		a.widget_add span.action_add { display: block; margin: 0 5px 0 0; }
 
-.widget_delete				{ float: right; }
+#widget_setting_edit		{ width: 450px; }
+#widget_content				{ float: left; margin: 0 0 20px 0; }
+#widget_edit_link			{ float: right; }
+#widget_delete_link			{ float: right; }

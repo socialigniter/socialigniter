@@ -140,10 +140,10 @@ $(document).ready(function()
 	});
 
     // Edit Event
-    $('.widget_edit').bind('click', function(eve)
+    $('.widget_edit').bind('click', function(e)
     {
-    	eve.stopPropagation();
-    	eve.preventDefault();
+    	e.stopPropagation();
+    	e.preventDefault();
 
 		var settings_id 	= $(this).attr('href');
 		var widget_count	= $('#' + $(this).parent().parent().attr('id')).find('.widget_instance').length;
@@ -154,11 +154,7 @@ $(document).ready(function()
 
 			$.get(base_url + 'home/widget_editor/standard',function(html)
 			{
-				partial_html = html;
-				partial_html = $('<div />').html(partial_html).find('textarea').val(widget.content).end();
-				partial_html = $('<div />').html(partial_html).find('input').val(json.data.value).end();
-
-				$('<div />').html(partial_html).dialog(
+				$('<div />').html(html).dialog(
 				{
 					width	: 450,
 					modal	: true,
@@ -166,10 +162,16 @@ $(document).ready(function()
 					create	: function()
 					{
 						$parent_dialog = $(this);
-						$('.widget_delete').bind('click', function(del_eve)
+						
+						$('#widget_json').val(json.data.value);
+						$('#widget_content').val(widget.content);
+						$('#widget_edit_link').attr('href', base_url + 'settings/' + widget.module + '/widgets');
+						
+						
+						$('#widget_delete_link').bind('click', function(del_e)
 						{												
-							del_eve.stopPropagation();
-					    	del_eve.preventDefault();
+							del_e.stopPropagation();
+					    	del_e.preventDefault();
 
 							$(this).oauthAjax(
 							{
