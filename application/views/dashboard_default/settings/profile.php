@@ -50,6 +50,7 @@
 	<p><input type="submit" value="Save"></p>
 </form>
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/plupload.flash.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.mediaUploader.js"></script>
 <script type="text/javascript">
 $(document).ready(function()
@@ -62,12 +63,12 @@ $(document).ready(function()
 		formats		: {title : 'Image Files', extensions : '<?= $upload_formats ?>'},
 		start		: function(files)
 		{
-			// Hide / Replace Upload Link			
+			// Hide / Replace Upload Link
 			$('#profile_picture_container').replaceWith('<ul id="profile_picture_container" class="item_actions_list"><li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li></ul>');
 			$('#file_uploading_name').append(files[0].name);
 		},
 		complete	: function(response)
-		{			
+		{
 			// Hide Upload
 			$('#profile_picture_container').delay(750).fadeOut(function()
 			{
@@ -82,6 +83,8 @@ $(document).ready(function()
 			}
 			else
 			{
+				console.log(response);
+			
 				$('#content_message').notify({status:response.status,message:response.message});	
 			}		
 		}

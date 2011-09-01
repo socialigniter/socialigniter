@@ -1,6 +1,1694 @@
-/* plupload 1.4.3.2 */
-(function(){var f=0,k=[],m={},i={},a={"<":"lt",">":"gt","&":"amp",'"':"quot","'":"#39"},l=/[<>&\"\']/g,b,c=window.setTimeout,d={},e;function h(){this.returnValue=false}function j(){this.cancelBubble=true}(function(n){var o=n.split(/,/),p,r,q;for(p=0;p<o.length;p+=2){q=o[p+1].split(/ /);for(r=0;r<q.length;r++){i[q[r]]=o[p]}}})("application/msword,doc dot,application/pdf,pdf,application/pgp-signature,pgp,application/postscript,ps ai eps,application/rtf,rtf,application/vnd.ms-excel,xls xlb,application/vnd.ms-powerpoint,ppt pps pot,application/zip,zip,application/x-shockwave-flash,swf swfl,application/vnd.openxmlformats,docx pptx xlsx,audio/mpeg,mpga mpega mp2 mp3,audio/x-wav,wav,audio/mp4,m4a,image/bmp,bmp,image/gif,gif,image/jpeg,jpeg jpg jpe,image/png,png,image/svg+xml,svg svgz,image/tiff,tiff tif,text/html,htm html xhtml,text/rtf,rtf,video/mpeg,mpeg mpg mpe,video/quicktime,qt mov,video/mp4,mp4,video/x-m4v,m4v,video/x-flv,flv,video/vnd.rn-realvideo,rv,text/plain,asc txt text diff log,application/octet-stream,exe");var g={VERSION:"1.4.3.2",STOPPED:1,STARTED:2,QUEUED:1,UPLOADING:2,FAILED:4,DONE:5,GENERIC_ERROR:-100,HTTP_ERROR:-200,IO_ERROR:-300,SECURITY_ERROR:-400,INIT_ERROR:-500,FILE_SIZE_ERROR:-600,FILE_EXTENSION_ERROR:-601,IMAGE_FORMAT_ERROR:-700,IMAGE_MEMORY_ERROR:-701,IMAGE_DIMENSIONS_ERROR:-702,mimeTypes:i,extend:function(n){g.each(arguments,function(o,p){if(p>0){g.each(o,function(r,q){n[q]=r})}});return n},cleanName:function(n){var o,p;p=[/[\300-\306]/g,"A",/[\340-\346]/g,"a",/\307/g,"C",/\347/g,"c",/[\310-\313]/g,"E",/[\350-\353]/g,"e",/[\314-\317]/g,"I",/[\354-\357]/g,"i",/\321/g,"N",/\361/g,"n",/[\322-\330]/g,"O",/[\362-\370]/g,"o",/[\331-\334]/g,"U",/[\371-\374]/g,"u"];for(o=0;o<p.length;o+=2){n=n.replace(p[o],p[o+1])}n=n.replace(/\s+/g,"_");n=n.replace(/[^a-z0-9_\-\.]+/gi,"");return n},addRuntime:function(n,o){o.name=n;k[n]=o;k.push(o);return o},guid:function(){var n=new Date().getTime().toString(32),o;for(o=0;o<5;o++){n+=Math.floor(Math.random()*65535).toString(32)}return(g.guidPrefix||"p")+n+(f++).toString(32)},buildUrl:function(o,n){var p="";g.each(n,function(r,q){p+=(p?"&":"")+encodeURIComponent(q)+"="+encodeURIComponent(r)});if(p){o+=(o.indexOf("?")>0?"&":"?")+p}return o},each:function(q,r){var p,o,n;if(q){p=q.length;if(p===b){for(o in q){if(q.hasOwnProperty(o)){if(r(q[o],o)===false){return}}}}else{for(n=0;n<p;n++){if(r(q[n],n)===false){return}}}}},formatSize:function(n){if(n===b||/\D/.test(n)){return g.translate("N/A")}if(n>1073741824){return Math.round(n/1073741824,1)+" GB"}if(n>1048576){return Math.round(n/1048576,1)+" MB"}if(n>1024){return Math.round(n/1024,1)+" KB"}return n+" b"},getPos:function(o,s){var t=0,r=0,v,u=document,p,q;o=o;s=s||u.body;function n(B){var z,A,w=0,C=0;if(B){A=B.getBoundingClientRect();z=u.compatMode==="CSS1Compat"?u.documentElement:u.body;w=A.left+z.scrollLeft;C=A.top+z.scrollTop}return{x:w,y:C}}if(o&&o.getBoundingClientRect&&(navigator.userAgent.indexOf("MSIE")>0&&u.documentMode!==8)){p=n(o);q=n(s);return{x:p.x-q.x,y:p.y-q.y}}v=o;while(v&&v!=s&&v.nodeType){t+=v.offsetLeft||0;r+=v.offsetTop||0;v=v.offsetParent}v=o.parentNode;while(v&&v!=s&&v.nodeType){t-=v.scrollLeft||0;r-=v.scrollTop||0;v=v.parentNode}return{x:t,y:r}},getSize:function(n){return{w:n.offsetWidth||n.clientWidth,h:n.offsetHeight||n.clientHeight}},parseSize:function(n){var o;if(typeof(n)=="string"){n=/^([0-9]+)([mgk]+)$/.exec(n.toLowerCase().replace(/[^0-9mkg]/g,""));o=n[2];n=+n[1];if(o=="g"){n*=1073741824}if(o=="m"){n*=1048576}if(o=="k"){n*=1024}}return n},xmlEncode:function(n){return n?(""+n).replace(l,function(o){return a[o]?"&"+a[o]+";":o}):n},toArray:function(p){var o,n=[];for(o=0;o<p.length;o++){n[o]=p[o]}return n},addI18n:function(n){return g.extend(m,n)},translate:function(n){return m[n]||n},isEmptyObj:function(n){if(n===b){return true}for(var o in n){return false}return true},hasClass:function(p,o){var n;if(p.className==""){return false}n=new RegExp("(^|\\s+)"+o+"(\\s+|$)");return n.test(p.className)},addClass:function(o,n){if(!g.hasClass(o,n)){o.className=o.className==""?n:o.className.replace(/\s+$/,"")+" "+n}},removeClass:function(p,o){var n=new RegExp("(^|\\s+)"+o+"(\\s+|$)");p.className=p.className.replace(n,function(r,q,s){return q===" "&&s===" "?" ":""})},getStyle:function(o,n){if(o.currentStyle){return o.currentStyle[n]}else{if(window.getComputedStyle){return window.getComputedStyle(o,null)[n]}}},addEvent:function(s,n,t){var r,q,p,o;o=arguments[3];n=n.toLowerCase();if(e===b){e="Plupload_"+g.guid()}if(s.attachEvent){r=function(){var u=window.event;if(!u.target){u.target=u.srcElement}u.preventDefault=h;u.stopPropagation=j;t(u)};s.attachEvent("on"+n,r)}else{if(s.addEventListener){r=t;s.addEventListener(n,r,false)}}if(s[e]===b){s[e]=g.guid()}if(!d.hasOwnProperty(s[e])){d[s[e]]={}}q=d[s[e]];if(!q.hasOwnProperty(n)){q[n]=[]}q[n].push({func:r,orig:t,key:o})},removeEvent:function(s,n){var q,t,p;if(typeof(arguments[2])=="function"){t=arguments[2]}else{p=arguments[2]}n=n.toLowerCase();if(s[e]&&d[s[e]]&&d[s[e]][n]){q=d[s[e]][n]}else{return}for(var o=q.length-1;o>=0;o--){if(q[o].key===p||q[o].orig===t){if(s.detachEvent){s.detachEvent("on"+n,q[o].func)}else{if(s.removeEventListener){s.removeEventListener(n,q[o].func,false)}}q[o].orig=null;q[o].func=null;q.splice(o,1);if(t!==b){break}}}if(!q.length){delete d[s[e]][n]}if(g.isEmptyObj(d[s[e]])){delete d[s[e]];try{delete s[e]}catch(r){s[e]=b}}},removeAllEvents:function(o){var n=arguments[1];if(o[e]===b||!o[e]){return}g.each(d[o[e]],function(q,p){g.removeEvent(o,p,n)})}};g.Uploader=function(q){var o={},t,s=[],p;t=new g.QueueProgress();q=g.extend({chunk_size:0,multipart:true,multi_selection:true,file_data_name:"file",filters:[]},q);function r(){var v,w=0,u;if(this.state==g.STARTED){for(u=0;u<s.length;u++){if(!v&&s[u].status==g.QUEUED){v=s[u];v.status=g.UPLOADING;this.trigger("BeforeUpload",v);this.trigger("UploadFile",v)}else{w++}}if(w==s.length){this.trigger("UploadComplete",s);this.stop()}}}function n(){var v,u;t.reset();for(v=0;v<s.length;v++){u=s[v];if(u.size!==b){t.size+=u.size;t.loaded+=u.loaded}else{t.size=b}if(u.status==g.DONE){t.uploaded++}else{if(u.status==g.FAILED){t.failed++}else{t.queued++}}}if(t.size===b){t.percent=s.length>0?Math.ceil(t.uploaded/s.length*100):0}else{t.bytesPerSec=Math.ceil(t.loaded/((+new Date()-p||1)/1000));t.percent=t.size>0?Math.ceil(t.loaded/t.size*100):0}}g.extend(this,{state:g.STOPPED,runtime:"",features:{},files:s,settings:q,total:t,id:g.guid(),init:function(){var z=this,A,w,v,y=0,x;if(typeof(q.preinit)=="function"){q.preinit(z)}else{g.each(q.preinit,function(C,B){z.bind(B,C)})}q.page_url=q.page_url||document.location.pathname.replace(/\/[^\/]+$/g,"/");if(!/^(\w+:\/\/|\/)/.test(q.url)){q.url=q.page_url+q.url}q.chunk_size=g.parseSize(q.chunk_size);q.max_file_size=g.parseSize(q.max_file_size);z.bind("FilesAdded",function(B,E){var D,C,G=0,H,F=q.filters;if(F&&F.length){H=[];g.each(F,function(I){g.each(I.extensions.split(/,/),function(J){if(/^\s*\*\s*$/.test(J)){H.push("\\.*")}else{H.push("\\."+J.replace(new RegExp("["+("/^$.*+?|()[]{}\\".replace(/./g,"\\$&"))+"]","g"),"\\$&"))}})});H=new RegExp(H.join("|")+"$","i")}for(D=0;D<E.length;D++){C=E[D];C.loaded=0;C.percent=0;C.status=g.QUEUED;if(H&&!H.test(C.name)){B.trigger("Error",{code:g.FILE_EXTENSION_ERROR,message:g.translate("File extension error."),file:C});continue}if(C.size!==b&&C.size>q.max_file_size){B.trigger("Error",{code:g.FILE_SIZE_ERROR,message:g.translate("File size error."),file:C});continue}s.push(C);G++}if(G){c(function(){z.trigger("QueueChanged");z.refresh()},1)}else{return false}});if(q.unique_names){z.bind("UploadFile",function(B,C){var E=C.name.match(/\.([^.]+)$/),D="tmp";if(E){D=E[1]}C.target_name=C.id+"."+D})}z.bind("UploadProgress",function(B,C){C.percent=C.size>0?Math.ceil(C.loaded/C.size*100):100;n()});z.bind("StateChanged",function(B){if(B.state==g.STARTED){p=(+new Date())}else{if(B.state==g.STOPPED){for(A=B.files.length-1;A>=0;A--){if(B.files[A].status==g.UPLOADING){B.files[A].status=g.QUEUED;n()}}}}});z.bind("QueueChanged",n);z.bind("Error",function(B,C){if(C.file){C.file.status=g.FAILED;n();if(B.state==g.STARTED){c(function(){r.call(z)},1)}}});z.bind("FileUploaded",function(B,C){C.status=g.DONE;C.loaded=C.size;B.trigger("UploadProgress",C);c(function(){r.call(z)},1)});if(q.runtimes){w=[];x=q.runtimes.split(/\s?,\s?/);for(A=0;A<x.length;A++){if(k[x[A]]){w.push(k[x[A]])}}}else{w=k}function u(){var E=w[y++],D,B,C;if(E){D=E.getFeatures();B=z.settings.required_features;if(B){B=B.split(",");for(C=0;C<B.length;C++){if(!D[B[C]]){u();return}}}E.init(z,function(F){if(F&&F.success){z.features=D;z.runtime=E.name;z.trigger("Init",{runtime:E.name});z.trigger("PostInit");z.refresh()}else{u()}})}else{z.trigger("Error",{code:g.INIT_ERROR,message:g.translate("Init error.")})}}u();if(typeof(q.init)=="function"){q.init(z)}else{g.each(q.init,function(C,B){z.bind(B,C)})}},refresh:function(){this.trigger("Refresh")},start:function(){if(this.state!=g.STARTED){this.state=g.STARTED;this.trigger("StateChanged");r.call(this)}},stop:function(){if(this.state!=g.STOPPED){this.state=g.STOPPED;this.trigger("StateChanged")}},getFile:function(v){var u;for(u=s.length-1;u>=0;u--){if(s[u].id===v){return s[u]}}},removeFile:function(v){var u;for(u=s.length-1;u>=0;u--){if(s[u].id===v.id){return this.splice(u,1)[0]}}},splice:function(w,u){var v;v=s.splice(w===b?0:w,u===b?s.length:u);this.trigger("FilesRemoved",v);this.trigger("QueueChanged");return v},trigger:function(v){var x=o[v.toLowerCase()],w,u;if(x){u=Array.prototype.slice.call(arguments);u[0]=this;for(w=0;w<x.length;w++){if(x[w].func.apply(x[w].scope,u)===false){return false}}}return true},bind:function(u,w,v){var x;u=u.toLowerCase();x=o[u]||[];x.push({func:w,scope:v||this});o[u]=x},unbind:function(u){u=u.toLowerCase();var x=o[u],v,w=arguments[1];if(x){if(w!==b){for(v=x.length-1;v>=0;v--){if(x[v].func===w){x.splice(v,1);break}}}else{x=[]}if(!x.length){delete o[u]}}},unbindAll:function(){var u=this;g.each(o,function(w,v){u.unbind(v)})},destroy:function(){this.trigger("Destroy");this.unbindAll()}})};g.File=function(q,o,p){var n=this;n.id=q;n.name=o;n.size=p;n.loaded=0;n.percent=0;n.status=0};g.Runtime=function(){this.getFeatures=function(){};this.init=function(n,o){}};g.QueueProgress=function(){var n=this;n.size=0;n.loaded=0;n.uploaded=0;n.failed=0;n.queued=0;n.percent=0;n.bytesPerSec=0;n.reset=function(){n.size=n.loaded=n.uploaded=n.failed=n.queued=n.percent=n.bytesPerSec=0}};g.runtimes={};window.plupload=g})();
-/* Imported from plupload.html5.js */
-(function(g,j,h,d){var f;if(g.Uint8Array&&g.ArrayBuffer&&!XMLHttpRequest.prototype.sendAsBinary){XMLHttpRequest.prototype.sendAsBinary=function(o){var m=new Uint8Array(o.length);for(var n=0;n<o.length;n++){m[n]=(o.charCodeAt(n)&255)}this.send(m.buffer)}}function l(n,o){var m;if("FileReader" in g){m=new FileReader();m.readAsDataURL(n);m.onload=function(){o(m.result)}}else{return o(n.getAsDataURL())}}function k(n,o){var m;if("FileReader" in g){m=new FileReader();m.readAsBinaryString(n);m.onload=function(){o(m.result)}}else{return o(n.getAsBinary())}}function c(q,o,r,t){var n,p,m,s;l(q,function(u){n=j.createElement("canvas");n.style.display="none";j.body.appendChild(n);p=n.getContext("2d");m=new Image();m.onerror=m.onabort=function(){t({success:false})};m.onload=function(){var z,v,x,w,y;if(!o.width){o.width=m.width}if(!o.height){o.height=m.height}s=Math.min(o.width/m.width,o.height/m.height);if(s<1||(s===1&&r==="image/jpeg")){z=Math.round(m.width*s);v=Math.round(m.height*s);n.width=z;n.height=v;p.drawImage(m,0,0,z,v);if(r==="image/jpeg"){w=new e(atob(u.substring(u.indexOf("base64,")+7)));if(w.headers&&w.headers.length){y=new a();if(y.init(w.get("exif")[0])){y.setExif("PixelXDimension",z);y.setExif("PixelYDimension",v);w.set("exif",y.getBinary())}}if(o.quality){try{u=n.toDataURL(r,o.quality/100)}catch(A){u=n.toDataURL(r)}}}else{u=n.toDataURL(r)}u=u.substring(u.indexOf("base64,")+7);u=atob(u);if(w.headers&&w.headers.length){u=w.restore(u);w.purge()}n.parentNode.removeChild(n);t({success:true,data:u})}else{t({success:false})}};m.src=u})}h.runtimes.Html5=h.addRuntime("html5",{getFeatures:function(){var r,n,q,o,m,p=g;n=q=o=m=false;if(p.XMLHttpRequest){r=new XMLHttpRequest();q=!!r.upload;n=!!(r.sendAsBinary||r.upload)}if(n){o=!!(File&&(File.prototype.getAsDataURL||p.FileReader)&&r.sendAsBinary);m=!!(File&&File.prototype.slice)}f=navigator.userAgent.indexOf("Safari")>0&&navigator.vendor.indexOf("Apple")!==-1;return{html5:n,dragdrop:p.mozInnerScreenX!==d||m||f,jpgresize:o,pngresize:o,multipart:o||!!p.FileReader||!!p.FormData,progress:q,chunks:m||o,canOpenDialog:navigator.userAgent.indexOf("WebKit")!==-1}},init:function(p,q){var m={},n;function o(v){var t,s,u=[],w,r={};for(s=0;s<v.length;s++){t=v[s];if(r[t.name]){continue}r[t.name]=true;w=h.guid();m[w]=t;u.push(new h.File(w,t.fileName,t.fileSize||t.size))}if(u.length){p.trigger("FilesAdded",u)}}n=this.getFeatures();if(!n.html5){q({success:false});return}p.bind("Init",function(v){var F,E,B=[],u,C,s=v.settings.filters,t,A,r=j.body,D;F=j.createElement("div");F.id=v.id+"_html5_container";h.extend(F.style,{position:"absolute",background:p.settings.shim_bgcolor||"transparent",width:"100px",height:"100px",overflow:"hidden",zIndex:99999,opacity:p.settings.shim_bgcolor?"":0});F.className="plupload html5";if(p.settings.container){r=j.getElementById(p.settings.container);if(h.getStyle(r,"position")==="static"){r.style.position="relative"}}r.appendChild(F);no_type_restriction:for(u=0;u<s.length;u++){t=s[u].extensions.split(/,/);for(C=0;C<t.length;C++){if(t[C]==="*"){B=[];break no_type_restriction}A=h.mimeTypes[t[C]];if(A){B.push(A)}}}F.innerHTML='<input id="'+p.id+'_html5" style="width:100%;height:100%;font-size:99px" type="file" accept="'+B.join(",")+'" '+(p.settings.multi_selection?'multiple="multiple"':"")+" />";D=j.getElementById(p.id+"_html5");D.onchange=function(){o(this.files);this.value=""};E=j.getElementById(v.settings.browse_button);if(E){var x=v.settings.browse_button_hover,z=v.settings.browse_button_active,w=v.features.canOpenDialog?E:F;if(x){h.addEvent(w,"mouseover",function(){h.addClass(E,x)},v.id);h.addEvent(w,"mouseout",function(){h.removeClass(E,x)},v.id)}if(z){h.addEvent(w,"mousedown",function(){h.addClass(E,z)},v.id);h.addEvent(j.body,"mouseup",function(){h.removeClass(E,z)},v.id)}if(v.features.canOpenDialog){h.addEvent(E,"click",function(y){j.getElementById(v.id+"_html5").click();y.preventDefault()},v.id)}}});p.bind("PostInit",function(){var r=j.getElementById(p.settings.drop_element);if(r){if(f){h.addEvent(r,"dragenter",function(v){var u,s,t;u=j.getElementById(p.id+"_drop");if(!u){u=j.createElement("input");u.setAttribute("type","file");u.setAttribute("id",p.id+"_drop");u.setAttribute("multiple","multiple");h.addEvent(u,"change",function(){o(this.files);h.removeEvent(u,"change",p.id);u.parentNode.removeChild(u)},p.id);r.appendChild(u)}s=h.getPos(r,j.getElementById(p.settings.container));t=h.getSize(r);if(h.getStyle(r,"position")==="static"){h.extend(r.style,{position:"relative"})}h.extend(u.style,{position:"absolute",display:"block",top:0,left:0,width:t.w+"px",height:t.h+"px",opacity:0})},p.id);return}h.addEvent(r,"dragover",function(s){s.preventDefault()},p.id);h.addEvent(r,"drop",function(t){var s=t.dataTransfer;if(s&&s.files){o(s.files)}t.preventDefault()},p.id)}});p.bind("Refresh",function(r){var s,u,v,w,t;s=j.getElementById(p.settings.browse_button);if(s){u=h.getPos(s,j.getElementById(r.settings.container));v=h.getSize(s);w=j.getElementById(p.id+"_html5_container");h.extend(w.style,{top:u.y+"px",left:u.x+"px",width:v.w+"px",height:v.h+"px"});if(p.features.canOpenDialog){t=parseInt(s.parentNode.style.zIndex,10);if(isNaN(t)){t=0}h.extend(s.style,{zIndex:t});if(h.getStyle(s,"position")==="static"){h.extend(s.style,{position:"relative"})}h.extend(w.style,{zIndex:t-1})}}});p.bind("UploadFile",function(r,t){var u=r.settings,w,s;function v(x){var A=0,z=0;function y(){var H=x,O,P,K,L,M=0,D="----pluploadboundary"+h.guid(),G,I,E,F="--",N="\r\n",J="",C,B=r.settings.url;if(t.status==h.DONE||t.status==h.FAILED||r.state==h.STOPPED){return}L={name:t.target_name||t.name};if(u.chunk_size&&n.chunks){G=u.chunk_size;K=Math.ceil(t.size/G);I=Math.min(G,t.size-(A*G));if(typeof(x)=="string"){H=x.substring(A*G,A*G+I)}else{H=x.slice(A*G,I)}L.chunk=A;L.chunks=K}else{I=t.size}O=new XMLHttpRequest();P=O.upload;if(P){P.onprogress=function(Q){t.loaded=Math.min(t.size,z+Q.loaded-M);r.trigger("UploadProgress",t)}}if(!r.settings.multipart||!n.multipart){B=h.buildUrl(r.settings.url,L)}else{L.name=t.target_name||t.name}O.open("post",B,true);O.onreadystatechange=function(){var Q,S;if(O.readyState==4){try{Q=O.status}catch(R){Q=0}if(Q>=400){r.trigger("Error",{code:h.HTTP_ERROR,message:h.translate("HTTP Error."),file:t,status:Q})}else{if(K){S={chunk:A,chunks:K,response:O.responseText,status:Q};r.trigger("ChunkUploaded",t,S);z+=I;if(S.cancelled){t.status=h.FAILED;return}t.loaded=Math.min(t.size,(A+1)*G)}else{t.loaded=t.size}r.trigger("UploadProgress",t);if(!K||++A>=K){t.status=h.DONE;r.trigger("FileUploaded",t,{response:O.responseText,status:Q});w=x=m[t.id]=null}else{y()}}O=H=E=J=null}};h.each(r.settings.headers,function(R,Q){O.setRequestHeader(Q,R)});if(r.settings.multipart&&n.multipart){if(!O.sendAsBinary){E=new FormData();h.each(h.extend(L,r.settings.multipart_params),function(R,Q){E.append(Q,R)});E.append(r.settings.file_data_name,H);O.send(E);return}O.setRequestHeader("Content-Type","multipart/form-data; boundary="+D);h.each(h.extend(L,r.settings.multipart_params),function(R,Q){J+=F+D+N+'Content-Disposition: form-data; name="'+Q+'"'+N+N;J+=unescape(encodeURIComponent(R))+N});C=h.mimeTypes[t.name.replace(/^.+\.([^.]+)/,"$1").toLowerCase()]||"application/octet-stream";J+=F+D+N+'Content-Disposition: form-data; name="'+r.settings.file_data_name+'"; filename="'+unescape(encodeURIComponent(t.name))+'"'+N+"Content-Type: "+C+N+N+H+N+F+D+F+N;M=J.length-H.length;H=J}else{O.setRequestHeader("Content-Type","application/octet-stream")}if(O.sendAsBinary){O.sendAsBinary(H)}else{O.send(H)}}y()}w=m[t.id];s=r.settings.resize;if(n.jpgresize){if(s&&/\.(png|jpg|jpeg)$/i.test(t.name)){c(w,s,/\.png$/i.test(t.name)?"image/png":"image/jpeg",function(x){if(x.success){t.size=x.data.length;v(x.data)}else{k(w,v)}})}else{k(w,v)}}else{v(w)}});p.bind("Destroy",function(r){var t,u,s=j.body,v={inputContainer:r.id+"_html5_container",inputFile:r.id+"_html5",browseButton:r.settings.browse_button,dropElm:r.settings.drop_element};for(t in v){u=j.getElementById(v[t]);if(u){h.removeAllEvents(u,r.id)}}h.removeAllEvents(j.body,r.id);if(r.settings.container){s=j.getElementById(r.settings.container)}s.removeChild(j.getElementById(v.inputContainer))});q({success:true})}});function b(){var p=false,n;function q(s,u){var r=p?0:-8*(u-1),v=0,t;for(t=0;t<u;t++){v|=(n.charCodeAt(s+t)<<Math.abs(r+t*8))}return v}function m(t,r,s){var s=arguments.length===3?s:n.length-r-1;n=n.substr(0,r)+t+n.substr(s+r)}function o(s,t,v){var w="",r=p?0:-8*(v-1),u;for(u=0;u<v;u++){w+=String.fromCharCode((t>>Math.abs(r+u*8))&255)}m(w,s,v)}return{II:function(r){if(r===d){return p}else{p=r}},init:function(r){p=false;n=r},SEGMENT:function(r,t,s){switch(arguments.length){case 1:return n.substr(r,n.length-r-1);case 2:return n.substr(r,t);case 3:m(s,r,t);break;default:return n}},BYTE:function(r){return q(r,1)},SHORT:function(r){return q(r,2)},LONG:function(r,s){if(s===d){return q(r,4)}else{o(r,s,4)}},SLONG:function(r){var s=q(r,4);return(s>2147483647?s-4294967296:s)},STRING:function(r,s){var t="";for(s+=r;r<s;r++){t+=String.fromCharCode(q(r,1))}return t}}}function e(r){var t={65505:{app:"EXIF",name:"APP1",signature:"Exif\0"},65506:{app:"ICC",name:"APP2",signature:"ICC_PROFILE\0"},65517:{app:"IPTC",name:"APP13",signature:"Photoshop 3.0\0"}},s=[],q,m,o=d,p=0,n;q=new b();q.init(r);if(q.SHORT(0)!==65496){return}m=2;n=Math.min(1048576,r.length);while(m<=n){o=q.SHORT(m);if(o>=65488&&o<=65495){m+=2;continue}if(o===65498||o===65497){break}p=q.SHORT(m+2)+2;if(t[o]&&q.STRING(m+4,t[o].signature.length)===t[o].signature){s.push({hex:o,app:t[o].app.toUpperCase(),name:t[o].name.toUpperCase(),start:m,length:p,segment:q.SEGMENT(m,p)})}m+=p}q.init(null);return{headers:s,restore:function(w){q.init(w);if(q.SHORT(0)!==65496){return false}m=q.SHORT(2)==65504?4+q.SHORT(4):2;for(var v=0,u=s.length;v<u;v++){q.SEGMENT(m,0,s[v].segment);m+=s[v].length}return q.SEGMENT()},get:function(w){var x=[];for(var v=0,u=s.length;v<u;v++){if(s[v].app===w.toUpperCase()){x.push(s[v].segment)}}return x},set:function(x,w){var y=[];if(typeof(w)==="string"){y.push(w)}else{y=w}for(var v=ii=0,u=s.length;v<u;v++){if(s[v].app===x.toUpperCase()){s[v].segment=y[ii];s[v].length=y[ii].length;ii++}if(ii>=y.length){break}}},purge:function(){s=[];q.init(null)}}}function a(){var p,m,n={},s;p=new b();m={tiff:{274:"Orientation",34665:"ExifIFDPointer",34853:"GPSInfoIFDPointer"},exif:{36864:"ExifVersion",40961:"ColorSpace",40962:"PixelXDimension",40963:"PixelYDimension",36867:"DateTimeOriginal",33434:"ExposureTime",33437:"FNumber",34855:"ISOSpeedRatings",37377:"ShutterSpeedValue",37378:"ApertureValue",37383:"MeteringMode",37384:"LightSource",37385:"Flash",41986:"ExposureMode",41987:"WhiteBalance",41990:"SceneCaptureType",41988:"DigitalZoomRatio",41992:"Contrast",41993:"Saturation",41994:"Sharpness"},gps:{0:"GPSVersionID",1:"GPSLatitudeRef",2:"GPSLatitude",3:"GPSLongitudeRef",4:"GPSLongitude"}};s={ColorSpace:{1:"sRGB",0:"Uncalibrated"},MeteringMode:{0:"Unknown",1:"Average",2:"CenterWeightedAverage",3:"Spot",4:"MultiSpot",5:"Pattern",6:"Partial",255:"Other"},LightSource:{1:"Daylight",2:"Fliorescent",3:"Tungsten",4:"Flash",9:"Fine weather",10:"Cloudy weather",11:"Shade",12:"Daylight fluorescent (D 5700 - 7100K)",13:"Day white fluorescent (N 4600 -5400K)",14:"Cool white fluorescent (W 3900 - 4500K)",15:"White fluorescent (WW 3200 - 3700K)",17:"Standard light A",18:"Standard light B",19:"Standard light C",20:"D55",21:"D65",22:"D75",23:"D50",24:"ISO studio tungsten",255:"Other"},Flash:{0:"Flash did not fire.",1:"Flash fired.",5:"Strobe return light not detected.",7:"Strobe return light detected.",9:"Flash fired, compulsory flash mode",13:"Flash fired, compulsory flash mode, return light not detected",15:"Flash fired, compulsory flash mode, return light detected",16:"Flash did not fire, compulsory flash mode",24:"Flash did not fire, auto mode",25:"Flash fired, auto mode",29:"Flash fired, auto mode, return light not detected",31:"Flash fired, auto mode, return light detected",32:"No flash function",65:"Flash fired, red-eye reduction mode",69:"Flash fired, red-eye reduction mode, return light not detected",71:"Flash fired, red-eye reduction mode, return light detected",73:"Flash fired, compulsory flash mode, red-eye reduction mode",77:"Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected",79:"Flash fired, compulsory flash mode, red-eye reduction mode, return light detected",89:"Flash fired, auto mode, red-eye reduction mode",93:"Flash fired, auto mode, return light not detected, red-eye reduction mode",95:"Flash fired, auto mode, return light detected, red-eye reduction mode"},ExposureMode:{0:"Auto exposure",1:"Manual exposure",2:"Auto bracket"},WhiteBalance:{0:"Auto white balance",1:"Manual white balance"},SceneCaptureType:{0:"Standard",1:"Landscape",2:"Portrait",3:"Night scene"},Contrast:{0:"Normal",1:"Soft",2:"Hard"},Saturation:{0:"Normal",1:"Low saturation",2:"High saturation"},Sharpness:{0:"Normal",1:"Soft",2:"Hard"},GPSLatitudeRef:{N:"North latitude",S:"South latitude"},GPSLongitudeRef:{E:"East longitude",W:"West longitude"}};function o(t,B){var v=p.SHORT(t),y,E,F,A,z,u,w,C,D=[],x={};for(y=0;y<v;y++){w=u=t+12*y+2;F=B[p.SHORT(w)];if(F===d){continue}A=p.SHORT(w+=2);z=p.LONG(w+=2);w+=4;D=[];switch(A){case 1:case 7:if(z>4){w=p.LONG(w)+n.tiffHeader}for(E=0;E<z;E++){D[E]=p.BYTE(w+E)}break;case 2:if(z>4){w=p.LONG(w)+n.tiffHeader}x[F]=p.STRING(w,z-1);continue;case 3:if(z>2){w=p.LONG(w)+n.tiffHeader}for(E=0;E<z;E++){D[E]=p.SHORT(w+E*2)}break;case 4:if(z>1){w=p.LONG(w)+n.tiffHeader}for(E=0;E<z;E++){D[E]=p.LONG(w+E*4)}break;case 5:w=p.LONG(w)+n.tiffHeader;for(E=0;E<z;E++){D[E]=p.LONG(w+E*4)/p.LONG(w+E*4+4)}break;case 9:w=p.LONG(w)+n.tiffHeader;for(E=0;E<z;E++){D[E]=p.SLONG(w+E*4)}break;case 10:w=p.LONG(w)+n.tiffHeader;for(E=0;E<z;E++){D[E]=p.SLONG(w+E*4)/p.SLONG(w+E*4+4)}break;default:continue}C=(z==1?D[0]:D);if(s.hasOwnProperty(F)&&typeof C!="object"){x[F]=s[F][C]}else{x[F]=C}}return x}function r(){var u=d,t=n.tiffHeader;p.II(p.SHORT(t)==18761);if(p.SHORT(t+=2)!==42){return false}n.IFD0=n.tiffHeader+p.LONG(t+=2);u=o(n.IFD0,m.tiff);n.exifIFD=("ExifIFDPointer" in u?n.tiffHeader+u.ExifIFDPointer:d);n.gpsIFD=("GPSInfoIFDPointer" in u?n.tiffHeader+u.GPSInfoIFDPointer:d);return true}function q(v,t,y){var A,x,w,z=0;if(typeof(t)==="string"){var u=m[v.toLowerCase()];for(hex in u){if(u[hex]===t){t=hex;break}}}A=n[v.toLowerCase()+"IFD"];x=p.SHORT(A);for(i=0;i<x;i++){w=A+12*i+2;if(p.SHORT(w)==t){z=w+8;break}}if(!z){return false}p.LONG(z,y);return true}return{init:function(t){n={tiffHeader:10};if(t===d||!t.length){return false}p.init(t);if(p.SHORT(0)===65505&&p.STRING(4,5).toUpperCase()==="EXIF\0"){return r()}return false},EXIF:function(){var t;t=o(n.exifIFD,m.exif);t.ExifVersion=String.fromCharCode(t.ExifVersion[0],t.ExifVersion[1],t.ExifVersion[2],t.ExifVersion[3]);return t},GPS:function(){var t;t=o(n.gpsIFD,m.gps);t.GPSVersionID=t.GPSVersionID.join(".");return t},setExif:function(t,u){if(t!=="PixelXDimension"&&t!=="PixelYDimension"){return false}return q("exif",t,u)},getBinary:function(){return p.SEGMENT()}}}})(window,document,plupload);
-/* Imported from plupload.flash.js */
-(function(f,b,d,e){var a={},g={};function c(){var h;try{h=navigator.plugins["Shockwave Flash"];h=h.description}catch(j){try{h=new ActiveXObject("ShockwaveFlash.ShockwaveFlash").GetVariable("$version")}catch(i){h="0.0"}}h=h.match(/\d+/g);return parseFloat(h[0]+"."+h[1])}d.flash={trigger:function(j,h,i){setTimeout(function(){var m=a[j],l,k;if(m){m.trigger("Flash:"+h,i)}},0)}};d.runtimes.Flash=d.addRuntime("flash",{getFeatures:function(){return{jpgresize:true,pngresize:true,maxWidth:8091,maxHeight:8091,chunks:true,progress:true,multipart:true}},init:function(j,o){var n,i,k,p=0,h=b.body;if(c()<10){o({success:false});return}g[j.id]=false;a[j.id]=j;n=b.getElementById(j.settings.browse_button);i=b.createElement("div");i.id=j.id+"_flash_container";d.extend(i.style,{position:"absolute",top:"0px",background:j.settings.shim_bgcolor||"transparent",zIndex:99999,width:"100%",height:"100%"});i.className="plupload flash";if(j.settings.container){h=b.getElementById(j.settings.container);if(d.getStyle(h,"position")==="static"){h.style.position="relative"}}h.appendChild(i);k="id="+escape(j.id);i.innerHTML='<object id="'+j.id+'_flash" width="100%" height="100%" style="outline:0" type="application/x-shockwave-flash" data="'+j.settings.flash_swf_url+'"><param name="movie" value="'+j.settings.flash_swf_url+'" /><param name="flashvars" value="'+k+'" /><param name="wmode" value="transparent" /><param name="allowscriptaccess" value="always" /></object>';function m(){return b.getElementById(j.id+"_flash")}function l(){if(p++>5000){o({success:false});return}if(!g[j.id]){setTimeout(l,1)}}l();n=i=null;j.bind("Flash:Init",function(){var r={},q;m().setFileFilters(j.settings.filters,j.settings.multi_selection);if(g[j.id]){return}g[j.id]=true;j.bind("UploadFile",function(s,u){var v=s.settings,t=j.settings.resize||{};m().uploadFile(r[u.id],v.url,{name:u.target_name||u.name,mime:d.mimeTypes[u.name.replace(/^.+\.([^.]+)/,"$1").toLowerCase()]||"application/octet-stream",chunk_size:v.chunk_size,width:t.width,height:t.height,quality:t.quality,multipart:v.multipart,multipart_params:v.multipart_params||{},file_data_name:v.file_data_name,format:/\.(jpg|jpeg)$/i.test(u.name)?"jpg":"png",headers:v.headers,urlstream_upload:v.urlstream_upload})});j.bind("Flash:UploadProcess",function(t,s){var u=t.getFile(r[s.id]);if(u.status!=d.FAILED){u.loaded=s.loaded;u.size=s.size;t.trigger("UploadProgress",u)}});j.bind("Flash:UploadChunkComplete",function(s,u){var v,t=s.getFile(r[u.id]);v={chunk:u.chunk,chunks:u.chunks,response:u.text};s.trigger("ChunkUploaded",t,v);if(t.status!=d.FAILED){m().uploadNextChunk()}if(u.chunk==u.chunks-1){t.status=d.DONE;s.trigger("FileUploaded",t,{response:u.text})}});j.bind("Flash:SelectFiles",function(s,v){var u,t,w=[],x;for(t=0;t<v.length;t++){u=v[t];x=d.guid();r[x]=u.id;r[u.id]=x;w.push(new d.File(x,u.name,u.size))}if(w.length){j.trigger("FilesAdded",w)}});j.bind("Flash:SecurityError",function(s,t){j.trigger("Error",{code:d.SECURITY_ERROR,message:d.translate("Security error."),details:t.message,file:j.getFile(r[t.id])})});j.bind("Flash:GenericError",function(s,t){j.trigger("Error",{code:d.GENERIC_ERROR,message:d.translate("Generic error."),details:t.message,file:j.getFile(r[t.id])})});j.bind("Flash:IOError",function(s,t){j.trigger("Error",{code:d.IO_ERROR,message:d.translate("IO error."),details:t.message,file:j.getFile(r[t.id])})});j.bind("Flash:ImageError",function(s,t){j.trigger("Error",{code:parseInt(t.code,10),message:d.translate("Image error."),file:j.getFile(r[t.id])})});j.bind("Flash:StageEvent:rollOver",function(s){var t,u;t=b.getElementById(j.settings.browse_button);u=s.settings.browse_button_hover;if(t&&u){d.addClass(t,u)}});j.bind("Flash:StageEvent:rollOut",function(s){var t,u;t=b.getElementById(j.settings.browse_button);u=s.settings.browse_button_hover;if(t&&u){d.removeClass(t,u)}});j.bind("Flash:StageEvent:mouseDown",function(s){var t,u;t=b.getElementById(j.settings.browse_button);u=s.settings.browse_button_active;if(t&&u){d.addClass(t,u);d.addEvent(b.body,"mouseup",function(){d.removeClass(t,u)},s.id)}});j.bind("Flash:StageEvent:mouseUp",function(s){var t,u;t=b.getElementById(j.settings.browse_button);u=s.settings.browse_button_active;if(t&&u){d.removeClass(t,u)}});j.bind("QueueChanged",function(s){j.refresh()});j.bind("FilesRemoved",function(s,u){var t;for(t=0;t<u.length;t++){m().removeFile(r[u[t].id])}});j.bind("StateChanged",function(s){j.refresh()});j.bind("Refresh",function(s){var t,u,v;m().setFileFilters(j.settings.filters,j.settings.multi_selection);t=b.getElementById(s.settings.browse_button);if(t){u=d.getPos(t,b.getElementById(s.settings.container));v=d.getSize(t);d.extend(b.getElementById(s.id+"_flash_container").style,{top:u.y+"px",left:u.x+"px",width:v.w+"px",height:v.h+"px"})}});j.bind("Destroy",function(s){var t;d.removeAllEvents(b.body,s.id);delete g[s.id];delete a[s.id];t=b.getElementById(s.id+"_flash_container");if(t){h.removeChild(t)}});o({success:true})})}})})(window,document,plupload);
+/**
+ * plupload.js
+ *
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under GPL License.
+ *
+ * License: http://www.plupload.com/license
+ * Contributing: http://www.plupload.com/contributing
+ */
+
+// JSLint defined globals
+/*global window:false, escape:false */
+
+/*!@@version@@*/
+
+(function() {
+	var count = 0, runtimes = [], i18n = {}, mimes = {},
+		xmlEncodeChars = {'<' : 'lt', '>' : 'gt', '&' : 'amp', '"' : 'quot', '\'' : '#39'},
+		xmlEncodeRegExp = /[<>&\"\']/g, undef, delay = window.setTimeout,
+		// A place to store references to event handlers
+		eventhash = {},
+		uid;
+
+	// IE W3C like event funcs
+	function preventDefault() {
+		this.returnValue = false;
+	}
+
+	function stopPropagation() {
+		this.cancelBubble = true;
+	}
+
+	// Parses the default mime types string into a mimes lookup map
+	(function(mime_data) {
+		var items = mime_data.split(/,/), i, y, ext;
+
+		for (i = 0; i < items.length; i += 2) {
+			ext = items[i + 1].split(/ /);
+
+			for (y = 0; y < ext.length; y++) {
+				mimes[ext[y]] = items[i];
+			}
+		}
+	})(
+		"application/msword,doc dot," +
+		"application/pdf,pdf," +
+		"application/pgp-signature,pgp," +
+		"application/postscript,ps ai eps," +
+		"application/rtf,rtf," +
+		"application/vnd.ms-excel,xls xlb," +
+		"application/vnd.ms-powerpoint,ppt pps pot," +
+		"application/zip,zip," +
+		"application/x-shockwave-flash,swf swfl," +
+		"application/vnd.openxmlformats,docx pptx xlsx," +
+		"audio/mpeg,mpga mpega mp2 mp3," +
+		"audio/x-wav,wav," +
+		"audio/mp4,m4a," +
+		"image/bmp,bmp," +
+		"image/gif,gif," +
+		"image/jpeg,jpeg jpg jpe," +
+		"image/photoshop,psd," +
+		"image/png,png," +
+		"image/svg+xml,svg svgz," +
+		"image/tiff,tiff tif," +
+		"text/html,htm html xhtml," +
+		"text/rtf,rtf," +
+		"video/mpeg,mpeg mpg mpe," +
+		"video/quicktime,qt mov," +
+		"video/mp4,mp4," +
+		"video/x-m4v,m4v," +
+		"video/x-flv,flv," +
+		"video/x-ms-wmv,wmv," +
+		"video/avi,avi," +
+		"video/vnd.rn-realvideo,rv," +
+		"text/csv,csv," +
+		"text/plain,asc txt text diff log," +
+		"application/octet-stream,exe"
+	);
+
+	/**
+	 * Plupload class with some global constants and functions.
+	 *
+	 * @example
+	 * // Encode entities
+	 * console.log(plupload.xmlEncode("My string &lt;&gt;"));
+	 *
+	 * // Generate unique id
+	 * console.log(plupload.guid());
+	 *
+	 * @static
+	 * @class plupload
+	 */
+	var plupload = {
+		/**
+		 * Plupload version will be replaced on build.
+		 */
+		VERSION : '@@version@@',
+
+		/**
+		 * Inital state of the queue and also the state ones it's finished all it's uploads.
+		 *
+		 * @property STOPPED
+		 * @final
+		 */
+		STOPPED : 1,
+
+		/**
+		 * Upload process is running
+		 *
+		 * @property STARTED
+		 * @final
+		 */
+		STARTED : 2,
+
+		/**
+		 * File is queued for upload
+		 *
+		 * @property QUEUED
+		 * @final
+		 */
+		QUEUED : 1,
+
+		/**
+		 * File is being uploaded
+		 *
+		 * @property UPLOADING
+		 * @final
+		 */
+		UPLOADING : 2,
+
+		/**
+		 * File has failed to be uploaded
+		 *
+		 * @property FAILED
+		 * @final
+		 */
+		FAILED : 4,
+
+		/**
+		 * File has been uploaded successfully
+		 *
+		 * @property DONE
+		 * @final
+		 */
+		DONE : 5,
+
+		// Error constants used by the Error event
+
+		/**
+		 * Generic error for example if an exception is thrown inside Silverlight.
+		 *
+		 * @property GENERIC_ERROR
+		 * @final
+		 */
+		GENERIC_ERROR : -100,
+
+		/**
+		 * HTTP transport error. For example if the server produces a HTTP status other than 200.
+		 *
+		 * @property HTTP_ERROR
+		 * @final
+		 */
+		HTTP_ERROR : -200,
+
+		/**
+		 * Generic I/O error. For exampe if it wasn't possible to open the file stream on local machine.
+		 *
+		 * @property IO_ERROR
+		 * @final
+		 */
+		IO_ERROR : -300,
+
+		/**
+		 * Generic I/O error. For exampe if it wasn't possible to open the file stream on local machine.
+		 *
+		 * @property SECURITY_ERROR
+		 * @final
+		 */
+		SECURITY_ERROR : -400,
+
+		/**
+		 * Initialization error. Will be triggered if no runtime was initialized.
+		 *
+		 * @property INIT_ERROR
+		 * @final
+		 */
+		INIT_ERROR : -500,
+
+		/**
+		 * File size error. If the user selects a file that is too large it will be blocked and an error of this type will be triggered.
+		 *
+		 * @property FILE_SIZE_ERROR
+		 * @final
+		 */
+		FILE_SIZE_ERROR : -600,
+
+		/**
+		 * File extension error. If the user selects a file that isn't valid according to the filters setting.
+		 *
+		 * @property FILE_EXTENSION_ERROR
+		 * @final
+		 */
+		FILE_EXTENSION_ERROR : -601,
+		
+		/**
+		 * Runtime will try to detect if image is proper one. Otherwise will throw this error.
+		 *
+		 * @property IMAGE_FORMAT_ERROR
+		 * @final
+		 */
+		IMAGE_FORMAT_ERROR : -700,
+		
+		/**
+		 * While working on the image runtime will try to detect if the operation may potentially run out of memeory and will throw this error.
+		 *
+		 * @property IMAGE_MEMORY_ERROR
+		 * @final
+		 */
+		IMAGE_MEMORY_ERROR : -701,
+		
+		/**
+		 * Each runtime has an upper limit on a dimension of the image it can handle. If bigger, will throw this error.
+		 *
+		 * @property IMAGE_DIMENSIONS_ERROR
+		 * @final
+		 */
+		IMAGE_DIMENSIONS_ERROR : -702,
+		
+
+		/**
+		 * Mime type lookup table.
+		 *
+		 * @property mimeTypes
+		 * @type Object
+		 * @final
+		 */
+		mimeTypes : mimes,
+
+		/**
+		 * Extends the specified object with another object.
+		 *
+		 * @method extend
+		 * @param {Object} target Object to extend.
+		 * @param {Object..} obj Multiple objects to extend with.
+		 * @return {Object} Same as target, the extended object.
+		 */
+		extend : function(target) {
+			plupload.each(arguments, function(arg, i) {
+				if (i > 0) {
+					plupload.each(arg, function(value, key) {
+						target[key] = value;
+					});
+				}
+			});
+
+			return target;
+		},
+
+		/**
+		 * Cleans the specified name from national characters (diacritics). The result will be a name with only a-z, 0-9 and _.
+		 *
+		 * @method cleanName
+		 * @param {String} s String to clean up.
+		 * @return {String} Cleaned string.
+		 */
+		cleanName : function(name) {
+			var i, lookup;
+
+			// Replace diacritics
+			lookup = [
+				/[\300-\306]/g, 'A', /[\340-\346]/g, 'a', 
+				/\307/g, 'C', /\347/g, 'c',
+				/[\310-\313]/g, 'E', /[\350-\353]/g, 'e',
+				/[\314-\317]/g, 'I', /[\354-\357]/g, 'i',
+				/\321/g, 'N', /\361/g, 'n',
+				/[\322-\330]/g, 'O', /[\362-\370]/g, 'o',
+				/[\331-\334]/g, 'U', /[\371-\374]/g, 'u'
+			];
+
+			for (i = 0; i < lookup.length; i += 2) {
+				name = name.replace(lookup[i], lookup[i + 1]);
+			}
+
+			// Replace whitespace
+			name = name.replace(/\s+/g, '_');
+
+			// Remove anything else
+			name = name.replace(/[^a-z0-9_\-\.]+/gi, '');
+
+			return name;
+		},
+
+		/**
+		 * Adds a specific upload runtime like for example flash or gears.
+		 *
+		 * @method addRuntime
+		 * @param {String} name Runtime name for example flash.
+		 * @param {Object} obj Object containing init/destroy method.
+		 */
+		addRuntime : function(name, runtime) {			
+			runtime.name = name;
+			runtimes[name] = runtime;
+			runtimes.push(runtime);
+
+			return runtime;
+		},
+
+		/**
+		 * Generates an unique ID. This is 99.99% unique since it takes the current time and 5 random numbers.
+		 * The only way a user would be able to get the same ID is if the two persons at the same exact milisecond manages
+		 * to get 5 the same random numbers between 0-65535 it also uses a counter so each call will be guaranteed to be page unique.
+		 * It's more probable for the earth to be hit with an ansteriod. You can also if you want to be 100% sure set the plupload.guidPrefix property
+		 * to an user unique key.
+		 *
+		 * @method guid
+		 * @return {String} Virtually unique id.
+		 */
+		guid : function() {
+			var guid = new Date().getTime().toString(32), i;
+
+			for (i = 0; i < 5; i++) {
+				guid += Math.floor(Math.random() * 65535).toString(32);
+			}
+
+			return (plupload.guidPrefix || 'p') + guid + (count++).toString(32);
+		},
+
+		/**
+		 * Builds a full url out of a base URL and an object with items to append as query string items.
+		 *
+		 * @param {String} url Base URL to append query string items to.
+		 * @param {Object} items Name/value object to serialize as a querystring.
+		 * @return {String} String with url + serialized query string items.
+		 */
+		buildUrl : function(url, items) {
+			var query = '';
+
+			plupload.each(items, function(value, name) {
+				query += (query ? '&' : '') + encodeURIComponent(name) + '=' + encodeURIComponent(value);
+			});
+
+			if (query) {
+				url += (url.indexOf('?') > 0 ? '&' : '?') + query;
+			}
+
+			return url;
+		},
+
+		/**
+		 * Executes the callback function for each item in array/object. If you return false in the
+		 * callback it will break the loop.
+		 *
+		 * @param {Object} obj Object to iterate.
+		 * @param {function} callback Callback function to execute for each item.
+		 */
+		each : function(obj, callback) {
+			var length, key, i;
+
+			if (obj) {
+				length = obj.length;
+
+				if (length === undef) {
+					// Loop object items
+					for (key in obj) {
+						if (obj.hasOwnProperty(key)) {
+							if (callback(obj[key], key) === false) {
+								return;
+							}
+						}
+					}
+				} else {
+					// Loop array items
+					for (i = 0; i < length; i++) {
+						if (callback(obj[i], i) === false) {
+							return;
+						}
+					}
+				}
+			}
+		},
+
+		/**
+		 * Formats the specified number as a size string for example 1024 becomes 1 KB.
+		 *
+		 * @method formatSize
+		 * @param {Number} size Size to format as string.
+		 * @return {String} Formatted size string.
+		 */
+		formatSize : function(size) {
+			if (size === undef || /\D/.test(size)) {
+				return plupload.translate('N/A');
+			}
+			
+			// GB
+			if (size > 1073741824) {
+				return Math.round(size / 1073741824, 1) + " GB";
+			}
+
+			// MB
+			if (size > 1048576) {
+				return Math.round(size / 1048576, 1) + " MB";
+			}
+
+			// KB
+			if (size > 1024) {
+				return Math.round(size / 1024, 1) + " KB";
+			}
+
+			return size + " b";
+		},
+
+		/**
+		 * Returns the absolute x, y position of an Element. The position will be returned in a object with x, y fields.
+		 *
+		 * @method getPos
+		 * @param {Element} node HTML element or element id to get x, y position from.
+		 * @param {Element} root Optional root element to stop calculations at.
+		 * @return {object} Absolute position of the specified element object with x, y fields.
+		 */
+		 getPos : function(node, root) {
+			var x = 0, y = 0, parent, doc = document, nodeRect, rootRect;
+
+			node = node;
+			root = root || doc.body;
+
+			// Returns the x, y cordinate for an element on IE 6 and IE 7
+			function getIEPos(node) {
+				var bodyElm, rect, x = 0, y = 0;
+
+				if (node) {
+					rect = node.getBoundingClientRect();
+					bodyElm = doc.compatMode === "CSS1Compat" ? doc.documentElement : doc.body;
+					x = rect.left + bodyElm.scrollLeft;
+					y = rect.top + bodyElm.scrollTop;
+				}
+
+				return {
+					x : x,
+					y : y
+				};
+			}
+
+			// Use getBoundingClientRect on IE 6 and IE 7 but not on IE 8 in standards mode
+			if (node && node.getBoundingClientRect && (navigator.userAgent.indexOf('MSIE') > 0 && doc.documentMode !== 8)) {
+				nodeRect = getIEPos(node);
+				rootRect = getIEPos(root);
+
+				return {
+					x : nodeRect.x - rootRect.x,
+					y : nodeRect.y - rootRect.y
+				};
+			}
+
+			parent = node;
+			while (parent && parent != root && parent.nodeType) {
+				x += parent.offsetLeft || 0;
+				y += parent.offsetTop || 0;
+				parent = parent.offsetParent;
+			}
+
+			parent = node.parentNode;
+			while (parent && parent != root && parent.nodeType) {
+				x -= parent.scrollLeft || 0;
+				y -= parent.scrollTop || 0;
+				parent = parent.parentNode;
+			}
+
+			return {
+				x : x,
+				y : y
+			};
+		},
+
+		/**
+		 * Returns the size of the specified node in pixels.
+		 *
+		 * @param {Node} node Node to get the size of.
+		 * @return {Object} Object with a w and h property.
+		 */
+		getSize : function(node) {
+			return {
+				w : node.offsetWidth || node.clientWidth,
+				h : node.offsetHeight || node.clientHeight
+			};
+		},
+
+		/**
+		 * Parses the specified size string into a byte value. For example 10kb becomes 10240.
+		 *
+		 * @method parseSize
+		 * @param {String/Number} size String to parse or number to just pass through.
+		 * @return {Number} Size in bytes.
+		 */
+		parseSize : function(size) {
+			var mul;
+
+			if (typeof(size) == 'string') {
+				size = /^([0-9]+)([mgk]?)$/.exec(size.toLowerCase().replace(/[^0-9mkg]/g, ''));
+				mul = size[2];
+				size = +size[1];
+
+				if (mul == 'g') {
+					size *= 1073741824;
+				}
+
+				if (mul == 'm') {
+					size *= 1048576;
+				}
+
+				if (mul == 'k') {
+					size *= 1024;
+				}
+			}
+
+			return size;
+		},
+
+		/**
+		 * Encodes the specified string.
+		 *
+		 * @method xmlEncode
+		 * @param {String} s String to encode.
+		 * @return {String} Encoded string.
+		 */
+		xmlEncode : function(str) {
+			return str ? ('' + str).replace(xmlEncodeRegExp, function(chr) {
+				return xmlEncodeChars[chr] ? '&' + xmlEncodeChars[chr] + ';' : chr;
+			}) : str;
+		},
+
+		/**
+		 * Forces anything into an array.
+		 *
+		 * @method toArray
+		 * @param {Object} obj Object with length field.
+		 * @return {Array} Array object containing all items.
+		 */
+		toArray : function(obj) {
+			var i, arr = [];
+
+			for (i = 0; i < obj.length; i++) {
+				arr[i] = obj[i];
+			}
+
+			return arr;
+		},
+
+		/**
+		 * Extends the language pack object with new items.
+		 *
+		 * @param {Object} pack Language pack items to add.
+		 * @return {Object} Extended language pack object.
+		 */
+		addI18n : function(pack) {
+			return plupload.extend(i18n, pack);
+		},
+
+		/**
+		 * Translates the specified string by checking for the english string in the language pack lookup.
+		 *
+		 * @param {String} str String to look for.
+		 * @return {String} Translated string or the input string if it wasn't found.
+		 */
+		translate : function(str) {
+			return i18n[str] || str;
+		},
+		
+		/**
+		 * Checks if object is empty.
+		 *
+		 * @param {Object} obj Object to check.
+		 * @return {Boolean}
+		 */
+		isEmptyObj : function(obj) {
+			if (obj === undef) return true;
+			
+			for (var prop in obj) {
+				return false;	
+			}
+			return true;
+		},
+		
+		/**
+		 * Checks if specified DOM element has specified class.
+		 *
+		 * @param {Object} obj DOM element like object to add handler to.
+		 * @param {String} name Class name
+		 */
+		hasClass : function(obj, name) {
+			var regExp;
+		
+			if (obj.className == '') {
+				return false;
+			}
+
+			regExp = new RegExp("(^|\\s+)"+name+"(\\s+|$)");
+
+			return regExp.test(obj.className);
+		},
+		
+		/**
+		 * Adds specified className to specified DOM element.
+		 *
+		 * @param {Object} obj DOM element like object to add handler to.
+		 * @param {String} name Class name
+		 */
+		addClass : function(obj, name) {
+			if (!plupload.hasClass(obj, name)) {
+				obj.className = obj.className == '' ? name : obj.className.replace(/\s+$/, '')+' '+name;
+			}
+		},
+		
+		/**
+		 * Removes specified className from specified DOM element.
+		 *
+		 * @param {Object} obj DOM element like object to add handler to.
+		 * @param {String} name Class name
+		 */
+		removeClass : function(obj, name) {
+			var regExp = new RegExp("(^|\\s+)"+name+"(\\s+|$)");
+			
+			obj.className = obj.className.replace(regExp, function($0, $1, $2) {
+				return $1 === ' ' && $2 === ' ' ? ' ' : '';
+			});
+		},
+    
+		/**
+		 * Returns a given computed style of a DOM element.
+		 *
+		 * @param {Object} obj DOM element like object.
+		 * @param {String} name Style you want to get from the DOM element
+		 */
+		getStyle : function(obj, name) {
+			if (obj.currentStyle) {
+				return obj.currentStyle[name];
+			} else if (window.getComputedStyle) {
+				return window.getComputedStyle(obj, null)[name];
+			}
+		},
+
+		/**
+		 * Adds an event handler to the specified object and store reference to the handler
+		 * in objects internal Plupload registry (@see removeEvent).
+		 *
+		 * @param {Object} obj DOM element like object to add handler to.
+		 * @param {String} name Name to add event listener to.
+		 * @param {Function} callback Function to call when event occurs.
+		 * @param {String} (optional) key that might be used to add specifity to the event record.
+		 */
+		addEvent : function(obj, name, callback) {
+			var func, events, types, key;
+			
+			// if passed in, event will be locked with this key - one would need to provide it to removeEvent
+			key = arguments[3];
+						
+			name = name.toLowerCase();
+						
+			// Initialize unique identifier if needed
+			if (uid === undef) {
+				uid = 'Plupload_' + plupload.guid();
+			}
+
+			// Add event listener
+			if (obj.addEventListener) {
+				func = callback;
+				
+				obj.addEventListener(name, func, false);
+			} else if (obj.attachEvent) {
+				
+				func = function() {
+					var evt = window.event;
+
+					if (!evt.target) {
+						evt.target = evt.srcElement;
+					}
+
+					evt.preventDefault = preventDefault;
+					evt.stopPropagation = stopPropagation;
+
+					callback(evt);
+				};
+				obj.attachEvent('on' + name, func);
+			} 
+			
+			// Log event handler to objects internal Plupload registry
+			if (obj[uid] === undef) {
+				obj[uid] = plupload.guid();
+			}
+			
+			if (!eventhash.hasOwnProperty(obj[uid])) {
+				eventhash[obj[uid]] = {};
+			}
+			
+			events = eventhash[obj[uid]];
+			
+			if (!events.hasOwnProperty(name)) {
+				events[name] = [];
+			}
+					
+			events[name].push({
+				func: func,
+				orig: callback, // store original callback for IE
+				key: key
+			});
+		},
+		
+		
+		/**
+		 * Remove event handler from the specified object. If third argument (callback)
+		 * is not specified remove all events with the specified name.
+		 *
+		 * @param {Object} obj DOM element to remove event listener(s) from.
+		 * @param {String} name Name of event listener to remove.
+		 * @param {Function|String} (optional) might be a callback or unique key to match.
+		 */
+		removeEvent: function(obj, name) {
+			var type, callback, key;
+			
+			// match the handler either by callback or by key	
+			if (typeof(arguments[2]) == "function") {
+				callback = arguments[2];
+			} else {
+				key = arguments[2];
+			}
+						
+			name = name.toLowerCase();
+			
+			if (obj[uid] && eventhash[obj[uid]] && eventhash[obj[uid]][name]) {
+				type = eventhash[obj[uid]][name];
+			} else {
+				return;
+			}
+			
+				
+			for (var i=type.length-1; i>=0; i--) {
+				// undefined or not, key should match			
+				if (type[i].key === key || type[i].orig === callback) {
+										
+					if (obj.detachEvent) {
+						obj.detachEvent('on'+name, type[i].func);
+					} else if (obj.removeEventListener) {
+						obj.removeEventListener(name, type[i].func, false);		
+					}
+					
+					type[i].orig = null;
+					type[i].func = null;
+					
+					type.splice(i, 1);
+					
+					// If callback was passed we are done here, otherwise proceed
+					if (callback !== undef) {
+						break;
+					}
+				}			
+			}	
+			
+			// If event array got empty, remove it
+			if (!type.length) {
+				delete eventhash[obj[uid]][name];
+			}
+			
+			// If Plupload registry has become empty, remove it
+			if (plupload.isEmptyObj(eventhash[obj[uid]])) {
+				delete eventhash[obj[uid]];
+				
+				// IE doesn't let you remove DOM object property with - delete
+				try {
+					delete obj[uid];
+				} catch(e) {
+					obj[uid] = undef;
+				}
+			}
+		},
+		
+		
+		/**
+		 * Remove all kind of events from the specified object
+		 *
+		 * @param {Object} obj DOM element to remove event listeners from.
+		 * @param {String} (optional) unique key to match, when removing events.
+		 */
+		removeAllEvents: function(obj) {
+			var key = arguments[1];
+			
+			if (obj[uid] === undef || !obj[uid]) {
+				return;
+			}
+			
+			plupload.each(eventhash[obj[uid]], function(events, name) {
+				plupload.removeEvent(obj, name, key);
+			});		
+		}		
+	};
+	
+
+	/**
+	 * Uploader class, an instance of this class will be created for each upload field.
+	 *
+	 * @example
+	 * var uploader = new plupload.Uploader({
+	 *     runtimes : 'gears,html5,flash',
+	 *     browse_button : 'button_id'
+	 * });
+	 *
+	 * uploader.bind('Init', function(up) {
+	 *     alert('Supports drag/drop: ' + (!!up.features.dragdrop));
+	 * });
+	 *
+	 * uploader.bind('FilesAdded', function(up, files) {
+	 *     alert('Selected files: ' + files.length);
+	 * });
+	 *
+	 * uploader.bind('QueueChanged', function(up) {
+	 *     alert('Queued files: ' + uploader.files.length);
+	 * });
+	 *
+	 * uploader.init();
+	 *
+	 * @class plupload.Uploader
+	 */
+
+	/**
+	 * Constructs a new uploader instance.
+	 *
+	 * @constructor
+	 * @method Uploader
+	 * @param {Object} settings Initialization settings, to be used by the uploader instance and runtimes.
+	 */
+	plupload.Uploader = function(settings) {
+		var events = {}, total, files = [], startTime;
+
+		// Inital total state
+		total = new plupload.QueueProgress();
+
+		// Default settings
+		settings = plupload.extend({
+			chunk_size : 0,
+			multipart : true,
+			multi_selection : true,
+			file_data_name : 'file',
+			filters : []
+		}, settings);
+
+		// Private methods
+		function uploadNext() {
+			var file, count = 0, i;
+
+			if (this.state == plupload.STARTED) {
+				// Find first QUEUED file
+				for (i = 0; i < files.length; i++) {
+					if (!file && files[i].status == plupload.QUEUED) {
+						file = files[i];
+						file.status = plupload.UPLOADING;
+						if (this.trigger("BeforeUpload", file)) {
+							this.trigger("UploadFile", file);
+						}
+					} else {
+						count++;
+					}
+				}
+
+				// All files are DONE or FAILED
+				if (count == files.length) {
+					this.trigger("UploadComplete", files);
+					this.stop();
+				}
+			}
+		}
+
+		function calc() {
+			var i, file;
+
+			// Reset stats
+			total.reset();
+
+			// Check status, size, loaded etc on all files
+			for (i = 0; i < files.length; i++) {
+				file = files[i];
+
+				if (file.size !== undef) {
+					total.size += file.size;
+					total.loaded += file.loaded;
+				} else {
+					total.size = undef;
+				}
+
+				if (file.status == plupload.DONE) {
+					total.uploaded++;
+				} else if (file.status == plupload.FAILED) {
+					total.failed++;
+				} else {
+					total.queued++;
+				}
+			}
+
+			// If we couldn't calculate a total file size then use the number of files to calc percent
+			if (total.size === undef) {
+				total.percent = files.length > 0 ? Math.ceil(total.uploaded / files.length * 100) : 0;
+			} else {
+				total.bytesPerSec = Math.ceil(total.loaded / ((+new Date() - startTime || 1) / 1000.0));
+				total.percent = total.size > 0 ? Math.ceil(total.loaded / total.size * 100) : 0;
+			}
+		}
+
+		// Add public methods
+		plupload.extend(this, {
+			/**
+			 * Current state of the total uploading progress. This one can either be plupload.STARTED or plupload.STOPPED.
+			 * These states are controlled by the stop/start methods. The default value is STOPPED.
+			 *
+			 * @property state
+			 * @type Number
+			 */
+			state : plupload.STOPPED,
+			
+			/**
+			 * Current runtime name.
+			 *
+			 * @property runtime
+			 * @type String
+			 */
+			runtime: '',
+
+			/**
+			 * Map of features that are available for the uploader runtime. Features will be filled
+			 * before the init event is called, these features can then be used to alter the UI for the end user.
+			 * Some of the current features that might be in this map is: dragdrop, chunks, jpgresize, pngresize.
+			 *
+			 * @property features
+			 * @type Object
+			 */
+			features : {},
+
+			/**
+			 * Current upload queue, an array of File instances.
+			 *
+			 * @property files
+			 * @type Array
+			 * @see plupload.File
+			 */
+			files : files,
+
+			/**
+			 * Object with name/value settings.
+			 *
+			 * @property settings
+			 * @type Object
+			 */
+			settings : settings,
+
+			/**
+			 * Total progess information. How many files has been uploaded, total percent etc.
+			 *
+			 * @property total
+			 * @type plupload.QueueProgress
+			 */
+			total : total,
+
+			/**
+			 * Unique id for the Uploader instance.
+			 *
+			 * @property id
+			 * @type String
+			 */
+			id : plupload.guid(),
+
+			/**
+			 * Initializes the Uploader instance and adds internal event listeners.
+			 *
+			 * @method init
+			 */
+			init : function() {
+				var self = this, i, runtimeList, a, runTimeIndex = 0, items;
+
+				if (typeof(settings.preinit) == "function") {
+					settings.preinit(self);
+				} else {
+					plupload.each(settings.preinit, function(func, name) {
+						self.bind(name, func);
+					});
+				}
+
+				settings.page_url = settings.page_url || document.location.pathname.replace(/\/[^\/]+$/g, '/');
+
+				// If url is relative force it absolute to the current page
+				if (!/^(\w+:\/\/|\/)/.test(settings.url)) {
+					settings.url = settings.page_url + settings.url;
+				}
+
+				// Convert settings
+				settings.chunk_size = plupload.parseSize(settings.chunk_size);
+				settings.max_file_size = plupload.parseSize(settings.max_file_size);
+
+				// Add files to queue
+				self.bind('FilesAdded', function(up, selected_files) {
+					var i, file, count = 0, extensionsRegExp, filters = settings.filters;
+
+					// Convert extensions to regexp
+					if (filters && filters.length) {
+						extensionsRegExp = [];
+						
+						plupload.each(filters, function(filter) {
+							plupload.each(filter.extensions.split(/,/), function(ext) {
+								if (/^\s*\*\s*$/.test(ext)) {
+									extensionsRegExp.push('\\.*');
+								} else {
+									extensionsRegExp.push('\\.' + ext.replace(new RegExp('[' + ('/^$.*+?|()[]{}\\'.replace(/./g, '\\$&')) + ']', 'g'), '\\$&'));
+								}
+							});
+						});
+						
+						extensionsRegExp = new RegExp(extensionsRegExp.join('|') + '$', 'i');
+					}
+
+					for (i = 0; i < selected_files.length; i++) {
+						file = selected_files[i];
+						file.loaded = 0;
+						file.percent = 0;
+						file.status = plupload.QUEUED;
+
+						// Invalid file extension
+						if (extensionsRegExp && !extensionsRegExp.test(file.name)) {
+							up.trigger('Error', {
+								code : plupload.FILE_EXTENSION_ERROR,
+								message : plupload.translate('File extension error.'),
+								file : file
+							});
+
+							continue;
+						}
+
+						// Invalid file size
+						if (file.size !== undef && file.size > settings.max_file_size) {
+							up.trigger('Error', {
+								code : plupload.FILE_SIZE_ERROR,
+								message : plupload.translate('File size error.'),
+								file : file
+							});
+
+							continue;
+						}
+
+						// Add valid file to list
+						files.push(file);
+						count++;
+					}
+
+					// Only trigger QueueChanged event if any files where added
+					if (count) {
+						delay(function() {
+							self.trigger("QueueChanged");
+							self.refresh();
+						}, 1);
+					} else {
+						return false; // Stop the FilesAdded event from immediate propagation
+					}
+				});
+
+				// Generate unique target filenames
+				if (settings.unique_names) {
+					self.bind("UploadFile", function(up, file) {
+						var matches = file.name.match(/\.([^.]+)$/), ext = "tmp";
+
+						if (matches) {
+							ext = matches[1];
+						}
+
+						file.target_name = file.id + '.' + ext;
+					});
+				}
+
+				self.bind('UploadProgress', function(up, file) {
+					file.percent = file.size > 0 ? Math.ceil(file.loaded / file.size * 100) : 100;
+					calc();
+				});
+
+				self.bind('StateChanged', function(up) {
+					if (up.state == plupload.STARTED) {
+						// Get start time to calculate bps
+						startTime = (+new Date());
+						
+					} else if (up.state == plupload.STOPPED) {
+						// Reset currently uploading files
+						for (i = up.files.length - 1; i >= 0; i--) {
+							if (up.files[i].status == plupload.UPLOADING) {
+								up.files[i].status = plupload.QUEUED;
+								calc();
+							}
+						}
+					}
+				});
+
+				self.bind('QueueChanged', calc);
+
+				self.bind("Error", function(up, err) {
+					// Set failed status if an error occured on a file
+					if (err.file) {
+						err.file.status = plupload.FAILED;
+						calc();
+
+						// Upload next file but detach it from the error event
+						// since other custom listeners might want to stop the queue
+						if (up.state == plupload.STARTED) {
+							delay(function() {
+								uploadNext.call(self);
+							}, 1);
+						}
+					}
+				});
+
+				self.bind("FileUploaded", function(up, file) {
+					file.status = plupload.DONE;
+					file.loaded = file.size;
+					up.trigger('UploadProgress', file);
+
+					// Upload next file but detach it from the error event
+					// since other custom listeners might want to stop the queue
+					delay(function() {
+						uploadNext.call(self);
+					}, 1);
+				});
+
+				// Setup runtimeList
+				if (settings.runtimes) {
+					runtimeList = [];
+					items = settings.runtimes.split(/\s?,\s?/);
+
+					for (i = 0; i < items.length; i++) {
+						if (runtimes[items[i]]) {
+							runtimeList.push(runtimes[items[i]]);
+						}
+					}
+				} else {
+					runtimeList = runtimes;
+				}
+
+				// Call init on each runtime in sequence
+				function callNextInit() {
+					var runtime = runtimeList[runTimeIndex++], features, requiredFeatures, i;
+
+					if (runtime) {
+						features = runtime.getFeatures();
+
+						// Check if runtime supports required features
+						requiredFeatures = self.settings.required_features;
+						if (requiredFeatures) {
+							requiredFeatures = requiredFeatures.split(',');
+
+							for (i = 0; i < requiredFeatures.length; i++) {
+								// Specified feature doesn't exist
+								if (!features[requiredFeatures[i]]) {
+									callNextInit();
+									return;
+								}
+							}
+						}
+
+						// Try initializing the runtime
+						runtime.init(self, function(res) {
+							if (res && res.success) {
+								// Successful initialization
+								self.features = features;
+								self.runtime = runtime.name;
+								self.trigger('Init', {runtime : runtime.name});
+								self.trigger('PostInit');
+								self.refresh();
+							} else {
+								callNextInit();
+							}
+						});
+					} else {
+						// Trigger an init error if we run out of runtimes
+						self.trigger('Error', {
+							code : plupload.INIT_ERROR,
+							message : plupload.translate('Init error.')
+						});
+					}
+				}
+
+				callNextInit();
+
+				if (typeof(settings.init) == "function") {
+					settings.init(self);
+				} else {
+					plupload.each(settings.init, function(func, name) {
+						self.bind(name, func);
+					});
+				}
+			},
+
+			/**
+			 * Refreshes the upload instance by dispatching out a refresh event to all runtimes.
+			 * This would for example reposition flash/silverlight shims on the page.
+			 *
+			 * @method refresh
+			 */
+			refresh : function() {
+				this.trigger("Refresh");
+			},
+
+			/**
+			 * Starts uploading the queued files.
+			 *
+			 * @method start
+			 */
+			start : function() {
+				if (this.state != plupload.STARTED) {
+					this.state = plupload.STARTED;
+					this.trigger("StateChanged");	
+					
+					uploadNext.call(this);				
+				}
+			},
+
+			/**
+			 * Stops the upload of the queued files.
+			 *
+			 * @method stop
+			 */
+			stop : function() {
+				if (this.state != plupload.STOPPED) {
+					this.state = plupload.STOPPED;					
+					this.trigger("StateChanged");
+				}
+			},
+
+			/**
+			 * Returns the specified file object by id.
+			 *
+			 * @method getFile
+			 * @param {String} id File id to look for.
+			 * @return {plupload.File} File object or undefined if it wasn't found;
+			 */
+			getFile : function(id) {
+				var i;
+
+				for (i = files.length - 1; i >= 0; i--) {
+					if (files[i].id === id) {
+						return files[i];
+					}
+				}
+			},
+
+			/**
+			 * Removes a specific file.
+			 *
+			 * @method removeFile
+			 * @param {plupload.File} file File to remove from queue.
+			 */
+			removeFile : function(file) {
+				var i;
+
+				for (i = files.length - 1; i >= 0; i--) {
+					if (files[i].id === file.id) {
+						return this.splice(i, 1)[0];
+					}
+				}
+			},
+
+			/**
+			 * Removes part of the queue and returns the files removed. This will also trigger the FilesRemoved and QueueChanged events.
+			 *
+			 * @method splice
+			 * @param {Number} start (Optional) Start index to remove from.
+			 * @param {Number} length (Optional) Lengh of items to remove.
+			 * @return {Array} Array of files that was removed.
+			 */
+			splice : function(start, length) {
+				var removed;
+
+				// Splice and trigger events
+				removed = files.splice(start === undef ? 0 : start, length === undef ? files.length : length);
+
+				this.trigger("FilesRemoved", removed);
+				this.trigger("QueueChanged");
+
+				return removed;
+			},
+
+			/**
+			 * Dispatches the specified event name and it's arguments to all listeners.
+			 *
+			 *
+			 * @method trigger
+			 * @param {String} name Event name to fire.
+			 * @param {Object..} Multiple arguments to pass along to the listener functions.
+			 */
+			trigger : function(name) {
+				var list = events[name.toLowerCase()], i, args;
+
+				// console.log(name, arguments);
+
+				if (list) {
+					// Replace name with sender in args
+					args = Array.prototype.slice.call(arguments);
+					args[0] = this;
+
+					// Dispatch event to all listeners
+					for (i = 0; i < list.length; i++) {
+						// Fire event, break chain if false is returned
+						if (list[i].func.apply(list[i].scope, args) === false) {
+							return false;
+						}
+					}
+				}
+
+				return true;
+			},
+			
+			/**
+			 * Check whether uploader has any listeners to the specified event.
+			 *
+			 * @method hasEventListener
+			 * @param {String} name Event name to check for.
+			 */
+			hasEventListener : function(name) {
+				return !!events[name.toLowerCase()];
+			},
+
+			/**
+			 * Adds an event listener by name.
+			 *
+			 * @method bind
+			 * @param {String} name Event name to listen for.
+			 * @param {function} func Function to call ones the event gets fired.
+			 * @param {Object} scope Optional scope to execute the specified function in.
+			 */
+			bind : function(name, func, scope) {
+				var list;
+
+				name = name.toLowerCase();
+				list = events[name] || [];
+				list.push({func : func, scope : scope || this});
+				events[name] = list;
+			},
+
+			/**
+			 * Removes the specified event listener.
+			 *
+			 * @method unbind
+			 * @param {String} name Name of event to remove.
+			 * @param {function} func Function to remove from listener.
+			 */
+			unbind : function(name) {
+				name = name.toLowerCase();
+
+				var list = events[name], i, func = arguments[1];
+
+				if (list) {
+					if (func !== undef) {
+						for (i = list.length - 1; i >= 0; i--) {
+							if (list[i].func === func) {
+								list.splice(i, 1);
+									break;
+							}
+						}
+					} else {
+						list = [];
+					}
+
+					// delete event list if it has become empty
+					if (!list.length) {
+						delete events[name];
+					}
+				}
+			},
+
+			/**
+			 * Removes all event listeners.
+			 *
+			 * @method unbindAll
+			 */
+			unbindAll : function() {
+				var self = this;
+				
+				plupload.each(events, function(list, name) {
+					self.unbind(name);
+				});
+			},
+			
+			/**
+			 * Destroys Plupload instance and cleans after itself.
+			 *
+			 * @method destroy
+			 */
+			destroy : function() {							
+				this.trigger('Destroy');
+				
+				// Clean-up after uploader itself
+				this.unbindAll();
+			}
+
+			/**
+			 * Fires when the current RunTime has been initialized.
+			 *
+			 * @event Init
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 */
+
+			/**
+			 * Fires after the init event incase you need to perform actions there.
+			 *
+			 * @event PostInit
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 */
+
+			/**
+			 * Fires when the silverlight/flash or other shim needs to move.
+			 *
+			 * @event Refresh
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 */
+	
+			/**
+			 * Fires when the overall state is being changed for the upload queue.
+			 *
+			 * @event StateChanged
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 */
+
+			/**
+			 * Fires when a file is to be uploaded by the runtime.
+			 *
+			 * @event UploadFile
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 * @param {plupload.File} file File to be uploaded.
+			 */
+
+			/**
+			 * Fires when just before a file is uploaded. This event enables you to override settings
+			 * on the uploader instance before the file is uploaded.
+			 *
+			 * @event BeforeUpload
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 * @param {plupload.File} file File to be uploaded.
+			 */
+
+			/**
+			 * Fires when the file queue is changed. In other words when files are added/removed to the files array of the uploader instance.
+			 *
+			 * @event QueueChanged
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 */
+	
+			/**
+			 * Fires while a file is being uploaded. Use this event to update the current file upload progress.
+			 *
+			 * @event UploadProgress
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 * @param {plupload.File} file File that is currently being uploaded.
+			 */
+
+			/**
+			 * Fires while a file was removed from queue.
+			 *
+			 * @event FilesRemoved
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 * @param {Array} files Array of files that got removed.
+			 */
+
+			/**
+			 * Fires while when the user selects files to upload.
+			 *
+			 * @event FilesAdded
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 * @param {Array} files Array of file objects that was added to queue/selected by the user.
+			 */
+
+			/**
+			 * Fires when a file is successfully uploaded.
+			 *
+			 * @event FileUploaded
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 * @param {plupload.File} file File that was uploaded.
+			 * @param {Object} response Object with response properties.
+			 */
+
+			/**
+			 * Fires when file chunk is uploaded.
+			 *
+			 * @event ChunkUploaded
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 * @param {plupload.File} file File that the chunk was uploaded for.
+			 * @param {Object} response Object with response properties.
+			 */
+
+			/**
+			 * Fires when all files in a queue are uploaded.
+			 *
+			 * @event UploadComplete
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 * @param {Array} files Array of file objects that was added to queue/selected by the user.
+			 */
+
+			/**
+			 * Fires when a error occurs.
+			 *
+			 * @event Error
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 * @param {Object} error Contains code, message and sometimes file and other details.
+			 */
+			 
+			 /**
+			 * Fires when destroy method is called.
+			 *
+			 * @event Destroy
+			 * @param {plupload.Uploader} uploader Uploader instance sending the event.
+			 */
+		});
+	};
+
+	/**
+	 * File instance.
+	 *
+	 * @class plupload.File
+	 * @param {String} name Name of the file.
+	 * @param {Number} size File size.
+	 */
+
+	/**
+	 * Constructs a new file instance.
+	 *
+	 * @constructor
+	 * @method File
+	 * @param {String} id Unique file id.
+	 * @param {String} name File name.
+	 * @param {Number} size File size in bytes.
+	 */
+	plupload.File = function(id, name, size) {
+		var self = this; // Setup alias for self to reduce code size when it's compressed
+
+		/**
+		 * File id this is a globally unique id for the specific file.
+		 *
+		 * @property id
+		 * @type String
+		 */
+		self.id = id;
+
+		/**
+		 * File name for example "myfile.gif".
+		 *
+		 * @property name
+		 * @type String
+		 */
+		self.name = name;
+
+		/**
+		 * File size in bytes.
+		 *
+		 * @property size
+		 * @type Number
+		 */
+		self.size = size;
+
+		/**
+		 * Number of bytes uploaded of the files total size.
+		 *
+		 * @property loaded
+		 * @type Number
+		 */
+		self.loaded = 0;
+
+		/**
+		 * Number of percentage uploaded of the file.
+		 *
+		 * @property percent
+		 * @type Number
+		 */
+		self.percent = 0;
+
+		/**
+		 * Status constant matching the plupload states QUEUED, UPLOADING, FAILED, DONE.
+		 *
+		 * @property status
+		 * @type Number
+		 * @see plupload
+		 */
+		self.status = 0;
+	};
+
+	/**
+	 * Runtime class gets implemented by each upload runtime.
+	 *
+	 * @class plupload.Runtime
+	 * @static
+	 */
+	plupload.Runtime = function() {
+		/**
+		 * Returns a list of supported features for the runtime.
+		 *
+		 * @return {Object} Name/value object with supported features.
+		 */
+		this.getFeatures = function() {
+		};
+
+		/**
+		 * Initializes the upload runtime. This method should add necessary items to the DOM and register events needed for operation. 
+		 *
+		 * @method init
+		 * @param {plupload.Uploader} uploader Uploader instance that needs to be initialized.
+		 * @param {function} callback Callback function to execute when the runtime initializes or fails to initialize. If it succeeds an object with a parameter name success will be set to true.
+		 */
+		this.init = function(uploader, callback) {
+		};
+	};
+
+	/**
+	 * Runtime class gets implemented by each upload runtime.
+	 *
+	 * @class plupload.QueueProgress
+	 */
+
+	/**
+	 * Constructs a queue progress.
+	 *
+	 * @constructor
+	 * @method QueueProgress
+	 */
+	 plupload.QueueProgress = function() {
+		var self = this; // Setup alias for self to reduce code size when it's compressed
+
+		/**
+		 * Total queue file size.
+		 *
+		 * @property size
+		 * @type Number
+		 */
+		self.size = 0;
+
+		/**
+		 * Total bytes uploaded.
+		 *
+		 * @property loaded
+		 * @type Number
+		 */
+		self.loaded = 0;
+
+		/**
+		 * Number of files uploaded.
+		 *
+		 * @property uploaded
+		 * @type Number
+		 */
+		self.uploaded = 0;
+
+		/**
+		 * Number of files failed to upload.
+		 *
+		 * @property failed
+		 * @type Number
+		 */
+		self.failed = 0;
+
+		/**
+		 * Number of files yet to be uploaded.
+		 *
+		 * @property queued
+		 * @type Number
+		 */
+		self.queued = 0;
+
+		/**
+		 * Total percent of the uploaded bytes.
+		 *
+		 * @property percent
+		 * @type Number
+		 */
+		self.percent = 0;
+
+		/**
+		 * Bytes uploaded per second.
+		 *
+		 * @property bytesPerSec
+		 * @type Number
+		 */
+		self.bytesPerSec = 0;
+
+		/**
+		 * Resets the progress to it's initial values.
+		 *
+		 * @method reset
+		 */
+		self.reset = function() {
+			self.size = self.loaded = self.uploaded = self.failed = self.queued = self.percent = self.bytesPerSec = 0;
+		};
+	};
+
+	// Create runtimes namespace
+	plupload.runtimes = {};
+
+	// Expose plupload namespace
+	window.plupload = plupload;
+})();
