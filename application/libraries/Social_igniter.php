@@ -518,7 +518,7 @@ class Social_igniter
 	function make_widgets_order($widgets, $layout)
 	{
 		$widgets_view = array();
-	
+
 		foreach ($widgets as $json_widget)
 		{
 			$widget = json_decode($json_widget->value);
@@ -530,7 +530,6 @@ class Social_igniter
 		}
 		
 		ksort($widgets_view);
-					
 		return $widgets_view;
 	}
 	
@@ -544,20 +543,18 @@ class Social_igniter
 		return FALSE;	
 	}
 	
-	function check_can_widget_be_used($region, $check_widget)
+	function check_can_widget_be_used($layout, $region, $check_widget, $region_widgets)
 	{
 		if ($check_widget['multiple'] === 'TRUE')
 		{
 			return $check_widget;
 		}
-	
-		$region_widgets = $this->get_settings_setting($region);
-				
+					
 		foreach ($region_widgets as $this_widget)
 		{
 			$widget = json_decode($this_widget->value);
 			
-			if ($widget->name == $check_widget['name'])
+			if ($widget->name == $check_widget['name'] AND $widget->layout == $layout)
 			{
 				return FALSE;
 			}

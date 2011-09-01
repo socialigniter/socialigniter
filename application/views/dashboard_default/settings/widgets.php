@@ -1,14 +1,14 @@
-<ul id="available_widgets"></ul>
-
 <div id="layout_options">
 <h3>Layouts</h3>
 
 <?php foreach ($layouts as $layout): ?>
 	<a class="layout_picker <?php if ($layout == $layout_selected) echo 'layout_selected'; ?>" href="<?= base_url().'settings/widgets/'.$layout ?>"><?= display_nice_file_name($layout) ?></a>
 <?php endforeach; ?>
+<div class="clear"></div>
+
+<input type="hidden" name="this_layout" id="this_layout" value="<?= $layout_selected ?>">
 
 </div>
-<div class="clear"></div>
 
 <?= $layout_regions ?>
 
@@ -56,18 +56,18 @@ $(document).ready(function()
 	// Add Widget
 	$('.widget_add').bind('click', function(eve)
     {
-    	//eve.stopPropagation();
     	eve.preventDefault();
-    	
+    	var widget_layout = $('#this_layout').val();
 		var widget_region = $(this).attr('rel');
 		var widget_count  = $('#widget_' + widget_region + '_container').find('.widget_instance').length;
-
-		$.get(base_url+'api/settings/widgets_available/region/' + widget_region, function(result)
-		{					
-			$.get(base_url + 'home/widget_add',function(html)
+		
+		// Get Available Widgets 
+		$.get(base_url+'api/settings/widgets_available/region/' + widget_region + '/layout/' + widget_layout, function(result)
+		{	
+			// Get Add Dialog
+			$.get(base_url + 'home/widget_add',function(partial_html)
 			{
-				partial_html = html;
-						
+				// Loop Through Available and Add to Dialog				
 				$.each(result.data, function()
 				{				
 					var this_assets = displayModuleAssets(this.module, core_modules, core_assets);
@@ -87,7 +87,6 @@ $(document).ready(function()
 						// Add Event
 						$('.widget_add_instance').bind('click', function(add_eve)
 						{
-							//	add_eve.stopPropagation();							
 					    	eve.preventDefault();
 
 							var widget_data		= [];
@@ -141,10 +140,10 @@ $(document).ready(function()
 	});
 
     // Edit Event
-    $('.widget_edit').bind('click', function(eve)
+    $('.widget_edit').bind('click', function(e)
     {
-    	eve.stopPropagation();
-    	eve.preventDefault();
+    	e.stopPropagation();
+    	e.preventDefault();
 
 		var settings_id 	= $(this).attr('href');
 		var widget_count	= $('#' + $(this).parent().parent().attr('id')).find('.widget_instance').length;
@@ -155,11 +154,7 @@ $(document).ready(function()
 
 			$.get(base_url + 'home/widget_editor/standard',function(html)
 			{
-				partial_html = html;
-				partial_html = $('<div />').html(partial_html).find('textarea').val(widget.content).end();
-				partial_html = $('<div />').html(partial_html).find('input').val(json.data.value).end();
-
-				$('<div />').html(partial_html).dialog(
+				$('<div />').html(html).dialog(
 				{
 					width	: 450,
 					modal	: true,
@@ -167,10 +162,16 @@ $(document).ready(function()
 					create	: function()
 					{
 						$parent_dialog = $(this);
-						$('.widget_delete').bind('click', function(del_eve)
+						
+						$('#widget_json').val(json.data.value);
+						$('#widget_content').val(widget.content);
+						$('#widget_edit_link').attr('href', base_url + 'settings/' + widget.module + '/widgets');
+						
+						
+						$('#widget_delete_link').bind('click', function(del_e)
 						{												
-							del_eve.stopPropagation();
-					    	del_eve.preventDefault();
+							del_e.stopPropagation();
+					    	del_e.preventDefault();
 
 							$(this).oauthAjax(
 							{

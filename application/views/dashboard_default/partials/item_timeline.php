@@ -48,5 +48,4 @@
 		</ol>		
 	</div>
 	<div class="clear"></div>	
-	<span class="item_separator"></span>
 </li>

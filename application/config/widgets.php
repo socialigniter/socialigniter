@@ -25,7 +25,7 @@ $config['core_widgets'][] = array(
 );
 
 $config['core_widgets'][] = array(
-	'regions'	=> array('sidebar', 'content', 'wide'),
+	'regions'	=> array('sidebar','content','wide','leftbar','middle'),
 	'widget'	=> array(
 		'module'	=> 'text',
 		'name'		=> 'Text',

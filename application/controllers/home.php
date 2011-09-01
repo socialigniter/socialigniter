@@ -31,7 +31,7 @@ class Home extends Dashboard_Controller
 	 	    $this->data['page_title'] 		= 'Friends';
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
-			if ($friends = $this->social_tools->get_relationships_follows($this->session->userdata('user_id')))
+			if ($friends = $this->social_tools->get_relationships_owner($this->session->userdata('user_id'), 'user', 'follow'))
 			{
 				$timeline = $this->social_igniter->get_timeline_friends($friends, 10);
 			}
@@ -238,7 +238,7 @@ class Home extends Dashboard_Controller
 			// Need is valid & access and such
 			$place = $this->social_tools->get_place('content_id', $this->uri->segment(4));
 			if (!$place) redirect(base_url().'home/error');
-	
+
 			// Non Form Fields
 			$this->data['sub_title']		= $place->title;
 			$this->data['form_url']			= base_url().'api/places/modify/id/'.$this->uri->segment(4);
@@ -299,7 +299,7 @@ class Home extends Dashboard_Controller
 		$this->data['form_module']			= 'places';
 		$this->data['form_type']			= 'place';
 		$this->data['form_name']			= 'places_editor';
-		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown('module', 'places', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));	
+		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown('module', 'places', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), '+ Add Place Category');	
 	 	$this->data['content_publisher'] 	= $this->social_igniter->make_content_publisher($this->data, 'form');
 
  		$this->render('dashboard_wide');

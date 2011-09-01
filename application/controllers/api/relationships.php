@@ -12,7 +12,7 @@ class Relationships extends Oauth_Controller
     
     function followers_get()
     {
-        $followers = $this->relantionships_model->get_relationships_user('follows', $this->get('id'));
+        $followers = $this->relantionships_model->get_relationships_user($this->get('id'), 'users', 'follow');
         
         if($followers)
         {

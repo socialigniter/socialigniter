@@ -17,25 +17,27 @@ class Relationships_model extends CI_Model
   		return $result->row(); 
     }
 
-    function get_relationships_followers($user_id)
+    function get_relationships_user($user_id, $module, $type)
     {    
  		$this->db->select('relationships.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('relationships');
- 		$this->db->join('users', 'users.user_id = relationships.owner_id');		
+ 		$this->db->join('users', 'users.user_id = relationships.owner_id');
 	 	$this->db->where('relationships.user_id', $user_id);
- 		$this->db->where('relationships.type', 'follow');
+ 		$this->db->where('relationships.module', $module); 				
+ 		$this->db->where('relationships.type', $type);
  		$this->db->where('relationships.status', 'Y');
  		$result = $this->db->get();	
  		return $result->result();	      
     }
     
-    function get_relationships_follows($owner_id)
+    function get_relationships_owner($owner_id, $module, $type)
     {    
  		$this->db->select('relationships.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('relationships');
  		$this->db->join('users', 'users.user_id = relationships.user_id');		
 	 	$this->db->where('relationships.owner_id', $owner_id);
- 		$this->db->where('relationships.type', 'follow');
+ 		$this->db->where('relationships.module', $module);
+ 		$this->db->where('relationships.type', $type);
  		$this->db->where('relationships.status', 'Y');
  		$result = $this->db->get();	
  		return $result->result();	      

@@ -580,7 +580,7 @@ $(document).ready(function()
 				});
 			});
 		};
-	})( jQuery );
+	})(jQuery);
 	
 	/* Category Manager Plugin */
 	(function($)
@@ -707,9 +707,66 @@ $(document).ready(function()
 			});
 		};
 	})(jQuery);
-	
 
 });
+
+
+/* Takes a DOM element (li, div, a, etc...) and converts it to a multi selectable region */
+(function($)
+{
+	$.fn.selectify = function(options) 
+	{
+		var defaults = 
+		{
+			element	: '',
+			trigger	: '',
+			waiting	: '',
+			clicked	: '',
+			limit	: 1
+		};
+
+		options = $.extend(true, defaults, options);
+
+		$(this).find('.' + options.trigger).live('click', function()
+		{
+			// Picked Values
+			var widget_current_pick = $(options.element).val();
+			var value 				= $(this).attr('rel');
+
+			if (widget_current_pick == '')
+			{
+				widget_current_pick = new Array();
+			}
+			else
+			{
+				widget_current_pick = JSON.parse(widget_current_pick);
+			}
+
+			var is_added = jQuery.inArray(value, widget_current_pick);
+
+			// Is Added To Target Form Field
+			if (is_added == -1)
+			{			
+				// Has Picker Limit Been Reached
+				if (widget_current_pick.length < options.limit)
+				{
+					// Add to Object & Field				
+					$(this).removeClass(options.waiting).addClass(options.clicked);	
+					widget_current_pick.push(value);
+					$(options.element).val(JSON.stringify(widget_current_pick));
+				}
+			}
+			else
+			{
+				// Remove from Object & Field
+				$(this).removeClass(options.clicked).addClass(options.waiting);
+				widget_current_pick.remove(is_added);				
+				$(options.element).val(JSON.stringify(widget_current_pick));	
+			}
+		});
+	};
+})(jQuery);
+
 
 /* HTML Partial Vars */
 var partials = {

@@ -82,14 +82,14 @@ class Social_tools
 		return $category;
 	}
 	
-	function make_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label=NULL)
+	function make_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label)
 	{
 		$categories_query 		= $this->get_categories_view($parameter, $value);
 		$this->categories_view 	= array(0 => '----select----');
 		$categories 			= $this->render_categories_children($categories_query, 0);
 				
 		// Add Category if Admin
-		if ($user_level_id <= 2)
+		if (($user_level_id <= 2) AND ($add_label))
 		{
 			if (!$add_label)
 			{
@@ -474,21 +474,20 @@ class Social_tools
 		return $this->ci->ratings_model->add_rating();
 	}
 	
-	
 	/* Relationships */
 	function check_relationship_exists($relationship_data)
 	{
 		return $this->ci->relationships_model->check_relationship_exists($relationship_data);
 	}
 
-	function get_relationships_followers($user_id)
+	function get_relationships_user($user_id, $module, $type)
 	{
-		return $this->ci->relationships_model->get_relationships_followers($user_id);
+		return $this->ci->relationships_model->get_relationships_user($user_id, $module, $type);
 	}
 	
-	function get_relationships_follows($owner_id)
+	function get_relationships_owner($owner_id, $module, $type)
 	{
-		return $this->ci->relationships_model->get_relationships_follows($owner_id);
+		return $this->ci->relationships_model->get_relationships_owner($owner_id, $module, $type);
 	}
 	
 	function add_relationship($relationship_data)

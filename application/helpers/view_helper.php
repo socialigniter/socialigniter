@@ -344,3 +344,20 @@ function display_module_assets($module, $core_assets, $module_assets)
 
 	return $path;
 }
+
+// Loops through rows of an object andd displays value
+function display_object_value($object, $key, $value, $display)
+{
+	if ($object)
+	{
+		foreach ($object as $row)
+		{
+			if ($row->$key == $value)
+			{
+				return $row->$display;		
+			}
+		}	
+	}
+	
+	return FALSE;
+}

@@ -30,7 +30,7 @@
 		<div id="place_details" style="display:none">
 
 			<h3>Description</h3>
-			<p><textarea name="content" id="place_content" rows="4" cols="100"></textarea></p>
+			<p><textarea name="content" id="place_content" rows="4" cols="100"><?= $content ?></textarea></p>
 	
 		    <h3>Category</h3>
 		    <p><?= form_dropdown('category_id', $categories, $category_id) ?></p>
@@ -45,7 +45,8 @@
 			<p><?= form_dropdown('comments_allow', config_item('comments_allow'), $comments_allow) ?></p>
 		
 		</div>
-		
+
+		<input type="hidden" name="details" id="details" value="<?= $details ?>" />		
 		<input type="hidden" name="geo_lat" id="geo_lat" value="<?= $geo_lat ?>" />
 		<input type="hidden" name="geo_long" id="geo_long" value="<?= $geo_long ?>" />
 

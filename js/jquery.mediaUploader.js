@@ -93,7 +93,6 @@
 				var response = JSON.parse(res.response);
 
 				uploader.refresh();
-				uploader.init();
 				options.complete(response);							
 			});
 		})
