@@ -91,15 +91,18 @@ class MY_Controller extends MX_Controller
 		$this->config->set_item('social_post', $this->social_post);
 		$this->config->set_item('social_checkin', $this->social_checkin);
 
-		// Themes
+		// Set Themes
+		// Is Mobile Browser
         if ($this->agent->is_mobile())
         {
+        	// JSON Blob Of Mobile Theme
         	$this->site_theme = json_decode($this->data['settings']['themes']['mobile_theme']);        	        
             $this->config->set_item('site_theme', $this->site_theme->theme);
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['mobile_theme']);
         }
         else
-        {        
+        {   
+        	// JSON Blob Of Site Theme     
         	$this->site_theme = json_decode($this->data['settings']['themes']['site_theme']);
 			$this->config->set_item('site_theme', $this->site_theme->theme);
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['dashboard_theme']);
@@ -194,6 +197,7 @@ class MY_Controller extends MX_Controller
 		}
 
 		// Site Paths
+		$this->data['previous_page']		= $this->session->userdata('previous_page');
 		$this->data['shared_images']		= base_url().'images/shared/';
 		$this->data['site_images']			= base_url().'uploads/sites/'.config_item('site_id').'/';
 		$this->data['views']				= base_url().'application/views/';
