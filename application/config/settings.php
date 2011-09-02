@@ -31,17 +31,26 @@ $config['enable_disable'] = array(
 );
 
 $config['date_style_types'] = array(
-	'DIGITS' 				=> '1 / 1 / 10',
-	'DIGITS_ZERO' 			=> '01 / 01 / 2010',
-	'SLASHES' 				=> 'Jan / 1 / 2010',
-	'SIMPLE'				=> 'Jan 1, 2010',
-	'SIMPLE_TIME' 			=> 'Jan 1, 2010 1:00 AM',
-	'SIMPLE_ABBR' 			=> 'Jan 1st, 2010',
-	'SIMPLE_TIME_ABBR'		=> 'Jan 1st, 2010 1:00 AM',
-	'MONTH_DAY' 	 		=> 'January 1st',
-	'MONTH_DAY_YEAR' 		=> 'January 1st, 2010',
-	'MONTH_DAY_YEAR_TIME' 	=> 'January 1st, 2010 1:00 AM',
-	'ELAPSED'				=> '2 hours ago'
+	'DIGITS' 						=> '1 / 1 / 10',
+	'DIGITS_ZEROS' 					=> '01 / 01 / 2010',
+	'SLASHES' 						=> 'Jan / 1 / 2010',
+	'MONTH_DAY_ABBR'				=> 'Jan 1',
+	'MONTH_DAY_YEAR_ABBR'			=> 'Jan 1, 2010',
+	'MONTH_DAY_TIME_ABBR' 			=> 'Jan 1, 1:00 AM',
+	'MONTH_DAY_YEAR_TIME_ABBR' 		=> 'Jan 1, 2010 1:00 AM',
+	'MONTH_DAY_SUFF_ABBR'			=> 'Jan 1st',
+	'MONTH_DAY_YEAR_SUFF_ABBR'		=> 'Jan 1st, 2010',
+	'MONTH_DAY_TIME_SUFF_ABBR'		=> 'Jan 1st, 1:00 AM',
+	'MONTH_DAY_YEAR_TIME_SUFF_ABBR'	=> 'Jan 1st, 2010 1:00 AM',
+	'MONTH_DAY' 		 			=> 'January 1',
+	'MONTH_DAY_YEAR' 				=> 'January 1, 2010',
+	'MONTH_DAY_TIME'				=> 'January 1, 1:00 AM',
+	'MONTH_DAY_YEAR_TIME'			=> 'January 1, 2010 1:00 AM',
+	'MONTH_DAY_SUFF' 	 			=> 'January 1st',
+	'MONTH_DAY_YEAR_SUFF' 			=> 'January 1st, 2010',
+	'MONTH_DAY_TIME_SUFF'			=> 'January 1st, 1:00 AM',
+	'MONTH_DAY_YEAR_TIME_SUFF'		=> 'January 1st, 2010 1:00 AM',
+	'ELAPSED'						=> '2 hours ago'
 );
 
 $config['time_style_types'] = array(

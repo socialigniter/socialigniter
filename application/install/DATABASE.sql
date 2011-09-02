@@ -237,7 +237,6 @@ INSERT INTO `settings` VALUES(NULL, 1, 'services', 'recaptcha_theme', 'white');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'enabled', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'reply', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'reply_level', '2');
-INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'comments_date_style', 'SIMPLE_TIME');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'email_signup', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'email_replies', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'akismet', 'TRUE');

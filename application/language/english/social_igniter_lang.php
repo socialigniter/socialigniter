@@ -52,4 +52,20 @@ $lang['connection_create_exists'] 	 			= 'Connection Already Exists';
 $lang['home_greeting']							= array('There is no place like home','Welcome home buddy','Good news you are home','Sweet home interwebs','Home again, home again, jigity jog');
 $lang['cool_salutations']						= array('Yo','Howdi','Hola','Bonjour','Aloha','Wassup','Hey');
 $lang['cool_phrases']							= array('wicked sweet','dope sick','super fresh','super duper','totally boss','uber tight','dang sexy','beautiful');
+
+/* Misc Date */
+$lang['months_of_year'] = array(
+	'01' => 'January',
+	'02' => 'February',
+	'03' => 'March',
+	'04' => 'April',
+	'05' => 'May',
+	'06' => 'June',
+	'07' => 'July',
+	'08' => 'August',
+	'09' => 'September',
+	'10' => 'October',
+	'11' => 'November',
+	'12' => 'December'
+);
 ?>

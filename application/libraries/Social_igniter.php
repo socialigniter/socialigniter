@@ -219,7 +219,7 @@ class Social_igniter
 		// Date
 		if (property_exists($object, 'date_time'))
 		{
-			$details .= '<span class="item_content_detail_sm">Time: <span class="color_black">'.format_datetime('SIMPLE_TIME', $object->date_time).'</span></span>';
+			$details .= '<span class="item_content_detail_sm">Time: <span class="color_black">'.format_datetime('MONTH_DAY_YEAR', $object->date_time).'</span></span>';
 		}
 
 		// Description

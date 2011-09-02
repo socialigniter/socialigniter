@@ -223,11 +223,11 @@ function manage_published_date($created_at, $updated_at)
 {
 	if ($updated_at == $created_at)
 	{
-		$published = 'Created at '.format_datetime('SIMPLE_TIME_ABBR', $created_at);
+		$published = 'Created at '.format_datetime('MONTH_DAY_YEAR_TIME_ABBR', $created_at);
 	}
 	else
 	{
-		$published = 'Updated at '.format_datetime('SIMPLE_TIME_ABBR', $updated_at);	
+		$published = 'Updated on '.format_datetime('MONTH_DAY_YEAR_TIME_ABBR', $updated_at);	
 	}
 	
 	return $published;

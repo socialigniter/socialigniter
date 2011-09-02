@@ -49,7 +49,6 @@ $config['settings'] = array('services', 'recaptcha_theme', 'white');
 $config['settings'] = array('comments', 'enabled', 'TRUE');
 $config['settings'] = array('comments', 'reply', 'TRUE');
 $config['settings'] = array('comments', 'reply_level', '2');
-$config['settings'] = array('comments', 'comments_date_style', 'SIMPLE_TIME');
 $config['settings'] = array('comments', 'email_signup', 'TRUE');
 $config['settings'] = array('comments', 'email_replies', 'TRUE');
 $config['settings'] = array('comments', 'akismet', 'TRUE');
