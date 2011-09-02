@@ -198,7 +198,7 @@ class Home extends Dashboard_Controller
 				}
 				
 				$this->data['item_text']			= item_linkify($comment->comment);
-				$this->data['item_date']			= human_date('SIMPLE', mysql_to_unix($comment->created_at));
+				$this->data['item_date']			= format_datetime(config_item('comments_date_style'), $comment->created_at);				
 				$this->data['item_approval']		= $comment->approval;
 
 				// Alerts
@@ -299,7 +299,7 @@ class Home extends Dashboard_Controller
 		$this->data['form_module']			= 'places';
 		$this->data['form_type']			= 'place';
 		$this->data['form_name']			= 'places_editor';
-		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown('module', 'places', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));	
+		$this->data['categories'] 			= $this->social_tools->make_categories_dropdown('module', 'places', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), '+ Add Place Category');	
 	 	$this->data['content_publisher'] 	= $this->social_igniter->make_content_publisher($this->data, 'form');
 
  		$this->render('dashboard_wide');

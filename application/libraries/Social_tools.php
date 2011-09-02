@@ -82,14 +82,14 @@ class Social_tools
 		return $category;
 	}
 	
-	function make_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label=NULL)
+	function make_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label)
 	{
 		$categories_query 		= $this->get_categories_view($parameter, $value);
 		$this->categories_view 	= array(0 => '----select----');
 		$categories 			= $this->render_categories_children($categories_query, 0);
 				
 		// Add Category if Admin
-		if ($user_level_id <= 2)
+		if (($user_level_id <= 2) AND ($add_label))
 		{
 			if (!$add_label)
 			{

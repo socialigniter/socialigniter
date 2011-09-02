@@ -14,8 +14,6 @@
 		
 		return this.each(function()
 		{			
-			console.log('plugin getting run');
-
 			options = $.extend({}, settings, options);
 			var $this = $(this);
 

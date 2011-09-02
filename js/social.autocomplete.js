@@ -5,17 +5,15 @@
  * @requires jQuery UI
  * @requires jQuery UI Autocomplete module and all of it's dependcies
  */
-var autocomplete = function(trigger_element, api_data, field)
+var autocomplete = function(trigger_element, api_data, field, callback)
 {
   	$.get(base_url + api_data,function(json)
   	{
-      console.log(json.data);
 		var data = json.data;
 		var tags = [];
   
   if(typeof field == 'string')
   {
-   console.log('string')
    for(x in data)
    {
     tags[x] = data[x][field];
@@ -23,7 +21,6 @@ var autocomplete = function(trigger_element, api_data, field)
   }
   else if(field instanceof Array)
   {
-   console.log('array')
    for(x in data)
    {
       tags[x] = [];
@@ -56,6 +53,16 @@ var autocomplete = function(trigger_element, api_data, field)
 					event.preventDefault();
 				}
 			})
+   .bind('keydown.autocomplete',function(e){
+      /*
+      if(e.keyCode == 13){
+        callback.call(this,$(this).val());
+         $(this).blur(function(){
+            $(this).unbind('keydown.autocomplete');
+         }); 
+      }
+      */
+   })
 			.autocomplete(
 			{
 				minLength: 0,
@@ -64,24 +71,30 @@ var autocomplete = function(trigger_element, api_data, field)
 					// delegate back to autocomplete, but extract the last term
 					response($.ui.autocomplete.filter(availableTags, extractLast(request.term)));
 				},
-				focus: function()
+				focus: function(event, ui)
 				{
 					// prevent value inserted on focus
 					return false;
 				},
 				select: function(event, ui)
 				{
-					var terms = split(this.value);
-					
-					// remove the current input
-					terms.pop();
-					
-					// add the selected item
-					terms.push(ui.item.value);
-					
-					// add placeholder to get the comma-and-space at the end
-					terms.push("");
-					this.value = terms.join(", ");
+   
+     if(callback){
+      callback.call(this,ui.item);
+     }
+     else{
+      var terms = split(this.value);
+      
+      // remove the current input
+      terms.pop();
+      
+      // add the selected item
+      terms.push(ui.item.value);
+      
+      // add placeholder to get the comma-and-space at the end
+      terms.push("");
+      this.value = terms.join(", ");
+     }
 					return false;
 				}
 		})
