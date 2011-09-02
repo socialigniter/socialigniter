@@ -50,6 +50,7 @@
 	<p><input type="submit" value="Save"></p>
 </form>
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/plupload.html5.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.flash.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.mediaUploader.js"></script>
 <script type="text/javascript">
