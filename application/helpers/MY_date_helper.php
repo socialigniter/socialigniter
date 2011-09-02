@@ -41,23 +41,32 @@ if ( ! function_exists('standard_date'))
 	}
 }
 
-function human_date($fmt = 'DIGITS', $time = '')
+function human_date($fmt = 'MONTH_DAY_YEAR', $time = '')
 {
 	$formats = array(
-		'TIME'					=> '%g:%i %A',
-		'DIGITS'				=> '%n / %j / %y',
-		'DIGITS_ZERO'			=> '%m / %d / %Y',
-		'SLASHES'				=> '%M / %j / %Y',
-		'SIMPLE'				=> '%M %j%S, %Y',
-		'SIMPLE_TIME'			=> '%M %j%S, %Y %g:%i %A',
-		'SIMPLE_ABBR'			=> '%M %j%S, %Y',
-		'SIMPLE_TIME_ABBR'		=> '%M %j%S, %Y %g:%i %A',
-		'MONTH_DAY'				=> '%F %j%S',
-		'MONTH_DAY_YEAR'		=> '%F %j%S, %Y',
-		'MONTH_DAY_YEAR_TIME'	=> '%F %j%S, %Y %g:%i %A'
+		'TIME'							=> '%g:%i %A',
+		'DIGITS'						=> '%n / %j / %y',
+		'DIGITS_ZERO'					=> '%m / %d / %Y',
+		'SLASHES'						=> '%M. / %j / %Y',	
+		'MONTH_DAY_ABBR'				=> '%M. %j',
+		'MONTH_DAY_YEAR_ABBR'			=> '%M. %j, %Y',
+		'MONTH_DAY_TIME_ABBR'			=> '%M. %j, %g:%i %A',
+		'MONTH_DAY_YEAR_TIME_ABBR'		=> '%M. %j, %Y %g:%i %A',
+		'MONTH_DAY_SUFF_ABBR'			=> '%M. %j%S',
+		'MONTH_DAY_YEAR_SUFF_ABBR'		=> '%M. %j%S, %Y',
+		'MONTH_DAY_TIME_SUFF_ABBR'		=> '%M. %j%S, %g:%i %A',
+		'MONTH_DAY_YEAR_TIME_SUFF_ABBR'	=> '%M. %j%S, %Y %g:%i %A',
+		'MONTH_DAY'						=> '%F %j',
+		'MONTH_DAY_YEAR'				=> '%F %j, %Y',
+		'MONTH_DAY_TIME'				=> '%F %j, %g:%i %A',
+		'MONTH_DAY_YEAR_TIME'			=> '%F %j, %Y %g:%i %A',
+		'MONTH_DAY_SUFF'				=> '%F %j%S',
+		'MONTH_DAY_YEAR_SUFF'			=> '%F %j%S, %Y',
+		'MONTH_DAY_TIME_SUFF'			=> '%F %j%S, %g:%i %A',
+		'MONTH_DAY_YEAR_TIME_SUFF'		=> '%F %j%S, %Y %g:%i %A'
 	);
 
-	if ( ! isset($formats[$fmt]))
+	if (!isset($formats[$fmt]))
 	{
 		return FALSE;
 	}
