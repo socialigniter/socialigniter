@@ -485,5 +485,10 @@ class Home extends Dashboard_Controller
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/widget_editor_add');		
 	}
+	
+	function test()
+	{
+		echo $this->social_tools->make_categories_url($this->categories, $this->uri->segment(3));
+	}	
 
 }
