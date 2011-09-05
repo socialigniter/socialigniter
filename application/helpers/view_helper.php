@@ -345,7 +345,7 @@ function display_module_assets($module, $core_assets, $module_assets)
 	return $path;
 }
 
-// Loops through rows of an object andd displays value
+// Loops through rows of an object and displays value
 function display_object_value($object, $key, $value, $display)
 {
 	if ($object)
@@ -360,4 +360,38 @@ function display_object_value($object, $key, $value, $display)
 	}
 	
 	return FALSE;
+}
+
+function get_object_row($object, $key, $value)
+{
+	if ($object)
+	{
+		foreach ($object as $row)
+		{
+			if ($row->$key == $value)
+			{
+				return $row;		
+			}
+		}	
+	}
+	
+	return FALSE;
+}
+
+// Shows Image for Category
+function get_category_image($category, $size)
+{
+	// Define No Image
+	$image = base_url().config_item('categories_images_folder').$size.'_no_image.jpg';
+
+	$details = json_decode($category->details);
+
+	if ($details->thumb != '')
+	{
+		$category_image = config_item('categories_images_folder').$size.'_'.$details->thumb;
+		
+		if (file_exists($category_image)) $image = base_url().$category_image;
+	}
+
+	return $image;
 }

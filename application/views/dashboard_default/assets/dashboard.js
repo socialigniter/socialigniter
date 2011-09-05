@@ -468,6 +468,118 @@ $(document).ready(function()
 		$(this).hide('normal');				
 		$('#'+show_pannel).show('fast');
 	});
+	
+
+	
+	/* Uploading Images Plugin */
+	(function($)
+	{
+		$.mediaUploader = function(options)
+		{	
+			var settings =
+			{
+				'max_size'		: '',
+				'create_url'	: '',
+				'formats'		: '',
+				'start'			: function(){},
+				'complete'		: function(){}
+			};
+						
+			options = $.extend({}, settings, options);
+			
+			// console.log('inside plugin');
+	
+			// Uploader Params
+			var uploader = new plupload.Uploader(
+			{
+				runtimeStyle	: 'html5,flash',
+				browse_button	: 'pickfiles',
+				container		: 'container',
+				max_file_size	: options.max_size,
+				max_file_count	: 1,
+				url 			: options.create_url,
+				flash_swf_url	: base_url + 'js/plupload.flash.swf',
+				multipart 		: true,
+				multipart_params: {'file_hash':'', 'upload_id':'', 'consumer_key':user_data.consumer_key},		
+				filters 		: [options.formats]
+			});
+		
+			// Initialize
+			uploader.bind('Init', function(up, params)
+			{
+				// console.log('inside InIt');
+				// console.log(params);	
+			});
+			
+			// Initialize Actually
+			uploader.init();
+	
+			// Add Files & Start Upload
+			uploader.bind('FilesAdded', function(up, files)
+			{	
+				var file_hash	= md5(files[0].name);
+				var file_data 	= [];
+				file_data.push({'name':'file_hash','value':file_hash});
+				
+				// Create Expectation (OAuth1 signed request)	
+				$(this).oauthAjax(
+				{
+					oauth 		: user_data,
+					url			: base_url + 'api/upload/create_expectation',
+					type		: 'POST',
+					dataType	: 'json',
+					data		: file_data,
+			  		success		: function(result)
+			  		{
+						if (result.status == 'success')
+						{
+							// Update Multipart Form Variables
+							uploader.settings.multipart_params.file_hash = files[0].name;
+							uploader.settings.multipart_params.file_hash = file_hash;
+							uploader.settings.multipart_params.upload_id = result.data;
+	
+							// Start Upload	& Callback	
+							uploader.refresh();
+							uploader.start();
+	
+							// Trigger Start Callback
+							options.start(files);
+						}
+						else
+						{
+							$('#content_message').notify({status:result.status,message:result.message});	
+						}
+				 	}
+				});		
+			});
+		
+			// Upload Progress
+			uploader.bind('UploadProgress', function(up, file)
+			{
+				$('#file_uploading_progress').html(file.percent + "%");
+			});
+			
+			// Upload Error
+			uploader.bind('Error', function(up, err)
+			{
+				$('#content_message').notify({status:'error', message:err.message}); 
+				uploader.refresh();
+			});
+		
+			// Upload Success
+			uploader.bind('FileUploaded', function(up, file, res)
+			{			
+				$('#file_uploading_progress').html("100%");
+				var response = JSON.parse(res.response);
+	
+				uploader.refresh();
+				
+				// Trigger Complete Callback
+				options.complete(response);							
+			});
+		}
+	})(jQuery);
+	
 
 
 	/* Category Editor Plugin */
@@ -582,6 +694,7 @@ $(document).ready(function()
 		};
 	})(jQuery);
 	
+	
 	/* Category Manager Plugin */
 	(function($)
 	{
@@ -621,15 +734,133 @@ $(document).ready(function()
 					create	: function()
 					{
 						$category_editor = $(this);	
-						var slug_value = $(html_partial).find('#category_slug').html();
 
 						$('#category_name').slugify(
 						{
 							slug	  : '#category_slug', 
 							url		  : base_url + options.module + '/', 
 							name	  : 'category_url', 
-							slugValue : slug_value
-						});						
+							slugValue : $(html_partial).find('#category_slug').html()
+						});										
+					},
+					open: function()
+					{
+/*						// Instantiate Uploader
+						var uploader = new plupload.Uploader(
+						{
+							runtimeStyle	: 'html5,flash',
+							browse_button	: 'pickfiles',
+							container		: 'container',
+							max_file_size	: '2mb',
+							max_file_count	: 1,
+							url 			: base_url + 'api/categories/upload_picture/id',
+							flash_swf_url	: base_url + 'js/plupload.flash.swf',
+							multipart 		: true,
+							multipart_params: {'file_hash':'', 'upload_id':'', 'consumer_key':user_data.consumer_key},		
+							filters 		: [{title : 'Image Files', extensions : 'gif,jpg,jpeg,png'}],
+							multi_selection : false
+
+						});
+					
+						// Initialize
+						uploader.bind('Init', function(up, params)
+						{
+							console.log('in InIt');
+							console.log(params);	
+						});
+						
+						// Initialize Actually
+						uploader.init();
+						
+						console.log(uploader);
+						
+						uploader.refresh();	
+						
+						$('#pickfiles').live('click', function(e) 
+						{
+							console.log('INSIDE da Neu Click');
+					        
+					       	var uploader = $('#category_image_upload').plupload('getUploader');
+					        // Files in queue upload them first
+					        if (uploader.files.length > 0) 
+					        {
+					            // When all files are uploaded submit form
+					            uploader.bind('StateChanged', function() 
+					            {
+					                if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed))
+					                {
+					                    $('form')[0].submit();
+					                }
+					            });
+					                
+					            uploader.start();
+					        } 
+					        else
+					        {
+					            alert('You must at least upload one file.');
+							}
+					        return false;
+					    });						
+																					
+						// Add Files & Start Upload
+						uploader.bind('FilesAdded', function(up, files)
+						{	
+							console.log('in FilesAdded');
+							console.log(files);
+							
+							var file_hash	= md5(files[0].name);
+							var file_data 	= [];
+							file_data.push({'name':'file_hash','value':file_hash});
+							
+							// Create Expectation (OAuth1 signed request)	
+							$(this).oauthAjax(
+							{
+								oauth 		: user_data,
+								url			: base_url + 'api/upload/create_expectation',
+								type		: 'POST',
+								dataType	: 'json',
+								data		: file_data,
+						  		success		: function(result)
+						  		{
+									if (result.status == 'success')
+									{
+										// Update Multipart Form Variables
+										uploader.settings.multipart_params.file_hash = files[0].name;
+										uploader.settings.multipart_params.file_hash = file_hash;
+										uploader.settings.multipart_params.upload_id = result.data;
+					
+										// Start Upload	& Callback	
+										uploader.refresh();
+										uploader.start();
+					
+										// Trigger Start Callback
+									}
+							 	}
+							});		
+						});
+					
+						// Upload Progress
+						uploader.bind('UploadProgress', function(up, file)
+						{
+							$('#file_uploading_progress').html(file.percent + "%");
+						});
+						
+						// Upload Error
+						uploader.bind('Error', function(up, err)
+						{
+							uploader.refresh();
+						});
+					
+						// Upload Success
+						uploader.bind('FileUploaded', function(up, file, res)
+						{			
+							$('#file_uploading_progress').html("100%");
+							var response = JSON.parse(res.response);
+					
+							uploader.refresh();
+							// Trigger Complete Callback
+						});		
+*/				
 					},
 					buttons	:
 					{
@@ -639,11 +870,9 @@ $(document).ready(function()
 			          		$category_editor.remove();
 			        	},
 			        	'Save':function()
-			        	{								
+			        	{
 							var category_data = $('#category_editor').serializeArray();
 							category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type});
-							
-							console.log(category_data);
 							
 							$(this).oauthAjax(
 							{
@@ -653,16 +882,14 @@ $(document).ready(function()
 								dataType	: 'json',
 								data		: category_data,
 								success		: function(result)
-								{
-									console.log(result);
-								
+								{								
 		          					$category_editor.dialog('close');
 		          					$category_editor.remove();
 								}
 							});
 			        	}
 			        }				    
-			    });
+			    });  
 			});
 		};
 	})(jQuery);

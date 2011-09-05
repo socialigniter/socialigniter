@@ -468,7 +468,7 @@ class Home extends Dashboard_Controller
 			
 			if ($details->thumb != '')
 			{
-				$this->data['thumb']	= $details->thumb;
+				$this->data['thumb']	= base_url().config_item('categories_images_folder').'/'.$details->thumb;
 			}
 			else
 			{

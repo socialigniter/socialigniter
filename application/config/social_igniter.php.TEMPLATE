@@ -64,4 +64,5 @@ $config['email_send']  					= 'send.php';			// Template for a message being sent
 
 // Image Options
 $config['uploads_folder']				= "uploads/";
+$config['categories_images_folder']		= "uploads/categories/";
 $config['profile_nopicture']			= "nopicture.png";

@@ -101,7 +101,7 @@ class Categories extends Oauth_Controller
 
         $this->response($message, 200);
     }
-    
+
     function modify_authd_post()
     {
     	if ($category = $this->social_tools->get_category($this->get('id')))
@@ -137,6 +137,13 @@ class Categories extends Oauth_Controller
 	    }
 
 	    $this->response($message, 200);
+    }
+    
+    function upload_picture()
+    {
+		$message = array('status' => 'error', 'message' => 'Damn that category does not update');    
+
+	    $this->response($message, 200);    
     }
 
     function destroy_get()

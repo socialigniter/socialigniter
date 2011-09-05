@@ -47,7 +47,7 @@
 	<?php if (config_item($this->uri->segment(2).'_widgets') == 'TRUE') echo navigation_list_btn('settings/'.$this->uri->segment(2).'/widgets', 'Widgets'); ?>
 	<?php if (config_item($this->uri->segment(2).'_categories') == 'TRUE') echo navigation_list_btn('settings/'.$this->uri->segment(2).'/categories', 'Categories'); ?>
 	<?= navigation_list_btn('settings/'.$this->uri->segment(2), 'Settings') ?>
-	<?= navigation_list_btn('settings/apps', 'Back To Apps') ?>
+	<li><a href="<?= base_url() ?>settings/apps">Apps</a><span class="actions_normal action_sync nav_apps_back"></span></li>
 </ul>
 <?php elseif ($this->uri->segment(2) != 'apps'): ?>
 <h2 class="content_title">
@@ -57,12 +57,12 @@
 	<?php if (config_item($this_module.'_widgets') == 'TRUE') echo navigation_list_btn('settings/'.$this_module.'/widgets', 'Widgets'); ?>
 	<?php if (config_item($this_module.'_categories') == 'TRUE') echo navigation_list_btn('settings/'.$this_module.'/categories', 'Categories'); ?>
 	<?= navigation_list_btn('settings/'.$this_module, 'Settings') ?>
-	<?= navigation_list_btn('settings/apps', 'Back To Apps') ?>
+	<li><a href="<?= base_url() ?>settings/apps">Apps</a><span class="actions_normal action_sync nav_apps_back"></span></li>
 </ul>
 <?php else: ?>
 <h2 class="content_title"><img src="<?= $dashboard_assets ?>icons/installer_32.png"> Apps</h2>
 <ul class="content_navigation">
 	<?= navigation_list_btn('settings/apps', 'Installed') ?> 
-	<?= navigation_list_btn('settings/get_apps', 'Get Apps') ?> 
+	<?= navigation_list_btn('settings/get_apps', 'Get Apps') ?> 	
 </ul>
 <?php endif; ?>

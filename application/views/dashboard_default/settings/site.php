@@ -14,7 +14,7 @@
 	<input type="text" name="keywords" size="40" placeholder="Dogs, cats, birds, girrafes" value="<?= $settings['site']['keywords'] ?>"></p>
 
 	<p>Description<br>
-	<textarea name="description" cols="26" rows="6"><?= $settings['site']['description'] ?></textarea></p>
+	<textarea name="description" cols="38" rows="4"><?= $settings['site']['description'] ?></textarea></p>
 
 </div>
 

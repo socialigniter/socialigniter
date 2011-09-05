@@ -7,11 +7,14 @@
 	<p>Description</p>
 	<p><textarea name="description" id="category_description" rows="4" cols="72"><?= $description ?></textarea></p>
 
-	<p>Thumbnail</p>
 	<?php if ($thumb): ?>
 	<p><img src="<?= $thumb ?>"></p>
 	<?php endif; ?>
-	<p><input type="file" name="thumbnail" id="category_thumbnail" value=""></p>
+	<ul id="category_image_upload" class="item_actions_list">
+		<li id="uploading_pick"><a id="pickfiles" href="#"><span class="actions action_edit"></span> Upload A Picture</a></li>
+		<li id="uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
+		<li id="uploading_delete" class="hide"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+	</ul>
 
 	<p>Parent Category</p>
 	<p><?= form_dropdown('parent_id', $categories_dropdown, $parent_id) ?></p>
@@ -23,3 +26,9 @@
 	<input type="hidden" name="site_id" value='<?= $site_id ?>'>
 
 </form>
+<script type="text/javascript">
+$(document).ready(function()
+{
+		
+});
+</script>
