@@ -49,6 +49,7 @@ $route['api/activity/create']							= 'api/activity/create';
 /* Categories */
 $route['api/categories/view/(:any)/(:any)']				= 'api/categories/view';
 $route['api/categories/view']							= 'api/categories/view';
+$route['api/categories/modify/(:any)/(:any)']			= 'api/categories/modify/$1/$2';
 $route['api/categories/all']							= 'api/categories/all';
 $route['api/categories/create']							= 'api/categories/create';
 
@@ -152,6 +153,7 @@ $route['home/error'] 									= 'home/error';
 $route['home/item_timeline']							= 'home/item_timeline';
 $route['home/item_manage']								= 'home/item_manage';
 $route['home/category_editor']							= 'home/category_editor';
+$route['home/category_manager/(:any)']					= 'home/category_manager/$1';
 $route['home/category_manager']							= 'home/category_manager';
 $route['home/partial_add_place']						= 'home/partial_add_place';
 $route['home/widget_editor/(:any)']						= 'home/widget_editor/$1';

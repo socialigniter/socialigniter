@@ -454,7 +454,42 @@ class Home extends Dashboard_Controller
 
 	function category_manager()
 	{
-		$this->load->view(config_item('dashboard_theme').'/partials/category_manager');
+		if ($category = $this->social_tools->get_category($this->uri->segment(3)))
+		{		
+			$this->data['category']		= $category->category;
+			$this->data['category_url']	= $category->category_url;
+			$this->data['description']	= $category->description;
+			$this->data['parent_id']	= $category->parent_id;
+			$this->data['access']		= $category->access;
+			$this->data['site_id']		= $category->site_id;
+			$this->data['details']		= $category->details;
+			
+			$details = json_decode($category->details);
+			
+			if ($details->thumb != '')
+			{
+				$this->data['thumb']	= $details->thumb;
+			}
+			else
+			{
+				$this->data['thumb']	= '';
+			}
+		}
+		else
+		{
+			$this->data['category']		= '';
+			$this->data['category_url']	= '';
+			$this->data['description']	= '';		
+			$this->data['parent_id']	= 0;
+			$this->data['access']		= config_item('access');
+			$this->data['thumb']		= '';
+			$this->data['site_id']		= config_item('site_id');
+			$this->data['details']		= '';
+		}
+
+		$this->data['categories_dropdown'] = $this->social_tools->make_categories_dropdown('type', 'class-category', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), FALSE);
+
+		$this->load->view(config_item('dashboard_theme').'/partials/category_manager', $this->data);
 	}
 	
 	function partial_add_place()
@@ -485,10 +520,5 @@ class Home extends Dashboard_Controller
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/widget_editor_add');		
 	}
-	
-	function test()
-	{
-		echo $this->social_tools->make_categories_url($this->categories, $this->uri->segment(3));
-	}	
 
 }

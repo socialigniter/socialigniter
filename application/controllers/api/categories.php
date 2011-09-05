@@ -104,36 +104,37 @@ class Categories extends Oauth_Controller
     
     function modify_authd_post()
     {
-    	$content = $this->social_igniter->get_content($this->get('id'));
-    
-		// Access Rules
-	   	//$this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
-	   	
-    	$viewed			= 'Y';
-    	$approval		= 'A'; 
-   
-    	$content_data = array(
-			'parent_id'			=> $this->input->post('parent_id'),
-			'access'			=> $this->input->post('access'),
-			'category'			=> $this->input->post('category'),
-			'category_url'		=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
-			'content'			=> $this->input->post('content'),
-			'details'			=> $this->input->post('details'),
-			'viewed'			=> $viewed,
-			'approval'			=> $approval,
-    	);
-    									
-		// Insert
-		$update = $this->social_tools->update_category($this->get('id'), $category_data, $this->oauth_user_id);     		
-		 		     		
-	    if ($update)
+    	if ($category = $this->social_tools->get_category($this->get('id')))
+    	{
+			// Access Rules
+		   	//$this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
+		   	
+	    	$viewed			= 'Y';
+	    	$approval		= 'A'; 
+	   
+	    	$category_data = array(
+				'parent_id'			=> $this->input->post('parent_id'),
+				'access'			=> $this->input->post('access'),
+				'category'			=> $this->input->post('category'),
+				'category_url'		=> form_title_url($this->input->post('category'), $this->input->post('category_url'), $category->category_url),
+				'description'		=> $this->input->post('description'),
+				'details'			=> $this->input->post('details')
+	    	);
+	    									
+			// Insert			 		     		
+		    if ($update = $this->social_tools->update_category($this->get('id'), $category_data, $this->oauth_user_id))
+		    {
+	        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your category', 'data' => $update);
+	        }
+	        else
+	        {
+		        $message = array('status' => 'error', 'message' => 'Oops, we were unable to save your category update');
+	        }
+	    }
+	    else
 	    {
-        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
-        }
-        else
-        {
-	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
-        }
+			$message = array('status' => 'error', 'message' => 'Damn that category does not update');    
+	    }
 
 	    $this->response($message, 200);
     }
