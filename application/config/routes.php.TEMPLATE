@@ -200,6 +200,7 @@ $route['settings/pages']								= 'settings/pages';
 $route['settings/apps'] 								= 'settings/apps';
 $route['settings/get_apps'] 							= 'settings/get_apps';
 $route['settings/(:any)/widgets'] 						= '$1/settings/widgets';
+$route['settings/(:any)/categories/(:any)'] 			= 'settings/categories_manager/$1/$2';
 $route['settings/(:any)/categories'] 					= 'settings/categories/$1';
 $route['settings/(:any)'] 								= '$1/settings';
 $route['settings'] 										= 'settings';

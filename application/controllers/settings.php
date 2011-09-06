@@ -307,7 +307,7 @@ class Settings extends Dashboard_Controller
 				$this->data['item_alerts']		= '';
 
 				// Actions
-				$this->data['item_edit']		= base_url().'api/categories/manage/'.$category->category_id;
+				$this->data['item_edit']		= base_url().'settings/'.$category->module.'/categories/'.$category->category_id;
 				$this->data['item_delete']		= base_url().'api/categories/destroy/id/'.$category->category_id;
 				
 				// View
@@ -324,6 +324,50 @@ class Settings extends Dashboard_Controller
 
 		$this->render('dashboard_wide');
 	}
+	
+	function categories_manager()
+	{
+		if ($category = $this->social_tools->get_category($this->uri->segment(4)))
+		{		
+			$this->data['category']		= $category->category;
+			$this->data['category_url']	= $category->category_url;
+			$this->data['description']	= $category->description;
+			$this->data['parent_id']	= $category->parent_id;
+			$this->data['access']		= $category->access;
+			$this->data['site_id']		= $category->site_id;
+			$this->data['details']		= $category->details;
+			
+			$details = json_decode($category->details);
+			
+			if ($details->thumb != '')
+			{
+				$this->data['thumb']	= base_url().config_item('categories_images_folder').'/'.$details->thumb;
+			}
+			else
+			{
+				$this->data['thumb']	= '';
+			}
+		}
+		else
+		{
+			$this->data['category']		= '';
+			$this->data['category_url']	= '';
+			$this->data['description']	= '';		
+			$this->data['parent_id']	= 0;
+			$this->data['access']		= config_item('access');
+			$this->data['thumb']		= '';
+			$this->data['site_id']		= config_item('site_id');
+			$this->data['details']		= '';
+		}
+
+		$this->data['categories_dropdown'] = $this->social_tools->make_categories_dropdown('type', 'class-category', $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), FALSE);
+		
+		// Image Upload Settings
+        $this->data['upload_size']	  = config_item('users_images_max_size') / 1024;
+        $this->data['upload_formats'] = str_replace('|', ',', config_item('users_images_formats'));
+        
+		$this->render('dashboard_wide');
+	}	
 
 	/* Partials */
 	function mobile_phone_editor()

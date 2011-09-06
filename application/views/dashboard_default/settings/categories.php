@@ -2,14 +2,11 @@
 	<?= $categories_view ?>
 </ol>
 <div class="clear"></div>
-
-<script type="text/javascript" src="<?= base_url() ?>js/plupload.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/plupload.html5.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/plupload.flash.js"></script>
 <script type="text/javascript">
 $(document).ready(function()
 {	
 	// Add Category
+/*
 	$('.item_edit_category').bind('click', function(e)
 	{
 		e.preventDefault();
@@ -24,6 +21,7 @@ $(document).ready(function()
 			data		: category_id
 		});			
 	});
+*/
 
 	// Add Category
 	$('.item_delete_category').bind('click', function(e)

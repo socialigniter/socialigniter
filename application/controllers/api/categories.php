@@ -139,7 +139,7 @@ class Categories extends Oauth_Controller
 	    $this->response($message, 200);
     }
     
-    function upload_picture()
+    function picture_upload_post()
     {
 		$message = array('status' => 'error', 'message' => 'Damn that category does not update');    
 

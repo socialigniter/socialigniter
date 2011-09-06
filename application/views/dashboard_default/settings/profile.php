@@ -90,9 +90,9 @@ $(document).ready(function()
 	});			
 	
 	// Delete Picture
-	$('#delete_picture').live('click', function(eve)
+	$('#delete_picture').live('click', function(e)
 	{	
-		eve.preventDefault();
+		e.preventDefault();
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,
@@ -118,20 +118,16 @@ $(document).ready(function()
 	});		
 
 	// Update Profile Data
-	$("#user_profile").bind('submit', function(eve)
+	$("#user_profile").bind('submit', function(e)
 	{	
-		eve.preventDefault();
-		var profile_data = $('#user_profile').serializeArray();
-	
-		console.log(profile_data);
-	
+		e.preventDefault();	
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: $(this).attr('ACTION'),
 			type		: 'POST',
 			dataType	: 'json',
-			data		: profile_data,
+			data		: $('#user_profile').serializeArray(),
 	  		success		: function(result)
 	  		{
 				$('html, body').animate({scrollTop:0});

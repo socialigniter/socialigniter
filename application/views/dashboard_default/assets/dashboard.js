@@ -397,9 +397,9 @@ $(document).ready(function()
 	}
 	
 	//Submitting a comment	
-	$(".item_comment_form").live("submit", function(eve)
+	$(".item_comment_form").live("submit", function(e)
 	{
-		eve.preventDefault();
+		e.preventDefault();
 		
 		$(this).find('[type=submit]').attr('disabled','true');
 		$this_form = $(this);
@@ -448,9 +448,9 @@ $(document).ready(function()
 	
 	
 	/* Add Category */
-	$('.category_select').live('click', function(eve) 
+	$('.category_select').live('click', function(e) 
 	{
-		eve.preventDefault();		
+		e.preventDefault();		
 		parent.$('#what').append('<option value=""></option>');
 		parent.$("#what option[value='value']").attr('selected', 'selected');        
 		parent.$.fancybox.close();	
@@ -459,9 +459,9 @@ $(document).ready(function()
 	
 	/* More Pannels */
 	$('.drop_pannel').hide();	
-	$(".more").click(function(eve)
+	$(".more").click(function(e)
 	{	
-		eve.preventDefault();
+		e.preventDefault();
 
 		var show_pannel = $(this).attr('href');
 
@@ -579,7 +579,6 @@ $(document).ready(function()
 			});
 		}
 	})(jQuery);
-	
 
 
 	/* Category Editor Plugin */
