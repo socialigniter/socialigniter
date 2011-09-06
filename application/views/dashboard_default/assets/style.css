@@ -57,7 +57,7 @@ textarea.textarea_full		{ width: 625px; }
 .button_basic_on span		{ position: relative; top: 7px; left: 0; }
 .button_basic_on a			{ color: #efefef !important; text-shadow:1px 1px 1px #222222 !important; text-decoration: none; }
 
-.small_details				{ color: #999999; font-size: 12px; }
+.small_details				{ color: #999999; font-size: 12px; text-shadow: 1px 1px 1px #ffffff; }
 
 a.button_75					{ width: 75px; height: 27px; display: block; text-align: center; border: 1px solid #666666; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 14px; }
 a.button_basic_link 		{ background: url(images/button_basic.png) 0 0 repeat-x !important; color: #efefef !important; text-shadow:1px 1px 1px #222222 !important; }
@@ -429,6 +429,11 @@ div.selectable_chosen:hover { color: #777777; }
 .layout_picker:hover				{ color: #2078ce !important; text-decoration: none !important; }
 .layout_selected					{ background: url(images/gradients_horizontal.png) 0 -50px repeat-x #f9f9f9; border: 1px solid #b3b3b3; color: #666666; }
 .layout_selected:hover				{ color: #999999 !important; }
+
+/* Categories Editor */
+#category_image_thumb				{ width: 48px; margin: 25px 0 35px 5px; float: left; }
+#category_image_thumb img			{ width: 48px; }
+#category_image_uploader			{ height: 50px; margin: 25px 0 35px 15px !important; float: left; }
 
 /* Settings */
 span.nav_apps_back					{ float: right; position: relative; top: -2px; right: 0px; margin: 0 0 0 5px; }

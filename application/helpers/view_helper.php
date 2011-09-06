@@ -388,7 +388,7 @@ function get_category_image($category, $size)
 
 	if ($details->thumb != '')
 	{
-		$category_image = config_item('categories_images_folder').$size.'_'.$details->thumb;
+		$category_image = config_item('categories_images_folder').$category->category_id.'/'.$size.'_'.$details->thumb;
 		
 		if (file_exists($category_image)) $image = base_url().$category_image;
 	}

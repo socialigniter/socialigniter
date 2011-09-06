@@ -328,7 +328,10 @@ class Settings extends Dashboard_Controller
 	function categories_manager()
 	{
 		if ($category = $this->social_tools->get_category($this->uri->segment(4)))
-		{		
+		{
+			$this->data['sub_title']	= 'Categories';
+			$this->data['page_title']	= $category->category;
+		
 			$this->data['category']		= $category->category;
 			$this->data['category_url']	= $category->category_url;
 			$this->data['description']	= $category->description;
@@ -341,7 +344,7 @@ class Settings extends Dashboard_Controller
 			
 			if ($details->thumb != '')
 			{
-				$this->data['thumb']	= base_url().config_item('categories_images_folder').'/'.$details->thumb;
+				$this->data['thumb']	= base_url().config_item('categories_images_folder').$category->category_id.'/small_'.$details->thumb;
 			}
 			else
 			{
@@ -350,6 +353,8 @@ class Settings extends Dashboard_Controller
 		}
 		else
 		{
+			$this->data['sub_title']	= 'Create';
+
 			$this->data['category']		= '';
 			$this->data['category_url']	= '';
 			$this->data['description']	= '';		

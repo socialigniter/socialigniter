@@ -50,6 +50,7 @@ $route['api/activity/create']							= 'api/activity/create';
 $route['api/categories/view/(:any)/(:any)']				= 'api/categories/view';
 $route['api/categories/view']							= 'api/categories/view';
 $route['api/categories/modify/(:any)/(:any)']			= 'api/categories/modify/$1/$2';
+$route['api/categories/picture_upload/(:any)/(:any)']	= 'api/categories/picture_upload/$1/$2';
 $route['api/categories/all']							= 'api/categories/all';
 $route['api/categories/create']							= 'api/categories/create';
 

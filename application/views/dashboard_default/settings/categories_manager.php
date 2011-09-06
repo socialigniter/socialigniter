@@ -1,28 +1,30 @@
 <form id="category_editor" name="category_editor" method="post">
 
-	<p>Category</p>
-	<p><input type="text" id="category_name" name="category" value='<?= $category ?>' class="input_large"></p>
+	<h3>Category</h3>
+	<input type="text" id="category_name" name="category" value='<?= $category ?>' class="input_large">
 	<p id="category_slug" class="slug_url"><?= $category_url ?></p>
 
-	<p>Description</p>
-	<p><textarea name="description" id="category_description" rows="4" cols="72"><?= $description ?></textarea></p>
+	<h3>Description</h3>
+	<textarea name="description" id="category_description" rows="4" cols="72"><?= $description ?></textarea>
+	<div class="clear"></div>
 
 	<div id="category_image_thumb">
 	<?php if ($thumb): ?>
 		<img src="<?= $thumb ?>">
 	<?php endif; ?>
 	</div>
-	
+
 	<ul id="category_image_uploader" class="item_actions_list">
-		<li id="uploading_pick"><a id="pickfiles" href="#"><span class="actions action_edit"></span> Upload A Picture</a></li>
+		<li id="uploading_pick"><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
 		<li id="uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
-		<li id="uploading_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>
+		<li id="uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('categories_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('categories_images_formats'))) ?>)</li>
 	</ul>
+	<div class="clear"></div>
 
-	<p>Parent Category</p>
-	<p><?= form_dropdown('parent_id', $categories_dropdown, $parent_id) ?></p>
+	<h3>Parent Category</h3>
+	<?= form_dropdown('parent_id', $categories_dropdown, $parent_id) ?>
 
-	<p>Access</p>
+	<h3>Access</h3>
 	<p><?= form_dropdown('access', config_item('access'), $access, 'id="category_access"') ?></p>
 
 	<p><input type="submit" value="Save"></p>
@@ -50,28 +52,26 @@ $(document).ready(function()
 	$.mediaUploader(
 	{
 		max_size	: '2mb',
-		create_url	: base_url + 'api/categories/picture_upload',
+		create_url	: base_url + 'api/categories/picture_upload/id/' + jQuery.url.segment(3),
 		formats		: {title : 'Image Files', extensions : '<?= $upload_formats ?>'},
 		start		: function(files)
-		{
+		{		
 			// Hide Upload
 			$('#uploading_pick').hide(); 
-			$('#uploading_delete').hide();
 			$('#uploading_details').hide();
 			$('#uploading_status').show();
 			$('#file_uploading_name').html(files[0].name);
 		},
 		complete : function(response)
-		{
+		{		
 			// Hide Status
 			$('#uploading_status').delay(500).fadeOut();
-			$('#uploading_pick').delay(1250).fadeIn(); 
-			$('#uploading_delete').delay(1250).fadeIn();
+			$('#uploading_pick').delay(1000).fadeIn(); 
 		
 			// Actions
 			if (response.status == 'success')
 			{			
-				$('#category_image_thumb').append('<img src="' + base_url + 'uploads/categories/small_' + response.data.content + '">');
+				$('#category_image_thumb').html('<img src="' + base_url + 'uploads/categories/' + jQuery.url.segment(3) + '/small_' + response.data.content + '">');
 			}
 			else
 			{

@@ -45,7 +45,7 @@
 </h2>
 <ul class="content_navigation">
 	<?php if (config_item($this->uri->segment(2).'_widgets') == 'TRUE') echo navigation_list_btn('settings/'.$this->uri->segment(2).'/widgets', 'Widgets'); ?>
-	<?php if (config_item($this->uri->segment(2).'_categories') == 'TRUE') echo navigation_list_btn('settings/'.$this->uri->segment(2).'/categories', 'Categories'); ?>
+	<?php if (config_item($this->uri->segment(2).'_categories') == 'TRUE') echo navigation_list_btn('settings/'.$this->uri->segment(2).'/categories', 'Categories', $this->uri->segment(4)); ?>
 	<?= navigation_list_btn('settings/'.$this->uri->segment(2), 'Settings') ?>
 	<li><a href="<?= base_url() ?>settings/apps">Apps</a><span class="actions_normal action_sync nav_apps_back"></span></li>
 </ul>
@@ -55,7 +55,7 @@
 </h2>
 <ul class="content_navigation">
 	<?php if (config_item($this_module.'_widgets') == 'TRUE') echo navigation_list_btn('settings/'.$this_module.'/widgets', 'Widgets'); ?>
-	<?php if (config_item($this_module.'_categories') == 'TRUE') echo navigation_list_btn('settings/'.$this_module.'/categories', 'Categories'); ?>
+	<?php if (config_item($this_module.'_categories') == 'TRUE') echo navigation_list_btn('settings/'.$this_module.'/categories', 'Categories', $this->uri->segment(4)); ?>
 	<?= navigation_list_btn('settings/'.$this_module, 'Settings') ?>
 	<li><a href="<?= base_url() ?>settings/apps">Apps</a><span class="actions_normal action_sync nav_apps_back"></span></li>
 </ul>

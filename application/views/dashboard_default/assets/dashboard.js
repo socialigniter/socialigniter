@@ -505,11 +505,7 @@ $(document).ready(function()
 			});
 		
 			// Initialize
-			uploader.bind('Init', function(up, params)
-			{
-				// console.log('inside InIt');
-				// console.log(params);	
-			});
+			uploader.bind('Init', function(up, params){});
 			
 			// Initialize Actually
 			uploader.init();
@@ -571,10 +567,9 @@ $(document).ready(function()
 			{			
 				$('#file_uploading_progress').html("100%");
 				var response = JSON.parse(res.response);
-	
+					
+				// Refresh & Trigger Complete Callback
 				uploader.refresh();
-				
-				// Trigger Complete Callback
 				options.complete(response);							
 			});
 		}

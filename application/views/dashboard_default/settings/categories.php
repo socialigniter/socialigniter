@@ -5,25 +5,7 @@
 <script type="text/javascript">
 $(document).ready(function()
 {	
-	// Add Category
-/*
-	$('.item_edit_category').bind('click', function(e)
-	{
-		e.preventDefault();
-		var category_id = $(this).attr('id').replace('item_action_edit_', '');
-
-		$.categoryManager(
-		{
-			action		: 'edit',	
-			module		: jQuery.url.segment(1),
-			type		: 'class-category',
-			title		: 'Edit ' + jQuery.url.segment(1) + ' Category',
-			data		: category_id
-		});			
-	});
-*/
-
-	// Add Category
+	// Delete Category
 	$('.item_delete_category').bind('click', function(e)
 	{
 		e.preventDefault();
