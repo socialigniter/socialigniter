@@ -11,7 +11,7 @@
 	<p>Image</p>
 
 	<p>Color</p>
-
+	
 </div>
 
 </form>

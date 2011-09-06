@@ -451,11 +451,6 @@ class Home extends Dashboard_Controller
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/category_editor');
 	}
-
-	function category_manager()
-	{
-		$this->load->view(config_item('dashboard_theme').'/partials/category_manager');
-	}
 	
 	function partial_add_place()
 	{		
@@ -485,10 +480,5 @@ class Home extends Dashboard_Controller
 	{
 		$this->load->view(config_item('dashboard_theme').'/partials/widget_editor_add');		
 	}
-	
-	function test()
-	{
-		echo $this->social_tools->make_categories_url($this->categories, $this->uri->segment(3));
-	}	
 
 }
