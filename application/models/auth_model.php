@@ -295,10 +295,9 @@ class Auth_model extends CI_Model
         {
         	$salt = false;
         }
-        
+
 		$password = $this->hash_password($password, $salt);
-		
-		
+
 		if (array_key_exists('name', $additional_data))	$name = $additional_data['name'];
 		else $name = '';
 		
