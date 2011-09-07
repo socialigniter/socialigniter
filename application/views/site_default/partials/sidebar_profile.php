@@ -43,44 +43,39 @@
 <script type="text/javascript">
 $(document).ready(function()
 {
-	$("#follow_button").bind("click", function(eve)
+	$("#follow_button").bind("click", function(e)
 	{
-		eve.preventDefault();
+		e.preventDefault();
 		var follow_word = $('#follow_button').attr('value').toLowerCase();
 		var follow_data = $('#follow_button').serializeArray();
-		follow_data.push({'name':'module','value':'users'});
+		follow_data.push({'name':'module','value':'users'},{'name':'type','value':'follow'});
 		
-		<? $logged = $this->session->userdata("user_id"); 
-			if (!$logged){
-		?>
-		$webfinger = prompt('Enter your webfinger id');
-		$match = $webfinger.match(/(.*?)@(.*)/);
-		//console.log($match);
-		//console.log($match[1]);
-		//console.log($match[2]);
-		var username = window.path.split('/')[1];
-		var host = window.location.host;
-		//window.location.href = "http://"+$match[2]+"/profile/"+$match[1];
-		$.ajax({
-	        type: "GET",
-			url: "http://"+$match[2]+"/webfinger/"+$match[1]+"@"+$match[2],
-			dataType: "xml",
-			success: function(xml) {
-				$(xml).find('Link').each(function(){ 
-					if($(this).attr('rel') == "webfinger#friend"){
-						var twitter_profile = $(this).attr('href');
-						new_profile = twitter_profile.replace(/{uri}/,username+"@"+host);
-						console.log(new_profile);
+		<?php if (!$this->social_auth->logged_in()): ?>
+		$webfinger		= prompt('Enter your webfinger id');
+		$match 			= $webfinger.match(/(.*?)@(.*)/);
+		var username	= window.path.split('/')[1];
+		var host 		= window.location.host;
+		$.ajax(
+		{
+	        type	 : 'GET',
+			url		 : 'http://' + $match[2] + '/webfinger/' + $match[1] + '@' + $match[2],
+			dataType : 'xml',
+			success	 : function(xml)
+			{
+				$(xml).find('Link').each(function()
+				{ 
+					if ($(this).attr('rel') == "webfinger#friend")
+					{
+						var remote_profile = $(this).attr('href');
+						new_profile = remote_profile.replace(/{uri}/,username+"@"+host);
 						window.location.href = new_profile;
-
-
 					}
 					 
 				});
 			}
 		});
 		return;
-		<? } ?>
+		<?php endif; ?>
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,
@@ -89,9 +84,7 @@ $(document).ready(function()
 			dataType	: 'json',
 			data		: follow_data,
 	  		success		: function(result)
-	  		{	
-	  			console.log(result);	  			
-	  				  			
+	  		{	  				  			
 				if (result.status == 'success')
 				{
 					if (follow_word == 'follow')
@@ -105,17 +98,18 @@ $(document).ready(function()
 			 	}
 			 	else
 			 	{
-					alert(result.message);
+					$('html, body').animate({scrollTop:0});
+					$('#content_message').notify({status:result.status,message:result.message});				
 			 	}
 		 	}
 		})
 	});
 
-	$("#message_button").bind("click", function(eve)
+	$('#message_button').bind('click', function(e)
 	{
-		eve.preventDefault();
+		e.preventDefault();
 		var message_data = $('#message_button').serializeArray();
-		message_data.push({'name':'receiver_id','name':<?= $user_id ?>},{'name':'module','value':'messages'},{'name':'type','value':'personal'});
+		message_data.push({'name':'receiver_id','name':user_data.user_id},{'name':'module','value':'messages'},{'name':'type','value':'personal'});
 
 		$(this).oauthAjax(
 		{
@@ -125,9 +119,7 @@ $(document).ready(function()
 			dataType	: 'json',
 			data		: message_data,
 	  		success		: function(result)
-	  		{	
-	  			console.log(result);	  			
-	  				  			
+	  		{  				  			
 				if (result.status == 'success')
 				{
 					alert(result.message);

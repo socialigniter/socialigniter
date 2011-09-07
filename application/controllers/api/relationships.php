@@ -36,7 +36,7 @@ class Relationships extends Oauth_Controller
             'owner_id'  => $this->oauth_user_id,
             'user_id'   => $this->get('id'),
             'module'    => $this->input->post('module'),
-            'type'      => 'follow',
+            'type'      => $this->input->post('type')
         );
         
         $exists = $this->social_tools->check_relationship_exists($follow_data);
@@ -216,7 +216,6 @@ class Relationships extends Oauth_Controller
 
         $this->response($message, 200);
     }
-    
 
     function unfollow_authd_post()
     {
