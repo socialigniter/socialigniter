@@ -182,21 +182,23 @@ class Content extends Oauth_Controller
     
     function approve_authd_get()
     {
-        if ($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'approval' => 'Y')))
-        {
-			if ($this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id'), $this->oauth_user_id))
-			{			
-            	$message = array('status' => 'success', 'message' => 'Content was approved', 'data' => $update);
-        	}
-        	else
-        	{
-            	$message = array('status' => 'error', 'message' => 'Sorry, you do not have access to approve that');        	
-        	}
-        }
-        else
-        {
-            $message = array('status' => 'error', 'message' => 'Content could not be approved');
-        }
+    	$content = $this->social_igniter->get_content($this->get('id'));    
+    
+		if ($this->social_auth->has_access_to_modify('content', $content, $this->oauth_user_id))
+		{
+	        if ($update = $this->social_igniter->update_content_value(array('content_id' => $this->get('id'), 'approval' => 'Y')))
+	        {
+	            $message = array('status' => 'success', 'message' => 'Content was approved', 'data' => $update);
+	        }
+	        else
+	        {
+	            $message = array('status' => 'error', 'message' => 'Content could not be approved');
+	        }
+    	}
+    	else
+    	{
+        	$message = array('status' => 'error', 'message' => 'Sorry, you do not have access to approve that');        	
+    	}
         
 	    $this->response($message, 200);        
     }
