@@ -122,14 +122,14 @@ class Social_auth
 			return 'Y';
 		}
 
-		return 'N';	
-	}   
-	
+		return 'N';
+	}
+
 	function has_access_to_modify($type, $object, $user_id, $user_level_id=NULL)
 	{
 		// Types of objects
 		if ($type == 'content')
-		{		
+		{
 			if ($user_id == $object->user_id)
 			{
 				return TRUE;

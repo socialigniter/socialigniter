@@ -14,7 +14,6 @@ This includes Categories, Comments, Content, Ratings, Tags
 class Social_tools
 {
 	protected $ci;
-	protected $categories_view;
 
 	function __construct()
 	{
@@ -31,6 +30,7 @@ class Social_tools
 		$this->ci->load->model('upload_model');
 
 		// Define Variables
+		$this->view_categories = NULL;
 		$this->view_comments = NULL;
 	}
 	
@@ -85,7 +85,7 @@ class Social_tools
 	function make_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label)
 	{
 		$categories_query 		= $this->get_categories_view($parameter, $value);
-		$this->categories_view 	= array(0 => '----select----');
+		$this->view_categories 	= array(0 => '----select----');
 		$categories 			= $this->render_categories_children($categories_query, 0);
 				
 		// Add Category if Admin
@@ -93,15 +93,15 @@ class Social_tools
 		{
 			if (!$add_label)
 			{
-				$this->categories_view['add_category'] = '+ Add Category';	
+				$this->view_categories['add_category'] = '+ Add Category';	
 			}
 			else
 			{
-				$this->categories_view['add_category'] = $add_label;
+				$this->view_categories['add_category'] = $add_label;
 			}	
 		}
 		
-		return $this->categories_view;	
+		return $this->view_categories;	
 	}
 
 	function render_categories_children($categories_query, $parent_id)
@@ -113,26 +113,26 @@ class Social_tools
 				if ($parent_id != '0') $category_display = ' - '.$child->category;
 				else $category_display = $child->category;
 			
-				$this->categories_view[$child->category_id] = $category_display;
+				$this->view_categories[$child->category_id] = $category_display;
 
 				// Recursive Call
 				$this->render_categories_children($categories_query, $child->category_id);
 			}
 		}
 			
-		return $this->categories_view;
+		return $this->view_categories;
 	}
 	
-	function make_categories_url($categories_query, $category_id=0)
+	function make_categories_url($categories, $category_id=0)
 	{
-		// Declare Instance null for pages with multiple calls 
-		$this->categories_view = NULL;
-		$elements_all 	= $this->render_categories_url($categories_query, $category_id);
-		$elements_view	= '';
+		// Declare Instance null for pages with multiple calls
+		$this->view_categories	= NULL;
+		$elements_all 			= $this->render_categories_url($categories, $category_id);
+		$elements_view			= '';
 		
 		if ($elements_all)
 		{
-			arsort($elements_all);
+			ksort($elements_all);
 		
 			foreach ($elements_all as $category_url)
 			{
@@ -143,33 +143,33 @@ class Social_tools
 		return $elements_view;
 	}
 
-	function render_categories_url($categories_query, $object_category_id)
-	{	
-		foreach ($categories_query as $category)
+	function render_categories_url($categories, $category_id)
+	{
+		foreach ($categories as $category)
 		{
-			if ($object_category_id == $category->category_id)
+			if ($category_id == $category->category_id)
 			{			
-				$this->categories_view[] = $category->category_url;
+				$this->view_categories[$category->category_id] = $category->category_url;
 
 				if ($category->parent_id)
 				{
-					$this->render_categories_url($categories_query, $category->parent_id);
+					$this->render_categories_url($categories, $category->parent_id);
 				}
 			}
 		}
-			
-		return $this->categories_view;
+		
+		return $this->view_categories;
 	}
 	
 	function make_categories_breadcrumb($categories_query, $category_id=0, $base_url, $seperator)
 	{
 		// Declare Instance null for pages with multiple calls 
-		$this->categories_view = NULL;
-		$categories_all 	= $this->render_categories_object($categories_query, $category_id);
-		$categories_view	= '';
-		$categories_count	= count($categories_all);
-		$categories_build 	= 0;
-		$category_breadcrumb_url = NULL;
+		$this->view_categories	= NULL;		
+		$categories_all 		= $this->render_categories_object($categories_query, $category_id);
+		$categories_view		= '';
+		$categories_count		= count($categories_all);
+		$categories_build 		= 0;
+		$breadcrumb_url			= NULL;
 		
 		if ($categories_all)
 		{
@@ -182,9 +182,9 @@ class Social_tools
 				if ($categories_count == $categories_build) $seperator = '';
 				
 				// Build URL
-				$category_breadcrumb_url .= '/'.$category->category_url;			
+				$breadcrumb_url .= '/'.$category->category_url;			
 								
-				$categories_view .= '<a href="'.$base_url.$category_breadcrumb_url.'">'.$category->category.'</a>'.$seperator;
+				$categories_view .= '<a href="'.$base_url.$breadcrumb_url.'">'.$category->category.'</a>'.$seperator;
 			}
 		}
 		
@@ -197,7 +197,7 @@ class Social_tools
 		{
 			if ($object_category_id == $category->category_id)
 			{			
-				$this->categories_view[] = $category;
+				$this->view_categories[] = $category;
 
 				if ($category->parent_id)
 				{
@@ -206,7 +206,7 @@ class Social_tools
 			}
 		}
 			
-		return $this->categories_view;
+		return $this->view_categories;
 	}	
 
 	// Add Category & Activity

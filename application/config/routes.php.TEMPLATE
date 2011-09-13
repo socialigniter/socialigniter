@@ -49,6 +49,8 @@ $route['api/activity/create']							= 'api/activity/create';
 /* Categories */
 $route['api/categories/view/(:any)/(:any)']				= 'api/categories/view';
 $route['api/categories/view']							= 'api/categories/view';
+$route['api/categories/modify/(:any)/(:any)']			= 'api/categories/modify/$1/$2';
+$route['api/categories/picture_upload/(:any)/(:any)']	= 'api/categories/picture_upload/$1/$2';
 $route['api/categories/all']							= 'api/categories/all';
 $route['api/categories/create']							= 'api/categories/create';
 
@@ -152,6 +154,7 @@ $route['home/error'] 									= 'home/error';
 $route['home/item_timeline']							= 'home/item_timeline';
 $route['home/item_manage']								= 'home/item_manage';
 $route['home/category_editor']							= 'home/category_editor';
+$route['home/category_manager/(:any)']					= 'home/category_manager/$1';
 $route['home/category_manager']							= 'home/category_manager';
 $route['home/partial_add_place']						= 'home/partial_add_place';
 $route['home/widget_editor/(:any)']						= 'home/widget_editor/$1';
@@ -198,6 +201,7 @@ $route['settings/pages']								= 'settings/pages';
 $route['settings/apps'] 								= 'settings/apps';
 $route['settings/get_apps'] 							= 'settings/get_apps';
 $route['settings/(:any)/widgets'] 						= '$1/settings/widgets';
+$route['settings/(:any)/categories/(:any)'] 			= 'settings/categories_manager/$1/$2';
 $route['settings/(:any)/categories'] 					= 'settings/categories/$1';
 $route['settings/(:any)'] 								= '$1/settings';
 $route['settings'] 										= 'settings';

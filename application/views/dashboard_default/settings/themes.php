@@ -53,9 +53,9 @@
 		</p>
 	<?php endforeach; ?>
 	
-	<input type="text" name="site_theme" id="site_theme" value="<?= config_item('site_theme') ?>">
-	<input type="text" name="dashboard_theme" id="dashboard_theme" value="<?= config_item('dashboard_theme') ?>">
-	<input type="text" name="mobile_theme" id="mobile_theme" value="<?= config_item('mobile_theme') ?>">
+	<input type="text" name="site_theme" id="site_theme" value='<?= config_item('site_theme') ?>'>
+	<input type="text" name="dashboard_theme" id="dashboard_theme" value='<?= config_item('dashboard_theme') ?>'>
+	<input type="text" name="mobile_theme" id="mobile_theme" value='<?= config_item('mobile_theme') ?>'>
 	<input type="hidden" name="module" value="site">	
 	
 	<p><input type="submit" value="Save" /></p>

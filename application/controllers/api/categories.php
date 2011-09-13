@@ -101,41 +101,118 @@ class Categories extends Oauth_Controller
 
         $this->response($message, 200);
     }
-    
+
     function modify_authd_post()
     {
-    	$content = $this->social_igniter->get_content($this->get('id'));
-    
-		// Access Rules
-	   	//$this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
-	   	
-    	$viewed			= 'Y';
-    	$approval		= 'A'; 
-   
-    	$content_data = array(
-			'parent_id'			=> $this->input->post('parent_id'),
-			'access'			=> $this->input->post('access'),
-			'category'			=> $this->input->post('category'),
-			'category_url'		=> form_title_url($this->input->post('title'), $this->input->post('title_url'), $content->title_url),
-			'content'			=> $this->input->post('content'),
-			'details'			=> $this->input->post('details'),
-			'viewed'			=> $viewed,
-			'approval'			=> $approval,
-    	);
-    									
-		// Insert
-		$update = $this->social_tools->update_category($this->get('id'), $category_data, $this->oauth_user_id);     		
-		 		     		
-	    if ($update)
+    	if ($category = $this->social_tools->get_category($this->get('id')))
+    	{
+			// Access Rules
+		   	//$this->social_auth->has_access_to_modify($this->input->post('type'), $this->get('id') $this->oauth_user_id);
+		   	
+	    	$viewed			= 'Y';
+	    	$approval		= 'A'; 
+	   
+	    	$category_data = array(
+				'parent_id'			=> $this->input->post('parent_id'),
+				'access'			=> $this->input->post('access'),
+				'category'			=> $this->input->post('category'),
+				'category_url'		=> form_title_url($this->input->post('category'), $this->input->post('category_url'), $category->category_url),
+				'description'		=> $this->input->post('description'),
+				'details'			=> $this->input->post('details')
+	    	);
+	    									
+			// Update			 		     		
+		    if ($update = $this->social_tools->update_category($this->get('id'), $category_data, $this->oauth_user_id))
+		    {
+	        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your category', 'data' => $update);
+	        }
+	        else
+	        {
+		        $message = array('status' => 'error', 'message' => 'Oops, we were unable to save your category update');
+	        }
+	    }
+	    else
 	    {
-        	$message = array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
-        }
-        else
-        {
-	        $message = array('status' => 'error', 'message' => 'Oops, we were unable to post your '.$this->input->post('type'));
-        }
+			$message = array('status' => 'error', 'message' => 'Damn that category does not update');    
+	    }
 
 	    $this->response($message, 200);
+    }
+    
+    function picture_upload_post()
+    {
+   		if ($upload = $this->social_tools->get_upload($this->input->post('upload_id')))
+    	{
+	    	// If File Exists
+			if ($upload->file_hash == $this->input->post('file_hash'))
+			{	
+				// Delete Expectation
+				$this->social_tools->delete_upload($this->input->post('upload_id'));
+
+				// Upload Settings
+				$create_path				= config_item('categories_images_folder').$this->get('id').'/';
+				$config['upload_path'] 		= $create_path;
+				$config['allowed_types'] 	= config_item('categories_images_formats');		
+				$config['overwrite']		= true;
+				$config['max_size']			= config_item('categories_images_max_size');
+				$config['max_width']  		= config_item('categories_images_max_dimensions');
+				$config['max_height']  		= config_item('categories_images_max_dimensions');
+			
+				$this->load->helper('file');
+				$this->load->library('upload', $config);
+
+				// Delete / Make Folder
+				delete_files($create_path);				
+				make_folder($create_path);
+				
+				// Upload
+				if (!$this->upload->do_upload('file'))
+				{				
+					$message = array('status' => 'error', 'message' => 'Ahhhh '.$this->upload->display_errors('', ''));
+				}
+				else
+				{
+					// Load Image Model
+					$this->load->model('image_model');
+
+					// Upload Data
+					$file_data = $this->upload->data();
+
+					// Make Sizes
+					$this->image_model->make_images($create_path, $file_data, 'site', array('large', 'medium', 'small'));
+
+					$category = $this->social_tools->get_category($this->get('id'));
+
+					$details = json_decode($category->details);
+
+					$details->thumb = $file_data['file_name'];
+
+			    	$category_data = array(
+						'details' => json_encode($details)
+			    	);
+
+					// Update
+		    		if ($update = $this->social_tools->update_category($this->get('id'), $category_data, $this->oauth_user_id))
+				    {
+			        	$message = array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $result['content'], 'activity' => $result['activity']);		    
+			        }
+			        else
+			        {
+				        $message = array('status' => 'error', 'message' => 'Oops, uploaded but unable to add image to site');
+			        }
+				}
+			}
+			else
+			{
+				$message = array('status' => 'error', 'message' => 'No image file was sent or the hash was bad');
+			}
+		}
+		else
+		{
+			$message = array('status' => 'error', 'message' => 'No matching upload token was found');
+		}			
+
+	    $this->response($message, 200);    
     }
 
     function destroy_get()

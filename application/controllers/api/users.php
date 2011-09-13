@@ -150,7 +150,7 @@ class Users extends Oauth_Controller
         } 
 		else
 		{ 
-			$message = array('message' => 'Oops '.validation_errors());
+			$message = array('status' => 'error', 'message' => 'Oops '.validation_errors());
         }
         
         $this->response($message, 200);
