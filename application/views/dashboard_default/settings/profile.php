@@ -6,16 +6,17 @@
 		<div id="profile_picture">
 			<img id="profile_thumbnail" src="<?= $thumbnail ?>" border="0">
 		</div>
-		<div id="profile_picture_uploader">
-		<ul id="profile_picture_change" class="item_actions_list">
-			<li><a id="pickfiles" href="#"><span class="actions action_edit"></span> Upload A Picture</a></li>
+		<ul id="profile_picture_upload" class="item_actions_list">
+			<li id="uploading_pick"><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
+			<li id="uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
 		<?php if ($image): ?>
-			<li><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+			<li id="uploading_delete"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+			<li id="uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>
 		<?php else: ?>
-			<li class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>			
+			<li id="uploading_delete" class="hide"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+			<li id="uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>			
 		<?php endif; ?>
 		</ul>
-		</div>	
 		</td>
 	</tr>
 	<tr>
@@ -52,49 +53,46 @@
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.html5.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.flash.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.mediaUploader.js"></script>
 <script type="text/javascript">
 $(document).ready(function()
 {
 	// Profile Picture
-	$(this).mediaUploader(
+	$.mediaUploader(
 	{
 		max_size	: '<?= $upload_size ?>mb',
 		create_url	: base_url + 'api/users/upload_profile_picture/id/' + user_data.user_id,
 		formats		: {title : 'Image Files', extensions : '<?= $upload_formats ?>'},
 		start		: function(files)
-		{
-			// Hide / Replace Upload Link
-			$('#profile_picture_container').replaceWith('<ul id="profile_picture_container" class="item_actions_list"><li><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li></ul>');
-			$('#file_uploading_name').append(files[0].name);
+		{					
+			// Show Upload Link
+			$('#uploading_pick').hide(); 
+			$('#uploading_delete').hide();
+			$('#uploading_details').hide();
+			$('#uploading_status').show();
+			$('#file_uploading_name').html(files[0].name);
 		},
 		complete	: function(response)
 		{
-			// Hide Upload
-			$('#profile_picture_container').delay(750).fadeOut(function()
-			{
-				// Replace Uploading Status
-				$('#profile_picture_uploader').append('<ul id="profile_picture_container" class="item_actions_list"><li><a id="pickfiles" href="#"><span class="actions action_edit"></span> Change Picture</a></li><li><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li></ul>');
-				$('#profile_picture_container').delay(1250).fadeIn();
-			});
-		
+			// Replace Uploading Status
+			$('#uploading_status').delay(500).fadeOut();
+			$('#uploading_pick').delay(1250).fadeIn(); 
+			$('#uploading_delete').delay(1250).fadeIn();
+	
 			if (response.status == 'success')
 			{
 				$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/' + user_data.user_id + '/small_' + response.data)
 			}
 			else
-			{
-				console.log(response);
-			
+			{			
 				$('#content_message').notify({status:response.status,message:response.message});	
 			}		
 		}
 	});			
 	
 	// Delete Picture
-	$('#delete_picture').live('click', function(eve)
+	$('#delete_picture').live('click', function(e)
 	{	
-		eve.preventDefault();
+		e.preventDefault();
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,
@@ -105,14 +103,11 @@ $(document).ready(function()
 	  		{			
 				if (result.status == 'success')
 				{
-					$('#profile_picture_container').fadeOut(function()
+					$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/medium_nopicture.png');				
+					$('#uploading_delete').fadeOut('slow', function()
 					{
-						$(uploader_list).remove();
-						$(uploader_parent).append(uploader_create);
-						$(uploader_list).fadeIn('slow');
-												
-						$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/medium_nopicture.png');
-					});
+						$('#uploading_details').delay(500).fadeIn();
+					});					
 				}
 				else
 				{
@@ -123,20 +118,16 @@ $(document).ready(function()
 	});		
 
 	// Update Profile Data
-	$("#user_profile").bind('submit', function(eve)
+	$("#user_profile").bind('submit', function(e)
 	{	
-		eve.preventDefault();
-		var profile_data = $('#user_profile').serializeArray();
-	
-		console.log(profile_data);
-	
+		e.preventDefault();	
 		$(this).oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: $(this).attr('ACTION'),
 			type		: 'POST',
 			dataType	: 'json',
-			data		: profile_data,
+			data		: $('#user_profile').serializeArray(),
 	  		success		: function(result)
 	  		{
 				$('html, body').animate({scrollTop:0});

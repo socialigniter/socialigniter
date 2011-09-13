@@ -57,7 +57,7 @@ textarea.textarea_full		{ width: 625px; }
 .button_basic_on span		{ position: relative; top: 7px; left: 0; }
 .button_basic_on a			{ color: #efefef !important; text-shadow:1px 1px 1px #222222 !important; text-decoration: none; }
 
-.small_details				{ color: #999999; font-size: 12px; }
+.small_details				{ color: #999999; font-size: 12px; text-shadow: 1px 1px 1px #ffffff; }
 
 a.button_75					{ width: 75px; height: 27px; display: block; text-align: center; border: 1px solid #666666; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 14px; }
 a.button_basic_link 		{ background: url(images/button_basic.png) 0 0 repeat-x !important; color: #efefef !important; text-shadow:1px 1px 1px #222222 !important; }
@@ -128,7 +128,7 @@ div.content_wrap a:hover	{ color: #2078ce; text-decoration: underline; }
 
 div.content_line			{ width: 645px; background: url(images/content_norm_line.png) 0 0 repeat-x; margin: 0 0; padding: 10px 0 0 0; }
 div.content_wrap_inner		{ margin: 0 15px 25px 15px; }
-div.content_inner_top_right	{ width: 200px; float: right; position: relative; right: 0; top: -20px; }
+div.content_inner_top_right	{ width: 200px; float: right; position: relative; right: 0; top: 0; }
 
 div.content_columns			{ float: left; margin: 0 15px 0 0; padding: 0; }
 div.content_columns	h3		{ margin: 0 0 15px 0 !important; }
@@ -313,6 +313,7 @@ ul.item_actions_list li span		{ margin: 0 6px 0 0; position: relative; top: -1px
 /* Item Actions Icons */
 span.actions						{ width: 25px; height: 18px; display: block; float: left; background-image: url(images/item_actions_icons.png); position: relative; left: 0; top: 2px; }
 span.actions_blank					{ width: 27px; height: 18px; display: block; float: left; }
+span.actions_normal					{ width: 25px; height: 18px; display: block; background-image: url(images/item_actions_icons.png); position: relative; left: 0; top: 2px; }
 span.action_reply	 				{ background-position: 0 0; }
 span.action_delete 					{ background-position: -25px 0; }
 span.action_share 					{ background-position: -50px 0; margin: 0 6px 0 0; }
@@ -332,6 +333,9 @@ span.action_upload					{ background-position: -375px 0; }
 span.action_mobile_phone			{ background-position: -400px 0; }
 span.action_phone					{ background-position: -425px 0; }
 span.action_address					{ background-position: -450px 0; }
+span.action_right					{ background-position: -475px 0; }
+span.action_left					{ background-position: -500px 0; }
+span.action_down					{ background-position: -525px 0; }
 
 /* Feed Specific */
 span.item_comment_left				{ width: 24px; height: 32px; display: block; float: left; background: url(images/item_type_icons.png) 0 -455px; position: relative; left: 0; top: 4px; }
@@ -399,7 +403,7 @@ div.selectable_chosen:hover { color: #777777; }
 
 /* User Settings */
 #profile_picture					{ width: 48px; float: left; }
-#profile_picture_uploader			{ float: left; margin: 0 0 0 15px !important; }
+#profile_picture_upload				{ height: 50px; float: left; margin: 0 0 0 15px !important; }
 
 /* Places Editor */
 #place_address						{ width: 390px; float: left; }
@@ -426,7 +430,15 @@ div.selectable_chosen:hover { color: #777777; }
 .layout_selected					{ background: url(images/gradients_horizontal.png) 0 -50px repeat-x #f9f9f9; border: 1px solid #b3b3b3; color: #666666; }
 .layout_selected:hover				{ color: #999999 !important; }
 
-/* Settings - Widget */
+/* Categories Editor */
+#category_image_thumb				{ width: 48px; margin: 25px 0 35px 5px; float: left; }
+#category_image_thumb img			{ width: 48px; }
+#category_image_uploader			{ height: 50px; margin: 25px 0 35px 15px !important; float: left; }
+
+/* Settings */
+span.nav_apps_back					{ float: right; position: relative; top: -2px; right: 0px; margin: 0 0 0 5px; }
+
+/* Widget */
 div.widget_area h3					{ float: left; }
 div.widget_area input[type=button] 	{ float: right; display: block; position: relative; top: -6px; right: -10px; }
 div.widget_border					{ width: 100%; min-height: 25px; border: 4px dashed #999999; }

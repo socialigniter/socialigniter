@@ -397,9 +397,9 @@ $(document).ready(function()
 	}
 	
 	//Submitting a comment	
-	$(".item_comment_form").live("submit", function(eve)
+	$(".item_comment_form").live("submit", function(e)
 	{
-		eve.preventDefault();
+		e.preventDefault();
 		
 		$(this).find('[type=submit]').attr('disabled','true');
 		$this_form = $(this);
@@ -448,9 +448,9 @@ $(document).ready(function()
 	
 	
 	/* Add Category */
-	$('.category_select').live('click', function(eve) 
+	$('.category_select').live('click', function(e) 
 	{
-		eve.preventDefault();		
+		e.preventDefault();		
 		parent.$('#what').append('<option value=""></option>');
 		parent.$("#what option[value='value']").attr('selected', 'selected');        
 		parent.$.fancybox.close();	
@@ -459,15 +459,121 @@ $(document).ready(function()
 	
 	/* More Pannels */
 	$('.drop_pannel').hide();	
-	$(".more").click(function(eve)
+	$(".more").click(function(e)
 	{	
-		eve.preventDefault();
+		e.preventDefault();
 
 		var show_pannel = $(this).attr('href');
 
 		$(this).hide('normal');				
 		$('#'+show_pannel).show('fast');
 	});
+	
+
+	
+	/* Uploading Images Plugin */
+	(function($)
+	{
+		$.mediaUploader = function(options)
+		{	
+			var settings =
+			{
+				'max_size'		: '',
+				'create_url'	: '',
+				'formats'		: '',
+				'start'			: function(){},
+				'complete'		: function(){}
+			};
+						
+			options = $.extend({}, settings, options);
+			
+			// console.log('inside plugin');
+	
+			// Uploader Params
+			var uploader = new plupload.Uploader(
+			{
+				runtimeStyle	: 'html5,flash',
+				browse_button	: 'pickfiles',
+				container		: 'container',
+				max_file_size	: options.max_size,
+				max_file_count	: 1,
+				url 			: options.create_url,
+				flash_swf_url	: base_url + 'js/plupload.flash.swf',
+				multipart 		: true,
+				multipart_params: {'file_hash':'', 'upload_id':'', 'consumer_key':user_data.consumer_key},		
+				filters 		: [options.formats]
+			});
+		
+			// Initialize
+			uploader.bind('Init', function(up, params){});
+			
+			// Initialize Actually
+			uploader.init();
+	
+			// Add Files & Start Upload
+			uploader.bind('FilesAdded', function(up, files)
+			{	
+				var file_hash	= md5(files[0].name);
+				var file_data 	= [];
+				file_data.push({'name':'file_hash','value':file_hash});
+				
+				// Create Expectation (OAuth1 signed request)	
+				$(this).oauthAjax(
+				{
+					oauth 		: user_data,
+					url			: base_url + 'api/upload/create_expectation',
+					type		: 'POST',
+					dataType	: 'json',
+					data		: file_data,
+			  		success		: function(result)
+			  		{
+						if (result.status == 'success')
+						{
+							// Update Multipart Form Variables
+							uploader.settings.multipart_params.file_hash = files[0].name;
+							uploader.settings.multipart_params.file_hash = file_hash;
+							uploader.settings.multipart_params.upload_id = result.data;
+	
+							// Start Upload	& Callback	
+							uploader.refresh();
+							uploader.start();
+	
+							// Trigger Start Callback
+							options.start(files);
+						}
+						else
+						{
+							$('#content_message').notify({status:result.status,message:result.message});	
+						}
+				 	}
+				});		
+			});
+		
+			// Upload Progress
+			uploader.bind('UploadProgress', function(up, file)
+			{
+				$('#file_uploading_progress').html(file.percent + "%");
+			});
+			
+			// Upload Error
+			uploader.bind('Error', function(up, err)
+			{
+				$('#content_message').notify({status:'error', message:err.message}); 
+				uploader.refresh();
+			});
+		
+			// Upload Success
+			uploader.bind('FileUploaded', function(up, file, res)
+			{			
+				$('#file_uploading_progress').html("100%");
+				var response = JSON.parse(res.response);
+					
+				// Refresh & Trigger Complete Callback
+				uploader.refresh();
+				options.complete(response);							
+			});
+		}
+	})(jQuery);
 
 
 	/* Category Editor Plugin */
@@ -582,128 +688,202 @@ $(document).ready(function()
 		};
 	})(jQuery);
 	
+	
 	/* Category Manager Plugin */
 	(function($)
 	{
 		$.categoryManager = function(options)
 		{
 			var settings = {
-				url_api		: '',
-				url_pre		: '',
-				url_sub		: '',
+				action		: '',
 				module		: '',
 				type		: '',
 				title		: '',
-				slug_value	: '',
-				details		: '',
-				trigger		: '',
+				data		: '',
 				after 		: function(){}
 			};
-			
-			options = $.extend({},settings,options);
-			
-			// Repopulates trigger dropdown
-			function update_category_select(where_to)
-			{
-				$.get(options.url_api, function(json)
-				{
-					if (json.status == 'success')
-					{
-						for(x in json.data)
-						{
-							$(where_to).append('<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>');
-						}
-						$.uniform.update(where_to);
-						
-						$(where_to).prepend('<option value="0">---select---</option>');
-						$(where_to).append('<option value="add_category">+ Add Category</option>');
-					}
-				});
-			}					
-		
-			// Gets the HTML template
-			$.get(base_url + 'home/category_manager',{},function(category_editor)
-			{				
-				var category_parents 	= '';
-				var slug_url			= options.url_pre + '/';
-	
-				// API to get categories for parent
-				$.get(options.url_api, function(json)
-				{
-					if (json.status == 'success')
-					{
-						for(x in json.data)
-						{
-							category_parents = category_parents+'<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>';
-						}
-					}
-							
-					// Update HTML
-					html = $(category_editor)
-						.find('#editor_title').html(options.title).end()
-						.find('#category_access').uniform().end()
-						.find('#category_thumbnail').uniform().end()
-						.find('#category_parent_id').append(category_parents).uniform().end()
-					.html();
 
-					$('<div />').html(html).dialog(
+			options = $.extend({}, settings, options);
+			
+			// Action & URLs
+			if (options.action == 'edit')
+			{
+				var partial_url	= 'home/category_manager/' + options.data;
+				var action_url	= 'api/categories/modify/id/' + options.data;
+			}
+			else
+			{
+				var partial_url = 'home/category_manager';
+				var action_url	= 'api/categories/create';
+			}			
+
+			// Gets HTML template
+			$.get(base_url + partial_url, {}, function(html_partial)
+			{
+				$('<div />').html(html_partial).dialog(
+				{
+					width	: 525,
+					modal	: true,
+					title	: options.title,
+					create	: function()
 					{
-						width	: 525,
-						modal	: true,
-						title	: options.title,
-						create	: function()
+						$category_editor = $(this);	
+
+						$('#category_name').slugify(
 						{
-							$('#category_parent_id').live('change', function(){$.uniform.update(this);});							
-							$('#category_name').slugify({slug:'#category_slug', url:options.url_pre, name:'category_url', slugValue:options.slug_value });						
-						},
-						buttons	:
+							slug	  : '#category_slug', 
+							url		  : base_url + options.module + '/', 
+							name	  : 'category_url', 
+							slugValue : $(html_partial).find('#category_slug').html()
+						});										
+					},
+					open: function()
+					{
+/*						// Instantiate Uploader
+						var uploader = new plupload.Uploader(
 						{
-				        	'Close':function()
-				        	{
-				          		$(this).dialog('close');
-				        	},
-				        	'Save':function()
-				        	{
-				        		alert('will be saved');
-				        		
-								// Create Category
-/*								$('#new_category').bind('submit',function(e)
-								{
-									e.preventDefault();
-									e.stopPropagation();
-									
-									var category_data = $('#new_category').serializeArray();
-									category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type},{'name':'details','value':options.details});
-																	
-									$(this).oauthAjax(
+							runtimeStyle	: 'html5,flash',
+							browse_button	: 'pickfiles',
+							container		: 'container',
+							max_file_size	: '2mb',
+							max_file_count	: 1,
+							url 			: base_url + 'api/categories/upload_picture/id',
+							flash_swf_url	: base_url + 'js/plupload.flash.swf',
+							multipart 		: true,
+							multipart_params: {'file_hash':'', 'upload_id':'', 'consumer_key':user_data.consumer_key},		
+							filters 		: [{title : 'Image Files', extensions : 'gif,jpg,jpeg,png'}],
+							multi_selection : false
+
+						});
+					
+						// Initialize
+						uploader.bind('Init', function(up, params)
+						{
+							console.log('in InIt');
+							console.log(params);	
+						});
+						
+						// Initialize Actually
+						uploader.init();
+						
+						console.log(uploader);
+						
+						uploader.refresh();	
+						
+						$('#pickfiles').live('click', function(e) 
+						{
+							console.log('INSIDE da Neu Click');
+					        
+					       	var uploader = $('#category_image_upload').plupload('getUploader');
+					        // Files in queue upload them first
+					        if (uploader.files.length > 0) 
+					        {
+					            // When all files are uploaded submit form
+					            uploader.bind('StateChanged', function() 
+					            {
+					                if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed))
+					                {
+					                    $('form')[0].submit();
+					                }
+					            });
+					                
+					            uploader.start();
+					        } 
+					        else
+					        {
+					            alert('You must at least upload one file.');
+							}
+					        return false;
+					    });						
+																					
+						// Add Files & Start Upload
+						uploader.bind('FilesAdded', function(up, files)
+						{	
+							console.log('in FilesAdded');
+							console.log(files);
+							
+							var file_hash	= md5(files[0].name);
+							var file_data 	= [];
+							file_data.push({'name':'file_hash','value':file_hash});
+							
+							// Create Expectation (OAuth1 signed request)	
+							$(this).oauthAjax(
+							{
+								oauth 		: user_data,
+								url			: base_url + 'api/upload/create_expectation',
+								type		: 'POST',
+								dataType	: 'json',
+								data		: file_data,
+						  		success		: function(result)
+						  		{
+									if (result.status == 'success')
 									{
-										oauth 		: user_data,
-										url			: options.url_sub,
-										type		: 'POST',
-										dataType	: 'json',
-										data		: category_data,
-										success		: function(json)
-										{																			  	
-											if(json.status == 'error')
-											{
-												generic_error();
-											}
-											else
-											{
-												$(options.trigger).empty();
-												update_category_select(options.trigger);
-												$.fancybox.close();
-											}	
-										}
-									});
-									
-									return false;
-								});
-*/				        					        		
-				        	}
-				        }				    
-				    });				
-				});
+										// Update Multipart Form Variables
+										uploader.settings.multipart_params.file_hash = files[0].name;
+										uploader.settings.multipart_params.file_hash = file_hash;
+										uploader.settings.multipart_params.upload_id = result.data;
+					
+										// Start Upload	& Callback	
+										uploader.refresh();
+										uploader.start();
+					
+										// Trigger Start Callback
+									}
+							 	}
+							});		
+						});
+					
+						// Upload Progress
+						uploader.bind('UploadProgress', function(up, file)
+						{
+							$('#file_uploading_progress').html(file.percent + "%");
+						});
+						
+						// Upload Error
+						uploader.bind('Error', function(up, err)
+						{
+							uploader.refresh();
+						});
+					
+						// Upload Success
+						uploader.bind('FileUploaded', function(up, file, res)
+						{			
+							$('#file_uploading_progress').html("100%");
+							var response = JSON.parse(res.response);
+					
+							uploader.refresh();
+							// Trigger Complete Callback
+						});		
+*/				
+					},
+					buttons	:
+					{
+			        	'Close':function()
+			        	{
+			          		$category_editor.dialog('close');
+			          		$category_editor.remove();
+			        	},
+			        	'Save':function()
+			        	{
+							var category_data = $('#category_editor').serializeArray();
+							category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type});
+							
+							$(this).oauthAjax(
+							{
+								oauth 		: user_data,
+								url			: base_url + action_url,
+								type		: 'POST',
+								dataType	: 'json',
+								data		: category_data,
+								success		: function(result)
+								{								
+		          					$category_editor.dialog('close');
+		          					$category_editor.remove();
+								}
+							});
+			        	}
+			        }				    
+			    });  
 			});
 		};
 	})(jQuery);
