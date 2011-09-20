@@ -177,7 +177,12 @@ class Users extends Oauth_Controller
         	// Attempt Login
         	if ($this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
         	{
-		        $message = array('status' => 'success', 'message' => 'Success you will now be logged in');
+        		// Get User Data
+        		$user = $this->social_auth->get_user('email', $this->input->post('email'));
+        		$user->email = $this->input->post('email');
+				$meta = $this->social_auth->get_user_meta($user->user_id);
+        	
+		        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta', $meta);
 	        }
 	        else
 	        {
