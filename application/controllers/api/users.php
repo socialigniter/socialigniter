@@ -275,7 +275,33 @@ class Users extends Oauth_Controller
         }
         
         $this->response($message, 200);
-    }    
+    }   
+    
+    function logout_authd_get()
+    {
+	    $this->session->unset_userdata('email');
+
+		foreach (config_item('user_data') as $item)
+		{	
+		    $this->session->unset_userdata($item);	    
+	    }		
+	    
+	    if (get_cookie('email')) 
+	    {
+	    	delete_cookie('email');	
+	    }
+	    
+		if (get_cookie('remember_code')) 
+	    {
+	    	delete_cookie('remember_code');	
+	    }
+	    
+		$this->session->sess_destroy();
+
+		$message = array('status' => 'success', 'message' => 'Success you have been logged out');
+        
+        $this->response($message, 200);
+    } 
     
     function set_userdata_signup_email_post()
 	{
