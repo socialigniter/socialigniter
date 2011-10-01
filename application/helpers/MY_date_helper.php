@@ -150,28 +150,40 @@ function unix_to_mysql($time = '')
 
 function friendly_to_mysql_date($date = '')
 {
-	$parts	= explode('/', $date);	
-	$date	= $parts[2].'-'.$parts[0].'-'.$parts[1];
-	return $date;
+	$parts	= explode('/', $date);
+	$return	= '0000-00-00';
+	
+	if (array_key_exists(2, $parts))
+	{
+		$return = $parts[2].'-'.$parts[0].'-'.$parts[1];
+	}
+	
+	return $return;
 }
 
 function friendly_to_mysql_time($time = '')
 {
-	$parts		= explode(':', $time);
-	$hours		= sprintf('%02d', $parts[0]);
-	$minutes	= $parts[1];
+	$parts	= explode(':', $time);
+	$return	= '00:00:00';
 
-	$check_pm = preg_match('/(P|p)(M|m)/', $time);
-	
-	if ($check_pm)
+	if (array_key_exists(1, $parts))
 	{
-		$hours = $hours + 12;
-	}
-
-	$clean_minutes	= preg_replace(array('( )', '/(P|p)(M|m)/', '/(A|a)(M|m)/'), '', $minutes);
-	$minutes		= sprintf('%02d', $clean_minutes);	
+		$hours		= sprintf('%02d', $parts[0]);
+		$minutes	= $parts[1];
+	
+		$check_pm = preg_match('/(P|p)(M|m)/', $time);
 		
-	return $hours.':'.$minutes.':00';
+		if ($check_pm)
+		{
+			$hours = $hours + 12;
+		}
+	
+		$clean_minutes	= preg_replace(array('( )', '/(P|p)(M|m)/', '/(A|a)(M|m)/'), '', $minutes);
+		$minutes		= sprintf('%02d', $clean_minutes);
+		$return			= $hours.':'.$minutes.':00';
+	}
+		
+	return $return;
 }
 
 // RETURNS DATE VALUES AS INVIDUAL ELEMENTS OF MySQL DATE

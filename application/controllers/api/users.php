@@ -197,6 +197,112 @@ class Users extends Oauth_Controller
         $this->response($message, 200);    
     }
     
+    function signup_post()
+    {
+    	$this->form_validation->set_rules('name', 'Name', 'required');
+    	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
+    	$this->form_validation->set_rules('password', 'Password', 'required|min_length['.config_item('min_password_length').']|max_length['.$this->config->item('max_password_length').']|strong_pass['.config_item('password_strength').']|matches[password_confirm]');
+    	$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
+
+        if ($this->form_validation->run() == true)
+        {
+			$username			= url_username($this->input->post('name'), 'none', true);
+	    	$email				= $this->input->post('email');
+	    	$password			= $this->input->post('password');
+	    	$additional_data 	= array(
+	    		'name'			=> $this->input->post('name'),
+	    		'image'			=> ''
+	    	);
+	    	        	
+	    	if ($user = $this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group')))
+	    	{
+				$data = array(
+					'name'	   => $user->name,
+					'username' => $user->username,
+	        		'email'    => $user->email
+				);
+	
+				// If Activation Email
+				if (config_item('email_activation') == false)
+				{
+					$message = $this->load->view(config_item('email_templates').config_item('email_signup'), $data, true);
+
+					$this->email->from(config_item('site_admin_email'), config_item('site_title'));
+					$this->email->to($user->email);
+					$this->email->subject(config_item('site_title').' thanks you for signing up');
+					$this->email->message($message);
+					$this->email->send();
+				}
+				else
+				{		
+					$data = array(
+						'email'   	 => $user->email,
+						'user_id'    => $user->user_id,
+						'email'      => $user->email,
+						'activation' => $user->activation_code,
+					);
+		            
+					$message = $this->load->view(config_item('email_templates').config_item('email_activate'), $data, true);
+		
+					$this->email->from(config_item('site_admin_email'), config_item('site_title'));
+					$this->email->to($user->email);
+					$this->email->subject(config_item('site_title') . ' - Account Activation');
+					$this->email->message($message);
+					$this->email->send();
+				}
+				
+				// Login User
+	        	if ($this->social_auth->login($user->email, $this->input->post('password'), TRUE))
+	        	{
+	        		// Get User Data
+					$meta = $this->social_auth->get_user_meta($user->user_id);
+	        	
+			        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta', $meta);
+		        }
+		        else
+		        {
+			        $message = array('status' => 'error', 'message' => 'Oops could not log you in');
+		        }				
+	   		}
+	   		else
+	   		{
+		        $message = array('status' => 'error', 'message' => 'Oops could not create user');
+	   		}     
+        } 
+		else
+		{ 
+			$message = array('status' => 'error', 'message' => 'Oops '.validation_errors());
+        }
+        
+        $this->response($message, 200);
+    }   
+    
+    function logout_authd_get()
+    {
+	    $this->session->unset_userdata('email');
+
+		foreach (config_item('user_data') as $item)
+		{	
+		    $this->session->unset_userdata($item);	    
+	    }		
+	    
+	    if (get_cookie('email')) 
+	    {
+	    	delete_cookie('email');	
+	    }
+	    
+		if (get_cookie('remember_code')) 
+	    {
+	    	delete_cookie('remember_code');	
+	    }
+	    
+		$this->session->sess_destroy();
+
+		$message = array('status' => 'success', 'message' => 'Success you have been logged out');
+        
+        $this->response($message, 200);
+    } 
+    
     function set_userdata_signup_email_post()
 	{
     	$this->form_validation->set_rules('signup_email', 'Email Address', 'required|valid_email');
