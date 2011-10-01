@@ -47,7 +47,7 @@ $(document).ready(function()
 		eve.preventDefault();
 		var install_app = $(this).attr('rel');
 	
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: $(this).attr('href'),

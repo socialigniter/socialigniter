@@ -13,11 +13,10 @@ code { font-family: Monaco, Verdana, Sans-serif; font-size: 12px; background-col
 div.separator { border-bottom: 1px double #999999; }
 </style>
 <link rel="icon" type="image/png" href="<?= $site_images  ?>favicon.png" />
-<script type="text/javascript" src="<?= base_url() ?>js/jquery-1.5.1.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/jquery.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.url.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/social.auth.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/oauth.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/sha1.js"></script>
 <script type="text/javascript">
 // oauthAjax plugin allows ajax request to be signed with oauth token
 (function($)
@@ -73,7 +72,7 @@ $(document).ready(function()
 	{
 		eve.preventDefault();
 				
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			url			: base_url + 'api/sandbox',
 			type		: 'POST',

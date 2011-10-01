@@ -36,7 +36,7 @@ $(document).ready(function()
 					widget_data.order = count;
 					var new_widget_data = [{'name':'value','value':JSON.stringify(widget_data)}];
 				
-					$(this).oauthAjax(
+					$.oauthAjax(
 					{
 						oauth 	 : user_data,
 						url		 : base_url + 'api/settings/modify_widget/id/' + settings_id,
@@ -173,7 +173,7 @@ $(document).ready(function()
 							del_e.stopPropagation();
 					    	del_e.preventDefault();
 
-							$(this).oauthAjax(
+							$.oauthAjax(
 							{
 								oauth 		: user_data,
 								url			: base_url + 'api/settings/destroy/id/' + settings_id,

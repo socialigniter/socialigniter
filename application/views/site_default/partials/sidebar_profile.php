@@ -76,7 +76,7 @@ $(document).ready(function()
 		});
 		return;
 		<?php endif; ?>
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/relationships/' + follow_word + '/id/<?= $user_id; ?>',
@@ -111,7 +111,7 @@ $(document).ready(function()
 		var message_data = $('#message_button').serializeArray();
 		message_data.push({'name':'receiver_id','name':user_data.user_id},{'name':'module','value':'messages'},{'name':'type','value':'personal'});
 
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/messages/send',

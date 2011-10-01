@@ -60,7 +60,7 @@ $(document).ready(function()
 		// Is Valid		
 		if (comment == true)
 		{								
-			$(this).oauthAjax(
+			$.oauthAjax(
 			{			
 				oauth 		: user_data,
 				url			: base_url + 'api/comments/create',
@@ -189,7 +189,7 @@ $(document).ready(function()
 			var comment_count_updated	= parseInt(comment_count_current)-1;		
 		}
 
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: comment_delete,

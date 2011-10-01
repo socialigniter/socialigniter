@@ -53,7 +53,7 @@ $(document).ready(function()
 		e.preventDefault();
 		var profile_data = $('#user_profile').serializeArray();
 	
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: $(this).attr('ACTION'),

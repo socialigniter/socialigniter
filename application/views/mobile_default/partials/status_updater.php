@@ -39,7 +39,7 @@ $("#status_update").bind("submit", function(eve)
 		var status_data	= $('#status_update').serializeArray();
 		status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
 
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/content/create',

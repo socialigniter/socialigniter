@@ -50,7 +50,7 @@ $(document).ready(function()
 		var follow_data = $('#follow_button').serializeArray();
 		follow_data.push({'name':'module','value':'users'});
 
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/relationships/' + follow_word + '/id/<?= $user_id; ?>',
@@ -86,7 +86,7 @@ $(document).ready(function()
 		var message_data = $('#message_button').serializeArray();
 		message_data.push({'name':'receiver_id','name':<?= $user_id ?>},{'name':'module','value':'messages'},{'name':'type','value':'personal'});
 
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/messages/send',

@@ -15,9 +15,7 @@
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.jplayer.min.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.url.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.fancybox.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/oauth.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/sha1.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.oauthajax.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/social.auth.js"></script>
 <script type="text/javascript">
 //Global User Data:
 var user_data = {

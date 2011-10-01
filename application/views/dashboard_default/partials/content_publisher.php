@@ -60,7 +60,7 @@ $(document).ready(function()
 		eve.preventDefault();
 		var type = $(this).attr('name');
 
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/content/' + type + '/id/<?= $content_id ?>',

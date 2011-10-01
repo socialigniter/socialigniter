@@ -86,7 +86,7 @@ $(document).ready(function()
 		var category_data = $('#category_editor').serializeArray();
 		
 		e.preventDefault();
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/categories/modify/id/' + jQuery.url.segment(3),

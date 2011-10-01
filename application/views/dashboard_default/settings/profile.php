@@ -93,7 +93,7 @@ $(document).ready(function()
 	$('#delete_picture').live('click', function(e)
 	{	
 		e.preventDefault();
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/users/delete_profile_picture/id/' + user_data.user_id,
@@ -121,7 +121,7 @@ $(document).ready(function()
 	$("#user_profile").bind('submit', function(e)
 	{	
 		e.preventDefault();	
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: $(this).attr('ACTION'),

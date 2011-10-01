@@ -8,7 +8,7 @@ $(document).ready(function()
 		var settings_data = $('#settings_update').serializeArray();
 		settings_data.push({'name':'module','value':'<?= $this_module ?>'});	
 	
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/settings/modify',
@@ -28,7 +28,7 @@ $(document).ready(function()
 		console.log('uninstall clicked');
 	
 		eve.preventDefault();
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/install/uninstall/app/<?= $this_module ?>',
@@ -47,7 +47,7 @@ $(document).ready(function()
 		console.log('reinstall clicked');
 	
 		eve.preventDefault();
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/<?= $this_module ?>/reinstall',

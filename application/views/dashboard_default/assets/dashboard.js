@@ -48,7 +48,7 @@ function getCountNew(element)
 	var current_class	= $(element).attr('class');
 	var type			= $(element).attr('rel');
 	
-	$(this).oauthAjax(
+	$.oauthAjax(
 	{
 		oauth 		: user_data,		
 		url			: base_url + 'api/' + type + '/new',
@@ -155,7 +155,7 @@ $(document).ready(function()
 		var current_new_count	= $(feed_count_new).html();
 		var updated_new_count	= current_new_count - 1;
 
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,		
 			url			: url_new,
@@ -191,7 +191,7 @@ $(document).ready(function()
 		var item_type			= $(this).attr('rel');		
 		var item_url			= base_url + 'api/' + item_type + '/approve/id/' + item_id;
 				
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,		
 			url			: item_url,
@@ -217,7 +217,7 @@ $(document).ready(function()
 		var item_id				= item_attr_array[3];
 		var item_url			= base_url + 'api/content/save/id/' + item_id;
 				
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,		
 			url			: item_url,
@@ -244,7 +244,7 @@ $(document).ready(function()
 		var item_id				= item_attr_array[3];
 		var item_url			= base_url + 'api/content/publish/id/' + item_id;
 				
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,		
 			url			: item_url,
@@ -271,7 +271,7 @@ $(document).ready(function()
 		var item_url			= $(this).attr('href');
 		var item_element		= '#item_' + item_id;
 	
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,		
 			url			: item_url,
@@ -300,7 +300,7 @@ $(document).ready(function()
 		var item_id				= item_attr_array[3];
 		var item_url			= base_url + 'api/users/activate/id/' + item_id;
 				
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,		
 			url			: item_url,
@@ -409,7 +409,7 @@ $(document).ready(function()
 		var comment 		= isFieldValid(this_textarea, 'Write comment...', 'Please write something!');
 		if (comment == true)
 		{	
-			$(this).oauthAjax(
+			$.oauthAjax(
 			{
 				oauth 		: user_data,			
 				url			: base_url + 'api/comments/create',
@@ -518,7 +518,7 @@ $(document).ready(function()
 				file_data.push({'name':'file_hash','value':file_hash});
 				
 				// Create Expectation (OAuth1 signed request)	
-				$(this).oauthAjax(
+				$.oauthAjax(
 				{
 					oauth 		: user_data,
 					url			: base_url + 'api/upload/create_expectation',
@@ -657,7 +657,7 @@ $(document).ready(function()
 								var category_data = $('#new_category').serializeArray();
 								category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type},{'name':'details','value':options.details});
 															
-								$(this).oauthAjax(
+								$.oauthAjax(
 								{
 									oauth 		: user_data,
 									url			: options.url_sub,
@@ -808,7 +808,7 @@ $(document).ready(function()
 							file_data.push({'name':'file_hash','value':file_hash});
 							
 							// Create Expectation (OAuth1 signed request)	
-							$(this).oauthAjax(
+							$.oauthAjax(
 							{
 								oauth 		: user_data,
 								url			: base_url + 'api/upload/create_expectation',
@@ -869,7 +869,7 @@ $(document).ready(function()
 							var category_data = $('#category_editor').serializeArray();
 							category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type});
 							
-							$(this).oauthAjax(
+							$.oauthAjax(
 							{
 								oauth 		: user_data,
 								url			: base_url + action_url,

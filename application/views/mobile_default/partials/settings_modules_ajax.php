@@ -8,7 +8,7 @@ $(document).ready(function()
 		var settings_data = $('#settings_update').serializeArray();
 		settings_data.push({'name':'module','value':'<?= $this_module ?>'});	
 	
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: '<?= base_url() ?>api/settings/modify',

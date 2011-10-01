@@ -99,7 +99,7 @@ $(document).ready(function()
 		var details_data = $('#user_mobile_add').serializeArray();
 		details_data.push({'name':'module','value':'users'});		
 	
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: $(this).attr('ACTION'),

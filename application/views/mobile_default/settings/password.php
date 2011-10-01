@@ -23,7 +23,7 @@ $(document).ready(function()
 	{
 		e.preventDefault();
 	
-		$(this).oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: $(this).attr('ACTION'),

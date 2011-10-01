@@ -66,7 +66,7 @@ $(document).ready(function()
 							var phone_data = $('#mobile_phone_editor').serializeArray();
 							phone_data.push({'name':'module','value':'users'});		
 						
-							$(this).oauthAjax(
+							$.oauthAjax(
 							{
 								oauth 		: user_data,
 								url			: base_url + 'api/users/mobile_add',
@@ -129,7 +129,7 @@ $(document).ready(function()
 						var phone_data = $('#user_mobile_add').serializeArray();
 						phone_data.push({'name':'module','value':'users'});		
 					
-						$(this).oauthAjax(
+						$.oauthAjax(
 						{
 							oauth 		: user_data,
 							url			: modify_url,
@@ -174,7 +174,7 @@ $(document).ready(function()
 			{
 				'Yes':function()
 				{
-					$(this).oauthAjax(
+					$.oauthAjax(
 					{
 						oauth 		: user_data,
 						url			: delete_url,
@@ -237,7 +237,7 @@ $(document).ready(function()
 			{
 				'Yes':function()
 				{
-					$(this).oauthAjax(
+					$.oauthAjax(
 					{
 						oauth 		: user_data,
 						url			: delete_url,
