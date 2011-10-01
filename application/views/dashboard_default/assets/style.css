@@ -240,6 +240,7 @@ span.item_manage_title				{ width: 400px; height: 30px; float: left; margin: 10p
 span.item_manage_title a			{ font-size: 16px; line-height: 16px; color: #666666; text-shadow:1px 1px 1px #FFF; }
 span.item_manage_title a:visited 	{ color: #666666; text-shadow:1px 1px 1px #FFF; }
 span.item_manage_meta				{ width: 450px; display: block; float: left; margin: 0 0 0 48px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
+span.item_manage_meta_generic		{ width: 450px; display: block; float: left; margin: 0 0 0 15px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
 span.item_manage_meta span span 	{ position: relative; top: -2px; left: 0; }
 span.item_manage_categories_meta	{ width: 450px; display: block; float: left; margin: 0 0 0 15px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
 
@@ -400,6 +401,17 @@ div.selectable_chosen:hover { color: #777777; }
 .ui-dialog-buttonset button			{ margin: 0 15px 0 0; }
 .ui-dialog-buttonset button:hover 	{ height: 29px; background: url(images/button_basic_hover.png) 0 0 repeat-x #979595; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
 .ui-widget-overlay 					{ background:#000 !important; filter:alpha(opacity=60);opacity:.6; position: absolute; top: 0px; left: -15px; width: 100%; height: 100%; margin: 0 !important; }
+
+/* jQuery UI Calendar */
+.ui-datepicker 						{ width: 17em; padding: .2em .2em 0; z-index: 9999 !important; }
+#ui-datepicker-div 					{ background:#f9f9f9; border:1px solid #ccc; padding:5px; display:none; -webkit-box-shadow:rgba(0,0,0,0.25) 0 0 5px; border-bottom-left-radius:5px; border-bottom-right-radius:5px; }
+.ui-datepicker-calendar td 			{ text-align:center; }
+.ui-datepicker-calendar a 			{ color:#5C82FF; padding:5px; font-size:12px; }
+.ui-datepicker-title 				{ font-size:14px; font-weight:bold; font-style:italic; padding:10px 5px; }
+.ui-datepicker-next,.ui-datepicker-prev { cursor:pointer; }
+.ui-datepicker-next 				{ float:right; }
+.ui-datepicker-next:after 			{ content:'\000BB'; }
+.ui-datepicker-prev:before			{ content:'\000AB'; }
 
 /* User Settings */
 #profile_picture					{ width: 48px; float: left; }

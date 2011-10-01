@@ -724,6 +724,7 @@ $(document).ready(function()
 				{
 					width	: 525,
 					modal	: true,
+					close	: function(){$(this).remove()},				
 					title	: options.title,
 					create	: function()
 					{
