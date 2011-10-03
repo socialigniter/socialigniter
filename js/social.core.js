@@ -1097,49 +1097,144 @@ Array.prototype.remove = function(from, to) {
 })(jQuery);
 
 
-// jQuery Plugin for making OAuth API calls
 (function($)
 {
-	$.fn.oauthAjax = function(settings)
+	$.validator = function(options) 
 	{
-		var oauth_consumer_key 		= settings.oauth.consumer_key;
-		var oauth_consumer_secret 	= settings.oauth.consumer_secret;
-		var oauth_token				= settings.oauth.token;
-		var oauth_token_secret 		= settings.oauth.token_secret;		
-
-		var accessor = { 
-			consumerSecret	: oauth_consumer_secret,
-			tokenSecret		: oauth_token_secret
-		};	
-		
-		var parameters = [
-			["oauth_consumer_key", oauth_consumer_key],
-			["oauth_token", oauth_token]
-		];
-		
-		if (settings.data)
+		var defaults = 
 		{
-			for (var i = 0; i < settings.data.length; i++)
-			{
-				parameters.push([settings.data[i].name, settings.data[i].value]);
-			}
-		}
-				
-		var message = {
-			method: settings.type || "GET",
-			action: settings.url,
-			parameters: parameters
-		}
-		
-		OAuth.setTimestampAndNonce(message);
-		OAuth.SignatureMethod.sign(message, accessor);
-		
-		var oldBeforeSend = settings.beforeSend;
-		settings.beforeSend = function(xhr) {
-			xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters))
-			if (oldBeforeSend) oldBeforeSend(xhr);
+			elements	: [], 		// Array of elements, contains: selector, rule, holder, message
+			holder		: false,	// Does placeholder for non HTML5 browsers
+			messages	: '',		// Will eventual give choice of either: alert, label, or red text
+			success		: function(){},
+			failed		: function(error_messages){}
 		};
-	
-		jQuery.ajax(settings);
+
+		var settings		= $.extend(defaults, options);
+		var valid_count		= 0;
+		var invalid_count	= 0;
+		var element_count	= settings.elements.length;
+		var error_messages	= '';
+		
+		// Validate Rules
+		function validateRequire(value)
+		{
+			if (value != '')
+			{
+				return true;
+			}
+			return false;
+		}
+
+		function validateEmail(email)
+		{
+			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+			return pattern.test(email);
+		}
+
+		function validateConfirm(value, confirm_selector)
+		{
+			var confirm_source	= confirm_selector.replace('_confirm', ''); 
+			var confirm_value	= $(confirm_source).val();
+			var confirm_state	= false;
+			
+			if (value == confirm_value)
+			{
+				confirm_state = true;
+			}
+
+			return confirm_state;
+		}		
+		
+		// Message Types
+		function messageLabel(selector, message)
+		{		
+			$(selector + '_message').html(message);
+		}
+		
+		function messageElement(selector, message)
+		{
+			$(selector).val(message);
+		}
+		
+				
+		// Loops through 'elements' and runs values
+		$.each(settings.elements, function(index, element)
+		{		
+			var validate = $(element.selector).val();
+			var is_valid = false;
+			
+			// Validate By Rule
+			if (element.rule == 'require')
+			{
+				is_valid = validateRequire(validate);				
+			}
+			else if (element.rule == 'email')
+			{
+				is_valid = validateEmail(validate);
+			}
+			else if (element.rule == 'confirm')
+			{
+				is_valid = validateConfirm(validate, element.selector);
+			}
+			else
+			{
+				is_valid = false;
+			}
+			
+			// Hand Not Valid
+			if (!is_valid)
+			{			
+				// Process Message Type
+				if (settings.messages == 'callback')
+				{
+					error_messages += ' ' + element.message + ',';
+				}
+				else if (settings.messages == 'label')
+				{
+					messageLabel(element.selector, element.message);
+				}
+				else if (settings.messages == 'element')
+				{
+					messageElement(element.selector, element.message);
+				}	
+				else
+				{
+					alert(element.message);				
+				}		
+			}
+			else
+			{
+				valid_count++;
+			}
+		});
+		
+		// Fire Success / Error Callback
+		if (valid_count == element_count)
+		{
+			settings.success();
+		}
+		else
+		{
+			var error_output = error_messages.substring(0, error_messages.length - 1);
+			settings.failed(error_output);
+		}
 	};
 })(jQuery);
+
+
+// Add Prototype Leading Zero
+Number.prototype.padZero= function(len){
+ var s= String(this), c= '0';
+ len= len || 2;
+ while(s.length < len) s= c + s;
+ return s;
+}
+
+
+// Select Box To Time
+var convertSelectBoxToTime = function(hour, minute, me)
+{
+	var v = $(hour).val() + ':' + $(minute).val() + ' ' + $(me).val();
+	return v;
+}
