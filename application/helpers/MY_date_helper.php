@@ -41,7 +41,7 @@ if ( ! function_exists('standard_date'))
 	}
 }
 
-function human_date($fmt = 'MONTH_DAY_YEAR', $time = '')
+function human_date($fmt='MONTH_DAY_YEAR', $time='')
 {
 	$formats = array(
 		'TIME'							=> '%g:%i %A',
@@ -148,7 +148,7 @@ function unix_to_mysql($time = '')
 	return mdate($mysql, $time);
 }
 
-function friendly_to_mysql_date($date = '')
+function friendly_to_mysql_date($date='')
 {
 	$parts	= explode('/', $date);
 	$return	= '0000-00-00';
@@ -161,7 +161,20 @@ function friendly_to_mysql_date($date = '')
 	return $return;
 }
 
-function friendly_to_mysql_time($time = '')
+function mysql_to_friendly_date($date='')
+{
+	$parts	= explode('-', $date);
+	$return	= '00/00/0000';
+	
+	if (array_key_exists(2, $parts))
+	{
+		$return = $parts[1].'/'.$parts[2].'/'.$parts[0];
+	}
+	
+	return $return;
+}
+
+function friendly_to_mysql_time($time='')
 {
 	$parts	= explode(':', $time);
 	$return	= '00:00:00';
@@ -182,7 +195,7 @@ function friendly_to_mysql_time($time = '')
 		$minutes		= sprintf('%02d', $clean_minutes);
 		$return			= $hours.':'.$minutes.':00';
 	}
-		
+
 	return $return;
 }
 
@@ -364,4 +377,58 @@ function get_days_in_month($month=FALSE)
 	}
 
 	return $days;
+}
+
+function get_hour_minute_from_mysql($time='')
+{
+	if (strlen($time) == 19)
+	{
+		$hour = substr($time, -8, 2);
+		$time = substr($time, -8, 5);
+	}
+	else
+	{
+		$hour = substr($time, 0, 2);
+		$time = substr($time, 0, -3);
+	}
+	
+	if ($hour > 12)
+	{
+		$parts	= explode(':', $time);
+		$hour	= $parts[0] - 10;
+		$result = sprintf('%02d', $hour).':'.$parts[1];
+	}
+	else
+	{
+		$result = $time;
+	}
+	
+	return $result;
+}
+
+function get_meridian_from_mysql($time='')
+{
+	if (strlen($time) == 8)
+	{
+		$hour = substr($time, 0, 2);
+	}
+	elseif (strlen($time) == 19)
+	{
+		$hour = substr($time, -8, 2);		
+	}
+	else
+	{
+		$hour = 0;
+	}
+	
+	if ($hour > 12)
+	{
+		$result = 'PM';
+	}
+	else
+	{
+		$result = 'AM';
+	}	
+
+	return $result;
 }
