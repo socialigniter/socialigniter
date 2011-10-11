@@ -173,9 +173,19 @@ class Users extends Oauth_Controller
         	{
         		$remember = FALSE;
         	}
+        	
+        	// Store Session Data
+        	if ($this->input->post('session') == 1)
+        	{
+        		$session = TRUE;
+        	}
+        	else
+        	{
+        		$session = FALSE;
+        	}
 
         	// Attempt Login
-        	if ($this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
+        	if ($this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember, $session))
         	{
         		// Get User Data
         		$user = $this->social_auth->get_user('email', $this->input->post('email'));

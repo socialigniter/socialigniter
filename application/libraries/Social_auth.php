@@ -343,16 +343,14 @@ class Social_auth
 		}
 	}
 	
-	function login($email, $password, $remember=false)
+	function login($email, $password, $remember=FALSE, $session=FALSE)
 	{
-		if ($this->ci->auth_model->login($email, $password, $remember))
+		if ($this->ci->auth_model->login($email, $password, $remember, $session))
 		{        				
-			$this->set_message('login_successful');
 			return TRUE;
 		}
 		else
 		{
-			$this->set_error('login_unsuccessful');
 			return FALSE;
 		}
 	}
@@ -361,12 +359,10 @@ class Social_auth
 	{
 		if ($this->ci->auth_model->social_login($user_id, $connection))
 		{
-			$this->set_message('login_successful');
 			return TRUE;
 		}
 		else
 		{
-			$this->set_error('login_unsuccessful');
 			return FALSE;
 		}
 	}	
