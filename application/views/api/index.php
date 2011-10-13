@@ -18,50 +18,22 @@ div.separator { border-bottom: 1px double #999999; }
 <script type="text/javascript" src="<?= base_url() ?>js/social.auth.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
 <script type="text/javascript">
-// oauthAjax plugin allows ajax request to be signed with oauth token
-(function($)
-{
-	$.fn.oauthAjax = function(settings)
-	{
-		var oauth_consumer_key 		= '<?= $oauth_consumer_key ?>';
-		var oauth_consumer_secret 	= '<?= $oauth_consumer_secret ?>';
-		var oauth_token 			= '<?= $oauth_token ?>';
-		var oauth_token_secret 		= '<?= $oauth_token_secret ?>';		
-
-		var accessor = { 
-			consumerSecret	: oauth_consumer_secret,
-			tokenSecret		: oauth_token_secret,
-		};	
-		
-		var parameters = [
-			["oauth_consumer_key", oauth_consumer_key],
-			["oauth_token", oauth_token]
-		];
-		
-		// only works if settings.data is a map (i.e., { "foo": "bar", "blah" : "yuck" })
-		for (var name in settings.data)
-			parameters.push([name, settings.data[name]]);
-				
-		var message = {
-			method: settings.type || "GET",
-			action: settings.url,
-			parameters: parameters
-		}
-		
-		OAuth.setTimestampAndNonce(message);
-		OAuth.SignatureMethod.sign(message, accessor);
-		
-		var oldBeforeSend = settings.beforeSend;
-		settings.beforeSend = function(xhr) {
-			xhr.setRequestHeader("Authorization", OAuth.getAuthorizationHeader("", message.parameters))
-			if (oldBeforeSend) oldBeforeSend(xhr);
-		};
-	
-		jQuery.ajax(settings);
-
-		var element = this;
-	};
-})(jQuery);
+var user_data = {
+	"user_id":"<?= $logged_user_id ?>",
+	"username":"<?= $logged_username ?>",
+	"user_level_id":"<?= $logged_user_level_id ?>",
+	"name":"<?= $logged_name ?>",
+	"image":"<?= $logged_image ?>",
+	"location":"<?= $logged_location ?>",
+	"geo_enabled":"<?= $logged_geo_enabled ?>",
+	"geo_lat":"",
+	"geo_long":"",
+	"privacy":"<?= $logged_privacy ?>",	 
+	"consumer_key": "<?= $oauth_consumer_key ?>",
+	"consumer_secret": "<?= $oauth_consumer_secret ?>",
+	"token": "<?= $oauth_token ?>",
+	"token_secret": "<?= $oauth_token_secret ?>"
+}
 
 var base_url 		= '<?= base_url() ?>';
 var current_module	= jQuery.url.segment(1);
@@ -74,6 +46,7 @@ $(document).ready(function()
 				
 		$.oauthAjax(
 		{
+			oauth 		: user_data,		
 			url			: base_url + 'api/sandbox',
 			type		: 'POST',
 			dataType	: 'html',

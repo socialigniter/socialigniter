@@ -5,13 +5,10 @@
 	<div class="item_content">
 		<span class="item_content_body">
 			<b><a href="<?= $item_profile ?>"><?= $item_contributor ?></a></b> <?= $item_content ?>		
-		</span>
-		
+		</span>		
 		<?php if ($item_type): ?><span class="item_type<?= $item_type ?>"></span><?php endif; ?>
-		
 		<div class="clear"></div>
 		<span class="item_meta"><?= $item_date ?><?= $item_source ?></span>
-			
 		<ul class="item_actions" rel="timeline">
 			<?php if ((config_item('home_comments_allow') == 'TRUE') && ($item_content_id)): ?>
 			<li><a class="item_comment" href="#"><span class="actions action_comment"></span> Comment</a></li>
@@ -28,7 +25,6 @@
 			<?php endif; ?>
 		</ul>
 		<div class="clear"></div>
-		
 		<ol class="comment_list">
 			<li id="comment_write">
 				<div class="comment_form">

@@ -3,21 +3,11 @@
 
 <link type="text/css" href="<?= base_url() ?>css/common.css" rel="stylesheet" media="screen" />
 <link type="text/css" href="<?= $dashboard_assets ?>style.css" rel="stylesheet" media="screen" />
-<link type="text/css" href="<?= base_url() ?>css/uniform.default.css" rel="stylesheet" media="screen" charset="utf-8" />
-<link type="text/css" href="<?= base_url() ?>css/jplayer.css" rel="stylesheet" media="screen" charset="utf-8" />
 <link type="text/css" href="<?= base_url() ?>css/fancybox.css" rel="stylesheet" media="screen" charset="utf-8" />
 
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery-ui.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.NobleCount.min.js"></script>  
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.uniform.min.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.timers.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.jplayer.min.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.url.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.fancybox.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/oauth.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/sha1.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/jquery.oauthajax.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
 <script type="text/javascript">
 //Global User Data:
 var user_data = {
@@ -42,6 +32,4 @@ var current_module	= jQuery.url.segment(1);
 var core_modules	= jQuery.parseJSON('<?= json_encode(config_item('core_modules')) ?>');
 var core_assets		= '<?= $dashboard_assets.'icons/' ?>';
 </script>
-<script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/social.autocomplete.js"></script>
 <script type="text/javascript" src="<?= $dashboard_assets ?>dashboard.js"></script>

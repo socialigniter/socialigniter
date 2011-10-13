@@ -125,6 +125,7 @@ div.content_wrap h2			{ margin: 0 0 25px 0; }
 div.content_wrap a 			{ color: #2078ce; text-decoration: none; }
 div.content_wrap a:visited	{ color: #2078ce; text-decoration: underline; }
 div.content_wrap a:hover	{ color: #2078ce; text-decoration: underline; }
+div.content_wrap input[type=button]	{ margin: 0px 0px 25px 0px; }
 
 div.content_line			{ width: 645px; background: url(images/content_norm_line.png) 0 0 repeat-x; margin: 0 0; padding: 10px 0 0 0; }
 div.content_wrap_inner		{ margin: 0 15px 25px 15px; }
@@ -209,6 +210,7 @@ li.item:hover ul.item_actions		{ visibility: visible; position: relative; bottom
 li.item_new							{ width: 645px; margin: 0; padding: 0; background: #ececec; }
 li.item_new:hover ul.item_actions	{ visibility: visible; position: relative; bottom: 8px; right: 0px !important; }
 li.item_created						{ background: #f2e3af; }
+li.item_link						{ width: 100%; height: 2px; background: url(images/item_separator.png) left bottom repeat-x; margin: 0 0 5px 0; }
 
 div.item_thumbnail 					{ width: 48px; height: 48px; display: block; position: relative; top: 7px; left: 0; margin: 0 20px 18px 15px; overflow: hidden; float: left; }
 div.item_content 					{ width: 550px; display: block; line-height: 21px; margin: 2px 0 5px 0; position: relative; top: 2px; left: 0; float: left; }
@@ -398,7 +400,7 @@ div.selectable_chosen:hover { color: #777777; }
 .ui-dialog-title 					{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; text-transform: capitalize; }
 .ui-dialog-content					{ height: auto; }
 .ui-dialog-titlebar-close 			{ position:absolute;top:-15px;right:-15px;text-indent:-9999px;display:block;background:url(/images/fancybox/fancy_close.png) no-repeat;width:30px;height:30px;}
-.ui-dialog-buttonset button			{ margin: 0 15px 0 0; }
+.ui-dialog-buttonset button			{ margin: 0 15px 15px 0; }
 .ui-dialog-buttonset button:hover 	{ height: 29px; background: url(images/button_basic_hover.png) 0 0 repeat-x #979595; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
 .ui-widget-overlay 					{ background:#000 !important; filter:alpha(opacity=60);opacity:.6; position: absolute; top: 0px; left: -15px; width: 100%; height: 100%; margin: 0 !important; }
 
