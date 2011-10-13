@@ -143,7 +143,6 @@ $(document).ready(function()
 		if($(this).val() == 'add_category')
 		{
 			$('[name=category_id]').find('option:first').attr('selected','selected');
-			$.uniform.update('[name=category_id]');
 
 			$.categoryEditor(
 			{

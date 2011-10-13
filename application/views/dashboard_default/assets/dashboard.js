@@ -122,9 +122,6 @@ $(document).ready(function()
 		markNewItem(url_octothorpe);
 	}
 
-	// Generates Uniform
-	$("select, input:checkbox, input:radio, input:file").uniform();
-
 	// Hide Things
 	$('.error').hide();
 	// Character Counter
@@ -607,7 +604,6 @@ $(document).ready(function()
 						{
 							$(where_to).append('<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>');
 						}
-						$.uniform.update(where_to);
 						
 						$(where_to).prepend('<option value="0">---select---</option>');
 						$(where_to).append('<option value="add_category">+ Add Category</option>');
@@ -635,8 +631,8 @@ $(document).ready(function()
 					// Update returned HTML
 					html = $(category_editor)
 							.find('#editor_title').html(options.title).end()
-							.find('#category_access').uniform().end()
-							.find('#category_parent_id').append(category_parents).uniform().end()
+							.find('#category_access').end()
+							.find('#category_parent_id').append(category_parents).end()
 						.html();
 										
 					$.fancybox(
@@ -644,8 +640,8 @@ $(document).ready(function()
 						content:html,
 						onComplete:function(e)
 						{
-							$('#category_parent_id').live('change', function(){$.uniform.update(this);});							
-							$('.modal_wrap').find('select').uniform().end().animate({opacity:'1'});
+							$('#category_parent_id').live('change', function(){});							
+							$('.modal_wrap').find('select').end().animate({opacity:'1'});
 							$('#category_name').slugify({slug:'#category_slug', url:options.url_pre, name:'category_url', slugValue:options.slug_value });
 														
 							// Create Category

@@ -2,10 +2,24 @@
 	- jquery.oauth.js
 	- sha1.js
 	- oauth.js
-*/
 
-/* jquery.oauth.js */
-// jQuery Plugin for making OAuth API calls
+	oauthAjax - jQuery Plugin
+	- Extends normal $.ajax() to allow oauth1.0 signed for ajax calls
+	- Requires: sha1() and OAuth
+	- Example below:
+
+	$.oauthAjax(
+	{
+		oauth 		: user_data,
+		url			: base_url + 'api/content/create',
+		type		: 'POST',
+		dataType	: 'json',
+		data		: status_data,
+	  	success		: function(result)
+	  	{	
+	  	}
+	});	
+*/
 (function($)
 {
 	$.oauthAjax = function(settings)

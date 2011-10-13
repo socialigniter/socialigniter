@@ -1,5 +1,5 @@
 <form method="post" id="status_update" action="<?= base_url() ?>api/content/create">
-	<textarea id="status_update_text" name="content"></textarea>
+	<textarea id="status_update_text" placeholder="<?= $home_greeting ?>" name="content"></textarea>
 	<div id="status_update_options">
 		<?php if ($logged_geo_enabled): ?>
 		<div id="status_update_geo">
@@ -19,25 +19,20 @@
 </form>
 
 <script type="text/javascript">
-// Placeholder
-doPlaceholder('#status_update_text', "<?= $home_greeting ?>");
 
 // Do Geo
 geo_get();
 
 // Status
-$("#status_update").bind("submit", function(eve)
+$("#status_update").bind("submit", function(e)
 {
-	eve.preventDefault();
-
-	// Valid		
-	if (isFieldValid('#status_update_text', "<?= $home_greeting ?>", 'Please write something') == true)
+	e.preventDefault();
+	if (isFieldValid('#status_update_text', "", 'Please write something') == true)
 	{
-		$form = $('#status_update');
-		var status_data	= $form.serializeArray();
+		var status_data	= $('#status_update').serializeArray();
 		status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
 
-		$form.oauthAjax(
+		$.oauthAjax(
 		{
 			oauth 		: user_data,
 			url			: base_url + 'api/content/create',
@@ -55,10 +50,9 @@ $("#status_update").bind("submit", function(eve)
 						$.each(social_post, function()
 						{
 							var social_api = $(this).attr('name');
-
 							if ($('#social_post_' + social_api).is(':checked'))
 							{							
-								$form.oauthAjax(
+								$.oauthAjax(
 								{
 									oauth 		: user_data,
 									url			: base_url + 'api/' + social_api + '/social_post',
