@@ -379,7 +379,7 @@ class Auth_model extends CI_Model
 		return $this->db->affected_rows() > 0 ? $user_id : false;			
 	}
 	
-	function login($email, $password, $remember=FALSE)
+	function login($email, $password, $remember=FALSE, $session=FALSE)
 	{
 	    if (empty($email) || empty($password) || !$this->email_check($email))
 	    {
@@ -402,14 +402,18 @@ class Auth_model extends CI_Model
     		{
     			// Sets Various Userdata
         		$this->update_last_login($user->user_id);
-				$this->social_auth->set_userdata($user);
-	 			$this->social_auth->set_userdata_meta($user->user_id);
-	 			$this->social_auth->set_userdata_connections($user->user_id);
+        		
+        		if ($session)
+        		{
+					$this->social_auth->set_userdata($user);
+	 				$this->social_auth->set_userdata_meta($user->user_id);
+	 				$this->social_auth->set_userdata_connections($user->user_id);
    		    
-    		    if ($remember && config_item('remember_users'))
-    		    {
-    		    	$this->remember_user($user->user_id);
-    		    }
+	    		    if ($remember && config_item('remember_users'))
+	    		    {
+	    		    	$this->remember_user($user->user_id);
+	    		    }
+				}
     		    
     		    return TRUE;
     		}
