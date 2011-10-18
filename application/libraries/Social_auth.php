@@ -155,7 +155,6 @@ class Social_auth
 		}
 		
 		// Get User
-
 		if (!$user_level_id)
 		{
 			if ($user = $this->get_user('user_id', $user_id))
@@ -167,7 +166,6 @@ class Social_auth
 				$user_level_id = config_item('default_group');
 			}
 		}		
-
 		
 		// Is Super or Admin
 		if ($user_level_id <= 2)

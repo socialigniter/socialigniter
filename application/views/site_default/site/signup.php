@@ -1,135 +1,124 @@
 <h2>Signup</h2>
-
 <?php if (config_item('users_signup') == 'TRUE'): ?>
-<form method="post" name="user_signup" id="user_signup" action="<?= base_url() ?>api/users/signup">
+<form method="post" name="user_signup" id="user_signup">
 <table border="0" cellpadding="0" cellspacing="0">
 	<tr>
 	  <td>Name</td>
-	  <td><input type="text" name="name" value="<?= set_value('name', $name) ?>"></td>
+	  <td>
+	  	<input type="text" name="name" id="signup_name" placeholder="Joe Smith" value="<?= $name ?>">
+	  	<span id="signup_name_error"></span>
+	  </td>
 	</tr>
 	<tr>
 	  <td>Email</td>
 	  <td>
-	  	<input type="text" name="email" value="<?= set_value('email', $email) ?>">
-	  	<div id="email_error"></div>
+	  	<input type="text" name="email" id="signup_email" placeholder="your@email.com" value="<?= $email ?>">
+  		<span id="signup_email_error"></span>
 	  </td>
 	</tr>
 	<tr>  
 	  <td>Password</td>
-	  <td><input type="password" name="password" value="<?= set_value('password', $password) ?>"></td>
+	  <td>
+	  	<input type="password" name="password" id="signup_password" placeholder="password123" value="<?= $password ?>">
+	  	<span id="signup_password_error"></span>
+	  </td>
 	</tr>
 	<tr>  
 	  <td>Confirm Password</td>
-	  <td><input type="password" name="password_confirm" value="<?= set_value('password_confirm', $password_confirm) ?>"></td>
+	  <td>
+	  	<input type="password" name="password_confirm" id="signup_password_confirm" placeholder="password123" value="<?= $password_confirm ?>">
+	  	<span id="signup_password_confirm_error"></span> 
+	  </td>
 	</tr>
 	<tr> 
 	  <td colspan="2"><input type="submit" name="submit" value="Signup"></td>
 	</tr>
 </table>	
 </form>
-
 <?= $this->social_igniter->get_social_logins('<div class="social_login">', '</div>'); ?>
-
 <script type="text/javascript">
-
-// Elements for Placeholder
-var validation_rules = [{
-	'element' 	: '[name=name]', 
-	'holder'	: 'Joe Smith', 
-	'message'	: 'Enter your name'
-},{
-	'element' 	: '[name=email]', 
-	'holder'	: 'your@email.com', 
-	'message'	: 'Enter your email'	
-},{
-	'element' 	: '[name=password]', 
-	'holder'	: 'password', 
-	'message'	: 'password123'	
-},{
-	'element' 	: '[name=password_confirm]', 
-	'holder'	: 'password', 
-	'message'	: 'password123'
-}]
-
 $(document).ready(function()
 {
-	// Placeholders
-	makePlaceholders(validation_rules);
-
-	$("#user_signup").bind('submit', function(eve)
+	$("#user_signup").bind('submit', function(e)
 	{	
-		eve.preventDefault();	
-
-		var email_valid	= validateEmailAddress($('[name=email]').val());					
-		
-		// Validation	
-		if (validationRules(validation_rules) && email_valid == true)
+		e.preventDefault();	
+		$.validator(
 		{
-			// Strip Empty
-			cleanAllFieldsEmpty(validation_rules);
-							
-			var signup_data = $('#user_signup').serializeArray();
-		
-			$.ajax(
-			{
-				url			: base_url + 'api/users/create',
-				type		: 'POST',
-				dataType	: 'json',
-				data		: signup_data,
-		  		success		: function(result)
-		  		{
-					$('html, body').animate({scrollTop:0});
-					
-					if (result.status == 'success')
-					{
-						// Do Login
-						$.ajax(
+			elements :		
+				[{
+					'selector' 	: '#signup_name', 
+					'rule'		: 'require', 
+					'field'		: 'Enter your name',
+					'action'	: 'label'					
+				},{
+					'selector' 	: '#signup_email', 
+					'rule'		: 'email', 
+					'field'		: 'Please enter a valid email',
+					'action'	: 'label'							
+				},{
+					'selector' 	: '#signup_password', 
+					'rule'		: 'password', 
+					'field'		: 'Please enter a password',
+					'action'	: 'label'					
+				},{
+					'selector' 	: '#signup_password_confirm', 
+					'rule'		: 'confirm', 
+					'field'		: 'Please confirm your password',
+					'action'	: 'label'					
+				}],
+			message : '',
+			success	: function()
+			{					
+				var signup_data = $('#user_signup').serializeArray();
+				signup_data.push({'name':'session','value':'1'});
+				$.ajax(
+				{
+					url			: base_url + 'api/users/create',
+					type		: 'POST',
+					dataType	: 'json',
+					data		: signup_data,
+			  		success		: function(result)
+			  		{
+						$('html, body').animate({scrollTop:0});
+						if (result.status == 'success')
 						{
-							url			: base_url + 'api/users/login',
-							type		: 'POST',
-							dataType	: 'json',
-							data		: signup_data,
-					  		success		: function(result)
-					  		{					  		
-								$('html, body').animate({scrollTop:0});
-						
-								$('[name=name]').val('');
-								$('[name=email]').val('');
-								$('[name=password]').val('');
-								$('[name=password_confirm]').val('');						
-								
-								if (result.status == 'success')
-								{
-									$('#content_message').notify({status:result.status,message:result.message,complete:'redirect',redirect: base_url + 'home'});								
-								}
-								else
-								{
-									$('#content_message').notify({status:result.status,message:result.message});					
-								}
-						 	}
-						});
-					}
-					else
-					{
-						$('#content_message').notify({status:result.status,message:result.message});					
-					}
-			 	}
-			});	
-		}
-		else if (validationRules(validation_rules) && email_valid == false)
-		{
-			$('#email_error').html('That email address is invalid').show('slow');
-			$('#email_error').delay(2500).hide('slow');		
-		}
-		else
-		{
-			eve.preventDefault();
-		}	
+							$.ajax(
+							{
+								url			: base_url + 'api/users/login',
+								type		: 'POST',
+								dataType	: 'json',
+								data		: signup_data,
+						  		success		: function(result)
+						  		{					  		
+									$('html, body').animate({scrollTop:0});
+							
+									$('[name=name]').val('');
+									$('[name=email]').val('');
+									$('[name=password]').val('');
+									$('[name=password_confirm]').val('');						
+									
+									if (result.status == 'success')
+									{
+										$('#content_message').notify({status:result.status,message:result.message,complete:'redirect',redirect: base_url + 'home'});								
+									}
+									else
+									{
+										$('#content_message').notify({status:result.status,message:result.message});					
+									}
+							 	}
+							});
+						}
+						else
+						{
+							$('#content_message').notify({status:result.status,message:result.message});					
+						}
+				 	}
+				});
+			}
+		});
 	});	
 });
 </script>
 <?php else: ?>
-
 <p>Sorry user signup is currently turned off</p>
-
 <?php endif; ?>

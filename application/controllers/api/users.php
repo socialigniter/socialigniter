@@ -347,9 +347,13 @@ class Users extends Oauth_Controller
     	if ($this->oauth_user_id == $this->get('id'))
     	{
 			// Update Data
-			$user_id = $this->oauth_user_id;    	  
+			$user_id = $this->oauth_user_id;
+			
+			if (!$this->input->post('username')) $username = $this->input->post('name');
+			else $username = $this->input->post('username');
+			    	  
 	    	$update_data = array(
-	    		'username'		=> url_username($this->input->post('username'), 'none', true),
+	    		'username'		=> url_username($username, 'none', true),
 	        	'email'			=> $this->input->post('email'),
 	        	'gravatar'		=> md5($this->input->post('email')),
 	        	'name'			=> $this->input->post('name'),
@@ -365,7 +369,7 @@ class Users extends Oauth_Controller
 	    	
 	    		$this->social_auth->set_userdata($user);
 	    	
-		        $message = array('status' => 'success', 'message' => 'User changes saved', 'data' => $user);
+		        $message = array('status' => 'success', 'message' => 'User changes saved', 'user' => $user);
 	   		}
 	   		else
 	   		{

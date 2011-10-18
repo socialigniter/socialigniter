@@ -1060,6 +1060,17 @@ function utf8_encode(argString) {
     return utftext;
 }
 
+function isInt(value)
+{ 
+	var y=parseInt(value); 
+	if (isNaN(y))
+	{
+		return false;
+	}
+	
+	return value==y && value.toString()==y.toString(); 
+}
+
 /* md5() @returns {string} a MD5 hash of the string you give it @requires utf8_encode() */
 function md5(str) {
     var xl;
@@ -2006,15 +2017,26 @@ $(function(){
 		var element_count	= settings.elements.length;
 		var error_messages	= '';
 
-
 		// Validate Rules
 		function validateRequire(value)
-		{
+		{		
 			if (value != '')
-			{
+			{			
 				return true;
 			}
 			
+			return false;
+		}
+
+		function validateInteger(value)
+		{		
+			if (value > 0)
+			{
+				console.log('inside here ' + value);
+				return true;
+			}
+
+			console.log('over here');			
 			return false;
 		}
 
@@ -2042,6 +2064,7 @@ $(function(){
 			if (valid && $(selector_error).length != 0)
 			{
 				$(element.selector + '_error').html('').addClass(settings.styles.valid);			
+				$(element.selector + '_error').oneTime(300, function() { $(this).fadeOut() });
 			}
 			else
 			{			
@@ -2084,6 +2107,10 @@ $(function(){
 			if (element.rule == 'require')
 			{
 				is_valid = validateRequire(validate);				
+			}
+			else if (element.rule == 'require_integer')
+			{
+				is_valid = validateInteger(validate);				
 			}
 			else if (element.rule == 'email')
 			{
