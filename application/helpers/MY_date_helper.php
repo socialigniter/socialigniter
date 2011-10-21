@@ -16,7 +16,7 @@
  * Added SIMPLE, SIMPLE_TIME, and FANCY format options
  */
 
-if ( ! function_exists('standard_date'))
+if (!function_exists('standard_date'))
 {
 	function standard_date($fmt = 'DATE_RFC822', $time = '')
 	{
@@ -82,7 +82,7 @@ function human_time($fmt='HOUR_MINUTE', $time = '')
 		'MINUTE'		=>  '%i'
 	);
 
-	if ( ! isset($formats[$fmt]))
+	if (!isset($formats[$fmt]))
 	{
 		return FALSE;
 	}
@@ -174,7 +174,7 @@ function mysql_to_friendly_date($date='')
 	return $return;
 }
 
-function friendly_to_mysql_time($time='')
+function friendly_to_mysql_time($time='', $meridian='')
 {
 	$parts	= explode(':', $time);
 	$return	= '00:00:00';
@@ -183,17 +183,22 @@ function friendly_to_mysql_time($time='')
 	{
 		$hours		= sprintf('%02d', $parts[0]);
 		$minutes	= $parts[1];
-	
-		$check_pm = preg_match('/(P|p)(M|m)/', $time);
+		$seconds	= '00';
 		
-		if ($check_pm)
+		// Seconds
+		if (array_key_exists(2, $parts))
+		{
+			$seconds = $parts[2];
+		}
+		
+		// Adjust Meridian
+		if (preg_match('/(P|p)(M|m)/', $meridian))
 		{
 			$hours = $hours + 12;
 		}
-	
-		$clean_minutes	= preg_replace(array('( )', '/(P|p)(M|m)/', '/(A|a)(M|m)/'), '', $minutes);
-		$minutes		= sprintf('%02d', $clean_minutes);
-		$return			= $hours.':'.$minutes.':00';
+
+		$minutes	= sprintf('%02d', $minutes);
+		$return		= $hours.':'.$minutes.':'.$seconds;
 	}
 
 	return $return;

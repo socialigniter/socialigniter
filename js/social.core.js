@@ -985,47 +985,66 @@ function getUserImageSrc(json, size)
 	date returns a date like: 12/12/2012 or, 12/12/12 depending on what string you give it
 	@param str {string} Give it a MySQL formatted date string.
 */
-var mysqlDateParser = function(str){
-	if(str){
+var mysqlDateParser = function(str)
+{
+	if (str)
+	{
 		_str = str;
 	}
-	else{
+	else
+	{
 		_str = '0000-00-00 00:00:00';
 	}
-	var api = {
-		date: function(type){
+
+	var api = 
+	{
+		date: function(type)
+		{
 			type = type || 'number';
 			m = _str.match(/([0-9])+/gi);
-			if(type=='short'){
-				months = {'00':'00','01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun','07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'};
+
+			if (type=='short')
+			{
+				months = {'00':'00','01':'Jan.','02':'Feb.','03':'Mar.','04':'Apr.','05':'May.','06':'Jun.','07':'Jul.','08':'Aug.','09':'Sep.','10':'Oct.','11':'Nov.','12':'Dec.'};
 			}
-			else if(type=='long'){
+			else if (type=='long')
+			{
 				months = {'00':'00','01':'January','02':'February','03':'March','04':'April','05':'May','06':'June','07':'July','08':'August','09':'September','10':'October','11':'November','12':'December'};
 			}
-			if(type!=='number'){
+			
+			if (type!=='number')
+			{
 				m[1]=months[m[1]];
 				d=' ';
 			}
-			else{
+			else
+			{
 				d='/';
 			}
+			
 			return m[1]+d+m[2]+d+m[0];
 		},
-		time: function(){
+		time: function()
+		{
 			m = _str.match(/([0-9])+/gi)
 			pmOrAm = 'AM';
-			if(m[3]>12){
+			if (m[3]>12)
+			{
 				m[3] = m[3]-12;
 				pmOrAm = 'PM';
 			}
+			
 			return m[3]+':'+m[4]+' '+pmOrAm;
 		}
 	}
+	
 	return api;
 }
 
+
+
 function utf8_encode(argString) {
-    var string = (argString+''); // .replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+    var string = (argString+'');
 
     var utftext = "";
     var start, end;
@@ -2032,11 +2051,9 @@ $(function(){
 		{		
 			if (value > 0)
 			{
-				console.log('inside here ' + value);
 				return true;
 			}
 
-			console.log('over here');			
 			return false;
 		}
 
@@ -2063,14 +2080,16 @@ $(function(){
 			// Element has label message
 			if (valid && $(selector_error).length != 0)
 			{
-				$(element.selector + '_error').html('').addClass(settings.styles.valid);			
+				$(element.selector + '_error').html('').removeClass(settings.styles.error).addClass(settings.styles.valid);			
 				$(element.selector + '_error').oneTime(300, function() { $(this).fadeOut() });
 			}
 			else
-			{			
+			{	
+				// Label exists		
 				if ($(selector_error).length != 0)
 				{
-					$(selector_error).html(settings.message + ' ' + element.field).addClass(settings.styles.error);
+					$(selector_error).html(settings.message + ' ' + element.field).removeClass(settings.styles.valid).addClass(settings.styles.error);
+					$(element.selector + '_error').oneTime(150, function() { $(this).fadeIn() });
 				}
 			}
 		}
