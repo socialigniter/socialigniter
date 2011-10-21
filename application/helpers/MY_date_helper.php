@@ -386,6 +386,7 @@ function get_days_in_month($month=FALSE)
 
 function get_hour_minute_from_mysql($time='')
 {
+	// Is DateTime or Time
 	if (strlen($time) == 19)
 	{
 		$hour = substr($time, -8, 2);
@@ -396,18 +397,19 @@ function get_hour_minute_from_mysql($time='')
 		$hour = substr($time, 0, 2);
 		$time = substr($time, 0, -3);
 	}
-	
+
+	// If PM
 	if ($hour > 12)
 	{
 		$parts	= explode(':', $time);
-		$hour	= $parts[0] - 10;
+		$hour	= $parts[0] - 12;
 		$result = sprintf('%02d', $hour).':'.$parts[1];
 	}
 	else
 	{
 		$result = $time;
 	}
-	
+
 	return $result;
 }
 
