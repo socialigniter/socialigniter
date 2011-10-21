@@ -2013,7 +2013,7 @@ $(function(){
 /*	Validator - jQuery Plugin
 	Awesome form validation and messaging plugin
 	Settings are:
-	 - element	: Array of elements, contains: selector, rule, field, action (label)
+	 - element	: Array of elements, contains: selector, rule, field, action (label, border, element)
 	 - styles	: Styles for labels and input fields
 	 - message	: Is appended to the start of invalid elements 'Please enter a _________'
 */
@@ -2062,14 +2062,14 @@ $(function(){
 			var confirm_source	= confirm_selector.replace('_confirm', ''); 
 			var confirm_value	= $(confirm_source).val();
 			var confirm_state	= false;
-			
+
 			if (source_value == confirm_value && source_value != '')
 			{
 				confirm_state = true;
 			}
 
 			return confirm_state;
-		}		
+		}
 
 
 		// Message Types
@@ -2106,7 +2106,11 @@ $(function(){
 		{
 			if (!valid && $(element.selector).length != 0)
 			{
-				$(element.selector).val(message);
+				$(element.selector).val(element.field).addClass(settings.styles.error);
+				$(element.selector).oneTime(1000, function()
+				{ 
+					$(element.selector).val('').removeClass(settings.styles.error)
+				});				
 			}
 		}
 		
