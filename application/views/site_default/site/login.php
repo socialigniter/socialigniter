@@ -4,14 +4,14 @@
 <tr>
   <td>Email</td>
   <td>
-  	<input type="text" name="email" id="login_email" placeholder="you@email.com" value="<?= $email ?>">
+  	<input type="text" name="email" id="login_email" placeholder="you@email.com" value="">
   	<span id="login_email_error"></span>
   </td>
 </tr>
 <tr>  
   <td>Password</td>
   <td>
-  	<input type="password" name="password" id="login_password" placeholder="password123" value="<?= $password ?>">
+  	<input type="password" name="password" id="login_password" placeholder="********" value="">
   	<span id="login_password_error"></span>
   </td>
 </tr>

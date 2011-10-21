@@ -260,9 +260,29 @@ class Users extends Oauth_Controller
 					$this->email->message($message);
 					$this->email->send();
 				}
+
+	        	// Check "remember me"
+	        	if ($this->input->post('remember') == 1)
+	        	{
+	        		$remember = TRUE;
+	        	}
+	        	else
+	        	{
+	        		$remember = FALSE;
+	        	}
+				
+	        	// Store Session Data
+	        	if ($this->input->post('session') == 1)
+	        	{
+	        		$session = TRUE;
+	        	}
+	        	else
+	        	{
+	        		$session = FALSE;
+	        	}				
 				
 				// Login User
-	        	if ($this->social_auth->login($user->email, $this->input->post('password'), TRUE))
+	        	if ($this->social_auth->login($user->email, $this->input->post('password'), $remember, $session))
 	        	{
 	        		// Get User Data
 					$meta = $this->social_auth->get_user_meta($user->user_id);

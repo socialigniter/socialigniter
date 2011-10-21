@@ -5,28 +5,28 @@
 	<tr>
 	  <td>Name</td>
 	  <td>
-	  	<input type="text" name="name" id="signup_name" placeholder="Joe Smith" value="<?= $name ?>">
+	  	<input type="text" name="name" id="signup_name" placeholder="Joe Smith" value="">
 	  	<span id="signup_name_error"></span>
 	  </td>
 	</tr>
 	<tr>
 	  <td>Email</td>
 	  <td>
-	  	<input type="text" name="email" id="signup_email" placeholder="your@email.com" value="<?= $email ?>">
+	  	<input type="text" name="email" id="signup_email" placeholder="your@email.com" value="">
   		<span id="signup_email_error"></span>
 	  </td>
 	</tr>
 	<tr>  
 	  <td>Password</td>
 	  <td>
-	  	<input type="password" name="password" id="signup_password" placeholder="password123" value="<?= $password ?>">
+	  	<input type="password" name="password" id="signup_password" placeholder="********" value="">
 	  	<span id="signup_password_error"></span>
 	  </td>
 	</tr>
 	<tr>  
 	  <td>Confirm Password</td>
 	  <td>
-	  	<input type="password" name="password_confirm" id="signup_password_confirm" placeholder="password123" value="<?= $password_confirm ?>">
+	  	<input type="password" name="password_confirm" id="signup_password_confirm" placeholder="********" value="">
 	  	<span id="signup_password_confirm_error"></span> 
 	  </td>
 	</tr>
@@ -57,7 +57,7 @@ $(document).ready(function()
 					'action'	: 'label'							
 				},{
 					'selector' 	: '#signup_password', 
-					'rule'		: 'password', 
+					'rule'		: 'require', 
 					'field'		: 'Please enter a password',
 					'action'	: 'label'					
 				},{
@@ -73,7 +73,7 @@ $(document).ready(function()
 				signup_data.push({'name':'session','value':'1'});
 				$.ajax(
 				{
-					url			: base_url + 'api/users/create',
+					url			: base_url + 'api/users/signup',
 					type		: 'POST',
 					dataType	: 'json',
 					data		: signup_data,
@@ -81,32 +81,13 @@ $(document).ready(function()
 			  		{
 						$('html, body').animate({scrollTop:0});
 						if (result.status == 'success')
-						{
-							$.ajax(
-							{
-								url			: base_url + 'api/users/login',
-								type		: 'POST',
-								dataType	: 'json',
-								data		: signup_data,
-						  		success		: function(result)
-						  		{					  		
-									$('html, body').animate({scrollTop:0});
-							
-									$('[name=name]').val('');
-									$('[name=email]').val('');
-									$('[name=password]').val('');
-									$('[name=password_confirm]').val('');						
-									
-									if (result.status == 'success')
-									{
-										$('#content_message').notify({status:result.status,message:result.message,complete:'redirect',redirect: base_url + 'home'});								
-									}
-									else
-									{
-										$('#content_message').notify({status:result.status,message:result.message});					
-									}
-							 	}
-							});
+						{							
+							$('[name=name]').val('');
+							$('[name=email]').val('');
+							$('[name=password]').val('');
+							$('[name=password_confirm]').val('');						
+
+							$('#content_message').notify({status:result.status,message:result.message,complete:'redirect',redirect: base_url + 'home'});								
 						}
 						else
 						{
