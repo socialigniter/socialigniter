@@ -260,9 +260,29 @@ class Users extends Oauth_Controller
 					$this->email->message($message);
 					$this->email->send();
 				}
+
+	        	// Check "remember me"
+	        	if ($this->input->post('remember') == 1)
+	        	{
+	        		$remember = TRUE;
+	        	}
+	        	else
+	        	{
+	        		$remember = FALSE;
+	        	}
+				
+	        	// Store Session Data
+	        	if ($this->input->post('session') == 1)
+	        	{
+	        		$session = TRUE;
+	        	}
+	        	else
+	        	{
+	        		$session = FALSE;
+	        	}				
 				
 				// Login User
-	        	if ($this->social_auth->login($user->email, $this->input->post('password'), TRUE))
+	        	if ($this->social_auth->login($user->email, $this->input->post('password'), $remember, $session))
 	        	{
 	        		// Get User Data
 					$meta = $this->social_auth->get_user_meta($user->user_id);
@@ -347,9 +367,13 @@ class Users extends Oauth_Controller
     	if ($this->oauth_user_id == $this->get('id'))
     	{
 			// Update Data
-			$user_id = $this->oauth_user_id;    	  
+			$user_id = $this->oauth_user_id;
+			
+			if (!$this->input->post('username')) $username = $this->input->post('name');
+			else $username = $this->input->post('username');
+			    	  
 	    	$update_data = array(
-	    		'username'		=> url_username($this->input->post('username'), 'none', true),
+	    		'username'		=> url_username($username, 'none', true),
 	        	'email'			=> $this->input->post('email'),
 	        	'gravatar'		=> md5($this->input->post('email')),
 	        	'name'			=> $this->input->post('name'),
@@ -363,9 +387,12 @@ class Users extends Oauth_Controller
 	    	{
 	    		$user = $this->social_auth->get_user('user_id', $user_id);
 	    	
-	    		$this->social_auth->set_userdata($user);
+	    		if ($this->input->post('session') == 1)
+	    		{
+	    			$this->social_auth->set_userdata($user);
+	    		}
 	    	
-		        $message = array('status' => 'success', 'message' => 'User changes saved', 'data' => $user);
+		        $message = array('status' => 'success', 'message' => 'User changes saved', 'user' => $user);
 	   		}
 	   		else
 	   		{
