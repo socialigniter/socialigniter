@@ -211,6 +211,7 @@ function date_parser($fmt = 'WHOLE', $time = '')
 		'WHOLE'	=>  '%M %d, %Y %g:%i %A',
 		'YEAR'	=>  '%Y',
 		'MONTH'	=>  '%m',
+		'WEEK'	=>  '%W',
 		'DAY'	=>  '%d'
 	);
 
