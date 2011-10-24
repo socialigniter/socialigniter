@@ -36,27 +36,27 @@ $config['date_style_types'] = array(
 	'SLASHES' 						=> 'Jan / 1 / 2010',
 	'MONTH_DAY_ABBR'				=> 'Jan 1',
 	'MONTH_DAY_YEAR_ABBR'			=> 'Jan 1, 2010',
-	'MONTH_DAY_TIME_ABBR' 			=> 'Jan 1, 1:00 AM',
-	'MONTH_DAY_YEAR_TIME_ABBR' 		=> 'Jan 1, 2010 1:00 AM',
+	'MONTH_DAY_TIME_ABBR' 			=> 'Jan 1, 1:00 pm',
+	'MONTH_DAY_YEAR_TIME_ABBR' 		=> 'Jan 1, 2010 1:00 pm',
 	'MONTH_DAY_SUFF_ABBR'			=> 'Jan 1st',
 	'MONTH_DAY_YEAR_SUFF_ABBR'		=> 'Jan 1st, 2010',
-	'MONTH_DAY_TIME_SUFF_ABBR'		=> 'Jan 1st, 1:00 AM',
-	'MONTH_DAY_YEAR_TIME_SUFF_ABBR'	=> 'Jan 1st, 2010 1:00 AM',
+	'MONTH_DAY_TIME_SUFF_ABBR'		=> 'Jan 1st, 1:00 pm',
+	'MONTH_DAY_YEAR_TIME_SUFF_ABBR'	=> 'Jan 1st, 2010 1:00 pm',
 	'MONTH_DAY' 		 			=> 'January 1',
 	'MONTH_DAY_YEAR' 				=> 'January 1, 2010',
-	'MONTH_DAY_TIME'				=> 'January 1, 1:00 AM',
-	'MONTH_DAY_YEAR_TIME'			=> 'January 1, 2010 1:00 AM',
+	'MONTH_DAY_TIME'				=> 'January 1, 1:00 pm',
+	'MONTH_DAY_YEAR_TIME'			=> 'January 1, 2010 1:00 pm',
 	'MONTH_DAY_SUFF' 	 			=> 'January 1st',
 	'MONTH_DAY_YEAR_SUFF' 			=> 'January 1st, 2010',
-	'MONTH_DAY_TIME_SUFF'			=> 'January 1st, 1:00 AM',
-	'MONTH_DAY_YEAR_TIME_SUFF'		=> 'January 1st, 2010 1:00 AM',
+	'MONTH_DAY_TIME_SUFF'			=> 'January 1st, 1:00 pm',
+	'MONTH_DAY_YEAR_TIME_SUFF'		=> 'January 1st, 2010 1:00 pm',
 	'ELAPSED'						=> '2 hours ago'
 );
 
 $config['time_style_types'] = array(
-	'HOUR_MINUTE'	=> '2:15 PM',
-	'HOUR' 			=> '2 PM',
-	'MINUTE'		=> '15'
+	'HOUR_MINUTE'	=> '2:15 pm',
+	'HOUR' 			=> '2 pm',
+	'MINUTE'		=> '15 mins'
 );
 
 $config['days_of_week']	= array(
