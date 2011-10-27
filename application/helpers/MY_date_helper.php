@@ -16,7 +16,7 @@
  * Added SIMPLE, SIMPLE_TIME, and FANCY format options
  */
 
-if ( ! function_exists('standard_date'))
+if (!function_exists('standard_date'))
 {
 	function standard_date($fmt = 'DATE_RFC822', $time = '')
 	{
@@ -41,29 +41,29 @@ if ( ! function_exists('standard_date'))
 	}
 }
 
-function human_date($fmt = 'MONTH_DAY_YEAR', $time = '')
+function human_date($fmt='MONTH_DAY_YEAR', $time='')
 {
 	$formats = array(
-		'TIME'							=> '%g:%i %A',
+		'TIME'							=> '%g:%i %a',
 		'DIGITS'						=> '%n / %j / %y',
 		'DIGITS_ZERO'					=> '%m / %d / %Y',
 		'SLASHES'						=> '%M. / %j / %Y',	
 		'MONTH_DAY_ABBR'				=> '%M. %j',
 		'MONTH_DAY_YEAR_ABBR'			=> '%M. %j, %Y',
-		'MONTH_DAY_TIME_ABBR'			=> '%M. %j, %g:%i %A',
-		'MONTH_DAY_YEAR_TIME_ABBR'		=> '%M. %j, %Y %g:%i %A',
+		'MONTH_DAY_TIME_ABBR'			=> '%M. %j, %g:%i %a',
+		'MONTH_DAY_YEAR_TIME_ABBR'		=> '%M. %j, %Y %g:%i %a',
 		'MONTH_DAY_SUFF_ABBR'			=> '%M. %j%S',
 		'MONTH_DAY_YEAR_SUFF_ABBR'		=> '%M. %j%S, %Y',
-		'MONTH_DAY_TIME_SUFF_ABBR'		=> '%M. %j%S, %g:%i %A',
-		'MONTH_DAY_YEAR_TIME_SUFF_ABBR'	=> '%M. %j%S, %Y %g:%i %A',
+		'MONTH_DAY_TIME_SUFF_ABBR'		=> '%M. %j%S, %g:%i %a',
+		'MONTH_DAY_YEAR_TIME_SUFF_ABBR'	=> '%M. %j%S, %Y %g:%i %a',
 		'MONTH_DAY'						=> '%F %j',
 		'MONTH_DAY_YEAR'				=> '%F %j, %Y',
-		'MONTH_DAY_TIME'				=> '%F %j, %g:%i %A',
-		'MONTH_DAY_YEAR_TIME'			=> '%F %j, %Y %g:%i %A',
+		'MONTH_DAY_TIME'				=> '%F %j, %g:%i %a',
+		'MONTH_DAY_YEAR_TIME'			=> '%F %j, %Y %g:%i %a',
 		'MONTH_DAY_SUFF'				=> '%F %j%S',
 		'MONTH_DAY_YEAR_SUFF'			=> '%F %j%S, %Y',
-		'MONTH_DAY_TIME_SUFF'			=> '%F %j%S, %g:%i %A',
-		'MONTH_DAY_YEAR_TIME_SUFF'		=> '%F %j%S, %Y %g:%i %A'
+		'MONTH_DAY_TIME_SUFF'			=> '%F %j%S, %g:%i %a',
+		'MONTH_DAY_YEAR_TIME_SUFF'		=> '%F %j%S, %Y %g:%i %a'
 	);
 
 	if (!isset($formats[$fmt]))
@@ -77,12 +77,12 @@ function human_date($fmt = 'MONTH_DAY_YEAR', $time = '')
 function human_time($fmt='HOUR_MINUTE', $time = '')
 {
 	$formats = array(
-		'HOUR_MINUTE'	=>  '%g:%i %A',
-		'HOUR'			=>  '%g %A',
-		'MINUTE'		=>  '%i'
+		'HOUR_MINUTE'	=>  '%g:%i %a',
+		'HOUR'			=>  '%g %a',
+		'MINUTE'		=>  '%i mins'
 	);
 
-	if ( ! isset($formats[$fmt]))
+	if (!isset($formats[$fmt]))
 	{
 		return FALSE;
 	}
@@ -148,7 +148,7 @@ function unix_to_mysql($time = '')
 	return mdate($mysql, $time);
 }
 
-function friendly_to_mysql_date($date = '')
+function friendly_to_mysql_date($date='')
 {
 	$parts	= explode('/', $date);
 	$return	= '0000-00-00';
@@ -161,7 +161,20 @@ function friendly_to_mysql_date($date = '')
 	return $return;
 }
 
-function friendly_to_mysql_time($time = '')
+function mysql_to_friendly_date($date='')
+{
+	$parts	= explode('-', $date);
+	$return	= '00/00/0000';
+	
+	if (array_key_exists(2, $parts))
+	{
+		$return = $parts[1].'/'.$parts[2].'/'.$parts[0];
+	}
+	
+	return $return;
+}
+
+function friendly_to_mysql_time($time='', $meridian='')
 {
 	$parts	= explode(':', $time);
 	$return	= '00:00:00';
@@ -170,19 +183,24 @@ function friendly_to_mysql_time($time = '')
 	{
 		$hours		= sprintf('%02d', $parts[0]);
 		$minutes	= $parts[1];
-	
-		$check_pm = preg_match('/(P|p)(M|m)/', $time);
+		$seconds	= '00';
 		
-		if ($check_pm)
+		// Seconds
+		if (array_key_exists(2, $parts))
+		{
+			$seconds = $parts[2];
+		}
+		
+		// Adjust Meridian
+		if (preg_match('/(P|p)(M|m)/', $meridian))
 		{
 			$hours = $hours + 12;
 		}
-	
-		$clean_minutes	= preg_replace(array('( )', '/(P|p)(M|m)/', '/(A|a)(M|m)/'), '', $minutes);
-		$minutes		= sprintf('%02d', $clean_minutes);
-		$return			= $hours.':'.$minutes.':00';
+
+		$minutes	= sprintf('%02d', $minutes);
+		$return		= $hours.':'.$minutes.':'.$seconds;
 	}
-		
+
 	return $return;
 }
 
@@ -193,6 +211,7 @@ function date_parser($fmt = 'WHOLE', $time = '')
 		'WHOLE'	=>  '%M %d, %Y %g:%i %A',
 		'YEAR'	=>  '%Y',
 		'MONTH'	=>  '%m',
+		'WEEK'	=>  '%W',
 		'DAY'	=>  '%d'
 	);
 
@@ -364,4 +383,60 @@ function get_days_in_month($month=FALSE)
 	}
 
 	return $days;
+}
+
+function get_hour_minute_from_mysql($time='')
+{
+	// Is DateTime or Time
+	if (strlen($time) == 19)
+	{
+		$hour = substr($time, -8, 2);
+		$time = substr($time, -8, 5);
+	}
+	else
+	{
+		$hour = substr($time, 0, 2);
+		$time = substr($time, 0, -3);
+	}
+
+	// If PM
+	if ($hour > 12)
+	{
+		$parts	= explode(':', $time);
+		$hour	= $parts[0] - 12;
+		$result = sprintf('%02d', $hour).':'.$parts[1];
+	}
+	else
+	{
+		$result = $time;
+	}
+
+	return $result;
+}
+
+function get_meridian_from_mysql($time='')
+{
+	if (strlen($time) == 8)
+	{
+		$hour = substr($time, 0, 2);
+	}
+	elseif (strlen($time) == 19)
+	{
+		$hour = substr($time, -8, 2);		
+	}
+	else
+	{
+		$hour = 0;
+	}
+	
+	if ($hour > 12)
+	{
+		$result = 'PM';
+	}
+	else
+	{
+		$result = 'AM';
+	}	
+
+	return $result;
 }

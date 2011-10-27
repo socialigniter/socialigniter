@@ -19,84 +19,103 @@
 </form>
 
 <script type="text/javascript">
-
-// Do Geo
-geo_get();
-
-// Status
-$("#status_update").bind("submit", function(e)
+// On Ready
+$(document).ready(function()
 {
-	e.preventDefault();
-	if (isFieldValid('#status_update_text', "", 'Please write something') == true)
-	{
-		var status_data	= $('#status_update').serializeArray();
-		status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
+	// Geo
+	geo_get();
 
-		$.oauthAjax(
+	// Character Counter
+	$('#status_update_text').NobleCount('#character_count',
+	{
+		on_negative: 'color_red'
+	});	
+
+	// Update Status
+	$('#status_update').bind('submit', function(e)
+	{
+		e.preventDefault();
+		$.validator(
 		{
-			oauth 		: user_data,
-			url			: base_url + 'api/content/create',
-			type		: 'POST',
-			dataType	: 'json',
-			data		: status_data,
-		  	success		: function(result)
-		  	{		  		  	
-				if (result.status == 'success')
+			elements : 
+				[{
+					'selector' 	: '#status_update_text',
+					'rule'		: 'require', 
+					'field'		: 'Please write something...',
+					'action'	: 'element'
+				}],
+			message	 : '',
+			success	 : function()
+			{		
+				var status_data	= $('#status_update').serializeArray();
+				status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
+		
+				$.oauthAjax(
 				{
-					// Social Post
-					var social_post = $('input.social_post');
-					if (social_post.length > 0)
-					{
-						$.each(social_post, function()
+					oauth 		: user_data,
+					url			: base_url + 'api/content/create',
+					type		: 'POST',
+					dataType	: 'json',
+					data		: status_data,
+				  	success		: function(result)
+				  	{		  		  	
+						if (result.status == 'success')
 						{
-							var social_api = $(this).attr('name');
-							if ($('#social_post_' + social_api).is(':checked'))
-							{							
-								$.oauthAjax(
+							// Social Post
+							var social_post = $('input.social_post');
+							if (social_post.length > 0)
+							{
+								$.each(social_post, function()
 								{
-									oauth 		: user_data,
-									url			: base_url + 'api/' + social_api + '/social_post',
-									type		: 'POST',
-									dataType	: 'json',
-									data		: status_data,
-								  	success		: function(social_result)
-								  	{
-								  		// Need to do some notification
-										// console.log(social_result);							
+									var social_api = $(this).attr('name');
+									if ($('#social_post_' + social_api).is(':checked'))
+									{							
+										$.oauthAjax(
+										{
+											oauth 		: user_data,
+											url			: base_url + 'api/' + social_api + '/social_post',
+											type		: 'POST',
+											dataType	: 'json',
+											data		: status_data,
+										  	success		: function(social_result)
+										  	{
+										  		// Need to do some notification
+												// console.log(social_result);							
+											}
+										});
 									}
 								});
-							}
-						});
-					}				
-													
-					$.get(base_url + 'home/item_timeline',function(html)
-					{
-						var newHTML = $.template(html,
-						{
-							'ITEM_ID'			 :result.activity.activity_id,
-							'ITEM_AVATAR'		 :getUserImageSrc(result.data),
-							'ITEM_COMMENT_AVATAR':getUserImageSrc(result.data),
-							'ITEM_PROFILE'		 :result.data.username,
-							'ITEM_CONTRIBUTOR'	 :result.data.name,
-							'ITEM_CONTENT'		 :result.data.content,
-							'ACTIVITY_TYPE'		 :result.activity.type,
-							'ITEM_DATE'			 :'just now',
-							'ACTIVITY_MODULE'	 :result.activity.module,
-							'ITEM_CONTENT_ID'	 :result.data.content_id
-						});
-						
-						$('#feed').prepend(newHTML);
-					});
-					
-					$('#status_update_text').val('');						
-					doPlaceholder('#status_update_text', 'Whats shaking?');
-			 	}
-			 	else
-			 	{
-					$('#content_message').notify({message:result.message});				
-			 	}	
-		 	}
+							}				
+															
+							$.get(base_url + 'home/item_timeline', function(html)
+							{
+								var newHTML = $.template(html,
+								{
+									'ITEM_ID'			 :result.activity.activity_id,
+									'ITEM_AVATAR'		 :getUserImageSrc(result.data),
+									'ITEM_COMMENT_AVATAR':getUserImageSrc(result.data),
+									'ITEM_PROFILE'		 :result.data.username,
+									'ITEM_CONTRIBUTOR'	 :result.data.name,
+									'ITEM_CONTENT'		 :result.data.content,
+									'ACTIVITY_TYPE'		 :result.activity.type,
+									'ITEM_DATE'			 :'just now',
+									'ACTIVITY_MODULE'	 :result.activity.module,
+									'ITEM_CONTENT_ID'	 :result.data.content_id
+								});
+								
+								$('#feed').prepend(newHTML);
+							});
+
+							$('#status_update_text').val('');
+					 	}
+					 	else
+					 	{
+							$('#content_message').notify({message:result.message});				
+					 	}	
+				 	}
+				});
+			}
 		});
-	}
+	});
 });
 </script>

@@ -36,27 +36,27 @@ $config['date_style_types'] = array(
 	'SLASHES' 						=> 'Jan / 1 / 2010',
 	'MONTH_DAY_ABBR'				=> 'Jan 1',
 	'MONTH_DAY_YEAR_ABBR'			=> 'Jan 1, 2010',
-	'MONTH_DAY_TIME_ABBR' 			=> 'Jan 1, 1:00 AM',
-	'MONTH_DAY_YEAR_TIME_ABBR' 		=> 'Jan 1, 2010 1:00 AM',
+	'MONTH_DAY_TIME_ABBR' 			=> 'Jan 1, 1:00 pm',
+	'MONTH_DAY_YEAR_TIME_ABBR' 		=> 'Jan 1, 2010 1:00 pm',
 	'MONTH_DAY_SUFF_ABBR'			=> 'Jan 1st',
 	'MONTH_DAY_YEAR_SUFF_ABBR'		=> 'Jan 1st, 2010',
-	'MONTH_DAY_TIME_SUFF_ABBR'		=> 'Jan 1st, 1:00 AM',
-	'MONTH_DAY_YEAR_TIME_SUFF_ABBR'	=> 'Jan 1st, 2010 1:00 AM',
+	'MONTH_DAY_TIME_SUFF_ABBR'		=> 'Jan 1st, 1:00 pm',
+	'MONTH_DAY_YEAR_TIME_SUFF_ABBR'	=> 'Jan 1st, 2010 1:00 pm',
 	'MONTH_DAY' 		 			=> 'January 1',
 	'MONTH_DAY_YEAR' 				=> 'January 1, 2010',
-	'MONTH_DAY_TIME'				=> 'January 1, 1:00 AM',
-	'MONTH_DAY_YEAR_TIME'			=> 'January 1, 2010 1:00 AM',
+	'MONTH_DAY_TIME'				=> 'January 1, 1:00 pm',
+	'MONTH_DAY_YEAR_TIME'			=> 'January 1, 2010 1:00 pm',
 	'MONTH_DAY_SUFF' 	 			=> 'January 1st',
 	'MONTH_DAY_YEAR_SUFF' 			=> 'January 1st, 2010',
-	'MONTH_DAY_TIME_SUFF'			=> 'January 1st, 1:00 AM',
-	'MONTH_DAY_YEAR_TIME_SUFF'		=> 'January 1st, 2010 1:00 AM',
+	'MONTH_DAY_TIME_SUFF'			=> 'January 1st, 1:00 pm',
+	'MONTH_DAY_YEAR_TIME_SUFF'		=> 'January 1st, 2010 1:00 pm',
 	'ELAPSED'						=> '2 hours ago'
 );
 
 $config['time_style_types'] = array(
-	'HOUR_MINUTE'	=> '2:15 PM',
-	'HOUR' 			=> '2 PM',
-	'MINUTE'		=> '15'
+	'HOUR_MINUTE'	=> '2:15 pm',
+	'HOUR' 			=> '2 pm',
+	'MINUTE'		=> '15 mins'
 );
 
 $config['days_of_week']	= array(
@@ -75,6 +75,19 @@ $config['numbers_one_five']	= array(
 	'3'		=> '3',
 	'4'		=> '4',
 	'5'		=> '5'
+);
+
+$config['numbers_one_ten'] = array(
+	'1'		=> '1',
+	'2'		=> '2',
+	'3'		=> '3',
+	'4'		=> '4',
+	'5'		=> '5',
+	'6'		=> '6',
+	'7'		=> '7',
+	'8'		=> '8',
+	'9'		=> '9',
+	'10'	=> '10'
 );
 	
 $config['amount_increments_all'] = array(
@@ -137,6 +150,33 @@ $config['time_increments_minutes_five'] = array(
 	'45'	=> '45',
 	'50'	=> '50',
 	'55'	=> '55'
+);
+
+$config['time_increments_hour_minutes_thirty'] = array(
+	'01:00'	=> '1:00',
+	'01:30'	=> '1:30',
+	'02:00' => '2:00',
+	'02:30'	=> '2:30',
+	'03:00' => '3:00',
+	'03:30' => '3:30',
+	'04:00'	=> '4:00',
+	'04:30'	=> '4:30',
+	'05:00'	=> '5:00',
+	'05:30'	=> '5:30',
+	'06:00'	=> '6:00',
+	'06:30' => '6:30',
+	'07:00'	=> '7:00',
+	'07:30' => '7:30',
+	'08:00'	=> '8:00',
+	'08:30' => '8:30',
+	'09:00'	=> '9:00',
+	'09:30' => '9:30',
+	'10:00'	=> '10:00',
+	'10:30' => '10:30',
+	'11:00'	=> '11:00',
+	'11:30' => '11:30',
+	'12:00'	=> '12:00',
+	'12:30' => '12:30'
 );
 
 $config['time_meridian'] = array(

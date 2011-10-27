@@ -33,6 +33,10 @@ var core_assets		= '<?= $dashboard_assets.'icons/' ?>';
 
 $(document).ready(function()
 {
+	// Hide Things
+	$('.error').hide();
+
+	// Show Message
 	if ($('#content_message').html() != '') $('#content_message').notify({status:'success',message:$('#content_message').html()});
 });
 </script>

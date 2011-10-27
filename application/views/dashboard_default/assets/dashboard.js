@@ -109,27 +109,378 @@ function geo_success(position)
 	}
 }
 
-// On Ready
+
+
+/*	mediaUploader - jQuery Plugin 
+	- Based on Pluploader http://plupload.com
+	- Options are implied
+*/
+(function($)
+{
+	$.mediaUploader = function(options)
+	{	
+		var settings =
+		{
+			'max_size'		: '',
+			'create_url'	: '',
+			'formats'		: '',
+			'start'			: function(){},
+			'complete'		: function(){}
+		};
+					
+		options = $.extend({}, settings, options);
+
+		// Uploader Params
+		var uploader = new plupload.Uploader(
+		{
+			runtimeStyle	: 'html5,flash',
+			browse_button	: 'pickfiles',
+			container		: 'container',
+			max_file_size	: options.max_size,
+			max_file_count	: 1,
+			url 			: options.create_url,
+			flash_swf_url	: base_url + 'js/plupload.flash.swf',
+			multipart 		: true,
+			multipart_params: {'file_hash':'', 'upload_id':'', 'consumer_key':user_data.consumer_key},		
+			filters 		: [options.formats]
+		});
+	
+		// Initialize
+		uploader.bind('Init', function(up, params){});
+		
+		// Call Init
+		uploader.init();
+
+		// Add Files & Start Upload
+		uploader.bind('FilesAdded', function(up, files)
+		{	
+			var file_hash	= md5(files[0].name);
+			var file_data 	= [];
+			file_data.push({'name':'file_hash','value':file_hash});
+			
+			// Create Expectation (OAuth1 signed request)	
+			$.oauthAjax(
+			{
+				oauth 		: user_data,
+				url			: base_url + 'api/upload/create_expectation',
+				type		: 'POST',
+				dataType	: 'json',
+				data		: file_data,
+		  		success		: function(result)
+		  		{
+					if (result.status == 'success')
+					{
+						// Update Multipart Form Variables
+						uploader.settings.multipart_params.file_hash = files[0].name;
+						uploader.settings.multipart_params.file_hash = file_hash;
+						uploader.settings.multipart_params.upload_id = result.data;
+
+						// Start Upload	& Callback	
+						uploader.refresh();
+						uploader.start();
+
+						// Trigger Start Callback
+						options.start(files);
+					}
+					else
+					{
+						$('#content_message').notify({status:result.status,message:result.message});	
+					}
+			 	}
+			});		
+		});
+	
+		// Upload Progress
+		uploader.bind('UploadProgress', function(up, file)
+		{
+			$('#file_uploading_progress').html(file.percent + "%");
+		});
+		
+		// Upload Error
+		uploader.bind('Error', function(up, err)
+		{
+			$('#content_message').notify({status:'error', message:err.message}); 
+			uploader.refresh();
+		});
+	
+		// Upload Success
+		uploader.bind('FileUploaded', function(up, file, res)
+		{			
+			$('#file_uploading_progress').html("100%");
+			var response = JSON.parse(res.response);
+				
+			// Refresh & Trigger Complete Callback
+			uploader.refresh();
+			options.complete(response);							
+		});
+	}
+})(jQuery);
+
+
+/* categoryEditor - jQuery Plugin */
+(function($)
+{
+	$.categoryEditor = function(options)
+	{
+		var settings = {
+			url_api		: '',
+			url_pre		: '',
+			url_sub		: '',
+			module		: '',
+			type		: '',
+			title		: '',
+			slug_value	: '',
+			details		: '',
+			trigger		: '',
+			after 		: function(){}
+		};
+		
+		options = $.extend({},settings,options);
+		
+		// Repopulates trigger dropdown
+		function update_category_select(where_to)
+		{
+			$.get(options.url_api, function(json)
+			{
+				if (json.status == 'success')
+				{
+					for(x in json.data)
+					{
+						$(where_to).append('<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>');
+					}
+					
+					$(where_to).prepend('<option value="0">---select---</option>');
+					$(where_to).append('<option value="add_category">+ Add Category</option>');
+				}
+			});
+		}
+
+		// Gets the HTML template
+		$.get(base_url + 'home/category_editor', {}, function(category_editor)
+		{
+			var category_parents 	= '';
+			var slug_url			= options.url_pre + '/';
+
+			// API to get categories for parent
+			$.get(options.url_api, function(json)
+			{
+				if (json.status == 'success')
+				{
+					for(x in json.data)
+					{
+						category_parents = category_parents+'<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>';
+					}
+				}
+						
+				// Update returned HTML
+				html = $(category_editor)
+						.find('#editor_title').html(options.title).end()
+						.find('#category_access').end()
+						.find('#category_parent_id').append(category_parents).end()
+					.html();
+									
+				$.fancybox(
+				{
+					content:html,
+					onComplete:function(e)
+					{
+						$('#category_parent_id').live('change', function(){});							
+						$('.modal_wrap').find('select').end().animate({opacity:'1'});
+						$('#category_name').slugify({slug:'#category_slug', url:options.url_pre, name:'category_url', slugValue:options.slug_value });
+													
+						// Create Category
+						$('#new_category').bind('submit',function(e)
+						{
+							e.preventDefault();
+							e.stopPropagation();
+							
+							var category_data = $('#new_category').serializeArray();
+							category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type},{'name':'details','value':options.details});
+														
+							$.oauthAjax(
+							{
+								oauth 		: user_data,
+								url			: options.url_sub,
+								type		: 'POST',
+								dataType	: 'json',
+								data		: category_data,
+								success		: function(json)
+								{																		  	
+									if(json.status == 'error')
+									{
+										generic_error();
+									}
+									else
+									{
+										$(options.trigger).empty();
+										update_category_select(options.trigger);
+										$.fancybox.close();
+									}	
+								}
+							});
+							
+							return false;
+						});
+					}
+				});					
+			});
+		});
+	};
+})(jQuery);
+
+
+/* Category Manager - jQuery Plugin */
+(function($)
+{
+	$.categoryManager = function(options)
+	{
+		var settings = {
+			action		: '',
+			module		: '',
+			type		: '',
+			title		: '',
+			data		: '',
+			after 		: function(){}
+		};
+
+		options = $.extend({}, settings, options);
+		
+		// Action & URLs
+		if (options.action == 'edit')
+		{
+			var partial_url	= 'home/category_manager/' + options.data;
+			var action_url	= 'api/categories/modify/id/' + options.data;
+		}
+		else
+		{
+			var partial_url = 'home/category_manager';
+			var action_url	= 'api/categories/create';
+		}			
+
+		// Gets HTML template
+		$.get(base_url + partial_url, {}, function(html_partial)
+		{
+			$('<div />').html(html_partial).dialog(
+			{
+				width	: 525,
+				modal	: true,
+				close	: function(){$(this).remove()},				
+				title	: options.title,
+				create	: function()
+				{
+					$category_editor = $(this);	
+
+					$('#category_name').slugify(
+					{
+						slug	  : '#category_slug', 
+						url		  : base_url + options.module + '/', 
+						name	  : 'category_url', 
+						slugValue : $(html_partial).find('#category_slug').html()
+					});										
+				},
+				open	: function() {},
+				buttons	:
+				{
+		        	'Close':function()
+		        	{
+		          		$category_editor.dialog('close');
+		          		$category_editor.remove();
+		        	},
+		        	'Save':function()
+		        	{
+						var category_data = $('#category_editor').serializeArray();
+						category_data.push({'name':'module','value':options.module});
+						category_data.push({'name':'type','value':options.type});
+
+						$.oauthAjax(
+						{
+							oauth 		: user_data,
+							url			: base_url + action_url,
+							type		: 'POST',
+							dataType	: 'json',
+							data		: category_data,
+							success		: function(result)
+							{								
+	          					$category_editor.dialog('close');
+	          					$category_editor.remove();
+							}
+						});
+		        	}
+		        }				    
+		    });  
+		});
+	};
+}) (jQuery);
+
+
+/* Takes a DOM element (li, div, a, etc...) and converts it to a multi selectable region */
+(function($)
+{
+	$.fn.selectify = function(options) 
+	{
+		var defaults = 
+		{
+			element	: '',
+			trigger	: '',
+			waiting	: '',
+			clicked	: '',
+			limit	: 1
+		};
+
+		options = $.extend(true, defaults, options);
+
+		$(this).find('.' + options.trigger).live('click', function()
+		{
+			// Picked Values
+			var widget_current_pick = $(options.element).val();
+			var value 				= $(this).attr('rel');
+
+			if (widget_current_pick == '')
+			{
+				widget_current_pick = new Array();
+			}
+			else
+			{
+				widget_current_pick = JSON.parse(widget_current_pick);
+			}
+
+			var is_added = jQuery.inArray(value, widget_current_pick);
+
+			// Is Added To Target Form Field
+			if (is_added == -1)
+			{			
+				// Has Picker Limit Been Reached
+				if (widget_current_pick.length < options.limit)
+				{
+					// Add to Object & Field				
+					$(this).removeClass(options.waiting).addClass(options.clicked);	
+					widget_current_pick.push(value);
+					$(options.element).val(JSON.stringify(widget_current_pick));
+				}
+			}
+			else
+			{
+				// Remove from Object & Field
+				$(this).removeClass(options.clicked).addClass(options.waiting);
+				widget_current_pick.remove(is_added);				
+				$(options.element).val(JSON.stringify(widget_current_pick));	
+			}
+		});
+	};
+})(jQuery);
+
+
+/* HTML Partial Vars */
+var partials = {
+	"item_data":"<li class='item_data' id='item_data_'><span class='actions action_'></span><span class='item_data'></span><ul class='item_actions'><li><a href='' class='mobile_edit_data'><span class='actions action_edit'></span> Edit</a></li><li><a href='' class='mobile_delete_data' rel=''><span class='actions action_delete'></span> Delete</a></li></ul><input type='hidden' id='data_' value=''></li>"
+}
+
+
+
+
+// On Ready Actions
 $(document).ready(function()
 {
-	// Highlights New Item
-	if ($.url.attr('anchor'))
-	{
-	    $('html, body').animate({scrollTop:0});
-	
-		var url_octothorpe = $.url.attr('anchor');
-		
-		markNewItem(url_octothorpe);
-	}
-
-	// Hide Things
-	$('.error').hide();
-	// Character Counter
-	$('#status_update_text').NobleCount('#character_count',
-	{
-		on_negative: 'color_red'
-	});		
-
 	// Gets count of new items with class="get_count_new" uses id="name_count_new" to make call to AJAX controller
 	$('.feed_count_new').oneTime(100, function() { getCountNew(this) });
 	$('.feed_count_new').everyTime(60000,function() { getCountNew(this); });		
@@ -138,6 +489,7 @@ $(document).ready(function()
 	 * These are used to interact with feed items of any type, but currently for (activity, content, comments)
 	 * You can extend your module to hit a custom API event (new, approve, publish, save, delete) 
 	 */
+	 
 	// Marks Feed Item not new
 	$('.item_new, .item_manage_new').live('click', function()
 	{
@@ -466,486 +818,4 @@ $(document).ready(function()
 		$('#'+show_pannel).show('fast');
 	});
 	
-
-	
-	/* Uploading Images Plugin */
-	(function($)
-	{
-		$.mediaUploader = function(options)
-		{	
-			var settings =
-			{
-				'max_size'		: '',
-				'create_url'	: '',
-				'formats'		: '',
-				'start'			: function(){},
-				'complete'		: function(){}
-			};
-						
-			options = $.extend({}, settings, options);
-			
-			// console.log('inside plugin');
-	
-			// Uploader Params
-			var uploader = new plupload.Uploader(
-			{
-				runtimeStyle	: 'html5,flash',
-				browse_button	: 'pickfiles',
-				container		: 'container',
-				max_file_size	: options.max_size,
-				max_file_count	: 1,
-				url 			: options.create_url,
-				flash_swf_url	: base_url + 'js/plupload.flash.swf',
-				multipart 		: true,
-				multipart_params: {'file_hash':'', 'upload_id':'', 'consumer_key':user_data.consumer_key},		
-				filters 		: [options.formats]
-			});
-		
-			// Initialize
-			uploader.bind('Init', function(up, params){});
-			
-			// Initialize Actually
-			uploader.init();
-	
-			// Add Files & Start Upload
-			uploader.bind('FilesAdded', function(up, files)
-			{	
-				var file_hash	= md5(files[0].name);
-				var file_data 	= [];
-				file_data.push({'name':'file_hash','value':file_hash});
-				
-				// Create Expectation (OAuth1 signed request)	
-				$.oauthAjax(
-				{
-					oauth 		: user_data,
-					url			: base_url + 'api/upload/create_expectation',
-					type		: 'POST',
-					dataType	: 'json',
-					data		: file_data,
-			  		success		: function(result)
-			  		{
-						if (result.status == 'success')
-						{
-							// Update Multipart Form Variables
-							uploader.settings.multipart_params.file_hash = files[0].name;
-							uploader.settings.multipart_params.file_hash = file_hash;
-							uploader.settings.multipart_params.upload_id = result.data;
-	
-							// Start Upload	& Callback	
-							uploader.refresh();
-							uploader.start();
-	
-							// Trigger Start Callback
-							options.start(files);
-						}
-						else
-						{
-							$('#content_message').notify({status:result.status,message:result.message});	
-						}
-				 	}
-				});		
-			});
-		
-			// Upload Progress
-			uploader.bind('UploadProgress', function(up, file)
-			{
-				$('#file_uploading_progress').html(file.percent + "%");
-			});
-			
-			// Upload Error
-			uploader.bind('Error', function(up, err)
-			{
-				$('#content_message').notify({status:'error', message:err.message}); 
-				uploader.refresh();
-			});
-		
-			// Upload Success
-			uploader.bind('FileUploaded', function(up, file, res)
-			{			
-				$('#file_uploading_progress').html("100%");
-				var response = JSON.parse(res.response);
-					
-				// Refresh & Trigger Complete Callback
-				uploader.refresh();
-				options.complete(response);							
-			});
-		}
-	})(jQuery);
-
-
-	/* Category Editor Plugin */
-	(function($)
-	{
-		$.categoryEditor = function(options)
-		{
-			var settings = {
-				url_api		: '',
-				url_pre		: '',
-				url_sub		: '',
-				module		: '',
-				type		: '',
-				title		: '',
-				slug_value	: '',
-				details		: '',
-				trigger		: '',
-				after 		: function(){}
-			};
-			
-			options = $.extend({},settings,options);
-			
-			// Repopulates trigger dropdown
-			function update_category_select(where_to)
-			{
-				$.get(options.url_api, function(json)
-				{
-					if (json.status == 'success')
-					{
-						for(x in json.data)
-						{
-							$(where_to).append('<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>');
-						}
-						
-						$(where_to).prepend('<option value="0">---select---</option>');
-						$(where_to).append('<option value="add_category">+ Add Category</option>');
-					}
-				});
-			}					
-		
-			// Gets the HTML template
-			$.get(base_url + 'home/category_editor',{},function(category_editor)
-			{				
-				var category_parents 	= '';
-				var slug_url			= options.url_pre + '/';
-	
-				// API to get categories for parent
-				$.get(options.url_api, function(json)
-				{
-					if (json.status == 'success')
-					{
-						for(x in json.data)
-						{
-							category_parents = category_parents+'<option value="'+json.data[x].category_id+'">'+json.data[x].category+'</option>';
-						}
-					}
-							
-					// Update returned HTML
-					html = $(category_editor)
-							.find('#editor_title').html(options.title).end()
-							.find('#category_access').end()
-							.find('#category_parent_id').append(category_parents).end()
-						.html();
-										
-					$.fancybox(
-					{
-						content:html,
-						onComplete:function(e)
-						{
-							$('#category_parent_id').live('change', function(){});							
-							$('.modal_wrap').find('select').end().animate({opacity:'1'});
-							$('#category_name').slugify({slug:'#category_slug', url:options.url_pre, name:'category_url', slugValue:options.slug_value });
-														
-							// Create Category
-							$('#new_category').bind('submit',function(e)
-							{
-								e.preventDefault();
-								e.stopPropagation();
-								
-								var category_data = $('#new_category').serializeArray();
-								category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type},{'name':'details','value':options.details});
-															
-								$.oauthAjax(
-								{
-									oauth 		: user_data,
-									url			: options.url_sub,
-									type		: 'POST',
-									dataType	: 'json',
-									data		: category_data,
-									success		: function(json)
-									{																		  	
-										if(json.status == 'error')
-										{
-											generic_error();
-										}
-										else
-										{
-											$(options.trigger).empty();
-											update_category_select(options.trigger);
-											$.fancybox.close();
-										}	
-									}
-								});
-								
-								return false;
-							});
-						}
-					});					
-				});
-			});
-		};
-	})(jQuery);
-	
-	
-	/* Category Manager Plugin */
-	(function($)
-	{
-		$.categoryManager = function(options)
-		{
-			var settings = {
-				action		: '',
-				module		: '',
-				type		: '',
-				title		: '',
-				data		: '',
-				after 		: function(){}
-			};
-
-			options = $.extend({}, settings, options);
-			
-			// Action & URLs
-			if (options.action == 'edit')
-			{
-				var partial_url	= 'home/category_manager/' + options.data;
-				var action_url	= 'api/categories/modify/id/' + options.data;
-			}
-			else
-			{
-				var partial_url = 'home/category_manager';
-				var action_url	= 'api/categories/create';
-			}			
-
-			// Gets HTML template
-			$.get(base_url + partial_url, {}, function(html_partial)
-			{
-				$('<div />').html(html_partial).dialog(
-				{
-					width	: 525,
-					modal	: true,
-					close	: function(){$(this).remove()},				
-					title	: options.title,
-					create	: function()
-					{
-						$category_editor = $(this);	
-
-						$('#category_name').slugify(
-						{
-							slug	  : '#category_slug', 
-							url		  : base_url + options.module + '/', 
-							name	  : 'category_url', 
-							slugValue : $(html_partial).find('#category_slug').html()
-						});										
-					},
-					open: function()
-					{
-/*						// Instantiate Uploader
-						var uploader = new plupload.Uploader(
-						{
-							runtimeStyle	: 'html5,flash',
-							browse_button	: 'pickfiles',
-							container		: 'container',
-							max_file_size	: '2mb',
-							max_file_count	: 1,
-							url 			: base_url + 'api/categories/upload_picture/id',
-							flash_swf_url	: base_url + 'js/plupload.flash.swf',
-							multipart 		: true,
-							multipart_params: {'file_hash':'', 'upload_id':'', 'consumer_key':user_data.consumer_key},		
-							filters 		: [{title : 'Image Files', extensions : 'gif,jpg,jpeg,png'}],
-							multi_selection : false
-
-						});
-					
-						// Initialize
-						uploader.bind('Init', function(up, params)
-						{
-							console.log('in InIt');
-							console.log(params);	
-						});
-						
-						// Initialize Actually
-						uploader.init();
-						
-						console.log(uploader);
-						
-						uploader.refresh();	
-						
-						$('#pickfiles').live('click', function(e) 
-						{
-							console.log('INSIDE da Neu Click');
-					        
-					       	var uploader = $('#category_image_upload').plupload('getUploader');
-					        // Files in queue upload them first
-					        if (uploader.files.length > 0) 
-					        {
-					            // When all files are uploaded submit form
-					            uploader.bind('StateChanged', function() 
-					            {
-					                if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed))
-					                {
-					                    $('form')[0].submit();
-					                }
-					            });
-					                
-					            uploader.start();
-					        } 
-					        else
-					        {
-					            alert('You must at least upload one file.');
-							}
-					        return false;
-					    });						
-																					
-						// Add Files & Start Upload
-						uploader.bind('FilesAdded', function(up, files)
-						{	
-							console.log('in FilesAdded');
-							console.log(files);
-							
-							var file_hash	= md5(files[0].name);
-							var file_data 	= [];
-							file_data.push({'name':'file_hash','value':file_hash});
-							
-							// Create Expectation (OAuth1 signed request)	
-							$.oauthAjax(
-							{
-								oauth 		: user_data,
-								url			: base_url + 'api/upload/create_expectation',
-								type		: 'POST',
-								dataType	: 'json',
-								data		: file_data,
-						  		success		: function(result)
-						  		{
-									if (result.status == 'success')
-									{
-										// Update Multipart Form Variables
-										uploader.settings.multipart_params.file_hash = files[0].name;
-										uploader.settings.multipart_params.file_hash = file_hash;
-										uploader.settings.multipart_params.upload_id = result.data;
-					
-										// Start Upload	& Callback	
-										uploader.refresh();
-										uploader.start();
-					
-										// Trigger Start Callback
-									}
-							 	}
-							});		
-						});
-					
-						// Upload Progress
-						uploader.bind('UploadProgress', function(up, file)
-						{
-							$('#file_uploading_progress').html(file.percent + "%");
-						});
-						
-						// Upload Error
-						uploader.bind('Error', function(up, err)
-						{
-							uploader.refresh();
-						});
-					
-						// Upload Success
-						uploader.bind('FileUploaded', function(up, file, res)
-						{			
-							$('#file_uploading_progress').html("100%");
-							var response = JSON.parse(res.response);
-					
-							uploader.refresh();
-							// Trigger Complete Callback
-						});		
-*/				
-					},
-					buttons	:
-					{
-			        	'Close':function()
-			        	{
-			          		$category_editor.dialog('close');
-			          		$category_editor.remove();
-			        	},
-			        	'Save':function()
-			        	{
-							var category_data = $('#category_editor').serializeArray();
-							category_data.push({'name':'module','value':options.module},{'name':'type','value':options.type});
-							
-							$.oauthAjax(
-							{
-								oauth 		: user_data,
-								url			: base_url + action_url,
-								type		: 'POST',
-								dataType	: 'json',
-								data		: category_data,
-								success		: function(result)
-								{								
-		          					$category_editor.dialog('close');
-		          					$category_editor.remove();
-								}
-							});
-			        	}
-			        }				    
-			    });  
-			});
-		};
-	})(jQuery);
-
 });
-
-
-/* Takes a DOM element (li, div, a, etc...) and converts it to a multi selectable region */
-(function($)
-{
-	$.fn.selectify = function(options) 
-	{
-		var defaults = 
-		{
-			element	: '',
-			trigger	: '',
-			waiting	: '',
-			clicked	: '',
-			limit	: 1
-		};
-
-		options = $.extend(true, defaults, options);
-
-		$(this).find('.' + options.trigger).live('click', function()
-		{
-			// Picked Values
-			var widget_current_pick = $(options.element).val();
-			var value 				= $(this).attr('rel');
-
-			if (widget_current_pick == '')
-			{
-				widget_current_pick = new Array();
-			}
-			else
-			{
-				widget_current_pick = JSON.parse(widget_current_pick);
-			}
-
-			var is_added = jQuery.inArray(value, widget_current_pick);
-
-			// Is Added To Target Form Field
-			if (is_added == -1)
-			{			
-				// Has Picker Limit Been Reached
-				if (widget_current_pick.length < options.limit)
-				{
-					// Add to Object & Field				
-					$(this).removeClass(options.waiting).addClass(options.clicked);	
-					widget_current_pick.push(value);
-					$(options.element).val(JSON.stringify(widget_current_pick));
-				}
-			}
-			else
-			{
-				// Remove from Object & Field
-				$(this).removeClass(options.clicked).addClass(options.waiting);
-				widget_current_pick.remove(is_added);				
-				$(options.element).val(JSON.stringify(widget_current_pick));	
-			}
-		});
-	};
-})(jQuery);
-
-
-/* HTML Partial Vars */
-var partials = {
-	"item_data":"<li class='item_data' id='item_data_'><span class='actions action_'></span><span class='item_data'></span><ul class='item_actions'><li><a href='' class='mobile_edit_data'><span class='actions action_edit'></span> Edit</a></li><li><a href='' class='mobile_delete_data' rel=''><span class='actions action_delete'></span> Delete</a></li></ul><input type='hidden' id='data_' value=''></li>"
-}
