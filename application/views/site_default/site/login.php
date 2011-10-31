@@ -32,63 +32,6 @@
 <script type="text/javascript">
 $(document).ready(function()
 {
-
-function addNewDevice(result, device, device_token)
-{
-	console.log('inside addNewDevice');
-	
-	var device_new	= true;
-	var user_data	= {
-		"user_id":result.user.user_id,	 
-		"consumer_key": result.user.consumer_key,
-		"consumer_secret": result.user.consumer_secret,
-		"token": result.user.token,
-		"token_secret": result.user.token_secret
-	}
-	
-	$.each(result.meta, function(key, meta) 
-	{
-		console.log(meta);
-
-		if (meta.meta == 'device')
-		{
-			var this_device = JSON.parse(meta.value);
-
-			if (this_device.device == device && this_device.device_token == device_token)
-			{
-				device_new = false;
-			}
-		}
-	});
-
-	if (device_new == true)
-	{
-		var device_json = {
-			'device': device,
-			'type': 'iPhone',
-			'device_token': device_token
-		}
-
-//		var device_data = [];
-//		device_data.push({'name':'device','value': JSON.stringify(device_json)});
-
-		$.oauthAjax(
-		{
-			oauth 		: user_data,
-			url			: base_url + 'api/users/device_create',
-			type		: 'POST',
-			dataType	: 'json',
-			data		: [{'name':'device','value': JSON.stringify(device_json)}],
-		  	success		: function(result)
-		  	{
-		  		console.log(result);
-		  	}
-		});	
-	}
-	
-	
-}
-
 	$('#user_login').bind('submit', function(e)
 	{	
 		e.preventDefault();
@@ -120,11 +63,6 @@ function addNewDevice(result, device, device_token)
 					data		: login_data,
 			  		success		: function(result)
 			  		{
-						console.log(result.meta);
-	
-						addNewDevice(result, '12123123asdasd23423', 'asdadas4352343s213a21das5d');							
-
-			  		/*
 						$('html, body').animate({scrollTop:0});
 						if (result.status == 'success')
 						{
@@ -134,7 +72,6 @@ function addNewDevice(result, device, device_token)
 						{
 							$('#content_message').notify({status:result.status,message:result.message});					
 						}
-					*/
 				 	}
 				});
 			}
