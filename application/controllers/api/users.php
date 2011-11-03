@@ -690,7 +690,7 @@ class Users extends Oauth_Controller
     	$device_data = array(
     		'user_id'		=> $this->oauth_user_id,
     		'site_id'		=> config_item('site_id'),
-    		'module'		=> $this->input->post('users'),
+    		'module'		=> 'users',
     		'meta'			=> 'device',
     		'value'			=> $this->input->post('device')
 		);
