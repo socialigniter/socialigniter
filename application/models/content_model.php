@@ -64,7 +64,7 @@ class Content_model extends CI_Model {
 	 	
 	 	$this->db->where('content.status !=', 'D');
 		$this->db->limit($limit);
-		$this->db->order_by('created_at', 'desc');
+		$this->db->order_by('content.created_at', 'desc');
  		$result = $this->db->get();	
  		return $result->result();
     }
@@ -111,7 +111,7 @@ class Content_model extends CI_Model {
 				$this->db->limit($limit);
 	 		}	
 	 		
-	 		$this->db->order_by('created_at', 'desc');
+	 		$this->db->order_by('content.created_at', 'desc');
 	 		$result = $this->db->get();	
 	 		return $result->result();	      
 		}
@@ -161,7 +161,7 @@ class Content_model extends CI_Model {
 			$this->db->limit($limit);
  		}
 
- 		$this->db->order_by('created_at', 'desc');
+ 		$this->db->order_by('content.created_at', 'desc');
  		$result = $this->db->get();
  		return $result->result();
     }
@@ -296,7 +296,7 @@ class Content_model extends CI_Model {
  		$this->db->where('content_id', $content_id);
  		$result = $this->db->get();
  		return $result->result();
-    } 
+    }
 
     function get_meta_content_meta($content_id, $meta)
     {    		
@@ -305,7 +305,7 @@ class Content_model extends CI_Model {
  		$this->db->where(array('content_id' => $content_id, 'meta' => $meta));
  		$result = $this->db->get()->row();	
  		return $result;
-    } 	
+    } 
 	
     function add_meta($site_id, $content_id, $meta_data)
     {

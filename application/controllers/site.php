@@ -94,7 +94,7 @@ class Site extends Site_Controller
         
         $logout = $this->social_auth->logout();
 			    
-        redirect($this->session->userdata('previous_page'), 'refresh');
+        redirect($this->session->userdata('previous_page'));
     }
     
     function signup()
@@ -139,11 +139,11 @@ class Site extends Site_Controller
 			if ($forgotten = $this->social_auth->forgotten_password($this->input->post('email')))
 			{
 				$this->session->set_flashdata('message', 'An email has been sent, please check your inbox.');
-	            redirect("login", 'refresh');
+	            redirect("login");
 			}
 			else {
 				$this->session->set_flashdata('message', 'The email failed to send, try again.');
-	            redirect("forgot_password", 'refresh');
+	            redirect("forgot_password");
 			}
 	    }
 	    
@@ -155,53 +155,58 @@ class Site extends Site_Controller
 		// Has URL Code
 		if (!$this->uri->segment(2)) redirect(base_url().'forgot_password');
 		
-		$user = $this->social_auth->get_user('forgotten_password_code', $this->uri->segment(2));
-		
-		// Reset Password
-		if ($new_password = $this->social_auth->forgotten_password_complete($user))
+		if ($user = $this->social_auth->get_user('forgotten_password_code', $this->uri->segment(2)))
 		{
-			// Config Email	
-			$this->load->library('email');
-			
-			$config_email['protocol']  	= config_item('services_email_protocol');
-			$config_email['mailtype']  	= 'html';
-			$config_email['charset']  	= 'UTF-8';
-			$config_email['crlf']		= '\r\n';
-			$config_email['newline'] 	= '\r\n'; 			
-			$config_email['wordwrap']  	= FALSE;
-			$config_email['validate']	= TRUE;
-			$config_email['priority']	= 1;
-				
-			if (config_item('services_email_protocol') == 'smtp')
-			{			
-				$config_email['smtp_host'] 	= config_item('services_smtp_host');
-				$config_email['smtp_user'] 	= config_item('services_smtp_user');
-				$config_email['smtp_pass'] 	= config_item('services_smtp_pass');
-				$config_email['smtp_port'] 	= config_item('services_smtp_port');
-			}
-
-			$this->email->initialize($config_email);
-
-			$data = array(
-				'email' 		=> $user->email, 
-				'new_password'	=> $new_password
-			);
-
-			$message = $this->load->view(config_item('email_templates').config_item('email_forgot_password_complete'), $data, true);
-
-			$this->email->from(config_item('site_admin_email'), config_item('site_title'));
-			$this->email->to($user->email);
-			$this->email->subject(config_item('site_title') . ' - New Password');
-			$this->email->message($message);
-
-			if ($this->email->send())
+			// Reset Password
+			if ($new_password = $this->social_auth->forgotten_password_complete($user))
 			{
-				$this->session->set_flashdata('message', 'An email has been sent with your new password, check your inbox.');
-	            redirect("login", 'refresh');
+				// Config Email	
+				$this->load->library('email');
+				
+				$config_email['protocol']  	= config_item('services_email_protocol');
+				$config_email['mailtype']  	= 'html';
+				$config_email['charset']  	= 'UTF-8';
+				$config_email['crlf']		= '\r\n';
+				$config_email['newline'] 	= '\r\n'; 			
+				$config_email['wordwrap']  	= FALSE;
+				$config_email['validate']	= TRUE;
+				$config_email['priority']	= 1;
+					
+				if (config_item('services_email_protocol') == 'smtp')
+				{			
+					$config_email['smtp_host'] 	= config_item('services_smtp_host');
+					$config_email['smtp_user'] 	= config_item('services_smtp_user');
+					$config_email['smtp_pass'] 	= config_item('services_smtp_pass');
+					$config_email['smtp_port'] 	= config_item('services_smtp_port');
+				}
+	
+				$this->email->initialize($config_email);
+	
+				$data = array(
+					'email' 		=> $user->email, 
+					'new_password'	=> $new_password
+				);
+	
+				$message = $this->load->view(config_item('email_templates').config_item('email_forgot_password_complete'), $data, true);
+	
+				$this->email->from(config_item('site_admin_email'), config_item('site_title'));
+				$this->email->to($user->email);
+				$this->email->subject(config_item('site_title') . ' - New Password');
+				$this->email->message($message);
+	
+				if ($this->email->send())
+				{
+					$this->session->set_flashdata('message', 'An email has been sent with your new password, check your inbox.');
+		            redirect("login");
+				}
+				else
+				{
+					$this->session->set_flashdata('message', 'The email failed to send, try again.');
+				}
 			}
 			else
 			{
-				$this->session->set_flashdata('message', 'The email failed to send, try again.');
+				$this->session->set_flashdata('message', 'Shoot, we could not reset your password. Please try again.');
 			}
 		}
 		else
@@ -209,7 +214,7 @@ class Site extends Site_Controller
 			$this->session->set_flashdata('message', 'Shoot, we could not reset your password. Please try again.');
 		}
 
-		redirect("forgot_password", 'refresh');		
+		redirect("forgot_password");
 	}
 
 	// Activate the User
@@ -222,12 +227,12 @@ class Site extends Site_Controller
         if ($activation)
         {
 	        $this->session->set_flashdata('message', "Account Activated");
-	        redirect("login", 'refresh');
+	        redirect("login");
         }
         else
         {
 	        $this->session->set_flashdata('message', "Unable to Activate");
-	        redirect("forgot_password", 'refresh');
+	        redirect("forgot_password");
         }
     }
     
@@ -259,64 +264,42 @@ class Site extends Site_Controller
     function webfinger_user(){
     	$uri = $this->uri->segment(2);
     	preg_match('/@/', $uri, $matches);
-    	if ($matches){
+    	if ($matches)
+    	{
     		preg_match('/(acct:|^)(.*?)@/',$uri, $matches);
     		$username = $matches[2];
     		$this->data['uri'] = $uri;
 	    	$this->data['username'] = $username;
 	    	$user = $this->social_auth->get_user('username', $username); 
+			
 			if ($user)
 			{
-			  $connections = $this->social_auth->get_connections_user($user->user_id); 		
+				$connections = $this->social_auth->get_connections_user($user->user_id); 		
 			}
+			
 			foreach($connections as $connection)
 			{
-				//var_dump($connection);
-				if ($connection->module == "twitter"){
+				if ($connection->module == "twitter")
+				{
+					$screen_name = $connection->connection_username;
+				}
+				elseif ($connection->module == "facebook")
+				{
 					$screen_name = $connection->connection_username;
 				}
 			}
-			//var_dump($screen_name);
-			if(isset($screen_name)){
+			
+			if(isset($screen_name))
+			{
 				$this->data['screen_name'] = $screen_name;
 			}
+
 	    	$this->load->view('site_default/partials/webfinger_user', $this->data);
 		}
-		else {
+		else
+		{
 			$this->error_404();
 		}
-    }    
-    function test_me()
- 	{
- 	    /*
- 	    $this->load->library('simplepie');
- 	    $simple = new SimplePie();
- 	    $feedurl = "http://social.pdxbrain.com/profile/tyler/feed";
- 	    $simple->set_feed_url($feedurl);
- 	    $simple->init();
- 	    $simple->handle_content_type();
- 	    //echo $simple->get_author();
- 	    $items = $simple->get_items();
- 	    foreach($items as $item){
- 	        echo $item->get_description()."<br>";
- 	        echo $item->get_id()."<br>";
- 	    }
- 	    //var_dump($simple);
-
- 	    $this->load->library('webfinger');
-        $id = "tyler@social.pdxbrain.com";
-        $webfinger = $this->webfinger->webfinger_find_by_email($id);
-        var_dump($webfinger);
-        $name = $webfinger['webfinger']['display_name'];
-        $photo = $webfinger['webfinger']['portrait_url'];
-        if (preg_match('/https:\/\/profiles.google.com\/\/(.*?)$/',$photo, $matches)){
-         //var_dump($matches);
-         $photo = 'http://' . $matches[1];
-        }
-        echo "Webfinger: $id, Full Name: $name <img src=$photo>";
-        //var_dump($webfinger);
-        echo 'test';
-      */
-    } 	
+    }	
 
 }

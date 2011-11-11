@@ -208,11 +208,12 @@ function friendly_to_mysql_time($time='', $meridian='')
 function date_parser($fmt = 'WHOLE', $time = '')
 {
 	$formats = array(
-		'WHOLE'	=>  '%M %d, %Y %g:%i %A',
-		'YEAR'	=>  '%Y',
-		'MONTH'	=>  '%m',
-		'WEEK'	=>  '%W',
-		'DAY'	=>  '%d'
+		'WHOLE'		=> '%M %d, %Y %g:%i %A',
+		'YEAR'		=> '%Y',
+		'MONTH'		=> '%m',
+		'WEEK'		=> '%W',
+		'DAY'		=> '%d',
+		'DAY_TEXT'	=> '%l'
 	);
 
 	if (!isset($formats[$fmt]))
