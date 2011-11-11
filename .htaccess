@@ -1,4 +1,14 @@
-RewriteEngine On
-Header add Access-Control-Allow-Origin "*"
-RewriteCond $1 !^(index\.php|favicon\.ico|css|js|images|uploads|temp|crossdomain\.xml|robots\.txt|application/views/*|application/modules/*|install.php)
-RewriteRule ^(.*)$ index.php/$1 [L]
+Options +FollowSymlinks
+rewriteEngine on
+
+rewriteCond %{REQUEST_URI} !^/admin/index\.php$ 
+rewriteCond %{REQUEST_URI} !^/admin
+
+RewriteRule ^([A-Za-z0-9_-]+)/?$ index.php?var1=$1 [L]
+RewriteRule ^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/?$ index.php?var1=$1&var2=$2 [L]
+RewriteRule ^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/?$ index.php?var1=$1&var2=$2&var3=$3 [L]
+RewriteRule ^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/?$ index.php?var1=$1&var2=$2&var3=$3&var4=$4 [L]
+RewriteRule ^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/?$ index.php?var1=$1&var2=$2&var3=$3&var4=$4&var5=$5 [L]
+RewriteRule ^([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)/?$ index.php?var1=$1&var2=$2&var3=$3&var4=$4&var5=$5&var6=$6 [L]
+
+AddHandler php5-script .php
