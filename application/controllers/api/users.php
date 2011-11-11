@@ -192,7 +192,7 @@ class Users extends Oauth_Controller
         		$user->email = $this->input->post('email');
 				$meta = $this->social_auth->get_user_meta($user->user_id);
         	
-		        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta', $meta);
+		        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta' => $meta);
 	        }
 	        else
 	        {
@@ -287,7 +287,7 @@ class Users extends Oauth_Controller
 	        		// Get User Data
 					$meta = $this->social_auth->get_user_meta($user->user_id);
 	        	
-			        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta', $meta);
+			        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta' => $meta);
 		        }
 		        else
 		        {
@@ -656,7 +656,6 @@ class Users extends Oauth_Controller
     {
     	$this->social_auth->update_user_meta($this->get('id'));
     
-    
     	if ($this->social_auth->update_user($this->oauth_user_id, $update_data))
     	{
 	        $message = array('status' => 'success', 'message' => 'Phone number updated');
@@ -685,6 +684,35 @@ class Users extends Oauth_Controller
     
     	$this->response($message, 200);
     }
+    
+    function device_create_authd_post()
+    {
+    	$device_data = array(
+    		'user_id'		=> $this->oauth_user_id,
+    		'site_id'		=> config_item('site_id'),
+    		'module'		=> 'users',
+    		'meta'			=> 'device',
+    		'value'			=> $this->input->post('device')
+		);
+
+        if (!$this->social_auth->check_user_meta_exists($device_data))
+        {
+        	if ($user_meta = $this->social_auth->add_user_meta($device_data))
+        	{        	
+		        $message = array('status' => 'success', 'message' => 'Yay, device was added', 'data' => $user_meta);
+       		}
+       		else
+       		{
+ 	       		$message = array('status' => 'error', 'message' => 'Dang, could not add device');
+       		}
+		}
+		else
+		{
+	        $message = array('status' => 'error', 'message' => 'Shucks, that device already exists');
+		}
+    
+    	$this->response($message, 200);
+    }   
     
     
     /* Advanced Fields */
