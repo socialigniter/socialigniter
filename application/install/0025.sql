@@ -1,0 +1,1 @@
+CREATE INDEX last_activity_idx ON users_sessions(last_activity); ALTER TABLE users_sessions MODIFY user_agent VARCHAR(120);
