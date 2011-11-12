@@ -95,7 +95,7 @@ $(document).ready(function()
 							widget_json.layout	= '<?= $layout_selected ?>';							
 							widget_data.push({'name':'module','value':'widgets'},{'name':'setting','value':widget_region},{'name':'value','value':JSON.stringify(widget_json)});
 
-							 $(this).find('form').oauthAjax(
+							 $.oauthAjax(
 							{
 								oauth 		: user_data,		
 								url			: base_url + 'api/settings/create',
@@ -212,7 +212,7 @@ $(document).ready(function()
 							widget_json.content = $(this).find('textarea').val();
 							widget_data.push({'name':'value','value':JSON.stringify(widget_json)});
 							
-							$(this).find('form').oauthAjax(
+							$.oauthAjax(
 							{
 								oauth 		: user_data,
 								url			: base_url + 'api/settings/modify_widget/id/' + settings_id,
