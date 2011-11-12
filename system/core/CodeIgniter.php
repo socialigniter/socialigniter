@@ -4,10 +4,22 @@
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
+ * NOTICE OF LICENSE
+ * 
+ * Licensed under the Open Software License version 3.0
+ * 
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
+ *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
@@ -23,23 +35,17 @@
  * @package		CodeIgniter
  * @subpackage	codeigniter
  * @category	Front-controller
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/
  */
 
-/*
- * ------------------------------------------------------
- *  Define the CodeIgniter Version
- * ------------------------------------------------------
+/**
+ * CodeIgniter Version
+ *
+ * @var string
+ *
  */
-	define('CI_VERSION', '2.0.3');
-
-/*
- * ------------------------------------------------------
- *  Define the CodeIgniter Branch (Core = TRUE, Reactor = FALSE)
- * ------------------------------------------------------
- */
-	define('CI_CORE', FALSE);
+	define('CI_VERSION', '3.0-dev');
 
 /*
  * ------------------------------------------------------
@@ -267,7 +273,25 @@
 		OR in_array(strtolower($method), array_map('strtolower', get_class_methods('CI_Controller')))
 		)
 	{
-		show_404("{$class}/{$method}");
+		if ( ! empty($RTR->routes['404_override']))
+		{
+			$x = explode('/', $RTR->routes['404_override']);
+			$class = $x[0];
+			$method = (isset($x[1]) ? $x[1] : 'index');
+			if ( ! class_exists($class))
+			{
+				if ( ! file_exists(APPPATH.'controllers/'.$class.'.php'))
+				{
+					show_404("{$class}/{$method}");
+				}
+
+				include_once(APPPATH.'controllers/'.$class.'.php');
+			}
+		}
+		else
+		{
+			show_404("{$class}/{$method}");
+		}
 	}
 
 /*

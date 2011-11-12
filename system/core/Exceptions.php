@@ -4,10 +4,22 @@
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
+ * NOTICE OF LICENSE
+ * 
+ * Licensed under the Open Software License version 3.0
+ * 
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
+ *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
@@ -21,7 +33,7 @@
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Exceptions
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/exceptions.html
  */
 class CI_Exceptions {
@@ -30,8 +42,21 @@ class CI_Exceptions {
 	var $message;
 	var $filename;
 	var $line;
+
+	/**
+	 * Nesting level of the output buffering mechanism
+	 *
+	 * @var int
+	 * @access public
+	 */
 	var $ob_level;
 
+	/**
+	 * List if available error levels
+	 *
+	 * @var array
+	 * @access public
+	 */
 	var $levels = array(
 						E_ERROR				=>	'Error',
 						E_WARNING			=>	'Warning',
@@ -84,7 +109,8 @@ class CI_Exceptions {
 	 * 404 Page Not Found Handler
 	 *
 	 * @access	private
-	 * @param	string
+	 * @param	string	the page
+	 * @param 	bool	log error yes/no
 	 * @return	string
 	 */
 	function show_404($page = '', $log_error = TRUE)
@@ -115,6 +141,7 @@ class CI_Exceptions {
 	 * @param	string	the heading
 	 * @param	string	the message
 	 * @param	string	the template name
+	 * @param 	int		the status code
 	 * @return	string
 	 */
 	function show_error($heading, $message, $template = 'error_general', $status_code = 500)

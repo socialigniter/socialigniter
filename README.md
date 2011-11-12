@@ -24,7 +24,7 @@ Installation Instructions
 API Documentation
 ================
 
-To see documentation on the API go to: http://social-igniter.com/api
+To see documentation on the API go to: http://social-igniter.com/documentation
 
 Modules
 =======

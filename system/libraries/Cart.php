@@ -4,10 +4,22 @@
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
+ * NOTICE OF LICENSE
+ * 
+ * Licensed under the Open Software License version 3.0
+ * 
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
+ *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2006 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2006 - 2011, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
@@ -21,7 +33,7 @@
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Shopping Cart
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/cart.html
  */
 class CI_Cart {
@@ -99,7 +111,7 @@ class CI_Cart {
 		$save_cart = FALSE;
 		if (isset($items['id']))
 		{
-			if ($this->_insert($items) == TRUE)
+			if (($rowid = $this->_insert($items)))
 			{
 				$save_cart = TRUE;
 			}
@@ -110,7 +122,7 @@ class CI_Cart {
 			{
 				if (is_array($val) AND isset($val['id']))
 				{
-					if ($this->_insert($val) == TRUE)
+					if ($this->_insert($val))
 					{
 						$save_cart = TRUE;
 					}
@@ -122,7 +134,7 @@ class CI_Cart {
 		if ($save_cart == TRUE)
 		{
 			$this->_save_cart();
-			return TRUE;
+			return isset($rowid) ? $rowid : TRUE;
 		}
 
 		return FALSE;
@@ -244,7 +256,7 @@ class CI_Cart {
 		}
 
 		// Woot!
-		return TRUE;
+		return $rowid;
 	}
 
 	// --------------------------------------------------------------------

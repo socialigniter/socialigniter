@@ -47,7 +47,7 @@
 		<div id="profile_sidebar">
 			<div class="profile_sidebar_top"></div>	
 			<div class="profile_sidebar_mid">		
-				<?= $sidebar_profile ?>
+				<?= $sidebar ?>
 			</div>
 			<div class="profile_sidebar_bot"></div>
 		</div>

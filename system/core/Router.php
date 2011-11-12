@@ -4,10 +4,22 @@
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
+ * NOTICE OF LICENSE
+ * 
+ * Licensed under the Open Software License version 3.0
+ * 
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
+ *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
@@ -22,18 +34,60 @@
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @category	Libraries
  * @link		http://codeigniter.com/user_guide/general/routing.html
  */
 class CI_Router {
 
+	/**
+	 * Config class
+	 *
+	 * @var object
+	 * @access public
+	 */
 	var $config;
+	/**
+	 * List of routes
+	 *
+	 * @var array
+	 * @access public
+	 */
 	var $routes			= array();
+	/**
+	 * List of error routes
+	 *
+	 * @var array
+	 * @access public
+	 */
 	var $error_routes	= array();
+	/**
+	 * Current class name
+	 *
+	 * @var string
+	 * @access public
+	 */
 	var $class			= '';
+	/**
+	 * Current method name
+	 *
+	 * @var string
+	 * @access public
+	 */
 	var $method			= 'index';
+	/**
+	 * Sub-directory that contains the requested controller class
+	 *
+	 * @var string
+	 * @access public
+	 */
 	var $directory		= '';
+	/**
+	 * Default controller (and method if specific)
+	 *
+	 * @var string
+	 * @access public
+	 */
 	var $default_controller;
 
 	/**
@@ -95,7 +149,7 @@ class CI_Router {
 		{
 			include(APPPATH.'config/routes.php');
 		}
-		
+
 		$this->routes = ( ! isset($route) OR ! is_array($route)) ? array() : $route;
 		unset($route);
 
@@ -244,7 +298,20 @@ class CI_Router {
 				// Does the requested controller exist in the sub-folder?
 				if ( ! file_exists(APPPATH.'controllers/'.$this->fetch_directory().$segments[0].'.php'))
 				{
-					show_404($this->fetch_directory().$segments[0]);
+					if ( ! empty($this->routes['404_override']))
+					{
+						$x = explode('/', $this->routes['404_override']);
+
+						$this->set_directory('');
+						$this->set_class($x[0]);
+						$this->set_method(isset($x[1]) ? $x[1] : 'index');
+
+						return $x;
+					}
+					else
+					{
+						show_404($this->fetch_directory().$segments[0]);
+					}
 				}
 			}
 			else

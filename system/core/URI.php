@@ -4,10 +4,22 @@
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
+ * NOTICE OF LICENSE
+ * 
+ * Licensed under the Open Software License version 3.0
+ * 
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
+ *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
@@ -23,14 +35,39 @@
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	URI
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/uri.html
  */
 class CI_URI {
 
+	/**
+	 * List of cached uri segments
+	 *
+	 * @var array
+	 * @access public
+	 */
 	var	$keyval			= array();
+	/**
+	 * Current uri string
+	 *
+	 * @var string
+	 * @access public
+	 */
 	var $uri_string;
+	/**
+	 * List of uri segments
+	 *
+	 * @var array
+	 * @access public
+	 */
 	var $segments		= array();
+	/**
+	 * Re-indexed list of uri segments
+	 * Starts at 1 instead of 0
+	 *
+	 * @var array
+	 * @access public
+	 */
 	var $rsegments		= array();
 
 	/**
@@ -127,6 +164,7 @@ class CI_URI {
 	 * Set the URI String
 	 *
 	 * @access	public
+	 * @param 	string
 	 * @return	string
 	 */
 	function _set_uri_string($str)
@@ -149,7 +187,7 @@ class CI_URI {
 	 * @access	private
 	 * @return	string
 	 */
-	private function _detect_uri()
+	protected function _detect_uri()
 	{
 		if ( ! isset($_SERVER['REQUEST_URI']) OR ! isset($_SERVER['SCRIPT_NAME']))
 		{
@@ -206,7 +244,7 @@ class CI_URI {
 	 * @access	private
 	 * @return	string
 	 */
-	private function _parse_cli_args()
+	protected function _parse_cli_args()
 	{
 		$args = array_slice($_SERVER['argv'], 1);
 
@@ -365,6 +403,11 @@ class CI_URI {
 	}
 	/**
 	 * Identical to above only it uses the re-routed segment array
+	 *
+	 * @access 	public
+	 * @param 	integer	the starting segment number
+	 * @param 	array	an array of default values
+	 * @return 	array
 	 *
 	 */
 	function ruri_to_assoc($n = 3, $default = array())

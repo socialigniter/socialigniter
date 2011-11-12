@@ -4,10 +4,22 @@
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
+ * NOTICE OF LICENSE
+ * 
+ * Licensed under the Open Software License version 3.0
+ * 
+ * This source file is subject to the Open Software License (OSL 3.0) that is
+ * bundled with this package in the files license.txt / license.rst.  It is
+ * also available through the world wide web at this URL:
+ * http://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to obtain it
+ * through the world wide web, please send an email to
+ * licensing@ellislab.com so we can send you a copy immediately.
+ *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
+ * @author		EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc. (http://ellislab.com/)
+ * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
@@ -21,7 +33,7 @@
  * @package		CodeIgniter
  * @subpackage	Helpers
  * @category	Helpers
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/string_helper.html
  */
 
@@ -215,12 +227,9 @@ if ( ! function_exists('random_string'))
 						case 'nozero'	:	$pool = '123456789';
 							break;
 					}
-
-					$str = '';
-					for ($i=0; $i < $len; $i++)
-					{
-						$str .= substr($pool, mt_rand(0, strlen($pool) -1), 1);
-					}
+					
+					$str = substr(str_shuffle(str_repeat($pool, ceil($len/strlen($pool)))),0,$len);
+					
 					return $str;
 				break;
 			case 'unique'	:
@@ -238,6 +247,23 @@ if ( ! function_exists('random_string'))
 				break;
 		}
 	}
+}
+
+// ------------------------------------------------------------------------
+
+/**
+ * Add's _1 to a string or increment the ending number to allow _2, _3, etc
+ *
+ * @param   string  $str  required
+ * @param   string  $separator  What should the duplicate number be appended with
+ * @param   string  $first  Which number should be used for the first dupe increment
+ * @return  string
+ */
+function increment_string($str, $separator = '_', $first = 1)
+{
+	preg_match('/(.+)'.$separator.'([0-9]+)$/', $str, $match);
+
+	return isset($match[2]) ? $match[1].$separator.($match[2] + 1) : $str.$separator.$first;
 }
 
 // ------------------------------------------------------------------------

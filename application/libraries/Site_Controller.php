@@ -22,9 +22,9 @@ class Site_Controller extends MY_Controller
 		$this->data['navigation_menu']	= $this->social_igniter->get_menu();
 
         // Load Views
-        $this->data['head']			= $this->load->view(config_item('site_theme').'/partials/head_site.php', $this->data, true);
-        $this->data['logged']		= $this->load->view(config_item('site_theme').'/partials/logged.php', $this->data, true);
-        $this->data['navigation']	= $this->load->view(config_item('site_theme').'/partials/navigation_site.php', $this->data, true);
+        $this->data['head']			= $this->load->view(config_item('site_theme').'/partials/head_site', $this->data, true);
+        $this->data['logged']		= $this->load->view(config_item('site_theme').'/partials/logged', $this->data, true);
+        $this->data['navigation']	= $this->load->view(config_item('site_theme').'/partials/navigation_site', $this->data, true);
         $this->data['site_image']	= base_url().config_item('uploads_folder').'sites/'.config_item('site_id').'/large_logo.png';
         $this->data['content']		= '';
         
@@ -41,7 +41,7 @@ class Site_Controller extends MY_Controller
  		}
 
         $this->data['shared_ajax']			= '';        
-		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer.php', $this->data, true);
+		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer', $this->data, true);
 		$this->data['comments_view'] 		= '';
 
 		// If Modules Exist		
@@ -51,10 +51,10 @@ class Site_Controller extends MY_Controller
 			{
 				if (config_item($module.'_enabled') == 'TRUE')
 				{			
-					$module_header 		= '/modules/'.$module.'/views/partials/head_site.php';
-					$module_navigation	= '/modules/'.$module.'/views/partials/navigation_site.php';
-					$module_sidebar 	= '/modules/'.$module.'/views/partials/sidebar_site.php';
-					$module_footer 		= '/modules/'.$module.'/views/partials/footer.php';
+					$module_header 		= '/modules/'.$module.'/views/partials/head_site';
+					$module_navigation	= '/modules/'.$module.'/views/partials/navigation_site';
+					$module_sidebar 	= '/modules/'.$module.'/views/partials/sidebar_site';
+					$module_footer 		= '/modules/'.$module.'/views/partials/footer';
 		
 					// Set Module Asset Path
 					$this->data['this_module_assets'] 	= base_url().'application/modules/'.$module.'/assets/';
@@ -101,15 +101,15 @@ class Site_Controller extends MY_Controller
       	// Is Module
        	if ($this->module_name)
     	{
-    	    $content_path = '../modules/'.$this->module_name.'/views/'.$this->module_controller.'/'.$content.'.php';    	    
+    	    $content_path = '../modules/'.$this->module_name.'/views/'.$this->module_controller.'/'.$content;    	    
 		}
 		else
 		{
-        	$content_path = config_item('site_theme').'/'.$this->controller_name.'/'.$content.'.php';
+        	$content_path = config_item('site_theme').'/'.$this->controller_name.'/'.$content;
 		}
 
     	// Content file exists
-        if (file_exists(APPPATH.'views/'.$content_path))
+        if (file_exists(APPPATH.'views/'.$content_path.'.php'))
         {
             $this->data['content'] .= $this->load->view($content_path, $this->data, true);
         }
@@ -119,7 +119,7 @@ class Site_Controller extends MY_Controller
         }
  		 		
 		// Render View
-        $this->load->view(config_item('site_theme').'/layouts/'.$layout.'.php', $this->data);
+        $this->load->view(config_item('site_theme').'/layouts/'.$layout, $this->data);
     }
     
     function render_widgets($region, $layout=NULL)
