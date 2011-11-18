@@ -95,16 +95,16 @@ class MY_Controller extends MX_Controller
 		// Is Mobile Browser
         if ($this->agent->is_mobile())
         {
-        	// JSON Blob Of Mobile Theme
-        	$this->site_theme = json_decode($this->data['settings']['themes']['mobile_theme']);        	        
-            $this->config->set_item('site_theme', $this->site_theme->theme);
+        	// Parse JSON Mobile Theme
+            $this->config->set_item('site_theme', $this->data['settings']['themes']['mobile_theme']);        	
+        	$this->site_theme = json_decode($this->load->view(config_item('site_theme').'/theme_schema', $this->data, true));
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['mobile_theme']);
         }
         else
         {   
-        	// JSON Blob Of Site Theme     
-        	$this->site_theme = json_decode($this->data['settings']['themes']['site_theme']);
-			$this->config->set_item('site_theme', $this->site_theme->theme);
+        	// Parse JSON Site Theme
+            $this->config->set_item('site_theme', $this->data['settings']['themes']['site_theme']);
+        	$this->site_theme = json_decode($this->load->view(config_item('site_theme').'/theme_schema', $this->data, true));
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['dashboard_theme']);
         }
 
