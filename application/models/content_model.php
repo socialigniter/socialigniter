@@ -305,8 +305,17 @@ class Content_model extends CI_Model {
  		$this->db->where(array('content_id' => $content_id, 'meta' => $meta));
  		$result = $this->db->get()->row();	
  		return $result;
-    } 
-	
+    }
+
+    function get_meta_multiples($content_id_array)
+    {
+ 		$this->db->select('*');
+ 		$this->db->from('content_meta');
+ 		$this->db->or_where_in('content_id', $content_id_array);
+ 		$result = $this->db->get();
+ 		return $result->result();
+    }
+
     function add_meta($site_id, $content_id, $meta_data)
     {
     	$content_meta_id = array();
