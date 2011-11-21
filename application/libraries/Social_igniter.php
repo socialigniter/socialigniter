@@ -955,6 +955,19 @@ class Social_igniter
 		
 		return FALSE;
 	}
+
+	function find_meta_specific_content_value($content_id, $key, $meta_query)
+	{
+		foreach($meta_query as $meta)
+		{			
+			if (($meta->meta == $key) AND ($meta->content_id == $content_id))
+			{
+				return $meta->value;
+			}			
+		}		
+		
+		return FALSE;
+	}
 	
 	function get_meta($content_meta_id)
 	{
@@ -970,7 +983,12 @@ class Social_igniter
 	{
 		return $this->ci->content_model->get_meta_content_meta($content_id, $meta);
 	}
-	
+
+	function get_meta_multiples($content_id_array)
+	{
+		return $this->ci->content_model->get_meta_multiples($content_id_array);
+	}
+
     function add_meta($site_id, $content_id, $meta_data)
     {
     	return $this->ci->content_model->add_meta($site_id, $content_id, $meta_data);
