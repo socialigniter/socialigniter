@@ -71,6 +71,7 @@
 		"video/x-flv,flv," +
 		"video/x-ms-wmv,wmv," +
 		"video/avi,avi," +
+		"video/webm,webm," +
 		"video/vnd.rn-realvideo,rv," +
 		"text/csv,csv," +
 		"text/plain,asc txt text diff log," +
@@ -235,6 +236,26 @@
 		 * @final
 		 */
 		mimeTypes : mimes,
+		
+		/**
+		 * In some cases sniffing is the only way around :(
+		 */
+		ua: (function() {
+			var nav = navigator, userAgent = nav.userAgent, vendor = nav.vendor, webkit, opera, safari;
+			
+			webkit = /WebKit/.test(userAgent);
+			safari = webkit && vendor.indexOf('Apple') !== -1;
+			opera = window.opera && window.opera.buildNumber;
+			
+			return {
+				windows: navigator.platform.indexOf('Win') !== -1,
+				ie: !webkit && !opera && (/MSIE/gi).test(userAgent) && (/Explorer/gi).test(nav.appName),
+				webkit: webkit,
+				gecko: !webkit && /Gecko/.test(userAgent),
+				safari: safari,
+				opera: !!opera
+			};
+		}()),
 
 		/**
 		 * Extends the specified object with another object.
@@ -789,7 +810,7 @@
 			plupload.each(eventhash[obj[uid]], function(events, name) {
 				plupload.removeEvent(obj, name, key);
 			});		
-		}		
+		}
 	};
 	
 
@@ -861,8 +882,8 @@
 
 				// All files are DONE or FAILED
 				if (count == files.length) {
-					this.trigger("UploadComplete", files);
 					this.stop();
+					this.trigger("UploadComplete", files);
 				}
 			}
 		}

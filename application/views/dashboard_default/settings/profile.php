@@ -51,7 +51,6 @@
 	<p><input type="submit" value="Save"></p>
 </form>
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>js/plupload.html5.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/plupload.flash.js"></script>
 <script type="text/javascript">
 $(document).ready(function()
@@ -61,9 +60,9 @@ $(document).ready(function()
 	{
 		max_size	: '<?= $upload_size ?>mb',
 		create_url	: base_url + 'api/users/upload_profile_picture/id/' + user_data.user_id,
-		formats		: {title : 'Image Files', extensions : '<?= $upload_formats ?>'},
+		formats		: {title : 'Allowed Files', extensions : '<?= $upload_formats ?>'},
 		start		: function(files)
-		{					
+		{
 			// Show Upload Link
 			$('#uploading_pick').hide(); 
 			$('#uploading_delete').hide();

@@ -436,7 +436,7 @@ class Users extends Oauth_Controller
 				// Upload
 				if (!$this->upload->do_upload('file'))
 				{
-			    	$message = array('status' => 'error', 'message' => config_item('users_images_formats') . ' ' .$this->upload->display_errors('', ''));
+			    	$message = array('status' => 'error', 'message' => $this->upload->display_errors('', ''), 'blah' => $this->upload->data());
 				}	
 				else
 				{
@@ -469,7 +469,7 @@ class Users extends Oauth_Controller
 		}
 
     	$this->response($message, 200);
-    }
+    } 
     
     function delete_profile_picture_authd_get()
     {

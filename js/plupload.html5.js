@@ -158,11 +158,11 @@
 		 * @return {Object} Name/value object with supported features.
 		 */
 		getFeatures : function() {
-			var xhr, hasXhrSupport, hasProgress, canSendBinary, dataAccessSupport, sliceSupport, win = window;
+			var xhr, hasXhrSupport, hasProgress, canSendBinary, dataAccessSupport, sliceSupport;
 
 			hasXhrSupport = hasProgress = dataAccessSupport = sliceSupport = false;
 			
-			if (win.XMLHttpRequest) {
+			if (window.XMLHttpRequest) {
 				xhr = new XMLHttpRequest();
 				hasProgress = !!xhr.upload;
 				hasXhrSupport = !!(xhr.sendAsBinary || xhr.upload);
@@ -173,30 +173,32 @@
 				canSendBinary = !!(xhr.sendAsBinary || (window.Uint8Array && window.ArrayBuffer));
 				
 				// Set dataAccessSupport only for Gecko since BlobBuilder and XHR doesn't handle binary data correctly				
-				dataAccessSupport = !!(File && (File.prototype.getAsDataURL || win.FileReader) && canSendBinary);
+				dataAccessSupport = !!(File && (File.prototype.getAsDataURL || window.FileReader) && canSendBinary);
 				sliceSupport = !!(File && (File.prototype.mozSlice || File.prototype.webkitSlice || File.prototype.slice)); 
 			}
 
-			// Sniff for Safari and fake drag/drop
-			fakeSafariDragDrop = navigator.userAgent.indexOf('Safari') > 0 && navigator.vendor.indexOf('Apple') !== -1;
+			// sniff out Safari for Windows and fake drag/drop
+			fakeSafariDragDrop = plupload.ua.safari && plupload.ua.windows;
 
 			return {
-				// Detect drag/drop file support by sniffing, will try to find a better way
 				html5: hasXhrSupport, // This is a special one that we check inside the init call
-				dragdrop: win.mozInnerScreenX !== undef || sliceSupport || fakeSafariDragDrop,
+				dragdrop: (function() {
+					// this comes directly from Modernizr: http://www.modernizr.com/
+					var div = document.createElement('div');
+					return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
+				}()),
 				jpgresize: dataAccessSupport,
 				pngresize: dataAccessSupport,
-				multipart: dataAccessSupport || !!win.FileReader || !!win.FormData,
+				multipart: dataAccessSupport || !!window.FileReader || !!window.FormData,
 				canSendBinary: canSendBinary,
 				// gecko 2/5/6 can't send blob with FormData: https://bugzilla.mozilla.org/show_bug.cgi?id=649150 
-				cantSendBlobInFormData: !!(xhr && xhr.sendAsBinary && window.FormData && window.FileReader && !FileReader.prototype.readAsArrayBuffer),
+				cantSendBlobInFormData: !!(plupload.ua.gecko && window.FormData && window.FileReader && !FileReader.prototype.readAsArrayBuffer),
 				progress: hasProgress,
 				chunks: sliceSupport,
-								
-				/* WebKit let you trigger file dialog programmatically while FF and Opera - do not, so we
-				sniff for it here... probably not that good idea, but impossibillity of controlling cursor style  
-				on top of add files button obviously feels even worse */
-				triggerDialog: navigator.userAgent.indexOf('WebKit') !== -1
+				// Safari on Windows has problems when selecting multiple files
+				multi_selection: !(plupload.ua.safari && plupload.ua.windows),
+				// WebKit and Gecko 2+ can trigger file dialog progrmmatically
+				triggerDialog: (plupload.ua.gecko && window.FormData || plupload.ua.webkit) 
 			};
 		},
 
@@ -261,7 +263,6 @@
 					zIndex : 99999,
 					opacity : uploader.settings.shim_bgcolor ? '' : 0 // Force transparent if bgcolor is undefined
 				});
-
 				inputContainer.className = 'plupload html5';
 
 				if (uploader.settings.container) {
@@ -296,12 +297,27 @@
 
 
 				// Insert the input inside the input container
-				inputContainer.innerHTML = '<input id="' + uploader.id + '_html5" ' +
-											'style="width:100%;height:100%;font-size:99px" type="file" accept="' + 
-											mimes.join(',') + '" ' +
-											(uploader.settings.multi_selection ? 'multiple="multiple"' : '') + ' />';
-				
+				inputContainer.innerHTML = '<input id="' + uploader.id + '_html5" ' + ' style="font-size:999px"' +
+											' type="file" accept="' + mimes.join(',') + '" ' +
+											(uploader.settings.multi_selection && uploader.features.multi_selection ? 'multiple="multiple"' : '') + ' />';
+
+				inputContainer.scrollTop = 100;
 				inputFile = document.getElementById(uploader.id + '_html5');
+				
+				if (up.features.triggerDialog) {
+					plupload.extend(inputFile.style, {
+						position: 'absolute',
+						width: '100%',
+						height: '100%'
+					});
+				} else {
+					// shows arrow cursor instead of the text one, bit more logical
+					plupload.extend(inputFile.style, {
+						cssFloat: 'right', 
+						styleFloat: 'right'
+					});
+				}
+				
 				inputFile.onchange = function() {
 					// Add the selected files from file input
 					addSelectedFiles(this.files);
@@ -312,7 +328,7 @@
 				
 				/* Since we have to place input[type=file] on top of the browse_button for some browsers (FF, Opera),
 				browse_button loses interactivity, here we try to neutralize this issue highlighting browse_button
-				with a special class
+				with a special classes
 				TODO: needs to be revised as things will change */
 				browseButton = document.getElementById(up.settings.browse_button);
 				if (browseButton) {				
@@ -422,7 +438,7 @@
 			});
 
 			uploader.bind("Refresh", function(up) {
-				var browseButton, browsePos, browseSize, inputContainer, pzIndex;
+				var browseButton, browsePos, browseSize, inputContainer, zIndex;
 					
 				browseButton = document.getElementById(uploader.settings.browse_button);
 				if (browseButton) {
@@ -440,24 +456,23 @@
 					// for WebKit place input element underneath the browse button and route onclick event 
 					// TODO: revise when browser support for this feature will change
 					if (uploader.features.triggerDialog) {
-						pzIndex = parseInt(browseButton.parentNode.style.zIndex, 10);
-	
-						if (isNaN(pzIndex)) {
-							pzIndex = 0;
-						}
-							
-						plupload.extend(browseButton.style, {
-							zIndex : pzIndex
-						});
-            
 						if (plupload.getStyle(browseButton, 'position') === 'static') {
 							plupload.extend(browseButton.style, {
 								position : 'relative'
 							});
 						}
+						
+						zIndex = parseInt(plupload.getStyle(browseButton, 'z-index'), 10);
+						if (isNaN(zIndex)) {
+							zIndex = 0;
+						}						
+							
+						plupload.extend(browseButton.style, {
+							zIndex : zIndex
+						});						
 											
 						plupload.extend(inputContainer.style, {
-							zIndex : pzIndex - 1
+							zIndex : zIndex - 1
 						});
 					}
 				}
@@ -487,12 +502,7 @@
 
 				function sendBinaryBlob(blob) {
 					var chunk = 0, loaded = 0,
-						fr = ("FileReader" in window) ? new FileReader : null,
-						xhr = new XMLHttpRequest,
-						upload = xhr.upload
-						
-						// if file was preloaded as binary string, we should send it accordingly
-						shouldSendBinary = typeof(blob) === 'string';
+						fr = ("FileReader" in window) ? new FileReader : null;
 						
 
 					function uploadNextChunk() {
@@ -501,6 +511,8 @@
 						
 						function prepareAndSend(bin) {
 							var multipartDeltaSize = 0,
+								xhr = new XMLHttpRequest,
+								upload = xhr.upload,	
 								boundary = '----pluploadboundary' + plupload.guid(), formData, dashdash = '--', crlf = '\r\n', multipartBlob = ''
 								
 							// Do we have upload progress support
@@ -592,7 +604,7 @@
 								
 								
 								// if has FormData support like Chrome 6+, Safari 5+, Firefox 4, use it
-								if (!shouldSendBinary && !!window.FormData) {
+								if (typeof(bin) !== 'string' && !!window.FormData) {
 									formData = new FormData();
 	
 									// Add multipart params
@@ -608,7 +620,7 @@
 								}  // if no FormData we can still try to send it directly as last resort (see below)
 								
 								
-								if (shouldSendBinary) {
+								if (typeof(bin) === 'string') {
 									// Trying to send the whole thing as binary...
 		
 									// multipart request
@@ -696,9 +708,8 @@
 						}
 						
 						// workaround Gecko 2,5,6 FormData+Blob bug: https://bugzilla.mozilla.org/show_bug.cgi?id=649150
-						if (fr && features.cantSendBlobInFormData && features.chunks && up.settings.chunk_size) { // basically if Gecko 2,5,6
+						if (typeof(chunkBlob) !== 'string' && fr && features.cantSendBlobInFormData && features.chunks && up.settings.chunk_size) {// Gecko 2,5,6
 							fr.onload = function() {
-								shouldSendBinary = true;
 								prepareAndSend(fr.result);
 							}
 							fr.readAsBinaryString(chunkBlob);
