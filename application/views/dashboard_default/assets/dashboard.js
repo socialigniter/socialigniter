@@ -133,7 +133,7 @@ function geo_success(position)
 		// Uploader Params
 		var uploader = new plupload.Uploader(
 		{
-			runtimeStyle	: 'flash',
+			runtimeStyle	: 'html5,flash',
 			browse_button	: 'pickfiles',
 			container		: 'container',
 			max_file_size	: options.max_size,
