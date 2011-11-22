@@ -111,7 +111,7 @@ function geo_success(position)
 
 
 
-/*	mediaUploader - jQuery Plugin 
+/*	loader - jQuery Plugin 
 	- Based on Pluploader http://plupload.com
 	- Options are implied
 */
