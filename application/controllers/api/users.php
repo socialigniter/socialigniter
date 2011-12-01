@@ -433,6 +433,8 @@ class Users extends Oauth_Controller
 				delete_files($create_path);
 				make_folder($create_path);
 				
+				log_message('debug', 'users_images_formats: '.config_item('users_images_formats').' $create_path '.$create_path);	
+				
 				// Upload
 				if (!$this->upload->do_upload('file'))
 				{

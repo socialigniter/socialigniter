@@ -147,7 +147,7 @@ function geo_success(position)
 	
 		// Initialize
 		uploader.bind('Init', function(up, params){});
-		
+
 		// Call Init
 		uploader.init();
 
