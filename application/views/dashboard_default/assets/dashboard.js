@@ -109,7 +109,12 @@ function geo_success(position)
 	}
 }
 
-
+/* Sort function for comment arrays by comment_id (desc) */
+function sortByCommentId(a, b){
+  var aCommentId = a.comment_id;
+  var bCommentId = b.comment_id; 
+  return ((aCommentId > bCommentId) ? -1 : ((aCommentId < bCommentId) ? 1 : 0));
+}
 
 /*	loader - jQuery Plugin 
 	- Based on Pluploader http://plupload.com
@@ -704,18 +709,21 @@ $(document).ready(function()
 			if (json.status !== 'error')
 			{
 				$comment_list.find('li:not(#comment_write)').remove();					
+				json.data.sort(sortByCommentId);
 				for (x in json.data)
 				{
-					$comment_list.prepend('\
-						<li id="comment_'+json.data[x].comment_id+'">\
-							<div class="comment">\
-								<a href="' + base_url + 'profiles/' + json.data[x].username + '"><img class="comment_thumb" src="'+getUserImageSrc(json.data[x],'small')+'"></a>\
-								<p><span class="comment_author"><a href="' + base_url + 'profiles/' + json.data[x].username + '">'+json.data[x].name+'</a></span> '+json.data[x].comment+'</p>\
-								<p class="comment_meta"><span class="comment_date">'+$.relativetime({time:json.data[x].created_at})+'</span></p>\
-								<div class="clear"></div>\
-							</div>\
-						</li>\
-					');
+					if (x != "remove") {
+						$comment_list.prepend('\
+							<li id="comment_'+json.data[x].comment_id+'">\
+								<div class="comment">\
+									<a href="' + base_url + 'profiles/' + json.data[x].username + '"><img class="comment_thumb" src="'+getUserImageSrc(json.data[x],'small')+'"></a>\
+									<p><span class="comment_author"><a href="' + base_url + 'profiles/' + json.data[x].username + '">'+json.data[x].name+'</a></span> '+json.data[x].comment+'</p>\
+									<p class="comment_meta"><span class="comment_date">'+$.relativetime({time:json.data[x].created_at})+'</span></p>\
+									<div class="clear"></div>\
+								</div>\
+							</li>\
+						');
+					}
 				}
 			}
 		});
