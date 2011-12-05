@@ -124,9 +124,12 @@ class Settings extends Dashboard_Controller
 	{
 		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');        
 	
+		$this->data['logo_image']			= '';
+		$this->data['background_image']		= '';
+	
 		$this->data['sub_title'] 			= 'Design';
 		$this->data['this_module']			= 'design';
-		$this->data['shared_ajax'] 		   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
+		$this->data['shared_ajax'] 		   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render('dashboard_wide');
 	}
 
