@@ -1,9 +1,9 @@
 <link rel="alternate" type="application/rss+xml" title="<?= $site_title ?> RSS 2.0 Feed" href="<?= base_url() ?>feed" />
 <link rel="alternate" type="application/rss+xml" title="<?= $site_title ?> RSS 2.0 Comments" href="<?= base_url() ?>feed/comments" />
-
-<link type="text/css" href="<?= base_url() ?>css/common.css" rel="stylesheet" media="screen" />
 <link type="text/css" href="<?= $dashboard_assets ?>style.css" rel="stylesheet" media="screen" />
-
+<style type="text/css">
+body { background: <?= make_css_site_background() ?>; }
+</style>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery-ui.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>

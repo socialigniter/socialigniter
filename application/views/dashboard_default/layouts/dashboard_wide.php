@@ -15,7 +15,7 @@
 <div id="container">
 	<div id="header">
 		<div id="name">
-			<a id="name_img" href="<?= base_url() ?>"><img src="<?= $site_images ?>medium_logo.png" border="0" /></a>
+			<?= show_site_logo() ?>
 			<a id="name_text" href="<?= base_url() ?>"><h1><?= $site_title ?></h1></a>
 		</div>
 		<div id="nav">

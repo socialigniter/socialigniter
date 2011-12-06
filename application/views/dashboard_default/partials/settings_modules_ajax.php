@@ -31,7 +31,7 @@ $(document).ready(function()
 		$.oauthAjax(
 		{
 			oauth 		: user_data,
-			url			: base_url + 'api/install/uninstall/app/<?= $this_module ?>',
+			url			: base_url + 'api/site/uninstall/app/<?= $this_module ?>',
 			type		: 'GET',
 			dataType	: 'json',
 	  		success		: function(result)

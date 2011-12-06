@@ -222,6 +222,14 @@ INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_medium_height', '235');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_small_width', '125');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_small_height', '125');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_sizes_original', 'yes');
+
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'background_position', 'left top');
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'background_repeat', 'repeat-x');
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'background_color', 'ffffff');
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'font_color_normal', '0066CC');
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'font_color_visited', '0066CC');
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'font_color_hover', 'ff3300');
+
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'site_theme', 'site_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'dashboard_theme', 'dashboard_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'mobile_theme', 'mobile_default');

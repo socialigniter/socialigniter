@@ -146,8 +146,7 @@ class Settings extends Oauth_Controller
 	    $this->response($message, 200);
     
     } 
-    
-    // Only works if there are no duplicate 'setting' values in $_POST data
+
     function modify_authd_post()
     {
     	$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);
@@ -158,8 +157,9 @@ class Settings extends Oauth_Controller
 		
 			if ($settings_update)
 	        {
+				// Only works if there are no duplicate 'setting' values in $_POST data
 				$this->social_igniter->update_settings($this->input->post('module'), $settings_update);
-															
+											
 	            $message = array('status' => 'success', 'message' => 'Settings have been updated');
 			}
 			else
@@ -199,20 +199,15 @@ class Settings extends Oauth_Controller
 		}
     	
         $this->response($message, 200);      	
-    
     }
 
-    /* DELETE types */
     function destroy_get()
-    {		
-		$access = TRUE;//$this->social_tools->has_access_to_delete('comment', $this->get('id'));
-    	
+    {
+		$access = TRUE;
+
     	if ($access)
-        {   
+        {
         	$this->social_igniter->delete_setting($this->get('id'));
-        
-			// Reset comments with this reply_to_id
-			//$this->social_igniter->update_content_comments_count($this->get('id'));
         
         	$message = array('status' => 'success', 'message' => 'Comment deleted');
         }
@@ -222,6 +217,24 @@ class Settings extends Oauth_Controller
         }
 
         $this->response($message, 200);        
+    }
+    
+    function delete_site_picture_authd_get()
+    {
+		if ($this->social_auth->update_user($this->get('type'), array('image' => '')))
+		{
+			$this->load->helper('file');
+		
+			delete_files(config_item('users_images_folder').$this->get('id').'/');
+		
+		    $message = array('status' => 'success', 'message' => ' picture deleted');	
+		}
+		else
+		{
+			$message = array('status' => 'error', 'message' => 'Could not delete picture');
+		}
+
+    	$this->response($message, 200);
     }
 
 }

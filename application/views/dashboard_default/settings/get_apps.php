@@ -30,7 +30,7 @@
 <p>///// Do check for proper server support</p>
 
 <p>Install any Social Igniter compatible app that exists as a Github repository. Just copy + paste the url where the repo is located</p>
-<form method="post" action="<?= base_url() ?>api/install/custom">
+<form method="post" action="<?= base_url() ?>api/site/custom">
 	<p>Project Owner<br>
 	<input type="text" name="app_url" placeholder="socialigniter" size="32">
 	</p>
@@ -44,7 +44,7 @@
 
 <h3>Custom Install</h3>
 <p>Just enter the url to any Social Igniter compatible app that is in a zip file on a web server and we will download the app and install it.</p>
-<form method="post" action="<?= base_url() ?>api/install/custom">
+<form method="post" action="<?= base_url() ?>api/site/custom">
 	<p>App Name<br>
 	<input type="text" name="app_name" placeholder="super secret app" size="32">
 	</p>

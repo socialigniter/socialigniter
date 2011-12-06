@@ -1,7 +1,25 @@
 <link rel="icon" type="image/png" href="<?= $site_images ?>favicon.png" />
 <link type="text/css" href="<?= base_url() ?>css/common.css" rel="stylesheet" media="screen" />
-<link type="text/css" href="<?= $site_assets ?>style.css" rel="stylesheet" media="screen" />
+<style type="text/css">
+body 		{ background: <?= $site_background ?>; font-family: }
+a:link 		{ font-weight: normal; color: #<?= config_item('design_font_color_normal') ?>; text-decoration: none; line-height: 21px; }
+a:visited	{ font-weight: normal; color: #<?= config_item('design_font_color_visited') ?>; text-decoration: none; }
+a:hover		{ font-weight: normal; color:#<?= config_item('design_font_color_hover') ?>; text-decoration: underline; }
+a:active	{ font-weight: normal; text-decoration: none; }
 
+.content_container h1 a			{ font-weight: bold !important; color: #<?= config_item('design_font_color_normal') ?>; text-decoration: none; }
+.content_container h2 a			{ font-weight: bold !important; color: #<?= config_item('design_font_color_normal') ?>; text-decoration: none; }
+.content_container a:link 		{ font-weight: normal; font-weight: bold; color: #<?= config_item('design_font_color_normal') ?>; text-decoration: none; }
+.content_container a:visited	{ font-weight: normal; font-weight: bold; color: #<?= config_item('design_font_color_visited') ?>; text-decoration: none; }
+.content_container a:hover		{ font-weight: normal; font-weight: bold; color:#<?= config_item('design_font_color_hover') ?>; text-decoration: underline; }
+.content_container a:active		{ font-weight: normal; font-weight: bold; text-decoration: none; }
+
+#comments a 					{ font-weight: normal; color: #<?= config_item('design_font_color_normal') ?>; text-decoration: none; }
+#comments a:visited				{ font-weight: normal; color: #<?= config_item('design_font_color_visited') ?>; text-decoration: none; }
+#comments a:hover				{ font-weight: normal; color:#<?= config_item('design_font_color_hover') ?>; text-decoration: underline; }
+#comments a:active				{ font-weight: normal; text-decoration: none; }
+</style>
+<link type="text/css" href="<?= $site_assets ?>style.css" rel="stylesheet" media="screen" />
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/social.core.js"></script>
 <script type="text/javascript">

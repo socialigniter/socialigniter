@@ -1,8 +1,24 @@
 @charset "utf-8";
+/* http://meyerweb.com/eric/tools/css/reset/ v2.0b1 | 201101  NOTE: WORK IN PROGRESS USE WITH CAUTION AND TEST WITH ABANDON */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+body { line-height: 1; }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after,
+q:before, q:after { content: ''; content: none; }
+/* remember to highlight inserts somehow! */
+ins { text-decoration: none; }
+del { text-decoration: line-through; }
+table { border-collapse: collapse; border-spacing: 0; } 
+strong { font-weight:bold; } 
+em { font-style:italic; }
+
 /* Dashboard Default Theme */
 /* Make background and basic fonts be designable from dashboard */
-body		{ background: url(/uploads/sites/1/background.png) 0 0 repeat-x #ffffff; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
-
+body		{ font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
 h1			{ color: #444; font-size: 30px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h2			{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h3			{ color: #444; font-size: 18px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
@@ -83,8 +99,8 @@ input.form_valid, textarea.form_valid { color: #479e45 !important; }
 /* Header */
 #header						{ width: 950px; height: 62px; margin: 15px auto; background: url('images/header.png') repeat-x; }
 #header #name				{ width: 600px; height: 50px; margin: 7px 0 0 17px; text-align: left; float:left; overflow: hidden; }
-#header #name_img			{ float: left; }
-#header #name_text  		{ display: block; margin: 9px 0 0 55px; color: #333; text-shadow:1px 1px 1px #FFF; }
+#header #name_img			{ float: left; margin: 0 10px 0 5px; }
+#header #name_text  		{ display: block; margin: 9px 0 0 10px; color: #333; text-shadow:1px 1px 1px #FFF; }
 
 #header #nav				{ width: 305px; height: 34px; position: relative; top: 14px; left: 22px; float: left; text-align: left; }
 #header #nav ul				{ float: left; list-style: none; margin: 9px 0 0 20px; padding: 0; }
@@ -460,8 +476,12 @@ div.selectable_chosen:hover { color: #777777; }
 span.nav_apps_back					{ float: right; position: relative; top: -2px; right: 0px; margin: 0 0 0 5px; }
 
 /* Settings - Design */
-div.design_color_picker				{ width: 78px; height: 78px; border: 1px solid #999999; margin: 6px 13px 0 0; }
+div.design_color_widget				{ width: 200px; height: 110px; float: left; }
+div.design_color_widget	p			{ margin: 0 0 0 0; }
+div.design_color_picker				{ width: 78px; height: 78px; border: 1px solid #999999; margin: 6px 13px 0 0; float: left; }
 div.design_color_picker div			{ width: 100%; height: 100%; }
+div.design_color_details			{ width: 100px; float: left; }
+div.design_color_details input[type=text] { margin: 5px 0 10px 0; }
 img.font_color_picker_icon			{ cursor: pointer; margin: 0 8px 0 0; position: relative;  }
 
 /* Widget */

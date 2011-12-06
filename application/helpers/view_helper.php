@@ -395,3 +395,43 @@ function get_category_image($category, $size)
 
 	return $image;
 }
+
+/* Site Design Functions */
+function show_site_logo()
+{
+	$ci =& get_instance();
+	$image = $ci->config->item('design_site_logo');
+
+	if ($image != '')
+	{
+		$image_path	= '/'.$ci->config->item('uploads_folder').'/sites/'.$ci->config->item('site_id').'/'.$image;
+		$avatar = '<a id="name_img" href="'.base_url().'"><img src="'.$image_path.'" border="0"></a>';
+	}
+	else
+	{
+		$avatar	= '';
+	}
+
+	return $avatar;
+}
+
+function make_css_site_background()
+{
+	$ci =& get_instance();
+	$image		= $ci->config->item('design_background_image');
+	$position	= $ci->config->item('design_background_position');
+	$repeat		= $ci->config->item('design_background_repeat');
+	$color		= $ci->config->item('design_background_color');
+
+	if ($image != '')
+	{
+		$image_path	= '/'.$ci->config->item('uploads_folder').'/sites/'.$ci->config->item('site_id').'/'.$image;
+		$background = 'url('.$image_path.') '.$position.' '.$repeat.' #'.$color;
+	}
+	else
+	{
+		$background	= '#'.$color;
+	}
+
+	return $background;
+}

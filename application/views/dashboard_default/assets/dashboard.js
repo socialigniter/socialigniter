@@ -731,18 +731,18 @@ $(document).ready(function()
 	});
 	
 	
-	//Close the comment area if the user clicks outside of the form
+	// Close the comment area if the user clicks outside of the form
 	$('*').click(function(eve)
 	{
-		//Here we check if what the user clicked on was the form or children of it
+		// Here we check if what the user clicked on was the form or children of it
 		if(!$(eve.target).is('.comment_form,.comment_form *'))
 		{
 			$comment_form.hide();
 		}
 	});
 	
-	//A generic function alert the user an error has occured. Use simply with:
-	//generic_error(), or you can manually specify different title's or messages
+	// A generic function alert the user an error has occured. Use simply with:
+	// generic_error(), or you can manually specify different title's or messages
 	var generic_error = function(title,msg)
 	{
 		if(!title){ title= 'Oops!'; }
@@ -753,7 +753,7 @@ $(document).ready(function()
 		});
 	}
 	
-	//Submitting a comment	
+	// Submitting a comment	
 	$(".item_comment_form").live("submit", function(e)
 	{
 		e.preventDefault();
@@ -781,8 +781,7 @@ $(document).ready(function()
 				 	}
 				 	else
 				 	{
-						$comment_form.find('textarea').val('')
-						.siblings('[type=submit]').removeAttr('disabled');
+						$comment_form.find('textarea').val('').siblings('[type=submit]').removeAttr('disabled');
 						$this_form.closest('.comment_list').prepend('\
 							<li id="comment_'+json.data.comment_id+'">\
 								<div class="comment">\
@@ -793,9 +792,9 @@ $(document).ready(function()
 								</div>\
 							</li>\
 						');
-				 	}	
+				 	}
 			 	}
-			});			
+			});
 		}
 		else
 		{

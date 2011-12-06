@@ -108,7 +108,7 @@ class MY_Controller extends MX_Controller
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['dashboard_theme']);
         }
 
-		$this->config->set_item('mobile_theme', $this->data['settings']['themes']['mobile_theme']);
+		$this->config->set_item('mobile_theme', $this->data['settings']['themes']['mobile_theme']);	
 		
 		// Google Analytics
 		if (config_item('services_google_analytics'))

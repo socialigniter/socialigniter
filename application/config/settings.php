@@ -215,3 +215,23 @@ $config['link_actions']	= array(
 	'slideshow'	=> 'Slideshow',
 	'lightbox'	=> 'Lightbox'
 );
+
+/* Design */
+$config['css_background_repeat'] = array(
+	'none'		=> 'None',
+	'repeat-x'	=> 'Horizontal Repeat',
+	'repeat-y'	=> 'Vertical Repeat',
+	'repeat'	=> 'Repeat'
+);
+
+$config['css_background_position'] = array(
+	'center center'		=> 'Center Center',
+	'center top'		=> 'Center Top',
+	'center bottom'		=> 'Center Bottom',
+	'left top'			=> 'Left Top',
+	'left center'		=> 'Left Center',
+	'left bottom'		=> 'Left Bottom',
+	'right top'			=> 'Right Top',
+	'right center'		=> 'Right Center',
+	'right bottom'		=> 'Right Bottom'
+);
