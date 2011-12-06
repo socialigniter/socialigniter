@@ -26,7 +26,7 @@ var user_data = {
 	"token_secret": "<?= $oauth_token_secret ?>"
 }
 
-var base_url 		= jQuery.url.attr('protocol') + '://' +jQuery.url.attr('host') + '/';
+var base_url 		= '<?= base_url() ?>';
 var current_module	= jQuery.url.segment(1);
 var core_modules	= jQuery.parseJSON('<?= json_encode(config_item('core_modules')) ?>');
 var core_assets		= '<?= $dashboard_assets.'icons/' ?>';

@@ -1,7 +1,7 @@
 <link rel="icon" type="image/png" href="<?= $site_images ?>favicon.png" />
 <link type="text/css" href="<?= base_url() ?>css/common.css" rel="stylesheet" media="screen" />
 <style type="text/css">
-body 		{ background: <?= $site_background ?>; font-family: }
+body 		{ background: <?= make_css_site_background() ?>; }
 a:link 		{ font-weight: normal; color: #<?= config_item('design_font_color_normal') ?>; text-decoration: none; line-height: 21px; }
 a:visited	{ font-weight: normal; color: #<?= config_item('design_font_color_visited') ?>; text-decoration: none; }
 a:hover		{ font-weight: normal; color:#<?= config_item('design_font_color_hover') ?>; text-decoration: underline; }
@@ -41,7 +41,7 @@ var user_data = {
 	"token_secret": "<?= $oauth_token_secret ?>"
 }
 
-var base_url 		= jQuery.url.attr('protocol') + '://' +jQuery.url.attr('host') + '/';
+var base_url 		= '<?= base_url() ?>';
 var current_module	= jQuery.url.segment(1);
 var core_modules	= jQuery.parseJSON('<?= json_encode(config_item('core_modules')) ?>');
 var core_assets		= '<?= $dashboard_assets.'icons/' ?>';
