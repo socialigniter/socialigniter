@@ -102,6 +102,9 @@ $route['api/settings/modify_widget/(:any)/(:any)']		= 'api/settings/modify_widge
 $route['api/settings/modify']							= 'api/settings/modify';
 $route['api/settings/destroy/(:any)/(:any)']			= 'api/settings/destroy/$1/$2';
 $route['api/settings/create']							= 'api/settings/create';
+$route['api/settings/(:any)/(:any)/(:any)']				= 'api/settings/$1/$2/$3';
+$route['api/settings/(:any)/(:any)']					= 'api/settings/$1/$2';
+$route['api/settings/(:any)']							= 'api/settings/$1';
 $route['api/settings']									= 'api/settings';
 
 /* Tags */

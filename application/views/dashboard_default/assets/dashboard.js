@@ -116,13 +116,13 @@ function sortByCommentId(a, b){
   return ((aCommentId > bCommentId) ? -1 : ((aCommentId < bCommentId) ? 1 : 0));
 }
 
-/*	loader - jQuery Plugin 
+/*	mediaUploader - jQuery Plugin 
 	- Based on Pluploader http://plupload.com
 	- Options are implied
 */
 (function($)
 {
-	$.mediaUploader = function(options)
+	$.fn.mediaUploader = function(options)
 	{	
 		var settings =
 		{
@@ -134,12 +134,13 @@ function sortByCommentId(a, b){
 		};
 					
 		options = $.extend({}, settings, options);
+		trigger = $(this).attr('id');
 
 		// Uploader Params
 		var uploader = new plupload.Uploader(
 		{
 			runtimeStyle	: 'html5,flash',
-			browse_button	: 'pickfiles',
+			browse_button	: trigger,
 			container		: 'container',
 			max_file_size	: options.max_size,
 			max_file_count	: 1,
@@ -332,90 +333,6 @@ function sortByCommentId(a, b){
 		});
 	};
 })(jQuery);
-
-
-/* Category Manager - jQuery Plugin */
-(function($)
-{
-	$.categoryManager = function(options)
-	{
-		var settings = {
-			action		: '',
-			module		: '',
-			type		: '',
-			title		: '',
-			data		: '',
-			after 		: function(){}
-		};
-
-		options = $.extend({}, settings, options);
-		
-		// Action & URLs
-		if (options.action == 'edit')
-		{
-			var partial_url	= 'home/category_manager/' + options.data;
-			var action_url	= 'api/categories/modify/id/' + options.data;
-		}
-		else
-		{
-			var partial_url = 'home/category_manager';
-			var action_url	= 'api/categories/create';
-		}			
-
-		// Gets HTML template
-		$.get(base_url + partial_url, {}, function(html_partial)
-		{
-			$('<div />').html(html_partial).dialog(
-			{
-				width	: 525,
-				modal	: true,
-				close	: function(){$(this).remove()},				
-				title	: options.title,
-				create	: function()
-				{
-					$category_editor = $(this);	
-
-					$('#category_name').slugify(
-					{
-						slug	  : '#category_slug', 
-						url		  : base_url + options.module + '/', 
-						name	  : 'category_url', 
-						slugValue : $(html_partial).find('#category_slug').html()
-					});										
-				},
-				open	: function() {},
-				buttons	:
-				{
-		        	'Close':function()
-		        	{
-		          		$category_editor.dialog('close');
-		          		$category_editor.remove();
-		        	},
-		        	'Save':function()
-		        	{
-						var category_data = $('#category_editor').serializeArray();
-						category_data.push({'name':'module','value':options.module});
-						category_data.push({'name':'type','value':options.type});
-
-						$.oauthAjax(
-						{
-							oauth 		: user_data,
-							url			: base_url + action_url,
-							type		: 'POST',
-							dataType	: 'json',
-							data		: category_data,
-							success		: function(result)
-							{								
-	          					$category_editor.dialog('close');
-	          					$category_editor.remove();
-							}
-						});
-		        	}
-		        }				    
-		    });  
-		});
-	};
-}) (jQuery);
 
 
 /* Takes a DOM element (li, div, a, etc...) and converts it to a multi selectable region */

@@ -416,29 +416,27 @@ class Users extends Oauth_Controller
 			{	
 				// Delete Expectation
 				$this->social_tools->delete_upload($this->input->post('upload_id'));
-								
+
 				// Upload Settings
 				$create_path				= config_item('users_images_folder').$this->get('id').'/';
 				$config['upload_path'] 		= $create_path;
-				$config['allowed_types'] 	= config_item('users_images_formats');		
+				$config['allowed_types'] 	= config_item('users_images_formats');
 				$config['overwrite']		= true;
 				$config['max_size']			= config_item('users_images_max_size');
 				$config['max_width']  		= config_item('users_images_max_dimensions');
 				$config['max_height']  		= config_item('users_images_max_dimensions');
 
-				$this->load->helper('file');	
+				$this->load->helper('file');
 				$this->load->library('upload', $config);
 
 				// Delete / Make Folder
 				delete_files($create_path);
 				make_folder($create_path);
 				
-				log_message('debug', 'users_images_formats: '.config_item('users_images_formats').' $create_path '.$create_path);	
-				
 				// Upload
 				if (!$this->upload->do_upload('file'))
 				{
-			    	$message = array('status' => 'error', 'message' => $this->upload->display_errors('', ''), 'blah' => $this->upload->data());
+			    	$message = array('status' => 'error', 'message' => $this->upload->display_errors('', ''), 'upload_info' => $this->upload->data());
 				}	
 				else
 				{
@@ -447,17 +445,16 @@ class Users extends Oauth_Controller
 	
 					// Upload Data
 					$file_data = $this->upload->data();
-	
-					// Make Sizes
-					$this->image_model->make_images($create_path, $file_data, 'users', array('full', 'large', 'medium', 'small'));
-		
-					// Update DB
+
+					// Update DB & Userdata Image
 			    	$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));
-			    	
-			    	// Update Userdata Image
 			    	$this->session->set_userdata('image', $file_data['file_name']);
-	
-			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'data' => $file_data['file_name']);
+
+					// Make Sizes
+					$this->image_model->make_images($create_path, $file_data, 'users', 'medium');
+					$this->image_model->make_images($create_path, $file_data, 'users', 'small');
+
+			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'upload_info' => $file_data);
 				}
 			}
 			else

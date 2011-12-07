@@ -124,8 +124,27 @@ class Settings extends Dashboard_Controller
 	{
 		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');        
 	
-		$this->data['logo_image']			= config_item('design_logo_image');
-		$this->data['background_image']		= config_item('design_background_image');
+		if (config_item('design_background_image') != '')
+		{
+			$this->data['logo_image']		= config_item('design_logo_image');
+		}
+		else
+		{
+			$this->dat['logo_image']		= '';
+		}
+		
+		if (config_item('design_background_image') != '')
+		{
+			$this->data['background_image']	= config_item('design_background_image');
+		}
+		else
+		{
+			$this->data['background_image'] = '';
+		}
+
+		// Image Upload Settings
+        $this->data['upload_size']	  		= config_item('default_image_file_size') / 1024;
+        $this->data['upload_formats'] 		= str_replace('|', ',', config_item('default_image_formats'));		
 
 		$this->data['sub_title'] 			= 'Design';
 		$this->data['this_module']			= 'design';

@@ -7,7 +7,7 @@
 			<img id="profile_thumbnail" src="<?= $thumbnail ?>" border="0">
 		</div>
 		<ul id="profile_picture_upload" class="item_actions_list">
-			<li id="uploading_pick"><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
+			<li id="uploading_pick"><a id="pick_image" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
 			<li id="uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
 		<?php if ($image): ?>
 			<li id="uploading_delete"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
@@ -57,13 +57,13 @@
 $(document).ready(function()
 {
 	// Profile Picture
-	$.mediaUploader(
+	$('#pick_image').mediaUploader(
 	{
 		max_size	: '<?= $upload_size ?>mb',
 		create_url	: base_url + 'api/users/upload_profile_picture/id/' + user_data.user_id,
 		formats		: {title : 'Allowed Files', extensions : '<?= $upload_formats ?>'},
 		start		: function(files)
-		{					
+		{
 			// Show Upload Link
 			$('#uploading_pick').hide(); 
 			$('#uploading_delete').hide();
@@ -80,7 +80,7 @@ $(document).ready(function()
 	
 			if (response.status == 'success')
 			{
-				$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/' + user_data.user_id + '/small_' + response.data)
+				$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/' + user_data.user_id + '/small_' + response.upload_info.file_name)
 			}
 			else
 			{			

@@ -10,7 +10,7 @@ class Image_model extends CI_Model
 	    $this->load->library('image_lib');
     }
 
-	function make_images($create_path, $file_data, $module, $image_sizes)
+	function make_images($create_path, $file_data, $module, $size)
 	{		
 	    $raw_path					= $create_path.$file_data['file_name'];
 		$image_size 				= getimagesize($create_path.$file_data['file_name']);	    
@@ -18,21 +18,23 @@ class Image_model extends CI_Model
 		$file_data['image_height']	= $image_size[1];
 
 		// Increase Memory If Image is Larger than 2MB file
-		if ($file_data['file_size'] >= 2048)
+		if ($file_data['file_size'] >= 5120)
+		{
+			ini_set('memory_limit', '128M');
+		}
+		elseif ($file_data['file_size'] >= 2048)
 		{
 			ini_set('memory_limit', '64M');
 		}
 		
-		// Loop Through Sizes
-		foreach ($image_sizes as $size)
+		// If upload width / heights differ from config
+		if (($file_data['image_width'] != config_item($module.'_images_'.$size.'_width')) || ($file_data['image_height'] != config_item($module.'_images_'.$size.'_height')))
 		{
-			// If upload width / heights differ from config
-			if (($file_data['image_width'] != config_item($module.'_images_'.$size.'_width')) || ($file_data['image_height'] != config_item($module.'_images_'.$size.'_height')))
-			{ 
-				$this->make_cropped($file_data, $module, $create_path, $size);
-			}
+			// Make Crop
+			$this->make_cropped($create_path, $file_data, $module, $size);
 		}
 		
+		// If Delete Original
 		if (config_item($module.'_images_sizes_original') == 'no')
 		{
 			unlink($raw_path);
@@ -40,8 +42,8 @@ class Image_model extends CI_Model
 
 	    return TRUE;	    
 	}
-	
-	function make_cropped($file_data, $module, $create_path, $size)
+
+	function make_cropped($create_path, $file_data, $module, $size)
 	{
 	    $raw_path 			= $create_path.$file_data['file_name'];
 	    $original_width		= 0;
@@ -222,7 +224,7 @@ class Image_model extends CI_Model
   		$this->image_lib->clear();
 	}
 
-	// Saves Remote Image File
+	// Saves Remote Image
 	function get_external_image($image_full, $image_save)
 	{	
 	    $ch = curl_init ($image_full);

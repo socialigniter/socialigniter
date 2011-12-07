@@ -219,6 +219,69 @@ class Settings extends Oauth_Controller
         $this->response($message, 200);        
     }
     
+    function upload_site_picture_post()
+    {
+    	if ($upload = $this->social_tools->get_upload($this->input->post('upload_id')))
+    	{
+	    	// If File Exists
+			if ($upload->file_hash == $this->input->post('file_hash'))
+			{	
+				// Delete Expectation
+				$this->social_tools->delete_upload($this->input->post('upload_id'));
+								
+				// Upload Settings
+				$create_path				= config_item('site_images_folder').config_item('site_id').'/';
+				$config['upload_path'] 		= $create_path;
+				$config['allowed_types'] 	= config_item('default_images_formats');		
+				$config['overwrite']		= true;
+				$config['max_size']			= config_item('default_images_max_size');
+				$config['max_width']  		= config_item('default_image_dimensions');
+				$config['max_height']  		= config_item('default_image_dimensions');
+
+				$this->load->helper('file');
+				$this->load->library('upload', $config);
+
+				// Make Folder
+				if (!file_exists($create_path))
+				{
+					make_folder($create_path);
+				}
+				
+				// Upload
+				if (!$this->upload->do_upload('file'))
+				{
+			    	$message = array('status' => 'error', 'message' => $this->upload->display_errors('', ''), 'upload_info' => $this->upload->data());
+				}	
+				else
+				{
+					// Image Model
+					$this->load->model('image_model');
+	
+					// Upload Data
+					$file_data = $this->upload->data();
+
+					// Update Settings
+			    	//$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));	
+	
+					// Make Sizes
+					//$this->image_model->make_images($create_path, $file_data, 'users', 'small');
+			    		
+			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'data' => $file_data['file_name']);
+				}
+			}
+			else
+			{
+				$message = array('status' => 'error', 'message' => 'No image file was sent or the hash was bad. Add some ketchup?');
+			}
+		}
+		else
+		{
+			$message = array('status' => 'error', 'message' => 'No matching upload token was found');
+		}
+
+    	$this->response($message, 200);
+    } 
+    
     function delete_site_picture_authd_get()
     {
 		if ($this->social_auth->update_user($this->get('type'), array('image' => '')))
