@@ -81,7 +81,7 @@ $(document).ready(function()
 	
 			if (response.status == 'success')
 			{
-				$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/' + user_data.user_id + '/small_' + response.upload_info.file_name)
+				$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/' + user_data.user_id + '/medium_' + response.upload_info.file_name)
 			}
 			else
 			{			

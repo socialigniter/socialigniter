@@ -147,7 +147,8 @@ class Image_model extends CI_Model
 		$img_output_path	= getcwd().'/'.$create_path.$size.'_'.$image_name;
 		$raw_path			= getcwd().'/'.$raw_path;
 		$working_path		= getcwd().'/'.$create_path.'/working_'.$image_name;
-/*
+
+/*		Some Windows PHP Thing that may be needed?
 		if (stristr(PHP_OS, 'WIN'))
 		{
 			$raw_path = str_replace('/', '\\', $raw_path);
@@ -156,9 +157,10 @@ class Image_model extends CI_Model
 		}
 */
 		// Make a working copy
-		copy($raw_path, $working_path); 	    	   
- 
-	    // Make Largest Possible Cropped Image	 
+		copy($raw_path, $working_path);
+
+	    // Make Largest Possible Cropped Image
+	    $crop_config['quality']				= '100%';
 		$crop_config['image_library']		= 'gd2';
 	    $crop_config['source_image'] 		= $working_path;
 	    $crop_config['maintain_ratio']		= FALSE;

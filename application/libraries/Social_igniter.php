@@ -37,12 +37,22 @@ class Social_igniter
 		$this->ci->load->helper('gravatar');
 		$picture = base_url().config_item('users_images_folder').$size.'_'.config_item('profile_nopicture');
 		
+		// Does User Have Image
 		if ($image)
 		{
-			$image_file = config_item('users_images_folder').$user_id.'/'.$size.'_'.$image;
+			$image_original	= config_item('users_images_folder').$user_id.'/'.$image;
+			$image_file		= config_item('users_images_folder').$user_id.'/'.$size.'_'.$image;
 			
+			// If Thumbnail Exists
 		    if (file_exists($image_file))
 		    {
+		    	$picture = base_url().$image_file;
+		    }
+		    // Attempt to Make Thumb
+		    elseif (!file_exists($image_file) AND file_exists($image_original))
+		    {
+		    	$this->ci->load->model('image_model');
+		    	$this->ci->image_model->make_images(config_item('users_images_folder').$user_id.'/', $image, 'users', $size);
 		    	$picture = base_url().$image_file;
 		    }
 		    else

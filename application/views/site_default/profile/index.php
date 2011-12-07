@@ -1,6 +1,6 @@
 <div class="vcard">
 <div id="profile_image">
-	<img class="photo" src="<?= $this->social_igniter->profile_image($user_id, $image, $gravatar, 'large'); ?>" border="0">
+	<img class="photo" src="<?= $image ?>" border="0">
 </div>
 
 <div id="profile_info">
