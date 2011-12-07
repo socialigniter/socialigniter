@@ -10,30 +10,29 @@ class Image_model extends CI_Model
 	    $this->load->library('image_lib');
     }
 
-	function make_images($create_path, $file_data, $module, $size)
-	{		
-	    $raw_path					= $create_path.$file_data['file_name'];
-		$image_size 				= getimagesize($create_path.$file_data['file_name']);	    
-		$file_data['image_width']	= $image_size[0]; 
-		$file_data['image_height']	= $image_size[1];
+	function make_images($create_path, $image_name, $module, $thumb)
+	{
+	    $raw_path			= $create_path.$image_name;
+		$image_dimensions 	= getimagesize($create_path.$image_name);
+		$image_file_size	= filesize($create_path.$image_name);
 
 		// Increase Memory If Image is Larger than 2MB file
-		if ($file_data['file_size'] >= 5120)
+		if ($image_file_size >= 5120)
 		{
 			ini_set('memory_limit', '128M');
 		}
-		elseif ($file_data['file_size'] >= 2048)
+		elseif ($image_file_size >= 2048)
 		{
 			ini_set('memory_limit', '64M');
 		}
 		
 		// If upload width / heights differ from config
-		if (($file_data['image_width'] != config_item($module.'_images_'.$size.'_width')) || ($file_data['image_height'] != config_item($module.'_images_'.$size.'_height')))
+		if (($image_dimensions[0] != config_item($module.'_images_'.$thumb.'_width')) || ($image_dimensions[1] != config_item($module.'_images_'.$thumb.'_height')))
 		{
 			// Make Crop
-			$this->make_cropped($create_path, $file_data, $module, $size);
+			$this->make_cropped($create_path, $image_name, $module, $thumb, $image_dimensions);
 		}
-		
+
 		// If Delete Original
 		if (config_item($module.'_images_sizes_original') == 'no')
 		{
@@ -43,43 +42,52 @@ class Image_model extends CI_Model
 	    return TRUE;	    
 	}
 
-	function make_cropped($create_path, $file_data, $module, $size)
+	function make_cropped($create_path, $image_name, $module, $size, $image_dimensions=FALSE)
 	{
-	    $raw_path 			= $create_path.$file_data['file_name'];
+		// If No Dimensions
+		if (!$image_dimensions)
+		{
+			$image_dimensions = getimagesize($create_path.$image_name);
+		}
+		
+		$image_width	= $image_dimensions[0];
+		$image_height	= $image_dimensions[1];
+
+	    $raw_path 			= $create_path.$image_name;
 	    $original_width		= 0;
 	    $original_height	= 0;
-		$aspect 			= $file_data['image_width'] / $file_data['image_height'];
+		$aspect 			= $image_width / $image_height;
 		$set_master_dim 	= '';
 
 	    // Raw width larger than allowed
-		if ($file_data['image_width'] >= config_item($module.'_images_'.$size.'_width'))
+		if ($image_width >= config_item($module.'_images_'.$size.'_width'))
 		{
 			$original_width = config_item($module.'_images_'.$size.'_width');
 			$set_master_dim = 'width';
 		}
 		else
 		{
-			$original_width = $file_data['image_width'];
+			$original_width = $image_width;
 		}
 
 	    // Raw height larger than allowed
-		if ($file_data['image_height'] >= config_item($module.'_images_'.$size.'_height'))
+		if ($image_height >= config_item($module.'_images_'.$size.'_height'))
 		{
 			$original_height = config_item($module.'_images_'.$size.'_height');
 			$set_master_dim = 'height';
 		}
 		else
 		{
-			$original_height = $file_data['image_height'];
+			$original_height = $image_height;
 		}
 			
 		// In the case where both upload dimensions are larger than the specified size, let the smaller specified dimension govern  
-		if ($file_data['image_width'] >= config_item($module.'_images_'.$size.'_height') && $file_data['image_height'] >= config_item($module.'_images_'.$size.'_height')) 
+		if ($image_width >= config_item($module.'_images_'.$size.'_height') && $image_height >= config_item($module.'_images_'.$size.'_height')) 
 		{
 			// Special case for square images
 			if (config_item($module.'_images_'.$size.'_width')  == config_item($module.'_images_'.$size.'_height'))
 			{
-				if ($file_data['image_width'] > $file_data['image_height'])
+				if ($image_width > $image_height)
 				{
 					$set_master_dim = 'height';
 				}
@@ -136,9 +144,9 @@ class Image_model extends CI_Model
 		}
 		
 		// Define Paths	
-		$img_output_path	= getcwd().'/'.$create_path.$size.'_'.$file_data['file_name'];
+		$img_output_path	= getcwd().'/'.$create_path.$size.'_'.$image_name;
 		$raw_path			= getcwd().'/'.$raw_path;
-		$working_path		= getcwd().'/'.$create_path.'/working_'.$file_data['file_name'];
+		$working_path		= getcwd().'/'.$create_path.'/working_'.$image_name;
 /*
 		if (stristr(PHP_OS, 'WIN'))
 		{

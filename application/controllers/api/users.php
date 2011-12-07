@@ -451,8 +451,8 @@ class Users extends Oauth_Controller
 			    	$this->session->set_userdata('image', $file_data['file_name']);
 
 					// Make Sizes
-					$this->image_model->make_images($create_path, $file_data, 'users', 'medium');
-					$this->image_model->make_images($create_path, $file_data, 'users', 'small');
+					$this->image_model->make_images($create_path, $file_data['file_name'], 'users', 'medium');
+					$this->image_model->make_images($create_path, $file_data['file_name'], 'users', 'small');
 
 			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'upload_info' => $file_data);
 				}

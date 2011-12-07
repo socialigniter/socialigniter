@@ -1,10 +1,11 @@
 <form method="post" name="user_profile" id="user_profile" action="<?= base_url() ?>api/users/modify/id/<?= $logged_user_id ?>" enctype="multipart/form-data">
+
 	<table border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td>Picture</td>
 		<td>
 		<div id="profile_picture">
-			<img id="profile_thumbnail" src="<?= $thumbnail ?>" border="0">
+			<img id="profile_thumbnail" src="<?= $thumbnail ?>" border="0">			
 		</div>
 		<ul id="profile_picture_upload" class="item_actions_list">
 			<li id="uploading_pick"><a id="pick_image" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
