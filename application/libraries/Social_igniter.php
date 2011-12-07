@@ -19,13 +19,13 @@ class Social_igniter
 	function __construct()
 	{
 		$this->ci =& get_instance();
-		
+
 		// Configs
-		$this->ci->load->config('activity_stream');		
+		$this->ci->load->config('activity_stream');
 
 		// Models
  		$this->ci->load->model('activity_model');
- 		$this->ci->load->model('content_model');		
+ 		$this->ci->load->model('content_model');
 		$this->ci->load->model('pages_model');
 		$this->ci->load->model('settings_model');
 		$this->ci->load->model('sites_model');

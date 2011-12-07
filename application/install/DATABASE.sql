@@ -318,7 +318,7 @@ INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_full_width', '750');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_full_height', '750');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_sizes_full', 'yes');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_folder', 'uploads/profiles/');
-INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_max_dimensions', '2000');
+INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_max_dimensions', '3000');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'images_sizes_original', 'yes');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'settings_level', '4');
 INSERT INTO `settings` VALUES(NULL, 1, 'users', 'settings_redirect', '');

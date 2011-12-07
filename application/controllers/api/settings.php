@@ -261,12 +261,12 @@ class Settings extends Oauth_Controller
 					$file_data = $this->upload->data();
 
 					// Update Settings
-			    	//$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));	
-	
+			    	//$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));
+
 					// Make Sizes
 					//$this->image_model->make_images($create_path, $file_data, 'users', 'small');
-			    		
-			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'data' => $file_data['file_name']);
+
+			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'upload_info' => $file_data);
 				}
 			}
 			else

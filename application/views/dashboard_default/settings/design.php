@@ -204,7 +204,7 @@ $(document).ready(function()
 	
 			if (response.status == 'success')
 			{
-				$('#profile_thumbnail').attr('src', base_url + 'uploads/profiles/' + user_data.user_id + '/small_' + response.data)
+				$('#logo_picture').attr('src', base_url + 'uploads/sites/<?= config_item('site_id') ?>/small_' + response.upload_info.filename)
 			}
 			else
 			{			
