@@ -23,7 +23,7 @@ class Settings extends Dashboard_Controller
 		// Profile Data
 	    $this->data['sub_title'] 	= 'Profile';     
  	 	$this->data['image']		= $user->image;
-	 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar, 'small');
+	 	$this->data['thumbnail']	= $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar, 'medium');
 		$this->data['name']			= $user->name;
 		$this->data['username']     = $user->username;			    
 		$this->data['email']      	= $user->email;
