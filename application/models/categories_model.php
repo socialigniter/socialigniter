@@ -26,6 +26,16 @@ class Categories_model extends CI_Model
  		return $result;
     }
 
+    function get_category_parent($parent_id)
+    {
+ 		$this->db->select('categories.*, users.username, users.gravatar, users.name, users.image');
+ 		$this->db->from('categories'); 
+ 		$this->db->join('users', 'users.user_id = categories.user_id'); 
+  		$this->db->where('parent_id', $parent_id);
+ 		$result = $this->db->get()->row();
+ 		return $result;
+    }
+
     function get_categories_view($parameter, $value)
     {
     	if (in_array($parameter, array('category_id','parent_id','site_id','module','type','category_url')))
@@ -42,6 +52,17 @@ class Categories_model extends CI_Model
 		{
 			return FALSE;
 		}
+    }
+
+    function get_categories_view_multiple($where)
+    { 
+ 		$this->db->select('categories.*, users.username, users.gravatar, users.name, users.image');
+ 		$this->db->from('categories');
+ 		$this->db->join('users', 'users.user_id = categories.user_id');
+ 		$this->db->where($where);
+ 		$this->db->order_by('parent_id', 'desc');	 		
+ 		$result = $this->db->get();
+ 		return $result->result();
     }
 
     function get_category_title_url($type, $category_url)

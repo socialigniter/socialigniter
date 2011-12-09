@@ -54,6 +54,11 @@ class Social_tools
 	{
 		return $this->ci->categories_model->get_categories_view($parameter, $value);	
 	}
+
+	function get_categories_view_multiple($where)
+	{
+		return $this->ci->categories_model->get_categories_view_multiple($where);	
+	}
 	
 	function get_category_title_url($type, $title_url)
 	{
