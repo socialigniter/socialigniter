@@ -87,9 +87,9 @@ class Social_tools
 		return $category;
 	}
 	
-	function make_categories_dropdown($parameter, $value, $user_id, $user_level_id, $add_label)
+	function make_categories_dropdown($where, $user_id, $user_level_id, $add_label=FALSE)
 	{
-		$categories_query 		= $this->get_categories_view($parameter, $value);
+		$categories_query 		= $this->get_categories_view_multiple($where);
 		$this->view_categories 	= array(0 => '----select----');
 		$categories 			= $this->render_categories_children($categories_query, 0);
 				
