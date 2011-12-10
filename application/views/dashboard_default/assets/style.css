@@ -382,18 +382,18 @@ span.item_right a:hover				{ text-decoration: underline; }
 #feed .item textarea 				{ width:278px; font-size:12px; font-family:inherit; padding:5px; margin: 0 0 5px 0; float: left; }
 #feed .item [type=submit] 			{ float:right; margin: 4px 0 10px 0; height:25px; font-size:12px; border-radius:7px; }
 
-.modal_wrap 						{ padding:17px; }
-#new_category 						{ width:410px;height:280px; }
-#new_category label 				{ display:block;padding:10px 0 7px; }
-#new_category .selector 			{ margin:0 0 0 0 !important; }
-#new_category h2 					{ display:block;padding:0 0 10px 0; }
-#new_category > input[type=text] 	{ width:375px; }
-#new_category > input[type=submit] 	{ float:right; } 
-#new_category > textarea 			{ width: 375px; }
-.slug_url 							{ font-style: italic; height:22px; line-height: 22px; color: #999999; margin: 13px 0 18px 4px !important; }
-.slug_url span 						{ border-bottom:1px dashed #aaa; }
-.slug_url span:hover			 	{ border-bottom:1px dashed #dddd00;cursor:pointer;background:#f2e3af; }
-.slug_url_edit 						{ width:100px;height:15px !important;padding:3px !important; }
+/* Category Manager - uses jQuery dialog */
+#category_manager 						{ width: 525px; margin: 0 0 30px 0; }
+#category_manager label 				{ display:block;padding:10px 0 7px; }
+#category_manager .selector 			{ margin:0 0 0 0 !important; }
+#category_manager h2 					{ display:block;padding:0 0 10px 0; }
+#category_manager > input[type=text] 	{ width:375px; }
+#category_manager > input[type=submit] 	{ float:right; } 
+#category_manager > textarea 			{ width: 375px; margin: 0 0 20px 0; }
+.slug_url 								{ font-style: italic; height:22px; line-height: 22px; color: #999999; margin: 13px 0 18px 4px !important; }
+.slug_url span 							{ border-bottom:1px dashed #aaa; }
+.slug_url span:hover			 		{ border-bottom:1px dashed #dddd00;cursor:pointer;background:#f2e3af; }
+.slug_url_edit 							{ width:100px;height:15px !important;padding:3px !important; }
 
 .comment_list 						{ width: 450px; border-radius:5px; background: #e2e2e2; margin: 0 0 10px 0; display: none; }
 .comment_list li:first-child 		{ border-top:none; padding: 10px 10px 5px 15px; }

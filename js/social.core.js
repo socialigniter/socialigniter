@@ -1913,24 +1913,19 @@ $(function(){ $('input').attr('autocomplete','off'); });
 
 
 
-$(function(){	
-	
+$(function()
+{	
 	$('#fancybox-title').live('click',function(){
 		$(this).editify({on:'load'});
 	});
 	
-	
 	//New way  to handle checkboxes!
 	$('.nullify').nullify({
-		//This allows us to do something AFTER we toggle, which in this case
-		//updates uniform, however, this could be anything.
-		afterToggle:function(){
-			$.uniform.update();
-		}
+		//This allows us to do something AFTER we toggle, which in this case this could be anything.
+		afterToggle:function(){}
 	});
 	
 });
-
 
 
 

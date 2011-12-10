@@ -436,7 +436,7 @@ class Home extends Dashboard_Controller
 		$this->data['title_link']			= base_url().'{MODULE}/view/{ITEM_ID}';
 		$this->data['publish_date']			= '{PUBLISHED_DATE}';
 		$this->data['status']				= '{ITEM_STATUS}';
-		
+
 		$this->data['item_approval']		= '{ITEM_APPROVAL}';
 	
 		// Actions
@@ -447,9 +447,26 @@ class Home extends Dashboard_Controller
 		$this->load->view(config_item('dashboard_theme').'/partials/item_manage', $this->data);
 	}
 	
-	function category_editor()
+	function category_manager()
 	{
-		$this->load->view(config_item('dashboard_theme').'/partials/category_editor');
+		if ($this->uri->segment(3))
+		{
+			$category = $this->social_tools->get_category($this->uri->segment(3));
+
+			$this->data['category']		= $category->category;
+			$this->data['category_url']	= $category->category_url;
+			$this->data['description']	= $category->description;
+			$this->data['access']		= $category->access;		
+		}
+		else
+		{
+			$this->data['category']		= '';
+			$this->data['category_url']	= '';
+			$this->data['description']	= '';
+			$this->data['access']		= '';
+		}
+	
+		$this->load->view(config_item('dashboard_theme').'/partials/category_manager', $this->data);
 	}
 	
 	function partial_add_place()
