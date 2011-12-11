@@ -26,14 +26,14 @@
 		
 		<div class="clear"></div>
 	
-		<p><input type="button" id="add_details" value="Add More Details"></p>
+		<p><a href="#" id="add_details">Add More Details</a></p>
 		<div id="place_details" style="display:none">
 
 			<h3>Description</h3>
 			<p><textarea name="content" id="place_content" rows="4" cols="100"><?= $content ?></textarea></p>
 	
 		    <h3>Category</h3>
-		    <p><?= form_dropdown('category_id', $categories, $category_id) ?></p>
+		    <p><?= form_dropdown('category_id', $categories, $category_id, 'id="category_id"') ?></p>
 		    
 		    <h3>Tags</h3>
 		    <p><input name="tags" type="text" id="tags" size="75" placeholder="Blogging, Internet, Web Design" /></p>
@@ -140,25 +140,13 @@ $(document).ready(function()
 	});
 
 	// Add Category
-	$('[name=category_id]').change(function()
-	{	
-		if($(this).val() == 'add_category')
-		{
-			$('[name=category_id]').find('option:first').attr('selected','selected');
+	$('#category_id').categoryManager(
+	{
+		action		: 'create',				
+		module		: 'places',
+		type		: 'category',
+		title		: 'Add Place Category'
+	});
 
-			$.categoryEditor(
-			{
-				url_api		: base_url + 'api/categories/view/module/places',
-				url_pre		: base_url + 'places/',
-				url_sub		: base_url + 'api/categories/create',				
-				module		: 'places',
-				type		: 'places',
-				title		: 'Add Place Category',
-				slug_value	: '',
-				trigger		: $('.content [name=category_id]')
-			});			
-		}
-	});		
-	
 });
 </script>

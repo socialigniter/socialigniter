@@ -81,25 +81,13 @@ $(document).ready(function()
 	
 
 	// Add Category
-	$('[name=category_id]').change(function()
-	{	
-		if($(this).val() == 'add_category')
-		{
-			$('[name=category_id]').find('option:first').attr('selected','selected');
-
-			$.categoryEditor(
-			{
-				url_api		: base_url + 'api/categories/view/module/pages',
-				url_pre		: base_url + 'pages/',
-				url_sub		: base_url + 'api/categories/create',				
-				module		: 'pages',
-				type		: 'category',
-				title		: 'Add Category',
-				slug_value	: '',
-				trigger		: $('.content [name=category_id]')
-			});			
-		}
-	});		
+	$('#category_id').categoryManager(
+	{
+		action		: 'create',			
+		module		: 'pages',
+		type		: 'category',
+		title		: 'Add Category'
+	});	
 	
 });
 </script>
