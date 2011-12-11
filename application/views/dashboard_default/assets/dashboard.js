@@ -93,11 +93,12 @@ function geo_get()
 
 function geo_success(position)
 {
-	//On success, if we have localStorage (IE8,Opera,FF,WebKit,iPhone,etc)
-	//we'll store their location in localStorage so we can get it whenever
+	// On success, if we have localStorage (IE8,Opera,FF,WebKit,iPhone,etc)
+	// we'll store their location in localStorage so we can get it whenever
 	current_time = new Date().getTime();
 	hours_ago = (current_time/1000/60/60)-(localStorage.getItem('geo_date')/1000/60/60);
-	//If it's been more than 3hrs save it, otherwise, nevermind.
+
+	// If it's been more than 3hrs save it, otherwise, nevermind.
 	if(hours_ago >= 3)
 	{
 		if(localStorage)
@@ -109,12 +110,14 @@ function geo_success(position)
 	}
 }
 
+
 /* Sort function for comment arrays by comment_id (desc) */
 function sortByCommentId(a, b){
   var aCommentId = a.comment_id;
   var bCommentId = b.comment_id; 
   return ((aCommentId > bCommentId) ? -1 : ((aCommentId < bCommentId) ? 1 : 0));
 }
+
 
 /*	mediaUploader - jQuery Plugin 
 	- Based on Pluploader http://plupload.com
@@ -223,6 +226,10 @@ function sortByCommentId(a, b){
 })(jQuery);
 
 
+/*	categoryManager - jQuery Plugin 
+	- Uses Social-Igniter category API
+	- Allows both creating and editing of categories
+*/
 (function($)
 {
 	$.fn.categoryManager = function(options)
@@ -232,8 +239,7 @@ function sortByCommentId(a, b){
 			module		: '',
 			type		: '',
 			title		: '',
-			category_id	: '',
-			after 		: function(){}
+			category_id	: ''
 		};
 
 		options = $.extend({}, settings, options);
@@ -300,6 +306,7 @@ function sortByCommentId(a, b){
 									data		: category_data,
 									success		: function(result)
 									{	
+										// Succeeds - Remove Old, Append New Categories
 										if (result.status == 'success')
 										{
 											var existing_options = $existing_categories.find('option');
