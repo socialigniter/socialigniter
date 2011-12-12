@@ -149,6 +149,7 @@ $route['home/comments/(:any)'] 							= 'home/comments/$1';
 $route['home/comments'] 								= 'home/comments';
 $route['home/places/manage/(:num)']						= 'home/places_editor';
 $route['home/places/create']							= 'home/places_editor';
+$route['home/group/(:any)']								= 'home/index/$1';
 $route['home/friends']									= 'home/index';
 $route['home/likes']									= 'home/index';
 $route['home/error'] 									= 'home/error';
