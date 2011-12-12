@@ -1,5 +1,5 @@
 <form method="post" id="status_update" action="<?= base_url() ?>api/content/create">
-	<textarea id="status_update_text" placeholder="<?= $home_greeting ?>" name="content"></textarea>
+	<textarea id="status_update_text" placeholder="<?= $home_greeting ?>" name="content"></textarea>	
 	<div id="status_update_options">
 		<?php if ($logged_geo_enabled): ?>
 		<div id="status_update_geo">
@@ -19,7 +19,6 @@
 </form>
 
 <script type="text/javascript">
-// On Ready
 $(document).ready(function()
 {
 	// Geo
@@ -117,5 +116,24 @@ $(document).ready(function()
 			}
 		});
 	});
+
+	// Add Category
+	$('#select_group').categoryManager(
+	{
+		action		: 'create',		
+		module		: 'home',
+		type		: 'group',
+		title		: 'Add Group'
+	});
+	
+	// Browse Group
+	$('#select_group').change(function()
+	{
+		console.log($(this).val());
+	
+    	window.location = base_url + 'home/group/' + $(this).val();
+    });
+
+
 });
 </script>

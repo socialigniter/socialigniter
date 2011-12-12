@@ -627,7 +627,6 @@ class Social_igniter
 	{
 		if ($module)	$where = array('activity.module' => $module);
 		else			$where = array();
-	
 		return $this->ci->activity_model->get_timeline($where, $limit);		
 	}
 
@@ -635,7 +634,6 @@ class Social_igniter
 	{	
 		$i 		= 0;
 		$where	= 'activity.site_id = 1 AND ';
-		
 		foreach ($friends as $friend)
 		{			
 			if ($i >= 1) $or = " OR ";
@@ -652,7 +650,6 @@ class Social_igniter
 	function get_timeline_likes($likes, $limit)
 	{	
 		$i = 0;
-		
 		if ($likes)
 		{
 			$where = 'activity.site_id = 1 AND ';
@@ -663,9 +660,23 @@ class Social_igniter
 				else $or = "";
 				
 				$where .= $or." activity.user_id = '". $like->user_id . "'";
-			
 				$i++;
 			}		
+
+			return $this->ci->activity_model->get_timeline($where, $limit);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	function get_timeline_group($group, $limit)
+	{	
+		$i = 0;
+		if ($likes)
+		{
+			$where = 'activity.site_id = 1 AND content.category_id = '.$group;
 
 			return $this->ci->activity_model->get_timeline($where, $limit);
 		}

@@ -17,13 +17,14 @@ class Home extends Dashboard_Controller
  	   	// Load
 		$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
 	 	$this->data['social_post'] 		= $this->social_igniter->get_social_post($this->session->userdata('user_id'), 'social_post_horizontal'); 		
- 	
+		$this->data['groups']	 		= $this->social_tools->make_categories_dropdown(array('categories.module' => 'home'), $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), '+ Add Group'); 
+ 		$this->data['group_id']			= '';
+ 		
  		// Pick Type of Feed
 		if ($this->uri->total_segments() == 1)
 		{
 	 	    $this->data['page_title'] 		= 'Home';
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
- 	    
 			$timeline 						= $this->social_igniter->get_timeline(NULL, 10);
  	    }
  	    elseif ($this->uri->segment(2) == 'friends')
@@ -43,6 +44,16 @@ class Home extends Dashboard_Controller
 
 			$likes							= $this->social_tools->get_ratings_likes_user($this->session->userdata('user_id'));
 			$timeline 						= $this->social_igniter->get_timeline_likes($likes, 10); 
+ 	    }
+ 	    elseif ($this->uri->segment(2) == 'group')
+ 	    {
+ 	    	$group 							= $this->social_tools->get_category($this->uri->segment(3));
+ 	    
+	 	    $this->data['page_title'] 		= $group->category;
+			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
+			$this->data['group_id']			= $this->uri->segment(3);
+
+			$timeline 						= $this->social_igniter->get_timeline_group($this->uri->segment(3), 10); 
  	    }
  	    // Fix For MODULE Checking
  	    else
