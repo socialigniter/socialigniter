@@ -13,9 +13,9 @@
 			<?php if ((config_item('home_comments_allow') == 'TRUE') && ($item_content_id)): ?>
 			<li><a class="item_comment" href="#"><span class="actions action_comment"></span> Comment</a></li>
 			<?php endif; ?>
-			<?php if (config_item('home_share') == 'TRUE'): ?>
+			<?php /* if (config_item('home_share') == 'TRUE'): ?>
 			<li><a href="#"><span class="actions action_share"></span> Share</a></li>
-			<?php endif; ?>
+			<?php endif; */ ?>
 			<?php if ((config_item('home_like') == 'TRUE') && ($item_content_id)): ?>
 			<li><a href="#"><span class="actions action_like"></span> Like</a></li>
 			<?php endif; ?>

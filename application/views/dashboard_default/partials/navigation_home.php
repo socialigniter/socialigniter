@@ -6,4 +6,4 @@
 	<?= navigation_list_btn('home/likes', 'Likes') ?>
 </ul>
 -->
-<p id="home_groups_nav"><span class="actions action_group"></span> Groups <?= form_dropdown('group_id', $groups, $group_id, 'id="select_group_id"') ?></p>
+<p id="home_groups_nav"><span class="actions action_group"></span> Groups <?= form_dropdown('group_id', $groups, $group_id, 'id="select_group"') ?></p>

@@ -48,12 +48,12 @@ class Home extends Dashboard_Controller
  	    elseif ($this->uri->segment(2) == 'group')
  	    {
  	    	$group 							= $this->social_tools->get_category($this->uri->segment(3));
- 	    
+
 	 	    $this->data['page_title'] 		= $group->category;
 			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 			$this->data['group_id']			= $this->uri->segment(3);
 
-			$timeline 						= $this->social_igniter->get_timeline_group($this->uri->segment(3), 10); 
+			$timeline 						= $this->social_igniter->get_timeline_group($group->category_id, 10); 
  	    }
  	    // Fix For MODULE Checking
  	    else

@@ -47,7 +47,7 @@ $(document).ready(function()
 			success	 : function()
 			{		
 				var status_data	= $('#status_update').serializeArray();
-				status_data.push({'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
+				status_data.push({'name':'category_id','value':$('#select_group').val()},{'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
 		
 				$.oauthAjax(
 				{
@@ -129,9 +129,11 @@ $(document).ready(function()
 	// Browse Group
 	$('#select_group').change(function()
 	{
-		console.log($(this).val());
-	
-    	window.location = base_url + 'home/group/' + $(this).val();
+		var group_id = $(this).val();
+		if (group_id != 'add_category')
+		{
+    		window.location = base_url + 'home/group/' + $(this).val();
+    	}
     });
 
 

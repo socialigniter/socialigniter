@@ -674,7 +674,7 @@ class Social_igniter
 	function get_timeline_group($group, $limit)
 	{	
 		$i = 0;
-		if ($likes)
+		if ($group)
 		{
 			$where = 'activity.site_id = 1 AND content.category_id = '.$group;
 

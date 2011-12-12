@@ -452,6 +452,7 @@ class Users extends Oauth_Controller
 
 					// Make Thumb
 					$this->image_model->make_images($create_path, $file_data['file_name'], 'users', 'medium');
+					$this->image_model->make_images($create_path, $file_data['file_name'], 'users', 'small');
 
 			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'upload_info' => $file_data);
 				}
