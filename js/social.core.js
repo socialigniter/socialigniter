@@ -1336,8 +1336,8 @@ $(function(){ $('input').attr('autocomplete','off'); });
 	Date: 3/21/2010
 ***********************************************************************************************/
 
-(function($) {
-
+(function($)
+{
 	$.fn.NobleCount = function(c_obj, options) {
 		var c_settings;
 		var mc_passed = false;
@@ -2588,4 +2588,12 @@ var autocomplete = function(trigger_element, api_data, field, callback)
 	        return $("<li>").data("item.autocomplete", item).append("<a>"+returnedValue+"</a>").appendTo(ul);
  	   };
 	} 
+}
+
+function is_int(value){ 
+  if((parseFloat(value) == parseInt(value)) && !isNaN(value)){
+      return true;
+  } else { 
+      return false;
+  } 
 }

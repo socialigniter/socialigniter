@@ -249,7 +249,7 @@ function sortByCommentId(a, b){
 			if ($(this).val() == 'add_category')
 			{
 				$existing_categories = $(this);
-				$('#category_id').find('option:first').attr('selected','selected');
+				$existing_categories.find('option:first').attr('selected','selected');
 
 				// Action & URLs
 				if (options.action == 'edit')

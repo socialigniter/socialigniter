@@ -45,9 +45,18 @@ $(document).ready(function()
 				}],
 			message	 : '',
 			success	 : function()
-			{		
+			{
+				if (is_int($('#select_group').val()))
+				{
+	    			var group_id = $('#select_group').val();
+	    		}
+	    		else
+	    		{
+	    			var group_id = 0;    		
+	    		}
+
 				var status_data	= $('#status_update').serializeArray();
-				status_data.push({'name':'category_id','value':$('#select_group').val()},{'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
+				status_data.push({'name':'category_id','value':group_id},{'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
 		
 				$.oauthAjax(
 				{
@@ -130,12 +139,20 @@ $(document).ready(function()
 	$('#select_group').change(function()
 	{
 		var group_id = $(this).val();
-		if (group_id != 'add_category')
-		{
-    		window.location = base_url + 'home/group/' + $(this).val();
+		if (group_id != 'add_category') {
+			if (is_int(group_id)) {
+    			window.location = base_url + 'home/group/' + $(this).val();
+    		} else {
+    			if (group_id == 'all') {
+    				window.location = base_url + 'home';    		
+    			} else {
+       				window.location = base_url + 'home/' + $(this).val();
+    			}
+    		}
+    	} else {
+    		return false;
     	}
     });
-
 
 });
 </script>
