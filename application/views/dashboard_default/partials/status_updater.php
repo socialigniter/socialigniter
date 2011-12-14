@@ -134,24 +134,21 @@ $(document).ready(function()
 		type		: 'group',
 		title		: 'Add Group'
 	});
-	
+
 	// Browse Group
 	$('#select_group').change(function()
 	{
 		var group_id = $(this).val();
-		if (group_id != 'add_category') {
-			if (is_int(group_id)) {
-    			window.location = base_url + 'home/group/' + $(this).val();
-    		} else {
-    			if (group_id == 'all') {
-    				window.location = base_url + 'home';    		
-    			} else {
-       				window.location = base_url + 'home/' + $(this).val();
-    			}
-    		}
-    	} else {
-    		return false;
-    	}
+		if (is_int(group_id))
+		{
+	    	window.location = base_url + 'home/group/' + group_id;
+    	} else if (group_id == 'all') 
+    	{
+			window.location = base_url + 'home';
+		} else if (!is_int(group_id))
+		{
+			window.location = base_url + 'home/' + group_id;
+		}    	
     });
 
 });

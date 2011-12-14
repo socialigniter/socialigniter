@@ -1,11 +1,11 @@
 <form id="category_manager" action="post">
 
 	<label for="category_name">Name</label>
-	<input id="category_name" type="text" value="<?= $category ?>" name="category">
+	<input id="category_name" type="text" value="<?= $category ?>" placeholder="Category Name" name="category">
 	<p id="category_slug" class="slug_url"><?= $category_url ?></p>
 
 	<label for="category_description">Description</label>
-	<textarea name="description" id="category_description" rows="4"><?= $description ?></textarea>
+	<textarea name="description" id="category_description" placeholder="A description about your category" rows="4"><?= $description ?></textarea>
 
 	<label for="category_parent">Parent Category</label>
 	<select name="parent_id" id="category_parent_id">
