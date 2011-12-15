@@ -185,17 +185,17 @@ span.msg_notification		{ display: block; padding: 6px; color: #f2edda; backgroun
 #content_wide_toolbar h3	{ margin: 0 0 20px 0 !important; }
 #content_wide_toolbar ul	{ margin: 25px 0 25px 0 !important; }
 
+/* Use Type Icons - Right Hand Toolbar in wide views */
 #create_stages 				{ margin: 8px 0 30px 15px; }
-div.create_stage 			{ width: 150px; height: 35px; margin: 0 0 10px 0; }
+div.create_stage 			{ width: 150px; height: 35px; margin: 0 0 20px 0; }
 div.create_stage a 			{ display: block; color: #555555; float:left; position: relative; top: 6px; left: 15px; }
 div.create_stage a:visited	{ color: #555555; }
 div.create_stage a:hover 	{ color: #555555; }
 
-div.stage_marker 			{ width: 25px; height: 25px; float: left; color: #555555; text-shadow:1px 1px 1px #fff; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; text-align: center; }
-div.stage_marker span 		{ position: relative; top: 6px; }
+div.stage_marker 			{ width: 38px; height: 32px; float: left; color: #555555; text-shadow:1px 1px 1px #fff; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; text-align: center; }
+div.stage_marker span 		{ position: relative; top: -2px; }
 div.stage_marker_on 		{ background: url(images/button_basic.png) 0 0 repeat-x; border: 1px solid #666666; display: block; color: #efefef; text-shadow:1px 1px 1px #555555; }
 
-span.stage_marker 			{ display: block; border: 1px solid #666666; color: #efefef; text-shadow:1px 1px 1px #555555; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; }
 
 /* Specific Pages */
 #content_status				{ color: #999999; font-style: italic; font-weight: bold; text-shadow:1px 1px 1px #ffffff; text-transform: capitalize; }
@@ -299,6 +299,7 @@ span.item_alert_saved 				{ width: 50px; display: block; padding: 3px 8px; curso
 span.item_alert_activate 			{ width: 50px; display: block; padding: 3px 8px; cursor: pointer; color: #f2edda; background: #b54545; font-size: 11px; line-height: 21px; font-weight: bold; float: right; margin: 0 0px 0 10px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;  text-shadow:1px 1px 1px #888888;  text-align: center; }
 
 /* Item Types */
+span.item_icon						{ width: 38px; height: 32px; display: block; background-image: url(images/item_type_icons.png); position: relative; left: 0px; top: 0px; margin: 0; }
 span.item_type						{ width: 38px; height: 32px; display: block; float: right; background-image: url(images/item_type_icons.png); position: relative; right: -10px; top: 0px; margin: 0; }
 span.type_comment					{ background-position: 0 -35px; }
 span.type_event						{ background-position: 42px -38px; }
@@ -313,7 +314,6 @@ span.type_link						{ background-position: 0 -315px; }
 span.type_place						{ background-position: 0 -350px; }
 span.type_approve					{ background-position: 0 -385px; }
 span.type_file						{ background-position: 0 -420px; }
-span.type_class						{ background-position: 0 -554px; }
 span.type_class						{ background-position: 0 -554px; }
 span.type_photo-album				{ background-position: 42px -105px; }
 span.type_category					{ background-position: 42px -140px; }
