@@ -19,8 +19,9 @@
 			<?php if ((config_item('home_like') == 'TRUE') && ($item_content_id)): ?>
 			<li><a href="#"><span class="actions action_like"></span> Like</a></li>
 			<?php endif; ?>
-			<?php if ($item_can_modify): ?>
+			<?php if ($item_can_modify): if ($item_content_id): ?>
 			<li><a class="item_edit" href="<?= $item_edit; ?>" id="item_action_edit_<?= $item_id ?>"><span class="actions action_edit"></span> Edit</a></li>
+			<?php endif; ?>
 			<li><a class="item_delete" href="<?= $item_delete; ?>" id="item_action_delete_<?= $item_id ?>"><span class="actions action_delete"></span> Delete</a></li>
 			<?php endif; ?>
 		</ul>
