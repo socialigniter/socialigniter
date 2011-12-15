@@ -17,6 +17,7 @@ CREATE TABLE `activity` (
 CREATE TABLE `categories` (
   `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
+  `content_id` int(11) DEFAULT NULL,
   `site_id` int(6) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `access` char(1) DEFAULT NULL,

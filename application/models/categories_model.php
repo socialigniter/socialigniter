@@ -99,6 +99,7 @@ class Categories_model extends CI_Model
     {
  		$data = array(
  			'parent_id'		=> $category_data['parent_id'],
+ 			'content_id'	=> $category_data['content_id'],
 			'site_id' 	 	=> $category_data['site_id'],
 			'user_id' 	 	=> $category_data['user_id'],
 			'access'		=> $category_data['access'],

@@ -10,3 +10,5 @@ INSERT INTO `settings` VALUES(NULL, 1, 'design', 'background_color', 'ffffff');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'font_color_normal', '0066CC');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'font_color_visited', '0066CC');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'font_color_hover', 'ff3300');
+
+ALTER TABLE `categories` ADD `content_id` INT(11) NULL AFTER  `parent_id`;
