@@ -159,7 +159,7 @@ function sortByCommentId(a, b){
 			multipart_params: multipart_data,		
 			filters 		: [options.formats]
 		});
-	
+
 		// Initialize
 		uploader.bind('Init', function(up, params){});
 
