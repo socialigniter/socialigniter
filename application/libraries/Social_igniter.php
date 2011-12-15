@@ -52,7 +52,7 @@ class Social_igniter
 		    elseif (!file_exists($image_file) AND file_exists($image_original))
 		    {
 		    	$this->ci->load->model('image_model');
-		    	$this->ci->image_model->make_images(config_item('users_images_folder').$user_id.'/', $image, 'users', $size);
+		    	$this->ci->image_model->make_thumbnail(config_item('users_images_folder').$user_id.'/', $image, 'users', $size);
 		    	$picture = base_url().$image_file;
 		    }
 		    else

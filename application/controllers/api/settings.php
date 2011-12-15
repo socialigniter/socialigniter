@@ -264,7 +264,7 @@ class Settings extends Oauth_Controller
 			    	//$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));
 
 					// Make Sizes
-					//$this->image_model->make_images($create_path, $file_data, 'users', 'small');
+					//$this->image_model->make_thumbnail($create_path, $file_data['file_name'], 'users', 'small');
 
 			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'upload_info' => $file_data);
 				}

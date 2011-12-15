@@ -169,7 +169,7 @@ class Categories extends Oauth_Controller
 				// Upload
 				if (!$this->upload->do_upload('file'))
 				{				
-					$message = array('status' => 'error', 'message' => 'Ahhhh '.$this->upload->display_errors('', ''));
+					$message = array('status' => 'error', 'message' => $this->upload->display_errors('', ''));
 				}
 				else
 				{
@@ -180,20 +180,14 @@ class Categories extends Oauth_Controller
 					$file_data = $this->upload->data();
 
 					// Make Sizes
-					$this->image_model->make_images($create_path, $file_data, 'site', array('large', 'medium', 'small'));
+					$this->image_model->make_thumbnail($create_path, $file_data['file_name'], 'site', 'small');
 
-					$category = $this->social_tools->get_category($this->get('id'));
-
-					$details = json_decode($category->details);
-
+					$category		= $this->social_tools->get_category($this->get('id'));
+					$details		= json_decode($category->details);
 					$details->thumb = $file_data['file_name'];
 
-			    	$category_data = array(
-						'details' => json_encode($details)
-			    	);
-
 					// Update
-		    		if ($update = $this->social_tools->update_category($this->get('id'), $category_data, $this->oauth_user_id))
+		    		if ($update = $this->social_tools->update_category($this->get('id'), array('details' => json_encode($details)), $this->oauth_user_id))
 				    {
 			        	$message = array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $result['content'], 'activity' => $result['activity']);		    
 			        }

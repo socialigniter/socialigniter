@@ -10,7 +10,33 @@ class Image_model extends CI_Model
 	    $this->load->library('image_lib');
     }
 
-	function make_images($create_path, $image_name, $module, $thumb)
+	/*	Checks if Thumbnail exists, if not generates it
+		@params string, string, string, string
+		@return 
+	*/
+	function get_thumbnail($create_path, $image_name, $module, $thumb)
+	{
+		$thumbnail = $create_path.'/'.$thumb.'_'.$image_name;
+		
+		// If Thumbnail Exists
+	    if (file_exists($thumbnail))
+	    {
+			return $thumbnail;	    
+	    }
+	    else
+	    {
+	    	if ($this->make_thumbnail($create_path, $image_name, $module, $thumb))
+	    	{
+	    		return $thumbnail;
+	    	}
+	    	else
+	    	{
+	    		return '';
+	    	}
+	    }
+	}
+
+	function make_thumbnail($create_path, $image_name, $module, $thumb)
 	{
 	    $raw_path			= $create_path.$image_name;
 		$image_dimensions 	= getimagesize($create_path.$image_name);
@@ -39,7 +65,7 @@ class Image_model extends CI_Model
 			unlink($raw_path);
 		}
 
-	    return TRUE;	    
+	    return TRUE;
 	}
 
 	function make_cropped($create_path, $image_name, $module, $size, $image_dimensions=FALSE)
