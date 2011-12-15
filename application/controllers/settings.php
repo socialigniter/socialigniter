@@ -387,7 +387,7 @@ class Settings extends Dashboard_Controller
 			$this->data['details']		= '';
 		}
 
-		$this->data['categories_dropdown'] = $this->social_tools->make_categories_dropdown(array('categories.type' => 'class-category'), $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), FALSE);
+		$this->data['categories_dropdown'] = $this->social_tools->make_categories_dropdown(array('categories.module' => $this->uri->segment(2)), $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), FALSE);
 		
 		// Image Upload Settings
         $this->data['upload_size']	  = config_item('users_images_max_size') / 1024;
