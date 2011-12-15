@@ -163,7 +163,7 @@ class MY_Controller extends MX_Controller
 			$this->data['logged_user_id']		= '';	
 			$this->data['logged_user_level_id']	= '';
 			$this->data['logged_username']		= '';
-			$this->data['logged_image'] 		= base_url().config_item('users_images_folder').'medium_'.config_item('profile_nopicture');
+			$this->data['logged_image'] 		= base_url().'application/views/'.config_item('site_theme').'/assets/images/medium_'.config_item('no_profile');
 			$this->data['logged_name']			= 'Your Name';
 			$this->data['logged_location']		= '';
 			$this->data['logged_geo_enabled']	= '';

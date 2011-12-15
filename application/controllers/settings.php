@@ -364,13 +364,13 @@ class Settings extends Dashboard_Controller
 			
 			$details = json_decode($category->details);
 			
-			if ($details->thumb != '')
+			if (isset($details->thumb))
 			{
 				$this->data['thumb']	= base_url().config_item('categories_images_folder').$category->category_id.'/small_'.$details->thumb;
 			}
 			else
 			{
-				$this->data['thumb']	= '';
+				$this->data['thumb']	= base_url().'application/views/'.config_item('site_theme').'/assets/images/medium_'.config_item('no_photo');
 			}
 		}
 		else

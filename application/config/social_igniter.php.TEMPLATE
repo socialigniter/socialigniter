@@ -65,7 +65,8 @@ $config['email_send']  					= 'send.php';			// Template for a message being sent
 // Image Options
 $config['uploads_folder']				= "uploads/";
 $config['site_images_folder']			= "uploads/sites/";
-$config['profile_nopicture']			= "nopicture.png";
+$config['no_profile']					= "no_profile.png";
+$config['no_photo']						= "no_photo.png";
 $config['default_image_formats']		= "gif|jpg|jpeg|png";
 $config['default_image_file_size']		= "5120";
 $config['default_image_dimensions']		= "1600";

@@ -29,14 +29,14 @@ class Social_igniter
 		$this->ci->load->model('pages_model');
 		$this->ci->load->model('settings_model');
 		$this->ci->load->model('sites_model');
-	}	
-	
-    // Profile Picture	
+	}
+
+    // Profile Picture
 	function profile_image($user_id, $image, $email_hash=NULL, $size='medium')
 	{
 		$this->ci->load->helper('gravatar');
-		$picture = base_url().config_item('users_images_folder').$size.'_'.config_item('profile_nopicture');
-		
+		$picture = base_url().'application/views/'.config_item('site_theme').'/assets/images/'.$size.'_'.config_item('no_profile');
+
 		// Does User Have Image
 		if ($image)
 		{

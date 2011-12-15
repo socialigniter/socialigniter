@@ -15,7 +15,7 @@
 	</div>
 
 	<ul id="category_image_uploader" class="item_actions_list">
-		<li id="uploading_pick"><a id="pickfiles" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
+		<li id="uploading_pick"><a id="pick_catgory_image" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
 		<li id="uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
 		<li id="uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('categories_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('categories_images_formats'))) ?>)</li>
 	</ul>
@@ -49,13 +49,13 @@ $(document).ready(function()
 	});
 	
 	// Upload Image
-	$.mediaUploader(
+	$('#pick_catgory_image').mediaUploader(
 	{
 		max_size	: '2mb',
 		create_url	: base_url + 'api/categories/picture_upload/id/' + jQuery.url.segment(3),
 		formats		: {title : 'Image Files', extensions : '<?= $upload_formats ?>'},
 		start		: function(files)
-		{		
+		{
 			// Hide Upload
 			$('#uploading_pick').hide(); 
 			$('#uploading_details').hide();
@@ -63,28 +63,26 @@ $(document).ready(function()
 			$('#file_uploading_name').html(files[0].name);
 		},
 		complete : function(response)
-		{		
+		{
 			// Hide Status
 			$('#uploading_status').delay(500).fadeOut();
-			$('#uploading_pick').delay(1000).fadeIn(); 
-		
+			$('#uploading_pick').delay(1000).fadeIn();
+
 			// Actions
 			if (response.status == 'success')
-			{			
+			{
 				$('#category_image_thumb').html('<img src="' + base_url + 'uploads/categories/' + jQuery.url.segment(3) + '/small_' + response.data.content + '">');
 			}
 			else
 			{
 				$('html, body').animate({scrollTop:0});
 				$('#content_message').notify({status:response.status,message:response.message});	
-			}		
+			}
 		}
-	});		
-	
+	});
+
 	$('#category_editor').bind('submit', function(e)
 	{
-		var category_data = $('#category_editor').serializeArray();
-		
 		e.preventDefault();
 		$.oauthAjax(
 		{
@@ -92,15 +90,13 @@ $(document).ready(function()
 			url			: base_url + 'api/categories/modify/id/' + jQuery.url.segment(3),
 			type		: 'POST',
 			dataType	: 'json',
-			data		: category_data,
+			data		: $('#category_editor').serializeArray(),
 			success		: function(result)
 			{
 				$('html, body').animate({scrollTop:0});			
 				$('#content_message').notify({status:result.status,message:result.message});
 			}
 		});	
-	
 	});
-
 });
 </script>
