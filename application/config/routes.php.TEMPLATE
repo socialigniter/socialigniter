@@ -157,7 +157,6 @@ $route['home/error'] 									= 'home/error';
 /* Home Partials */
 $route['home/item_timeline']							= 'home/item_timeline';
 $route['home/item_manage']								= 'home/item_manage';
-$route['home/category_editor']							= 'home/category_editor';
 $route['home/category_manager/(:any)']					= 'home/category_manager/$1';
 $route['home/category_manager']							= 'home/category_manager';
 $route['home/partial_add_place']						= 'home/partial_add_place';
