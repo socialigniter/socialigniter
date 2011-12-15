@@ -30,7 +30,7 @@ function displayContentStatus(status, approval)
 	    }
 	    else if (status == 'S') 	
 	    {
-	    	result = 'saveddddd';
+	    	result = 'saved';
 		}
 		else
 		{
@@ -132,12 +132,18 @@ function sortByCommentId(a, b){
 			'max_size'		: '',
 			'create_url'	: '',
 			'formats'		: '',
+			'multipart'		: {},
 			'start'			: function(){},
 			'complete'		: function(){}
 		};
 					
 		options = $.extend({}, settings, options);
 		trigger = $(this).attr('id');
+		
+		var multipart_data 			= options.multipart;
+		multipart_data.file_hash	= ''; 
+		multipart_data.upload_id	= '';
+		multipart_data.consumer_key	= user_data.consumer_key;
 
 		// Uploader Params
 		var uploader = new plupload.Uploader(
@@ -150,7 +156,7 @@ function sortByCommentId(a, b){
 			url 			: options.create_url,
 			flash_swf_url	: base_url + 'js/plupload.flash.swf',
 			multipart 		: true,
-			multipart_params: {'file_hash':'', 'upload_id':'', 'consumer_key':user_data.consumer_key},		
+			multipart_params: multipart_data,		
 			filters 		: [options.formats]
 		});
 	
