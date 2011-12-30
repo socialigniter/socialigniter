@@ -293,7 +293,7 @@ class Social_igniter
 					$connections .= '<li>'.ucwords($social).'</li>';
 				}			
 			
-				$post_to = '<li><a href="'.base_url().'settings/connections" id="social_post_connections_add"><span class="actions action_share"></span> Add Connections</a> </li>';
+				$post_to = '<li><a href="'.base_url().'settings/connections" id="social_connections_add"><span class="actions action_share"></span> Add Connections</a> </li>';
 			}
 			
 			if ($post_to)

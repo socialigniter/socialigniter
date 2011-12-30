@@ -155,7 +155,29 @@ $(document).ready(function()
 		module		: 'home',
 		type		: 'group',
 		title		: 'Add Group'
-	});     
+	}); 
+	
+	// Add Connections
+	$('#social_connections_add').bind('click', function(e)
+	{
+		e.preventDefault();
+		$.get(base_url + 'dialogs/add_connections',function(partial_html)
+		{
+			$('<div />').html(partial_html).dialog(
+			{
+				width	: 325,
+				modal	: true,
+				close	: function(){$(this).remove()},
+				title	: 'Add Connections',
+				create	: function()
+				{
+					$parent_dialog = $(this);
+					// Do Custom Things
+				}
+	    	});
+		});		
+	});
+
 });
 </script>
 <div class="clear"></div>
