@@ -24,13 +24,11 @@ class Home extends Dashboard_Controller
 		if ($this->uri->total_segments() == 1)
 		{
 	 	    $this->data['page_title'] 		= 'Home';
-			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true); 	    
 			$timeline 						= $this->social_igniter->get_timeline(NULL, 10);
  	    }
  	    elseif ($this->uri->segment(2) == 'friends')
  	    {
 	 	    $this->data['page_title'] 		= 'Friends';
-			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
 			if ($friends = $this->social_tools->get_relationships_owner($this->session->userdata('user_id'), 'user', 'follow'))
 			{
@@ -40,7 +38,6 @@ class Home extends Dashboard_Controller
  	    elseif ($this->uri->segment(2) == 'likes')
  	    {
 	 	    $this->data['page_title'] 		= 'Likes';
-			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 
 			$likes							= $this->social_tools->get_ratings_likes_user($this->session->userdata('user_id'));
 			$timeline 						= $this->social_igniter->get_timeline_likes($likes, 10); 
@@ -50,7 +47,6 @@ class Home extends Dashboard_Controller
  	    	$group 							= $this->social_tools->get_category($this->uri->segment(3));
 
 	 	    $this->data['page_title'] 		= $group->category;
-			$this->data['status_updater']	= $this->load->view(config_item('dashboard_theme').'/partials/status_updater', $this->data, true);  	    	
 			$this->data['group_id']			= $this->uri->segment(3);
 
 			$timeline 						= $this->social_igniter->get_timeline_group($group->category_id, 10); 
@@ -60,7 +56,6 @@ class Home extends Dashboard_Controller
  	    {
 	 	    $this->data['page_title'] 		= display_nice_file_name($this->uri->segment(2));
  			$this->data['sub_title']		= 'Recent';
- 			$this->data['status_updater']	= '';
 
 			$timeline 						= $this->social_igniter->get_timeline($this->uri->segment(2), 10); 
  	    }
