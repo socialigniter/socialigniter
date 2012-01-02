@@ -379,17 +379,18 @@ function get_object_row($object, $key, $value)
 }
 
 // Shows Image for Category
-function get_category_image($category, $size)
+function get_category_image($category, $module, $size)
 {
+    $ci =& get_instance();
+
 	// Define No Image
-	$image = base_url().config_item('categories_images_folder').$size.'_no_image.jpg';
+	$image		= base_url().'application/views/'.config_item('site_theme').'/assets/images/'.$size.'_'.config_item('no_photo');
+	$details	= json_decode($category->details);
 
-	$details = json_decode($category->details);
-
-	if ($details->thumb != '')
+	if (isset($details->thumb))
 	{
-		$category_image = config_item('categories_images_folder').$category->category_id.'/'.$size.'_'.$details->thumb;
-		
+		$category_image = $ci->image_model->get_thumbnail(config_item('categories_images_folder').$category->category_id.'/', $details->thumb, $module, $size);
+
 		if (file_exists($category_image)) $image = base_url().$category_image;
 	}
 

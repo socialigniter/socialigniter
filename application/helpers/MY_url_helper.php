@@ -11,7 +11,7 @@
 * @param	string
 * @return	string
 *
-* Extends url_title by allowing adding the seperator type 'none' which removes up to 2 spaces, 4 dahses, and 4 underscores 
+* Extends url_title by allowing adding the seperator type 'none' and 'space' which removes up to 2 spaces, 4 dahses, and 4 underscores 
 */
 function url_username($str, $separator = 'dash', $lowercase = FALSE)
 {
@@ -19,6 +19,11 @@ function url_username($str, $separator = 'dash', $lowercase = FALSE)
 	{
 		$search		= '_';
 		$replace	= '-';
+	}
+	if ($separator == 'space')
+	{
+		$search		= '_';
+		$replace	= ' ';
 	}
 	else
 	{

@@ -16,7 +16,8 @@ class Image_model extends CI_Model
 	*/
 	function get_thumbnail($create_path, $image_name, $module, $thumb)
 	{
-		$thumbnail = $create_path.'/'.$thumb.'_'.$image_name;
+		$original	= $create_path.'/'.$image_name;
+		$thumbnail	= $create_path.'/'.$thumb.'_'.$image_name;
 		
 		// If Thumbnail Exists
 	    if (file_exists($thumbnail))
@@ -25,15 +26,20 @@ class Image_model extends CI_Model
 	    }
 	    else
 	    {
-	    	if ($this->make_thumbnail($create_path, $image_name, $module, $thumb))
-	    	{
-	    		return $thumbnail;
-	    	}
-	    	else
-	    	{
-	    		return '';
-	    	}
+	    	if (file_exists($original))
+			{
+		    	if ($this->make_thumbnail($create_path, $image_name, $module, $thumb))
+		    	{
+		    		return $thumbnail;
+		    	}
+		    	else
+		    	{
+		    		return '';
+		    	}
+	    	}	    	
 	    }
+	    
+	   	return '';	    
 	}
 
 	function make_thumbnail($create_path, $image_name, $module, $thumb)

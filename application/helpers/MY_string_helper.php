@@ -82,4 +82,35 @@ if(!function_exists('format_phone_number'))
         return ($strPhone);
     } 
 }
+
+if (!function_exists('strip_characters'))
+{
+	function strip_characters($str, $lowercase=FALSE)
+	{
+		$trans = array(
+			'&\#\d+?;'			=> ' ',
+			'&\S+?;'			=> ' ',
+			'\s+'				=> ' ',
+			'[^a-z0-9\-\_]'		=> ' ',
+			' +'				=> ' ',
+			' $'				=> ' ',
+			'^ '				=> ' ',
+			'\+$'				=> ' '
+		);
+	
+		$str = strip_tags($str);
+	
+		foreach ($trans as $key => $val)
+		{
+			$str = preg_replace("#".$key."#i", $val, $str);
+		}
+	
+		if ($lowercase === TRUE)
+		{
+			$str = strtolower($str);
+		}	
+
+		return trim(stripslashes($str));
+	}
+}
 ?>
