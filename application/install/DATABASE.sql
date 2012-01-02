@@ -361,14 +361,6 @@ CREATE TABLE `taxonomy` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE `uploads` (
-  `upload_id` INT( 6 ) UNSIGNED NULL AUTO_INCREMENT PRIMARY KEY ,
-  `consumer_key` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-  `file_hash` VARCHAR( 48 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,  
-  `uploaded_at` DATETIME NOT NULL
-) ENGINE = INNODB;
-
-CREATE TABLE `uploads` (
   `upload_id` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `consumer_key` varchar(48) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
