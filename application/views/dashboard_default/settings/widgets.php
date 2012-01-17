@@ -163,11 +163,13 @@ $(document).ready(function()
 					{
 						$parent_dialog = $(this);
 						
+						// Display Widget Data
 						$('#widget_json').val(json.data.value);
+						$('#widget_title').val(widget.title);
 						$('#widget_content').val(widget.content);
 						$('#widget_edit_link').attr('href', base_url + 'settings/' + widget.module + '/widgets');
 						
-						
+						// Delete Widget Button
 						$('#widget_delete_link').bind('click', function(del_e)
 						{												
 							del_e.stopPropagation();
@@ -208,8 +210,9 @@ $(document).ready(function()
 						'Save':function()
 						{
 							var widget_data     = [];
-							var widget_json     = jQuery.parseJSON($(this).find('input').val());
-							widget_json.content = $(this).find('textarea').val();
+							var widget_json     = jQuery.parseJSON($(this).find('#widget_json').val());
+							widget_json.title 	= $(this).find('#widget_title').val();
+							widget_json.content = $(this).find('#widget_content').val();
 							widget_data.push({'name':'value','value':JSON.stringify(widget_json)});
 							
 							$.oauthAjax(

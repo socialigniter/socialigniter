@@ -136,20 +136,26 @@ class Site_Controller extends MY_Controller
     		if ($site_widget->setting == $region AND $widget->layout == $layout)
     		{	
     			if ($widget->method == 'view')
- 				{   		
+ 				{
+					$this->data['widget_title']		= $widget->title;
+ 					$this->data['widget_content'] 	= $widget->content;
+ 					
     				$widgets .= $this->load->view(config_item('site_theme').'/widgets/'.$widget->path, $this->data, true);
     			}
     			elseif ($widget->method == 'run')
     			{
+					$this->data['widget_title']		= $widget->title;
+ 					$this->data['widget_content'] 	= $widget->content;
+
     				$widgets .= modules::run($widget->module.'/'.$widget->path);
     			}
-    			elseif ($widget->method == 'text')
+				else
 				{
-    				$widgets .= $widget->content;				
+					$widgets .= '';
 				}
     		}
     	}
-		
+
 		return $widgets;
     }
 }

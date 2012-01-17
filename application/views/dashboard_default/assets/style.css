@@ -521,9 +521,11 @@ div.widget_instance a.widget_edit span.actions 		{ position: relative; top: -2px
 #widgets_available li 		a.widget_add span.action_add { display: block; margin: 0 5px 0 0; }
 
 #widget_setting_edit		{ width: 450px; }
-#widget_content				{ float: left; margin: 0 0 20px 0; }
-#widget_edit_link			{ float: right; }
-#widget_delete_link			{ float: right; }
+#widget_setting_left		{ float: left; margin: -10px 0 20px 0; }
+#widget_setting_right		{ float: right; margin-top: 30px; }
+#widget_content				{  }
+#widget_edit_link			{ cursor: pointer; }
+#widget_delete_link			{ cursor: pointer; }
 
 /* Home */
 #home_groups_nav			{ float: right; margin: 6px 30px 0 0; color: #999999; }
