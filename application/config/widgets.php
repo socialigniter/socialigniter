@@ -20,7 +20,7 @@ $config['core_widgets'][] = array(
 		'path'		=> 'login',					// Path to either partial or controller route
 		'multiple'	=> 'FALSE',					// Can you install multiple instances of this widget in a given region
 		'order'		=> '1',						// Order of widget in relation to other widgets
-		'title'			=> 'Login',			// Widget Title
+		'title'		=> 'Login',					// Widget Title
 		'content'	=> ''						// Simple text blob if widget is set to display it
 	)
 );
@@ -34,7 +34,7 @@ $config['core_widgets'][] = array(
 		'path'		=> 'text',
 		'multiple'	=> 'TRUE',
 		'order'		=> '2',
-		'title'			=> 'Hello',
+		'title'		=> 'Hello',
 		'content'	=> '<p>Thanks for stopping by, we absolutely love visitors. Take off your digital shoes and relax your eyes on our pretty pixels!</p>'
 	)
 );

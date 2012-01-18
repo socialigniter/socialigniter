@@ -134,20 +134,19 @@ class Site_Controller extends MY_Controller
     		
     		// If Region & Layout Are Correct
     		if ($site_widget->setting == $region AND $widget->layout == $layout)
-    		{	
+    		{
+    			$this->data['widget_id']		= $site_widget->settings_id;
+    			$this->data['widget_region']	= $region;
+				$this->data['widget_title']		= $widget->title;
+ 				$this->data['widget_content'] 	= $widget->content;
+
     			if ($widget->method == 'view')
  				{
-					$this->data['widget_title']		= $widget->title;
- 					$this->data['widget_content'] 	= $widget->content;
- 					
     				$widgets .= $this->load->view(config_item('site_theme').'/widgets/'.$widget->path, $this->data, true);
     			}
     			elseif ($widget->method == 'run')
     			{
-					$this->data['widget_title']		= $widget->title;
- 					$this->data['widget_content'] 	= $widget->content;
-
-    				$widgets .= modules::run($widget->module.'/'.$widget->path);
+    				$widgets .= modules::run($widget->module.'/'.$widget->path, $this->data);
     			}
 				else
 				{
