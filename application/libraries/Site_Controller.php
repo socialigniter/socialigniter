@@ -140,13 +140,22 @@ class Site_Controller extends MY_Controller
 				$this->data['widget_title']		= $widget->title;
  				$this->data['widget_content'] 	= $widget->content;
 
+				// View or Run Widget
     			if ($widget->method == 'view')
  				{
     				$widgets .= $this->load->view(config_item('site_theme').'/widgets/'.$widget->path, $this->data, true);
     			}
     			elseif ($widget->method == 'run')
     			{
-    				$widgets .= modules::run($widget->module.'/'.$widget->path, $this->data);
+    				// Is Core Widget
+    				if (in_array($widget->module, config_item('core_modules')))
+    				{
+    					$widgets .= modules::run('site/'.$widget->path, $this->data);    					
+    				}
+    				else
+    				{
+    					$widgets .= modules::run($widget->module.'/'.$widget->path, $this->data);
+    				}
     			}
 				else
 				{

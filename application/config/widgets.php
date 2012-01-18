@@ -38,3 +38,17 @@ $config['core_widgets'][] = array(
 		'content'	=> '<p>Thanks for stopping by, we absolutely love visitors. Take off your digital shoes and relax your eyes on our pretty pixels!</p>'
 	)
 );
+
+$config['core_widgets'][] = array(
+	'regions'	=> array('sidebar', 'content', 'wide', 'leftbar', 'middle'),
+	'widget'	=> array(
+		'module'	=> 'tags',
+		'name'		=> 'Tag Cloud',
+		'method'	=> 'run',
+		'path'		=> 'widgets_tag_cloud',
+		'multiple'	=> 'FALSE',
+		'order'		=> '1',
+		'title'		=> 'Tags',
+		'content'	=> ''
+	)
+);

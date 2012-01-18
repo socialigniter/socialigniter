@@ -247,7 +247,24 @@ class Site extends Site_Controller
 		$this->data['page_title'] = 'Doggy';
 		$this->render();
 	}
-    
+
+	function tags() 
+	{	
+		$this->data['page_title']	= "Tags";
+		$this->data['tags'] 		= $this->social_tools->get_tags('type', 'all', 5);
+
+		$this->render('wide');
+	}
+	
+	function tags_search()
+	{
+		$this->data['page_title']	= 'Tags';
+		$this->data['sub_title']	= $this->uri->segment(2);
+		$this->data['tag']			= $this->uri->segment(2);
+
+		$this->render('wide');
+	}
+
     // Page Not Found
     function error_404()
     {
@@ -258,12 +275,14 @@ class Site extends Site_Controller
     /* Webfinger */
     function webfinger(){
     	$this->data['this'] = $this;
-    	$this->load->view('site_default/partials/webfinger', $this->data);
+    	$this->load->view(config_item('site_theme').'/partials/webfinger', $this->data);
     }
 
-    function webfinger_user(){
+    function webfinger_user()
+    {
     	$uri = $this->uri->segment(2);
     	preg_match('/@/', $uri, $matches);
+    	
     	if ($matches)
     	{
     		preg_match('/(acct:|^)(.*?)@/',$uri, $matches);
@@ -277,7 +296,7 @@ class Site extends Site_Controller
 				$connections = $this->social_auth->get_connections_user($user->user_id); 		
 			}
 			
-			foreach($connections as $connection)
+			foreach ($connections as $connection)
 			{
 				if ($connection->module == "twitter")
 				{
@@ -289,17 +308,25 @@ class Site extends Site_Controller
 				}
 			}
 			
-			if(isset($screen_name))
+			if (isset($screen_name))
 			{
 				$this->data['screen_name'] = $screen_name;
 			}
 
-	    	$this->load->view('site_default/partials/webfinger_user', $this->data);
+	    	$this->load->view(config_item('site_theme').'/partials/webfinger_user', $this->data);
 		}
 		else
 		{
 			$this->error_404();
 		}
-    }	
+    }
+    
+    /* Widgets */
+	function widgets_tag_cloud($widget_data)
+	{
+		$widget_data['tags'] = $this->social_tools->get_tags('type', 'all', 5);
+		
+		$this->load->view(config_item('site_theme').'/widgets/tag_cloud', $widget_data);
+	}
 
 }

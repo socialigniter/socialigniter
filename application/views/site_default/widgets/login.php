@@ -1,5 +1,6 @@
+<div class="widget_<?= $widget_region ?> widget_users_login" id="widget_<?= $widget_id ?>">
 <?php if ((config_item('users_login') == 'TRUE') && (!$this->social_auth->logged_in())) { ?>
-<h2>Login</h2>
+<h2><?= $widget_title ?></h2>
 <form method="post" name="user_login" id="user_login">
 <table border="0" cellpadding="0" cellspacing="0">
 <tr>
@@ -84,3 +85,4 @@ $(document).ready(function()
 });
 </script>
 <?php } ?>
+</div>

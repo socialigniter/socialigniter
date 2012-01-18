@@ -21,7 +21,7 @@ $config['countries']					= array('US', 'FR', 'DE', 'ES', 'IT');
 $config['default_layout']				= 'sidebar';
 
 // Settings
-$config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','places','text');
+$config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','places','text','tags');
 $config['ignore_modules']				= array('text');
 $config['site_modules']					= array('site','themes','design','widgets','services');
 $config['user_settings']				= array('profile','details','password','contact','connections','advanced');
