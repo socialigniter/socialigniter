@@ -79,6 +79,7 @@ $(document).ready(function()
 				{
 					width	: 325,
 					modal	: true,
+					close	: function(){$(this).remove()},					
 					title	: 'Add ' + widget_region + ' Widget',
 					create	: function()
 					{
@@ -140,7 +141,7 @@ $(document).ready(function()
 	});
 
     // Edit Event
-    $('.widget_edit').bind('click', function(e)
+    $('.widget_edit').live('click', function(e)
     {
     	e.stopPropagation();
     	e.preventDefault();
@@ -158,6 +159,7 @@ $(document).ready(function()
 				{
 					width	: 450,
 					modal	: true,
+					close	: function(){$(this).remove()},
 					title	: 'Edit ' + widget.name,
 					create	: function()
 					{

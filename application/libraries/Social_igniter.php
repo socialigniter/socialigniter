@@ -832,9 +832,9 @@ class Social_igniter
 		return $this->ci->content_model->get_content_multiple_count($where);	
 	}	
 	
-	function make_content_dropdown($parameter, $value,  $content_permissions=1, $user_level_id=NULL, $add_label=NULL)
+	function make_content_dropdown($parameter, $value,  $content_permissions=1, $user_level_id=FALSE, $add_label=FALSE, $limit=10)
 	{
-		$content_query 	= $this->get_content_view($parameter, $value, 'all');
+		$content_query 	= $this->get_content_view($parameter, $value, 'all', $limit);
 		$dropdown 		= array(0 => '----select----');
 		
 		foreach($content_query as $content)
@@ -843,7 +843,7 @@ class Social_igniter
 		}
 		
 		// Addible if Admin
-		if ($user_level_id AND $user_level_id <= $content_permissions)
+		if ($user_level_id AND $user_level_id <= $content_permissions AND $add_label != FALSE)
 		{
 			$dropdown['add_content'] = $add_label;	
 		}
