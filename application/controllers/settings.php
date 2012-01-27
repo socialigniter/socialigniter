@@ -349,14 +349,16 @@ class Settings extends Dashboard_Controller
 	
 	function categories_manager()
 	{
-		if ($category = $this->social_tools->get_category($this->uri->segment(4)))
+		$category = $this->social_tools->get_category($this->uri->segment(4));
+
+		if ($category)
 		{
 			$this->data['sub_title']	= 'Categories';
 			$this->data['page_title']	= $category->category;
 		
 			$this->data['category']		= $category->category;
 			$this->data['category_url']	= $category->category_url;
-			$this->data['description']	= $category->description;
+			$this->data['wysiwyg_value']= $category->description;
 			$this->data['parent_id']	= $category->parent_id;
 			$this->data['access']		= $category->access;
 			$this->data['site_id']		= $category->site_id;
@@ -364,7 +366,7 @@ class Settings extends Dashboard_Controller
 			
 			$details = json_decode($category->details);
 			
-			if (isset($details->thumb))
+			if (isset($details->thumb) AND $details->thumb != '')
 			{
 				$this->data['thumb']	= base_url().config_item('categories_images_folder').$category->category_id.'/small_'.$details->thumb;
 			}
@@ -376,16 +378,26 @@ class Settings extends Dashboard_Controller
 		else
 		{
 			$this->data['sub_title']	= 'Create';
+			$this->data['page_title']	= '';
 
 			$this->data['category']		= '';
 			$this->data['category_url']	= '';
-			$this->data['description']	= '';		
+			$this->data['wysiwyg_value']= '';			
 			$this->data['parent_id']	= 0;
 			$this->data['access']		= config_item('access');
-			$this->data['thumb']		= '';
 			$this->data['site_id']		= config_item('site_id');
 			$this->data['details']		= '';
 		}
+
+		// WYSIWYG
+		$this->data['wysiwyg_name']			= 'description';
+		$this->data['wysiwyg_id']			= 'wysiwyg';
+		$this->data['wysiwyg_class']		= 'wysiwyg_norm_full';
+		$this->data['wysiwyg_width']		= 625;
+		$this->data['wysiwyg_height']		= 200;
+		$this->data['wysiwyg_resize']		= TRUE;
+		$this->data['wysiwyg_media']		= FALSE;
+		$this->data['wysiwyg']	 			= $this->load->view($this->config->item('dashboard_theme').'/partials/wysiwyg', $this->data, true);		
 
 		$this->data['categories_dropdown'] = $this->social_tools->make_categories_dropdown(array('categories.module' => $this->uri->segment(2)), $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), FALSE);
 		

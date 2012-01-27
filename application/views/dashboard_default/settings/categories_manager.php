@@ -5,7 +5,7 @@
 	<p id="category_slug" class="slug_url"><?= $category_url ?></p>
 
 	<h3>Description</h3>
-	<textarea name="description" id="category_description" rows="4" cols="72"><?= $description ?></textarea>
+	<?= $wysiwyg ?>
 	<div class="clear"></div>
 
 	<div id="category_image_thumb">
@@ -22,7 +22,7 @@
 	<div class="clear"></div>
 
 	<h3>Parent Category</h3>
-	<?= form_dropdown('parent_id', $categories_dropdown, $parent_id) ?>
+	<p><?= form_dropdown('parent_id', $categories_dropdown, $parent_id) ?></p>
 
 	<h3>Access</h3>
 	<p><?= form_dropdown('access', config_item('access'), $access, 'id="category_access"') ?></p>
@@ -71,7 +71,7 @@ $(document).ready(function()
 			// Actions
 			if (response.status == 'success')
 			{
-				$('#category_image_thumb').html('<img src="' + base_url + 'uploads/categories/' + jQuery.url.segment(3) + '/small_' + response.data.content + '">');
+				$('#category_image_thumb').html('<img src="' + base_url + 'uploads/categories/' + jQuery.url.segment(3) + '/small_' + response.thumb + '">');
 			}
 			else
 			{

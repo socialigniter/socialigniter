@@ -189,7 +189,7 @@ class Categories extends Oauth_Controller
 					// Update
 		    		if ($update = $this->social_tools->update_category($this->get('id'), array('details' => json_encode($details)), $this->oauth_user_id))
 				    {
-			        	$message = array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $result['content'], 'activity' => $result['activity']);		    
+			        	$message = array('status' => 'success', 'message' => 'Awesome we uploaded your category image', 'thumb' => $details->thumb);		    
 			        }
 			        else
 			        {
