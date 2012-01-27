@@ -224,6 +224,12 @@ INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_small_width', '125');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_small_height', '125');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_sizes_original', 'yes');
 
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'site_logo', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'header_image', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'header_position', 'left top');
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'header_repeat', 'repeat-x');
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'header_color', 'ffffff');
+INSERT INTO `settings` VALUES(NULL, 1, 'design', 'background_image', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'background_position', 'left top');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'background_repeat', 'repeat-x');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'background_color', 'ffffff');

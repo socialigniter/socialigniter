@@ -251,20 +251,20 @@ class Settings extends Oauth_Controller
 				if (!$this->upload->do_upload('file'))
 				{
 			    	$message = array('status' => 'error', 'message' => $this->upload->display_errors('', ''), 'upload_info' => $this->upload->data());
-				}	
+				}
 				else
 				{
 					// Image Model
 					$this->load->model('image_model');
-	
+
 					// Upload Data
 					$file_data = $this->upload->data();
 
 					// Update Settings
-			    	//$this->social_auth->update_user($this->get('id'), array('image' => $file_data['file_name']));
+					$this->social_igniter->update_settings('design', array('site_logo' => $file_data['file_name']));
 
 					// Make Sizes
-					//$this->image_model->make_thumbnail($create_path, $file_data['file_name'], 'users', 'small');
+					$this->image_model->make_thumbnail($create_path, $file_data['file_name'], 'logo', 'small');
 
 			    	$message = array('status' => 'success', 'message' => 'Profile picture updated', 'upload_info' => $file_data);
 				}

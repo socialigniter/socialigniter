@@ -405,7 +405,7 @@ function show_site_logo()
 
 	if ($image != '')
 	{
-		$image_path	= '/'.$ci->config->item('uploads_folder').'/sites/'.$ci->config->item('site_id').'/'.$image;
+		$image_path	= '/'.$ci->config->item('uploads_folder').'/sites/'.$ci->config->item('site_id').'/small_'.$image;
 		$avatar = '<a id="name_img" href="'.base_url().'"><img src="'.$image_path.'" border="0"></a>';
 	}
 	else

@@ -99,7 +99,7 @@ input.form_valid, textarea.form_valid { color: #479e45 !important; }
 /* Header */
 #header						{ width: 950px; height: 62px; margin: 15px auto; background: url('images/header.png') repeat-x; }
 #header #name				{ width: 600px; height: 50px; margin: 7px 0 0 17px; text-align: left; float:left; overflow: hidden; }
-#header #name_img			{ float: left; margin: 0 10px 0 5px; }
+#header #name_img			{ float: left; margin: 3px 15px 0 5px; }
 #header #name_text  		{ display: block; margin: 9px 0 0 10px; color: #333; text-shadow:1px 1px 1px #FFF; }
 
 #header #nav				{ width: 305px; height: 34px; position: relative; top: 14px; left: 22px; float: left; text-align: left; }

@@ -64,6 +64,52 @@
 
 <div class="content_wrap_inner">
 
+	<h3>Header</h3>
+	<div id="header_picture">
+		<img id="header_thumbnail" src="<?= '' ?>" border="0">
+	</div>
+	<ul id="background_picture_upload" class="item_actions_list">
+		<li id="uploading_pick"><a id="pick_header" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
+		<li id="uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
+	<?php if ($header_image): ?>
+		<li id="uploading_delete"><a id="delete_header" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+		<li id="uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>
+	<?php else: ?>
+		<li id="uploading_delete" class="hide"><a id="delete_header" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+		<li id="uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>			
+	<?php endif; ?>
+	</ul>
+
+	<div class="design_color_widget">
+		<p>Position<br>
+		<?= form_dropdown('header_position', config_item('css_background_position'), $settings['design']['header_position']) ?>
+		</p>
+		<p>Repeat<br>
+		<?= form_dropdown('header_repeat', config_item('css_background_repeat'), $settings['design']['header_repeat']) ?>
+		</p>
+	</div>
+
+	<div class="design_color_widget">
+		<p>Color</p>
+		<div id="header_color_picker" class="design_color_picker">
+			<div style="background-color: #<?= config_item('design_header_color') ?>"></div>
+		</div>
+		<div class="design_color_details">
+			<input type="text" maxlength="6" size="6" name="header_color" id="header_color" value="<?= config_item('design_header_color') ?>" /><br>
+			<img id="header_color_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+
+</div>
+
+
+
+<span class="item_separator"></span>
+
+<div class="content_wrap_inner">
+
 	<h3>Background</h3>
 	<div id="background_picture">
 		<img id="background_thumbnail" src="<?= '' ?>" border="0">
@@ -160,6 +206,23 @@ $(document).ready(function()
 		onChange: function (hsb, hex, rgb) {
 			$('#font_color_picker_hover div').css('backgroundColor', '#' + hex);
 			$('#font_color_hover').val(hex);			
+		}
+	});
+
+	// Header Color Pickers
+	$('#header_color_picker, #header_color_swatch').ColorPicker({
+		color: '#<?= config_item('design_header_color') ?>',
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('#header_color_picker div').css('backgroundColor', '#' + hex);
+			$('#header_color').val(hex);
 		}
 	});
 

@@ -124,15 +124,27 @@ class Settings extends Dashboard_Controller
 	{
 		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');        
 	
-		if (config_item('design_background_image') != '')
+		// Logo
+		if (config_item('design_logo_image') != '')
 		{
 			$this->data['logo_image']		= config_item('design_logo_image');
 		}
 		else
 		{
-			$this->dat['logo_image']		= '';
+			$this->data['logo_image']		= '';
+		}
+
+		// Header
+		if (config_item('design_header_image') != '')
+		{
+			$this->data['header_image']	= config_item('design_header_image');
+		}
+		else
+		{
+			$this->data['header_image'] = '';
 		}
 		
+		// Background
 		if (config_item('design_background_image') != '')
 		{
 			$this->data['background_image']	= config_item('design_background_image');
@@ -143,8 +155,8 @@ class Settings extends Dashboard_Controller
 		}
 
 		// Image Upload Settings
-        $this->data['upload_size']	  		= config_item('default_image_file_size') / 1024;
-        $this->data['upload_formats'] 		= str_replace('|', ',', config_item('default_image_formats'));		
+        $this->data['upload_size']	  		= config_item('default_images_file_size') / 1024;
+        $this->data['upload_formats'] 		= str_replace('|', ',', config_item('default_images_formats'));		
 
 		$this->data['sub_title'] 			= 'Design';
 		$this->data['this_module']			= 'design';
