@@ -39,8 +39,8 @@ class Users extends Oauth_Controller
 		$this->email->initialize($config_email);    	
 	}
     
-    function recent_get()
-    {
+    function recent_authd_get()
+    {    
         $users = $this->social_auth->get_users('active', 1);
         
         if($users)
@@ -55,11 +55,11 @@ class Users extends Oauth_Controller
         $this->response($message, 200);        
     }
 
-	function find_get()
+	function find_authd_get()
     {
     	$search_by	= $this->uri->segment(4);
     	$search_for	= $this->uri->segment(5);
-        $user		= $this->social_auth->get_user($search_by, $search_for);    	
+        $user		= $this->social_auth->get_user($search_by, $search_for, FALSE);    	
         
         if ($user)
         {
@@ -164,32 +164,20 @@ class Users extends Oauth_Controller
 
         if ($this->form_validation->run() == true)
         {
-        	// Check "remember me"
-        	if ($this->input->post('remember') == 1)
-        	{
-        		$remember = TRUE;
-        	}
-        	else
-        	{
-        		$remember = FALSE;
-        	}
+        	// Remember User
+        	if ($this->input->post('remember') == 1) $remember = TRUE;
+        	else $remember = FALSE;
         	
         	// Store Session Data
-        	if ($this->input->post('session') == 1)
-        	{
-        		$session = TRUE;
-        	}
-        	else
-        	{
-        		$session = FALSE;
-        	}
+        	if ($this->input->post('session') == 1) $session = TRUE;
+        	else $session = FALSE;
 
         	// Attempt Login
-        	if ($this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember, $session))
+        	if ($user = $this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember, $session))
         	{
         		// Get User Data
-        		$user = $this->social_auth->get_user('email', $this->input->post('email'));
-        		$user->email = $this->input->post('email');
+        		//$user = $this->social_auth->get_user('email', $this->input->post('email'), TRUE);
+        		//$user->email = $this->input->post('email');
 				$meta = $this->social_auth->get_user_meta($user->user_id);
         	
 		        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta' => $meta);
@@ -201,7 +189,7 @@ class Users extends Oauth_Controller
         }
 		else
 		{ 
-			$message = array('message' => 'Oops '.validation_errors());
+			$message = array('message' => validation_errors());
         }
         
         $this->response($message, 200);    
@@ -567,7 +555,7 @@ class Users extends Oauth_Controller
 	    {
 			if ($this->social_auth->forgotten_password($this->input->post('email')))
 			{
-				$profile = $this->social_auth->get_user('email', $this->input->post('email'));
+				$profile = $this->social_auth->get_user('email', $this->input->post('email'), TRUE);
 	
 				// Email Data
 				$data = array(
@@ -746,11 +734,4 @@ class Users extends Oauth_Controller
         $this->response($message, $response);
     }    
     
-    function destroy_get()
-    {
-    	// $this->some_model->deletesomething($this->get('id'));
-        $message = array('status' => 'success', 'message' => 'User was deleted');
-        
-        $this->response($message, 200);
-    }
 }

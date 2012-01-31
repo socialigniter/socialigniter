@@ -155,7 +155,7 @@ class Site extends Site_Controller
 		// Has URL Code
 		if (!$this->uri->segment(2)) redirect(base_url().'forgot_password');
 		
-		if ($user = $this->social_auth->get_user('forgotten_password_code', $this->uri->segment(2)))
+		if ($user = $this->social_auth->get_user('forgotten_password_code', $this->uri->segment(2), TRUE))
 		{
 			// Reset Password
 			if ($new_password = $this->social_auth->forgotten_password_complete($user))

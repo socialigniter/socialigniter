@@ -351,9 +351,9 @@ class Social_auth
 	
 	function login($email, $password, $remember=FALSE, $session=FALSE)
 	{
-		if ($this->ci->auth_model->login($email, $password, $remember, $session))
+		if ($user = $this->ci->auth_model->login($email, $password, $remember, $session))
 		{        				
-			return TRUE;
+			return $user;
 		}
 		else
 		{
@@ -414,9 +414,9 @@ class Social_auth
 	    return $this->ci->auth_model->get_users($parameter, $value);
 	}
 	
-	function get_user($parameter, $value)
+	function get_user($parameter, $value, $details=FALSE)
 	{
-	    return $this->ci->auth_model->get_user($parameter, $value);
+	    return $this->ci->auth_model->get_user($parameter, $value, $details);
 	}
 	
 	function update_user($user_id, $data)

@@ -18,7 +18,7 @@ class Settings extends Dashboard_Controller
  	{	    
 		if ($this->session->userdata('user_level_id') > config_item('users_settings_level')) redirect(base_url(), 'refresh');        
 
-		$user = $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 
+		$user = $this->social_auth->get_user('user_id', $this->session->userdata('user_id'), TRUE); 
 
 		// Profile Data
 	    $this->data['sub_title'] 	= 'Profile';     

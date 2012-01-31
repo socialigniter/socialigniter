@@ -411,11 +411,11 @@ class Auth_model extends CI_Model
    		    
 	    		    if ($remember && config_item('remember_users'))
 	    		    {
-	    		    	$this->remember_user($user->user_id);
+	    		    	$this->remember_user($user);
 	    		    }
 				}
     		    
-    		    return TRUE;
+    		    return $user;
     		}
         }
         
@@ -444,7 +444,7 @@ class Auth_model extends CI_Model
 	 		$this->social_auth->set_userdata_meta($user->user_id);	
 			$this->social_auth->set_userdata_connections($user->user_id);
 
-		    return TRUE;
+		    return $user;
         }
 
 		return FALSE;
@@ -454,10 +454,9 @@ class Auth_model extends CI_Model
 	{
     	if (in_array($parameter, array('user_level_id','active')))
     	{	
-			$this->db->select('*');
+			$this->db->select('users.user_id, user_level_id, username, gravatar, name, image, time_zone, privacy, language, geo_enabled, created_on');
 	 		$this->db->from('users');
-			$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');
-			$this->db->where('users.'.$parameter, $value);
+			$this->db->where($parameter, $value);
 	 		$result = $this->db->get();	
 	 		return $result->result();
 		}
@@ -467,14 +466,23 @@ class Auth_model extends CI_Model
 		}
 	}
 	
-	function get_user($parameter, $value)
+	function get_user($parameter, $value, $details)
 	{
     	if (($value) && (in_array($parameter, array('user_id','username', 'email','gravatar', 'consumer_key', 'token', 'forgotten_password_code'))))
     	{
-			$this->db->select('*');
+    		// Selects all fields (oauths tokens, reset info but not password & salt)
+    		if ($details)
+    		{
+    			$select = 'user_id, user_level_id, username, salt, email, gravatar, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret, activation_code, forgotten_password_code, active, remember_code, created_on';
+    		}
+    		else
+    		{
+    			$select = 'user_id, user_level_id, username, gravatar, name, image, time_zone, privacy, language, geo_enabled, active, created_on';
+    		}
+    	
+			$this->db->select($select);
 	 		$this->db->from('users');
-			$this->db->join('users_level', 'users.user_level_id = users_level.user_level_id');		
-			$this->db->where('users.'.$parameter, $value);
+			$this->db->where($parameter, $value);
 			$this->db->limit(1);    
 	 		$result = $this->db->get()->row();	
 	 		return $result;
@@ -654,7 +662,7 @@ class Auth_model extends CI_Model
 			// Causesing compression header issue
 			if (config_item('user_extend_on_login'))
 			{
-				$this->remember_user($user->user_id);
+				$this->remember_user($user);
 			}			
 
 			return $user;
@@ -663,18 +671,16 @@ class Auth_model extends CI_Model
 		return FALSE;
 	}
 
-	function remember_user($user_id)
+	function remember_user($user)
 	{
-		if (!$user_id) return FALSE;
+		if (!$user->user_id) return FALSE;
 
 		$salt = sha1(md5(microtime()));
 
-		$this->db->update('users', array('remember_code' => $salt), array('user_id' => $user_id));
+		$this->db->update('users', array('remember_code' => $salt), array('user_id' => $user->user_id));
 
 		if ($this->db->affected_rows() == 1)
 		{
-			$user = $this->get_user('user_id', $user_id);
-
 			$email			= array('name' => 'email', 'value' => $user->email, 'expire' => config_item('user_expire'));
 			$remember_code	= array('name' => 'remember_code', 'value' => $salt, 'expire' => config_item('user_expire'));
 
