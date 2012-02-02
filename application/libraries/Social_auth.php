@@ -259,7 +259,7 @@ class Social_auth
 			$this->oauth_register($email, $user_id, $additional_data['name']);
 
 			// Get User
-		    $user = $this->get_user('user_id', $user_id);
+		    $user = $this->get_user('user_id', $user_id, TRUE);
 
 			// Add Activity
 			$activity_info = array(
@@ -295,7 +295,6 @@ class Social_auth
 			
 			// Add Oauth Tokens
 			$this->oauth_register($email, $user_id, $additional_data['name']);
-			
 			
 			// Add Activity
 			$activity_info = array(
