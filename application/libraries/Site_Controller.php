@@ -40,9 +40,10 @@ class Site_Controller extends MY_Controller
  			}
  		}
 
-        $this->data['shared_ajax']			= '';        
-		$this->data['footer']				= $this->load->view(config_item('site_theme').'/partials/footer', $this->data, true);
-		$this->data['comments_view'] 		= '';
+		// Load Views
+        $this->data['shared_ajax']		= '';        
+		$this->data['footer']			= $this->load->view(config_item('site_theme').'/partials/footer_site', $this->data, true);
+		$this->data['comments_view'] 	= '';
 
 		// If Modules Exist		
 		if ($this->modules_scan)
@@ -50,35 +51,28 @@ class Site_Controller extends MY_Controller
 			foreach ($this->modules_scan as $module)
 			{
 				if (config_item($module.'_enabled') == 'TRUE')
-				{			
-					$module_header 		= '/modules/'.$module.'/views/partials/head_site';
-					$module_navigation	= '/modules/'.$module.'/views/partials/navigation_site';
-					$module_sidebar 	= '/modules/'.$module.'/views/partials/sidebar_site';
-					$module_footer 		= '/modules/'.$module.'/views/partials/footer';
-		
+				{
+					$module_head 	= 'modules/'.$module.'/views/partials/head_site.php';
+					$module_footer 	= 'modules/'.$module.'/views/partials/footer_site.php';
+
 					// Set Module Asset Path
 					$this->data['this_module_assets'] 	= base_url().'application/modules/'.$module.'/assets/';
 				
-				    if (file_exists(APPPATH.$module_header))
+					// Include Heads
+				    if (file_exists(APPPATH.$module_head))
 				    {
-				    	$this->data['head'] 		.= $this->load->view('..'.$module_header, $this->data, true);
+				    	$this->data['head'] .= $this->load->view('../'.$module_head, $this->data, true);
 				    }
-				    if (file_exists(APPPATH.$module_navigation))
-				    {
-				    	$this->data['navigation'] 	.= $this->load->view('..'.$module_navigation, $this->data, true);
-				    }
-				    if (file_exists(APPPATH.$module_sidebar))
-				    {
-				    	$this->data['sidebar'] 		.= $this->load->view('..'.$module_sidebar, $this->data, true);
-				    }
+					
+					// Include Footers
 				    if (file_exists(APPPATH.$module_footer))
 				    {
-				    	$this->data['footer'] 		.= $this->load->view('..'.$module_footer, $this->data, true);
+				    	$this->data['footer'] .= $this->load->view('../'.$module_footer, $this->data, true);
 					}
 				}
 			}
 		}
-		
+
 		// This Module Assets
 		if ($this->module_name)
 		{
