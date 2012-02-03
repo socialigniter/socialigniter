@@ -534,7 +534,7 @@ class Social_tools
         }
         else
         {
-            $user = $this->social_auth->get_user('user_id', $this->get('id'));
+            $user = $this->ci->social_auth->get_user('user_id', $user_id);
             
             if ($user->privacy) $follow_data['status'] = 'N';
             else $follow_data['status'] = 'Y';
