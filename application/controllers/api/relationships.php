@@ -27,9 +27,7 @@ class Relationships extends Oauth_Controller
     }
 
     function follow_authd_post()
-    {       
-    
-    
+    {
 		$message = $this->social_tools->follow_relationship($this->oauth_user_id, $this->get('id'), $this->input->post('module'), $this->input->post('type'));
 
         $this->response($message, 200);
