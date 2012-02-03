@@ -502,7 +502,7 @@ class Social_tools
 	}
 	
 	/* Relationships */
-	function follow_relationship($owner_id, $user_id)
+	function follow_relationship($owner_id, $user_id, $module, $type)
 	{
         if ($this->ci->input->post('site_id')) $site_id = $this->ci->input->post('site_id');
         else $site_id = config_item('site_id');
@@ -511,13 +511,11 @@ class Social_tools
             'site_id'   => $site_id,        
             'owner_id'  => $owner_id,
             'user_id'   => $user_id,
-            'module'    => $this->ci->input->post('module'),
-            'type'      => $this->ci->input->post('type')
+            'module'    => $module,
+            'type'      => $type
         );
         
-        $exists = $this->check_relationship_exists($follow_data);
-        
-        if ($exists)
+        if ($exists = $this->check_relationship_exists($follow_data))
         {
             if ($exists->status == 'Y')
             {
