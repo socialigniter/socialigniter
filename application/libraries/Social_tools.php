@@ -502,6 +502,60 @@ class Social_tools
 	}
 	
 	/* Relationships */
+	function follow_relationship($owner_id, $user_id)
+	{
+        if ($this->ci->input->post('site_id')) $site_id = $this->ci->input->post('site_id');
+        else $site_id = config_item('site_id');
+    
+        $follow_data = array(
+            'site_id'   => $site_id,        
+            'owner_id'  => $owner_id,
+            'user_id'   => $user_id,
+            'module'    => $this->ci->input->post('module'),
+            'type'      => $this->ci->input->post('type')
+        );
+        
+        $exists = $this->check_relationship_exists($follow_data);
+        
+        if ($exists)
+        {
+            if ($exists->status == 'Y')
+            {
+                $message = array('status' => 'error', 'message' => 'You already follow this person');
+            }
+            elseif ($exists->status == 'D')
+            {
+                $follow = $this->update_relationship($exists->relationship_id, array('status' => 'Y'));
+                
+                $message = array('status' => 'success', 'message' => 'You now follow that user', 'data' => $follow);
+            }
+            else
+            {
+                 $message = array('status' => 'error', 'message' => 'Oops for some weird reason you are unable to follow that person');           
+            }
+        }
+        else
+        {
+            $user = $this->social_auth->get_user('user_id', $this->get('id'));
+            
+            if ($user->privacy) $follow_data['status'] = 'N';
+            else $follow_data['status'] = 'Y';
+            
+            $follow = $this->add_relationship($follow_data);
+
+            if ($follow)
+            {
+                $message = array('status' => 'success', 'message' => 'User was successfully followed', 'data' => $follow);
+            }
+            else
+            {
+                $message = array('status' => 'error', 'message' => 'Oops unable to follow user');
+            }
+        }  
+        
+        return $message;	
+	}
+	
 	function check_relationship_exists($relationship_data)
 	{
 		return $this->ci->relationships_model->check_relationship_exists($relationship_data);
