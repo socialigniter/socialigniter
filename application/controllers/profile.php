@@ -16,6 +16,7 @@ class Profile extends Site_Controller
 			// User Data
 			$this->data['user_id'] 			= $this->user->user_id;	
 			$this->data['username'] 		= $this->user->username;
+			$this->data['gravatar'] 		= $this->user->gravatar;
 			$this->data['name'] 			= $this->user->name;
 			$this->data['image'] 			= $this->social_igniter->profile_image($this->user->user_id, $this->user->image, $this->user->gravatar, 'large');; 
 			$this->data['created_on'] 		= $this->user->created_on;
