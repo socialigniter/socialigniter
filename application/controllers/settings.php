@@ -125,33 +125,33 @@ class Settings extends Dashboard_Controller
 		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');        
 	
 		// Logo
-		if (config_item('design_logo_image') != '')
+		if (config_item('design_site_logo') != '')
 		{
-			$this->data['logo_image']		= config_item('design_logo_image');
+			$this->data['logo_thumb']		= base_url().config_item('uploads_folder').'sites/'.config_item('site_id').'/small_'.config_item('design_site_logo');
 		}
 		else
 		{
-			$this->data['logo_image']		= '';
+			$this->data['logo_thumb']		= '';
 		}
 
 		// Header
 		if (config_item('design_header_image') != '')
 		{
-			$this->data['header_image']	= config_item('design_header_image');
+			$this->data['header_thumb']	= base_url().config_item('uploads_folder').'sites/'.config_item('site_id').'/small_'.config_item('design_header_image');
 		}
 		else
 		{
-			$this->data['header_image'] = '';
+			$this->data['header_thumb'] = $this->data['site_assets'].'images/medium_'.config_item('no_photo');
 		}
 		
 		// Background
 		if (config_item('design_background_image') != '')
 		{
-			$this->data['background_image']	= config_item('design_background_image');
+			$this->data['background_thumb']	= base_url().config_item('uploads_folder').'sites/'.config_item('site_id').'/small_'.config_item('design_background_image');
 		}
 		else
 		{
-			$this->data['background_image'] = '';
+			$this->data['background_thumb'] = $this->data['site_assets'].'images/medium_'.config_item('no_photo');
 		}
 
 		// Image Upload Settings

@@ -1,13 +1,13 @@
 <form name="settings_update" id="settings_update" method="post" action="<?= base_url() ?>api/settings/modify" enctype="multipart/form-data">
 <div class="content_wrap_inner">
 	<h3>Logo</h3>
-	<div id="logo_picture">
-		<img id="logo_thumbnail" src="<?= '' ?>" border="0">
+	<div id="logo_picture" class="design_image_thumb">
+		<img id="logo_thumbnail" src="<?= $logo_thumb ?>" border="0">
 	</div>
-	<ul id="logo_picture_upload" class="item_actions_list">
+	<ul id="logo_picture_upload" class="design_image_uploader item_actions_list">
 		<li id="logo_uploading_pick"><a id="pick_logo" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
 		<li id="logo_uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
-	<?php if ($logo_image): ?>
+	<?php if ($logo_thumb): ?>
 		<li id="logo_uploading_delete"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
 		<li id="logo_uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>
 	<?php else: ?>
@@ -15,6 +15,7 @@
 		<li id="logo_uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>			
 	<?php endif; ?>
 	</ul>
+	<div class="clear"></div>
 </div>
 <span class="item_separator"></span>
 
@@ -65,13 +66,13 @@
 <div class="content_wrap_inner">
 
 	<h3>Header</h3>
-	<div id="header_picture">
-		<img id="header_thumbnail" src="<?= '' ?>" border="0">
+	<div id="header_picture" class="design_image_thumb">
+		<img id="header_thumbnail" src="<?= $header_thumb ?>" border="0">
 	</div>
-	<ul id="header_picture_upload" class="item_actions_list">
+	<ul id="header_picture_upload" class="design_image_uploader item_actions_list">
 		<li id="header_uploading_pick"><a id="pick_header" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
 		<li id="header_uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
-	<?php if ($header_image): ?>
+	<?php if ($header_thumb): ?>
 		<li id="header_uploading_delete"><a id="delete_header" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
 		<li id="header_uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>
 	<?php else: ?>
@@ -103,21 +104,18 @@
 	<div class="clear"></div>
 
 </div>
-
-
-
 <span class="item_separator"></span>
 
 <div class="content_wrap_inner">
 
 	<h3>Background</h3>
-	<div id="background_picture">
-		<img id="background_thumbnail" src="<?= '' ?>" border="0">
+	<div id="background_picture" class="design_image_thumb">
+		<img id="background_thumbnail" src="<?= $background_thumb ?>" border="0">
 	</div>
-	<ul id="background_picture_upload" class="item_actions_list">
+	<ul id="background_picture_upload" class="design_image_uploader item_actions_list">
 		<li id="background_uploading_pick"><a id="pick_background" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
 		<li id="background_uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
-	<?php if ($background_image): ?>
+	<?php if ($background_thumb): ?>
 		<li id="background_uploading_delete"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
 		<li id="background_uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>
 	<?php else: ?>

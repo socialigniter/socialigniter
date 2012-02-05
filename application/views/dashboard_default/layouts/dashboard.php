@@ -15,7 +15,7 @@
 <div id="container">
 	<div id="header">
 		<div id="name">
-			<a id="name_link" href="<?= base_url() ?>"><?= show_site_logo() ?><h1><?= $site_title ?></h1></a>
+			<a id="name_link" href="<?= base_url() ?>"><?= show_site_logo('small') ?><h1><?= $site_title ?></h1></a>
 		</div>
 		<div id="nav">
 		<ul>

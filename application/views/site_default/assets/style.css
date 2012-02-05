@@ -54,7 +54,9 @@ a.button_basic_on:hover 		{ height: 29px; background: url(images/button_basic_ho
 a.button_basic_on span			{ position: relative; top: 7px; left: 0px; }
 
 #name 							{ width: 371px; height: 102px; display: block; position: relative; top: 15px; left: 0; float: left; }
-#name a 						{ width: 100%; height: 100%; display: block; position: relative; top: 40px; left: 0px; font-size: 72px; }
+#name a 						{ width: 100%; height: 100%; display: block; position: relative; top: 0px; left: 0px; font-size: 72px; }
+#name a img						{ float: left; }
+#name a h1						{ float: left; }
 #header_avatar 					{ width: 48px; height: 48px; float:right; position: relative; top: 20px; right: 0; }
 #header_logged 					{ float: right; position: relative; top: 85px; right: -48px; }
 #header_logged li 				{ float: left; margin: 0 0 0 25px; }

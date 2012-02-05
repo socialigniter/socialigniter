@@ -398,14 +398,22 @@ function get_category_image($category, $module, $size)
 }
 
 /* Site Design Functions */
-function show_site_logo()
+function show_site_logo($size)
 {
 	$ci =& get_instance();
 	$image = $ci->config->item('design_site_logo');
 
 	if ($image != '')
 	{
-		$image_path	= base_url().$ci->config->item('uploads_folder').'sites/'.$ci->config->item('site_id').'/small_'.$image;
+		if ($size == 'full')
+		{
+			$image_path	= base_url().$ci->config->item('uploads_folder').'sites/'.$ci->config->item('site_id').'/'.$image;
+		}
+		else
+		{
+			$image_path	= base_url().$ci->config->item('uploads_folder').'sites/'.$ci->config->item('site_id').'/'.$size.'_'.$image;		
+		}
+
 		$avatar = '<img src="'.$image_path.'" border="0">';
 	}
 	else
