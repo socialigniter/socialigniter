@@ -1,7 +1,7 @@
 <link rel="icon" type="image/png" href="<?= $site_images ?>favicon.png" />
 <link type="text/css" href="<?= base_url() ?>css/common.css" rel="stylesheet" media="screen" />
 <style type="text/css">
-body 		{ background: <?= make_css_site_background() ?>; }
+body 		{ background: <?= make_css_background('site') ?>; }
 a:link 		{ font-weight: normal; color: #<?= config_item('design_font_color_normal') ?>; text-decoration: none; line-height: 21px; }
 a:visited	{ font-weight: normal; color: #<?= config_item('design_font_color_visited') ?>; text-decoration: none; }
 a:hover		{ font-weight: normal; color:#<?= config_item('design_font_color_hover') ?>; text-decoration: underline; }
@@ -13,6 +13,8 @@ a:active	{ font-weight: normal; text-decoration: none; }
 .content_container a:visited	{ font-weight: normal; font-weight: bold; color: #<?= config_item('design_font_color_visited') ?>; text-decoration: none; }
 .content_container a:hover		{ font-weight: normal; font-weight: bold; color:#<?= config_item('design_font_color_hover') ?>; text-decoration: underline; }
 .content_container a:active		{ font-weight: normal; font-weight: bold; text-decoration: none; }
+
+#header 						{ width: 100%; height: 130px; margin: 0; background: <?= make_css_background('header') ?>; }
 
 #comments a 					{ font-weight: normal; color: #<?= config_item('design_font_color_normal') ?>; text-decoration: none; }
 #comments a:visited				{ font-weight: normal; color: #<?= config_item('design_font_color_visited') ?>; text-decoration: none; }

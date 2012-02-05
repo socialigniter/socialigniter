@@ -2,17 +2,17 @@
 <div class="content_wrap_inner">
 	<h3>Logo</h3>
 	<div id="logo_picture">
-		<img id="background_thumbnail" src="<?= '' ?>" border="0">
+		<img id="logo_thumbnail" src="<?= '' ?>" border="0">
 	</div>
 	<ul id="logo_picture_upload" class="item_actions_list">
-		<li id="uploading_pick"><a id="pick_logo" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
-		<li id="uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
+		<li id="logo_uploading_pick"><a id="pick_logo" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
+		<li id="logo_uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
 	<?php if ($logo_image): ?>
-		<li id="uploading_delete"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
-		<li id="uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>
+		<li id="logo_uploading_delete"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+		<li id="logo_uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>
 	<?php else: ?>
-		<li id="uploading_delete" class="hide"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
-		<li id="uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>			
+		<li id="logo_uploading_delete" class="hide"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+		<li id="logo_uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>			
 	<?php endif; ?>
 	</ul>
 </div>
@@ -68,15 +68,15 @@
 	<div id="header_picture">
 		<img id="header_thumbnail" src="<?= '' ?>" border="0">
 	</div>
-	<ul id="background_picture_upload" class="item_actions_list">
-		<li id="uploading_pick"><a id="pick_header" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
-		<li id="uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
+	<ul id="header_picture_upload" class="item_actions_list">
+		<li id="header_uploading_pick"><a id="pick_header" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
+		<li id="header_uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
 	<?php if ($header_image): ?>
-		<li id="uploading_delete"><a id="delete_header" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
-		<li id="uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>
+		<li id="header_uploading_delete"><a id="delete_header" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+		<li id="header_uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>
 	<?php else: ?>
-		<li id="uploading_delete" class="hide"><a id="delete_header" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
-		<li id="uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>			
+		<li id="header_uploading_delete" class="hide"><a id="delete_header" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+		<li id="header_uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>			
 	<?php endif; ?>
 	</ul>
 
@@ -115,14 +115,14 @@
 		<img id="background_thumbnail" src="<?= '' ?>" border="0">
 	</div>
 	<ul id="background_picture_upload" class="item_actions_list">
-		<li id="uploading_pick"><a id="pick_background" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
-		<li id="uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
+		<li id="background_uploading_pick"><a id="pick_background" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
+		<li id="background_uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
 	<?php if ($background_image): ?>
-		<li id="uploading_delete"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
-		<li id="uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>
+		<li id="background_uploading_delete"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+		<li id="background_uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>
 	<?php else: ?>
-		<li id="uploading_delete" class="hide"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
-		<li id="uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('users_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('users_images_formats'))) ?>)</li>			
+		<li id="background_uploading_delete" class="hide"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+		<li id="background_uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>			
 	<?php endif; ?>
 	</ul>
 
@@ -252,22 +252,34 @@ $(document).ready(function()
 		start		: function(files)
 		{
 			// Show Upload Link
-			$('#uploading_pick').hide(); 
-			$('#uploading_delete').hide();
-			$('#uploading_details').hide();
-			$('#uploading_status').show();
+			$('#logo_uploading_pick').hide(); 
+			$('#logo_uploading_delete').hide();
+			$('#logo_uploading_details').hide();
+			$('#logo_uploading_status').show();
 			$('#file_uploading_name').html(files[0].name);
 		},
 		complete	: function(response)
 		{
 			// Replace Uploading Status
-			$('#uploading_status').delay(500).fadeOut();
-			$('#uploading_pick').delay(1250).fadeIn(); 
-			$('#uploading_delete').delay(1250).fadeIn();
+			$('#logo_uploading_status').delay(500).fadeOut();
+			$('#logo_uploading_pick').delay(1250).fadeIn(); 
+			$('#logo_uploading_delete').delay(1250).fadeIn();
+	
+			console.log(response);
 	
 			if (response.status == 'success')
 			{
-				$('#logo_picture').attr('src', base_url + 'uploads/sites/<?= config_item('site_id') ?>/small_' + response.upload_info.filename)
+				$('#logo_thumbnail').attr('src', base_url + 'uploads/sites/1/small_' + response.upload_info.file_name)
+				
+				if ($('#name_link img').length > 0)
+				{		
+					$('#name_link img').attr('src', base_url + 'uploads/sites/1/small_' + response.upload_info.file_name);
+				}
+				else
+				{
+					var name_text = $('#name_link').html();
+					$('#name_link').html('<img src="' + base_url + 'uploads/sites/1/small_' + response.upload_info.file_name + '" border="0">' + name_text);
+				}
 			}
 			else
 			{			

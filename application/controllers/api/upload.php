@@ -20,7 +20,7 @@ class Upload extends Oauth_Controller
 		// Validation
 		if ($this->form_validation->run() == true)
 		{
-			$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);
+			$user = $this->social_auth->get_user('user_id', $this->oauth_user_id, TRUE);
 			
 			if ($check_expectation = $this->social_tools->verify_upload($user, $this->input->post('file_hash')))
 			{			
