@@ -27,13 +27,14 @@
 <div id="header">
 	<div class="wrap">
 		<div id="name">
-			<a href="<?= base_url() ?>"><h1><?= $site_title; ?></h1></a>
+			<a href="<?= base_url() ?>"><?= show_site_logo('full') ?><h1><?= $site_title; ?></h1></a>
 		</div>
 		<?= $logged ?>
 		<div class="clear"></div>
-		<?= $navigation ?>
 	</div>
 </div>
+<?= $navigation ?>
+
 
 <div id="content">
 	<div class="wrap">

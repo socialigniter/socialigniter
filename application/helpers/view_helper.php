@@ -398,15 +398,23 @@ function get_category_image($category, $module, $size)
 }
 
 /* Site Design Functions */
-function show_site_logo()
+function show_site_logo($size)
 {
 	$ci =& get_instance();
 	$image = $ci->config->item('design_site_logo');
 
 	if ($image != '')
 	{
-		$image_path	= '/'.$ci->config->item('uploads_folder').'/sites/'.$ci->config->item('site_id').'/small_'.$image;
-		$avatar = '<a id="name_img" href="'.base_url().'"><img src="'.$image_path.'" border="0"></a>';
+		if ($size == 'full')
+		{
+			$image_path	= base_url().$ci->config->item('uploads_folder').'sites/'.$ci->config->item('site_id').'/'.$image;
+		}
+		else
+		{
+			$image_path	= base_url().$ci->config->item('uploads_folder').'sites/'.$ci->config->item('site_id').'/'.$size.'_'.$image;		
+		}
+
+		$avatar = '<img src="'.$image_path.'" border="0">';
 	}
 	else
 	{
@@ -416,13 +424,13 @@ function show_site_logo()
 	return $avatar;
 }
 
-function make_css_site_background()
+function make_css_background($type)
 {
 	$ci =& get_instance();
-	$image		= $ci->config->item('design_background_image');
-	$position	= $ci->config->item('design_background_position');
-	$repeat		= $ci->config->item('design_background_repeat');
-	$color		= $ci->config->item('design_background_color');
+	$image		= $ci->config->item('design_'.$type.'_image');
+	$position	= $ci->config->item('design_'.$type.'_position');
+	$repeat		= $ci->config->item('design_'.$type.'_repeat');
+	$color		= $ci->config->item('design_'.$type.'_color');
 
 	if ($image != '')
 	{

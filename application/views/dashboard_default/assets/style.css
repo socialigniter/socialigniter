@@ -31,13 +31,10 @@ a 			{ font-weight: normal; text-shadow:1px 1px 1px #F3F3F3; }
 table 		{ margin: 10 0; }
 table td 	{ padding: 10px 10px 5px 0; text-align: left; vertical-align: top; }
 pre			{ background: #f3f3f3; border: 1px solid #999999; padding: 10px; }
-
 input[type=text], input[type=password], input[type=email], input[type=url] { height: 28px; background: url(images/input_basic.png) 0 0 repeat-x #fff; font-size: 13px; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; margin: 0 10px 0 0; padding: 0 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=url]:focus { height: 28px; background: url(images/input_basic_focus.png) 0 0 repeat-x #fff; margin: 0 10px 0 0; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
-
 input[type=submit], input[type=reset], input[type=button], button { height: 29px; background: url(images/button_basic.png) 0 0 repeat-x #888888; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 13px; padding: 0 12px; }
 input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover { height: 29px; background: url(images/button_basic_hover.png) 0 0 repeat-x #979595; border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
-
 textarea 					{ background: url(images/textarea_basic.png) 0 0 repeat-x #ffffff; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; padding: 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 textarea:focus 				{ background: url(images/textarea_basic_focus.png) 0 0 repeat-x #ffffff; }
 
@@ -49,7 +46,6 @@ input.input_medium			{ width: 245px; }
 input.input_bigger			{ width: 350px; }
 input.input_large			{ width: 450px; }
 input.input_full			{ width: 625px; }
-
 textarea.textarea_small		{ width: 100px; }
 textarea.textarea_medium	{ width: 225px; }
 textarea.textarea_large		{ width: 450px; }
@@ -98,9 +94,9 @@ input.form_valid, textarea.form_valid { color: #479e45 !important; }
 
 /* Header */
 #header						{ width: 950px; height: 62px; margin: 15px auto; background: url('images/header.png') repeat-x; }
-#header #name				{ width: 600px; height: 50px; margin: 7px 0 0 17px; text-align: left; float:left; overflow: hidden; }
-#header #name_img			{ float: left; margin: 3px 15px 0 5px; }
-#header #name_text  		{ display: block; margin: 9px 0 0 10px; color: #333; text-shadow:1px 1px 1px #FFF; }
+#name						{ width: 600px; height: 50px; margin: 7px 0 0 17px; text-align: left; float:left; overflow: hidden; }
+#name a img					{ float: left; margin: 3px 15px 0 5px; }
+#name a h1 					{ display: block; margin: 9px 0 0 10px; color: #333; text-shadow:1px 1px 1px #FFF; }
 
 #header #nav				{ width: 305px; height: 34px; position: relative; top: 14px; left: 22px; float: left; text-align: left; }
 #header #nav ul				{ float: left; list-style: none; margin: 9px 0 0 20px; padding: 0; }
@@ -479,6 +475,8 @@ div.selectable_chosen:hover { color: #777777; }
 span.nav_apps_back					{ float: right; position: relative; top: -2px; right: 0px; margin: 0 0 0 5px; }
 
 /* Settings - Design */
+div.design_image_thumb				{ width: 42px; height: 42px; float: left; margin-right: 15px; }
+ul.design_image_uploader			{ width: 200px; float: left; }
 div.design_color_widget				{ width: 200px; height: 110px; float: left; }
 div.design_color_widget	p			{ margin: 0 0 0 0; }
 div.design_color_picker				{ width: 78px; height: 78px; border: 1px solid #999999; margin: 6px 13px 0 0; float: left; }

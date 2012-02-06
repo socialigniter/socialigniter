@@ -2,7 +2,7 @@
 <link rel="alternate" type="application/rss+xml" title="<?= $site_title ?> RSS 2.0 Comments" href="<?= base_url() ?>feed/comments" />
 <link type="text/css" href="<?= $dashboard_assets ?>style.css" rel="stylesheet" media="screen" />
 <style type="text/css">
-body { background: <?= make_css_site_background() ?>; }
+body { background: <?= make_css_background('site') ?>; }
 </style>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery-ui.js"></script>
