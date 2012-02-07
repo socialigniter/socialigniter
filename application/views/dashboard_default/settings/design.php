@@ -20,51 +20,45 @@
 <span class="item_separator"></span>
 
 <div class="content_wrap_inner">
-
 	<h3>Links</h3>
-
 	<div class="design_color_widget">
 		<p>Normal</p>
-		<div id="font_color_picker_normal" class="design_color_picker">
-			<div style="background-color: #<?= config_item('design_font_color_normal') ?>"></div>
+		<div id="link_color_picker_normal" class="design_color_picker">
+			<div style="background-color: #<?= config_item('design_link_color_normal') ?>"></div>
 		</div>
 		<div class="design_color_details">
-			<input type="text" maxlength="6" size="6" name="font_color_normal" id="font_color_normal" value="<?= config_item('design_font_color_normal') ?>" /><br>
-			<img id="font_color_normal_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">
+			<input type="text" maxlength="6" size="6" name="link_color_normal" id="link_color_normal" value="<?= config_item('design_link_color_normal') ?>" /><br>
+			<img id="link_color_normal_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">
 		</div>
 		<div class="clear"></div>
 	</div>
-
 	<div class="design_color_widget">	
 		<p>Visited</p>
-		<div id="font_color_picker_visited" class="design_color_picker">
-			<div style="background-color: #<?= config_item('design_font_color_visited') ?>"></div>
+		<div id="link_color_picker_visited" class="design_color_picker">
+			<div style="background-color: #<?= config_item('design_link_color_visited') ?>"></div>
 		</div>
 		<div class="design_color_details">
-			<input type="text" maxlength="6" size="6" name="font_color_visited" id="font_color_visited" value="<?= config_item('design_font_color_visited') ?>" /><br>
-			<img id="font_color_visited_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">
+			<input type="text" maxlength="6" size="6" name="link_color_visited" id="link_color_visited" value="<?= config_item('design_link_color_visited') ?>" /><br>
+			<img id="link_color_visited_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">
 		</div>
 		<div class="clear"></div>
 	</div>
-	
 	<div class="design_color_widget">	
 		<p>Hover</p>
-		<div id="font_color_picker_hover" class="design_color_picker">
-			<div style="background-color: #<?= config_item('design_font_color_hover') ?>"></div>
+		<div id="link_color_picker_hover" class="design_color_picker">
+			<div style="background-color: #<?= config_item('design_link_color_hover') ?>"></div>
 		</div>
 		<div class="design_color_details">
-			<input type="text" maxlength="6" size="6" name="font_color_hover" id="font_color_hover" value="<?= config_item('design_font_color_hover') ?>" /><br>
-			<img id="font_color_hover_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">	
+			<input type="text" maxlength="6" size="6" name="link_color_hover" id="link_color_hover" value="<?= config_item('design_link_color_hover') ?>" /><br>
+			<img id="link_color_hover_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">	
 		</div>
 		<div class="clear"></div>
 	</div>
 	<div class="clear"></div>
-
 </div>
 <span class="item_separator"></span>
 
 <div class="content_wrap_inner">
-
 	<h3>Header</h3>
 	<div id="header_picture" class="design_image_thumb">
 		<img id="header_thumbnail" src="<?= $header_thumb ?>" border="0">
@@ -80,7 +74,6 @@
 		<li id="header_uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>			
 	<?php endif; ?>
 	</ul>
-
 	<div class="design_color_widget">
 		<p>Position<br>
 		<?= form_dropdown('header_position', config_item('css_background_position'), $settings['design']['header_position']) ?>
@@ -89,7 +82,6 @@
 		<?= form_dropdown('header_repeat', config_item('css_background_repeat'), $settings['design']['header_repeat']) ?>
 		</p>
 	</div>
-
 	<div class="design_color_widget">
 		<p>Color</p>
 		<div id="header_color_picker" class="design_color_picker">
@@ -102,12 +94,49 @@
 		<div class="clear"></div>
 	</div>
 	<div class="clear"></div>
-
 </div>
 <span class="item_separator"></span>
 
 <div class="content_wrap_inner">
+	<h3>Header Links</h3>
+	<div class="design_color_widget">
+		<p>Normal</p>
+		<div id="header_link_color_picker_normal" class="design_color_picker">
+			<div style="background-color: #<?= config_item('design_header_link_color_normal') ?>"></div>
+		</div>
+		<div class="design_color_details">
+			<input type="text" maxlength="6" size="6" name="header_link_color_normal" id="header_link_color_normal" value="<?= config_item('design_header_link_color_normal') ?>" /><br>
+			<img id="header_link_color_normal_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="design_color_widget">
+		<p>Visited</p>
+		<div id="header_link_color_picker_visited" class="design_color_picker">
+			<div style="background-color: #<?= config_item('design_header_link_color_visited') ?>"></div>
+		</div>
+		<div class="design_color_details">
+			<input type="text" maxlength="6" size="6" name="header_link_color_visited" id="header_link_color_visited" value="<?= config_item('design_header_link_color_visited') ?>" /><br>
+			<img id="header_link_color_visited_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="design_color_widget">	
+		<p>Hover</p>
+		<div id="header_link_color_picker_hover" class="design_color_picker">
+			<div style="background-color: #<?= config_item('design_header_link_color_hover') ?>"></div>
+		</div>
+		<div class="design_color_details">
+			<input type="text" maxlength="6" size="6" name="header_link_color_hover" id="header_link_color_hover" value="<?= config_item('design_header_link_color_hover') ?>" /><br>
+			<img id="header_link_color_hover_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">	
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>
+<span class="item_separator"></span>
 
+<div class="content_wrap_inner">
 	<h3>Background</h3>
 	<div id="background_picture" class="design_image_thumb">
 		<img id="background_thumbnail" src="<?= $background_thumb ?>" border="0">
@@ -123,7 +152,6 @@
 		<li id="background_uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>			
 	<?php endif; ?>
 	</ul>
-
 	<div class="design_color_widget">
 		<p>Position<br>
 		<?= form_dropdown('background_position', config_item('css_background_position'), $settings['design']['background_position']) ?>
@@ -132,7 +160,6 @@
 		<?= form_dropdown('background_repeat', config_item('css_background_repeat'), $settings['design']['background_repeat']) ?>
 		</p>
 	</div>
-
 	<div class="design_color_widget">
 		<p>Color</p>
 		<div id="background_color_picker" class="design_color_picker">
@@ -145,7 +172,6 @@
 		<div class="clear"></div>
 	</div>
 	<div class="clear"></div>
-
 	<p><input type="submit" value="Save"></p>
 </div>
 </form>
@@ -159,8 +185,8 @@
 $(document).ready(function()
 {
 	// Font Color Pickers
-	$('#font_color_picker_normal, #font_color_normal_swatch').ColorPicker({
-		color: '#<?= config_item('design_font_color_normal') ?>',
+	$('#link_color_picker_normal, #link_color_normal_swatch').ColorPicker({
+		color: '#<?= config_item('design_link_color_normal') ?>',
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			return false;
@@ -170,13 +196,13 @@ $(document).ready(function()
 			return false;
 		},
 		onChange: function (hsb, hex, rgb) {
-			$('#font_color_picker_normal div').css('backgroundColor', '#' + hex);
-			$('#font_color_normal').val(hex);			
+			$('#link_color_picker_normal div').css('backgroundColor', '#' + hex);
+			$('#link_color_normal').val(hex);			
 		}
 	});	
 
-	$('#font_color_picker_visited, #font_color_visited_swatch').ColorPicker({
-		color: '#<?= config_item('design_font_color_visited') ?>',
+	$('#link_color_picker_visited, #link_color_visited_swatch').ColorPicker({
+		color: '#<?= config_item('design_link_color_visited') ?>',
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			return false;
@@ -186,13 +212,13 @@ $(document).ready(function()
 			return false;
 		},
 		onChange: function (hsb, hex, rgb) {
-			$('#font_color_picker_visited div').css('backgroundColor', '#' + hex);
-			$('#font_color_visited').val(hex);			
+			$('#link_color_picker_visited div').css('backgroundColor', '#' + hex);
+			$('#link_color_visited').val(hex);			
 		}
 	});	
 	
-	$('#font_color_picker_hover, #font_color_hover_swatch').ColorPicker({
-		color: '#<?= config_item('design_font_color_hover') ?>',
+	$('#link_color_picker_hover, #link_color_hover_swatch').ColorPicker({
+		color: '#<?= config_item('design_link_color_hover') ?>',
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			return false;
@@ -202,8 +228,8 @@ $(document).ready(function()
 			return false;
 		},
 		onChange: function (hsb, hex, rgb) {
-			$('#font_color_picker_hover div').css('backgroundColor', '#' + hex);
-			$('#font_color_hover').val(hex);			
+			$('#link_color_picker_hover div').css('backgroundColor', '#' + hex);
+			$('#link_color_hover').val(hex);			
 		}
 	});
 
@@ -223,6 +249,55 @@ $(document).ready(function()
 			$('#header_color').val(hex);
 		}
 	});
+	
+	// Header Link Color Pickers
+	$('#header_link_color_picker_normal, #header_link_color_normal_swatch').ColorPicker({
+		color: '#<?= config_item('design_header_link_color_normal') ?>',
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('#header_link_color_picker_normal div').css('backgroundColor', '#' + hex);
+			$('#header_link_color_normal').val(hex);			
+		}
+	});	
+
+	$('#header_link_color_picker_visited, #header_link_color_visited_swatch').ColorPicker({
+		color: '#<?= config_item('design_header_link_color_visited') ?>',
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('#header_link_color_picker_visited div').css('backgroundColor', '#' + hex);
+			$('#header_link_color_visited').val(hex);			
+		}
+	});	
+	
+	$('#header_link_color_picker_hover, #header_link_color_hover_swatch').ColorPicker({
+		color: '#<?= config_item('design_font_color_hover') ?>',
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('#header_link_color_picker_hover div').css('backgroundColor', '#' + hex);
+			$('#header_link_color_hover').val(hex);			
+		}
+	});	
 
 	// Background Color Pickers
 	$('#background_color_picker, #background_color_swatch').ColorPicker({
@@ -245,7 +320,7 @@ $(document).ready(function()
 	$('#pick_logo').mediaUploader(
 	{
 		max_size	: '<?= $upload_size ?>mb',
-		create_url	: base_url + 'api/settings/upload_site_picture/type/logo',
+		create_url	: base_url + 'api/settings/upload_site_picture/type/site_logo',
 		formats		: {title : 'Allowed Files', extensions : '<?= $upload_formats ?>'},
 		start		: function(files)
 		{
@@ -262,13 +337,10 @@ $(document).ready(function()
 			$('#logo_uploading_status').delay(500).fadeOut();
 			$('#logo_uploading_pick').delay(1250).fadeIn(); 
 			$('#logo_uploading_delete').delay(1250).fadeIn();
-	
-			console.log(response);
-	
+		
 			if (response.status == 'success')
 			{
 				$('#logo_thumbnail').attr('src', base_url + 'uploads/sites/1/small_' + response.upload_info.file_name)
-				
 				if ($('#name_link img').length > 0)
 				{		
 					$('#name_link img').attr('src', base_url + 'uploads/sites/1/small_' + response.upload_info.file_name);
@@ -285,7 +357,73 @@ $(document).ready(function()
 			}		
 		}
 	});	
-	
+
+	// Upload Header
+	$('#pick_header').mediaUploader(
+	{
+		max_size	: '<?= $upload_size ?>mb',
+		create_url	: base_url + 'api/settings/upload_site_picture/type/header_image',
+		formats		: {title : 'Allowed Files', extensions : '<?= $upload_formats ?>'},
+		start		: function(files)
+		{
+			// Show Upload Link
+			$('#header_uploading_pick').hide(); 
+			$('#header_uploading_delete').hide();
+			$('#header_uploading_details').hide();
+			$('#header_uploading_status').show();
+			$('#file_uploading_name').html(files[0].name);
+		},
+		complete	: function(response)
+		{
+			// Replace Uploading Status
+			$('#header_uploading_status').delay(500).fadeOut();
+			$('#header_uploading_pick').delay(1250).fadeIn(); 
+			$('#header_uploading_delete').delay(1250).fadeIn();
+		
+			if (response.status == 'success')
+			{
+				$('#header_thumbnail').attr('src', base_url + 'uploads/sites/1/small_' + response.upload_info.file_name)
+			}
+			else
+			{			
+				$('#content_message').notify({status:response.status,message:response.message});	
+			}		
+		}
+	});		
+
+
+	// Upload Background
+	$('#pick_background').mediaUploader(
+	{
+		max_size	: '<?= $upload_size ?>mb',
+		create_url	: base_url + 'api/settings/upload_site_picture/type/background_image',
+		formats		: {title : 'Allowed Files', extensions : '<?= $upload_formats ?>'},
+		start		: function(files)
+		{
+			// Show Upload Link
+			$('#background_uploading_pick').hide(); 
+			$('#background_uploading_delete').hide();
+			$('#background_uploading_details').hide();
+			$('#background_uploading_status').show();
+			$('#file_uploading_name').html(files[0].name);
+		},
+		complete	: function(response)
+		{
+			// Replace Uploading Status
+			$('#background_uploading_status').delay(500).fadeOut();
+			$('#background_uploading_pick').delay(1250).fadeIn(); 
+			$('#background_uploading_delete').delay(1250).fadeIn();
+		
+			if (response.status == 'success')
+			{
+				$('#background_thumbnail').attr('src', base_url + 'uploads/sites/1/small_' + response.upload_info.file_name)
+			}
+			else
+			{			
+				$('#content_message').notify({status:response.status,message:response.message});	
+			}		
+		}
+	});		
 	
 	
 	// Delete Picture
