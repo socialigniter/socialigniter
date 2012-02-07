@@ -434,7 +434,7 @@ function make_css_background($type)
 
 	if ($image != '')
 	{
-		$image_path	= '/'.$ci->config->item('uploads_folder').'/sites/'.$ci->config->item('site_id').'/'.$image;
+		$image_path	= '/'.$ci->config->item('uploads_folder').'sites/'.$ci->config->item('site_id').'/'.$image;
 		$background = 'url('.$image_path.') '.$position.' '.$repeat.' #'.$color;
 	}
 	else

@@ -70,12 +70,10 @@ $config['no_photo']						= "no_photo.png";
 $config['default_images_formats']		= "gif|jpg|jpeg|png";
 $config['default_images_file_size']		= "5120";
 $config['default_images_dimensions']	= "1600";
+$config['default_images_small_width']	= '42';
+$config['default_images_small_height']	= '42';
 $config['categories_images_folder']		= "uploads/categories/";
 $config['categories_images_formats']	= 'gif|jpg|jpeg|png';
 $config['categories_images_max_size']	= 25600;
 $config['categories_images_max_dimensions'] = 3000;
-
-// Design Options
-$config['logo_images_small_width']		= '42';
-$config['logo_images_small_height']		= '42';
 
