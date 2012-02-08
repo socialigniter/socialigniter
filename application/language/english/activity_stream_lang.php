@@ -33,6 +33,8 @@ $lang['verbs']['comment']				= 'commented';
 $lang['verbs']['purchase']				= 'purchased';
 $lang['verbs']['download']				= 'downloaded';
 $lang['verbs']['checkin']				= 'checked in at';
+$lang['verbs']['friend'] 				= 'added friend';
+$lang['verbs']['child'] 				= 'added child';
 
 // Social Igniter Object Articles
 $lang['object_articles']['article']		= 'an';
