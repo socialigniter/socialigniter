@@ -583,7 +583,7 @@ class Users extends Oauth_Controller
 			}
 			else
 			{
-		        $message = array('status' => 'error', 'message' => 'The email failed to send, please try again.');    		
+		        $message = array('status' => 'error', 'message' => 'We could not find that email address or reset it!');    		
 			}
 	    }
 	

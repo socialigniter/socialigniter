@@ -1,4 +1,2 @@
 User-agent: *
-Disallow: /application/
-Disallow: /api/
-Disallow: /uploads/
+Disallow: /
