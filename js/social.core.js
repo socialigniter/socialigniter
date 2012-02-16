@@ -2593,10 +2593,19 @@ var autocomplete = function(trigger_element, api_data, field, callback)
 	} 
 }
 
-function is_int(value){ 
-  if((parseFloat(value) == parseInt(value)) && !isNaN(value)){
+function is_int(value)
+{ 
+  if ((parseFloat(value) == parseInt(value)) && !isNaN(value))
+  {
       return true;
-  } else { 
+  }
+  else
+  { 
       return false;
-  } 
+  }
 }
+
+String.prototype.trunc = function(n)
+{
+	return this.substr(0,n-1)+(this.length>n?'':'');
+};
