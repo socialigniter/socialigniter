@@ -32,8 +32,8 @@
 		<?= $logged ?>
 		<div class="clear"></div>
 	</div>
-	<?= $navigation ?>
 </div>
+<?= $navigation ?>
 
 <div id="content">
 	<div class="wrap">
@@ -49,8 +49,8 @@
 <div id="footer">
 	<div class="wrap">		
 		<?= $footer ?>
-		<div class="clear"></div>
 	</div>
+	<div class="clear"></div>
 </div>
 <?= $google_analytics ?>
 </body>

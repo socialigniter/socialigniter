@@ -60,7 +60,7 @@ a.button_basic_on span			{ position: relative; top: 7px; left: 0px; }
 #main_nav ul li 				{ float: left; margin: 0 40px 0 0; padding: 0; text-decoration: none; font-weight: bold; list-style-type: none; }
 #main_wide						{ width: 950px; margin: 25px 0 65px 0; }
 
-#content 						{ width: 100%; min-height: 70%; margin: 0; padding: 45px 0 150px 0; }
+#content 						{ width: 100%; min-height: 430px; margin: 0; padding: 45px 0 150px 0; }
 #content table					{ margin: 0 0 25px 0; }
 #content table td 				{ padding: 10px 10px 10px 0; }
 #content h1						{ margin: 0 0 15px 0; }
