@@ -18,11 +18,11 @@ a:active	{ font-weight: normal; text-decoration: none; }
 #header a, #footer a		 	{ color: #<?= config_item('design_header_link_color_normal') ?>; text-shadow: 1px 1px 1px #999999; font-size: 16px; font-weight: bold; letter-spacing: 1px; text-decoration: none; }
 #header a:link, #footer a:link	{ color: #<?= config_item('design_header_link_color_normal') ?>; text-decoration: none; }
 #header a:visited, #footer a:visited { color: #<?= config_item('design_header_link_color_visited') ?>; text-decoration: none; }
-#header a:hover, #footer a:hover { color: #<?= config_item('design_header_link_color_hover') ?>; text-decoration: underline; }
+#header a:hover, #footer a:hover { color: #<?= config_item('design_header_link_color_hover') ?>; text-decoration: none; }
 #header a:active, #footer a:active { text-decoration: underline; }
 #footer 						{ width: 100%; position: relative; margin-top: -123px; height: 123px; clear:both; background: <?= make_css_background('header') ?>; font-size: 14px; }
 
-#name 							{ width: 371px; height: 72px; display: block; position: relative; top: 40px; left: 0; float: left; }
+#name 							{ width: 625px; height: 72px; border: 1px solid red; display: block; position: relative; top: 40px; left: 0; float: left; }
 #name a, #name a h1 			{ width: 100%; height: 100%; display: block; position: relative; top: 0px; left: 0px; font-size: 72px; line-height: 72px; color: #<?= config_item('design_header_link_color_normal') ?>; text-shadow: 1px 1px 1px #999999; }
 #name a:hover, #name a:hover h1		{ color: #<?= config_item('design_header_link_color_hover') ?>; text-shadow: 1px 1px 1px #999999; }
 
