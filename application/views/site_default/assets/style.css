@@ -88,18 +88,17 @@ div.message_error				{ padding: 12px 15px; background: #b54545; color: #f2edda; 
 div.message_alert				{ padding: 12px 15px; background: #f2e3af; color: #666666; text-shadow:1px 1px 1px #d6d6d6; }
 div.message_success				{ padding: 12px 15px; background: #479e45; color: #fbedbd; text-shadow:1px 1px 1px #666666; }
 
-#content_list					{ margin: 0 !important; }
-#content_list li:first-child	{ margin: 0 0 15px 0 !important; padding: 0 0 0 0; border-top: 0px; }
-#content_list li				{ margin: 0 0 45px 0; border-top: 1px solid #c9c9c9;  }
-.content_container				{ margin: 0 0 45px 0; padding: 45px 0 0 0; }
-.content_text					{ margin: 0 0 35px 0; line-height: 21px; }
-.content_actions				{ margin: 0 0 0px 0; }
-.content_actions h4				{ float: left; }
-.content_actions table			{ float: right; height: 25px; margin: 8px 0 0 0 !important; padding: 0 !important; }
-.content_actions table td		{ padding: 0 0 0 25px !important; vertical-align: top; text-align: right; }
-.content_actions table a		{ margin: 0 !important; }
-.content_actions h4 img			{ position: relative; top: 6px; left: 0; margin: 0 8px 0 0; }
-.content_read_more				{ width: 150px; margin: 0 0 0 0; }
+/* Pages - Generic */
+div.content_container			{ margin: 0 0 45px 0; padding: 0px 0 0 0; }
+div.content_text				{ margin: 0 0 45px 0; line-height: 21px; }
+
+div.content_actions				{ margin: 0 0 0px 0; padding: 0; }
+div.content_actions h4			{ margin-bottom: 25px; }
+div.content_actions table		{ height: 25px; margin: 15px 0 0 0 !important; padding: 0 !important; }
+div.content_actions table td	{ padding: 0 25px 0 0 !important; vertical-align: top; text-align: left; }
+div.content_actions table a		{ margin: 0 !important; }
+div.content_actions h4 img		{ position: relative; top: 6px; left: 0; margin: 0 8px 0 0; }
+div.content_read_more			{ width: 150px; margin: 0 0 0 0; }
 
 /* Dashboard Content Box */
 div.norm_top 					{ width: 700px; height: 12px; background: url('images/content_norm_top.png') 0 0 no-repeat; margin: 0; }
