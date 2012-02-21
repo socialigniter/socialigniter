@@ -49,7 +49,7 @@ a.button_basic_on:hover 		{ height: 29px; background: url(images/button_basic_ho
 a.button_basic_on span			{ position: relative; top: 7px; left: 0px; }
 
 #header_avatar 					{ width: 48px; height: 48px; float:right; position: relative; top: 20px; right: 0; }
-#header_logged 					{ float: right; position: relative; top: 85px; right: -48px; }
+#header_logged 					{ float: right; position: relative; top: 15px; right: 0px; }
 #header_logged li 				{ float: left; margin: 0 0 0 25px; }
 #header_not_logged 				{ float: right; position: relative; top: 85px; right: 0; }
 #header_not_logged li 			{ float: left; margin: 0 0 0 25px; }
@@ -60,7 +60,7 @@ a.button_basic_on span			{ position: relative; top: 7px; left: 0px; }
 #main_nav ul li 				{ float: left; margin: 0 40px 0 0; padding: 0; text-decoration: none; font-weight: bold; list-style-type: none; }
 #main_wide						{ width: 950px; margin: 25px 0 65px 0; }
 
-#content 						{ width: 100%; min-height: 70%; margin: 0; padding: 45px 0 150px 0; }
+#content 						{ width: 100%; min-height: 430px; margin: 0; padding: 45px 0 150px 0; }
 #content table					{ margin: 0 0 25px 0; }
 #content table td 				{ padding: 10px 10px 10px 0; }
 #content h1						{ margin: 0 0 15px 0; }
@@ -75,11 +75,11 @@ a.button_basic_on span			{ position: relative; top: 7px; left: 0px; }
 #sidebar ul 					{ margin: 0; }
 #sidebar li 					{ text-align: left; }
 
-#footer ul 						{ position: relative; top: 40px; left: 0; }
+#footer ul 						{ position: relative; top: 20px; left: 0; }
 #footer li 						{ float: left; margin: 0 35px 0 0; list-style-type: none; }
 #ticker 						{ position: relative; top: 13px; left: 0; margin: 0; padding: 0; text-align: left; }
 #ticker h3						{  color: #666666; text-shadow: 1px 1px 1px #fff; font-size: 16px; font-weight: normal; }
-#copyright 						{ position: relative; top: 40px; right: 0; float: right; color: #eee; text-shadow: 1px 1px 1px #333; font-size: 16px; font-weight: bold; letter-spacing: 1px; }
+#copyright 						{ position: relative; top: 20px; right: 0; float: right; color: #eee; text-shadow: 1px 1px 1px #333; font-size: 16px; font-weight: bold; letter-spacing: 1px; }
 
 #content_message				{ width: 100%; display: none; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; font-size: 14px; margin: 15px 0; }
 
@@ -88,18 +88,17 @@ div.message_error				{ padding: 12px 15px; background: #b54545; color: #f2edda; 
 div.message_alert				{ padding: 12px 15px; background: #f2e3af; color: #666666; text-shadow:1px 1px 1px #d6d6d6; }
 div.message_success				{ padding: 12px 15px; background: #479e45; color: #fbedbd; text-shadow:1px 1px 1px #666666; }
 
-#content_list					{ margin: 0 !important; }
-#content_list li:first-child	{ margin: 0 0 15px 0 !important; padding: 0 0 0 0; border-top: 0px; }
-#content_list li				{ margin: 0 0 45px 0; border-top: 1px solid #c9c9c9;  }
-.content_container				{ margin: 0 0 45px 0; padding: 45px 0 0 0; }
-.content_text					{ margin: 0 0 35px 0; line-height: 21px; }
-.content_actions				{ margin: 0 0 0px 0; }
-.content_actions h4				{ float: left; }
-.content_actions table			{ float: right; height: 25px; margin: 8px 0 0 0 !important; padding: 0 !important; }
-.content_actions table td		{ padding: 0 0 0 25px !important; vertical-align: top; text-align: right; }
-.content_actions table a		{ margin: 0 !important; }
-.content_actions h4 img			{ position: relative; top: 6px; left: 0; margin: 0 8px 0 0; }
-.content_read_more				{ width: 150px; margin: 0 0 0 0; }
+/* Pages - Generic */
+div.content_container			{ margin: 0 0 45px 0; padding: 0px 0 0 0; }
+div.content_text				{ margin: 0 0 45px 0; line-height: 21px; }
+
+div.content_actions				{ margin: 0 0 0px 0; padding: 0; }
+div.content_actions h4			{ margin-bottom: 25px; }
+div.content_actions table		{ height: 25px; margin: 15px 0 0 0 !important; padding: 0 !important; }
+div.content_actions table td	{ padding: 0 25px 0 0 !important; vertical-align: top; text-align: left; }
+div.content_actions table a		{ margin: 0 !important; }
+div.content_actions h4 img		{ position: relative; top: 6px; left: 0; margin: 0 8px 0 0; }
+div.content_read_more			{ width: 150px; margin: 0 0 0 0; }
 
 /* Dashboard Content Box */
 div.norm_top 					{ width: 700px; height: 12px; background: url('images/content_norm_top.png') 0 0 no-repeat; margin: 0; }

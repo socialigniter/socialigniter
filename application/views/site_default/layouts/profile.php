@@ -32,8 +32,8 @@
 		<?= $logged ?>
 		<div class="clear"></div>
 	</div>
-	<?= $navigation ?>
 </div>
+<?= $navigation ?>
 
 <div id="content">
 	<div class="wrap">

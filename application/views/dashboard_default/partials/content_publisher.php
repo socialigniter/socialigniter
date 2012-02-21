@@ -13,9 +13,9 @@ $(document).ready(function()
 {
 	<?php if ($state == 'form'): ?>
 	// Publishes / Saves Content from form
-	$('#content_publish, #content_save').bind('click', function(eve)
+	$('#content_publish, #content_save').bind('click', function(e)
 	{
-		eve.preventDefault();
+		e.preventDefault();
 		$form = $('#<?= $form_name ?>');
 
 		// Validation	
@@ -28,7 +28,7 @@ $(document).ready(function()
 			var form_data	= $form.serializeArray();
 			form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'type','value':'<?= $form_type ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
 
-			$form.oauthAjax(
+			$.oauthAjax(
 			{
 				oauth 		: user_data,
 				url			: '<?= $form_url ?>',

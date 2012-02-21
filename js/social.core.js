@@ -2490,7 +2490,7 @@ jQuery.url = function()
  */
 var autocomplete = function(trigger_element, api_data, field, callback)
 {
-	$.get(jQuery.url.attr('protocol') + '://' +jQuery.url.attr('host') + api_data, function(json)
+	$.get(jQuery.url.attr('protocol') + '://' +jQuery.url.attr('host') + '/' + api_data, function(json)
 	{
 		var data = json.data;
 		var tags = [];
@@ -2529,7 +2529,7 @@ var autocomplete = function(trigger_element, api_data, field, callback)
 		}
 
 		// don't navigate away from the field on tab when selecting an item		
-		$(trigger_element).bind( "keydown", function(event)
+		$(trigger_element).bind("keydown", function(event)
 		{
 			if (event.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active)
 			{
@@ -2593,10 +2593,19 @@ var autocomplete = function(trigger_element, api_data, field, callback)
 	} 
 }
 
-function is_int(value){ 
-  if((parseFloat(value) == parseInt(value)) && !isNaN(value)){
+function is_int(value)
+{ 
+  if ((parseFloat(value) == parseInt(value)) && !isNaN(value))
+  {
       return true;
-  } else { 
+  }
+  else
+  { 
       return false;
-  } 
+  }
 }
+
+String.prototype.trunc = function(n)
+{
+	return this.substr(0,n-1)+(this.length>n?'':'');
+};
