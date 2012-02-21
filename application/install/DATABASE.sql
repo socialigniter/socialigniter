@@ -180,6 +180,7 @@ CREATE TABLE `ratings` (
   `content_id` int(11) NOT NULL,
   `type` char(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `rating` char(3) NOT NULL,
+  `ip_address` char(16) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`rating_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

@@ -87,7 +87,7 @@ class Site extends Site_Controller
 		
     	$this->render('wide');
     }
-    
+
 	function logout() 
 	{
         $this->data['page_title'] = "Logout";
