@@ -479,16 +479,21 @@ class Social_tools
 			return FALSE;
 		}
 	}
-	
+
 	function update_place($place_data)
 	{
 		return $this->ci->places_model->update_place($place_data);
 	}
 
 	/* Ratings */
-	function get_ratings()
+	function get_ratings($content_id)
 	{
-		return $this->ci->ratings_model->get_ratings();
+		return $this->ci->ratings_model->get_ratings($content_id);
+	}
+
+	function get_ratings_view($parameter, $value)
+	{
+		return $this->ci->ratings_model->get_ratings_view($parameter, $value);
 	}
 	
 	function get_ratings_likes_user($user_id)
@@ -496,9 +501,14 @@ class Social_tools
 		return $this->ci->ratings_model->get_ratings_likes_user($user_id);
 	}
 	
-	function add_rating()
+	function check_rating($rating_data)
 	{
-		return $this->ci->ratings_model->add_rating();
+		return $this->ci->ratings_model->check_rating($rating_data);
+	}
+	
+	function add_rating($rating_data)
+	{
+		return $this->ci->ratings_model->add_rating($rating_data);
 	}
 	
 	/* Relationships */
