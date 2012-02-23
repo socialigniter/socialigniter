@@ -251,7 +251,7 @@ span.item_meta a					{ color: #999999; }
 li.item_manage						{ width: 100%; margin: 0; padding: 0; background: url(images/item_separator.png) left bottom repeat-x; }
 li.item_manage:hover ul.item_actions{ visibility: visible; position: relative; top: -12px; right: 12px !important; }
 li.item_manage:hover ul.item_actions span.actions { position: relative; top: -1px; left: 0; }
-li.item_manage_new					{ width: 100%; margin: 0; padding: 0; background: #ececec; }
+li.item_manage_new					{ width: 100%; margin: 0; padding: 0; background: url(images/item_separator.png) left bottom repeat-x; }
 li.item_manage_new:hover ul.item_actions { visibility: visible; position: relative; bottom: 0px; right: 12px !important; }
 li.item_manage_new:hover ul.item_actions span.actions { position: relative; top: -1px; left: 0; }
 
