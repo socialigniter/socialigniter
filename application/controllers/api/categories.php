@@ -59,6 +59,7 @@ class Categories extends Oauth_Controller
 		{
 			$access = TRUE; //$this->social_auth->has_access_to_create('category', $user_id);
 			
+			// Site
 			if (!$this->input->post('site_id')) $site_id = config_item('site_id');
 			else $site_id = $this->input->post('site_id');
 			
@@ -75,7 +76,7 @@ class Categories extends Oauth_Controller
 	    			'category'		=> $this->input->post('category'),
 	    			'category_url'	=> $this->input->post('category_url'),
 	    			'description'	=> $this->input->post('description'),
-	    			'details'		=> $this->input->post('details')	    			
+	    			'details'		=> '{"thumb":""}'    			
 	        	);
 	        	
 				// Insert

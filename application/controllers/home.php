@@ -455,23 +455,34 @@ class Home extends Dashboard_Controller
 	
 	function category_manager()
 	{
-		if ($this->uri->segment(3))
+		// Is Edit or Create
+		if ($this->uri->segment(3) != 'create')
 		{
 			$category = $this->social_tools->get_category($this->uri->segment(3));
 
-			$this->data['category']		= $category->category;
-			$this->data['category_url']	= $category->category_url;
-			$this->data['description']	= $category->description;
-			$this->data['access']		= $category->access;		
+			$this->data['category']			= $category->category;
+			$this->data['category_url']		= $category->category_url;
+			$this->data['description']		= $category->description;
+			$this->data['access']			= $category->access;
 		}
 		else
 		{
-			$this->data['category']		= '';
-			$this->data['category_url']	= '';
-			$this->data['description']	= '';
-			$this->data['access']		= '';
+			$this->data['category']			= '';
+			$this->data['category_url']		= '';
+			$this->data['description']		= '';
+			$this->data['access']			= '';
 		}
-	
+		
+		// Do Parents or Not
+		if ($this->uri->segment(4) == 'parent')
+		{
+			$this->data['category_parents'] = $this->social_tools->make_categories_dropdown(array('categories.type' => $this->uri->segment(5)), $this->session->userdata('user_id'), $this->session->userdata('user_level_id'), '');
+		}
+		else
+		{
+			$this->data['category_parents'] = '';		
+		}
+
 		$this->load->view(config_item('dashboard_theme').'/partials/category_manager', $this->data);
 	}
 	

@@ -7,10 +7,10 @@
 	<label for="category_description">Description</label>
 	<textarea name="description" id="category_description" placeholder="A description about your category" rows="4"><?= $description ?></textarea>
 
+	<?php if ($category_parents): ?>
 	<label for="category_parent">Parent Category</label>
-	<select name="parent_id" id="category_parent_id">
-		<option value="0">--None--</option>
-	</select>
+	<?= form_dropdown('parent_id', $category_parents, 0, 'id="parent_id"') ?>
+	<?php endif; ?>
 
 	<label for="category_access">Access</label>
 	<?= form_dropdown('access', config_item('access'), $access) ?>

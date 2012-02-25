@@ -245,6 +245,7 @@ function sortByCommentId(a, b){
 			module		: '',
 			type		: '',
 			title		: '',
+			parent 		: false,
 			category_id	: ''
 		};
 
@@ -256,16 +257,20 @@ function sortByCommentId(a, b){
 			{
 				$existing_categories = $(this);
 				$existing_categories.find('option:first').attr('selected','selected');
+				
+				// Do Parent
+				if (options.parent) do_parent = '/parent/' + options.type;
+				else do_parent = '/no-parent';
 
 				// Action & URLs
 				if (options.action == 'edit')
 				{
-					var partial_url	= 'home/category_manager/' + options.category_id;
+					var partial_url	= 'home/category_manager/' + options.category_id + do_parent;
 					var action_url	= 'api/categories/modify/id/' + options.category_id;
 				}
 				else
 				{
-					var partial_url = 'home/category_manager';
+					var partial_url = 'home/category_manager/create' + do_parent;
 					var action_url	= 'api/categories/create';
 				}
 			
@@ -280,15 +285,15 @@ function sortByCommentId(a, b){
 						title	: options.title,
 						create	: function()
 						{
-							$category_editor = $(this);	
-		
+							$category_editor = $(this);
+
 							$('#category_name').slugify(
 							{
 								slug	  : '#category_slug', 
 								url		  : base_url + options.module + '/', 
 								name	  : 'category_url', 
 								slugValue : $(html_partial).find('#category_slug').html()
-							});										
+							});
 						},
 						open	: function() {},
 						buttons	:
