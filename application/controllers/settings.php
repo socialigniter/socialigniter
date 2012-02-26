@@ -6,6 +6,8 @@ class Settings extends Dashboard_Controller
         parent::__construct();
         
         $this->data['page_title'] = 'Settings';
+        
+        $this->load->model('image_model');
     } 
  
  	function index()
@@ -380,7 +382,7 @@ class Settings extends Dashboard_Controller
 			
 			if (isset($details->thumb) AND $details->thumb != '')
 			{
-				$this->data['thumb']	= base_url().config_item('categories_images_folder').$category->category_id.'/small_'.$details->thumb;
+				$this->data['thumb']	= base_url().$this->image_model->get_thumbnail(config_item('categories_images_folder').$category->category_id, $details->thumb, 'classes', 'small');
 			}
 			else
 			{

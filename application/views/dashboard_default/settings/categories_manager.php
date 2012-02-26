@@ -9,9 +9,7 @@
 	<div class="clear"></div>
 
 	<div id="category_image_thumb">
-	<?php if ($thumb): ?>
 		<img src="<?= $thumb ?>">
-	<?php endif; ?>
 	</div>
 
 	<ul id="category_image_uploader" class="item_actions_list">

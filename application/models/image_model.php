@@ -28,7 +28,7 @@ class Image_model extends CI_Model
 	    {
 	    	if (file_exists($original))
 			{
-		    	if ($this->make_thumbnail($create_path, $image_name, $module, $thumb))
+		    	if ($this->make_thumbnail($create_path.'/', $image_name, $module, $thumb))
 		    	{
 		    		return $thumbnail;
 		    	}
