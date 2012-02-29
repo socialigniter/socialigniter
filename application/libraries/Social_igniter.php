@@ -52,7 +52,7 @@ class Social_igniter
 		    elseif (!file_exists($image_file) AND file_exists($image_original))
 		    {
 		    	$this->ci->load->model('image_model');
-		    	$this->ci->image_model->make_thumbnail(config_item('users_images_folder').$user_id.'/', $image, 'users', $size);
+		    	$this->ci->image_model->make_thumbnail(config_item('users_images_folder').$user_id, $image, 'users', $size);
 		    	$picture = base_url().$image_file;
 		    }
 		    else
@@ -904,6 +904,8 @@ class Social_igniter
 
 		if ($update)
 		{
+			if ($content_data['category_id']) $this->ci->social_tools->update_category_contents_count($content_data['category_id']);
+
 			$activity_info = array(
 				'site_id'		=> $update->site_id,
 				'user_id'		=> $user_id,

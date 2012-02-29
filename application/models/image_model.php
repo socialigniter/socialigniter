@@ -12,17 +12,17 @@ class Image_model extends CI_Model
 
 	/*	Checks if Thumbnail exists, if not generates it
 		@params string, string, string, string
-		@return 
+		@return
 	*/
 	function get_thumbnail($create_path, $image_name, $module, $thumb)
 	{
 		$original	= $create_path.'/'.$image_name;
 		$thumbnail	= $create_path.'/'.$thumb.'_'.$image_name;
-		
+
 		// If Thumbnail Exists
 	    if (file_exists($thumbnail))
 	    {
-			return $thumbnail;	    
+			return $thumbnail;
 	    }
 	    else
 	    {
