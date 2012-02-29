@@ -45,6 +45,7 @@ class Categories_model extends CI_Model
 	 		$this->db->join('users', 'users.user_id = categories.user_id');
 	 		$this->db->where($parameter, $value);
 	 		$this->db->order_by('parent_id', 'desc');	 		
+	 		$this->db->order_by('contents_count', 'desc');
 	 		$result = $this->db->get();
 	 		return $result->result();
 		}
@@ -60,7 +61,8 @@ class Categories_model extends CI_Model
  		$this->db->from('categories');
  		$this->db->join('users', 'users.user_id = categories.user_id');
  		$this->db->where($where);
- 		$this->db->order_by('parent_id', 'desc');	 		
+ 		$this->db->order_by('parent_id', 'desc');	
+	 	$this->db->order_by('contents_count', 'desc'); 		
  		$result = $this->db->get();
  		return $result->result();
     }
