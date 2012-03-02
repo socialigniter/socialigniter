@@ -2,9 +2,9 @@
 $(document).ready(function()
 {
 	// Save Settings
-	$('#settings_update').bind('submit', function(eve)
+	$('#settings_update').bind('submit', function(e)
 	{
-		eve.preventDefault();
+		e.preventDefault();
 		var settings_data = $('#settings_update').serializeArray();
 		settings_data.push({'name':'module','value':'<?= $this_module ?>'});	
 	
@@ -23,11 +23,9 @@ $(document).ready(function()
 		});		
 	});
 
-	$('#app_uninstall').live('click', function(eve)
-	{
-		console.log('uninstall clicked');
-	
-		eve.preventDefault();
+	$('#app_uninstall').live('click', function(e)
+	{	
+		e.preventDefault();
 		$.oauthAjax(
 		{
 			oauth 		: user_data,
@@ -42,11 +40,9 @@ $(document).ready(function()
 		});		
 	});
 
-	$('#app_reinstall').live('click', function(eve)
-	{
-		console.log('reinstall clicked');
-	
-		eve.preventDefault();
+	$('#app_reinstall').live('click', function(e)
+	{	
+		e.preventDefault();
 		$.oauthAjax(
 		{
 			oauth 		: user_data,
@@ -54,9 +50,7 @@ $(document).ready(function()
 			type		: 'GET',
 			dataType	: 'json',
 	  		success		: function(result)
-	  		{
-	  			console.log(result);
-	  		
+	  		{	  		
 				$('html, body').animate({scrollTop:0});
 				$('#content_message').notify({status:result.status,message:result.message});			 		
 		 	}
