@@ -1,6 +1,6 @@
 {
 	"theme":"mobile_default",
-	"name":"Default Site",
+	"name":"Mobile Default",
 	"created":"2011-04-14",
 	"updated":"2011-04-14",
 	"creator":"Brennan Novak",
@@ -8,5 +8,6 @@
 		"sidebar":["content"],
 		"wide":["content"],
 		"profile":["content"]
-	}
+	},
+	"default_layout":"sidebar"	
 }
