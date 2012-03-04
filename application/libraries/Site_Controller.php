@@ -8,9 +8,7 @@
 * 
 * Location: http://github.com/socialigniter
 * 
-* Created:  06-01-2010
-* 
-* Description: Library that is extended by all Site or "Public" facing controllers
+* Description: Library that is extended by all Site or Public facing Controllers
 */
 class Site_Controller extends MY_Controller
 {
@@ -18,13 +16,43 @@ class Site_Controller extends MY_Controller
     {
         parent::__construct();
 
-		// Global Required Quries
+		// Global Required Queries
 		$this->data['navigation_menu']	= $this->social_igniter->get_menu();
 
-        // Load Views
-        $this->data['head']			= $this->load->view(config_item('site_theme').'/partials/head_site', $this->data, true);
-        $this->data['logged']		= $this->load->view(config_item('site_theme').'/partials/logged', $this->data, true);
-        $this->data['navigation']	= $this->load->view(config_item('site_theme').'/partials/navigation_site', $this->data, true);
+        // Load Basic Views
+        // This Should probably be abstracted away to widgets
+        $head_view			= config_item('site_theme').'/partials/head_site';
+        $logged_view		= config_item('site_theme').'/partials/logged';
+		$navigation_view	= config_item('site_theme').'/partials/navigation_site';
+		$footer_view		= config_item('site_theme').'/partials/footer_site';
+
+        if (file_exists(APPPATH.'views/'.$head_view.'.php'))
+        {
+        	$this->data['head']		= $this->load->view($head_view, $this->data, true);
+        }
+        else
+        {
+        	$this->data['head']		= '';
+        }
+
+        if (file_exists(APPPATH.'views/'.$logged_view.'.php'))
+        {
+        	$this->data['logged']	= $this->load->view($logged_view, $this->data, true);
+        }
+        else
+        {
+        	$this->data['logged']	= '';
+        }
+
+        if (file_exists(APPPATH.'views/'.$navigation_view.'.php'))
+        {
+        	$this->data['navigation']= $this->load->view($navigation_view, $this->data, true);
+        }
+        else
+        {
+        	$this->data['navigation']= '';
+        }
+        
         $this->data['site_image']	= base_url().config_item('uploads_folder').'sites/'.config_item('site_id').'/large_logo.png';
         $this->data['content']		= '';
         
@@ -42,8 +70,18 @@ class Site_Controller extends MY_Controller
 
 		// Load Views
         $this->data['shared_ajax']		= '';        
-		$this->data['footer']			= $this->load->view(config_item('site_theme').'/partials/footer_site', $this->data, true);
 		$this->data['comments_view'] 	= '';
+
+		// Load Footer
+        if (file_exists(APPPATH.'views/'.$footer_view.'.php'))
+        {
+        	$this->data['footer']	= $this->load->view($footer_view, $this->data, true);
+        }
+        else
+        {
+        	$this->data['footer']	= '';
+        }
+
 
 		// If Modules Exist		
 		if ($this->modules_scan)
@@ -80,16 +118,15 @@ class Site_Controller extends MY_Controller
 		}
     }
 
+
+	// Renders Layout
     function render($layout=NULL, $content=NULL)
     {
     	// Default Layout
-    	if (!$layout)	$layout	 = config_item('default_layout');
+    	if (!$layout)	$layout	 = $this->site_theme->default_layout;
     	if (!$content)	$content = $this->action_name;
 
- 		// Get Widgets
-// print_r($this->site_theme->layouts);		
-// die();
- 		
+ 		// Get Widgets 		
 		foreach ($this->site_theme->layouts->$layout as $region)
 		{
 			$this->data[$region] = $this->render_widgets($region, $layout);	
@@ -118,7 +155,9 @@ class Site_Controller extends MY_Controller
 		// Render View
         $this->load->view(config_item('site_theme').'/layouts/'.$layout, $this->data);
     }
-    
+
+   
+    // Renders Widgets
     function render_widgets($region, $layout=NULL)
     {
     	$widgets = '';

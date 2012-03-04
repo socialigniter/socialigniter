@@ -18,7 +18,6 @@ $config['site_id']						= 1;
 $config['superadmin_user_id']			= 1;
 $config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian');
 $config['countries']					= array('US', 'FR', 'DE', 'ES', 'IT');
-$config['default_layout']				= 'sidebar';
 
 // Settings
 $config['core_modules']					= array('users', 'home', 'pages', 'messages', 'comments','places','text','tags');
