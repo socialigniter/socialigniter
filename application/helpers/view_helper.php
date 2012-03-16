@@ -444,3 +444,19 @@ function make_css_background($type)
 
 	return $background;
 }
+
+function selectable_state($object_id, $objects_json)
+{
+	$objects = json_decode($objects_json);
+
+	if (in_array($object_id, $objects))
+	{
+		$select_state = 'selectable_chosen'; 
+	}
+	else
+	{
+		$select_state = 'selectable_waiting';
+	}
+
+	return $select_state;
+}

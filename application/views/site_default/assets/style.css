@@ -26,6 +26,10 @@ p 						{ margin: 0 0 0 0; font-size: 14px; line-height: 18px; }
 ul 						{ margin: 0 }
 ol 						{ margin: 0 }
 pre						{ background: #f3f3f3; border: 1px solid #999999; padding: 10px; }
+
+legend							{ color: #444444; font-size: 24px; font-weight: bold; line-height: 24px; text-shadow:1px 1px 1px #FFF; display: block; padding-bottom: 25px; }
+label							{ font-size: 14px; line-height: 18px; }
+
 textarea 						{ background: url(images/textarea_basic.png) 0 0 repeat-x #ffffff; font-size: 14px; padding: 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
 textarea:focus 					{ background: url(images/textarea_basic_focus.png) 0 0 repeat-x #ffffff; }
 input[type=text], input[type=password], input[type=email], input[type=url] { height: 28px; background: url(images/input_basic.png) 0 0 repeat-x #fff; font-size: 13px; padding: 0 10px; border-radius: 5px;  -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #cccccc; }
