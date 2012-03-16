@@ -126,7 +126,7 @@ class Site_Controller extends MY_Controller
     	if (!$layout)	$layout	 = $this->site_theme->default_layout;
     	if (!$content)	$content = $this->action_name;
 
- 		// Get Widgets 		
+ 		// Get Widgets
 		foreach ($this->site_theme->layouts->$layout as $region)
 		{
 			$this->data[$region] = $this->render_widgets($region, $layout);	

@@ -3,7 +3,7 @@ Social-Igniter Core
 
 This is the Core install of Social-Igniter. This repository contains all you need to get an install node up and running on your own *AMP webserver.
 
-To see check out a working install of Social-Igniter go to: http://social-igniter.com
+To check out a working install of Social-Igniter go to: http://social-igniter.com
 
 Installation Instructions
 =========================
@@ -24,12 +24,12 @@ Installation Instructions
 API Documentation
 ================
 
-To see documentation on the API go to: http://social-igniter.com/documentation
+To see documentation on the API go to: http://social-igniter.com/api
 
 Modules
 =======
 
-There are a whole bunch of modules (blog, twitter, etc...) that are under various states of construction to see a full list go to: http://social-igniter.com/pages/modules
+There are a whole bunch of modules (blog, twitter, etc...) that are under various states of construction to see a full list go to: http://social-igniter.com/pages/apps
 
 License
 =======
