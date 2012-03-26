@@ -267,16 +267,6 @@ class Settings extends Dashboard_Controller
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render('dashboard_wide');
     }
-
-	function places()
-	{	
-		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');
-
-		$this->data['sub_title'] 	= 'Places';
-		$this->data['this_module']	= 'places';
-		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
-    	$this->render('dashboard_wide');
-    } 
 	
 	function pages()
 	{	

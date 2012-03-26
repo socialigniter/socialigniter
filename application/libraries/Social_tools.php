@@ -2,10 +2,10 @@
 /**
 Social Tools Library
 
-@package		Social Tools
+@package	Social Tools
 @subpackage	Social Tools Library
 @author		Brennan Novak
-@link			http://social-igniter.com
+@link		http://social-igniter.com
 
 Contains functions that do all the basic extensible 'tools' of Social Igniter 
 This includes Categories, Comments, Content, Ratings, Tags
@@ -22,7 +22,6 @@ class Social_tools
 		// Load Models
 		$this->ci->load->model('categories_model');
 		$this->ci->load->model('comments_model');
-		$this->ci->load->model('places_model');		
 		$this->ci->load->model('ratings_model');
 		$this->ci->load->model('relationships_model');
 		$this->ci->load->model('tags_model');
@@ -456,34 +455,6 @@ class Social_tools
 		return $this->view_comments;
 	}
 	
-	
-	/* Places */
-	function get_place($parameter, $value)
-	{
-		return $this->ci->places_model->get_place($parameter, $value);
-	}
-
-	function get_places_view($parameter, $value, $status=FALSE, $limit=10)
-	{
-		return $this->ci->places_model->get_places_view($parameter, $value, $status, $limit);
-	}
-	
-	function add_place($place_data)
-	{
-		if ($place = $this->ci->places_model->add_place($place_data))
-		{			
-			return $place;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
-	function update_place($place_data)
-	{
-		return $this->ci->places_model->update_place($place_data);
-	}
 
 	/* Ratings */
 	function get_ratings($content_id)
