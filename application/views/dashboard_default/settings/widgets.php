@@ -63,9 +63,9 @@ $(document).ready(function()
 		
 		// Get Available Widgets 
 		$.get(base_url+'api/settings/widgets_available/region/' + widget_region + '/layout/' + widget_layout, function(result)
-		{	
+		{
 			// Get Add Dialog
-			$.get(base_url + 'home/widget_add',function(partial_html)
+			$.get(base_url + 'dialogs/widget_add',function(partial_html)
 			{
 				// Loop Through Available and Add to Dialog				
 				$.each(result.data, function()
@@ -88,7 +88,7 @@ $(document).ready(function()
 						// Add Event
 						$('.widget_add_instance').bind('click', function(add_eve)
 						{
-					    	eve.preventDefault();
+					    	add_eve.preventDefault();
 
 							var widget_data		= [];
 							var widget_json		= jQuery.parseJSON($(this).find('input').val());
@@ -140,7 +140,7 @@ $(document).ready(function()
 		});
 	});
 
-    // Edit Event
+    // Edit Widget
     $('.widget_edit').live('click', function(e)
     {
     	e.stopPropagation();
@@ -153,11 +153,13 @@ $(document).ready(function()
 		{
 			var widget = jQuery.parseJSON(json.data.value);
 
-			$.get(base_url + 'home/widget_editor/standard',function(html)
+			console.log(widget);
+
+			$.get(base_url + 'dialogs/widget_editor/standard',function(html)
 			{
 				$('<div />').html(html).dialog(
 				{
-					width	: 450,
+					width	: 550,
 					modal	: true,
 					close	: function(){$(this).remove()},
 					title	: 'Edit ' + widget.name,
