@@ -13,10 +13,11 @@ abstract class OAuth_Token {
 	 */
 	public static function forge($name, array $options = NULL)
 	{
+		$file = 'Oauth_Token_'.ucfirst($name);
 		$class = 'OAuth_Token_'.ucfirst($name);
 
-		include_once $class.'.php';
-		
+		include_once(APPPATH.'libraries/Oauth/'.$file.'.php');
+
 		return new $class($options);
 	}
 

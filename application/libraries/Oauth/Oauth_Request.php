@@ -18,7 +18,7 @@ class OAuth_Request {
 		$file = 'Oauth_Request_'.ucfirst($type);
 		$class = 'OAuth_Request_'.ucfirst($type);
 
-		include(APPPATH.'libraries/Oauth/'.$file.'.php');
+		include_once(APPPATH.'libraries/Oauth/'.$file.'.php');
 
 		return new $class($method, $url, $params);
 	}
