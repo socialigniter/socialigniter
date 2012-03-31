@@ -2,5 +2,3 @@ RewriteEngine On
 
 RewriteCond $1 !^(index\.php|favicon\.ico|css|js|images|uploads|temp|crossdomain\.xml|robots\.txt|application/views/*|application/modules/*|install.php|phpinfo.php)
 RewriteRule ^(.*)$ index.php/$1 [L]
-
-

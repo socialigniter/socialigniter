@@ -1,13 +1,13 @@
 <?php
 
-include 'OAuth_Request.php';
-include 'OAuth_Response.php';
-include 'OAuth_Signature.php';
-include 'OAuth_Token.php';
-include 'OAuth_Token_Request.php';
+include_once(APPPATH.'libraries/Oauth/Oauth_Request.php');
+include_once(APPPATH.'libraries/Oauth/Oauth_Response.php');
+include_once(APPPATH.'libraries/Oauth/Oauth_Signature.php');
+include_once(APPPATH.'libraries/Oauth/Oauth_Token.php');
+include_once(APPPATH.'libraries/Oauth/Oauth_Token_Request.php');
 
 class OAuth {
-	
+
 	/**
 	 * @var  string  OAuth compliance version
 	 */
@@ -15,8 +15,8 @@ class OAuth {
 	
 	public static function provider($name, array $options = NULL)
 	{
-		include_once 'OAuth_Provider.php';
-		include_once APPPATH.'modules/'.strtolower($name).'/libraries/oauth_provider.php';
+		include_once(APPPATH.'libraries/Oauth/Oauth_Provider.php');
+		include_once(APPPATH.'modules/'.strtolower($name).'/libraries/oauth_provider.php');
 		
 		$class = 'OAuth_Provider_'.ucfirst($name);
 
@@ -25,7 +25,7 @@ class OAuth {
 	
 	public static function consumer(array $options = NULL)
 	{
-		include_once 'OAuth_Consumer.php';
+		include_once(APPPATH.'libraries/Oauth/Oauth_Consumer.php');
 
 		return new OAuth_Consumer($options);
 	}
