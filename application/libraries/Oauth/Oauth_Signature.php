@@ -14,9 +14,10 @@ abstract class OAuth_Signature {
 	public static function forge($name, array $options = NULL)
 	{
 		// Create the class name as a base of this class
+		$file = 'Oauth_Signature_'.str_replace('-', '_', $name);
 		$class = 'OAuth_Signature_'.str_replace('-', '_', $name);
 
-		include $class.'.php';
+		include(APPPATH.'libraries/Oauth/'.$file.'.php');
 
 		return new $class($options);
 	}
