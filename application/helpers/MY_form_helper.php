@@ -35,13 +35,22 @@ function form_submit_publish($status)
 
 function form_title_url($title, $title_url, $existing_url=NULL)
 {
-	if (($title_url != '') && ($title_url != $existing_url))
+	$new_title_url = url_username($title, 'dash', TRUE);
+
+	if ($title_url != '')
 	{
-		return $title_url;
+		if ($title_url != $existing_url)
+		{
+			return $title_url;	
+		}
+		else
+		{
+			return $existing_url;
+		}
 	}
 	else
 	{
-		return url_username($title, 'dash', TRUE);
+		return $new_title_url;
 	}
 }
 
