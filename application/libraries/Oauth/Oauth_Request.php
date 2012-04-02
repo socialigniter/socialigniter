@@ -15,10 +15,11 @@ class OAuth_Request {
 	 */
 	public static function forge($type, $method, $url = NULL, array $params = NULL)
 	{
+		$file = 'Oauth_Request_'.ucfirst($type);
 		$class = 'OAuth_Request_'.ucfirst($type);
 
-		include $class.'.php';
-		
+		include_once(APPPATH.'libraries/Oauth/'.$file.'.php');
+
 		return new $class($method, $url, $params);
 	}
 
