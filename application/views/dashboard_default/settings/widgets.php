@@ -54,9 +54,9 @@ $(document).ready(function()
 	var partial_html = '<p>Oops, something went wrong! Close and try again in a few seconds.</p>';	
 	
 	// Add Widget
-	$('.widget_add').bind('click', function(eve)
+	$('.widget_add').bind('click', function(e)
     {
-    	eve.preventDefault();
+    	e.preventDefault();
     	var widget_layout = $('#this_layout').val();
 		var widget_region = $(this).attr('rel');
 		var widget_count  = $('#widget_' + widget_region + '_container').find('.widget_instance').length;
@@ -153,16 +153,18 @@ $(document).ready(function()
 		{
 			var widget = jQuery.parseJSON(json.data.value);
 
-			console.log(widget);
+			if (widget.editor == 'module') var editor_url = widget.module + '/settings/' + widget.path;
+			else var editor_url = 'dialogs/widget_editor'
 
-			$.get(base_url + 'dialogs/widget_editor/standard',function(html)
+			$.get(base_url + editor_url, function(html)
 			{
 				$('<div />').html(html).dialog(
 				{
-					width	: 550,
+					width	: 525,
 					modal	: true,
 					close	: function(){$(this).remove()},
 					title	: 'Edit ' + widget.name,
+					show	: 'fade',
 					create	: function()
 					{
 						$parent_dialog = $(this);
@@ -174,10 +176,10 @@ $(document).ready(function()
 						$('#widget_edit_link').attr('href', base_url + 'settings/' + widget.module + '/widgets');
 						
 						// Delete Widget Button
-						$('#widget_delete_link').bind('click', function(del_e)
+						$('#widget_delete_link').bind('click', function(del)
 						{												
-							del_e.stopPropagation();
-					    	del_e.preventDefault();
+							del.stopPropagation();
+					    	del.preventDefault();
 
 							$.oauthAjax(
 							{
@@ -213,6 +215,7 @@ $(document).ready(function()
 					{
 						'Save':function()
 						{
+							// Do Widget Instance
 							var widget_data     = [];
 							var widget_json     = jQuery.parseJSON($(this).find('#widget_json').val());
 							widget_json.title 	= $(this).find('#widget_title').val();
@@ -228,8 +231,27 @@ $(document).ready(function()
 								data		: widget_data,
 						  		success		: function(result)
 						  		{						  							  		
-						  			if (result.status == 'success')
-						  			{
+						  			if (result.status == 'success' && widget.editor == 'module')
+						  			{										
+										// Do Widget Module Settings
+										var widget_settings_data = $('#settings_update').serializeArray();
+										widget_settings_data.push({'name':'module','value':widget.module});	
+									
+										$.oauthAjax(
+										{
+											oauth 		: user_data,
+											url			: base_url + 'api/settings/modify',
+											type		: 'POST',
+											dataType	: 'json',
+											data		: widget_settings_data,
+									  		success		: function(result)
+									  		{
+												$parent_dialog.dialog('close');
+										 	}
+										});							
+									}
+									else if (result.status == 'success')
+									{
 										$parent_dialog.dialog('close');
 									}
 									else
@@ -237,7 +259,8 @@ $(document).ready(function()
 										alert('Could not save');
 									}	
 							 	}
-							});								
+							});	
+																					
 						}
 					}			
 		    	});

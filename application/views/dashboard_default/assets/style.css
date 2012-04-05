@@ -518,7 +518,7 @@ div.widget_instance a.widget_edit span.actions 		{ position: relative; top: -2px
 #widgets_available li 		a.widget_add:visited	{ color: #999999; }
 #widgets_available li 		a.widget_add span.action_add { display: block; margin: 0 5px 0 0; }
 
-#widget_setting_edit		{ width: 450px; }
+#widget_setting_edit		{ width: 525px; }
 #widget_setting_left		{ float: left; margin: -10px 0 20px 0; }
 #widget_setting_right		{ float: right; margin-top: 30px; }
 #widget_content				{  }
