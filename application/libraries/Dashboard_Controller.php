@@ -139,8 +139,17 @@ class Dashboard_Controller extends MY_Controller
 
 		// Load Partial Views
         $this->data['navigation'] 	= $this->load->view($navigation_path, $this->data, true);
-        $this->data['content'] 		= $this->load->view($content_path, $this->data, true);
 
+    	// Content file exists
+        if (file_exists(APPPATH.'views/'.$content_path.'.php'))
+        {
+            $this->data['content'] .= $this->load->view($content_path, $this->data, true);
+        }
+        else
+        {
+        	$this->data['content'] .= '<pre>Oops that content file is missing!</pre>';
+        }
+        
  		// Load Main Template View
         $this->load->view(config_item('dashboard_theme').'/layouts/'.$layout.'.php', $this->data);
     }

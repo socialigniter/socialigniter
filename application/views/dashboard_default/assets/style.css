@@ -318,6 +318,7 @@ span.type_phone						{ background-position: 42px -210px; }
 span.type_mobile_phone				{ background-position: 42px -175px; }
 span.type_address					{ background-position: 42px -245px; }
 span.type_group						{ background-position: 42px -280px; }
+span.type_message					{ background-position: 42px -350px; }
 
 /* Actions - Feed */
 ul.item_actions 					{ margin: 0px 0 0 0; padding: 0; list-style: none; float: right; visibility: hidden; }
