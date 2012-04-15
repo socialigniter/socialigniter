@@ -9,7 +9,7 @@
  *
  */
 
-if ( ! function_exists('real_character_limiter'))
+if (!function_exists('real_character_limiter'))
 {
 	function real_character_limiter($str, $n = 500, $end_char = '&#8230;')
 	{

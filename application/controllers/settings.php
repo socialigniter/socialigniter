@@ -84,7 +84,6 @@ class Settings extends Dashboard_Controller
  	    $this->data['sub_title'] 			= 'Connections';
 		$this->data['social_connections']	= $this->social_igniter->get_settings_setting_value('social_connection', 'TRUE');
 		$this->data['user_connections']		= $this->social_auth->get_connections_user($this->session->userdata('user_id'));
-	    $this->data['message'] 				= validation_errors();
 
  		$this->render('dashboard_wide');	
  	}
@@ -92,7 +91,6 @@ class Settings extends Dashboard_Controller
 	function advanced() 
 	{	
 	    $this->data['sub_title']			= 'Advanced';			 
-
         
 		$this->render('dashboard_wide');
 	} 	

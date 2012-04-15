@@ -318,6 +318,7 @@ span.type_phone						{ background-position: 42px -210px; }
 span.type_mobile_phone				{ background-position: 42px -175px; }
 span.type_address					{ background-position: 42px -245px; }
 span.type_group						{ background-position: 42px -280px; }
+span.type_message					{ background-position: 42px -350px; }
 
 /* Actions - Feed */
 ul.item_actions 					{ margin: 0px 0 0 0; padding: 0; list-style: none; float: right; visibility: hidden; }
@@ -518,7 +519,7 @@ div.widget_instance a.widget_edit span.actions 		{ position: relative; top: -2px
 #widgets_available li 		a.widget_add:visited	{ color: #999999; }
 #widgets_available li 		a.widget_add span.action_add { display: block; margin: 0 5px 0 0; }
 
-#widget_setting_edit		{ width: 450px; }
+#widget_setting_edit		{ width: 525px; }
 #widget_setting_left		{ float: left; margin: -10px 0 20px 0; }
 #widget_setting_right		{ float: right; margin-top: 30px; }
 #widget_content				{  }

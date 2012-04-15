@@ -378,6 +378,20 @@ function get_object_row($object, $key, $value)
 	return FALSE;
 }
 
+// Loops through a object if key exists returns value
+function get_object_value($widget_settings, $widget_key)
+{
+	$key = NULL;
+
+	if (property_exists($widget_settings, $widget_key))
+	{
+		$key = $widget_settings->$widget_key;
+	}
+
+	return $key;
+}
+
+
 // Shows Image for Category
 function get_category_image($category, $module, $size)
 {
