@@ -19,7 +19,7 @@ class Dashboard_Controller extends MY_Controller
     {
         parent::__construct();
 
-	    if (!$this->social_auth->logged_in()) redirect('login', 'refresh');
+	    if (!$this->social_auth->logged_in()) redirect('login');
 
 	    // Load Values
         $this->data['head']						= $this->load->view(config_item('dashboard_theme').'/partials/head_dashboard.php', $this->data, true);

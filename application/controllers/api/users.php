@@ -99,7 +99,7 @@ class Users extends Oauth_Controller
 				);
 	
 				// If Activation Email
-				if (config_item('email_activation') == false)
+				if (config_item('email_activation') == FALSE)
 				{
 					$message = $this->load->view(config_item('email_templates').config_item('email_signup'), $data, true);
 		
@@ -176,8 +176,6 @@ class Users extends Oauth_Controller
         	if ($user = $this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember, $session))
         	{
         		// Get User Data
-        		//$user = $this->social_auth->get_user('email', $this->input->post('email'), TRUE);
-        		//$user->email = $this->input->post('email');
 				$meta = $this->social_auth->get_user_meta($user->user_id);
         	
 		        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta' => $meta);
@@ -250,24 +248,12 @@ class Users extends Oauth_Controller
 				}
 
 	        	// Check "remember me"
-	        	if ($this->input->post('remember') == 1)
-	        	{
-	        		$remember = TRUE;
-	        	}
-	        	else
-	        	{
-	        		$remember = FALSE;
-	        	}
+	        	if ($this->input->post('remember') == 1) $remember = TRUE;
+	        	else $remember = FALSE;
 				
 	        	// Store Session Data
-	        	if ($this->input->post('session') == 1)
-	        	{
-	        		$session = TRUE;
-	        	}
-	        	else
-	        	{
-	        		$session = FALSE;
-	        	}				
+	        	if ($this->input->post('session') == 1) $session = TRUE;
+	        	else $session = FALSE;
 				
 				// Login User
 	        	if ($this->social_auth->login($user->email, $this->input->post('password'), $remember, $session))
