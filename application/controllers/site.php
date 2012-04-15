@@ -94,7 +94,7 @@ class Site extends Site_Controller
         
         $logout = $this->social_auth->logout();
 			    
-        redirect($this->session->userdata('previous_page'));
+        redirect(base_url());
     }
     
     function signup()
