@@ -49,19 +49,25 @@ $db['dev']['cache_on'] = FALSE;
 $db['dev']['cachedir'] = "";
 $db['dev']['char_set'] = "utf8";
 $db['dev']['dbcollat'] = "utf8_general_ci";
+$db['dev']['swap_pre'] = "";
+$db['dev']['autoinit'] = TRUE;
+$db['dev']['stricton'] = FALSE;
 
-$db['prod']['hostname'] = "productionhost";
-$db['prod']['username'] = "username";
-$db['prod']['password'] = "password";
-$db['prod']['database'] = "social-igniter";
+$db['prod']['hostname'] = "localhost";
+$db['prod']['username'] = "root";
+$db['prod']['password'] = "";
+$db['prod']['database'] = "database_name";
 $db['prod']['dbdriver'] = "mysql";
 $db['prod']['dbprefix'] = "";
 $db['prod']['pconnect'] = TRUE;
-$db['prod']['db_debug'] = TRUE;
+$db['prod']['db_debug'] = FALSE;
 $db['prod']['cache_on'] = FALSE;
 $db['prod']['cachedir'] = "";
 $db['prod']['char_set'] = "utf8";
 $db['prod']['dbcollat'] = "utf8_general_ci";
+$db['prod']['swap_pre'] = "";
+$db['prod']['autoinit'] = TRUE;
+$db['prod']['stricton'] = FALSE;
 
 /* End of file database.php */
 /* Location: ./system/application/config/database.php */

@@ -14,10 +14,6 @@ class Social_auth
 {
 	protected $ci;
 	protected $status;
-	protected $messages;
-	protected $errors   = array();
-	protected $error_start_delimiter;
-	protected $error_end_delimiter;
 	public $config_email	= array();    	
 	public $_extra_where	= array();
 	public $_extra_set		= array();
@@ -25,10 +21,6 @@ class Social_auth
 	function __construct()
 	{
 		$this->ci =& get_instance();
-		$this->message_start_delimiter = config_item('message_start_delimiter');
-		$this->message_end_delimiter   = config_item('message_end_delimiter');
-		$this->error_start_delimiter   = config_item('error_start_delimiter');
-		$this->error_end_delimiter     = config_item('error_end_delimiter');		
 			
 		// Load Models
 		$this->ci->load->model('auth_model');
@@ -37,11 +29,10 @@ class Social_auth
 		// Auto-login user if they're remembered
 		if (!$this->logged_in() && get_cookie('email') && get_cookie('remember_code'))
 		{
+			
 			if ($user = $this->ci->auth_model->login_remembered_user())
 			{
 				$this->set_userdata($user);
-	 			$this->set_userdata_meta($user->user_id);
-	 			$this->set_userdata_connections($user->user_id);
 			}
 		}
 		
@@ -182,12 +173,10 @@ class Social_auth
 	{
 		if ($this->ci->auth_model->activate($id, $code))
 		{
-			$this->set_message('activate_successful');
 			return TRUE;
 		}
 		else 
 		{
-			$this->set_error('activate_unsuccessful');
 			return FALSE;
 		}
 	}
@@ -196,12 +185,10 @@ class Social_auth
 	{
 		if ($this->ci->auth_model->deactivate($id))
 		{
-			$this->set_message('deactivate_successful');
 			return TRUE;
 		}
 		else 
 		{
-			$this->set_error('deactivate_unsuccessful');
 			return FALSE;
 		}
 	}
@@ -253,7 +240,7 @@ class Social_auth
 		
 		if ($user_id) 
 		{
-			$this->set_message('account_creation_successful');
+			//$this->set_message('account_creation_successful');
 			
 			// Add Oauth Tokens
 			$this->oauth_register($email, $user_id, $additional_data['name']);
@@ -290,9 +277,7 @@ class Social_auth
 		$user_id = $this->ci->auth_model->social_register($username, $email, $additional_data);
 
 		if ($user_id)
-		{
-			$this->set_message('account_creation_successful');	
-			
+		{			
 			// Add Oauth Tokens
 			$this->oauth_register($email, $user_id, $additional_data['name']);
 			
@@ -375,12 +360,7 @@ class Social_auth
 	function logout()
 	{
 	    $this->ci->session->unset_userdata('email');
-
-		foreach (config_item('user_data') as $item)
-		{	
-		    $this->ci->session->unset_userdata($item);	    
-	    }		
-	    
+ 
 	    if (get_cookie('email')) 
 	    {
 	    	delete_cookie('email');	
@@ -393,7 +373,6 @@ class Social_auth
 	    
 		$this->ci->session->sess_destroy();
 		
-		$this->set_message('logout_successful');
 		return TRUE;
 	}
 	
@@ -422,12 +401,10 @@ class Social_auth
 	{	
 		 if ($this->ci->auth_model->update_user($user_id, $data))
 		 {
-		 	$this->set_message('update_successful');
 		 	return TRUE;
 		 }
 		 else
 		 {
-		 	$this->set_error('update_unsuccessful');
 		 	return FALSE;
 		 }
 	}
@@ -436,12 +413,10 @@ class Social_auth
 	{
 		 if ($this->ci->auth_model->delete_user($id))
 		 {
-		 	$this->set_message('delete_successful');
 		 	return TRUE;
 		 }
 		 else
 		 {
-		 	$this->set_error('delete_unsuccessful');
 		 	return FALSE;
 		 }
 	}	
@@ -566,12 +541,7 @@ class Social_auth
 	{	
 		$this->ci->session->set_userdata('user_connections', $this->get_connections_user($user_id));
 	}
-	
-	function set_lang($lang='en')
-	{
-		 return $this->ci->auth_model->set_lang($lang);
-	}
-	
+
 	/* Crazy function that allows extra where field to be used for user fetching/unique checking etc.
 	 * Basically this allows users to be unique based on one other thing than the identifier which is helpful
 	 * for sites using multiple domains on a single database.
@@ -591,59 +561,7 @@ class Social_auth
 		
 		$this->_extra_set = count($set) == 1 ? $set[0] : array($set[0] => $set[1]);
 	}
-	
-	function set_message_delimiters($start_delimiter, $end_delimiter)
-	{
-		$this->message_start_delimiter = $start_delimiter;
-		$this->message_end_delimiter   = $end_delimiter;
-		
-		return TRUE;
-	}
-	
-	function set_error_delimiters($start_delimiter, $end_delimiter)
-	{
-		$this->error_start_delimiter = $start_delimiter;
-		$this->error_end_delimiter   = $end_delimiter;
-		
-		return TRUE;
-	}
-	
-	function set_message($message)
-	{
-		$this->messages[] = $message;
-		
-		return $message;
-	}
-	
-	function messages()
-	{
-		$_output = '';
-		foreach ($this->messages as $message) 
-		{
-			$_output .= $this->message_start_delimiter . $this->ci->lang->line($message) . $this->message_end_delimiter;
-		}
-		
-		return $_output;
-	}
-	
-	function set_error($error)
-	{
-		$this->errors[] = $error;
-		
-		return $error;
-	}
-	
-	function errors()
-	{
-		$_output = '';
-		foreach ($this->errors as $error) 
-		{
-			$_output .= $this->error_start_delimiter . $this->ci->lang->line($error) . $this->error_end_delimiter;
-		}
-		
-		return $_output;
-	}
-	
+
 	
 	/* Connections Model */
 	function check_connection_auth($module, $auth_one, $auth_two)

@@ -92,9 +92,9 @@ class Site extends Site_Controller
 	{
         $this->data['page_title'] = "Logout";
         
-        $logout = $this->social_auth->logout();
-			    
-        redirect(base_url());
+        $this->social_auth->logout();
+		
+        redirect();
     }
     
     function signup()

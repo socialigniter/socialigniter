@@ -19,8 +19,6 @@ class Auth_model extends CI_Model
 	{
 		parent::__construct();
 
-		$this->columns 			= $this->config->item('columns');
-		$this->columns_allowed 	= $this->config->item('columns_allowed');
 	    $this->store_salt      	= $this->config->item('store_salt');
 	    $this->salt_length     	= $this->config->item('salt_length');
 	}
@@ -406,8 +404,6 @@ class Auth_model extends CI_Model
         		if ($session)
         		{
 					$this->social_auth->set_userdata($user);
-	 				$this->social_auth->set_userdata_meta($user->user_id);
-	 				$this->social_auth->set_userdata_connections($user->user_id);
    		    
 	    		    if ($remember && config_item('remember_users'))
 	    		    {
@@ -441,14 +437,74 @@ class Auth_model extends CI_Model
 		{
     		$this->update_last_login($user->user_id);
 			$this->social_auth->set_userdata($user);
-	 		$this->social_auth->set_userdata_meta($user->user_id);	
-			$this->social_auth->set_userdata_connections($user->user_id);
 
 		    return $user;
         }
 
 		return FALSE;
 	}
+	
+	function update_last_login($user_id)
+	{
+		$this->db->update('users', array('last_login' => now()), array('user_id' => $user_id));
+		
+		return $this->db->affected_rows() == 1;
+	}
+
+	function login_remembered_user()
+	{
+		if (!get_cookie('email') || !get_cookie('remember_code') || !$this->email_check(get_cookie('email')))
+		{
+			return FALSE;
+		}
+
+		// Get User
+	    $this->db->select('*');
+		$this->db->where('email', get_cookie('email'));
+		$this->db->where('remember_code', get_cookie('remember_code'));
+		$this->db->limit(1);
+		$query = $this->db->get('users');
+
+	    if ($query->num_rows() == 1)
+	    {
+			$user = $query->row();
+						
+			$this->update_last_login($user->user_id);
+			
+			// WAS borken, seems fixed now
+			// Causesing compression header issue
+			if (config_item('user_extend_on_login'))
+			{
+				$this->remember_user($user);
+			}	
+
+			return $user;
+		}
+		
+		return FALSE;
+	}
+
+	function remember_user($user)
+	{
+		if (!$user->user_id) return FALSE;
+
+		$salt = sha1(md5(microtime()));
+
+		$this->db->update('users', array('remember_code' => $salt), array('user_id' => $user->user_id));
+
+		if ($this->db->affected_rows() == 1)
+		{
+			$email			= array('name' => 'email', 'value' => $user->email, 'expire' => config_item('user_expire'));
+			$remember_code	= array('name' => 'remember_code', 'value' => $salt, 'expire' => config_item('user_expire'));
+
+			set_cookie($email);
+			set_cookie($remember_code);
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}	
 	
 	function get_users($parameter, $value)
 	{
@@ -618,78 +674,5 @@ class Auth_model extends CI_Model
     	$this->db->delete('users_meta');
 		return TRUE;
 	}
-	
-	/* Remember Login */
-	function update_last_login($user_id)
-	{
-		$this->db->update('users', array('last_login' => now()), array('user_id' => $user_id));
-		
-		return $this->db->affected_rows() == 1;
-	}
-	
-	function set_lang($lang = 'en')
-	{
-		set_cookie(array(
-			'name'   => 'lang_code',
-			'value'  => $lang,
-			'expire' => $this->config->item('user_expire') + time()
-		));
-		
-		return TRUE;
-	}	
 
-	function login_remembered_user()
-	{
-		if (!get_cookie('email') || !get_cookie('remember_code') || !$this->email_check(get_cookie('email')))
-		{
-			return FALSE;
-		}
-
-		// Get User
-	    $this->db->select('*');
-		$this->db->where('email', get_cookie('email'));
-		$this->db->where('remember_code', get_cookie('remember_code'));
-		$this->db->limit(1);
-		$query = $this->db->get('users');
-
-	    if ($query->num_rows() == 1)
-	    {
-			$user = $query->row();
-						
-			$this->update_last_login($user->user_id);
-			
-			// WAS borken, seems fixed now
-			// Causesing compression header issue
-			if (config_item('user_extend_on_login'))
-			{
-				$this->remember_user($user);
-			}			
-
-			return $user;
-		}
-		
-		return FALSE;
-	}
-
-	function remember_user($user)
-	{
-		if (!$user->user_id) return FALSE;
-
-		$salt = sha1(md5(microtime()));
-
-		$this->db->update('users', array('remember_code' => $salt), array('user_id' => $user->user_id));
-
-		if ($this->db->affected_rows() == 1)
-		{
-			$email			= array('name' => 'email', 'value' => $user->email, 'expire' => config_item('user_expire'));
-			$remember_code	= array('name' => 'remember_code', 'value' => $salt, 'expire' => config_item('user_expire'));
-
-			set_cookie($email);
-			set_cookie($remember_code);
-
-			return TRUE;
-		}
-
-		return FALSE;
-	}
 }
