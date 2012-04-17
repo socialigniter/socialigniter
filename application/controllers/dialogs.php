@@ -16,6 +16,18 @@ class Dialogs extends MY_Controller
 	}
 
 
+	/* Settings */
+	function mobile_phone_editor()
+	{
+		$this->load->view(config_item('dashboard_theme').'/dialogs/mobile_phone_editor');
+	}
+
+	function mobile_phone_verify()
+	{
+		$this->load->view(config_item('dashboard_theme').'/dialogs/mobile_phone_verify');
+	}
+
+
 	/* Widgets */
 	function widget_editor()
 	{

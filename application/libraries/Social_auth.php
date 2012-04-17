@@ -427,6 +427,11 @@ class Social_auth
 		return $this->ci->auth_model->get_user_meta($user_id);
 	}
 
+	function get_user_meta_module($user_id, $module)
+	{
+		return $this->ci->auth_model->get_user_meta_module($user_id, $module);
+	}
+
 	function get_user_meta_meta($user_id, $meta)
 	{
 		return $this->ci->auth_model->get_user_meta_meta($user_id, $meta);

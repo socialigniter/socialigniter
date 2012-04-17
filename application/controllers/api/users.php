@@ -582,18 +582,11 @@ class Users extends Oauth_Controller
 
         if ($this->form_validation->run() == true)
         {
-        /*	// IMPLEMENT phone number verification via SMS later
-        	if ($user->phone_verify == 'verified') { $phone = $user->phone; }
-	        else { $phone = ereg_replace("[^0-9]", "", $this->input->post('phone')); }
-	                
-	        if ($user->phone_verify == 'verified') { $phone_verify = $user->phone_verify; }
-	        else { $phone_verify = random_element(config_item('mobile_verify')); }
-		*/
-			$phone_verify = 'yes';
-		
+			$phone_number = ereg_replace("[^0-9]", "", $this->input->post('phone_number'));
+
 			$phone_data = array(
-				'phone_number'	=> ereg_replace("[^0-9]", "", $this->input->post('phone_number')),
-	        	'phone_verified'=> $phone_verify,
+	        	'phone_verified'=> 'yes',
+	        	'verify_code'	=> random_element(config_item('mobile_verify')),
 	        	'phone_private'	=> $this->input->post('phone_private'),
 	        	'phone_type'	=> $this->input->post('phone_type')
 			);
@@ -601,15 +594,13 @@ class Users extends Oauth_Controller
 	    	$meta_data = array(
 	    		'user_id'		=> $this->oauth_user_id,
 	    		'site_id'		=> config_item('site_id'),
-	    		'module'		=> $this->input->post('users'),
-	    		'meta'			=> 'phone',
+	    		'module'		=> 'phone',
+	    		'meta'			=> $phone_number,
 	    		'value'			=> json_encode($phone_data)
 			);
-        	
+
         	if ($user_meta = $this->social_auth->add_user_meta($meta_data))
         	{
-        		
-        	
 		        $message = array('status' => 'success', 'message' => 'Yay, phone number was added', 'data' => $user_meta);
        		}
        		else

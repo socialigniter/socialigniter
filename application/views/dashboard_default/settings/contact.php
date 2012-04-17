@@ -4,10 +4,10 @@
 		<?php if ($phones): foreach ($phones as $phone): $phone_data = json_decode($phone->value) ?>	
 		<li class="item_data" id="item_data_<?= $phone->user_meta_id ?>">
 			<span class="actions action_<?= $phone_data->phone_type ?>"></span>
-			<span class="item_data"> +1 <?= format_phone_number($phone_data->phone_number) ?></span>
+			<span class="item_data"> +1 <?= format_phone_number($phone->meta) ?></span>
 			<ul class="item_actions">
 				<li><a href="<?= base_url().'api/users/mobile_modify/id/'.$phone->user_meta_id ?>" class="mobile_edit_data"><span class="actions action_edit"></span> Edit</a></li>
-				<li><a href="<?= base_url().'api/users/mobile_destroy/id/'.$phone->user_meta_id ?>" class="mobile_delete_data" rel="<?= $phone_data->phone_number ?>"><span class="actions action_delete"></span> Delete</a></li>
+				<li><a href="<?= base_url().'api/users/mobile_destroy/id/'.$phone->user_meta_id ?>" class="mobile_delete_data" rel="<?= $phone->meta ?>"><span class="actions action_delete"></span> Delete</a></li>
 			</ul>
 			<input type="hidden" id="data_<?= $phone->user_meta_id ?>" value='<?= $phone->value ?>'>
 		</li>
@@ -38,13 +38,13 @@
 <script type="text/javascript">
 $(document).ready(function()
 {
-	console.log(partials.item_data);
+	//console.log(partials.item_data);
 
 	// Add Mobile
-	$("#button_add_phone").live('click', function(eve)
+	$("#button_add_phone").live('click', function(e)
 	{
-		eve.preventDefault();
-		$.get(base_url + 'settings/mobile_phone_editor', function(partial_html)
+		e.preventDefault();
+		$.get(base_url + 'dialogs/mobile_phone_editor', function(partial_html)
 		{	
 			$('<div />').html(partial_html).dialog(
 			{
@@ -62,9 +62,9 @@ $(document).ready(function()
 					{						
 						if (isFieldValid('#phone_number', '503-552-1212', 'Enter a number') == true)
 						{
-							eve.preventDefault();
+							e.preventDefault();
 							var phone_data = $('#mobile_phone_editor').serializeArray();
-							phone_data.push({'name':'module','value':'users'});		
+							phone_data.push({'name':'module','value':'phone'});		
 						
 							$.oauthAjax(
 							{
@@ -75,7 +75,7 @@ $(document).ready(function()
 								data		: phone_data,
 						  		success		: function(result)
 						  		{
-									console.log(result);
+									//console.log(result);
 
 							 		$parent_dialog.dialog('close');
 									$parent_dialog.remove();

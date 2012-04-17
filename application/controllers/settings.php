@@ -69,7 +69,7 @@ class Settings extends Dashboard_Controller
   	function contact()
  	{
  	   	$user 		= $this->social_auth->get_user('user_id', $this->session->userdata('user_id')); 	
- 		$phones		= $this->social_auth->get_user_meta_meta($this->session->userdata('user_id'), 'phone');
+ 		$phones		= $this->social_auth->get_user_meta_module($this->session->userdata('user_id'), 'phone');
  		$addresses	= $this->social_auth->get_user_meta_meta($this->session->userdata('user_id'), 'address');
 
  	    $this->data['sub_title'] 	= 'Contact';
@@ -410,9 +410,4 @@ class Settings extends Dashboard_Controller
 		$this->render('dashboard_wide');
 	}	
 
-	/* Partials */
-	function mobile_phone_editor()
-	{
-		$this->load->view(config_item('dashboard_theme').'/partials/mobile_phone_editor');
-	}
 }
