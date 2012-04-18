@@ -188,7 +188,8 @@ $config['time_meridian'] = array(
 $config['access'] = array(
 	'E' => 'Everyone',
 	'F' => 'Friends',
-	'M' => 'Only Me'
+	'O' => 'Only Me',
+	'M' => 'A Specific Module'
 );
 
 $config['comments_allow'] = array(
