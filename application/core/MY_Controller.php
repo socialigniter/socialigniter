@@ -99,6 +99,9 @@ class MY_Controller extends MX_Controller
             $this->config->set_item('site_theme', $this->data['settings']['themes']['mobile_theme']);        	
         	$this->site_theme = json_decode($this->load->view(config_item('site_theme').'/theme_schema', $this->data, true));
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['mobile_theme']);
+        
+        	// Set Source
+        	$this->data['user_source'] = 'mobile';
         }
         else
         {   
@@ -106,6 +109,9 @@ class MY_Controller extends MX_Controller
             $this->config->set_item('site_theme', $this->data['settings']['themes']['site_theme']);
         	$this->site_theme = json_decode($this->load->view(config_item('site_theme').'/theme_schema', $this->data, true));
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['dashboard_theme']);
+        
+        	// Set Source
+        	$this->data['user_source'] = 'web';
         }
 
 		$this->config->set_item('mobile_theme', $this->data['settings']['themes']['mobile_theme']);	

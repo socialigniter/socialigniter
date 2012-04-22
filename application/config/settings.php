@@ -198,6 +198,12 @@ $config['comments_allow'] = array(
 	'A' => 'Require Approval'
 );
 
+$config['status'] = array(
+	'P'	=> 'Published',
+	'S'	=> 'Saved',
+	'D'	=> 'Deleted'
+);
+
 /* Tools */
 $config['ratings_type']	= array(
 	'thumbs' 		=> 'Thumbs Up / Down',

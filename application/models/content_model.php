@@ -276,8 +276,8 @@ class Content_model extends CI_Model {
     	$this->db->where('content_id', $content_id);
     	$this->db->delete('content'); 
 		return TRUE;
-    }   
-    
+    }
+  
 	/* Content Meta */
     function get_meta($content_meta_id)
     {

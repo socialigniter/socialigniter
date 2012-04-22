@@ -7,8 +7,9 @@
 
 <p><textarea name="<?= $wysiwyg_name ?>" id="<?= $wysiwyg_id ?>" class="<?= $wysiwyg_class ?>"><?= $wysiwyg_value ?></textarea></p>
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.wysiwyg.js"></script>
+<?php if ($wysiwyg_js): ?>
 <script type="text/javascript">
-$(function($)
+$(document).ready(function()
 {
 	$('#<?= $wysiwyg_id ?>').wysiwyg(
 	{	
@@ -41,3 +42,4 @@ $(function($)
 	});
 });
 </script>
+<?php endif; ?>
