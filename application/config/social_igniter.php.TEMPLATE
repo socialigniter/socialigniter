@@ -16,8 +16,8 @@
 $config['site_type']					= "default";
 $config['site_id']						= 1;
 $config['superadmin_user_id']			= 1;
-$config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian');
-$config['countries']					= array('US', 'FR', 'DE', 'ES', 'IT');
+$config['languages']					= array('' => '--select--','en' => 'English','fr' => 'French','de' => 'German','es' => 'Spanish','it' => 'Italian', 'ru' => 'Russian', 'cn' => 'Chinese', 'ot' => 'Other');
+$config['countries']					= array('US', 'FR', 'DE', 'ES', 'IT', 'RU', 'CN', 'OT');
 
 // Settings
 $config['core_modules']					= array('users', 'home', 'pages', 'comments','text','tags');

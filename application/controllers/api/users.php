@@ -87,7 +87,8 @@ class Users extends Oauth_Controller
 	    	$password			= $this->input->post('password');
 	    	$additional_data 	= array(
 	    		'name'			=> $this->input->post('name'),
-	    		'image'			=> ''
+	    		'image'			=> '',
+	    		'language'		=> $this->input->post('language')	    		
 	    	);
 	    	        	
 	    	if ($user = $this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group')))
@@ -207,7 +208,8 @@ class Users extends Oauth_Controller
 	    	$password			= $this->input->post('password');
 	    	$additional_data 	= array(
 	    		'name'			=> $this->input->post('name'),
-	    		'image'			=> ''
+	    		'image'			=> '',
+	    		'language'		=> $this->input->post('language')	    		
 	    	);
 	    	        	
 	    	if ($user = $this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group')))

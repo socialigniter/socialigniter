@@ -124,6 +124,7 @@ $route['api/users/(:any)/(:any)'] 						= 'api/users/$1/$2/$3';
 $route['api/users/(:any)'] 								= 'api/users/$1/$2';
 
 /* API Modules */
+$route['api/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)'] = '$1/api/$2/$3/$4/$5/$6/$7/$8';
 $route['api/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)'] = '$1/api/$2/$3/$4/$5/$6/$7';	
 $route['api/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)'] = '$1/api/$2/$3/$4/$5/$6';
 $route['api/(:any)/(:any)/(:any)/(:any)/(:any)']		= '$1/api/$2/$3/$4/$5';

@@ -301,6 +301,9 @@ class Auth_model extends CI_Model
 		
 		if (array_key_exists('image', $additional_data)) $image = $additional_data['image'];
 		else $image = '';
+
+		if (array_key_exists('language', $additional_data)) $language = $additional_data['language'];
+		else $language = '';
 		
         // Users table.
 		$user_data = array(
@@ -311,6 +314,7 @@ class Auth_model extends CI_Model
   			'gravatar'			=> md5($email),
   			'name'				=> $name,
   			'image'				=> $image,
+  			'language'			=> $language,
 			'user_level_id'   	=> $user_level_id,
 			'ip_address' 		=> $this->input->ip_address(),
         	'created_on' 		=> now(),
