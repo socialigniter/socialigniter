@@ -13,8 +13,8 @@ class Auth_model extends CI_Model
 	public $tables = array();	
 	public $activation_code;	
 	public $forgotten_password_code;
-	public $new_password;	
-	
+	public $new_password;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -353,6 +353,12 @@ class Auth_model extends CI_Model
         }
         
 		$password = $this->hash_password('social_signup', $salt);
+
+		if (array_key_exists('name', $additional_data))	$name = $additional_data['name'];
+		else $name = '';
+		
+		if (array_key_exists('image', $additional_data)) $image = $additional_data['image'];
+		else $image = '';		
 		
         // Users table.
 		$user_data = array(
@@ -361,8 +367,8 @@ class Auth_model extends CI_Model
   			'salt'				=> $salt,
   			'email'      		=> $email,
   			'gravatar'			=> md5($email),
-  			'name'				=> $additional_data['name'],
-  			'image'				=> $additional_data['image'],  			 			
+  			'name'				=> $name,
+  			'image'				=> $image,  			 			
 			'user_level_id'   	=> $user_level_id,
 			'ip_address' 		=> $this->input->ip_address(),
         	'created_on' 		=> now(),
