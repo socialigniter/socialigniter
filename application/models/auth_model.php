@@ -296,8 +296,8 @@ class Auth_model extends CI_Model
 
 		$password = $this->hash_password($password, $salt);
 
-		if (array_key_exists('phone_number', $additional_data)) $phone = $additional_data['phone_number'];
-		else $phone = '';
+		if (array_key_exists('phone_number', $additional_data)) $phone_number = $additional_data['phone_number'];
+		else $phone_number = '';
 
 		if (array_key_exists('name', $additional_data))	$name = $additional_data['name'];
 		else $name = '';
@@ -543,7 +543,7 @@ class Auth_model extends CI_Model
     		// Selects all fields (oauths tokens, reset info but not password & salt)
     		if ($details)
     		{
-    			$select = 'user_id, user_level_id, username, salt, email, gravatar, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret, activation_code, forgotten_password_code, active, remember_code, created_on';
+    			$select = 'user_id, user_level_id, username, salt, email, gravatar, phone_number, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret, activation_code, forgotten_password_code, active, remember_code, created_on';
     		}
     		else
     		{

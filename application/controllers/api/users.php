@@ -371,13 +371,13 @@ class Users extends Oauth_Controller
 		    	
 		    	if ($this->social_auth->update_user($user_id, $update_data))
 		    	{
-		    		$user = $this->social_auth->get_user('user_id', $user_id);
-		    	
+		    		$user = $this->social_auth->get_user('user_id', $user_id, TRUE);
+
 		    		if ($this->input->post('session') == 1)
 		    		{
 		    			$this->social_auth->set_userdata($user);
 		    		}
-		    	
+
 			        $message = array('status' => 'success', 'message' => 'User changes saved', 'user' => $user);
 		   		}
 		   		else
@@ -478,8 +478,7 @@ class Users extends Oauth_Controller
 
     	$this->response($message, 200);
     }
-    
-    
+
     function details_authd_post()
     {
     	if ($this->oauth_user_id == $this->get('id'))
