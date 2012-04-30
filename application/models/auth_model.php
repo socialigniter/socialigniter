@@ -520,11 +520,20 @@ class Auth_model extends CI_Model
 		return FALSE;
 	}	
 	
-	function get_users($parameter, $value)
+	function get_users($parameter, $value, $details)
 	{
     	if (in_array($parameter, array('user_level_id','active')))
-    	{	
-			$this->db->select('users.user_id, user_level_id, username, gravatar, name, image, time_zone, privacy, language, geo_enabled, created_on');
+    	{
+    		if ($details)
+    		{
+    			$select = 'user_id, user_level_id, username, salt, email, gravatar, phone_number, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret, activation_code, forgotten_password_code, active, remember_code, created_on';
+    		}
+    		else
+    		{
+    			$select = 'user_id, user_level_id, username, gravatar, name, image, time_zone, privacy, language, geo_enabled, active, created_on';
+    		}    	
+    	
+			$this->db->select($select);
 	 		$this->db->from('users');
 			$this->db->where($parameter, $value);
 	 		$result = $this->db->get();	
@@ -622,6 +631,14 @@ class Auth_model extends CI_Model
  		return $result->result();		
 	}
 
+	function get_users_meta_module($module)
+	{
+ 		$this->db->select('*');
+ 		$this->db->from('users_meta');
+ 		$this->db->where('module', $module);
+ 		$result = $this->db->get();	
+ 		return $result->result();		
+	}
 	function get_user_meta_meta($user_id, $meta)
 	{
  		$this->db->select('*');

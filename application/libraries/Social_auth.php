@@ -387,9 +387,9 @@ class Social_auth
 	    return $this->ci->auth_model->profile($email);
 	}
 
-	function get_users($parameter, $value)
+	function get_users($parameter, $value, $details=FALSE)
 	{
-	    return $this->ci->auth_model->get_users($parameter, $value);
+	    return $this->ci->auth_model->get_users($parameter, $value, $details);
 	}
 	
 	function get_user($parameter, $value, $details=FALSE)
@@ -430,6 +430,11 @@ class Social_auth
 	function get_user_meta_module($user_id, $module)
 	{
 		return $this->ci->auth_model->get_user_meta_module($user_id, $module);
+	}
+
+	function get_users_meta_module($module)
+	{
+		return $this->ci->auth_model->get_users_meta_module($module);
 	}
 
 	function get_user_meta_meta($user_id, $meta)
