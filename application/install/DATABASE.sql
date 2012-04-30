@@ -370,6 +370,7 @@ CREATE TABLE `users` (
   `salt` varchar(40) DEFAULT NULL,
   `email` varchar(64) DEFAULT NULL,
   `gravatar` varchar(48) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone_number` varchar(64) DEFAULT NULL,
   `name` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `image` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `time_zone` varchar(8) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,

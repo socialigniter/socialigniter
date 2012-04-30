@@ -16,24 +16,24 @@ class MY_Form_validation extends CI_Form_validation {
 	// Validates phone number
 	function valid_phone_number($value)
 	{
-		$this->CI->form_validation->set_message('valid_phone_number', 'The %s is not valid');
+		$this->CI->form_validation->set_message('valid_phone_number', 'That is not valid phone number');
 
 	    $value = trim($value);
-	    if ($value == '') {
-	            return TRUE;
+	    if ($value == '')
+	    {
+	    	return TRUE;
 	    }
 	    else
 	    {
 	        if (preg_match('/^\(?[0-9]{3}\)?[-. ]?[0-9]{3}[-. ]?[0-9]{4}$/', $value))
 	        {
-	                return preg_replace('/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/', '($1) $2-$3', $value);
+	        	return preg_replace('/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/', '$1$2$3', $value);
 	        }
 	        else
 	        {
-	                return FALSE;
+	        	return FALSE;
 	    	}
-	    }
-	        
+	    }    
 	}
 	
 	// Checks for strong password

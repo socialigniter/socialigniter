@@ -86,9 +86,10 @@ class Users extends Oauth_Controller
 	    	$email				= $this->input->post('email');
 	    	$password			= $this->input->post('password');
 	    	$additional_data 	= array(
+	    		'phone_number'	=> $this->input->post('phone_number'),
 	    		'name'			=> $this->input->post('name'),
 	    		'image'			=> '',
-	    		'language'		=> $this->input->post('language')	    		
+	    		'language'		=> $this->input->post('language')
 	    	);
 	    	        	
 	    	if ($user = $this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group')))
@@ -198,15 +199,18 @@ class Users extends Oauth_Controller
     {
     	$this->form_validation->set_rules('name', 'Name', 'required');
     	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
+    	$this->form_validation->set_rules('phone_number', 'Phone Number', 'valid_phone_number');
     	$this->form_validation->set_rules('password', 'Password', 'required|min_length['.config_item('min_password_length').']|max_length['.$this->config->item('max_password_length').']|strong_pass['.config_item('password_strength').']|matches[password_confirm]');
     	$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
 
         if ($this->form_validation->run() == true)
         {
+        
 			$username			= url_username($this->input->post('name'), 'none', true);
 	    	$email				= $this->input->post('email');
 	    	$password			= $this->input->post('password');
 	    	$additional_data 	= array(
+	    		'phone_number'	=> $this->input->post('phone_number'),
 	    		'name'			=> $this->input->post('name'),
 	    		'image'			=> '',
 	    		'language'		=> $this->input->post('language')	    		
@@ -277,7 +281,7 @@ class Users extends Oauth_Controller
         } 
 		else
 		{ 
-			$message = array('status' => 'error', 'message' => 'Oops '.validation_errors());
+			$message = array('status' => 'error', 'message' => validation_errors());
         }
         
         $this->response($message, 200);
@@ -342,38 +346,49 @@ class Users extends Oauth_Controller
     { 
     	if ($this->oauth_user_id == $this->get('id'))
     	{
-			// Update Data
-			$user_id = $this->oauth_user_id;
-			
-			if (!$this->input->post('username')) $username = $this->input->post('name');
-			else $username = $this->input->post('username');
-			    	  
-	    	$update_data = array(
-	    		'username'		=> url_username($username, 'none', true),
-	        	'email'			=> $this->input->post('email'),
-	        	'gravatar'		=> md5($this->input->post('email')),
-	        	'name'			=> $this->input->post('name'),
-	        	'time_zone'		=> $this->input->post('time_zone'),
-	        	'privacy'		=> $this->input->post('privacy'),
-	        	'language'		=> $this->input->post('language'),
-	        	'geo_enabled'	=> $this->input->post('geo_enabled'),
-	    	);
-	    	
-	    	if ($this->social_auth->update_user($user_id, $update_data))
-	    	{
-	    		$user = $this->social_auth->get_user('user_id', $user_id);
-	    	
-	    		if ($this->input->post('session') == 1)
-	    		{
-	    			$this->social_auth->set_userdata($user);
-	    		}
-	    	
-		        $message = array('status' => 'success', 'message' => 'User changes saved', 'user' => $user);
-	   		}
-	   		else
-	   		{
-		        $message = array('status' => 'error', 'message' => 'Could not save user changes');
-	   		}
+	    	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');	
+    	   	$this->form_validation->set_rules('phone_number', 'Phone Number', 'valid_phone_number');
+
+       		if ($this->form_validation->run() == true)
+        	{    	
+				// Update Data
+				$user_id = $this->oauth_user_id;
+				
+				if (!$this->input->post('username')) $username = $this->input->post('name');
+				else $username = $this->input->post('username');
+				    	  
+		    	$update_data = array(
+		    		'username'		=> url_username($username, 'none', true),
+		        	'email'			=> $this->input->post('email'),
+		        	'gravatar'		=> md5($this->input->post('email')),
+		        	'phone_number'	=> $this->input->post('phone_number'),
+		        	'name'			=> $this->input->post('name'),
+		        	'time_zone'		=> $this->input->post('time_zone'),
+		        	'privacy'		=> $this->input->post('privacy'),
+		        	'language'		=> $this->input->post('language'),
+		        	'geo_enabled'	=> $this->input->post('geo_enabled'),
+		    	);
+		    	
+		    	if ($this->social_auth->update_user($user_id, $update_data))
+		    	{
+		    		$user = $this->social_auth->get_user('user_id', $user_id);
+		    	
+		    		if ($this->input->post('session') == 1)
+		    		{
+		    			$this->social_auth->set_userdata($user);
+		    		}
+		    	
+			        $message = array('status' => 'success', 'message' => 'User changes saved', 'user' => $user);
+		   		}
+		   		else
+		   		{
+			        $message = array('status' => 'error', 'message' => 'Could not save user changes');
+		   		}
+		   	}
+		   	else
+		   	{
+				$message = array('status' => 'error', 'message' => validation_errors());
+		   	}
 	   	}
     	else
     	{
@@ -584,8 +599,6 @@ class Users extends Oauth_Controller
 
         if ($this->form_validation->run() == true)
         {
-			$phone_number = ereg_replace("[^0-9]", "", $this->input->post('phone_number'));
-
 			$phone_data = array(
 	        	'phone_verified'=> 'yes',
 	        	'verify_code'	=> random_element(config_item('mobile_verify')),
@@ -597,7 +610,7 @@ class Users extends Oauth_Controller
 	    		'user_id'		=> $this->oauth_user_id,
 	    		'site_id'		=> config_item('site_id'),
 	    		'module'		=> 'phone',
-	    		'meta'			=> $phone_number,
+	    		'meta'			=> preg_replace("[^0-9]", "", $this->input->post('phone_number')),
 	    		'value'			=> json_encode($phone_data)
 			);
 

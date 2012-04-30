@@ -296,6 +296,9 @@ class Auth_model extends CI_Model
 
 		$password = $this->hash_password($password, $salt);
 
+		if (array_key_exists('phone_number', $additional_data)) $phone = $additional_data['phone_number'];
+		else $phone = '';
+
 		if (array_key_exists('name', $additional_data))	$name = $additional_data['name'];
 		else $name = '';
 		
@@ -312,6 +315,7 @@ class Auth_model extends CI_Model
   			'salt'				=> $salt,
   			'email'      		=> $email,
   			'gravatar'			=> md5($email),
+  			'phone_number'		=> $phone_number,
   			'name'				=> $name,
   			'image'				=> $image,
   			'language'			=> $language,
