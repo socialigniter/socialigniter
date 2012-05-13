@@ -184,7 +184,7 @@ class Settings extends Dashboard_Controller
 		// SET BASED ON URL
 		if (!$this->uri->segment(3))
 		{
-			$layout = config_item('default_layout');		
+			$layout = $this->site_theme->default_layout;		
 		}
 		else
 		{
