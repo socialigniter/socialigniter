@@ -144,12 +144,8 @@ $route['connections/(:any)/(:any)'] 					= '$1/connections/$2';
 $route['connections/(:any)'] 							= '$1/connections/index';
 
 /* Home */
-$route['home/pages/manage/(:num)']						= 'home/pages_editor';
-$route['home/pages/create']								= 'home/pages_editor';
 $route['home/comments/(:any)'] 							= 'home/comments/$1';
 $route['home/comments'] 								= 'home/comments';
-$route['home/places/manage/(:num)']						= 'home/places_editor';
-$route['home/places/create']							= 'home/places_editor';
 $route['home/group/(:any)']								= 'home/index/$1';
 $route['home/friends']									= 'home/index';
 $route['home/likes']									= 'home/index';
@@ -160,13 +156,13 @@ $route['home/item_timeline']							= 'home/item_timeline';
 $route['home/item_manage']								= 'home/item_manage';
 $route['home/category_manager/(:any)']					= 'home/category_manager/$1';
 $route['home/category_manager']							= 'home/category_manager';
-$route['home/partial_add_place']						= 'home/partial_add_place';
 $route['home/widget_editor/(:any)']						= 'home/widget_editor/$1';
 $route['home/widget_editor']							= 'home/widget_editor';
 $route['home/widget_add']								= 'home/widget_add';
 $route['home'] 											= 'home';
 
 /* Home Modules */
+$route['home/(:any)/(:any)/(:any)/(:any)/(:any)'] 		= '$1/home/$2/$3/$4/$5';
 $route['home/(:any)/(:any)/(:any)/(:any)'] 				= '$1/home/$2/$3/$4';
 $route['home/(:any)/(:any)/(:any)'] 					= '$1/home/$2/$3';
 $route['home/(:any)/manage'] 							= 'home/manage/$1';
@@ -201,7 +197,6 @@ $route['settings/places']								= 'settings/places';
 $route['settings/api']									= 'settings/api';
 $route['settings/update']								= 'settings/update';
 $route['settings/users']								= 'settings/users';
-$route['settings/pages']								= 'settings/pages';
 $route['settings/apps'] 								= 'settings/apps';
 $route['settings/get_apps'] 							= 'settings/get_apps';
 $route['settings/(:any)/widgets'] 						= '$1/settings/widgets';

@@ -94,10 +94,6 @@ CREATE TABLE `content` (
   PRIMARY KEY (`content_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index', NULL, 'E', 'Y', 6, '', '', 'Y', 'A', 'P', '2010-07-17 00:00:00', '2011-03-31 20:34:23');
-INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 2, 1, 'Contact', 'contact', 'Please contact us', 'site', NULL, NULL, 'N', 0, NULL, NULL, 'Y', 'A', 'P', '2010-07-17 00:00:00', '2011-02-09 23:19:18');
-INSERT INTO `content` VALUES(NULL, 1, 0, 0, 'pages', 'page', '', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site', NULL, 'S', 'A', 3, NULL, NULL, 'Y', 'Y', 'P', '2010-07-17 00:00:00', '2011-03-31 20:34:23');
-
 CREATE TABLE `content_meta` (
   `content_meta_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `site_id` int(6) NOT NULL,
@@ -212,7 +208,6 @@ INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_medium_height', '235');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_small_width', '125');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_small_height', '125');
 INSERT INTO `settings` VALUES(NULL, 1, 'site', 'images_sizes_original', 'yes');
-
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'site_logo', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'header_image', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'header_position', 'left top');
@@ -228,7 +223,6 @@ INSERT INTO `settings` VALUES(NULL, 1, 'design', 'link_color_hover', 'ff3300');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'header_link_color_normal', '0066CC');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'header_link_color_visited', '0066CC');
 INSERT INTO `settings` VALUES(NULL, 1, 'design', 'header_link_color_hover', 'ff3300');
-
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'site_theme', 'site_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'dashboard_theme', 'dashboard_default');
 INSERT INTO `settings` VALUES(NULL, 1, 'themes', 'mobile_theme', 'mobile_default');
@@ -259,7 +253,6 @@ INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'email_replies', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'akismet', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'recaptcha', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'comments', 'date_style', 'ELAPSED');
-
 INSERT INTO `settings` VALUES(NULL, 1, 'ratings', 'enabled', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'ratings', 'rate_type', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'pages', 'enabled', 'TRUE');

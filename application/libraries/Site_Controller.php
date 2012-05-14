@@ -16,14 +16,9 @@ class Site_Controller extends MY_Controller
     {
         parent::__construct();
 
-		// Global Required Queries
-		$this->data['navigation_menu']	= $this->social_igniter->get_menu();
-
         // Load Basic Views
-        // This Should probably be abstracted away to widgets
         $head_view			= config_item('site_theme').'/partials/head_site';
         $logged_view		= config_item('site_theme').'/partials/logged';
-		$navigation_view	= config_item('site_theme').'/partials/navigation_site';
 		$footer_view		= config_item('site_theme').'/partials/footer_site';
 
         if (file_exists(APPPATH.'views/'.$head_view.'.php'))
@@ -42,15 +37,6 @@ class Site_Controller extends MY_Controller
         else
         {
         	$this->data['logged']	= '';
-        }
-
-        if (file_exists(APPPATH.'views/'.$navigation_view.'.php'))
-        {
-        	$this->data['navigation']= $this->load->view($navigation_view, $this->data, true);
-        }
-        else
-        {
-        	$this->data['navigation']= '';
         }
         
         $this->data['site_image']	= base_url().config_item('uploads_folder').'sites/'.config_item('site_id').'/large_logo.png';
@@ -81,7 +67,6 @@ class Site_Controller extends MY_Controller
         {
         	$this->data['footer']	= '';
         }
-
 
 		// If Modules Exist		
 		if ($this->modules_scan)

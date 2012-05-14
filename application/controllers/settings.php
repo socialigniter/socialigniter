@@ -264,17 +264,7 @@ class Settings extends Dashboard_Controller
 		$this->data['this_module']	= 'users';
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
     	$this->render('dashboard_wide');
-    }
-	
-	function pages()
-	{	
-		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');
-
-		$this->data['sub_title'] 	= 'Pages';
-		$this->data['this_module']	= 'pages';
-		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
-    	$this->render('dashboard_wide');
-    }    
+    }  
 
 	function api()
 	{
@@ -306,11 +296,11 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title']		= 'Get Apps';	
 		$this->render('dashboard_wide');
 	}
-	
+
 	/* Categories */
 	function categories()
-	{
-		$this->data['sub_title']		= 'Categories';
+	{	
+		$this->data['sub_title'] = 'Categories';
 		
 		$categories			= $this->social_tools->get_categories_view('module', $this->uri->segment(2));
 		$categories_view	= NULL;
@@ -392,6 +382,7 @@ class Settings extends Dashboard_Controller
 		}
 
 		// WYSIWYG
+		$this->data['wysiwyg_js']			= TRUE;
 		$this->data['wysiwyg_name']			= 'description';
 		$this->data['wysiwyg_id']			= 'wysiwyg';
 		$this->data['wysiwyg_class']		= 'wysiwyg_norm_full';

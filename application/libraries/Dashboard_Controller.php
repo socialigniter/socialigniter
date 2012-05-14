@@ -44,6 +44,8 @@ class Dashboard_Controller extends MY_Controller
 		{
 			foreach ($this->modules_scan as $module)
 			{
+				$this->load->config($module.'/'.$module);
+			
 				if (config_item($module.'_enabled') == 'TRUE')
 				{	
 					// Set Module Partials
@@ -75,7 +77,7 @@ class Dashboard_Controller extends MY_Controller
 
     function render($layout='dashboard')
     {
-    	// Module
+    	// Is Module
        	if ($this->module_name) 
     	{
     		// Navigation extends / replaces core navigation If this changes it breaks 'settings' navigations
@@ -108,20 +110,10 @@ class Dashboard_Controller extends MY_Controller
 	        $navigation_path 		= config_item('dashboard_theme').'/partials/navigation_settings.php';
         	$content_path 			= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
 		}
-		// Comments, Locations, and Pages *Kind of nasty solution but works. Should perhaps be rethought in the future
+		// Comments *Kind of nasty solution but works. Should perhaps be rethought in the future
 		elseif ($this->uri->segment(2) == 'comments')
 		{
 	        $navigation_path 		= config_item('dashboard_theme').'/partials/navigation_comments.php';
-        	$content_path 			= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
-		}
-		elseif ($this->uri->segment(2) == 'places')
-		{
-	        $navigation_path 		= config_item('dashboard_theme').'/partials/navigation_places.php';
-        	$content_path 			= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
-		}
-		elseif ($this->uri->segment(2) == 'pages')
-		{
-	        $navigation_path 		= config_item('dashboard_theme').'/partials/navigation_pages.php';
         	$content_path 			= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
 		}
 		// Dashboard Error Page - must be manual redirect(404) goes to public error page

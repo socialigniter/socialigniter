@@ -34,8 +34,6 @@
 	</div>
 </div>
 <?= $navigation ?>
-
-
 <div id="content">
 	<div class="wrap">
 		<div id="main">

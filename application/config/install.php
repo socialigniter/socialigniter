@@ -12,9 +12,6 @@
 *
 * Description: 	various values that get installed to the database on installing Social Igniter 
 */
-$config['content'][] = array('pages', 'page', 'install', 0, 1, 'Welcome', 'welcome', 'Welcome to my website. Word word!', 'index');
-$config['content'][] = array('pages', 'page', 'install', 1, 1, 'About', 'about', 'Write what your website is about here!', 'site');
-$config['content'][] = array('pages', 'page', 'install', 2, 1, 'Contact', 'contact', 'Please contact us', 'site');
 $config['settings'] = array('site', 'title', 'Awesome Website');
 $config['settings'] = array('site', 'tagline', 'Where I Post All My Awesome Things');
 $config['settings'] = array('site', 'keywords', 'awesome, things, pictures, videos, poems, watermelons, cats, ninjas');
@@ -72,12 +69,6 @@ $config['settings'] = array('places', 'comments_allow', 'no');
 $config['settings'] = array('places', 'tags_display', 'no');
 $config['settings'] = array('ratings', 'enabled', 'TRUE');
 $config['settings'] = array('ratings', 'rate_type', 'TRUE');
-$config['settings'] = array('pages', 'enabled', 'TRUE');
-$config['settings'] = array('pages', 'crud_permission', '2');
-$config['settings'] = array('pages', 'ratings_allow', 'TRUE');
-$config['settings'] = array('pages', 'tags_display', 'TRUE');
-$config['settings'] = array('pages', 'comments_allow', 'TRUE');
-$config['settings'] = array('pages', 'comments_per_page', '10');
 $config['settings'] = array('home', 'public_timeline', 'TRUE');
 $config['settings'] = array('home', 'date_style', 'ELAPSED');
 $config['settings'] = array('home', 'status_length', '140');

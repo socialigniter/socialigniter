@@ -5,9 +5,9 @@
 	"updated":"2011-04-14",
 	"creator":"Brennan Novak",
 	"layouts":{
-		"sidebar":["content","sidebar","wide"],
-		"wide":["wide"],
-		"profile":["content","sidebar"]
+		"sidebar":["navigation","content","sidebar","wide"],
+		"wide":["navigation","wide"],
+		"profile":["navigation","content","sidebar"]
 	},
 	"default_layout":"sidebar"
 }

@@ -14,7 +14,6 @@ class Social_igniter
 {
 	protected $ci;
 	protected $widgets;
-	protected $pages_view;	
 
 	function __construct()
 	{
@@ -26,7 +25,6 @@ class Social_igniter
 		// Models
  		$this->ci->load->model('activity_model');
  		$this->ci->load->model('content_model');
-		$this->ci->load->model('pages_model');
 		$this->ci->load->model('settings_model');
 		$this->ci->load->model('sites_model');
 	}
@@ -442,62 +440,7 @@ class Social_igniter
 	
 		return $theme_array;
 	}
-	
-	
-	/* Pages */
-	function get_index_page()
-	{
-		return $this->ci->pages_model->get_index_page(config_item('site_id'));
-	}
-	
-	function get_page($title_url)
-	{
-		return $this->ci->pages_model->get_page(config_item('site_id'), $title_url);
-	}	
 
-	function get_page_id($page_id)
-	{
-		return $this->ci->pages_model->get_page_id($page_id);
-	}
-
-	function get_pages()
-	{
-		return $this->ci->pages_model->get_pages(config_item('site_id'));
-	}
-	
-	function get_menu()
-	{
-		return $this->ci->pages_model->get_menu(config_item('site_id'));	
-	}
-	
-	function make_pages_dropdown($content_id)
-	{
-		$pages_query 			= $this->get_content_view('type', 'page', 'all');
-		$this->pages_view 		= array(0 => '----select----');
-		$pages 					= $this->render_pages_children($pages_query, 0, $content_id);
-				
-		return $this->pages_view;
-	}
-	
-	function render_pages_children($pages_query, $parent_id, $content_id)
-	{		
-		foreach ($pages_query as $child)
-		{
-			if ($parent_id == $child->parent_id AND $child->details != 'index' AND $child->details != 'module_page' AND $child->content_id != $content_id)
-			{
-				if ($parent_id != '0') $page_display = ' - '.$child->title;
-				else $page_display = $child->title;
-
-				$this->pages_view[$child->content_id] = $page_display;
-
-				// Recursive Call
-				$this->render_pages_children($pages_query, $child->content_id, $content_id);
-			}
-		}
-			
-		return $this->pages_view;
-	}
-	
 	
 	/* Settings */	
 	function get_settings($module=NULL)
