@@ -103,7 +103,6 @@ class Site_Controller extends MY_Controller
 		}
     }
 
-
 	// Renders Layout
     function render($layout=NULL, $content=NULL)
     {

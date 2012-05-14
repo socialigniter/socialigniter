@@ -1,3 +1,3 @@
-<?= $page_content ?>
+<h2>Welcome to <?= $site_title ?></h2>
 
-<?= $comments_view ?>
+<?= $page_content ?>

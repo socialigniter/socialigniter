@@ -33,7 +33,11 @@
 		<div class="clear"></div>
 	</div>
 </div>
-<?= $navigation ?>
+<div id="main_nav">
+	<div class="wrap">
+	<?= $navigation ?>
+	</div>
+</div>
 <div id="content">
 	<div class="wrap">
 		<div id="main">

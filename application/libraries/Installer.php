@@ -140,10 +140,29 @@ class Installer
 	
 
 	// Installs data into 'content' table
-	function install_content()
+	function install_content($app_content, $user_id)
 	{
+		$result = FALSE;
 	
-	
+		if ($app_content)
+		{
+			foreach ($app_content as $content)
+			{			
+		    	$content['site_id']		= config_item('site_id');
+		    	$content['user_id']		= $user_id;
+				$content['title_url']	= form_title_url($content['title'], $content['title_url']);
+				$content['viewed']		= 'N';
+				$content['approval']	= 'Y';
+				$content['status']		= 'P';
+
+				// Insert
+				$add_content = $this->ci->social_igniter->add_content($content);
+				
+				$result .= $content['title'].' added';
+			}
+		}
+		
+		return $result;
 	}
 	
 	

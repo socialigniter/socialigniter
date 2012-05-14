@@ -9,18 +9,20 @@ class Site extends Site_Controller
 	function index()
 	{
 		// Is Pages Module Installed
-		// If not load static page file
-		if (!$this->uri->segment(1))
+		if (config_item('pages_enabled') == 'TRUE')
 		{
-			$page = $this->social_igniter->get_index_page();
+			$this->load->model('pages/pages_model');
+
+			$page = $this->pages_model->get_index_page();
 
 			$this->data['content_id']			= $page->content_id;
 			$this->data['page_content']			= $page->content;
-			$this->data['comments_allow']		= $page->comments_allow;
 		}
+		// If not show normal site tags
 		else
 		{
-			redirect(404);
+			$this->data['content_id']			= 0;
+			$this->data['page_content']			= config_item('site_description');
 		}
 
 		$this->render();
