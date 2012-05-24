@@ -969,6 +969,8 @@ function getUserImageSrc(json, size)
 		_gravatarSize = '35'
 	}
 	
+console.log(json);	
+	
 	//If the user uploaded his own image
 	if (json.image != '')
 	{	

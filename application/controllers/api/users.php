@@ -178,8 +178,9 @@ class Users extends Oauth_Controller
         	if ($user = $this->social_auth->login($this->input->post('email'), $this->input->post('password'), $remember, $session))
         	{
         		// Get User Data
-				$meta = $this->social_auth->get_user_meta($user->user_id);
-        	
+				$meta 		 = $this->social_auth->get_user_meta($user->user_id);				
+				$user->image = $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar);
+
 		        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta' => $meta);
 	        }
 	        else
@@ -265,7 +266,8 @@ class Users extends Oauth_Controller
 	        	if ($this->social_auth->login($user->email, $this->input->post('password'), $remember, $session))
 	        	{
 	        		// Get User Data
-					$meta = $this->social_auth->get_user_meta($user->user_id);
+					$meta 		 = $this->social_auth->get_user_meta($user->user_id);
+					$user->image = $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar);
 	        	
 			        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta' => $meta);
 		        }
