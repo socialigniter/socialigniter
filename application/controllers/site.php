@@ -32,8 +32,8 @@ class Site extends Site_Controller
     function login() 
     {
     	// Logged In or Disabled
-    	if ($this->social_auth->logged_in()) redirect(base_url()."home", 'refresh');
-    	if (config_item('users_login') == 'FALSE') redirect(base_url(), 'refresh');    	        
+    	if ($this->social_auth->logged_in()) redirect(login_redirect());
+    	if (config_item('users_login') == 'FALSE') redirect(base_url());    	        
 
 		$this->data['email']      		= '';
         $this->data['password']   		= "";
@@ -55,8 +55,8 @@ class Site extends Site_Controller
     function signup()
     {
     	// Logged In or Disabled 
-    	if ($this->social_auth->logged_in()) redirect(base_url()."home", 'refresh'); 
-     	if (config_item('users_signup') == 'FALSE') redirect(base_url(), 'refresh');
+    	if ($this->social_auth->logged_in()) redirect(login_redirect());
+     	if (config_item('users_signup') == 'FALSE') redirect(base_url());
                   
         // Display The Create User Form
 		$this->data['name']      		= "";			    
@@ -70,7 +70,7 @@ class Site extends Site_Controller
     
     function signup_social()
     {
-    	if ($this->session->userdata('signup_user_state') != 'has_connection_data') redirect('signup', 'refresh');
+    	if ($this->session->userdata('signup_user_state') != 'has_connection_data') redirect('signup');
 
 		$this->data['sub_title'] 		= 'Signup';
 		$this->data['signup_module']	= $this->session->userdata('connection_signup_module');
