@@ -225,7 +225,6 @@ $route['activate/(:any)']								= 'site/activate';
 $route['activate']										= 'site/activate';
 $route['tags/(:any)']									= 'site/tags_search';
 $route['tags']											= 'site/tags';
-$route['pages(:any)']									= 'site/pages';
 $route['index']											= 'site/index';
 
 /* End of file routes.php */
