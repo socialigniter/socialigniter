@@ -547,7 +547,7 @@ class Auth_model extends CI_Model
 	
 	function get_user($parameter, $value, $details)
 	{
-    	if (($value) && (in_array($parameter, array('user_id','username', 'email','gravatar', 'consumer_key', 'token', 'forgotten_password_code'))))
+    	if (($value) && (in_array($parameter, array('user_id', 'username', 'email', 'phone_number', 'gravatar', 'consumer_key', 'token', 'forgotten_password_code'))))
     	{
     		// Selects all fields (oauths tokens, reset info but not password & salt)
     		if ($details)
