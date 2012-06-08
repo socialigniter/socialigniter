@@ -8,6 +8,7 @@ class Site extends Site_Controller
 
 	function index()
 	{
+		/*
 		// Is Pages Module Installed
 		if (config_item('pages_enabled') == 'TRUE')
 		{
@@ -24,6 +25,7 @@ class Site extends Site_Controller
 			$this->data['content_id']			= 0;
 			$this->data['page_content']			= config_item('site_description');
 		}
+		*/
 
 		$this->render();
 	}
