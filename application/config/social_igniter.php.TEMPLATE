@@ -76,3 +76,6 @@ $config['categories_images_formats']	= 'gif|jpg|jpeg|png';
 $config['categories_images_max_size']	= 25600;
 $config['categories_images_max_dimensions'] = 3000;
 
+// Custom Values
+$config['custom_value']			= "";
+

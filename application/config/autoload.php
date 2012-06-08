@@ -62,7 +62,7 @@ $autoload['libraries'] = array('database','session','form_validation','social_au
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','cookie','date','text','feed','view','array','string','directory','social_igniter','custom');
+$autoload['helper'] = array('url','cookie','date','text','feed','view','array','string','directory','social_igniter');
 
 /*
 | -------------------------------------------------------------------
@@ -77,7 +77,7 @@ $autoload['helper'] = array('url','cookie','date','text','feed','view','array','
 |
 */
 
-$autoload['config'] = array('social_igniter','settings','custom');
+$autoload['config'] = array('social_igniter','settings');
 
 /*
 | -------------------------------------------------------------------

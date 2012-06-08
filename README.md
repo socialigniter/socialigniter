@@ -17,11 +17,9 @@ Installation Instructions
 
 * Make duplicates of the following 6 files
 * application/config/config.php.TEMPLATE
-* application/config/custom.php.TEMPLATE
 * application/config/database.php.TEMPLATE
 * application/config/routes.php.TEMPLATE
-* application/helpers/custom_helper.php.TEMPLATE
-* Change all 6 file names config.php, custom.php, etc... respectively
+* Change all 6 file names config.php, database.php, etc... respectively
 * Edit config.php value $config['base_url'] to match your server url
 * Edit database.php to have match your database settings
 * Dump the SQL located at application/install/DATABASE.sql into your database
