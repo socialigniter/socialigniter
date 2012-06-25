@@ -34,13 +34,13 @@
 * @param   string
 * @return  string
 */
-function gravatar($email, $rating='X', $size='48', $default='http://gravatar.com/avatar.php')
+function gravatar($email, $rating='X', $size='48', $default='https://gravatar.com/avatar.php')
 {
     # Hash the email address
     //$email = md5( $email );
 
     # Return the generated URL
-    return "http://gravatar.com/avatar.php?gravatar_id="
+    return "https://gravatar.com/avatar.php?gravatar_id="
         .$email."&amp;rating="
         .$rating."&amp;size="
         .$size."&amp;default="
