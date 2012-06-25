@@ -397,17 +397,17 @@ class Auth_model extends CI_Model
 	    {
 	        return FALSE;	        
 	    }
-	    
-	    $this->db->select('*');
+
+	    $this->db->select('user_id, user_level_id, username, email, password, gravatar, phone_number, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret');
 		$this->db->from('users');
-		$this->db->join('users_level', 'users_level.user_level_id = users.user_level_id');
 		$this->db->where('users.email', $email);
 		$this->db->where('active', 1);
 		$this->db->limit(1);
  		$user = $this->db->get()->row();
         
         if ($user)
-        {                
+        {
+        	// Verify Password          
             $password = $this->hash_password_db($email, $password);
             
     		if ($user->password === $password)
@@ -415,6 +415,7 @@ class Auth_model extends CI_Model
     			// Sets Various Userdata
         		$this->update_last_login($user->user_id);
         		
+        		// Set Session Data
         		if ($session)
         		{
 					$this->social_auth->set_userdata($user);
@@ -424,6 +425,8 @@ class Auth_model extends CI_Model
 	    		    	$this->remember_user($user);
 	    		    }
 				}
+				
+				unset($user->password);
     		    
     		    return $user;
     		}
@@ -439,9 +442,8 @@ class Auth_model extends CI_Model
 	        return FALSE;
 	    }
 
-	    $this->db->select('*');
+	    $this->db->select('user_id, user_level_id, username, email, gravatar, phone_number, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret');
 		$this->db->from('users');
-		$this->db->join('users_level', 'users_level.user_level_id = users.user_level_id');
 		$this->db->where('users.user_id', $user_id);
 		$this->db->where('active', 1);
 		$this->db->limit(1);
@@ -526,7 +528,7 @@ class Auth_model extends CI_Model
     	{
     		if ($details)
     		{
-    			$select = 'user_id, user_level_id, username, salt, email, gravatar, phone_number, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret, activation_code, forgotten_password_code, active, remember_code, created_on';
+    			$select = 'user_id, user_level_id, username, email, gravatar, phone_number, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret, activation_code, forgotten_password_code, active, remember_code, created_on';
     		}
     		else
     		{
@@ -552,7 +554,7 @@ class Auth_model extends CI_Model
     		// Selects all fields (oauths tokens, reset info but not password & salt)
     		if ($details)
     		{
-    			$select = 'user_id, user_level_id, username, salt, email, gravatar, phone_number, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret, activation_code, forgotten_password_code, active, remember_code, created_on';
+    			$select = 'user_id, user_level_id, username, email, gravatar, phone_number, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret, activation_code, forgotten_password_code, active, remember_code, created_on';
     		}
     		else
     		{
