@@ -264,14 +264,11 @@ class Social_igniter
 	function get_social_post($user_id, $id='social_post')
 	{
 		$post_to 			= NULL;
-		$connections		= NULL;
 		$social_post		= config_item('social_post');
 		
 		if ($social_post)
-		{
-			$user_connections = $this->ci->session->userdata('user_connections');
-		
-			if ($user_connections)
+		{		
+			if ($user_connections = $this->ci->social_auth->get_connections_user($user_id))
 			{
 				foreach ($social_post as $social)
 				{
@@ -284,19 +281,14 @@ class Social_igniter
 					}		
 				}
 			}
-			else
-			{
-				foreach ($social_post as $social)
-				{
-					$connections .= '<li>'.ucwords($social).'</li>';
-				}			
-			
-				$post_to = '<li><a href="'.base_url().'settings/connections" id="social_connections_add"><span class="actions action_share"></span> Add Connections</a> </li>';
-			}
 			
 			if ($post_to)
 			{
 				return '<ul id="'.$id.'">'.$post_to.'</ul>';
+			}
+			else
+			{
+				return '<ul id="'.$id.'"><li><a href="'.base_url().'settings/connections" id="social_connections_add"><span class="actions action_share"></span> Add Connections</a> </li></ul>';				
 			}
 		}
 			

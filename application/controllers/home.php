@@ -16,7 +16,7 @@ class Home extends Dashboard_Controller
 		
  	   	// Load
 		$this->data['home_greeting']	= random_element($this->lang->line('home_greeting'));
-	 	$this->data['social_post'] 		= $this->social_igniter->get_social_post($this->session->userdata('user_id'), 'social_post_horizontal'); 		
+	 	$this->data['social_post'] 		= $this->social_igniter->get_social_post($this->session->userdata('user_id'), 'social_post_horizontal');
 		$this->data['groups']	 		= $this->social_tools->make_group_dropdown($this->session->userdata('user_id'), $this->session->userdata('user_level_id'), '+ Add Group'); 
  		$this->data['group_id']			= '';
  		
