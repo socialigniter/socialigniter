@@ -30,10 +30,10 @@ class Social_igniter
 	}
 
     // Profile Picture
-	function profile_image($user_id, $image, $email_hash=NULL, $size='medium')
+	function profile_image($user_id, $image, $email_hash=NULL, $size='medium', $theme='site_theme')
 	{
 		$this->ci->load->helper('gravatar');
-		$picture = base_url().'application/views/'.config_item('site_theme').'/assets/images/'.$size.'_'.config_item('no_profile');
+		$picture = base_url().'application/views/'.config_item($theme).'/assets/images/'.$size.'_'.config_item('no_profile');
 
 		// Does User Have Image
 		if ($image)

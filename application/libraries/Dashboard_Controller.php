@@ -43,9 +43,7 @@ class Dashboard_Controller extends MY_Controller
 		if ($this->modules_scan)
 		{
 			foreach ($this->modules_scan as $module)
-			{
-				$this->load->config($module.'/'.$module);
-			
+			{			
 				if (config_item($module.'_enabled') == 'TRUE')
 				{	
 					// Set Module Partials
