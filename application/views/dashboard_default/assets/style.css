@@ -341,6 +341,13 @@ span.type_address					{ background-position: 42px -245px; }
 span.type_group						{ background-position: 42px -280px; }
 span.type_message					{ background-position: 42px -350px; }
 
+span.type_idea						{ background-position: 42px -385px; }
+span.type_sliders					{ background-position: 42px -415px; }
+span.type_settings					{ background-position: 42px -450px; }
+span.type_linechart					{ background-position: 42px -485px; }
+span.type_piechart					{ background-position: 42px -520px; }
+
+
 /* Actions - Feed */
 ul.item_actions 					{ margin: 0px 0 0 0; padding: 0; list-style: none; float: right; visibility: hidden; }
 ul.item_actions li					{ float: left; margin: 0 0 0 20px; }
