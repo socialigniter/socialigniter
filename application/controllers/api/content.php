@@ -105,11 +105,11 @@ class Content extends Oauth_Controller
 				if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $result['content']->content_id);				
 				
 				// API Response
-	        	$message = array('status' => 'success', 'message' => 'Awesome we posted your '.$content_data['type'], 'data' => $result['content'], 'activity' => $result['activity']);
+	        	$message = array('status' => 'success', 'message' => 'Awesome we posted your content', 'data' => $result['content'], 'activity' => $result['activity'], 'raw_data' => $content_data);
 	        }
 	        else
 	        {
-		        $message = array('status' => 'error', 'message' => 'Oops we were unable to post your '.$content_data['type']);
+		        $message = array('status' => 'error', 'message' => 'Oops we were unable to post your content');
 	        }	
 		}
 		else 

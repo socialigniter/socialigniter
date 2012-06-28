@@ -175,7 +175,9 @@ span.msg_notification		{ display: block; padding: 6px; color: #f2edda; backgroun
 
 /* Wide Stuff */
 #content_wide_content 		{ float: left; width: 675px; margin: 0; padding: 0; }
-#content_wide_content h3 	{ margin: 0 0 10px 0; }
+#content_wide_content h3 	{ margin: 25px 0 10px 0; }
+#content_wide_content p 	{ margin: 10px 0 25px 0; }
+
 
 #content_wide_toolbar 		{ float: left; width: 175px; margin: 0 0 0 25px; padding: 0; text-align: left; }
 #content_wide_toolbar h3	{ margin: 0 0 20px 0 !important; }
@@ -340,12 +342,13 @@ span.type_mobile_phone				{ background-position: 42px -175px; }
 span.type_address					{ background-position: 42px -245px; }
 span.type_group						{ background-position: 42px -280px; }
 span.type_message					{ background-position: 42px -350px; }
-
 span.type_idea						{ background-position: 42px -385px; }
 span.type_sliders					{ background-position: 42px -415px; }
 span.type_settings					{ background-position: 42px -450px; }
 span.type_linechart					{ background-position: 42px -485px; }
 span.type_piechart					{ background-position: 42px -520px; }
+span.type_features					{ background-position: 42px -555px; }
+span.type_discussion				{ background-position: 0px -588px; }
 
 
 /* Actions - Feed */

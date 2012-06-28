@@ -192,6 +192,11 @@ $config['access'] = array(
 	'M' => 'A Specific Module'
 );
 
+$config['access_simple'] = array(
+	'E' => 'Everyone',
+	'O' => 'Only Me'
+);
+
 $config['comments_allow'] = array(
 	'Y'	=> 'Yes',
 	'N'	=> 'No',
