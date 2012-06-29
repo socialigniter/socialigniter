@@ -140,7 +140,7 @@ class MY_Controller extends MX_Controller
 			$this->data['logged_user_level_id']	= $this->session->userdata('user_level_id');
 			$this->data['logged_username']		= $this->session->userdata('username');
 			$this->data['logged_name']			= $this->session->userdata('name');
-			$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('gravatar'));
+			$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('gravatar'), 'medium', 'dashboard_theme');
 			$this->data['logged_location']		= $this->session->userdata('location');
 			$this->data['logged_geo_enabled']	= $this->session->userdata('geo_enabled');
 			$this->data['logged_privacy']		= $this->session->userdata('privacy');
