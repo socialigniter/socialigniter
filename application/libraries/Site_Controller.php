@@ -14,7 +14,7 @@ class Site_Controller extends MY_Controller
 {
     function __construct()
     {
-        parent::__construct();
+        parent::__construct();      
 
         // Load Basic Views
         $head_view			= config_item('site_theme').'/partials/head_site';

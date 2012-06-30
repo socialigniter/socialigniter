@@ -27,7 +27,7 @@ class Site extends Site_Controller
 
 		$this->render();
 	}
-	
+
 	/* Authentication Static Pages */
     function login() 
     {

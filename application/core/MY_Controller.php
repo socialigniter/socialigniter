@@ -8,8 +8,6 @@
 * 
 * Location: http://github.com/socialigniter
 * 
-* Created:  06-01-2010
-* 
 * Description: Library that is extended by all "Public" facing site controllers
 */
 

@@ -12,6 +12,1129 @@
 *
 * Description: 	various values that get installed to the database on installing Social Igniter 
 */
+
+/* Database Tables */
+$config['database_activity_table'] = array(
+	'activity_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'site_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> '6',
+		'null'					=> TRUE
+	),
+	'user_id' => array(
+		'type' 					=> 'INT',
+		'constraint'			=> 11,
+		'null' 					=> TRUE
+	),
+	'verb' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'module' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> TRUE
+	),
+	'type' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'content_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'data' => array(
+		'type'					=> 'TEXT',
+		'null'					=> TRUE
+	),
+	'status' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'created_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE
+	)						
+);
+
+$config['database_categories_table'] = array(
+	'category_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 11,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'parent_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'content_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'site_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 6,
+		'null'					=> TRUE
+	),
+	'user_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'access' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'module' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'type' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'category' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 128,
+		'null'					=> TRUE
+	),
+	'category_url' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 128,
+		'null'					=> TRUE
+	),
+	'description' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'details' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'contents_count' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 6,
+		'null'					=> TRUE
+	),
+	'created_at' => array(
+		'type'					=> 'DATETIME',
+		'default'				=> '9999-12-31 00:00:00' 
+	),
+	'updated_at' => array(
+		'type'					=> 'DATETIME',
+		'default'				=> '9999-12-31 00:00:00' 
+	)
+);
+
+$config['database_comments_table'] = array(
+	'comment_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'site_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 6,
+		'null'					=> TRUE
+	),
+	'reply_to_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'content_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'owner_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'module' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'type' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'user_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'comment' => array(
+		'type'					=> 'TEXT',
+		'null'					=> TRUE
+	),
+	'geo_lat' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 16,
+		'null'					=> TRUE
+	),
+	'geo_long' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 16,
+		'null'					=> TRUE
+	),
+	'viewed' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'approval' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'created_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE,
+		'default'				=> '9999-12-31 00:00:00'				
+	),
+	'updated_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE,
+		'default'				=> '9999-12-31 00:00:00'				
+	)			
+);
+
+$config['database_connections_table'] = array(
+	'connection_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 16,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'site_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 6,
+		'null'					=> TRUE
+	),
+	'user_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'module' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'type' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'connection_user_id' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'connection_username' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'auth_one' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'auth_two' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'created_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE,
+		'default'				=> '9999-12-31 00:00:00'				
+	),
+	'updated_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE,
+		'default'				=> '9999-12-31 00:00:00'				
+	)																							
+);
+
+$config['database_content_table'] = array(
+	'content_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 11,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'site_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 6,
+		'null'					=> TRUE
+	),
+	'parent_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'category_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 16,
+		'null'					=> TRUE
+	),
+	'module' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'type' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'source' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 16,
+		'null'					=> TRUE
+	),
+	'order' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 8,
+		'null'					=> TRUE
+	),
+	'user_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'title' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'title_url' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'content' => array(
+		'type'					=> 'TEXT',
+		'null'					=> TRUE
+	),									
+	'details' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 512,
+		'null'					=> TRUE
+	),
+	'canonical' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 512,
+		'null'					=> TRUE
+	),
+	'access' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),			
+	'comments_allow' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'comments_count' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 8,
+		'null'					=> TRUE
+	),				
+	'geo_lat' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 16,
+		'null'					=> TRUE
+	),
+	'geo_long' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 16,
+		'null'					=> TRUE
+	),
+	'viewed' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'approval' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'status' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),												
+	'created_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE,
+		'default'				=> '9999-12-31 00:00:00'				
+	),
+	'updated_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE,
+		'default'				=> '9999-12-31 00:00:00'				
+	)																				
+);
+
+$config['database_content_meta_table'] = array(
+	'content_meta_id' => array(
+		'type' 				=> 'INT',
+		'constraint' 		=> 32,
+		'unsigned' 			=> TRUE,
+		'auto_increment'	=> TRUE
+	),
+	'site_id' => array(
+		'type'				=> 'INT',
+		'constraint'		=> 6,
+		'null'				=> TRUE
+	),
+	'content_id' => array(
+		'type'				=> 'INT',
+		'constraint'		=> 11,
+		'null'				=> TRUE
+	),
+	'meta' => array(
+		'type'				=> 'VARCHAR',
+		'constraint'		=> 128,
+		'null'				=> TRUE
+	),
+	'value' => array(
+		'type'				=> 'TEXT',
+		'null'				=> TRUE
+	),						
+	'created_at' => array(
+		'type'				=> 'DATETIME',
+		'null'				=> TRUE,
+		'default'			=> '9999-12-31 00:00:00'				
+	),
+	'updated_at' => array(
+		'type'				=> 'DATETIME',
+		'null'				=> TRUE,
+		'default'			=> '9999-12-31 00:00:00'				
+	)			
+);
+
+$config['database_places_table'] = array(
+	'place_id' => array(
+		'type' 				=> 'INT',
+		'constraint' 		=> 32,
+		'unsigned' 			=> TRUE,
+		'auto_increment'	=> TRUE
+	),
+	'content_id' => array(
+		'type'				=> 'INT',
+		'constraint'		=> 11,
+		'null'				=> TRUE
+	),
+	'address' => array(
+		'type'				=> 'VARCHAR',
+		'constraint'		=> 128,
+		'null'				=> TRUE
+	),
+	'district' => array(
+		'type'				=> 'VARCHAR',
+		'constraint'		=> 128,
+		'null'				=> TRUE
+	),
+	'locality' => array(
+		'type'				=> 'VARCHAR',
+		'constraint'		=> 128,
+		'null'				=> TRUE
+	),
+	'region' => array(
+		'type'				=> 'VARCHAR',
+		'constraint'		=> 128,
+		'null'				=> TRUE
+	),
+	'country' => array(
+		'type'				=> 'VARCHAR',
+		'constraint'		=> 64,
+		'null'				=> TRUE
+	),	
+	'postal' => array(
+		'type'				=> 'VARCHAR',
+		'constraint'		=> 63,
+		'null'				=> TRUE
+	)														
+);
+
+$config['database_oauth_server_nonce_table'] = array(
+	'osn_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 11,
+		'auto_increment'		=> TRUE
+	),
+	'osn_consumer_key' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> FALSE,
+		'unique'				=> TRUE
+	),
+	'osn_token' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> FALSE,
+		'unique'				=> TRUE				
+	),
+	'osn_timestamp' => array(
+		'type'					=> 'BIGINT',
+		'constraint'			=> 20,
+		'null'					=> FALSE,
+		'unique'				=> TRUE				
+	),
+	'osn_nonce' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 80,
+		'null'					=> FALSE,
+		'unique'				=> TRUE				
+	)			
+);
+
+$config['database_oauth_server_registry_table'] = array(
+	'osr_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 11,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'osr_usa_id_ref' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'osr_consumer_key' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> FALSE
+	),
+	'osr_consumer_secret' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> FALSE
+	),
+	'osr_enabled' => array(
+		'type'					=> 'TINYINT',
+		'constraint'			=> 1,
+		'null'					=> FALSE
+	),
+	'osr_status' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 16,
+		'null'					=> FALSE
+	),	
+	'osr_requester_name' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> FALSE
+	),				
+	'osr_requester_email' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> FALSE
+	),
+	'osr_callback_uri' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> FALSE
+	),
+	'osr_application_uri' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> FALSE
+	),
+	'osr_application_title' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> FALSE
+	),
+	'osr_application_descr' => array(
+		'type'					=> 'TEXT',
+		'null'					=> FALSE
+	),
+	'osr_application_notes' => array(
+		'type'					=> 'TEXT',
+		'null'					=> FALSE
+	),									
+	'osr_application_type' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 20,
+		'null'					=> FALSE
+	),
+	'osr_application_commerical' => array(
+		'type'					=> 'TINYINT',
+		'constraint'			=> 1,
+		'null'					=> FALSE,
+		'default'				=> 0
+	),
+	'osr_issue_date' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> FALSE,
+	),
+	'osr_timestamp' => array(
+		'type'					=> "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+	)
+);
+
+$config['database_oauth_server_token_table'] = array(
+	'ost_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'ost_osr_id_ref' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> FALSE
+	),
+	'ost_usa_id_ref' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> FALSE
+	),
+	'ost_token' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> TRUE
+	),
+	'ost_token_secret' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> TRUE
+	),
+	'ost_token_type' => array(
+		'type'					=> "enum('request','access')",
+		'null'					=> TRUE
+	),
+	'ost_authorized' => array(
+		'type'					=> 'TINYINT',
+		'constraint'			=> 1,
+		'null'					=> FALSE
+	),
+	'ost_referrer_host' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 128,
+		'null'					=> TRUE
+	),
+	'ost_token_ttl' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> FALSE,
+		'default'				=> '9999-12-31 00:00:00'
+	),			
+	'ost_timestamp' => array(
+		'type'					=> "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+	),
+	'ost_verifier' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 10,
+		'null'					=> TRUE
+	),				
+	'ost_callback_url' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 512,
+		'null'					=> TRUE
+	)
+);
+
+$config['database_ratings_table'] = array(
+	'rating_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'site_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 8,
+		'null'					=> TRUE
+	),
+	'user_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'content_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'type' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'rating' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 6,
+		'null'					=> TRUE
+	),
+	'created_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE
+	)												
+);
+
+$config['database_relationships_table'] = array(
+	'relationship_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'site_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 8,
+		'null'					=> TRUE
+	),
+	'owner_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'user_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'module' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'type' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'status' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'created_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE
+	),
+	'updated_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE
+	)
+);
+
+$config['database_settings_table'] = array(
+	'settings_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'site_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 8,
+		'null'					=> TRUE
+	),
+	'module' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'setting' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'value' => array(
+		'type'					=> 'TEXT',
+		'null'					=> TRUE
+	)									
+);
+
+$config['database_sites_table'] = array(
+	'site_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 8,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'url' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'module' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'type' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'title' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	),
+	'favicon' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 255,
+		'null'					=> TRUE
+	)									
+);
+
+$config['database_tags_table'] = array(
+	'tag_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'tag' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 128,
+		'null'					=> TRUE
+	),
+	'tag_url' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 128,
+		'null'					=> TRUE
+	),
+	'created_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> TRUE
+	)
+);
+
+$config['database_tags_link_table'] = array(
+	'tag_link_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'tag_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'content_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'created_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> FALSE
+	)					
+);
+
+$config['database_taxnomy_table'] = array(
+	'taxonomy_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'object_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'taxonomy' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'count' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 16,
+		'null'					=> TRUE
+	)
+);
+
+$config['database_uploads_table'] = array(
+	'upload_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'user_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11,
+		'null'					=> TRUE
+	),
+	'consumer_key' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 48,
+		'null'					=> TRUE
+	),
+	'file_hash' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 48,
+		'null'					=> TRUE
+	),
+	'status' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'uploaded_at' => array(
+		'type'					=> 'DATETIME',
+		'null'					=> FALSE
+	)
+);
+
+$config['database_users_table'] = array(
+	'user_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 11,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'user_level_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 4,
+		'null'					=> TRUE
+	),
+	'ip_address' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 16,
+		'null'					=> TRUE
+	),
+	'username' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> TRUE
+	),
+	'password' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 48,
+		'null'					=> TRUE
+	),
+	'salt' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 40,
+		'null'					=> TRUE
+	),
+	'email' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 48,
+		'null'					=> TRUE
+	),
+	'gravatar' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 48,
+		'null'					=> TRUE
+	),
+	'phone_number' => array( 
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> TRUE
+	),
+	'name' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 128,
+		'null'					=> TRUE
+	),
+	'image' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 128,
+		'null'					=> TRUE
+	),
+	'time_zone' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 8,
+		'null'					=> TRUE
+	),
+	'privacy' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'language' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 8,
+		'null'					=> TRUE
+	),
+	'geo_enabled' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
+	'consumer_key' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 48,
+		'null'					=> TRUE
+	),
+	'consumer_secret' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 48,
+		'null'					=> TRUE
+	),				
+	'token' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 48,
+		'null'					=> TRUE
+	),
+	'token_secret' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 48,
+		'null'					=> TRUE
+	),
+	'activation_code' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 40,
+		'null'					=> TRUE
+	),
+	'forgotten_password_code' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 40,
+		'null'					=> TRUE
+	),
+	'active' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 1,
+		'unsigned' 				=> TRUE				
+	),
+	'remember_code' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 40,
+		'null'					=> TRUE
+	),
+	'created_on' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 16,
+		'null'					=> TRUE,
+		'unsigned' 				=> TRUE
+	),
+	'last_login' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 16,
+		'null'						=> TRUE,
+		'unsigned'				=> TRUE
+	)
+);
+
+$config['database_users_level_table'] = array(
+	'user_level_id' => array(
+		'type' 					=> 'TINYINT',
+		'constraint' 			=> 4,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'level' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32
+	),
+	'level_name' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32
+	),
+	'description' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 512
+	)
+);
+
+$config['database_users_meta_table'] = array(
+	'user_meta_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 32,
+		'unsigned' 				=> TRUE,
+		'auto_increment'		=> TRUE
+	),
+	'user_id' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 11
+	),
+	'site_id' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 6
+	),
+	'module' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 32,
+		'null'					=> TRUE
+	),
+	'meta' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 64,
+		'null'					=> TRUE
+	),
+	'value' => array(
+		'type'					=> 'TEXT',
+		'null'					=> TRUE
+	),
+	'created_at' => array(
+		'type'					=> 'DATETIME',
+		'default'				=> '0000-00-00 00:00:00'
+	),
+	'updated_at' => array(
+		'type'					=> 'DATETIME',
+		'default'				=> '0000-00-00 00:00:00'
+	)
+); 
+
+$config['database_users_sessions_table'] = array(
+	'session_id' => array(
+		'type' 					=> 'INT',
+		'constraint' 			=> 40,
+		'unsigned' 				=> TRUE,
+	),
+	'ip_address' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 16,
+		'null'					=> FALSE,
+		'default'				=> 0
+	),
+	'user_agent' => array(
+		'type'					=> 'VARCHAR',
+		'constraint'			=> 120,
+		'null'					=> TRUE
+	),
+	'last_activity' => array(
+		'type'					=> 'INT',
+		'constraint'			=> 10,
+		'null'					=> FALSE,
+		'default'				=> 0,
+		'unsigned'				=> TRUE
+	),
+	'user_data' => array(
+		'type'					=> 'TEXT',
+		'null'					=> FALSE
+	)
+);
+
+/* Data */
 $config['settings'] = array('site', 'title', 'Awesome Website');
 $config['settings'] = array('site', 'tagline', 'Where I Post All My Awesome Things');
 $config['settings'] = array('site', 'keywords', 'awesome, things, pictures, videos, poems, watermelons, cats, ninjas');
