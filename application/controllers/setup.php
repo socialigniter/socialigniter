@@ -13,4 +13,11 @@ class Setup extends MX_Controller
 	    
     }
 
+    function admin()
+    {
+	    
+	    echo 'create admin now';
+	    
+    }
+
 }

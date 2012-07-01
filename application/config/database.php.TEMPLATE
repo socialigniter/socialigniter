@@ -37,10 +37,10 @@
 $active_group = "dev";
 $active_record = TRUE;
 
-$db['dev']['hostname'] = 'localhost';
-$db['dev']['username'] = 'root';
+$db['dev']['hostname'] = '';
+$db['dev']['username'] = '';
 $db['dev']['password'] = '';
-$db['dev']['database'] = 'social-igniter';
+$db['dev']['database'] = '';
 $db['dev']['dbdriver'] = 'mysql';
 $db['dev']['dbprefix'] = "";
 $db['dev']['pconnect'] = TRUE;
@@ -53,10 +53,10 @@ $db['dev']['swap_pre'] = "";
 $db['dev']['autoinit'] = TRUE;
 $db['dev']['stricton'] = FALSE;
 
-$db['prod']['hostname'] = "localhost";
-$db['prod']['username'] = "root";
+$db['prod']['hostname'] = "";
+$db['prod']['username'] = "";
 $db['prod']['password'] = "";
-$db['prod']['database'] = "database_name";
+$db['prod']['database'] = "";
 $db['prod']['dbdriver'] = "mysql";
 $db['prod']['dbprefix'] = "";
 $db['prod']['pconnect'] = TRUE;
