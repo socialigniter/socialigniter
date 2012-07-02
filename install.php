@@ -14,13 +14,11 @@ if ($_POST["hostname"])
 	$username		= $_POST["username"];
 	$password		= $_POST["password"];
 	$database_name 	= $_POST["database"];
-	
 	$database_file 	= file_get_contents("./application/config/database.php.TEMPLATE", FILE_USE_INCLUDE_PATH);
 	$database_file 	= str_replace("{INSTALL_DB_HOSTNAME}", $hostname, $database_file);
 	$database_file 	= str_replace("{INSTALL_DB_USERNAME}", $username, $database_file);
 	$database_file 	= str_replace("{INSTALL_DB_PASSWORD}", $password, $database_file);
 	$database_file 	= str_replace("{INSTALL_DB_DATABASE}", $database_name, $database_file);
-	
 	file_put_contents("./application/config/database.php", $database_file);
 	
 	// Make Files
@@ -77,6 +75,17 @@ div.separator {
 //<![CDATA[
 $(document).ready(function()
 {
+	// Show Fresh Setup or Existing
+	<?php if (file_exists('./application/config/config.php')): ?>
+	$('#step_5').fadeIn();
+	base_url = $.url.attr('protocol') + '://' + $.url.attr('host') + '/';
+	$('#go_to_website').attr('href', base_url).html(base_url);
+	$('#go_to_dashboard').attr('href', base_url + 'home').html(base_url + 'home');
+	<?php else: ?>
+	$('#step_1').fadeIn();
+	base_url = $.url.attr('protocol') + '://' + $.url.attr('host') + '/';
+	$('#base_url').val(base_url);	
+	<?php endif; ?>
 
 	$('#install_step_1').bind('submit', function(e)
 	{	
@@ -194,6 +203,12 @@ $(document).ready(function()
 				console.log('Step 4');
 				console.log(result);
 	
+				base_url = $('#base_url').val();
+	
+				$('#go_to_website').attr('href', base_url).html(base_url);
+				$('#go_to_dashboard').attr('href', base_url + 'home').html(base_url + 'home');
+
+	
 				$('#step_4').fadeOut();
 				$('#step_5').fadeIn();					
 				
@@ -214,7 +229,7 @@ $(document).ready(function()
 
 	<div class="separator"></div>
 
-	<div id="step_1">
+	<div id="step_1" class="hide">
 	<form name="install_step_1" id="install_step_1" method="POST">
 
 		<h2>Site URL</h2>
@@ -304,6 +319,10 @@ $(document).ready(function()
 		
 		<h2>Awesome!</h2>
 		<p>Your site is now setup. Go em get em tiger!</p>
+		
+		<p>Go to your website <a id="go_to_website" href=""></a>
+		<p>Go to your dashboard <a id="go_to_dashboard" href=""></a>
+
 		
 	</div>
 
