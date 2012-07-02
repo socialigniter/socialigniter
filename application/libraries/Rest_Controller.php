@@ -27,6 +27,19 @@ class Rest_Controller extends MX_Controller
     // Constructor function
     function __construct()
     {
+        // Database
+        $this->load->database();
+        
+        // Lets grab the config and get ready to party
+        $this->load->config('rest');        
+
+        // Load Libraries
+        $this->load->library('session');
+        $this->load->library('user_agent');
+        $this->load->library('social_auth');
+        $this->load->library('social_igniter');
+        $this->load->library('social_tools');        
+    
 		// Site Settings
 		// Added by Brennan Novak for Social Igniter
 		foreach ($this->social_igniter->get_settings() as $setting)
@@ -36,9 +49,6 @@ class Rest_Controller extends MX_Controller
     
 	    // How is this request being made? POST, DELETE, GET, PUT?
 	    $this->request->method = $this->_detect_method();
-
-        // Lets grab the config and get ready to party
-        $this->load->config('rest');
 
         if ($this->config->item('rest_auth') == 'basic')
         {

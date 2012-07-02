@@ -11,7 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']			= "http://domain.com/";
+$config['base_url']			= "{INSTALL_BASE_URL}";
 
 /*
 |--------------------------------------------------------------------------
@@ -250,7 +250,7 @@ $config['cache_path'] = '';
 | enabled you MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = "ff91fd16832111f1a5ffdb0f37e1a756";
+$config['encryption_key'] = '{INSTALL_ENCRYPTION_KEY}';
 
 /*
 |--------------------------------------------------------------------------
@@ -267,7 +267,7 @@ $config['encryption_key'] = "ff91fd16832111f1a5ffdb0f37e1a756";
 $config['sess_cookie_name']		= 'users_session';
 $config['sess_expiration']		= 0;
 $config['sess_encrypt_cookie']	= TRUE;
-$config['sess_use_database']	= TRUE;
+$config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'users_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
@@ -362,7 +362,7 @@ $config['time_reference'] = 'local';
 | in your view files.  Options are TRUE or FALSE (boolean)
 |
 */
-$config['rewrite_short_tags'] = FALSE;
+$config['rewrite_short_tags'] = TRUE;
 
 
 /*

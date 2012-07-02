@@ -37,10 +37,10 @@
 $active_group = "dev";
 $active_record = TRUE;
 
-$db['dev']['hostname'] = '';
-$db['dev']['username'] = '';
-$db['dev']['password'] = '';
-$db['dev']['database'] = '';
+$db['dev']['hostname'] = '{INSTALL_DB_HOSTNAME}';
+$db['dev']['username'] = '{INSTALL_DB_USERNAME}';
+$db['dev']['password'] = '{INSTALL_DB_PASSWORD}';
+$db['dev']['database'] = '{INSTALL_DB_DATABASE}';
 $db['dev']['dbdriver'] = 'mysql';
 $db['dev']['dbprefix'] = "";
 $db['dev']['pconnect'] = TRUE;

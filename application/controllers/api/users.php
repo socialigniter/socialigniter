@@ -206,7 +206,6 @@ class Users extends Oauth_Controller
 
         if ($this->form_validation->run() == true)
         {
-        
 			$username			= url_username($this->input->post('name'), 'none', true);
 	    	$email				= $this->input->post('email');
 	    	$password			= $this->input->post('password');

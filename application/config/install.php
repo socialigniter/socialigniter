@@ -485,184 +485,6 @@ $config['database_places_table'] = array(
 	)														
 );
 
-$config['database_oauth_server_nonce_table'] = array(
-	'osn_id' => array(
-		'type' 					=> 'INT',
-		'constraint' 			=> 11,
-		'auto_increment'		=> TRUE
-	),
-	'osn_consumer_key' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 64,
-		'null'					=> FALSE,
-		'unique'				=> TRUE
-	),
-	'osn_token' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 64,
-		'null'					=> FALSE,
-		'unique'				=> TRUE				
-	),
-	'osn_timestamp' => array(
-		'type'					=> 'BIGINT',
-		'constraint'			=> 20,
-		'null'					=> FALSE,
-		'unique'				=> TRUE				
-	),
-	'osn_nonce' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 80,
-		'null'					=> FALSE,
-		'unique'				=> TRUE				
-	)			
-);
-
-$config['database_oauth_server_registry_table'] = array(
-	'osr_id' => array(
-		'type' 					=> 'INT',
-		'constraint' 			=> 11,
-		'unsigned' 				=> TRUE,
-		'auto_increment'		=> TRUE
-	),
-	'osr_usa_id_ref' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 11,
-		'null'					=> TRUE
-	),
-	'osr_consumer_key' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 64,
-		'null'					=> FALSE
-	),
-	'osr_consumer_secret' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 64,
-		'null'					=> FALSE
-	),
-	'osr_enabled' => array(
-		'type'					=> 'TINYINT',
-		'constraint'			=> 1,
-		'null'					=> FALSE
-	),
-	'osr_status' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 16,
-		'null'					=> FALSE
-	),	
-	'osr_requester_name' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 64,
-		'null'					=> FALSE
-	),				
-	'osr_requester_email' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 64,
-		'null'					=> FALSE
-	),
-	'osr_callback_uri' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 255,
-		'null'					=> FALSE
-	),
-	'osr_application_uri' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 255,
-		'null'					=> FALSE
-	),
-	'osr_application_title' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 255,
-		'null'					=> FALSE
-	),
-	'osr_application_descr' => array(
-		'type'					=> 'TEXT',
-		'null'					=> FALSE
-	),
-	'osr_application_notes' => array(
-		'type'					=> 'TEXT',
-		'null'					=> FALSE
-	),									
-	'osr_application_type' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 20,
-		'null'					=> FALSE
-	),
-	'osr_application_commerical' => array(
-		'type'					=> 'TINYINT',
-		'constraint'			=> 1,
-		'null'					=> FALSE,
-		'default'				=> 0
-	),
-	'osr_issue_date' => array(
-		'type'					=> 'DATETIME',
-		'null'					=> FALSE,
-	),
-	'osr_timestamp' => array(
-		'type'					=> "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
-	)
-);
-
-$config['database_oauth_server_token_table'] = array(
-	'ost_id' => array(
-		'type' 					=> 'INT',
-		'constraint' 			=> 32,
-		'unsigned' 				=> TRUE,
-		'auto_increment'		=> TRUE
-	),
-	'ost_osr_id_ref' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 11,
-		'null'					=> FALSE
-	),
-	'ost_usa_id_ref' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 11,
-		'null'					=> FALSE
-	),
-	'ost_token' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 64,
-		'null'					=> TRUE
-	),
-	'ost_token_secret' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 64,
-		'null'					=> TRUE
-	),
-	'ost_token_type' => array(
-		'type'					=> "enum('request','access')",
-		'null'					=> TRUE
-	),
-	'ost_authorized' => array(
-		'type'					=> 'TINYINT',
-		'constraint'			=> 1,
-		'null'					=> FALSE
-	),
-	'ost_referrer_host' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 128,
-		'null'					=> TRUE
-	),
-	'ost_token_ttl' => array(
-		'type'					=> 'DATETIME',
-		'null'					=> FALSE,
-		'default'				=> '9999-12-31 00:00:00'
-	),			
-	'ost_timestamp' => array(
-		'type'					=> "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
-	),
-	'ost_verifier' => array(
-		'type'					=> 'CHAR',
-		'constraint'			=> 10,
-		'null'					=> TRUE
-	),				
-	'ost_callback_url' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 512,
-		'null'					=> TRUE
-	)
-);
-
 $config['database_ratings_table'] = array(
 	'rating_id' => array(
 		'type' 					=> 'INT',
@@ -1134,106 +956,108 @@ $config['database_users_sessions_table'] = array(
 	)
 );
 
-/* Data */
-$config['settings'] = array('site', 'title', 'Awesome Website');
-$config['settings'] = array('site', 'tagline', 'Where I Post All My Awesome Things');
-$config['settings'] = array('site', 'keywords', 'awesome, things, pictures, videos, poems, watermelons, cats, ninjas');
-$config['settings'] = array('site', 'description', 'This is my awesome website where I post awesome stuff. Some of my favorite things are ninjas, watermelons, and cats');
-$config['settings'] = array('site', 'url', 'http://domainname.com');
-$config['settings'] = array('site', 'admin_email', 'you@email.com');
-$config['settings'] = array('site', 'languages_default', 'en');
-$config['settings'] = array('site', 'images_sizes_large', 'yes');
-$config['settings'] = array('site', 'images_sizes_medium', 'yes');
-$config['settings'] = array('site', 'images_sizes_small', 'yes');
-$config['settings'] = array('site', 'images_large_width', '425');
-$config['settings'] = array('site', 'images_large_height', '235');
-$config['settings'] = array('site', 'images_medium_width', '375');
-$config['settings'] = array('site', 'images_medium_height', '235');
-$config['settings'] = array('site', 'images_small_width', '125');
-$config['settings'] = array('site', 'images_small_height', '125');
-$config['settings'] = array('site', 'images_sizes_original', 'yes');
-$config['settings'] = array('themes', 'site_theme', 'site_default');
-$config['settings'] = array('themes', 'dashboard_theme', 'dashboard_default');
-$config['settings'] = array('themes', 'mobile_theme', 'mobile_default');
-$config['settings'] = array('widgets', 'sidebar', '{"module":"users","name":"Login","method":"view","path":"partials/widget_login","enabled":"TRUE","order":"1"}');
-$config['settings'] = array('widgets', 'sidebar', '{"module":"widgets","name":"Text","method":"text","path":"","enabled":"TRUE","order":"2","content":"<h2>Hello</h2><p>Thanks for stopping by. We absolutely love visitors. Take off your digital shoes, relax, and feast your eyes on our pretty pixels!</p>"}');
-$config['settings'] = array('services', 'email_protocol', 'mail');
-$config['settings'] = array('services', 'smtp_host', '');
-$config['settings'] = array('services', 'smtp_user', '');
-$config['settings'] = array('services', 'smtp_pass', '');
-$config['settings'] = array('services', 'smtp_post', '');
-$config['settings'] = array('services', 'mobile_enabled', 'TRUE');
-$config['settings'] = array('services', 'mobile_module', '');
-$config['settings'] = array('services', 'google_webmaster', '');
-$config['settings'] = array('services', 'google_analytics', '');
-$config['settings'] = array('services', 'bing_webmaster', '');
-$config['settings'] = array('services', 'gravatar_enabled', 'TRUE');
-$config['settings'] = array('services', 'bitly_enabled', 'TRUE');
-$config['settings'] = array('services', 'bitly_login', '');
-$config['settings'] = array('services', 'bitly_api_key', '');
-$config['settings'] = array('services', 'bitly_domain', 'bit.ly');
-$config['settings'] = array('services', 'akismet_key', 'dc0465ba152f');
-$config['settings'] = array('services', 'recaptcha_public', '6Lch7LwSAAAAACP2t2e1qpIQ9Cz7AsvXRfJf1yW_');
-$config['settings'] = array('services', 'recaptcha_private', '6Lch7LwSAAAAAJvERNehdFPPPZ5TQjd1DgjJRTmK');
-$config['settings'] = array('services', 'recaptcha_theme', 'white');
-$config['settings'] = array('comments', 'enabled', 'TRUE');
-$config['settings'] = array('comments', 'reply', 'TRUE');
-$config['settings'] = array('comments', 'reply_level', '2');
-$config['settings'] = array('comments', 'email_signup', 'TRUE');
-$config['settings'] = array('comments', 'email_replies', 'TRUE');
-$config['settings'] = array('comments', 'akismet', 'TRUE');
-$config['settings'] = array('comments', 'recaptcha', 'TRUE');
-$config['settings'] = array('comments', 'date_style', 'ELAPSED');
-$config['settings'] = array('places', 'enabled', 'TRUE');
-$config['settings'] = array('places', 'crud_permission', '2');
-$config['settings'] = array('places', 'ratings_allow', 'no');
-$config['settings'] = array('places', 'comments_per_page', '5');
-$config['settings'] = array('places', 'comments_allow', 'no');
-$config['settings'] = array('places', 'tags_display', 'no');
-$config['settings'] = array('ratings', 'enabled', 'TRUE');
-$config['settings'] = array('ratings', 'rate_type', 'TRUE');
-$config['settings'] = array('home', 'public_timeline', 'TRUE');
-$config['settings'] = array('home', 'date_style', 'ELAPSED');
-$config['settings'] = array('home', 'status_length', '140');
-$config['settings'] = array('home', 'description_length', '110');
-$config['settings'] = array('home', 'share', 'TRUE');
-$config['settings'] = array('home', 'like', 'TRUE');
-$config['settings'] = array('home', 'comments_allow', 'TRUE');
-$config['settings'] = array('home', 'comments_per_page', '2');
-$config['settings'] = array('users', 'crud_permission', '2');
-$config['settings'] = array('users', 'signup', 'TRUE');
-$config['settings'] = array('users', 'signup_recaptcha', 'TRUE');
-$config['settings'] = array('users', 'login', 'TRUE');
-$config['settings'] = array('users', 'login_recaptcha', 'TRUE');
-$config['settings'] = array('users', 'profile', 'TRUE');
-$config['settings'] = array('users', 'profile_activity', 'TRUE');
-$config['settings'] = array('users', 'profile_relationships', 'TRUE');
-$config['settings'] = array('users', 'profile_content', 'TRUE');
-$config['settings'] = array('users', 'message_allow', 'TRUE');
-$config['settings'] = array('users', 'message_recaptcha', '5');
-$config['settings'] = array('users', 'comments_allow', 'TRUE');
-$config['settings'] = array('users', 'comments_per_page', '10');
-$config['settings'] = array('users', 'images_sizes_large', 'yes');
-$config['settings'] = array('users', 'images_sizes_medium', 'yes');
-$config['settings'] = array('users', 'images_sizes_small', 'yes');
-$config['settings'] = array('users', 'images_large_width', '275');
-$config['settings'] = array('users', 'images_large_height', '175');
-$config['settings'] = array('users', 'images_medium_width', '48');
-$config['settings'] = array('users', 'images_medium_height', '48');
-$config['settings'] = array('users', 'images_small_width', '45');
-$config['settings'] = array('users', 'images_small_height', '25');
-$config['settings'] = array('users', 'images_formats', 'gif|jpg|jpeg|png');
-$config['settings'] = array('users', 'images_max_size', '25600');
-$config['settings'] = array('users', 'images_full_width', '750');
-$config['settings'] = array('users', 'images_full_height', '750');
-$config['settings'] = array('users', 'images_sizes_full', 'yes');
-$config['settings'] = array('users', 'images_folder', 'uploads/profiles/');
-$config['settings'] = array('users', 'images_max_dimensions', '3000');
-$config['settings'] = array('users', 'images_sizes_original', 'yes');
+/* Settings */
+$config['site_settings']['images_sizes_large']			= 'yes';
+$config['site_settings']['images_sizes_medium'] 		= 'yes';
+$config['site_settings']['images_sizes_small'] 			= 'yes';
+$config['site_settings']['images_large_width'] 			= '425';
+$config['site_settings']['images_large_height'] 		= '235';
+$config['site_settings']['images_medium_width'] 		= '375';
+$config['site_settings']['images_medium_height'] 		= '235';
+$config['site_settings']['images_small_width'] 			= '125';
+$config['site_settings']['images_small_height'] 		= '125';
+$config['site_settings']['images_sizes_original'] 		= 'yes';
+$config['site_settings']['languages_default'] 			= 'en';
+$config['design_settings']['site_logo'] 				= '';
+$config['design_settings']['header_image'] 				= '';
+$config['design_settings']['header_position'] 			= 'left top';
+$config['design_settings']['header_repeat'] 			= 'repeat-x';
+$config['design_settings']['header_color'] 				= 'ffffff';
+$config['design_settings']['background_image'] 			= '';
+$config['design_settings']['background_position'] 		= 'left top';
+$config['design_settings']['background_repeat'] 		= 'repeat-x';
+$config['design_settings']['background_color'] 			= 'ffffff';
+$config['design_settings']['link_color_normal'] 		= '0066CC';
+$config['design_settings']['link_color_visited'] 		= '0066CC';
+$config['design_settings']['link_color_hover'] 			= 'ff3300';
+$config['design_settings']['header_link_color_normal'] 	= '0066CC';
+$config['design_settings']['header_link_color_visited'] = '0066CC';
+$config['design_settings']['header_link_color_hover'] 	= 'ff3300';
+$config['themes_settings']['site_theme'] 				= 'site_default';
+$config['themes_settings']['dashboard_theme'] 			= 'dashboard_default';
+$config['themes_settings']['mobile_theme'] 				= 'mobile_default';
+$config['services_settings']['email_protocol'] 			= 'mail';
+$config['services_settings']['smtp_host'] 				= '';
+$config['services_settings']['smtp_user'] 				= '';
+$config['services_settings']['smtp_pass'] 				= '';
+$config['services_settings']['smtp_port'] 				= '';
+$config['services_settings']['mobile_enabled'] 			= 'FALSE';
+$config['services_settings']['mobile_module'] 			= '--select--';
+$config['services_settings']['google_webmaster'] 		= '';
+$config['services_settings']['google_analytics'] 		= '';
+$config['services_settings']['bing_webmaster'] 			= '';
+$config['services_settings']['gravatar_enabled'] 		= 'TRUE';
+$config['services_settings']['bitly_enabled'] 			= 'TRUE';
+$config['services_settings']['bitly_login'] 			= '';
+$config['services_settings']['bitly_api_key'] 			= '';
+$config['services_settings']['bitly_domain'] 			= 'bit.ly';
+$config['services_settings']['akismet_key'] 			= '';
+$config['services_settings']['recaptcha_public'] 		= '';
+$config['services_settings']['recaptcha_private'] 		= '';
+$config['services_settings']['recaptcha_theme'] 		= 'white';
+$config['comments_settings']['enabled'] 				= 'TRUE';
+$config['comments_settings']['reply'] 					= 'TRUE';
+$config['comments_settings']['reply_level'] 			= '2';
+$config['comments_settings']['email_signup'] 			= 'TRUE';
+$config['comments_settings']['email_replies'] 			= 'TRUE';
+$config['comments_settings']['akismet'] 				= 'TRUE';
+$config['comments_settings']['recaptcha'] 				= 'TRUE';
+$config['comments_settings']['date_style'] 				= 'ELAPSED';
+$config['ratings_settings']['enabled'] 					= 'TRUE';
+$config['ratings_settings']['rate_type'] 				= 'TRUE';
+$config['home_settings']['view_permission'] 			= '4';
+$config['home_settings']['create_permission'] 			= '4';
+$config['home_settings']['view_redirect'] 				= '';
+$config['home_settings']['public_timeline'] 						= 'TRUE';
+$config['home_settings']['status_length'] 				= '140';
+$config['home_settings']['date_style'] 					= 'ELAPSED';
+$config['home_settings']['description_length'] 			= '110';
+$config['home_settings']['share'] 						= 'TRUE';
+$config['home_settings']['like'] 						= 'TRUE';
+$config['home_settings']['comments_allow'] 				= 'TRUE';
+$config['home_settings']['comments_per_page'] 			= '2';
+$config['users_settings']['signup'] 					= 'TRUE';
+$config['users_settings']['signup_recaptcha'] 			= 'TRUE';
+$config['users_settings']['login'] 						= 'TRUE';
+$config['users_settings']['login_recaptcha'] 			= 'TRUE';
+$config['users_settings']['create_permission'] 			= '2';
+$config['users_settings']['manage_permission'] 			= '2';
+$config['users_settings']['profile'] 					= 'TRUE';
+$config['users_settings']['profile_activity'] 			= 'TRUE';
+$config['users_settings']['profile_relationships'] 		= 'TRUE';
+$config['users_settings']['profile_content'] 			= 'TRUE';
+$config['users_settings']['message_allow'] 				= 'TRUE';
+$config['users_settings']['message_recaptcha']			= '5';
+$config['users_settings']['comments_allow'] 			= 'TRUE';
+$config['users_settings']['comments_per_page'] 			= '10';
+$config['users_settings']['images_sizes_large'] 		= 'yes';
+$config['users_settings']['images_sizes_medium'] 		= 'yes';
+$config['users_settings']['images_sizes_small'] 		= 'yes';
+$config['users_settings']['images_large_width'] 		= '275';
+$config['users_settings']['images_large_height'] 		= '175';
+$config['users_settings']['images_medium_width'] 		= '48';
+$config['users_settings']['images_medium_height'] 		= '48';
+$config['users_settings']['images_small_width'] 		= '45';
+$config['users_settings']['images_small_height'] 		= '25';
+$config['users_settings']['images_formats'] 			= 'gif|jpg|jpeg|png';
+$config['users_settings']['images_max_size'] 			= '5120';
+$config['users_settings']['images_full_width'] 			= '750';
+$config['users_settings']['images_full_height'] 		= '750';
+$config['users_settings']['images_sizes_full'] 			= 'yes';
+$config['users_settings']['images_folder'] 				= 'uploads/profiles/';
+$config['users_settings']['images_max_dimensions'] 		= '3000';
+$config['users_settings']['images_sizes_original'] 		= 'yes';
+$config['users_settings']['settings_level'] 			= '4';
+$config['users_settings']['settings_redirect'] 			= '';
 
-$config['sites'] 		= array('http://social-igniter.com', 'default', 'Social-Igniter', 'A Really Simple Open Source Social Web Application Template', 'Social-Igniter is a really simple open source social web application template', 'social, web application, open source, codeigniter, php');
-
-$config['users_level']	= array('superadmin', 'Super Admin', 'Super Admins are the head honchos who have power to do anything they want on your install of Social Igniter');
-$config['users_level']	= array('admin', 'Admin', 'Admins can do most things, not all, but most things needed on a site');
-$config['users_level'] 	= array('superuser', 'Super User', 'Supers Users help keep the ship on course, they do some things, but not all');
-$config['users_level'] 	= array('user', 'User', 'Users are just regular Joes or Joesephines. They use your application as it is intended for the general public');
+/* End install.php */

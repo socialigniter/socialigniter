@@ -40,12 +40,19 @@ class MY_Controller extends MX_Controller
             show_error('Sorry the site is shut for now.');
         }
 
+        // Database
+        $this->load->database();
+
 		// Load Language
  		$this->lang->load('social_igniter', 'english');
  		$this->lang->load('activity_stream', 'english'); 	
 
         // Load Libraries
+        $this->load->library('session');
         $this->load->library('user_agent');
+        $this->load->library('social_auth');
+        $this->load->library('social_igniter');
+        $this->load->library('social_tools');
 
         // Disable IE7's constant caching
         $this->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');

@@ -51,7 +51,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','session','form_validation','social_auth','social_igniter','social_tools');
+$autoload['libraries'] = array('form_validation');
 
 /*
 | -------------------------------------------------------------------
