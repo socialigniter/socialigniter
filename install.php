@@ -42,33 +42,34 @@ fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, 
 ol, ul { list-style: none; } blockquote, q { quotes: none; } blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; } table { border-collapse: collapse; border-spacing: 0; }
 
 /* Start App CSS */
-body { font-family: Helvetica, Arial, sans-serif; }
+body 		{ font-family: Helvetica, Arial, sans-serif; }
+h1, h2, h3	{ font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
+h1			{ color: #444; font-size: 36px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
+h2			{ color: #444; font-size: 30px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
+h3			{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
+p 			{ font-size: 14px; margin: 5px 0; line-height: 21px; }
+.hide 		{ display: none; }
+.clear		{ clear: both; }
+#container	{ width: 700px; min-height: 350px; margin: 45px auto; padding: 0 25px 25px 25px; text-align: left; }
+#logo		{ height: 125px; float: right; margin-left: 15px; margin-bottom: 20px; }
+#welcome h1	{ float: left; }
+#welcome p	{ float: left; width: 500px; margin-top: 20px; }
 
-h1 { font-size: 36px; margin: 25px 0; }
-h2 { font-size: 30px; margin: 25px 0; }
-p { font-size: 14px; margin: 5px 0; line-height: 21px; }
-
-.hide { display: none; }
-
-div.separator {
-	width: 100%;
-	height: 1px;
-	background: #999999;
-	border-bottom: 1px solid #eeeeee;
-	margin: 25px 0;
-}
-
-#container {
-	width: 650px;
-	margin: 45px auto;
-	background: #d9d9d9;
-	border-radius: 15px;
-	border: 1px solid #999999;
-	padding: 0 25px 25px 25px;
-}
+div.norm_top 				{ width: 700px; height: 12px; background: url('/application/views/dashboard_default/assets/images/content_norm_top.png') 0 0 no-repeat; margin: 0; }
+div.norm_mid 				{ width: 700px; background: url('/application/views/dashboard_default/assets/images/content_norm_mid.png') 0 0 repeat-y; margin: 0 0; padding: 10px 0; }
+div.norm_bot 				{ width: 700px; height: 12px; background: url('/application/views/dashboard_default/assets/images/content_norm_bot.png') 0 0 no-repeat; margin: 0 0 15px 0; }
+div.norm_separator			{ width: 671px; height: 18px; margin: 6px auto 12px auto; background: url('/application/views/dashboard_default/assets/images/content_norm_separator.png') 0 0 no-repeat; }
+div.content_wrap 			{ margin: 15px 25px 15px 25px; }
+div.content_wrap h2			{ margin: 25px 0 25px 0; }
+div.content_wrap h2 span	{ color: #999999; font-style: italic; }
+div.content_wrap h3 		{ margin: 15px 0 15px 0; }
+div.content_wrap h3 span	{ color: #999999; font-style: italic; }
+div.content_wrap a 			{ color: #2078ce; text-decoration: none; }
+div.content_wrap a:visited	{ color: #2078ce; text-decoration: underline; }
+div.content_wrap a:hover	{ color: #2078ce; text-decoration: underline; }
+div.content_wrap input[type=button]	{ margin: 0px 0px 25px 0px; }
 
 </style>
-
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/social.core.js"></script>
 <script type="text/javascript">
@@ -224,108 +225,102 @@ $(document).ready(function()
 <body>
 <div id="container">
 
-	<h1>Install Social-Igniter</h1>
-	<p>Howdi, you have taken the first step to setting up your own little corner on the internet, but first we need you to tell us a few things before your site can work properly.</p>
+	<div class="content norm_top"></div>	
+	<div class="content norm_mid">	
 
-	<div class="separator"></div>
-
-	<div id="step_1" class="hide">
-	<form name="install_step_1" id="install_step_1" method="POST">
-
-		<h2>Site URL</h2>
-		<p>URL of your website <input type="text" name="base_url" id="base_url" placeholder="http://example.com/"></p>
-
-		<h2>Database Settings</h2>
-		<p>The hostname of your database server. <input type="text" id="db_hostname" placeholder="localhost" name="hostname"></p>
-		<p>The username used to connect to the database. <input type="text" id="db_username" placeholder="root" name="username"></p>
-		<p>The password used to connect to the database. <input type="password" id="db_password" placeholder="" name="password"></p> 
-		<p>The name of the database you want to connect to. <input type="text" id="db_database" placeholder="social-igniter" name="database"></p>
-
-		<p><input type="submit" value="Continue"></p>
-		
-	</form>
-	</div>
-
-	<div id="step_2" class="hide">
-		
-		<h2 id="step_2_title">Creating Database...</h2>
-		
-	</div>
-
-
-	<div id="step_3" class="hide">
-	<form name="install_step_3" id="install_step_3" method="POST">
-
-		<h2>Your Information</h2>
-		<p>Enter information for who will be owning or controlling this website</p>
-
-		<table border="0" cellpadding="0" cellspacing="0">
-			<tr>
-			  <td>Name</td>
-			  <td>
-			  	<input type="text" name="name" id="signup_name" placeholder="Joe Smith" value="">
-			  	<span id="signup_name_error"></span>
-			  </td>
-			</tr>
-			<tr>
-			  <td>Email</td>
-			  <td>
-			  	<input type="text" name="email" id="signup_email" placeholder="your@email.com" value="">
-		  		<span id="signup_email_error"></span>
-			  </td>
-			</tr>
-			<tr>  
-			  <td>Password</td>
-			  <td>
-			  	<input type="password" name="password" id="signup_password" placeholder="********" value="">
-			  	<span id="signup_password_error"></span>
-			  </td>
-			</tr>
-			<tr>  
-			  <td>Confirm Password</td>
-			  <td>
-			  	<input type="password" name="password_confirm" id="signup_password_confirm" placeholder="********" value="">
-			  	<span id="signup_password_confirm_error"></span> 
-			  </td>
-			</tr>
-			<tr> 
-			  <td colspan="2"><input type="submit" name="submit" value="Signup"></td>
-			</tr>
-		</table>	
-		<input type="hidden" name="session" value="1">
-		<input type="hidden" name="remember" value="1">
-		
-	</form>
-	</div>
+		<div id="welcome" class="content_wrap">
+			<img id="logo" src="images/si_logo.png">
+			<h1>Install Social-Igniter</h1>
+			<p>Welcome and thanks for downloading Social-Igniter, you have taken the first step to setting up your own little corner on the internet. Great job Ace, but first we need you to tell us a few things before your site will work properly.</p>
+			<div class="clear"></div>
+		</div>
 	
-	<div id="step_4" class="hide">
-	<form name="install_step_4" id="install_step_4" method="POST">
-
-		<h2>Website Information</h2>
-		<p>So people know what website they are visiting :)</p>
-
-		<p>Site Name<br> <input type="text" name="title" id="site_title" placeholder="My Awesome Website" value=""></p>
-		<p>Tagline<br> <input type="text" name="tagline" id="site_tagline" placeholder="Where I Post All My Awesome Things" value=""></p>
-		<p>Keywords<br> <input type="text" name="keywords" id="site_keywords" placeholder="awesome, things, pictures, videos, poems, watermelons, cats, ninjas" value=""></p> 
-		<p>Description<br> <textarea name="description" id="site_description" placeholder="This is my awesome website where I post awesome stuff. Some of my favorite things are ninjas, watermelons, and cats" cols="40" rows="7"></textarea>
-
-		<p><input type="submit" value="Continue"></p>
-		
-	</form>
-	</div>	
+		<div class="norm_separator"></div>
 	
-
-	<div id="step_5" class="hide">
+		<div class="content_wrap">
 		
-		<h2>Awesome!</h2>
-		<p>Your site is now setup. Go em get em tiger!</p>
+			<div id="step_1" class="hide">
+			<form name="install_step_1" id="install_step_1" method="POST">
+				<h2>Site URL</h2>
+				<p>Of your website <input type="text" name="base_url" id="base_url" placeholder="http://example.com/"></p>
+				<h2>Database Settings</h2>
+				<p>The hostname of your database server. <input type="text" id="db_hostname" placeholder="localhost" name="hostname"></p>
+				<p>The username used to connect to the database. <input type="text" id="db_username" placeholder="root" name="username"></p>
+				<p>The password used to connect to the database. <input type="password" id="db_password" placeholder="" name="password"></p> 
+				<p>The name of the database you want to connect to. <input type="text" id="db_database" placeholder="social-igniter" name="database"></p>
+				<p><input type="submit" value="Continue"></p>
+			</form>
+			</div>
 		
-		<p>Go to your website <a id="go_to_website" href=""></a>
-		<p>Go to your dashboard <a id="go_to_dashboard" href=""></a>
-
+			<div id="step_2" class="hide">
+				<h2 id="step_2_title">Creating Database...</h2>		
+			</div>
+		
+			<div id="step_3" class="hide">
+			<form name="install_step_3" id="install_step_3" method="POST">
+				<h2>Your Information</h2>
+				<p>Enter information for who will be owning or controlling this website</p>
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tr>
+					  <td>Name</td>
+					  <td>
+					  	<input type="text" name="name" id="signup_name" placeholder="Joe Smith" value="">
+					  	<span id="signup_name_error"></span>
+					  </td>
+					</tr>
+					<tr>
+					  <td>Email</td>
+					  <td>
+					  	<input type="text" name="email" id="signup_email" placeholder="your@email.com" value="">
+				  		<span id="signup_email_error"></span>
+					  </td>
+					</tr>
+					<tr>  
+					  <td>Password</td>
+					  <td>
+					  	<input type="password" name="password" id="signup_password" placeholder="********" value="">
+					  	<span id="signup_password_error"></span>
+					  </td>
+					</tr>
+					<tr>  
+					  <td>Confirm Password</td>
+					  <td>
+					  	<input type="password" name="password_confirm" id="signup_password_confirm" placeholder="********" value="">
+					  	<span id="signup_password_confirm_error"></span> 
+					  </td>
+					</tr>
+					<tr> 
+					  <td colspan="2"><input type="submit" name="submit" value="Signup"></td>
+					</tr>
+				</table>	
+				<input type="hidden" name="session" value="1">
+				<input type="hidden" name="remember" value="1">
+			</form>
+			</div>
+			
+			<div id="step_4" class="hide">
+			<form name="install_step_4" id="install_step_4" method="POST">
+				<h2>Website Information</h2>
+				<p>So people know what website they are visiting :)</p>
+				<p>Site Name<br> <input type="text" name="title" id="site_title" placeholder="My Awesome Website" value=""></p>
+				<p>Tagline<br> <input type="text" name="tagline" id="site_tagline" placeholder="Where I Post All My Awesome Things" value=""></p>
+				<p>Keywords<br> <input type="text" name="keywords" id="site_keywords" placeholder="awesome, things, pictures, videos, poems, watermelons, cats, ninjas" value=""></p> 
+				<p>Description<br> <textarea name="description" id="site_description" placeholder="This is my awesome website where I post awesome stuff. Some of my favorite things are ninjas, watermelons, and cats" cols="40" rows="7"></textarea>
+				<p><input type="submit" value="Continue"></p>
+			</form>
+			</div>	
+		
+			<div id="step_5" class="hide">
+				<h2>Awesome!</h2>
+				<p>Your site is now setup. Go em get em tiger!</p>
+				<p>Go to your website <a id="go_to_website" href=""></a>
+				<p>Go to your dashboard <a id="go_to_dashboard" href=""></a>
+			</div>
+	
+		</div>
 		
 	</div>
-
+	<div class="content norm_bot"></div>
 </div>
 </body>
 </html>
