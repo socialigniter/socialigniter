@@ -1,5 +1,5 @@
 <?php
-if ($_POST["hostname"])
+if (isset($_POST["hostname"]))
 {
 	// Config
 	$config_file	= "./application/config/config.php.TEMPLATE";
@@ -35,25 +35,24 @@ else
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Install Social-Igniter</title>
-
 <style type="text/css">
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed,  figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; } article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; } body { line-height: 1; }
 ol, ul { list-style: none; } blockquote, q { quotes: none; } blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; } table { border-collapse: collapse; border-spacing: 0; }
 
 /* Start App CSS */
-body 		{ font-family: Helvetica, Arial, sans-serif; }
-h1, h2, h3	{ font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
-h1			{ color: #444; font-size: 36px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
-h2			{ color: #444; font-size: 30px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
-h3			{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
-p 			{ font-size: 14px; margin: 5px 0; line-height: 21px; }
-.hide 		{ display: none; }
-.clear		{ clear: both; }
-#container	{ width: 700px; min-height: 350px; margin: 45px auto; padding: 0 25px 25px 25px; text-align: left; }
-#logo		{ height: 125px; float: right; margin-left: 15px; margin-bottom: 20px; }
-#welcome h1	{ float: left; }
-#welcome p	{ float: left; width: 500px; margin-top: 20px; }
+body 			{ font-family: Helvetica, Arial, sans-serif; }
+h1, h2, h3		{ font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; }
+h1				{ color: #444; font-size: 36px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
+h2				{ color: #444; font-size: 30px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
+h3				{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
+p 				{ font-size: 14px; margin: 5px 0; line-height: 21px; }
+.hide 			{ display: none; }
+.clear			{ clear: both; }
+#container		{ width: 700px; min-height: 350px; margin: 45px auto; padding: 0 25px 25px 25px; text-align: left; }
+#logo			{ height: 125px; float: right; margin: 0 15px 20px; }
+#welcome h1		{ float: left; }
+#welcome p		{ float: left; width: 500px; margin-top: 20px; }
 
 div.norm_top 				{ width: 700px; height: 12px; background: url('/application/views/dashboard_default/assets/images/content_norm_top.png') 0 0 no-repeat; margin: 0; }
 div.norm_mid 				{ width: 700px; background: url('/application/views/dashboard_default/assets/images/content_norm_mid.png') 0 0 repeat-y; margin: 0 0; padding: 10px 0; }
@@ -68,7 +67,6 @@ div.content_wrap a 			{ color: #2078ce; text-decoration: none; }
 div.content_wrap a:visited	{ color: #2078ce; text-decoration: underline; }
 div.content_wrap a:hover	{ color: #2078ce; text-decoration: underline; }
 div.content_wrap input[type=button]	{ margin: 0px 0px 25px 0px; }
-
 </style>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/social.core.js"></script>
@@ -80,8 +78,10 @@ $(document).ready(function()
 	<?php if (file_exists('./application/config/config.php')): ?>
 	$('#step_5').fadeIn();
 	base_url = $.url.attr('protocol') + '://' + $.url.attr('host') + '/';
-	$('#go_to_website').attr('href', base_url).html(base_url);
-	$('#go_to_dashboard').attr('href', base_url + 'home').html(base_url + 'home');
+	$('#go_to_website').attr('href', base_url);
+	$('#go_to_dashboard').attr('href', base_url + 'home');
+	$('#go_to_apps').attr('href', base_url + 'settings/apps');
+	$('#go_to_design').attr('href', base_url + 'settings/design');
 	<?php else: ?>
 	$('#step_1').fadeIn();
 	base_url = $.url.attr('protocol') + '://' + $.url.attr('host') + '/';
@@ -124,11 +124,9 @@ $(document).ready(function()
 						$('#step_3').fadeIn();				
 					}
 				});	
-						
 			}
 		});
 	});
-
 
 	$("#install_step_3").bind('submit', function(e)
 	{	
@@ -183,8 +181,6 @@ $(document).ready(function()
 			}
 		});
 	});
-
-
 					
 	$('#install_step_4').bind('submit', function(e)
 	{
@@ -206,17 +202,16 @@ $(document).ready(function()
 	
 				base_url = $('#base_url').val();
 	
-				$('#go_to_website').attr('href', base_url).html(base_url);
-				$('#go_to_dashboard').attr('href', base_url + 'home').html(base_url + 'home');
+				$('#go_to_website').attr('href', base_url);
+				$('#go_to_dashboard').attr('href', base_url + 'home');
+				$('#go_to_apps').attr('href', base_url + 'settings/apps');
+				$('#go_to_design').attr('href', base_url + 'settings/design');
 
-	
 				$('#step_4').fadeOut();
 				$('#step_5').fadeIn();					
-				
 			}
 		});
 	});	
-
 
 });
 //]]>
@@ -311,10 +306,13 @@ $(document).ready(function()
 			</div>	
 		
 			<div id="step_5" class="hide">
-				<h2>Awesome!</h2>
-				<p>Your site is now setup. Go em get em tiger!</p>
-				<p>Go to your website <a id="go_to_website" href=""></a>
-				<p>Go to your dashboard <a id="go_to_dashboard" href=""></a>
+				<h2>Your Site is Now Setup</h2>
+				<p>Good job old sport, you're awesome. Now go em get em tiger!</p>
+				<h3>Get Started Exploring</h3>
+				<p><a id="go_to_website" href=""><img src="application/views/dashboard_default/assets/icons/globe_24.png"> Site</a>
+				<p><a id="go_to_dashboard" href=""><img src="application/views/dashboard_default/assets/icons/home_24.png"> Home</a>
+				<p><a id="go_to_apps" href=""><img src="application/views/dashboard_default/assets/icons/installer_24.png"> Apps</a>
+				<p><a id="go_to_design" href=""><img src="application/views/dashboard_default/assets/icons/colors_24.png"> Design</a>
 			</div>
 	
 		</div>

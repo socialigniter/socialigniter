@@ -8,14 +8,17 @@ class Setup extends MX_Controller
 
     function index()
     {
-	    $this->load->config('install');
-	    $this->load->dbutil();
-	    $this->load->database();
-	    $this->load->library('migration');
-
-	    if ($this->dbutil->database_exists($this->db->database))
-	    {	
-	    	// Create Database Tables
+		$this->load->dbutil();	    
+	    
+	    // Check DB    
+	    if ($this->dbutil->database_exists($this->input->post('database')))
+	    {		   		
+		    $this->load->config('install');
+		    $this->load->database();	
+		    $this->load->dbforge();
+		    $this->load->library('migration');
+   		
+   			// Create Database Tables
 			$this->migration->latest();
 
 			// Users Level Data
@@ -40,13 +43,14 @@ class Setup extends MX_Controller
 			$this->installer->install_settings('ratings', config_item('ratings_settings'));
 			$this->installer->install_settings('home', config_item('home_settings'));
 			$this->installer->install_settings('users', config_item('users_settings'));
-    
-		    $output = json_encode(array('status' => 'success', 'message' => 'Created database'));
-   		}
-   		else
-   		{
-		    $output = json_encode(array('status' => 'error', 'message' => 'Database does not exist'));
-   		}
+			
+			// Output
+		    $output = json_encode(array('status' => 'success', 'message' => 'Created database and settings installed'));			
+		}
+		else
+		{
+		    $output = json_encode(array('status' => 'error', 'message' => 'Oops your database does not exist for some reason'));			
+		}
 
 		echo $output;
     }

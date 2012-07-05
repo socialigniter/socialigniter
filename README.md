@@ -16,6 +16,7 @@ Installation Instructions
 	* Make sure /system directory lives at the same folder level as the your app (core Social-Igniter)
 	* If not you will need to edit $system_path = '../system'; in the index.php file
 
+* Create a MySQL database & database user with your hosting database tool (cPanel, Plesk, etc...)
 * Navigate to the following URL at the domain you setup http://localhost.com/install.php
 * Walk through all the steps
 * Voila, you should have a working install of Social-Ingiter
@@ -25,7 +26,6 @@ Documentation
 =============
 
 To see documentation for Social-Igniter go to: https://github.com/socialigniter/socialigniter/wiki
-
 
 REST API Methods & Calls
 ========================
