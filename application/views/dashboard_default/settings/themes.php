@@ -2,16 +2,18 @@
 <div class="content_wrap_inner" id="pick_site_theme">
 	<h3>Site Theme</h3>
 	<?php foreach($site_themes as $theme): ?>
-		<p>
 		<?php if (config_item('site_theme') == $theme): ?>
-			<img src="<?= $views.$theme ?>/thumbnail.jpg" border="0" />
+		<div class="settings_theme theme_picked">
+			<img src="<?= $views.$theme ?>/thumbnail.jpg" border="0" /><br>
 			<img src="<?= $dashboard_assets ?>icons/green_check_24.png" border="0" />
 		<?php else: ?>
-			<a class="select_theme" rel="<?= $theme ?>" href="#"><img src="<?= $views.$theme ?>/thumbnail.jpg" border="0" /></a>	
-			<img src="<?= $dashboard_assets ?>icons/alert_24.png" border="0" />	
+		<div class="settings_theme">		
+			<a class="select_theme" rel="<?= $theme ?>" href="#"><img src="<?= $views.$theme ?>/thumbnail.jpg" border="0" /></a><br>	
 		<?php endif; ?>
-		</p>
+			<?= ucwords($theme) ?>
+		</div>
 	<?php endforeach; ?>
+	<div class="clear"></div>
 </div>
 <span class="item_separator"></span>
 	

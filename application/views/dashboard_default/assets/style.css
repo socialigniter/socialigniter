@@ -131,12 +131,12 @@ ul.content_navigation li 	{ float: left; margin: 0 20px 0 0; }
 div.norm_top 				{ width: 700px; height: 12px; background: url('images/content_norm_top.png') 0 0 no-repeat; margin: 0; }
 div.norm_mid 				{ width: 700px; background: url('images/content_norm_mid.png') 0 0 repeat-y; margin: 0 0; padding: 10px 0; }
 div.norm_bot 				{ width: 700px; height: 12px; background: url('images/content_norm_bot.png') 0 0 no-repeat; margin: 0 0 15px 0; }
-div.norm_separator			{ width: 671px; height: 18px; margin: 6px auto 12px auto; background: url(images/content_norm_separator.png) 0 0 no-repeat; }
+div.norm_separator			{ width: 671px; height: 18px; margin: 6px auto 12px auto; background: url('images/content_norm_separator.png') 0 0 no-repeat; }
 
 div.wide_top 				{ width: 950px; height: 12px; background: url('images/content_wide_top.png') 0 0 no-repeat; margin: 0; }
 div.wide_mid 				{ width: 950px; background: url('images/content_wide_mid.png') 0 0 repeat-y; margin: 0 0; padding: 10px 0; }
 div.wide_bot 				{ width: 950px; height: 12px; background: url('images/content_wide_bot.png') 0 0 no-repeat; margin: 0 0 15px 0; }
-div.wide_separator			{ width: 927px; height: 18px; margin: 6px auto 12px auto; background: url(images/content_wide_separator.png) 0 0 no-repeat; }
+div.wide_separator			{ width: 927px; height: 18px; margin: 6px auto 12px auto; background: url('images/content_wide_separator.png') 0 0 no-repeat; }
 
 div.content_wrap 			{ margin: 15px 25px 15px 25px; }
 div.content_wrap h2			{ margin: 0 0 25px 0; }
@@ -453,6 +453,13 @@ div.selectable_chosen:hover 		{ color: #eeeeee; border: 1px solid #a3a3a3; text-
 /* User Settings */
 #profile_picture					{ width: 48px; float: left; }
 #profile_picture_upload				{ height: 50px; float: left; margin: 0 0 0 15px !important; }
+
+/* Settings - Theme */
+div.settings_theme					{ width: 250px; height: 200px; float: left; margin: 0 0px 25px 0; padding: 15px; border: 1px solid #ececec; border-radius: 5px; }
+div.settings_theme img				{ margin-bottom: 10px; }
+div.settings_theme:hover			{ border: 1px solid #999999; -webkit-border-radius: 5px; -moz-border-radius: 5px; background-color: #f6f5f5; background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f5f5),to(#d7d6d6)); background-image: -webkit-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -moz-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -o-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -ms-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: linear-gradient(top, #f6f5f5, #d7d6d6); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f6f5f5', EndColorStr='#d7d6d6'); }
+div.theme_picked					{  }
+
 
 /* Places Editor */
 #place_address						{ width: 390px; float: left; }
