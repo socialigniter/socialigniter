@@ -282,12 +282,18 @@ class Social_tools
 	{
 		return $this->ci->categories_model->update_category_details($category_id, $details);
 	}
-	
+
 	function update_category($category_id, $category_data)
 	{	
 		return $this->ci->categories_model->update_category($category_id, $category_data);
-	}		
-	
+	}
+
+	function delete_category($category_id)
+	{
+		return $this->ci->categories_model->delete_comment($category_id);
+	}
+
+
 	
 	/* Comments */
 	function get_comment($comment_id)

@@ -211,18 +211,17 @@ class Categories extends Oauth_Controller
 	    $this->response($message, 200);    
     }
 
-    function destroy_get()
+    function destroy_authd_get()
     {		
-		// Make sure user has access to do this func
-		$access = $this->social_auth->has_access_to_modify('comment', $this->social_tools->get_comment($this->get('id')));
-    	
-    	if ($access)
+		// Make sure user has access to do this func    	
+    	if ($this->social_auth->has_access_to_modify('category', $this->social_tools->get_category($this->get('id'))))
         {   
-        	$this->social_tools->delete_comment($this->get('id'));
+        	
+        	$this->social_tools->delete_category($this->get('id'));
         
-			//$this->social_igniter->update_content_comments_count($this->get('id'));
-        
-        	$message = array('status' => 'success', 'message' => 'Comment deleted');
+			$this->social_igniter->update_content_comments_count($this->get('id'));
+     
+        	$message = array('status' => 'success', 'message' => 'Category deleted');
         }
         else
         {

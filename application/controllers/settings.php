@@ -305,6 +305,12 @@ class Settings extends Dashboard_Controller
 		$this->data['sub_title']		= 'Get Apps';	
 		$this->render('dashboard_wide');
 	}
+	
+	function updates()
+	{			
+		$this->data['sub_title']		= 'Updates';	
+		$this->render('dashboard_wide');
+	}
 
 	/* Categories */
 	function categories()

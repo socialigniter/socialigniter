@@ -142,6 +142,13 @@ class Categories_model extends CI_Model
 		$this->db->where('category_id', $category_id);
 		$this->db->update('categories', array('details' => $details));
 		return TRUE;
-    }           
+    } 
+    
+    function delete_category($category_id)
+    {
+    	$this->db->where('category_id', $category_id);
+		$this->db->update('categories', array('approval' => 'D')); 
+		return TRUE;   
+    }              
 
 }

@@ -22,7 +22,7 @@ $config['countries']					= array('US', 'FR', 'DE', 'ES', 'IT', 'RU', 'CN', 'OT')
 // Settings
 $config['core_modules']					= array('users', 'home', 'comments','text','tags');
 $config['ignore_modules']				= array('text');
-$config['site_modules']					= array('site','themes','design','widgets','services');
+$config['site_modules']					= array('site','themes','design','widgets','services','updates');
 $config['user_settings']				= array('profile','details','password','contact','connections','advanced');
 $config['user_meta_details']			= array('company','location','url','bio');
 $config['user_data']					= array('user_id','username','user_level_id','gravatar','phone_number','name','image','language','time_zone','geo_enabled','privacy','consumer_key','consumer_secret','token','token_secret');	

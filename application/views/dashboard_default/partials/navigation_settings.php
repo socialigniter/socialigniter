@@ -25,6 +25,7 @@
 	<?= navigation_list_btn('settings/themes', 'Themes') ?>
 	<?= navigation_list_btn('settings/widgets', 'Widgets', $this->uri->segment(3)) ?>
 	<?= navigation_list_btn('settings/services', 'Services') ?>
+	<?= navigation_list_btn('settings/updates', 'Updates') ?>
 </ul>
 <?php elseif ($this->uri->segment(2) == 'api'): ?>
 <h2 class="content_title">

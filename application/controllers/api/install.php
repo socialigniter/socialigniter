@@ -51,7 +51,6 @@ class Install extends Oauth_Controller
 		
 		$this->response($message, 200);	
 	}
-	
 		
 	function create_app_authd_post()
 	{
@@ -67,6 +66,22 @@ class Install extends Oauth_Controller
 		else
 		{
             $message = array('status' => 'error', 'message' => 'Dang, there is already an App named '.$this->input->post('app_name').' installed');			
+		}
+
+		$this->response($message, 200);
+	}
+	
+	function migrate_current_authd_get()
+	{
+		$this->load->library('migration');
+
+		if (!$this->migration->current())
+		{
+            $message = array('status' => 'error', 'message' => show_error($this->migration->error_string()));			
+		}
+		else
+		{
+			$message = array('status' => 'success', 'message' => 'Yay, your was database was sucessfully updated');
 		}
 
 		$this->response($message, 200);

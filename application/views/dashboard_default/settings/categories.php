@@ -17,7 +17,7 @@ $(document).ready(function()
 		e.preventDefault();
 	
 
-	
+		
 		$.oauthAjax(
 		{
 			oauth 		: user_data,		

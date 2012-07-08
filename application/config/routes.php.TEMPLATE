@@ -82,6 +82,11 @@ $route['api/content_meta/modify/(:any)/(:any)']			= 'api/content_meta/modify/$1/
 $route['api/content_meta/destroy/(:any)/(:any)']		= 'api/content_meta/destroy/$1/$2';
 $route['api/content_meta/create']						= 'api/content_meta/create';
 
+/* Install */
+$route['api/install/(:any)/(:any)/(:any)']				= 'api/install/$1/$2/$3';
+$route['api/install/(:any)/(:any)']						= 'api/install/$1/$2';
+$route['api/install/(:any)']							= 'api/install/$1';
+
 /* Places */
 $route['api/places/view/(:any)/(:any)']					= 'api/places/view/$1/$2';
 $route['api/places/destroy/(:any)/(:any)']				= 'api/places/destroy/$1/$2';

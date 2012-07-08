@@ -3,8 +3,8 @@
 Social Igniter Library
 
 @package		Social Igniter
-@subpackage	Social Igniter Library
-@author		Brennan Novak
+@subpackage		Social Igniter Library
+@author			Brennan Novak
 @link			http://social-igniter.com
 
 Handles a ton of parts of the the core install.
