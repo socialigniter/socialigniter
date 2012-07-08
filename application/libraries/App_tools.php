@@ -43,6 +43,8 @@ class App_tools
 	function create_app_template($app_name, $app_url, $app_class)
 	{	
 		// Install Path
+		$app_url		= strtolower($app_url);
+		$app_class 		= strtolower($class_class);
 		$install_path	= "./application/modules/".$app_url."/";
 		$folders		= array('assets', 'config', 'controllers', 'views');
 		

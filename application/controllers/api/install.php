@@ -8,7 +8,7 @@ class Install extends Oauth_Controller
     	$this->load->library('installer');
     }
 	
-	function install_get()
+	function install_authd_get()
 	{
 		$this->installer->download();
 
@@ -17,7 +17,7 @@ class Install extends Oauth_Controller
 		$this->response($message, 200);
 	}
 
-	function custom_get()
+	function custom_authd_get()
 	{
 		$this->installer->download_custom();
 		
@@ -26,7 +26,7 @@ class Install extends Oauth_Controller
 		$this->response($message, 200);
 	}
 	
-	function uncompress_get()
+	function uncompress_authd_get()
 	{
 		$this->installer->uncompress_app($app);
 
