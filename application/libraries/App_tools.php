@@ -27,9 +27,19 @@ class App_tools
 		$this->template_path = './application/modules/app-template/';
 	}	
 	
+	function check_app_exists($app_url)
+	{
+    	if (file_exists(APPPATH.'modules/'.$app_url))
+        {
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 
-
-	// Takes 'app-template' and turns it into a custom named App
+	// Makes 'app-template' into a custom named App
 	function create_app_template($app_name, $app_url, $app_class)
 	{	
 		// Install Path

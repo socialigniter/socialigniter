@@ -76,7 +76,7 @@
 	</p>
 
 	<p>App Class (CodeIgniter requires classes to have underscores)<br>
-	<input type="text" name="app_url" placeholder="my_cool_app" size="32">
+	<input type="text" name="app_class" placeholder="my_cool_app" size="32">
 	</p>
 	
 	<p><input type="submit" name="submit" value="Create"></p>
