@@ -183,5 +183,4 @@ class Setup extends MX_Controller
 	    
     }	
 	
-		
 }

@@ -51,5 +51,19 @@ class Install extends Oauth_Controller
 		
 		$this->response($message, 200);	
 	}
+	
+		
+	function create_app_authd_post()
+	{
+		$this->load->library('app_tools');
+
+		$this->app_tools->create_app_template($this->input->post(''), 'comments', 'comments');
+
+		//echo 'Hiiii';
+        $message = array('status' => 'success', 'message' => 'Your App was created');
+
+		$this->response($message, 200);	
+
+	}
 
 }

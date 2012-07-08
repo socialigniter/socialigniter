@@ -45,8 +45,8 @@ class Rest_Controller extends MX_Controller
 		foreach ($this->social_igniter->get_settings() as $setting)
 		{			
             $this->config->set_item($setting->module.'_'.$setting->setting, $setting->value);
-		}  
-    
+		}
+
 	    // How is this request being made? POST, DELETE, GET, PUT?
 	    $this->request->method = $this->_detect_method();
 

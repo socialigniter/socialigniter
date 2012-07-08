@@ -293,6 +293,15 @@ class Settings extends Dashboard_Controller
 	{
 		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');
 
+        if (file_exists(APPPATH.'modules/app-template'))
+        {
+			$this->data['app_template']	= TRUE;
+		}
+		else
+		{
+			$this->data['app_template'] = FALSE;
+		}
+
 		$this->data['sub_title']		= 'Get Apps';	
 		$this->render('dashboard_wide');
 	}
@@ -399,6 +408,7 @@ class Settings extends Dashboard_Controller
         $this->data['upload_formats'] = str_replace('|', ',', config_item('users_images_formats'));
         
 		$this->render('dashboard_wide');
-	}	
+	}
+
 
 }
