@@ -606,10 +606,9 @@ class Social_tools
 		return $this->ci->tags_model->get_tags();
 	}
 
-	// STILL NEED TO CHANGE 'content_id' to 'object_id'
-	function get_tags_object($object_id)
+	function get_tags_content($content_id)
 	{
-		return $this->ci->tags_model->get_tags_object($object_id);
+		return $this->ci->tags_model->get_tags_content($content_id);
 	}
 		
 	function process_tags($tags_post, $content_id)

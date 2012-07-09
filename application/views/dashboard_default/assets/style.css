@@ -273,6 +273,12 @@ span.item_manage_comments			{ display: block; width: 145px; float: left; }
 span.item_manage_content			{ display: block; width: 160px; float: left; }
 span.item_manage_publish			{ display: block; width: 200px; float: left; }
 
+/* For Content Editors (pages, blog, classes, categories) */
+h2.content_editor_title				{ margin: 0px !important; padding: 0px; }
+p.content_editor_link				{ margin: 0px; padding: 0px; }
+p.content_editor_link a				{ color: #999999 !important; }
+p.content_editor_link span 			{  margin-right: 5px !important; }
+
 /* Manage Users */
 span.item_manage_avatar				{ width: 48px; height: 48px; display: block; float: left; position: relative; left: 5px; top: 10px; }
 span.item_manage_name				{ width: 400px; height: 18px; float: left; margin: 10px 0 0 15px; padding: 0; }
@@ -359,8 +365,8 @@ span.action_comment 				{ background-position: -100px 0; }
 span.action_get_place				{ background-position: -125px 0; }
 span.action_link					{ background-position: -150px 0; }
 span.action_approve					{ background-position: -175px 0; }
-span.action_search					{ background-position: -225px 0; }
 span.action_edit					{ background-position: -200px 0; }
+span.action_search					{ background-position: -225px 0; }
 span.action_saved					{ background-position: -250px 0; }
 span.action_published				{ background-position: -275px 0; }
 span.action_unpublished				{ background-position: -300px 0; }
@@ -374,6 +380,9 @@ span.action_right					{ background-position: -475px 0; }
 span.action_left					{ background-position: -500px 0; }
 span.action_down					{ background-position: -525px 0; }
 span.action_group					{ background-position: -550px 0; }
+span.action_link					{ background-position: -575px 0; }
+span.action_alarm					{ background-position: -600px 0; }
+
 
 /* Feed Specific */
 span.item_comment_left				{ width: 24px; height: 32px; display: block; float: left; background: url(images/item_type_icons.png) 0 -455px; position: relative; left: 0; top: 4px; }
