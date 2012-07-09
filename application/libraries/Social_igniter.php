@@ -886,7 +886,19 @@ class Social_igniter
 	
 		return $this->ci->content_model->update_content_comments_count($content_id, $comments_count);
 	}
-	
+
+	function update_content_category_ids($category_id)
+	{
+		$content = $this->get_content_view('category_id', $category_id, 'all', 10000);
+
+		foreach ($content as $item)
+		{
+			$this->update_content_value(array('content_id' => $item->content_id, 'category_id' => 0));		
+		}
+
+		return TRUE;
+	}
+
 	function delete_content($content_id)
 	{
 		if ($content = $this->get_content($content_id))

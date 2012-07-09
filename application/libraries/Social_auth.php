@@ -24,18 +24,17 @@ class Social_auth
 			
 		// Load Models
 		$this->ci->load->model('auth_model');
-		$this->ci->load->model('connections_model');				
-		
+		$this->ci->load->model('connections_model');
+
 		// Auto-login user if they're remembered
 		if (!$this->logged_in() && get_cookie('email') && get_cookie('remember_code'))
 		{
-			
 			if ($user = $this->ci->auth_model->login_remembered_user())
 			{
 				$this->set_userdata($user);
 			}
 		}
-		
+
   		// Pulls In DB settings from CI to Oauth libs
         $database = array(
         	'server'	=> $this->ci->db->hostname, 

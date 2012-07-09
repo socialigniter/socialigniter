@@ -362,7 +362,6 @@ class Settings extends Dashboard_Controller
 		{
 			$this->data['sub_title']	= 'Categories';
 			$this->data['page_title']	= $category->category;
-		
 			$this->data['category']		= $category->category;
 			$this->data['category_url']	= $category->category_url;
 			$this->data['wysiwyg_value']= $category->description;
@@ -386,7 +385,6 @@ class Settings extends Dashboard_Controller
 		{
 			$this->data['sub_title']	= 'Create';
 			$this->data['page_title']	= '';
-
 			$this->data['category']		= '';
 			$this->data['category_url']	= '';
 			$this->data['wysiwyg_value']= '';			

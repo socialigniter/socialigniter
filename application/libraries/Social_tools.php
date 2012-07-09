@@ -36,7 +36,7 @@ class Social_tools
 	/* Categories */	
 	function get_categories()
 	{
-		return $this->ci->categories_model->get_categories(config_item('site_id'));
+		return $this->ci->categories_model->get_categories();
 	}
 
 	function get_category($category_id)
@@ -290,7 +290,7 @@ class Social_tools
 
 	function delete_category($category_id)
 	{
-		return $this->ci->categories_model->delete_comment($category_id);
+		return $this->ci->categories_model->delete_category($category_id);
 	}
 
 

@@ -112,6 +112,7 @@ class Categories_model extends CI_Model
 			'description'	=> $category_data['description'],
 			'details'		=> $category_data['details'],
 			'contents_count'=> 0,
+			'status'		=> 'P',
 			'created_at' 	=> unix_to_mysql(now()),
 			'updated_at' 	=> unix_to_mysql(now())
 		);	
@@ -147,7 +148,7 @@ class Categories_model extends CI_Model
     function delete_category($category_id)
     {
     	$this->db->where('category_id', $category_id);
-		$this->db->update('categories', array('approval' => 'D')); 
+		$this->db->update('categories', array('contents_count' => 0, 'status' => 'D')); 
 		return TRUE;   
     }              
 

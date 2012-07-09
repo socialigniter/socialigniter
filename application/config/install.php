@@ -133,6 +133,11 @@ $config['database_categories_table'] = array(
 		'constraint'			=> 6,
 		'null'					=> TRUE
 	),
+	'status' => array(
+		'type' 					=> 'CHAR',
+		'constraint' 			=> 1,
+		'null'					=> TRUE
+	),	
 	'created_at' => array(
 		'type'					=> 'DATETIME',
 		'default'				=> '9999-12-31 00:00:00' 
