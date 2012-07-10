@@ -37,29 +37,17 @@ class Content_meta extends Oauth_Controller
 		{
 			if ($content->user_id == $this->oauth_user_id)
 			{
-				$meta_post	= $_POST;
-				$meta_data	= array();
-				
-				foreach ($meta_post as $meta)
-				{
-					$meta_data[$meta] = $this->input->post($meta);
-				}
-
-		        $message = array('status' => 'success', 'message' => 'Posted your content', 'post' => $_POST, 'meta' => $meta_data);
-
-
-/*
 			   	if ($this->input->post('site_id')) $site_id = $this->input->post('site_id');
 			   	else $site_id = config_item('site_id');
 		   
 		    	$meta_data = array(
 		    		'site_id'		=> $site_id,
-					'content_id'	=> $this->input->post('content_id'),
+					'content_id'	=> $this->get('id'),
 					'meta'			=> $this->input->post('meta'),
 					'value'			=> $this->input->post('value')
 		    	);
 		
-				$content_meta = $this->content_model->add_meta(config_item('site_id'), $this->input->post('content_id'), $meta_data);					
+				$content_meta = $this->content_model->add_meta($meta_data);					
 				     		
 			    if ($content_meta)
 			    {		    
@@ -69,7 +57,6 @@ class Content_meta extends Oauth_Controller
 		        {
 			        $message = array('status' => 'error', 'message' => 'Oops we were unable to post your content');
 		        }
-*/
 		    }
 	        else
 	        {
@@ -84,8 +71,42 @@ class Content_meta extends Oauth_Controller
 	    $this->response($message, 200);
 	}
         
-    
+    // Accepts a single
+    // 'id' represents the content_meta_id
     function modify_authd_post()
+    {
+		if ($content_meta = $this->social_igniter->get_meta($this->get('id')))
+		{		
+			if ($content_meta->user_id == $this->oauth_user_id)
+			{	
+				$update_meta = $this->social_igniter->update_meta($content_meta->content_meta_id, $this->input->post('value'));	
+
+				if ($update_meta)
+				{
+		        	$message = array('status' => 'success', 'message' => 'Yay, we updated your content', 'content_meta' => $update_meta);
+        		}
+        		else
+        		{
+	        		$message = array('status' => 'error', 'message' => 'Oops that content could not be updated');
+        		}						
+		    }
+	        else
+	        {
+		        $message = array('status' => 'error', 'message' => 'Oops you do not have access to that piece of content');
+	        }
+	    }
+        else
+        {
+	        $message = array('status' => 'error', 'message' => 'Oops that piece of content does not exist');
+        }
+
+	    $this->response($message, 200);
+    } 
+
+    // Accepts an array of POST data
+    // Each element in the POST gets entered as 
+    // Matching key/value pair where key is element name and value is element value
+    function modify_multiple_authd_post()
     {
 		if ($content = $this->social_igniter->get_content($this->get('id')))
 		{
@@ -94,7 +115,7 @@ class Content_meta extends Oauth_Controller
 		
 			if ($content->user_id == $this->oauth_user_id)
 			{	
-				$update_meta = $this->social_igniter->update_meta(config_item('site_id'), $content->content_id, $_POST);	
+				$update_meta = $this->social_igniter->update_meta_multiple(config_item('site_id'), $content->content_id, $_POST);	
 
 				if ($update_meta)
 				{

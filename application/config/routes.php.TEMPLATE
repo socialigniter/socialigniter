@@ -79,7 +79,9 @@ $route['api/content/create']							= 'api/content/create';
 
 /* Content Meta */
 $route['api/content_meta/view/(:any)/(:any)']			= 'api/content_meta/view/$1/$2';
+$route['api/content_meta/create/(:any)/(:any)']			= 'api/content_meta/create/$1/$2';
 $route['api/content_meta/modify/(:any)/(:any)']			= 'api/content_meta/modify/$1/$2';
+$route['api/content_meta/modify_multiple/(:any)/(:any)']= 'api/content_meta/modify_multiple/$1/$2';
 $route['api/content_meta/destroy/(:any)/(:any)']		= 'api/content_meta/destroy/$1/$2';
 $route['api/content_meta/create']						= 'api/content_meta/create';
 

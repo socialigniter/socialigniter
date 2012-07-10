@@ -964,7 +964,12 @@ class Social_igniter
     	return $this->ci->content_model->add_meta($site_id, $content_id, $meta_data);
     }
 
-    function update_meta($site_id, $content_id, $meta_data_array)
+    function update_meta($content_meta_id, $value)
+    {
+	    return $this->ci->content_model->update_meta($content_meta_id, array('value' => $value));
+    }
+
+    function update_meta_multiple($site_id, $content_id, $meta_data_array)
     {	
     	$update_total = count($meta_data_array);
     	$update_count = 0;
