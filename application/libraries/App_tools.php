@@ -44,7 +44,7 @@ class App_tools
 	{	
 		// Install Path
 		$app_url		= strtolower($app_url);
-		$app_class 		= strtolower($class_class);
+		$app_class 		= strtolower($app_class);
 		$install_path	= "./application/modules/".$app_url."/";
 		$folders		= array('assets', 'config', 'controllers', 'views');
 		
