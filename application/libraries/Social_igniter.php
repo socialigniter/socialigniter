@@ -959,9 +959,9 @@ class Social_igniter
 		return $this->ci->content_model->get_meta_multiples($content_id_array);
 	}
 
-    function add_meta($site_id, $content_id, $meta_data)
+    function add_meta($meta_data)
     {
-    	return $this->ci->content_model->add_meta($site_id, $content_id, $meta_data);
+    	return $this->ci->content_model->add_meta($meta_data);
     }
 
     function update_meta($content_meta_id, $value)
@@ -995,10 +995,10 @@ class Social_igniter
 					'value'			=> $meta_data
 				);
 
-				$this->ci->content_model->add_meta($meta_data);			
+				$this->ci->content_model->add_meta($meta_data);
 				$update_count++;
 			}
-		
+
 			next($meta_data_array);
 		}
 		
