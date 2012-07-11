@@ -47,7 +47,7 @@ class Content_meta extends Oauth_Controller
 					'value'			=> $this->input->post('value')
 		    	);
 		
-				$content_meta = $this->content_model->add_meta($meta_data);					
+				$content_meta = $this->social_igniter->add_meta($meta_data);					
 				     		
 			    if ($content_meta)
 			    {		    

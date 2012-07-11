@@ -655,7 +655,7 @@ class Social_igniter
 			{
 				$username	= $activity->username;
 				$hub		= 'http://pubsubhubbub.appspot.com/';
-				$hubargs	= array('hub.mode'=>'publish', 'hub.url' => base_url() . "profile/". $username.'/feed');
+				$hubargs	= array('hub.mode' => 'publish', 'hub.url' => base_url() . "profile/". $username.'/feed');
 			
 				$this->ci->load->library('curl');	
 				$this->ci->curl->simple_post($hub, $hubargs);
@@ -987,8 +987,15 @@ class Social_igniter
 				$update_count++;
 			}
 			else
-			{			
-				$this->ci->content_model->add_meta($site_id, $content_id, array($name => $meta_data));			
+			{
+				$meta_data = array(
+					'site_id'		=> $site_id,
+					'content_id'	=> $content_id, 
+					'meta'			=> $name,
+					'value'			=> $meta_data
+				);
+
+				$this->ci->content_model->add_meta($meta_data);			
 				$update_count++;
 			}
 		
