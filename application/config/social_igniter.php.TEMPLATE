@@ -20,7 +20,7 @@ $config['languages']					= array('' => '--select--','en' => 'English','fr' => 'F
 $config['countries']					= array('US', 'FR', 'DE', 'ES', 'IT', 'RU', 'CN', 'OT');
 
 // Settings
-$config['core_modules']					= array('users', 'home', 'comments','text','tags');
+$config['core_modules']					= array('users','home','text','tags');
 $config['ignore_modules']				= array('text');
 $config['site_modules']					= array('site','themes','design','widgets','services','updates');
 $config['user_settings']				= array('profile','details','password','contact','connections','advanced');
