@@ -307,7 +307,7 @@ class Settings extends Dashboard_Controller
 	}
 	
 	function updates()
-	{			
+	{
 		$this->data['sub_title']		= 'Updates';	
 		$this->render('dashboard_wide');
 	}
