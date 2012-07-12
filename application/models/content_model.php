@@ -257,17 +257,9 @@ class Content_model extends CI_Model {
     function update_content($content_data)
     {
  		$content_data['updated_at'] = unix_to_mysql(now());
- 		
 		$this->db->where('content_id', $content_data['content_id']);
 		$this->db->update('content', $content_data);
 		return $this->db->get_where('content', array('content_id' => $content_data['content_id']))->row();		
-    }
-
-    function update_content_comments_count($content_id, $comments_count)
-    {
-		$this->db->where('content_id', $content_id);
-		$this->db->update('content', array('comments_count' => $comments_count));
-		return TRUE;
     }
     
     function delete_content($content_id)

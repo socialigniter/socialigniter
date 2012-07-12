@@ -880,13 +880,6 @@ class Social_igniter
 		return FALSE;	
 	}
 
-	function update_content_comments_count($content_id)
-	{
-		$comments_count = $this->ci->social_tools->get_comments_content_count($content_id);
-	
-		return $this->ci->content_model->update_content_comments_count($content_id, $comments_count);
-	}
-
 	function update_content_category_ids($category_id)
 	{
 		$content = $this->get_content_view('category_id', $category_id, 'all', 10000);
