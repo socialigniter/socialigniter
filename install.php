@@ -75,16 +75,18 @@ div.content_wrap input[type=button]	{ margin: 0px 0px 25px 0px; }
 $(document).ready(function()
 {
 	// Show Fresh Setup or Existing
+	if ($.url.attr('port')) var port = ':' + $.url.attr('port') + '/';
+	else var port = '/';
+	base_url = $.url.attr('protocol') + '://' + $.url.attr('host') + port;
+
 	<?php if (file_exists('./application/config/config.php')): ?>
 	$('#step_5').fadeIn();
-	base_url = $.url.attr('protocol') + '://' + $.url.attr('host') + '/';
 	$('#go_to_website').attr('href', base_url);
 	$('#go_to_dashboard').attr('href', base_url + 'home');
 	$('#go_to_apps').attr('href', base_url + 'settings/apps');
 	$('#go_to_design').attr('href', base_url + 'settings/design');
 	<?php else: ?>
 	$('#step_1').fadeIn();
-	base_url = $.url.attr('protocol') + '://' + $.url.attr('host') + '/';
 	$('#base_url').val(base_url);	
 	<?php endif; ?>
 
