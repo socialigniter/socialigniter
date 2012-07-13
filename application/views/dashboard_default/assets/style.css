@@ -48,6 +48,7 @@ input.input_large			{ width: 450px; }
 input.input_full			{ width: 625px; }
 textarea.textarea_small		{ width: 100px; }
 textarea.textarea_medium	{ width: 225px; }
+textarea.textarea_bigger	{ width: 350px; }
 textarea.textarea_large		{ width: 450px; }
 textarea.textarea_full		{ width: 625px; }
 
@@ -468,14 +469,6 @@ div.settings_theme					{ width: 250px; height: 200px; float: left; margin: 0 0px
 div.settings_theme img				{ margin-bottom: 10px; }
 div.settings_theme:hover			{ border: 1px solid #999999; -webkit-border-radius: 5px; -moz-border-radius: 5px; background-color: #f6f5f5; background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f5f5),to(#d7d6d6)); background-image: -webkit-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -moz-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -o-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -ms-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: linear-gradient(top, #f6f5f5, #d7d6d6); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f6f5f5', EndColorStr='#d7d6d6'); }
 div.theme_picked					{  }
-
-
-/* Places Editor */
-#place_address						{ width: 390px; float: left; }
-#place_map							{ width: 235px; float: left; margin: 0 0 0 25px; }
-#place_map_map						{ width: 225px; height: 225px; margin: 23px 0 0 0; border: 4px solid #c3c3c3; }
-#place_country						{ width: 225px; display: block; float: left; margin: 15px 0 0 0; }
-#place_map_it						{ width: 100px; display: block; float: left; margin: 22px 0 0 0; color: #999999; }
 
 /* Page Editor */
 #text_content_norm					{ width: 630px; margin: 0; padding: 0; }

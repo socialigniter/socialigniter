@@ -91,7 +91,7 @@ class Content extends Oauth_Controller
 				'comments_allow'	=> $this->input->post('comments_allow'),
 				'geo_lat'			=> $this->input->post('geo_lat'),
 				'geo_long'			=> $this->input->post('geo_long'),
-				'viewed'			=> 'N',
+				'viewed'			=> $viewed,
 				'approval'			=> $approval,
 				'status'			=> form_submit_publish($this->input->post('status'))
 	    	);

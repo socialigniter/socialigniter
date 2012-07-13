@@ -90,14 +90,6 @@ $route['api/install/(:any)/(:any)/(:any)']				= 'api/install/$1/$2/$3';
 $route['api/install/(:any)/(:any)']						= 'api/install/$1/$2';
 $route['api/install/(:any)']							= 'api/install/$1';
 
-/* Places */
-$route['api/places/view/(:any)/(:any)']					= 'api/places/view/$1/$2';
-$route['api/places/destroy/(:any)/(:any)']				= 'api/places/destroy/$1/$2';
-$route['api/places/modify/(:any)/(:any)']				= 'api/places/modify/$1/$2';
-$route['api/places/nearby/(:any)/(:any)']				= 'api/places/nearby/$1/$2';
-$route['api/places/all']								= 'api/places/all';
-$route['api/places/create']								= 'api/places/create';
-
 /* Relationships */
 $route['api/relationships/follow/(:any)/(:any)']		= 'api/relationships/follow/$1/$2';
 $route['api/relationships/follow_remote/(:any)/(:any)']	= 'api/relationships/follow_remote/$1/$2';
@@ -207,7 +199,6 @@ $route['settings/widgets']								= 'settings/widgets';
 $route['settings/services']								= 'settings/services';
 $route['settings/home']									= 'settings/home';
 $route['settings/comments']								= 'settings/comments';
-$route['settings/places']								= 'settings/places';
 $route['settings/api']									= 'settings/api';
 $route['settings/update']								= 'settings/update';
 $route['settings/users']								= 'settings/users';
