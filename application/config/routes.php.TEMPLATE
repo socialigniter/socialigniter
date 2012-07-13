@@ -55,17 +55,6 @@ $route['api/categories/picture_upload/(:any)/(:any)']	= 'api/categories/picture_
 $route['api/categories/all']							= 'api/categories/all';
 $route['api/categories/create']							= 'api/categories/create';
 
-/* Comments */
-$route['api/comments/content/(:any)/(:any)']			= 'api/comments/content/$1/$2';
-$route['api/comments/viewed/(:any)/(:any)']				= 'api/comments/viewed/$1/$2';
-$route['api/comments/approve/(:any)/(:any)']			= 'api/comments/approve/$1/$2';
-$route['api/comments/destroy/(:any)/(:any)']			= 'api/comments/destroy/$1/$2';
-$route['api/comments/content']							= 'api/comments/content';
-$route['api/comments/recent']							= 'api/comments/recent';
-$route['api/comments/create']							= 'api/comments/create';
-$route['api/comments/create_public']					= 'api/comments/create_public';
-$route['api/comments/new']								= 'api/comments/new';
-
 /* Content */
 $route['api/content/view/(:any)/(:any)']				= 'api/content/view/$1/$2';
 $route['api/content/viewed/(:any)/(:any)']				= 'api/content/viewed/$1/$2';
@@ -150,8 +139,6 @@ $route['connections/(:any)/(:any)'] 					= '$1/connections/$2';
 $route['connections/(:any)'] 							= '$1/connections/index';
 
 /* Home */
-$route['home/comments/(:any)'] 							= 'home/comments/$1';
-$route['home/comments'] 								= 'home/comments';
 $route['home/group/(:any)']								= 'home/index/$1';
 $route['home/friends']									= 'home/index';
 $route['home/likes']									= 'home/index';
@@ -198,7 +185,6 @@ $route['settings/widgets/(:any)']						= 'settings/widgets/$1';
 $route['settings/widgets']								= 'settings/widgets';
 $route['settings/services']								= 'settings/services';
 $route['settings/home']									= 'settings/home';
-$route['settings/comments']								= 'settings/comments';
 $route['settings/api']									= 'settings/api';
 $route['settings/updates']								= 'settings/updates';
 $route['settings/users']								= 'settings/users';
