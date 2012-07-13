@@ -3,7 +3,6 @@
 <div id="wysiwyg_media"><?= $this->social_igniter->scan_media_manager(); ?></div>
 <?php endif; ?>
 <script src="<?= base_url() ?>js/redactor.min.js"></script>
-<?php if ($wysiwyg_js): ?>
 <script type="text/javascript">
 $(document).ready(function()
 {
@@ -20,9 +19,9 @@ $(document).ready(function()
 			'fullscreen'
 		],
 		autoresize: true,
-		removeStyles: true
+		removeStyles: true,
+		focus: false
 	});
 });
 </script>
 <p><textarea id="<?= $wysiwyg_id ?>" name="<?= $wysiwyg_name ?>" class="<?= $wysiwyg_class ?>" style="height: 300px;"><?= $wysiwyg_value ?></textarea></p>
-<?php endif; ?>
