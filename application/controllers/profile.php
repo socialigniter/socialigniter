@@ -7,7 +7,7 @@ class Profile extends Site_Controller
 
 		if (!$this->uri->segment(2) || (config_item('users_profile') != 'TRUE')) redirect(base_url());	
 		$timeline_view = null;
-		$this->user = $this->social_auth->get_user('username', $this->uri->segment(2)); 
+		$this->user = $this->social_auth->get_user('username', $this->uri->segment(2), TRUE); 
  	
 		if($this->user)
 		{
@@ -75,7 +75,7 @@ class Profile extends Site_Controller
 					$this->data['item_type']			= item_type_class($activity->type);
 					// Contributor
 					$this->data['item_user_id']			= $activity->user_id;
-					$this->data['item_avatar']			= $this->social_igniter->profile_image($activity->user_id, $activity->image, $activity->gravatar);
+					$this->data['item_avatar']			= $this->social_igniter->profile_image($activity->user_id, $activity->image, $activity->gravatar, 'medium');
 					$this->data['item_contributor']		= $activity->name;
 					$this->data['item_profile']			= base_url().'profile/'.$activity->username;
 					
