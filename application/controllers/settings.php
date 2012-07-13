@@ -235,16 +235,6 @@ class Settings extends Dashboard_Controller
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
 		$this->render('dashboard_wide');	
 	}
-	
-	function comments()
-	{
-		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');
-		
-		$this->data['sub_title'] 	= 'Comments';
-		$this->data['this_module']	= 'comments';
-		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
-    	$this->render('dashboard_wide');
-    }	
 
 	function home()
 	{
@@ -293,7 +283,22 @@ class Settings extends Dashboard_Controller
 	{
 		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');
 
+        if (file_exists(APPPATH.'modules/app-template'))
+        {
+			$this->data['app_template']	= TRUE;
+		}
+		else
+		{
+			$this->data['app_template'] = FALSE;
+		}
+
 		$this->data['sub_title']		= 'Get Apps';	
+		$this->render('dashboard_wide');
+	}
+	
+	function updates()
+	{
+		$this->data['sub_title']		= 'Updates';	
 		$this->render('dashboard_wide');
 	}
 
@@ -347,7 +352,6 @@ class Settings extends Dashboard_Controller
 		{
 			$this->data['sub_title']	= 'Categories';
 			$this->data['page_title']	= $category->category;
-		
 			$this->data['category']		= $category->category;
 			$this->data['category_url']	= $category->category_url;
 			$this->data['wysiwyg_value']= $category->description;
@@ -371,7 +375,6 @@ class Settings extends Dashboard_Controller
 		{
 			$this->data['sub_title']	= 'Create';
 			$this->data['page_title']	= '';
-
 			$this->data['category']		= '';
 			$this->data['category_url']	= '';
 			$this->data['wysiwyg_value']= '';			
@@ -399,6 +402,7 @@ class Settings extends Dashboard_Controller
         $this->data['upload_formats'] = str_replace('|', ',', config_item('users_images_formats'));
         
 		$this->render('dashboard_wide');
-	}	
+	}
+
 
 }

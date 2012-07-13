@@ -24,18 +24,17 @@ class Social_auth
 			
 		// Load Models
 		$this->ci->load->model('auth_model');
-		$this->ci->load->model('connections_model');				
-		
+		$this->ci->load->model('connections_model');
+
 		// Auto-login user if they're remembered
 		if (!$this->logged_in() && get_cookie('email') && get_cookie('remember_code'))
 		{
-			
 			if ($user = $this->ci->auth_model->login_remembered_user())
 			{
 				$this->set_userdata($user);
 			}
 		}
-		
+
   		// Pulls In DB settings from CI to Oauth libs
         $database = array(
         	'server'	=> $this->ci->db->hostname, 
@@ -116,6 +115,11 @@ class Social_auth
 		return 'N';
 	}
 
+	// Checks if user has access to do task
+	// $type 			required string
+	// $object			required object of content, activity, or anything
+	// $user_id 		required integer
+	// $user_level_id	not required
 	function has_access_to_modify($type, $object, $user_id, $user_level_id=NULL)
 	{
 		// Types of objects
@@ -142,6 +146,14 @@ class Social_auth
 		}
 		else
 		{
+			if (property_exists($object, 'user_id'))
+			{
+				if ($user_id == $object->user_id)
+				{
+					return TRUE;
+				}	
+			}
+			
 			return FALSE;
 		}
 		

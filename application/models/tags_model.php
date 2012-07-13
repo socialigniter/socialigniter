@@ -37,12 +37,12 @@ class Tags_model extends CI_Model {
  		return $this->db->count_all_results();	
 	}
     
-    function get_tags_object($object_id)
+    function get_tags_content($content_id)
     {
  		$this->db->select('*');
  		$this->db->from('tags_link');    
  		$this->db->join('tags', 'tags.tag_id = tags_link.tag_id');
- 		$this->db->where('tags_link.content_id', $object_id); 				
+ 		$this->db->where('tags_link.content_id', $content_id); 				
  		$this->db->order_by('tags_link.tag_link_id', 'desc'); 
  		$result = $this->db->get();	
  		return $result->result();	      

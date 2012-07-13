@@ -14,11 +14,6 @@ class Migration_Setup extends CI_Migration
 		$this->dbforge->add_field(config_item('database_categories_table'));
 		$this->dbforge->create_table('categories');
 		
-		// Comments
-		$this->dbforge->add_key('comment_id', TRUE);
-		$this->dbforge->add_field(config_item('database_comments_table'));
-		$this->dbforge->create_table('comments');
-		
 		// Connections
 		$this->dbforge->add_key('connection_id', TRUE);
 		$this->dbforge->add_field(config_item('database_connections_table'));

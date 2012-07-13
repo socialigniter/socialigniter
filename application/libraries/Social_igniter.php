@@ -3,8 +3,8 @@
 Social Igniter Library
 
 @package		Social Igniter
-@subpackage	Social Igniter Library
-@author		Brennan Novak
+@subpackage		Social Igniter Library
+@author			Brennan Novak
 @link			http://social-igniter.com
 
 Handles a ton of parts of the the core install.
@@ -655,7 +655,7 @@ class Social_igniter
 			{
 				$username	= $activity->username;
 				$hub		= 'http://pubsubhubbub.appspot.com/';
-				$hubargs	= array('hub.mode'=>'publish', 'hub.url' => base_url() . "profile/". $username.'/feed');
+				$hubargs	= array('hub.mode' => 'publish', 'hub.url' => base_url() . "profile/". $username.'/feed');
 			
 				$this->ci->load->library('curl');	
 				$this->ci->curl->simple_post($hub, $hubargs);
@@ -880,13 +880,18 @@ class Social_igniter
 		return FALSE;	
 	}
 
-	function update_content_comments_count($content_id)
+	function update_content_category_ids($category_id)
 	{
-		$comments_count = $this->ci->social_tools->get_comments_content_count($content_id);
-	
-		return $this->ci->content_model->update_content_comments_count($content_id, $comments_count);
+		$content = $this->get_content_view('category_id', $category_id, 'all', 10000);
+
+		foreach ($content as $item)
+		{
+			$this->update_content_value(array('content_id' => $item->content_id, 'category_id' => 0));		
+		}
+
+		return TRUE;
 	}
-	
+
 	function delete_content($content_id)
 	{
 		if ($content = $this->get_content($content_id))
@@ -947,12 +952,17 @@ class Social_igniter
 		return $this->ci->content_model->get_meta_multiples($content_id_array);
 	}
 
-    function add_meta($site_id, $content_id, $meta_data)
+    function add_meta($meta_data)
     {
-    	return $this->ci->content_model->add_meta($site_id, $content_id, $meta_data);
+    	return $this->ci->content_model->add_meta($meta_data);
     }
 
-    function update_meta($site_id, $content_id, $meta_data_array)
+    function update_meta($content_meta_id, $value)
+    {
+	    return $this->ci->content_model->update_meta($content_meta_id, array('value' => $value));
+    }
+
+    function update_meta_multiple($site_id, $content_id, $meta_data_array)
     {	
     	$update_total = count($meta_data_array);
     	$update_count = 0;
@@ -970,11 +980,18 @@ class Social_igniter
 				$update_count++;
 			}
 			else
-			{			
-				$this->ci->content_model->add_meta($site_id, $content_id, array($name => $meta_data));			
+			{
+				$meta_data = array(
+					'site_id'		=> $site_id,
+					'content_id'	=> $content_id, 
+					'meta'			=> $name,
+					'value'			=> $meta_data
+				);
+
+				$this->ci->content_model->add_meta($meta_data);
 				$update_count++;
 			}
-		
+
 			next($meta_data_array);
 		}
 		

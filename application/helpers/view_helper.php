@@ -290,6 +290,24 @@ function display_category_url($categories, $category_id)
 	return FALSE;
 }
 
+function display_category_link($categories, $category_id, $url_path, $before_text='', $after_text='')
+{
+	if (!$categories)
+	{
+		return FALSE;
+	}
+
+	foreach ($categories as $category)
+	{
+		if ($category->category_id == $category_id)
+		{
+			return $before_text.' <a href="'.$url_path.$category->category_url.'">'.$category->category.'</a> '.$after_text;
+		}
+	}
+	
+	return FALSE;
+}
+
 // Takes 'a_file_name' and makes it into 'A File Name'
 // Works with both '-' and '_' as word seperators
 function display_nice_file_name($input)

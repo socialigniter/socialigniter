@@ -197,7 +197,6 @@ class Content_model extends CI_Model {
  		$result = $this->db->get()->row();	
  		return $result;      
     }
-
     
     function get_content_category_count($category_id)
     {
@@ -258,17 +257,9 @@ class Content_model extends CI_Model {
     function update_content($content_data)
     {
  		$content_data['updated_at'] = unix_to_mysql(now());
- 		
 		$this->db->where('content_id', $content_data['content_id']);
 		$this->db->update('content', $content_data);
 		return $this->db->get_where('content', array('content_id' => $content_data['content_id']))->row();		
-    }
-
-    function update_content_comments_count($content_id, $comments_count)
-    {
-		$this->db->where('content_id', $content_id);
-		$this->db->update('content', array('comments_count' => $comments_count));
-		return TRUE;
     }
     
     function delete_content($content_id)
@@ -316,34 +307,16 @@ class Content_model extends CI_Model {
  		return $result->result();
     }
 
-    function add_meta($site_id, $content_id, $meta_data)
+    function add_meta($meta_data)
     {
-    	$content_meta_id = array();
-    
-    	foreach ($meta_data as $meta => $value)
-    	{
-	    	$insert_data = array(
-	    		'site_id'		=> $site_id,
-	    		'content_id'	=> $content_id,
-	    		'meta'			=> $meta,
-	    		'value'			=> $value,
-		 		'created_at' 	=> unix_to_mysql(now()),
-				'updated_at' 	=> unix_to_mysql(now())
-	    	);
-			
-			$this->db->insert('content_meta', $insert_data);
-			
-			$content_meta_id[] = $this->db->insert_id();
-		}	
-		
-		if ($content_meta_id)
-		{
-			return $content_meta_id;	
-    	}
-    	
-    	return FALSE;
+    	$meta_data['created_at'] = unix_to_mysql(now());
+		$meta_data['updated_at'] = unix_to_mysql(now());
+		$this->db->insert('content_meta', $meta_data);
+		$content_meta_id = $this->db->insert_id();
+
+    	return $content_meta_id;
     }
-    
+
     function update_meta($content_meta_id, $update_data)
     {
 		$update_data['updated_at'] = unix_to_mysql(now());

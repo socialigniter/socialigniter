@@ -11,9 +11,10 @@ class Categories_model extends CI_Model
  		$this->db->select('categories.*, users.username, users.gravatar, users.name, users.image');
  		$this->db->from('categories');    
  		$this->db->join('users', 'users.user_id = categories.user_id'); 
+ 	 	$this->db->where('categories.status !=', 'D');
  		$this->db->order_by('categories.created_at', 'desc'); 
  		$result = $this->db->get();	
- 		return $result->result();	      
+ 		return $result->result();
     }
 
     function get_category($category_id)
@@ -22,6 +23,7 @@ class Categories_model extends CI_Model
  		$this->db->from('categories'); 
  		$this->db->join('users', 'users.user_id = categories.user_id'); 
   		$this->db->where('category_id', $category_id);
+	 	$this->db->where('categories.status !=', 'D');
  		$result = $this->db->get()->row();
  		return $result;
     }
@@ -32,6 +34,7 @@ class Categories_model extends CI_Model
  		$this->db->from('categories'); 
  		$this->db->join('users', 'users.user_id = categories.user_id'); 
   		$this->db->where('parent_id', $parent_id);
+	 	$this->db->where('categories.status !=', 'D');
  		$result = $this->db->get()->row();
  		return $result;
     }
@@ -44,6 +47,7 @@ class Categories_model extends CI_Model
 	 		$this->db->from('categories');
 	 		$this->db->join('users', 'users.user_id = categories.user_id');
 	 		$this->db->where($parameter, $value);
+	 		$this->db->where('categories.status !=', 'D');
 	 		$this->db->order_by('parent_id', 'desc');	 		
 	 		$this->db->order_by('contents_count', 'desc');
 	 		$result = $this->db->get();
@@ -61,6 +65,7 @@ class Categories_model extends CI_Model
  		$this->db->from('categories');
  		$this->db->join('users', 'users.user_id = categories.user_id');
  		$this->db->where($where);
+	 	$this->db->where('categories.status !=', 'D');
  		$this->db->order_by('parent_id', 'desc');	
 	 	$this->db->order_by('contents_count', 'desc'); 		
  		$result = $this->db->get();
@@ -74,6 +79,7 @@ class Categories_model extends CI_Model
  		$this->db->join('users', 'users.user_id = categories.user_id'); 
   		$this->db->where('categories.type', $type);
   		$this->db->where('categories.category_url', $category_url);
+	 	$this->db->where('categories.status !=', 'D');
  		$result = $this->db->get()->row();
  		return $result;
     }
@@ -87,6 +93,7 @@ class Categories_model extends CI_Model
 	 		$this->db->join('users', 'users.user_id = categories.user_id');	 		
 	 		$this->db->where($parameter, $value);
 	 		$this->db->where('user_id', $user_id);
+	 		$this->db->where('categories.status !=', 'D');	 		
 	 		$this->db->order_by('created_at', 'desc'); 
 	 		$result = $this->db->get();	
 	 		return $result->result();	      
@@ -112,6 +119,7 @@ class Categories_model extends CI_Model
 			'description'	=> $category_data['description'],
 			'details'		=> $category_data['details'],
 			'contents_count'=> 0,
+			'status'		=> 'P',
 			'created_at' 	=> unix_to_mysql(now()),
 			'updated_at' 	=> unix_to_mysql(now())
 		);	
@@ -142,6 +150,13 @@ class Categories_model extends CI_Model
 		$this->db->where('category_id', $category_id);
 		$this->db->update('categories', array('details' => $details));
 		return TRUE;
-    }           
+    } 
+    
+    function delete_category($category_id)
+    {
+    	$this->db->where('category_id', $category_id);
+		$this->db->update('categories', array('contents_count' => 0, 'status' => 'D')); 
+		return TRUE;   
+    }              
 
 }

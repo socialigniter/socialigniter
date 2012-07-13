@@ -9,8 +9,8 @@
 	</span>
 
 	<ul class="item_actions" rel="manage">						
-		<li><a class="item_edit_category" href="<?= $item_edit ?>" id="item_action_edit_<?= $item_id ?>"><span class="actions action_edit"></span> Edit</a></li>
-		<li><a class="item_delete_category" href="<?= $item_delete ?>" id="item_action_delete_<?= $item_id ?>"><span class="actions action_delete"></span> Delete</a></li>
+		<li><a class="item_edit_category" href="<?= $item_edit ?>"><span class="actions action_edit"></span> Edit</a></li>
+		<li><a class="item_delete_category" href="<?= $item_delete ?>" data-category_id="<?= $item_id ?>"><span class="actions action_delete"></span> Delete</a></li>
 	</ul>
 
 	<div class="clear"></div>	
