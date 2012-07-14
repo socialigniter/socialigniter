@@ -162,12 +162,6 @@ $route['home/(:any)/manage'] 							= 'home/manage/$1';
 $route['home/(:any)/(:any)'] 							= '$1/home/$2';
 $route['home/(:any)'] 									= 'home';
 
-/* Profiles */
-$route['profile/:any/image'] 							= 'profile/image';
-$route['profile/:any/add_friend/:any']					= 'profile/add_friend';
-$route['profile/:any/feed']								= 'profile/feed';
-$route['profile/:any'] 									= 'profile/index';
-
 /* Settings */
 $route['settings/(:any)/install'] 						= '$1/settings/install';
 $route['settings/(:any)/reinstall'] 					= '$1/settings/install';

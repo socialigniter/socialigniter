@@ -220,55 +220,6 @@ class Site extends Site_Controller
 		$this->data['page_title'] = 'Oops, Page Not Found';
     	$this->render('wide');
     }
-
-    /* Webfinger */
-    function webfinger(){
-    	$this->data['this'] = $this;
-    	$this->load->view(config_item('site_theme').'/partials/webfinger', $this->data);
-    }
-
-    function webfinger_user()
-    {
-    	$uri = $this->uri->segment(2);
-    	preg_match('/@/', $uri, $matches);
-    	
-    	if ($matches)
-    	{
-    		preg_match('/(acct:|^)(.*?)@/',$uri, $matches);
-    		$username = $matches[2];
-    		$this->data['uri'] = $uri;
-	    	$this->data['username'] = $username;
-	    	$user = $this->social_auth->get_user('username', $username); 
-			
-			if ($user)
-			{
-				$connections = $this->social_auth->get_connections_user($user->user_id); 		
-			}
-			
-			foreach ($connections as $connection)
-			{
-				if ($connection->module == "twitter")
-				{
-					$screen_name = $connection->connection_username;
-				}
-				elseif ($connection->module == "facebook")
-				{
-					$screen_name = $connection->connection_username;
-				}
-			}
-			
-			if (isset($screen_name))
-			{
-				$this->data['screen_name'] = $screen_name;
-			}
-
-	    	$this->load->view(config_item('site_theme').'/partials/webfinger_user', $this->data);
-		}
-		else
-		{
-			$this->error_404();
-		}
-    }
     
     /* Widgets */
 	function widgets_tag_cloud($widget_data)
