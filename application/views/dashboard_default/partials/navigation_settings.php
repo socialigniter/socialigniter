@@ -5,7 +5,7 @@
 	<?= navigation_list_btn('settings/details', 'Details') ?>
 	<?= navigation_list_btn('settings/contact', 'Contact') ?>
 	<?= navigation_list_btn('settings/password', 'Password') ?>
-	<?= navigation_list_btn('settings/connections', 'Apps') ?>
+	<?= navigation_list_btn('settings/connections', 'Connections') ?>
 	<?= navigation_list_btn('settings/advanced', 'Advanced') ?>
 </ul>
 <?php elseif (is_uri_value($this->uri->segment(2), config_item('core_modules'))): ?>
@@ -33,12 +33,6 @@
 </h2>
 <ul class="content_navigation">
 	 <?= navigation_list_btn('home', 'Back To Home') ?>
-</ul>
-<?php elseif ($this->uri->segment(2) == 'get_apps'): ?>
-<h2 class="content_title"><img src="<?= $dashboard_assets ?>icons/installer_32.png"> Apps</h2>
-<ul class="content_navigation">
-	<?= navigation_list_btn('settings/apps', 'Installed') ?> 
-	<?= navigation_list_btn('settings/get_apps', 'Get Apps') ?> 
 </ul>
 <?php elseif ($this->uri->segment(3) == 'categories'): ?>
 <h2 class="content_title">

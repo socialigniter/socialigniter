@@ -265,36 +265,6 @@ class Settings extends Dashboard_Controller
 		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);		
     	$this->render('dashboard_wide');
     }
-
-    /* Modules Settings */
-	function apps()
-	{
-		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');
-
-		$this->data['sub_title']		= 'Apps';
-		$this->data['core_modules']		= config_item('core_modules');
-		$this->data['ignore_modules']	= config_item('ignore_modules');
-		$this->data['modules']			= $this->social_igniter->scan_modules();
-		$this->data['shared_ajax'] 	   .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
-		$this->render('dashboard_wide');
-	}
-	
-	function get_apps()
-	{
-		if ($this->session->userdata('user_level_id') != 1) redirect(base_url().config_item('home_view_redirect'), 'refresh');
-
-        if (file_exists(APPPATH.'modules/app-template'))
-        {
-			$this->data['app_template']	= TRUE;
-		}
-		else
-		{
-			$this->data['app_template'] = FALSE;
-		}
-
-		$this->data['sub_title']		= 'Get Apps';	
-		$this->render('dashboard_wide');
-	}
 	
 	function updates()
 	{
