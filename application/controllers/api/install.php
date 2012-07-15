@@ -73,6 +73,7 @@ class Install extends Oauth_Controller
 			$this->input->post('app_oauth_provider');
 			$this->input->post('app_model');
 			$this->input->post('app_widgets');
+			$this->input->post('app_widget_template');
 
 			$this->app_tools->create_app_template($this->input->post('app_name'), $this->input->post('app_url'), $this->input->post('app_class'));
 

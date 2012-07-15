@@ -18,37 +18,42 @@ Learn more about CodeIgniter by reading the <a href="http://codeigniter.com/user
 	<input type="text" name="app_class" placeholder="my_cool_app" size="32">
 	</p>
 	
-	<h3>App Details</h3>
-	
-	<p>REST API Methods (if your app will write, update, or delete from a custom REST API)<br>
-		<?= form_dropdown('app_api_methods', config_item('yes_or_no'), 'FALSE') ?>
+	<h3>Controllers & API</h3>
+	<p>
+		Add API methods to create, update, and delete from REST API <?= form_dropdown('app_api_methods', config_item('yes_or_no'), 'FALSE') ?><br>
+		Add Connections Class for the following type of authentication 
+		<select name="app_connections">
+			<option value="FALSE">No</option>
+			<option value="FALSE">OAuth 1</option>
+			<option value="FALSE">OAuth 2</option>
+		</select>
 	</p>
 
-	<p>Connections Class (if your app has OAuth, OAuth2 or a remote authentication to access data)<br>
-		<?= form_dropdown('app_connections', config_item('yes_or_no'), 'FALSE') ?>
-	</p>
-
-	<p>Helper (if your app will have simple functions)<br>
-		<?= form_dropdown('app_helper', config_item('yes_or_no'), 'FALSE') ?>
-	</p>
-	
-	<p>Library (if you plan to write a object oriented library)<br>
-		<?= form_dropdown('app_library', config_item('yes_or_no'), 'FALSE') ?>
-	</p>	
-
-	<p>OAuth Provider Library (if your app uses OAuth 1.0)<br>
-		<?= form_dropdown('app_oauth_provider', config_item('yes_or_no'), 'FALSE') ?>
-	</p>
-
-	<p>Model (if your app will be interacting with the DB in a custom way or creating new DB tables)<br>
-		<?= form_dropdown('app_model', config_item('yes_or_no'), 'FALSE') ?>
-	</p>
-
-	<p>Widgets (if your app will have widgets that are insertable in the public site)<br>
-		<?= form_dropdown('app_widgets', config_item('yes_or_no'), 'FALSE') ?>
+	<h3>Helper & Libraries</h3>
+	<p>
+		Create Helper file for custom functions <?= form_dropdown('app_helper', config_item('yes_or_no'), 'FALSE') ?><br>
+		Create object oriented Library template <?= form_dropdown('app_library', config_item('yes_or_no'), 'FALSE') ?><br>
+		Add an OAuth Provider Library 
+		<select name="app_oauth_provider">
+			<option value="FALSE">No</option>
+			<option value="FALSE">OAuth 1</option>
+			<option value="FALSE">OAuth 2</option>
+		</select>		
 	</p>
 	
-	<p><input type="submit" name="submit" value="Create"></p>
+	<h3>Database & Model</h3>
+	<p>
+		Add Model Class template to interact with database <?= form_dropdown('app_model', config_item('yes_or_no'), 'FALSE') ?><br>
+		Create new Database table for that model <?= form_dropdown('app_model', config_item('yes_or_no'), 'FALSE') ?>
+	</p>
+
+	<h3>Widgets</h3>
+	<p>
+		My app will have public site Widgets <?= form_dropdown('app_widgets', config_item('yes_or_no'), 'FALSE') ?><br>
+		Create a Widget template <?= form_dropdown('app_widget_template', config_item('yes_or_no'), 'FALSE') ?>
+	</p>
+
+	<input type="submit" name="submit" value="Create">
 </form>
 <script type="text/javascript">
 $(document).ready(function()

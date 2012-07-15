@@ -22,7 +22,7 @@ body		{ font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14
 h1			{ color: #444; font-size: 30px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h2			{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h3			{ color: #444; font-size: 18px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
-p 			{ margin: 15px 0; font-size: 14px; }
+p 			{ margin: 0px; font-size: 14px; }
 a:link 		{ color: #666666; text-shadow:1px 1px 1px #FFF; font-weight: normal; text-decoration: none; }
 a:visited	{ color: #666666; text-shadow:1px 1px 1px #FFF; text-decoration: none; }
 a:hover		{ color: #555555; text-shadow:1px 1px 1px #FFF; text-decoration: underline; }
@@ -142,8 +142,9 @@ div.wide_separator			{ width: 927px; height: 18px; margin: 6px auto 12px auto; b
 div.content_wrap 			{ margin: 15px 25px 15px 25px; }
 div.content_wrap h2			{ margin: 0 0 25px 0; }
 div.content_wrap h2 span	{ color: #999999; font-style: italic; }
-div.content_wrap h3 		{ margin: 0px 0 15px 0; }
+div.content_wrap h3 		{ margin: 25px 0 15px 0; }
 div.content_wrap h3 span	{ color: #999999; font-style: italic; }
+div.content_wrap p			{ margin: 15px 0 35px 0; }
 div.content_wrap a 			{ color: #2078ce; text-decoration: none; }
 div.content_wrap a:visited	{ color: #2078ce; text-decoration: underline; }
 div.content_wrap a:hover	{ color: #2078ce; text-decoration: underline; }
@@ -179,8 +180,7 @@ span.msg_notification		{ display: block; padding: 6px; color: #f2edda; backgroun
 /* Wide Stuff */
 #content_wide_content 		{ float: left; width: 675px; margin: 0; padding: 0; }
 #content_wide_content h3 	{ margin: 25px 0 10px 0; }
-#content_wide_content p 	{ margin: 10px 0 25px 0; }
-
+#content_wide_content p 	{ margin: 15px 0 35px 0; }
 
 #content_wide_toolbar 		{ float: left; width: 175px; margin: 0 0 0 25px; padding: 0; text-align: left; }
 #content_wide_toolbar h3	{ margin: 0 0 20px 0 !important; }
