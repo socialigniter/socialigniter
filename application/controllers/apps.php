@@ -25,7 +25,9 @@ class Apps extends Dashboard_Controller
 	function inactive()
 	{
 		$this->data['sub_title']		= 'Inactive';
-		$this->render();
+		$this->data['modules']			= $this->social_igniter->scan_modules();
+
+		$this->render('dashboard_wide');
 	}
 	
 	function find()
@@ -38,11 +40,11 @@ class Apps extends Dashboard_Controller
 	{
         if (file_exists(APPPATH.'modules/app-template'))
         {
-			$this->data['app_template']	= TRUE;
+			$this->data['has_app_template']	= TRUE;
 		}
 		else
 		{
-			$this->data['app_template'] = FALSE;
+			$this->data['has_app_template'] = FALSE;
 		}	
 	
 		$this->data['sub_title']		= 'Create';

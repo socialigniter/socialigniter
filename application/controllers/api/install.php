@@ -60,6 +60,20 @@ class Install extends Oauth_Controller
 		if (!$this->app_tools->check_app_exists($this->input->post('app_url')))
 		{
 			// Create App
+			$app_data = array(
+				'app_name'		=> $this->input->post('app_name'),		
+				'app_url'		=> $this->input->post('app_url'),
+				'app_class'		=> $this->input->post('app_class')
+			);
+
+			$this->input->post('app_api_methods');
+			$this->input->post('app_connections');
+			$this->input->post('app_helper');
+			$this->input->post('app_library');
+			$this->input->post('app_oauth_provider');
+			$this->input->post('app_model');
+			$this->input->post('app_widgets');
+
 			$this->app_tools->create_app_template($this->input->post('app_name'), $this->input->post('app_url'), $this->input->post('app_class'));
 
 			$message = array('status' => 'success', 'message' => 'Yay, your App '.$this->input->post('app_name').' was created from the template');

@@ -55,7 +55,7 @@ class App_tools
 			make_folder($install_path.$folder.'/');
 		}
 
-		// Create Assets
+		// Assets
 		$asset1_current	= file_get_contents($this->template_path."assets/app-template_24.png", FILE_USE_INCLUDE_PATH);
 		file_put_contents($install_path."assets/".$app_url."_24.png", $asset1_current);
 		$asset2_current	= file_get_contents($this->template_path."assets/app-template_32.png", FILE_USE_INCLUDE_PATH);
@@ -63,8 +63,15 @@ class App_tools
 
 		// Configs
 		$this->create_app_configs($app_name, $app_url, $app_class);
-		$this->create_app_controllers($app_name, $app_url, $app_class);		
+		
+		// Controllers
+		$this->create_app_controllers($app_name, $app_url, $app_class);
+		
+		// Views		
 		$this->create_app_views($app_name, $app_url, $app_class);
+		
+		
+		
 	}
 	
 	function create_app_configs($app_name, $app_url, $app_class)
