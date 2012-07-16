@@ -14,8 +14,12 @@ class App_tools
 {
 	protected $ci;
 	protected $template_path;
+	protected $install_path;
+	protected $app_name;
+	protected $app_url;
+	protected $app_class;
 
-	function __construct()
+	function __construct($config)
 	{
 		$this->ci =& get_instance();
 		
@@ -24,7 +28,11 @@ class App_tools
 		$this->ci->load->model('settings_model');
 		$this->ci->load->model('sites_model');
 		
-		$this->template_path = './application/modules/app-template/';
+		$this->template_path	= './application/modules/app-template/';
+		$this->install_path		= './application/modules/'.$config['app_url'].'/';
+		$this->app_name			= $config['app_name'];
+		$this->app_url			= $config['app_url'];
+		$this->app_class  		= $config['app_class'];
 	}	
 	
 	function check_app_exists($app_url)
@@ -38,129 +46,198 @@ class App_tools
 			return FALSE;
 		}
 	}
+	
+	function replace_tags($template, $replace_tag=NULL, $replace_value=NULL)
+	{
+		$template_data	= file_get_contents($template, FILE_USE_INCLUDE_PATH);
+		$template_data	= str_replace('{APP_NAME}', $this->app_name, $template_data);
+		$template_data	= str_replace('{APP_URL}', $this->app_url, $template_data);
+		$template_data	= str_replace('{APP_CLASS}', $this->app_class, $template_data);
+		$template_data	= str_replace('{SITE_NAME}', config_item('site_title'), $template_data);
+		$template_data	= str_replace('{SITE_ADMIN}', config_item('site_admin_email'), $template_data);	
+		$template_data	= str_replace($replace_tag, $replace_value, $template_data);
+		return $template_data;
+	}
 
 	// Makes 'app-template' into a custom named App
-	function create_app_template($app_name, $app_url, $app_class)
-	{	
+	function create_app_template()
+	{
 		// Install Path
-		$app_url		= strtolower($app_url);
-		$app_class 		= strtolower($app_class);
-		$install_path	= "./application/modules/".$app_url."/";
-		$folders		= array('assets', 'config', 'controllers', 'views');
-		
-		make_folder($install_path);
-		
+		$this->app_url		= strtolower($this->app_url);
+		$this->app_class 	= strtolower($this->app_class);
+		$folders			= array('assets', 'config', 'controllers', 'views');
+
+		make_folder($this->install_path);
+
 		foreach ($folders as $folder)
 		{
-			make_folder($install_path.$folder.'/');
+			make_folder($this->install_path.$folder.'/');
 		}
 
 		// Assets
-		$asset1_current	= file_get_contents($this->template_path."assets/app-template_24.png", FILE_USE_INCLUDE_PATH);
-		file_put_contents($install_path."assets/".$app_url."_24.png", $asset1_current);
-		$asset2_current	= file_get_contents($this->template_path."assets/app-template_32.png", FILE_USE_INCLUDE_PATH);
-		file_put_contents($install_path."assets/".$app_url."_32.png", $asset2_current);
+		$asset1_current	= file_get_contents($this->template_path.'assets/app-template_24.png', FILE_USE_INCLUDE_PATH);
+		file_put_contents($this->install_path.'assets/'.$this->app_url.'_24.png', $asset1_current);
+		$asset2_current	= file_get_contents($this->template_path.'assets/app-template_32.png', FILE_USE_INCLUDE_PATH);
+		file_put_contents($this->install_path.'assets/'.$this->app_url.'_32.png', $asset2_current);		
 
-		// Configs
-		$this->create_app_configs($app_name, $app_url, $app_class);
-		
-		// Controllers
-		$this->create_app_controllers($app_name, $app_url, $app_class);
-		
-		// Views		
-		$this->create_app_views($app_name, $app_url, $app_class);
-		
-		
-		
+		return TRUE;
 	}
 	
-	function create_app_configs($app_name, $app_url, $app_class)
+	function create_app_configs()
 	{
 		// Install Path
-		$install_path	= "./application/modules/".$app_url."/";
-		$configs		= array('install', 'routes', 'widgets');
+		$configs = array('install', 'routes', 'widgets');
 
 		// Config
-		$config_current	= file_get_contents($this->template_path."config/app_template.php", FILE_USE_INCLUDE_PATH);
-		$config_current	= str_replace("{APP_NAME}", $app_name, $config_current);
-		$config_current	= str_replace("{APP_URL}", $app_url, $config_current);
-		$config_current	= str_replace("{APP_CLASS}", $app_class, $config_current);
-		$config_current	= str_replace("{SITE_NAME}", config_item('site_title'), $config_current);
-		$config_current	= str_replace("{SITE_ADMIN}", config_item('site_admin_email'), $config_current);
-		file_put_contents($install_path."config/".$app_class.".php", $config_current);
+		$config_template	= $this->template_path.'config/app_template.php';
+		$config_data		= $this->replace_tags($config_template);
+		file_put_contents($this->install_path.'config/'.$this->app_class.'.php', $config_data);
 
 		// Config Files
 		foreach ($configs as $config)
 		{
 			// Install
-			$config_current	= file_get_contents($this->template_path."config/".$config.".php", FILE_USE_INCLUDE_PATH);
-			$config_current	= str_replace("{APP_NAME}", $app_name, $config_current);
-			$config_current	= str_replace("{APP_URL}", $app_url, $config_current);
-			$config_current	= str_replace("{APP_CLASS}", $app_class, $config_current);
-			$config_current	= str_replace("{SITE_NAME}", config_item('site_title'), $config_current);
-			$config_current	= str_replace("{SITE_ADMIN}", config_item('site_admin_email'), $config_current);
-			file_put_contents($install_path."config/".$config.".php", $config_current);				
-		}		
+			$config_template	= $this->template_path.'config/'.$config.'.php';
+			$config_data 		= $this->replace_tags($config_template);
+			file_put_contents($this->install_path.'config/'.$config.'.php', $config_data);
+		}
+
+		return TRUE;
 	}
 
-	function create_app_controllers($app_name, $app_url, $app_class)
+	function create_app_controllers($api_methods, $connections)
 	{
-		// Install Path
-		$install_path	= "./application/modules/".$app_url."/";
-		$controllers	= array('api', 'home', 'settings');
+		// Main Controller
+		$controller_template	= $this->template_path.'controllers/app_template.php';
+		$controller_data 		= $this->replace_tags($controller_template);
+		file_put_contents($this->install_path.'controllers/'.$this->app_class.'.php', $controller_data);
 
-		// Main Controllers
-		$config_current	= file_get_contents($this->template_path."controllers/app_template.php", FILE_USE_INCLUDE_PATH);
-		$config_current	= str_replace("{APP_NAME}", $app_name, $config_current);
-		$config_current	= str_replace("{APP_URL}", $app_url, $config_current);
-		$config_current	= str_replace("{APP_CLASS}", ucwords($app_class), $config_current);
-		$config_current	= str_replace("{SITE_NAME}", config_item('site_title'), $config_current);
-		$config_current	= str_replace("{SITE_ADMIN}", config_item('site_admin_email'), $config_current);
-		file_put_contents($install_path."controllers/".$app_class.".php", $config_current);
-
-		// Controllers
-		foreach ($controllers as $controller)
+		// API
+		if ($api_methods == 'TRUE')
 		{
-			// Install
-			$config_current	= file_get_contents($this->template_path."controllers/".$controller.".php", FILE_USE_INCLUDE_PATH);
-			$config_current	= str_replace("{APP_NAME}", $app_name, $config_current);
-			$config_current	= str_replace("{APP_URL}", $app_url, $config_current);
-			$config_current	= str_replace("{APP_CLASS}", $app_class, $config_current);
-			$config_current	= str_replace("{SITE_NAME}", config_item('site_title'), $config_current);
-			$config_current	= str_replace("{SITE_ADMIN}", config_item('site_admin_email'), $config_current);
-			file_put_contents($install_path."controllers/".$controller.".php", $config_current);				
-		}		
+			$api_template = $this->template_path.'controllers/api_methods.php';
+		}
+		else
+		{
+			$api_template = $this->template_path.'controllers/api.php';
+		}
+
+		$api_data = $this->replace_tags($api_template);
+		file_put_contents($this->install_path.'controllers/api.php', $api_data);			
+
+		// Connections
+		if ($connections == 'oauth1')
+		{
+			$connections_template	= $this->template_path.'controllers/connections_oauth1.php';
+			$connections_data 		= $this->replace_tags($connections_template);
+			file_put_contents($this->install_path.'controllers/connections.php', $connections_data);			
+		}
+
+		// Home & Settings
+		foreach (array('home', 'settings') as $controller)
+		{
+			$controller_template	= $this->template_path.'controllers/'.$controller.'.php';
+			$controller_data 		= $this->replace_tags($controller_template);
+			file_put_contents($this->install_path.'controllers/'.$controller.'.php', $controller_data);				
+		}
+
+		return TRUE;
 	}
 
-	function create_app_views($app_name, $app_url, $app_class)
+	function create_app_views()
 	{
 		// Install Path
-		$install_path = "./application/modules/".$app_url."/";
-		$view_folders = array($app_class, 'home', 'partials', 'settings');
+		$view_folders = array($this->app_class, 'home', 'partials', 'settings');
 		$views	  	  = array('home/custom', 'partials/head_dashboard', 'partials/head_site', 'partials/navigation_home', 'partials/sidebar_tools', 'settings/index', 'settings/widgets');
 
 		// Views
 		foreach ($view_folders as $folder)
 		{
-			make_folder($install_path.'views/'.$folder);
+			make_folder($this->install_path.'views/'.$folder);
 		}
 
 		// App Index
-		$config_current	= file_get_contents($this->template_path."views/app_template/index.php", FILE_USE_INCLUDE_PATH);
-		$config_current	= str_replace("{APP_NAME}", $app_name, $config_current);
-		$config_current	= str_replace("{APP_URL}", $app_url, $config_current);
-		$config_current	= str_replace("{APP_CLASS}", $app_class, $config_current);
-		file_put_contents($install_path."views/".$app_class."/index.php", $config_current);
+		$config_template	= $this->template_path.'views/app_template/index.php';
+		$config_data 		= $this->replace_tags($config_template);
+		file_put_contents($this->install_path.'views/'.$this->app_class.'/index.php', $config_data);
 		
 		// Partials & Settings
 		foreach ($views as $view)
 		{
-			$config_current	= file_get_contents($this->template_path."views/".$view.".php", FILE_USE_INCLUDE_PATH);
-			$config_current	= str_replace("{APP_NAME}", $app_name, $config_current);
-			$config_current	= str_replace("{APP_URL}", $app_url, $config_current);
-			$config_current	= str_replace("{APP_CLASS}", $app_class, $config_current);
-			file_put_contents($install_path."views/".$view.".php", $config_current);
+			$config_template	= $this->template_path.'views/'.$view.'.php';
+			$config_data 		= $this->replace_tags($config_template);
+			file_put_contents($this->install_path.'views/'.$view.'.php', $config_data);
 		}
+
+		return TRUE;
+	}
+	
+	function create_helper($helper)
+	{
+		make_folder($this->install_path.'helpers/');
+
+		// Helper
+		$config_template	= $this->template_path.'helpers/app_template_helper.php';
+		$config_data 		= $this->replace_tags($config_template);
+		file_put_contents($this->install_path.'helpers/'.$this->app_class.'_helper.php', $config_data);
+
+		return TRUE;
+	}
+
+	function create_libraries($library, $oauth)
+	{
+		make_folder($this->install_path.'libraries/');
+
+		// Library
+		if ($library != 'FALSE')
+		{
+			$library_template	= $this->template_path.'libraries/app_template_libary.php';
+			$library_data 		= $this->replace_tags($library_template, '{APP_CLASS_TITLE}', ucwords($this->app_class));
+			file_put_contents($this->install_path.'libraries/'.ucwords($this->app_class).'_library.php', $library_data);
+		}
+
+		// OAuth Provider
+		if ($oauth != 'FALSE')
+		{
+			$library_template	= $this->template_path.'libraries/'.$oauth.'_provider.php';
+			$library_data 		= $this->replace_tags($library_template, '{APP_CLASS_TITLE}', ucwords($this->app_class));
+			file_put_contents($this->install_path.'libraries/oauth_provider.php', $library_data);
+		}
+
+		return TRUE;
+	}
+	
+	function create_model($model)
+	{
+		if ($model == 'TRUE')
+		{
+			make_folder($this->install_path.'models/');
+	
+			// Make Model
+			$model_template	= file_get_contents($this->template_path.'models/data_model.php', FILE_USE_INCLUDE_PATH);
+			file_put_contents($this->install_path.'models/data_model.php', $model_template);
+		}
+
+		return TRUE;
+	}
+	
+	function create_widgets($widgets)
+	{
+		if ($widgets == 'TRUE')
+		{
+			// Widgets Config
+			$config_template	= $this->template_path.'config/widgets.php';
+			$config_data		= $this->replace_tags($config_template);
+			file_put_contents($this->install_path.'config/widgets.php', $config_data);	
+
+			// Widget Template
+			make_folder($this->install_path.'views/widgets/');
+			$widget_template	= $this->template_path.'views/widgets/recent_data.php';
+			$widget_data		= $this->replace_tags($widget_template);
+			file_put_contents($this->install_path.'views/widgets/recent_data.php', $widget_data);
+		}
+
+		return TRUE;
 	}
 
 }

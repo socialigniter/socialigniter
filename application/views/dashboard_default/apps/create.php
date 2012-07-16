@@ -24,33 +24,32 @@ Learn more about CodeIgniter by reading the <a href="http://codeigniter.com/user
 		Add Connections Class for the following type of authentication 
 		<select name="app_connections">
 			<option value="FALSE">No</option>
-			<option value="FALSE">OAuth 1</option>
-			<option value="FALSE">OAuth 2</option>
+			<option value="oauth1">OAuth 1</option>
+			<option value="oauth2">OAuth 2</option>
 		</select>
 	</p>
 
 	<h3>Helper & Libraries</h3>
 	<p>
-		Create Helper file for custom functions <?= form_dropdown('app_helper', config_item('yes_or_no'), 'FALSE') ?><br>
-		Create object oriented Library template <?= form_dropdown('app_library', config_item('yes_or_no'), 'FALSE') ?><br>
+		Create Helper for custom functions <?= form_dropdown('app_helper', config_item('yes_or_no'), 'FALSE') ?><br>
+		Create Library files for custom object oriented methods <?= form_dropdown('app_library', config_item('yes_or_no'), 'FALSE') ?><br>
 		Add an OAuth Provider Library 
 		<select name="app_oauth_provider">
 			<option value="FALSE">No</option>
-			<option value="FALSE">OAuth 1</option>
-			<option value="FALSE">OAuth 2</option>
+			<option value="oauth1">OAuth 1</option>
+			<option value="oauth2">OAuth 2</option>
 		</select>		
 	</p>
 	
 	<h3>Database & Model</h3>
 	<p>
 		Add Model Class template to interact with database <?= form_dropdown('app_model', config_item('yes_or_no'), 'FALSE') ?><br>
-		Create new Database table for that model <?= form_dropdown('app_model', config_item('yes_or_no'), 'FALSE') ?>
+		Create new Database table for that model <?= form_dropdown('app_database', config_item('yes_or_no'), 'FALSE') ?>
 	</p>
 
 	<h3>Widgets</h3>
 	<p>
-		My app will have public site Widgets <?= form_dropdown('app_widgets', config_item('yes_or_no'), 'FALSE') ?><br>
-		Create a Widget template <?= form_dropdown('app_widget_template', config_item('yes_or_no'), 'FALSE') ?>
+		My app will have public site Widgets <?= form_dropdown('app_widgets', config_item('yes_or_no'), 'FALSE') ?>
 	</p>
 
 	<input type="submit" name="submit" value="Create">

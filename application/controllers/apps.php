@@ -25,6 +25,7 @@ class Apps extends Dashboard_Controller
 	function inactive()
 	{
 		$this->data['sub_title']		= 'Inactive';
+		$this->data['ignore_modules']	= config_item('ignore_modules');
 		$this->data['modules']			= $this->social_igniter->scan_modules();
 
 		$this->render('dashboard_wide');

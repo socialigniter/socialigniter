@@ -54,28 +54,41 @@ class Install extends Oauth_Controller
 		
 	function create_app_authd_post()
 	{
-		$this->load->library('app_tools');
+		// Config
+		$app_data = array(
+			'app_name'		=> $this->input->post('app_name'),		
+			'app_url'		=> $this->input->post('app_url'),
+			'app_class'		=> $this->input->post('app_class')
+		);
+
+		$this->load->library('app_tools', $app_data);
 
 		// Check If App Name Exists
 		if (!$this->app_tools->check_app_exists($this->input->post('app_url')))
 		{
-			// Create App
-			$app_data = array(
-				'app_name'		=> $this->input->post('app_name'),		
-				'app_url'		=> $this->input->post('app_url'),
-				'app_class'		=> $this->input->post('app_class')
-			);
+			// Template
+			$this->app_tools->create_app_template();
 
-			$this->input->post('app_api_methods');
-			$this->input->post('app_connections');
-			$this->input->post('app_helper');
-			$this->input->post('app_library');
-			$this->input->post('app_oauth_provider');
-			$this->input->post('app_model');
-			$this->input->post('app_widgets');
-			$this->input->post('app_widget_template');
+			// Configs
+			$this->app_tools->create_app_configs();
 
-			$this->app_tools->create_app_template($this->input->post('app_name'), $this->input->post('app_url'), $this->input->post('app_class'));
+			// Controllers
+			$this->app_tools->create_app_controllers($this->input->post('app_api_methods'), $this->input->post('app_connections'));
+
+			// Views
+			$this->app_tools->create_app_views();
+
+			// Helper
+			$this->app_tools->create_helper($this->input->post('app_helper'));
+
+			// Libraries
+			$this->app_tools->create_libraries($this->input->post('app_library'), $this->input->post('app_oauth_provider'));
+
+			// Model
+			$this->app_tools->create_model($this->input->post('app_model'));
+
+			// Widgets
+			$this->app_tools->create_widgets($this->input->post('app_widgets'));
 
 			$message = array('status' => 'success', 'message' => 'Yay, your App '.$this->input->post('app_name').' was created from the template');
 		}

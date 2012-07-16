@@ -1,5 +1,5 @@
-<ol>	
-<?php foreach($modules as $module): if ((config_item($module.'_enabled') == 'FALSE') || (config_item($module.'_enabled') == '')): ?>
+<ol>
+<?php foreach($modules as $module): if (!in_array($module, $ignore_modules)): if ((config_item($module.'_enabled') == 'FALSE') || (config_item($module.'_enabled') == '')): ?>
 <li class="item_manage" id="item-<?= $module ?>" rel="modules">
 	<span class="item_title">
 		<img src="<?= base_url().'application/modules/'.$module.'/assets/'.$module ?>_24.png"> <?= display_nice_file_name($module) ?>
@@ -10,11 +10,9 @@
 	<div class="clear"></div>
 	<span class="item_separator"></span>	
 </li>
-<?php endif; endforeach; ?>
+<?php endif; endif; endforeach; ?>
 </ol>
 <div class="clear"></div>	
-	
-	
 
 <script type="text/javascript">
 $(document).ready(function()
