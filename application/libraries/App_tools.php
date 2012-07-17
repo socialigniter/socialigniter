@@ -126,9 +126,9 @@ class App_tools
 		file_put_contents($this->install_path.'controllers/api.php', $api_data);			
 
 		// Connections
-		if ($connections == 'oauth1')
+		if ($connections != 'FALSE')
 		{
-			$connections_template	= $this->template_path.'controllers/connections_oauth1.php';
+			$connections_template	= $this->template_path.'controllers/connections_'.$connections.'.php';
 			$connections_data 		= $this->replace_tags($connections_template);
 			file_put_contents($this->install_path.'controllers/connections.php', $connections_data);			
 		}
