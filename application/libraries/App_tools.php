@@ -201,7 +201,7 @@ class App_tools
 		{
 			$library_template	= $this->template_path.'libraries/'.$oauth.'_provider.php';
 			$library_data 		= $this->replace_tags($library_template, '{APP_CLASS_TITLE}', ucwords($this->app_class));
-			file_put_contents($this->install_path.'libraries/oauth_provider.php', $library_data);
+			file_put_contents($this->install_path.'libraries/'.$oauth.'_provider.php', $library_data);
 		}
 
 		return TRUE;
