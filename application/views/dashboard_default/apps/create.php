@@ -24,7 +24,7 @@ Learn more about CodeIgniter by reading the <a href="http://codeigniter.com/user
 		Add Connections Class for the following type of authentication 
 		<select name="app_connections">
 			<option value="FALSE">No</option>
-			<option value="oauth1">OAuth 1</option>
+			<option value="oauth">OAuth 1</option>
 			<option value="oauth2">OAuth 2</option>
 		</select>
 	</p>
@@ -59,7 +59,7 @@ $(document).ready(function()
 {
 	$('#create_app').bind('submit', function(e)
 	{
-		e.preventDefault();	
+		e.preventDefault();
 		var app_data = $('#create_app').serializeArray();
 	
 		$.oauthAjax(
