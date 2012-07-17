@@ -86,64 +86,6 @@
 
 	<p>ReCAPTCHA
 	<?= form_dropdown('login_recaptcha', config_item('enable_disable'), $settings['users']['login_recaptcha']) ?></p>	
-	
-</div>	
-
-<span class="item_separator"></span>
-
-<div class="content_wrap_inner">
-
-	<h3>Profiles</h3>
-
-	<div class="content_inner_top_right">	
-		<p>Enabled
-		<?= form_dropdown('profile', config_item('enable_disable'), $settings['users']['profile']) ?>
-		</p>
-	</div>
-
-	<p>Activity
-	<?= form_dropdown('profile_activity', config_item('yes_or_no'), $settings['users']['profile_activity']) ?>
-	</p>
-
-	<p>Friends / Followers
-	<?= form_dropdown('profile_relationships', config_item('yes_or_no'), $settings['users']['profile_relationships']) ?>
-	</p>
-		
-	<p>Content
-	<?= form_dropdown('profile_content', config_item('yes_or_no'), $settings['users']['profile_content']) ?>
-	</p>		
-		
-</div>
-
-<span class="item_separator"></span>
-
-<div class="content_wrap_inner">
-	
-	<h3>Messages</h3>	
-
-	<p>Allow
-	<?= form_dropdown('message_allow', config_item('yes_or_no'), $settings['users']['message_allow']) ?>	
-	</p>
-
-	<p>ReCAPTCHA
-	<?= form_dropdown('message_recaptcha', config_item('amount_increments_five'), $settings['users']['message_recaptcha']) ?>
-	</p>
-	
-</div>
-
-<span class="item_separator"></span>
-
-<div class="content_wrap_inner">
-	
-	<h3>Comments</h3>	
-
-	<p>Allow
-	<?= form_dropdown('comments_allow', config_item('yes_or_no'), $settings['users']['comments_allow']) ?>	
-	</p>
-
-	<p>Comments Per-Page
-	<?= form_dropdown('comments_per_page', config_item('amount_increments_five'), $settings['users']['comments_per_page']) ?>
-	</p>
 
 	<input type="hidden" name="module" value="users">
 

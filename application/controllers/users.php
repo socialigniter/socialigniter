@@ -14,7 +14,7 @@ class Users extends Dashboard_Controller {
  	function index()
  	{   		
 		// Get Users
-		$users 			= $this->social_auth->get_users('active', 1);
+		$users 			= $this->social_auth->get_users('active', 1, TRUE);
 		$users_view 	= NULL;
 
 		// Title Stuff

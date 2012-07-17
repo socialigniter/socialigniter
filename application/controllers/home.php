@@ -73,6 +73,8 @@ class Home extends Dashboard_Controller
 				$this->data['item_user_id']			= $activity->user_id;
 				$this->data['item_avatar']			= $this->social_igniter->profile_image($activity->user_id, $activity->image, $activity->gravatar, 'medium', 'dashboard_theme');
 				$this->data['item_contributor']		= $activity->name;
+				
+				// User Profile
 				$this->data['item_profile']			= base_url().'profile/'.$activity->username;
 				
 				// Activity

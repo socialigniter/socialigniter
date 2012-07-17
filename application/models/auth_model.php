@@ -528,7 +528,7 @@ class Auth_model extends CI_Model
     	{
     		if ($details)
     		{
-    			$select = 'user_id, user_level_id, username, email, gravatar, phone_number, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret, activation_code, forgotten_password_code, active, remember_code, created_on';
+    			$select = 'user_id, user_level_id, username, email, gravatar, phone_number, name, image, time_zone, privacy, language, geo_enabled, consumer_key, consumer_secret, token, token_secret, activation_code, forgotten_password_code, active, remember_code, created_on, last_login';
     		}
     		else
     		{
