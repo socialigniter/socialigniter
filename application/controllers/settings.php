@@ -29,6 +29,7 @@ class Settings extends Dashboard_Controller
 		$this->data['name']			= $user->name;
 		$this->data['username']     = $user->username;			    
 		$this->data['email']      	= $user->email;
+		$this->data['phone_number'] = $user->phone_number;
 		$this->data['language']		= $user->language;
 		$this->data['time_zone']	= $user->time_zone;
 		$this->data['geo_enabled']	= $user->geo_enabled;

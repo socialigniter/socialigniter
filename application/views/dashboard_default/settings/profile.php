@@ -32,6 +32,10 @@
 		<td>Email</td>
 		<td><input type="email" name="email" size="40" value="<?= set_value('email', $email) ?>"></td>
 	</tr>
+    <tr>
+		<td>Phone Number</td>
+		<td><input type="text" name="phone_number" size="40" value="<?= set_value('phone_number', $phone_number) ?>"></td>
+	</tr>
 	<tr>
 		<td>Language</td>
 		<td><?= form_dropdown('language', config_item('languages'), $language); ?></td>		
