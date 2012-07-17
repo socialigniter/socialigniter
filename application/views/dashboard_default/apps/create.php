@@ -36,7 +36,7 @@ Learn more about CodeIgniter by reading the <a href="http://codeigniter.com/user
 		Add an OAuth Provider Library 
 		<select name="app_oauth_provider">
 			<option value="FALSE">No</option>
-			<option value="oauth1">OAuth 1</option>
+			<option value="oauth">OAuth 1</option>
 			<option value="oauth2">OAuth 2</option>
 		</select>		
 	</p>
