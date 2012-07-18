@@ -47,11 +47,12 @@ class Content_meta extends Oauth_Controller
 					'value'			=> $this->input->post('value')
 		    	);
 		
-				$content_meta = $this->social_igniter->add_meta($meta_data);					
+				$content_meta_id = $this->social_igniter->add_meta($meta_data);					
 				     		
-			    if ($content_meta)
-			    {		    
-		        	$message = array('status' => 'success', 'message' => 'Posted your content', 'data' => $content);
+			    if ($content_meta_id)
+			    {		 
+			    	$meta_data['content_meta_id'] = $content_meta_id;  
+		        	$message = array('status' => 'success', 'message' => 'Posted your content', 'content_meta' => $meta_data);
 		        }
 		        else
 		        {

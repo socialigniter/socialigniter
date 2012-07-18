@@ -8,20 +8,20 @@
 
 <h3>Migrate Databse</h3>
 
-<p>Update your database schema</p>
+<p>Update your database schema to the following</p>
 
-<p><button id="migrate_db" name="migrate_db">Update</button></p>
+<p><button id="migrate_current" name="migrate_current">Update Stable</button> <button id="migrate_latest" name="migrate_latest">Update Latest</button></p>
 </form>
 <script type="text/javascript">
 $(document).ready(function()
 {
-	$('#migrate_db').bind('click', function(e)
+	$('#migrate_current, #migrate_latest').bind('click', function(e)
 	{
-		e.preventDefault();	
+		e.preventDefault();
 		$.oauthAjax(
 		{
 			oauth 		: user_data,		
-			url			: base_url + 'api/install/migrate_current',
+			url			: base_url + 'api/install/' + $(this).attr('id'),
 			type		: 'GET',
 			dataType	: 'json',
 		  	success		: function(result)

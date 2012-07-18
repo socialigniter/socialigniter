@@ -1,6 +1,6 @@
 <form name="settings_update" id="settings_update" method="post" action="<?= base_url() ?>api/settings/modify" enctype="multipart/form-data">
 <div class="content_wrap_inner">
-	<h3>Logo</h3>
+	<h3>Logo & Text</h3>
 	<div id="logo_picture" class="design_image_thumb">
 		<img id="logo_thumbnail" src="<?= $logo_thumb ?>" border="0">
 	</div>
@@ -15,7 +15,66 @@
 		<li id="logo_uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>			
 	<?php endif; ?>
 	</ul>
+	<div class="design_color_widget">
+		<p>Font Size<br>
+		<?= form_dropdown('font_size', config_item('css_font_sizes'), $settings['design']['font_size']) ?>
+		</p>
+		<p>Font Family<br>
+		<?= form_dropdown('font_family', config_item('css_font_family'), $settings['design']['font_family']) ?>
+		</p>
+	</div>	
+	<div class="design_color_widget">
+		<p>Font Color</p>
+		<div id="font_color_picker" class="design_color_picker">
+			<div style="background-color: #<?= config_item('design_font_color') ?>"></div>
+		</div>
+		<div class="design_color_details">
+			<input type="text" maxlength="6" size="6" name="font_color" id="font_color" value="<?= config_item('design_font_color') ?>" /><br>
+			<img id="font_color_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">
+		</div>
+		<div class="clear"></div>
+	</div>
+	
 	<div class="clear"></div>
+</div>
+<span class="item_separator"></span>
+
+<div class="content_wrap_inner">
+	<h3>Background</h3>
+	<div id="background_picture" class="design_image_thumb">
+		<img id="background_thumbnail" src="<?= $background_thumb ?>" border="0">
+	</div>
+	<ul id="background_picture_upload" class="design_image_uploader item_actions_list">
+		<li id="background_uploading_pick"><a id="pick_background" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
+		<li id="background_uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
+	<?php if ($background_thumb): ?>
+		<li id="background_uploading_delete"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+		<li id="background_uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>
+	<?php else: ?>
+		<li id="background_uploading_delete" class="hide"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
+		<li id="background_uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>			
+	<?php endif; ?>
+	</ul>
+	<div class="design_color_widget">
+		<p>Position<br>
+		<?= form_dropdown('background_position', config_item('css_background_position'), $settings['design']['background_position']) ?>
+		</p>
+		<p>Repeat<br>
+		<?= form_dropdown('background_repeat', config_item('css_background_repeat'), $settings['design']['background_repeat']) ?>
+		</p>
+	</div>
+	<div class="design_color_widget">
+		<p>Color</p>
+		<div id="background_color_picker" class="design_color_picker">
+			<div style="background-color: #<?= config_item('design_background_color') ?>"></div>
+		</div>
+		<div class="design_color_details">
+			<input type="text" maxlength="6" size="6" name="background_color" id="background_color" value="<?= config_item('design_background_color') ?>" /><br>
+			<img id="background_color_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>	
 </div>
 <span class="item_separator"></span>
 
@@ -133,47 +192,9 @@
 		<div class="clear"></div>
 	</div>
 	<div class="clear"></div>
+	<p><input type="submit" value="Save"></p>	
 </div>
-<span class="item_separator"></span>
 
-<div class="content_wrap_inner">
-	<h3>Background</h3>
-	<div id="background_picture" class="design_image_thumb">
-		<img id="background_thumbnail" src="<?= $background_thumb ?>" border="0">
-	</div>
-	<ul id="background_picture_upload" class="design_image_uploader item_actions_list">
-		<li id="background_uploading_pick"><a id="pick_background" href="#"><span class="actions action_upload"></span> Upload A Picture</a></li>
-		<li id="background_uploading_status" class="hide"><span class="actions action_sync"></span> Uploading: <span id="file_uploading_progress"></span><span id="file_uploading_name"></span></li>			
-	<?php if ($background_thumb): ?>
-		<li id="background_uploading_delete"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
-		<li id="background_uploading_details" class="small_details hide"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>
-	<?php else: ?>
-		<li id="background_uploading_delete" class="hide"><a id="delete_picture" href="#"><span class="actions action_delete"></span> Delete Picture</a></li>
-		<li id="background_uploading_details" class="small_details"><span class="actions_blank"></span> <?= config_item('default_images_max_size') / 1024 ?> MB max size (<?= strtoupper(str_replace('|', ', ', config_item('default_images_formats'))) ?>)</li>			
-	<?php endif; ?>
-	</ul>
-	<div class="design_color_widget">
-		<p>Position<br>
-		<?= form_dropdown('background_position', config_item('css_background_position'), $settings['design']['background_position']) ?>
-		</p>
-		<p>Repeat<br>
-		<?= form_dropdown('background_repeat', config_item('css_background_repeat'), $settings['design']['background_repeat']) ?>
-		</p>
-	</div>
-	<div class="design_color_widget">
-		<p>Color</p>
-		<div id="background_color_picker" class="design_color_picker">
-			<div style="background-color: #<?= config_item('design_background_color') ?>"></div>
-		</div>
-		<div class="design_color_details">
-			<input type="text" maxlength="6" size="6" name="background_color" id="background_color" value="<?= config_item('design_background_color') ?>" /><br>
-			<img id="background_color_swatch" src="<?= $dashboard_assets ?>icons/colors_24.png">
-		</div>
-		<div class="clear"></div>
-	</div>
-	<div class="clear"></div>
-	<p><input type="submit" value="Save"></p>
-</div>
 </form>
 
 <link rel="stylesheet" href="<?= $dashboard_assets ?>colorpicker.css" type="text/css" />
@@ -184,7 +205,25 @@
 <script type="text/javascript">
 $(document).ready(function()
 {
-	// Font Color Pickers
+	// Font
+	$('#font_color_picker_normal, #font_color_normal_swatch').ColorPicker({
+		color: '#<?= config_item('design_font_color_normal') ?>',
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('#font_color_picker_normal div').css('backgroundColor', '#' + hex);
+			$('#font_color_normal').val(hex);			
+		}
+	});
+
+
+	// Link Color Pickers
 	$('#link_color_picker_normal, #link_color_normal_swatch').ColorPicker({
 		color: '#<?= config_item('design_link_color_normal') ?>',
 		onShow: function (colpkr) {
@@ -233,6 +272,7 @@ $(document).ready(function()
 		}
 	});
 
+
 	// Header Color Pickers
 	$('#header_color_picker, #header_color_swatch').ColorPicker({
 		color: '#<?= config_item('design_header_color') ?>',
@@ -265,7 +305,7 @@ $(document).ready(function()
 			$('#header_link_color_picker_normal div').css('backgroundColor', '#' + hex);
 			$('#header_link_color_normal').val(hex);			
 		}
-	});	
+	});
 
 	$('#header_link_color_picker_visited, #header_link_color_visited_swatch').ColorPicker({
 		color: '#<?= config_item('design_header_link_color_visited') ?>',
@@ -281,8 +321,9 @@ $(document).ready(function()
 			$('#header_link_color_picker_visited div').css('backgroundColor', '#' + hex);
 			$('#header_link_color_visited').val(hex);			
 		}
-	});	
-	
+	});
+
+
 	$('#header_link_color_picker_hover, #header_link_color_hover_swatch').ColorPicker({
 		color: '#<?= config_item('design_font_color_hover') ?>',
 		onShow: function (colpkr) {
@@ -297,7 +338,8 @@ $(document).ready(function()
 			$('#header_link_color_picker_hover div').css('backgroundColor', '#' + hex);
 			$('#header_link_color_hover').val(hex);			
 		}
-	});	
+	});
+
 
 	// Background Color Pickers
 	$('#background_color_picker, #background_color_swatch').ColorPicker({
@@ -315,7 +357,8 @@ $(document).ready(function()
 			$('#background_color').val(hex);
 		}
 	});
-	
+
+
 	// Upload Picture
 	$('#pick_logo').mediaUploader(
 	{
@@ -357,6 +400,7 @@ $(document).ready(function()
 			}		
 		}
 	});	
+
 
 	// Upload Header
 	$('#pick_header').mediaUploader(
@@ -452,7 +496,8 @@ $(document).ready(function()
 				}
 		 	}
 		});
-	});	
+	});
+
 });
 </script>
 <?= $shared_ajax ?>

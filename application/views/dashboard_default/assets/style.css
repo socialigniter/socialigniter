@@ -150,7 +150,7 @@ div.content_wrap a:visited	{ color: #2078ce; text-decoration: underline; }
 div.content_wrap a:hover	{ color: #2078ce; text-decoration: underline; }
 div.content_wrap input[type=button]	{ margin: 0px 0px 25px 0px; }
 
-div.content_line			{ width: 645px; background: url(images/content_norm_line.png) 0 0 repeat-x; margin: 0 0; padding: 10px 0 0 0; }
+div.content_line			{ width: 645px; background: url('images/content_norm_line.png') 0 0 repeat-x; margin: 0 0; padding: 10px 0 0 0; }
 div.content_wrap_inner		{ margin: 0 15px 25px 15px; }
 div.content_inner_top_right	{ width: 200px; float: right; position: relative; right: 0; top: 0; }
 
@@ -269,8 +269,6 @@ span.item_manage_meta				{ width: 450px; display: block; float: left; margin: 0 
 span.item_manage_meta_generic		{ width: 450px; display: block; float: left; margin: 0 0 0 15px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
 span.item_manage_meta span span 	{ position: relative; top: -2px; left: 0; }
 span.item_manage_categories_meta	{ width: 450px; display: block; float: left; margin: 0 0 0 15px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
-
-span.item_manage_comments			{ display: block; width: 145px; float: left; }
 span.item_manage_content			{ display: block; width: 160px; float: left; }
 span.item_manage_publish			{ display: block; width: 200px; float: left; }
 
@@ -337,7 +335,6 @@ span.type_linechart					{ background-position: 42px -485px; }
 span.type_piechart					{ background-position: 42px -520px; }
 span.type_features					{ background-position: 42px -555px; }
 span.type_discussion				{ background-position: 0px -588px; }
-
 
 /* Actions - Feed */
 ul.item_actions 					{ margin: 0px 0 0 0; padding: 0; list-style: none; float: right; visibility: hidden; }
@@ -417,15 +414,6 @@ span.item_right a:hover				{ text-decoration: underline; }
 .slug_url span 							{ border-bottom:1px dashed #aaa; }
 .slug_url span:hover			 		{ border-bottom:1px dashed #dddd00;cursor:pointer;background:#f2e3af; }
 .slug_url_edit 							{ width:100px;height:15px !important;padding:3px !important; }
-
-.comment_list 						{ width: 450px; border-radius:5px; background: #e2e2e2; margin: 0 0 10px 0; display: none; }
-.comment_list li:first-child 		{ border-top:none; padding: 10px 10px 5px 15px; }
-.comment_list li { padding: 0 10px 5px 15px; margin: 0; display:block;float:none !important; }
-.comment_list li div.comment 		{ border-bottom:1px solid #ccc; margin: 5px 0 0 0; }
-.comment_list li div.comment p 		{ margin: 0; color: #555555; text-shadow: #eeeeee; font-size:12px; line-height:16px; }
-.comment_list li p.comment_meta span{ margin: 10px 0 0 0; font-size:11px; color:#999999; }
-.comment_list li img.comment_thumb 	{ width: 34px; display: block; float: left; margin: 0 10px 10px 0; }
-.comment_list #comment_write 		{ margin: 5px 0 0 0; }
 
 /* Selectables Default */
 div.selectable 						{ width: 125px; height: 35px; float: left; margin: 0 25px 25px 0; padding: 10px 10px; border-radius: 10px; border: 1px solid #C3C3C3; font-size: 12px; line-height: 18px; word-wrap: normal; cursor: pointer; text-align: center; text-shadow: 1px 1px 1px #ffffff; }
@@ -508,7 +496,7 @@ div.design_color_details			{ width: 100px; float: left; }
 div.design_color_details input[type=text] { margin: 5px 0 10px 0; }
 img.font_color_picker_icon			{ cursor: pointer; margin: 0 8px 0 0; position: relative;  }
 
-/* Widget */
+/* Widgets */
 div.widget_area h3					{ float: left; }
 div.widget_area input[type=button] 	{ float: right; display: block; position: relative; top: -6px; right: -10px; }
 div.widget_border					{ width: 100%; min-height: 25px; border: 4px dashed #999999; }

@@ -247,3 +247,31 @@ $config['css_background_position'] = array(
 	'right center'		=> 'Right Center',
 	'right bottom'		=> 'Right Bottom'
 );
+
+$config['css_font_sizes'] = array(
+	'10px'		=> '10px',
+	'12px'		=> '12px',
+	'14px'		=> '14px',
+	'18px'		=> '18px',
+	'24px'		=> '24px',
+	'30px'		=> '30px',
+	'36px'		=> '36px',
+	'48px'		=> '48px',
+	'60px'		=> '60px',
+	'72px'		=> '72px'
+);
+
+$config['css_font_family'] = array(
+	'Arial'					=> 'Arial',
+	'"Arial Black"'			=> 'Arial Black',
+	'"Courier New"'			=> 'Courier New',
+	'Georgia'				=> 'Georgia',
+	'Impact'				=> 'Impact',
+	'"Lucida Console"'		=> 'Lucida Console',
+	'"Palatino Linotype"'	=> 'Palatino Linotype',
+	'Tahoma'				=> 'Tahoma',
+	'"Times New Roman"'		=> 'Times New Roman',
+	'"Trebuchet MS"'		=> 'Trebuchet MS',
+	'Verdana'				=> 'Verdana'
+);
+

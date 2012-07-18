@@ -117,4 +117,21 @@ class Install extends Oauth_Controller
 		$this->response($message, 200);
 	}
 
+	function migrate_latest_authd_get()
+	{
+		$this->load->library('migration');
+
+		// Update to current (as specified in config/migration.php)
+		if (!$this->migration->latest())
+		{
+            $message = array('status' => 'error', 'message' => show_error($this->migration->error_string()));			
+		}
+		else
+		{
+			$message = array('status' => 'success', 'message' => 'Yay, your was database was sucessfully updated');
+		}
+
+		$this->response($message, 200);
+	}
+
 }

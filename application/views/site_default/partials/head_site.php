@@ -25,11 +25,6 @@ a:active	{ font-weight: normal; text-decoration: none; }
 #name 							{ width: 625px; height: 72px; display: block; position: relative; top: 40px; left: 0; float: left; }
 #name a, #name a h1 			{ width: 100%; height: 100%; display: block; position: relative; top: 0px; left: 0px; font-size: 72px; line-height: 72px; color: #<?= config_item('design_header_link_color_normal') ?>; text-shadow: 1px 1px 1px #999999; }
 #name a:hover, #name a:hover h1		{ color: #<?= config_item('design_header_link_color_hover') ?>; text-shadow: 1px 1px 1px #999999; }
-
-#comments a 					{ font-weight: normal; color: #<?= config_item('design_link_color_normal') ?>; text-decoration: none; }
-#comments a:visited				{ font-weight: normal; color: #<?= config_item('design_link_color_visited') ?>; text-decoration: none; }
-#comments a:hover				{ font-weight: normal; color:#<?= config_item('design_link_color_hover') ?>; text-decoration: underline; }
-#comments a:active				{ font-weight: normal; text-decoration: none; }
 </style>
 <link type="text/css" href="<?= $site_assets ?>style.css" rel="stylesheet" media="screen" />
 <script type="text/javascript" src="<?= base_url() ?>js/jquery.js"></script>
