@@ -17,12 +17,12 @@ strong { font-weight:bold; }
 em { font-style:italic; }
 
 /* Start Site Default Theme */
-body					{ font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 14px; color: #333; margin: 0; padding: 0; }
+body					{ margin: 0; padding: 0; }
 h1						{ color: #444444; font-size: 48px; font-weight: bold; line-height: 54px; text-shadow:1px 1px 1px #FFF; }
 h2						{ color: #444444; font-size: 36px; font-weight: bold; line-height: 42px; text-shadow:1px 1px 1px #FFF; }
 h3						{ color: #444444; font-size: 24px; font-weight: bold; line-height: 24px; text-shadow:1px 1px 1px #FFF; }
 h4						{ color: #444444; font-size: 18px; font-weight: bold; line-height: 24px; text-shadow:1px 1px 1px #FFF; }
-p 						{ margin: 0 0 0 0; font-size: 14px; line-height: 18px; }
+p 						{ margin: 0 0 0 0; }
 ul 						{ margin: 0 }
 ol 						{ margin: 0 }
 pre						{ background: #f3f3f3; border: 1px solid #999999; padding: 10px; }

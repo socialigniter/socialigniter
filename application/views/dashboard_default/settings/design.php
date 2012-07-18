@@ -206,8 +206,8 @@
 $(document).ready(function()
 {
 	// Font
-	$('#font_color_picker_normal, #font_color_normal_swatch').ColorPicker({
-		color: '#<?= config_item('design_font_color_normal') ?>',
+	$('#font_color_picker, #font_color_normal_swatch').ColorPicker({
+		color: '#<?= config_item('design_font_color') ?>',
 		onShow: function (colpkr) {
 			$(colpkr).fadeIn(500);
 			return false;
@@ -217,8 +217,8 @@ $(document).ready(function()
 			return false;
 		},
 		onChange: function (hsb, hex, rgb) {
-			$('#font_color_picker_normal div').css('backgroundColor', '#' + hex);
-			$('#font_color_normal').val(hex);			
+			$('#font_color_picker div').css('backgroundColor', '#' + hex);
+			$('#font_color').val(hex);			
 		}
 	});
 
