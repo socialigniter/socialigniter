@@ -363,7 +363,7 @@ span.action_delete 					{ background-position: -25px 0; }
 span.action_share 					{ background-position: -50px 0; margin: 0 6px 0 0; }
 span.action_like 					{ background-position: -75px 0; }
 span.action_comment 				{ background-position: -100px 0; }
-span.action_get_place				{ background-position: -125px 0; }
+span.action_crosshairs				{ background-position: -125px 0; }
 span.action_link					{ background-position: -150px 0; }
 span.action_approve					{ background-position: -175px 0; }
 span.action_edit					{ background-position: -200px 0; }
@@ -383,7 +383,8 @@ span.action_down					{ background-position: -525px 0; }
 span.action_group					{ background-position: -550px 0; }
 span.action_link					{ background-position: -575px 0; }
 span.action_alarm					{ background-position: -600px 0; }
-
+span.action_person					{ background-position: -625px 0; }
+span.action_place					{ background-position: -650px 0; }
 
 /* Feed Specific */
 span.item_comment_left				{ width: 24px; height: 32px; display: block; float: left; background: url(images/item_type_icons.png) 0 -455px; position: relative; left: 0; top: 4px; }

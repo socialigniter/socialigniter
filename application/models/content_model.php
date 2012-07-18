@@ -272,37 +272,41 @@ class Content_model extends CI_Model {
 	/* Content Meta */
     function get_meta($content_meta_id)
     {
- 		$this->db->select('*');
- 		$this->db->from('content_meta');  
- 		$this->db->where('content_meta_id', $content_meta_id);
+ 		$this->db->select('content_meta.*, content.user_id');
+ 		$this->db->from('content_meta');
+  		$this->db->join('content', 'content.content_id = content_meta.content_id');		  
+ 		$this->db->where('content_meta.content_meta_id', $content_meta_id);
 		$this->db->limit(1);
  		$result = $this->db->get()->row();	
  		return $result;
     }
     
     function get_meta_content($content_id)
-    {    		
- 		$this->db->select('*');
- 		$this->db->from('content_meta');  
- 		$this->db->where('content_id', $content_id);
+    {
+ 		$this->db->select('content_meta.*, content.user_id');
+ 		$this->db->from('content_meta');
+  		$this->db->join('content', 'content.content_id = content_meta.content_id');
+ 		$this->db->where('content_meta.content_id', $content_id);
  		$result = $this->db->get();
  		return $result->result();
     }
 
     function get_meta_content_meta($content_id, $meta)
     {    		
- 		$this->db->select('*');
- 		$this->db->from('content_meta');  
- 		$this->db->where(array('content_id' => $content_id, 'meta' => $meta));
+ 		$this->db->select('content_meta.*, content.user_id');
+ 		$this->db->from('content_meta');
+  		$this->db->join('content', 'content.content_id = content_meta.content_id'); 		
+ 		$this->db->where(array('content_meta.content_id' => $content_id, 'content_meta.meta' => $meta));
  		$result = $this->db->get()->row();	
  		return $result;
     }
 
     function get_meta_multiples($content_id_array)
     {
- 		$this->db->select('*');
+ 		$this->db->select('content_meta.*, content.user_id');
  		$this->db->from('content_meta');
- 		$this->db->or_where_in('content_id', $content_id_array);
+  		$this->db->join('content', 'content.content_id = content_meta.content_id');
+ 		$this->db->or_where_in('content_meta.content_id', $content_id_array);
  		$result = $this->db->get();
  		return $result->result();
     }
