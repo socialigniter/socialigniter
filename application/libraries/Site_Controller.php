@@ -163,7 +163,7 @@ class Site_Controller extends MY_Controller
 				// View or Run Widget
     			if ($widget->method == 'view')
  				{
-    				$widgets .= $this->load->view(config_item('site_theme').'/widgets/'.$widget->path, $this->data, true);
+    				$widgets .= $this->load->view('widgets/'.$widget->path, $this->data, true);
     			}
     			elseif ($widget->method == 'run')
     			{

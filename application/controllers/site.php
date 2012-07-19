@@ -226,7 +226,7 @@ class Site extends Site_Controller
 	{
 		$widget_data['tags'] = $this->social_tools->get_tags('type', 'all', 5);
 		
-		$this->load->view(config_item('site_theme').'/widgets/tag_cloud', $widget_data);
+		$this->load->view('widgets/tag_cloud', $widget_data);
 	}
 
 }
