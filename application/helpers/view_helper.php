@@ -430,7 +430,7 @@ function get_category_image($category, $module, $size)
 }
 
 /* Site Design Functions */
-function show_site_logo($size)
+function show_site_logo($size, $placeholder='')
 {
 	$ci =& get_instance();
 	$image = $ci->config->item('design_site_logo');
@@ -446,14 +446,21 @@ function show_site_logo($size)
 			$image_path	= base_url().$ci->config->item('uploads_folder').'sites/'.$ci->config->item('site_id').'/'.$size.'_'.$image;		
 		}
 
-		$avatar = '<img src="'.$image_path.'" border="0">';
+		$result = '<img src="'.$image_path.'" border="0">';
 	}
 	else
 	{
-		$avatar	= '';
+		if ($placeholder)
+		{
+			$result = '<img src="'.$placeholder.'" border="0">';
+		}
+		else
+		{
+			$result = '';
+		}
 	}
 
-	return $avatar;
+	return $result;
 }
 
 function make_css_background($type)
