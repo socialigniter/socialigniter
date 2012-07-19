@@ -409,9 +409,46 @@ function sortByCommentId(a, b){
 /* HTML Partial Vars */
 var partials = {
 	"item_data":"<li class='item_data' id='item_data_'><span class='actions action_'></span><span class='item_data'></span><ul class='item_actions'><li><a href='' class='mobile_edit_data'><span class='actions action_edit'></span> Edit</a></li><li><a href='' class='mobile_delete_data' rel=''><span class='actions action_delete'></span> Delete</a></li></ul><input type='hidden' id='data_' value=''></li>"
-}
+};
 
 
+/*	Update Content Form and links in a specified HTML container 
+*	This is useful for pages that create / edit to an API with only one form & AJAX call
+*	So as to update Links and API URLs upon creating content
+*	Requires this above form $.data(document.body, 'api_url', specify_url);
+*/
+(function($)
+{
+	$.updateContentManager = function(options)
+	{
+		var defaults =
+		{
+    		page_url		: '',
+    		api_url			: '',
+    		link_elements	: '',
+    		link_url		: '',
+    		callback	: function(){}
+  		}
+
+		var settings = $.extend(defaults, options);
+
+		// Set Global Data
+		$.data(document.body, 'api_url', settings.api_url);
+			
+		// Update Window
+		window.history.pushState({path: settings.page_url },'', settings.page_url);
+
+		// Update Links
+		if (settings.link_elements)
+		{
+			$.each($(settings.link_elements), function()
+			{			
+				var current_url = $(this).attr('href');
+				$(this).attr('href', current_url + settings.link_url);
+			});
+		}
+	};
+})(jQuery);
 
 
 // On Ready Actions
