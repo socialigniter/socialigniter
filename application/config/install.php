@@ -407,44 +407,6 @@ $config['database_places_table'] = array(
 	)														
 );
 
-$config['database_ratings_table'] = array(
-	'rating_id' => array(
-		'type' 					=> 'INT',
-		'constraint' 			=> 32,
-		'unsigned' 				=> TRUE,
-		'auto_increment'		=> TRUE
-	),
-	'site_id' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 8,
-		'null'					=> TRUE
-	),
-	'user_id' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 11,
-		'null'					=> TRUE
-	),
-	'content_id' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 11,
-		'null'					=> TRUE
-	),
-	'type' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 32,
-		'null'					=> TRUE
-	),
-	'rating' => array(
-		'type'					=> 'CHAR',
-		'constraint'			=> 6,
-		'null'					=> TRUE
-	),
-	'created_at' => array(
-		'type'					=> 'DATETIME',
-		'null'					=> TRUE
-	)												
-);
-
 $config['database_relationships_table'] = array(
 	'relationship_id' => array(
 		'type' 					=> 'INT',
@@ -930,8 +892,6 @@ $config['services_settings']['akismet_key'] 			= '';
 $config['services_settings']['recaptcha_public'] 		= '';
 $config['services_settings']['recaptcha_private'] 		= '';
 $config['services_settings']['recaptcha_theme'] 		= 'white';
-$config['ratings_settings']['enabled'] 					= 'TRUE';
-$config['ratings_settings']['rate_type'] 				= 'TRUE';
 $config['home_settings']['view_permission'] 			= '4';
 $config['home_settings']['create_permission'] 			= '4';
 $config['home_settings']['view_redirect'] 				= '';

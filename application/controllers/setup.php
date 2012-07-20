@@ -39,7 +39,6 @@ class Setup extends MX_Controller
 			$this->installer->install_settings('design', config_item('design_settings'));
 			$this->installer->install_settings('themes', config_item('themes_settings'));
 			$this->installer->install_settings('services', config_item('services_settings'));
-			$this->installer->install_settings('ratings', config_item('ratings_settings'));
 			$this->installer->install_settings('home', config_item('home_settings'));
 			$this->installer->install_settings('users', config_item('users_settings'));
 			

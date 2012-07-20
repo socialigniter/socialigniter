@@ -21,7 +21,6 @@ class Social_tools
 				
 		// Load Models
 		$this->ci->load->model('categories_model');
-		$this->ci->load->model('ratings_model');
 		$this->ci->load->model('relationships_model');
 		$this->ci->load->model('tags_model');
 		$this->ci->load->model('taxonomy_model');
@@ -291,33 +290,8 @@ class Social_tools
 	{
 		return $this->ci->categories_model->delete_category($category_id);
 	}
-	
 
-	/* Ratings */
-	function get_ratings($content_id)
-	{
-		return $this->ci->ratings_model->get_ratings($content_id);
-	}
 
-	function get_ratings_view($parameter, $value)
-	{
-		return $this->ci->ratings_model->get_ratings_view($parameter, $value);
-	}
-	
-	function get_ratings_likes_user($user_id)
-	{
-		return $this->ci->ratings_model->get_ratings_likes_user($user_id);
-	}
-	
-	function check_rating($rating_data)
-	{
-		return $this->ci->ratings_model->check_rating($rating_data);
-	}
-	
-	function add_rating($rating_data)
-	{
-		return $this->ci->ratings_model->add_rating($rating_data);
-	}
 	
 	/* Relationships */
 	function follow_relationship($owner_id, $user_id, $module, $type)
