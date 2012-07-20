@@ -651,6 +651,7 @@ class Social_igniter
 		{
 			$activity = $this->ci->activity_model->get_activity($activity_id);
 		
+			/*
 			if ($activity)
 			{
 				$username	= $activity->username;
@@ -660,6 +661,7 @@ class Social_igniter
 				$this->ci->load->library('curl');	
 				$this->ci->curl->simple_post($hub, $hubargs);
 			}
+			*/
 
 			return $activity;
 		}
