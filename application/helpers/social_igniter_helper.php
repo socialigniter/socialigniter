@@ -70,3 +70,5 @@ function connections_redirect($redirect=FALSE)
 	
 	return $redirect;
 }
+
+

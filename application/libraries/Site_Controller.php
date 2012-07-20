@@ -14,7 +14,55 @@ class Site_Controller extends MY_Controller
 {
     function __construct()
     {
-        parent::__construct();      
+        parent::__construct(); 
+        
+
+		// Dashboard & Public values for logged
+		if ($this->social_auth->logged_in())
+		{
+			// OAuth Tokens
+			$this->data['oauth_consumer_key'] 	= $this->session->userdata('consumer_key');
+			$this->data['oauth_consumer_secret']= $this->session->userdata('consumer_secret');
+			$this->data['oauth_token'] 			= $this->session->userdata('token');
+			$this->data['oauth_token_secret'] 	= $this->session->userdata('token_secret');
+
+			// Logged Values
+			$this->data['logged_user_id']		= $this->session->userdata('user_id');
+			$this->data['logged_user_level_id']	= $this->session->userdata('user_level_id');
+			$this->data['logged_username']		= $this->session->userdata('username');
+			$this->data['logged_name']			= $this->session->userdata('name');
+			$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('gravatar'), 'medium');
+			$this->data['logged_profile']		= base_url().'people/'.$this->session->userdata('username');
+			$this->data['logged_location']		= $this->session->userdata('location');
+			$this->data['logged_geo_enabled']	= $this->session->userdata('geo_enabled');
+			$this->data['logged_privacy']		= $this->session->userdata('privacy');
+
+			// Various Links
+			$this->data['link_home']			= base_url()."home";
+			$this->data['link_profile']			= base_url()."people/".$this->session->userdata('username');
+			$this->data['link_settings']		= base_url()."settings/profile";
+			$this->data['link_logout']			= base_url().'logout';	
+		}
+		else
+		{
+			// OAuth Tokens
+			$this->data['oauth_consumer_key'] 	= '';
+			$this->data['oauth_consumer_secret']= '';
+			$this->data['oauth_token'] 			= '';
+			$this->data['oauth_token_secret'] 	= '';
+
+			// Logged Values	
+			$this->data['logged_user_id']		= '';	
+			$this->data['logged_user_level_id']	= '';
+			$this->data['logged_username']		= '';
+			$this->data['logged_image'] 		= base_url().'application/views/'.config_item('site_theme').'/assets/images/medium_'.config_item('no_profile');
+			$this->data['logged_profile']		= base_url().'people';
+			$this->data['logged_name']			= 'Your Name';
+			$this->data['logged_location']		= '';
+			$this->data['logged_geo_enabled']	= '';
+			$this->data['logged_privacy']		= '';
+		}        
+            
 
         // Load Basic Views
         $head_view			= config_item('site_theme').'/partials/head_site';

@@ -231,7 +231,7 @@ div.stage_marker_on 		{ background: url(images/button_basic.png) 0 0 repeat-x; b
 
 li.item								{ width: 645px; margin: 0; padding: 0; background: url(images/item_separator.png) left bottom repeat-x; margin: 0 0 5px 0; }
 li.item:hover ul.item_actions		{ visibility: visible; position: relative; bottom: 8px; right: 0px !important; }
-li.item_new							{ width: 645px; margin: 0; padding: 0; background: #ececec; }
+li.item_new							{ width: 645px; margin: 0; padding: 0; background: url(images/item_separator.png) left bottom repeat-x; margin: 0 0 5px 0; }
 li.item_new:hover ul.item_actions	{ visibility: visible; position: relative; bottom: 8px; right: 0px !important; }
 li.item_created						{ background: #f2e3af; }
 li.item_link						{ width: 100%; height: 2px; background: url(images/item_separator.png) left bottom repeat-x; margin: 0 0 5px 0; }

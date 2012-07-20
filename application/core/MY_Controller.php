@@ -131,61 +131,6 @@ class MY_Controller extends MX_Controller
 			$this->data['google_analytics'] = '';
 		}
 
-		// Dashboard & Public values for logged
-		if ($this->social_auth->logged_in())
-		{
-			// OAuth Tokens
-			$this->data['oauth_consumer_key'] 	= $this->session->userdata('consumer_key');
-			$this->data['oauth_consumer_secret']= $this->session->userdata('consumer_secret');
-			$this->data['oauth_token'] 			= $this->session->userdata('token');
-			$this->data['oauth_token_secret'] 	= $this->session->userdata('token_secret');
-
-			// Logged Values
-			$this->data['logged_user_id']		= $this->session->userdata('user_id');
-			$this->data['logged_user_level_id']	= $this->session->userdata('user_level_id');
-			$this->data['logged_username']		= $this->session->userdata('username');
-			$this->data['logged_name']			= $this->session->userdata('name');
-			$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('gravatar'), 'medium', 'dashboard_theme');
-			$this->data['logged_location']		= $this->session->userdata('location');
-			$this->data['logged_geo_enabled']	= $this->session->userdata('geo_enabled');
-			$this->data['logged_privacy']		= $this->session->userdata('privacy');
-
-			// Various Links
-			$this->data['link_home']			= base_url()."home";
-			$this->data['link_profile']			= base_url()."profile/".$this->session->userdata('username');
-			$this->data['link_settings']		= base_url()."settings/profile";
-			$this->data['link_logout']			= base_url().'logout';
-
-			// Action Paths
-			$this->data['comments_post']		= base_url().'api/comments/create/id';
-
-			// Site Forms
-			$this->data['comments_write_form']	= 'comments_logged_form';
-		}
-		else
-		{
-			// OAuth Tokens
-			$this->data['oauth_consumer_key'] 	= '';
-			$this->data['oauth_consumer_secret']= '';
-			$this->data['oauth_token'] 			= '';
-			$this->data['oauth_token_secret'] 	= '';
-
-			// Logged Values	
-			$this->data['logged_user_id']		= '';	
-			$this->data['logged_user_level_id']	= '';
-			$this->data['logged_username']		= '';
-			$this->data['logged_image'] 		= base_url().'application/views/'.config_item('site_theme').'/assets/images/medium_'.config_item('no_profile');
-			$this->data['logged_name']			= 'Your Name';
-			$this->data['logged_location']		= '';
-			$this->data['logged_geo_enabled']	= '';
-			$this->data['logged_privacy']		= '';
-
-			// Action Paths
-			$this->data['comments_post']		= base_url().'comments/public';
-
-			// Site Forms
-			$this->data['comments_write_form']	= 'comments_public_form';
-		}
 		
     	// Sets Previous Page
 		if (isset($_SERVER['HTTP_REFERER']))
@@ -215,7 +160,7 @@ class MY_Controller extends MX_Controller
 		$this->data['site_assets']			= base_url().'application/views/'.config_item('site_theme').'/assets/';
 		$this->data['dashboard_assets']		= base_url().'application/views/'.config_item('dashboard_theme').'/assets/';	
 		$this->data['mobile_assets']		= base_url().'application/views/'.config_item('mobile_theme').'/assets/';
-		$this->data['profiles']				= base_url().'profile/';
+		$this->data['profiles']				= base_url().'people/';
 
         // Set the current controller and action name
         $this->controller_name 				= $this->router->fetch_directory().$this->router->fetch_class();
