@@ -47,9 +47,17 @@ class App_tools
 		}
 	}
 	
-	function replace_tags($template, $replace_tag=NULL, $replace_value=NULL)
+	function replace_tags($template, $replace_tag=NULL, $replace_value=NULL, $load_template=TRUE)
 	{
-		$template_data	= file_get_contents($template, FILE_USE_INCLUDE_PATH);
+		if ($load_template)
+		{
+			$template_data = file_get_contents($template, FILE_USE_INCLUDE_PATH);
+		}
+		else
+		{
+			$template_data = $template;
+		}
+
 		$template_data	= str_replace('{APP_NAME}', $this->app_name, $template_data);
 		$template_data	= str_replace('{APP_URL}', $this->app_url, $template_data);
 		$template_data	= str_replace('{APP_CLASS}', $this->app_class, $template_data);
@@ -86,7 +94,7 @@ class App_tools
 	function create_app_configs()
 	{
 		// Install Path
-		$configs = array('install', 'routes', 'widgets');
+		$configs = array('routes', 'widgets');
 
 		// Config
 		$config_template	= $this->template_path.'config/app_template.php';
@@ -105,7 +113,47 @@ class App_tools
 		return TRUE;
 	}
 
-	function create_app_controllers($api_methods, $connections)
+	function create_app_install($connections, $database, $widgets)
+	{
+		$install_template	= $this->template_path.'config/install.php';
+		$install_data		= file_get_contents($install_template, FILE_USE_INCLUDE_PATH);
+
+		if ($connections == 'oauth')
+		{
+			$install_connections= file_get_contents($this->template_path.'views/code/install_connections_oauth.code', FILE_USE_INCLUDE_PATH);
+			$install_sites 		= file_get_contents($this->template_path.'views/code/install_sites.code', FILE_USE_INCLUDE_PATH);
+		}
+		elseif ($connection == 'oauth2')
+		{
+			$install_connections= file_get_contents($this->template_path.'views/code/install_connections_oauth2.code', FILE_USE_INCLUDE_PATH);
+			$install_sites 		= file_get_contents($this->template_path.'views/code/install_sites.code', FILE_USE_INCLUDE_PATH);			
+		}
+		else
+		{
+			$install_connections 	= 'asdasd';
+			$install_sites			= 'asdasdad';
+		}
+		
+		if ($database == 'TRUE')
+		{
+			$install_database 	= file_get_contents($this->template_path.'views/code/install_database.code', FILE_USE_INCLUDE_PATH);
+		}
+		else
+		{
+			$install_database	= '';
+		}
+
+		$install_data = str_replace('{APP_INSTALL_CONNECTIONS}', $install_connections, $install_data);
+		$install_data = str_replace('{APP_INSTALL_SITES}', $install_sites, $install_data);
+		$install_data = str_replace('{APP_INSTALL_DATABASE}', $install_database, $install_data);
+		$install_data = str_replace('{APP_INSTALL_WIDGETS}', $widgets, $install_data);
+		$install_data = $this->replace_tags($install_data, '', '', FALSE);
+		file_put_contents($this->install_path.'config/install.php', $install_data);
+
+		return TRUE;		
+	}
+
+	function create_app_controllers($api_database, $api_methods, $connections)
 	{
 		// Main Controller
 		$controller_template	= $this->template_path.'controllers/app_template.php';
@@ -113,16 +161,21 @@ class App_tools
 		file_put_contents($this->install_path.'controllers/'.$this->app_class.'.php', $controller_data);
 
 		// API
-		if ($api_methods == 'TRUE')
+		$api_template = file_get_contents($this->template_path.'controllers/api.php', FILE_USE_INCLUDE_PATH);
+
+		if ($api_database == 'TRUE')
 		{
-			$api_template = $this->template_path.'controllers/api_methods.php';
-		}
-		else
-		{
-			$api_template = $this->template_path.'controllers/api.php';
+			$api_database	= file_get_contents($this->template_path.'views/code/api_database.code', FILE_USE_INCLUDE_PATH);
+			$api_template	= str_replace('{APP_API_DATABASE}', $api_database, $api_template);
 		}
 
-		$api_data = $this->replace_tags($api_template);
+		if ($api_methods == 'TRUE')
+		{
+			$api_methods	= file_get_contents($this->template_path.'views/code/api_methods.code', FILE_USE_INCLUDE_PATH);
+			$api_template	= str_replace('{APP_API_METHODS}', $api_methods, $api_template);
+		}
+
+		$api_data = $this->replace_tags($api_template, '', '', FALSE);
 		file_put_contents($this->install_path.'controllers/api.php', $api_data);			
 
 		// Connections
@@ -206,13 +259,13 @@ class App_tools
 
 		return TRUE;
 	}
-	
+
 	function create_model($model)
 	{
 		if ($model == 'TRUE')
 		{
 			make_folder($this->install_path.'models/');
-	
+
 			// Make Model
 			$model_template	= file_get_contents($this->template_path.'models/data_model.php', FILE_USE_INCLUDE_PATH);
 			file_put_contents($this->install_path.'models/data_model.php', $model_template);
@@ -220,7 +273,7 @@ class App_tools
 
 		return TRUE;
 	}
-	
+
 	function create_widgets($widgets)
 	{
 		if ($widgets == 'TRUE')
@@ -228,7 +281,7 @@ class App_tools
 			// Widgets Config
 			$config_template	= $this->template_path.'config/widgets.php';
 			$config_data		= $this->replace_tags($config_template);
-			file_put_contents($this->install_path.'config/widgets.php', $config_data);	
+			file_put_contents($this->install_path.'config/widgets.php', $config_data);
 
 			// Widget Template
 			make_folder($this->install_path.'views/widgets/');

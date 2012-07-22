@@ -71,9 +71,10 @@ class Install extends Oauth_Controller
 
 			// Configs
 			$this->app_tools->create_app_configs();
+			$this->app_tools->create_app_install($this->input->post('app_connections'), $this->input->post('app_database'), $this->input->post('app_widgets'));
 
 			// Controllers
-			$this->app_tools->create_app_controllers($this->input->post('app_api_methods'), $this->input->post('app_connections'));
+			$this->app_tools->create_app_controllers($this->input->post('app_database'), $this->input->post('app_api_methods'), $this->input->post('app_connections'));
 
 			// Views
 			$this->app_tools->create_app_views();
