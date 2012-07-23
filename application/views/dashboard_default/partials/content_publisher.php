@@ -16,42 +16,48 @@ $(document).ready(function()
 	$('#content_publish, #content_save').bind('click', function(e)
 	{
 		e.preventDefault();
-		$form = $('#<?= $form_name ?>');
+		$form = $('#content_editor_form');
 
 		// Validation	
-		if (validationRules(validation_rules))
+		$.validator(
 		{
-			// Strip Empty
-			cleanAllFieldsEmpty(validation_rules);
-
-			var status		= $(this).attr('name');		
-			var form_data	= $form.serializeArray();
-			form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'type','value':'<?= $form_type ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
-
-			$.oauthAjax(
+			elements : validation_rules,
+			message	 : '',
+			success	 : function()
 			{
-				oauth 		: user_data,
-				url			: '<?= $form_url ?>',
-				type		: 'POST',
-				dataType	: 'json',
-				data		: form_data,
-		  		success		: function(result)
-		  		{		  				  		
-					$('html, body').animate({scrollTop:0});
-					$('#content_message').notify({status:result.status,message:result.message});
-					
-					if (result.status == 'success')
-					{					
-						var new_status = displayContentStatus(result.data.status, result.data.approval);
-						$('#content_status').html('<span class="actions action_' + new_status + '"></span> ' + new_status);	
-					}
-			 	}
-			});
-		}
-		else
-		{		
-			eve.preventDefault();
-		}
+				var status		= $(this).attr('name');		
+				var form_data	= $form.serializeArray();
+				form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'type','value':'<?= $form_type ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
+	
+				$.oauthAjax(
+				{
+					oauth 		: user_data,
+					url			: $.data(document.body, 'api_url'),
+					type		: 'POST',
+					dataType	: 'json',
+					data		: form_data,
+			  		success		: function(result)
+			  		{		  				  		
+						$('html, body').animate({scrollTop:0});
+						$('#content_message').notify({status:result.status,message:result.message});
+						
+						if (result.status == 'success')
+						{					
+							var new_status = displayContentStatus(result.data.status, result.data.approval);
+							$('#content_status').html('<span class="actions action_' + new_status + '"></span> ' + new_status);	
+						
+							$.updateContentManager( 
+							{
+								page_url		: base_url + 'home/' + current_module + '/manage/' + result.data.content_id,
+								api_url			: base_url + 'api/content/modify/id/' + result.data.content_id,
+								link_elements	: 'div.create_stage a', 
+								link_url		: result.data.content_id
+						  	});
+						}
+				 	}
+				});
+			}
+		});
 	});			
 	<?php elseif ($state == 'button'): ?>
 	// Publish / Saves Simple Button

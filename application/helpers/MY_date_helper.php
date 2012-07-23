@@ -220,7 +220,7 @@ function date_parser($fmt = 'WHOLE', $time = '')
 	{
 		return FALSE;
 	}
-
+	
 	return mdate($formats[$fmt], $time);
 }
 
