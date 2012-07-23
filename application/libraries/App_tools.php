@@ -123,7 +123,7 @@ class App_tools
 			$install_connections= file_get_contents($this->template_path.'views/code/install_connections_oauth.code', FILE_USE_INCLUDE_PATH);
 			$install_sites 		= file_get_contents($this->template_path.'views/code/install_sites.code', FILE_USE_INCLUDE_PATH);
 		}
-		elseif ($connection == 'oauth2')
+		elseif ($connections == 'oauth2')
 		{
 			$install_connections= file_get_contents($this->template_path.'views/code/install_connections_oauth2.code', FILE_USE_INCLUDE_PATH);
 			$install_sites 		= file_get_contents($this->template_path.'views/code/install_sites.code', FILE_USE_INCLUDE_PATH);			
