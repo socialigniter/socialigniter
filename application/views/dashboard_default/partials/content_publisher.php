@@ -16,22 +16,17 @@ $(document).ready(function()
 	$('#content_publish, #content_save').bind('click', function(e)
 	{
 		e.preventDefault();
-		var status = $(this).attr('name');		
+		var status = $(this).attr('name');
 
-		console.log('at top of send');
-
-		// Validation	
+		// Validation
 		$.validator(
 		{
 			elements : validation_rules,
 			message	 : '',
 			success	 : function()
 			{
-				console.log('passses validation');			
 				var form_data	= $('#content_editor_form').serializeArray();
 				form_data.push({'name':'module','value':'<?= $form_module ?>'},{'name':'type','value':'<?= $form_type ?>'},{'name':'source','value':'website'},{'name':'status','value':status});
-
-				console.log(form_data);
 	
 				$.oauthAjax(
 				{
@@ -60,11 +55,6 @@ $(document).ready(function()
 						}
 				 	}
 				});
-			},
-			failed : function(result)
-			{
-				console.log(result);
-				
 			}
 		});
 	});			
