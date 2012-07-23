@@ -71,4 +71,27 @@ function connections_redirect($redirect=FALSE)
 	return $redirect;
 }
 
+function check_app_exists($app_url)
+{
+	if (file_exists(APPPATH.'modules/'.$app_url))
+    {
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+function check_app_installed($app_url)
+{	
+    $ci =& get_instance();    
+	
+	if ((check_app_exists($app_url)) AND ($ci->config->item($app_url.'_enabled') == 'ENABLED'))
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
 

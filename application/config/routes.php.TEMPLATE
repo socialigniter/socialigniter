@@ -102,12 +102,6 @@ $route['api/settings/(:any)/(:any)']					= 'api/settings/$1/$2';
 $route['api/settings/(:any)']							= 'api/settings/$1';
 $route['api/settings']									= 'api/settings';
 
-/* Tags */
-$route['api/tags/destroy/(:any)/(:any)']				= 'api/tags/destroy/$1/$2';
-$route['api/tags/all']									= 'api/tags/all';
-$route['api/tags/create']								= 'api/tags/create';
-$route['api/tags']										= 'api/tags';
-
 /* Upload */
 $route['api/upload/create_expectation']					= 'api/upload/create_expectation';
 
@@ -206,8 +200,6 @@ $route['reset_password']								= 'site/reset_password';
 $route['activate/(:any)/(:any)']						= 'site/activate';
 $route['activate/(:any)']								= 'site/activate';
 $route['activate']										= 'site/activate';
-$route['tags/(:any)']									= 'site/tags_search';
-$route['tags']											= 'site/tags';
 $route['index']											= 'site/index';
 
 /* End of file routes.php */

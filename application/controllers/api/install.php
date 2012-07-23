@@ -64,7 +64,7 @@ class Install extends Oauth_Controller
 		$this->load->library('app_tools', $app_data);
 
 		// Check If App Name Exists
-		if (!$this->app_tools->check_app_exists($this->input->post('app_url')))
+		if (!check_app_exists($this->input->post('app_url')))
 		{
 			// Template
 			$this->app_tools->create_app_template();

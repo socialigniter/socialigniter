@@ -102,8 +102,12 @@ class Content extends Oauth_Controller
 	    	if ($result)
 		    {
 		    	// Process Tags if exist
-				if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $result['content']->content_id);				
-				
+				if ($this->input->post('tags')) 
+				{
+					$this->load->library('tags/tags_library');
+					$this->tags_library->process_tags($this->input->post('tags'), $result['content']->content_id);
+				}
+
 				// API Response
 	        	$message = array('status' => 'success', 'message' => 'Awesome we posted your content', 'data' => $result['content'], 'activity' => $result['activity'], 'raw_data' => $content_data);
 	        }

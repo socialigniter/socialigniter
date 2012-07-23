@@ -33,18 +33,6 @@ class App_tools
 		$this->app_name			= $config['app_name'];
 		$this->app_url			= $config['app_url'];
 		$this->app_class  		= $config['app_class'];
-	}	
-	
-	function check_app_exists($app_url)
-	{
-    	if (file_exists(APPPATH.'modules/'.$app_url))
-        {
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
 	}
 	
 	function replace_tags($template, $replace_tag=NULL, $replace_value=NULL, $load_template=TRUE)
@@ -157,7 +145,7 @@ class App_tools
 	{
 		// Main Controller
 		$controller_template	= $this->template_path.'controllers/app_template.php';
-		$controller_data 		= $this->replace_tags($controller_template);
+		$controller_data 		= $this->replace_tags($controller_template, '{APP_CLASS_TITLE}', ucwords($this->app_class));
 		file_put_contents($this->install_path.'controllers/'.$this->app_class.'.php', $controller_data);
 
 		// API

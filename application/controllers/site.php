@@ -197,22 +197,6 @@ class Site extends Site_Controller
     	$this->render('wide');
     }
 
-	function tags() 
-	{	
-		$this->data['page_title']	= "Tags";
-		$this->data['tags'] 		= $this->social_tools->get_tags('type', 'all', 5);
-
-		$this->render('wide');
-	}
-	
-	function tags_search()
-	{
-		$this->data['page_title']	= 'Tags';
-		$this->data['sub_title']	= $this->uri->segment(2);
-		$this->data['tag']			= $this->uri->segment(2);
-
-		$this->render('wide');
-	}
 
     // Page Not Found
     function error_404()
@@ -220,13 +204,5 @@ class Site extends Site_Controller
 		$this->data['page_title'] = 'Oops, Page Not Found';
     	$this->render('wide');
     }
-    
-    /* Widgets */
-	function widgets_tag_cloud($widget_data)
-	{
-		$widget_data['tags'] = $this->social_tools->get_tags('type', 'all', 5);
-		
-		$this->load->view('widgets/tag_cloud', $widget_data);
-	}
 
 }
