@@ -118,8 +118,8 @@ class App_tools
 		}
 		else
 		{
-			$install_connections 	= 'asdasd';
-			$install_sites			= 'asdasdad';
+			$install_connections 	= '';
+			$install_sites			= '';
 		}
 		
 		if ($database == 'TRUE')

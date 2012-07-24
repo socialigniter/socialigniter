@@ -97,15 +97,18 @@ class Content extends Oauth_Controller
 	    	);
 
 			// Insert
-			$result = $this->social_igniter->add_content($content_data);	    	
+			$result = $this->social_igniter->add_content($content_data);
 
 	    	if ($result)
 		    {
-		    	// Process Tags if exist
+		    	// Process Tags if App Exists
 				if ($this->input->post('tags')) 
 				{
-					$this->load->library('tags/tags_library');
-					$this->tags_library->process_tags($this->input->post('tags'), $result['content']->content_id);
+					if (check_app_installed('tags'))
+					{
+						$this->load->library('tags/tags_library');
+						$this->tags_library->process_tags($this->input->post('tags'), $result['content']->content_id);
+					}
 				}
 
 				// API Response

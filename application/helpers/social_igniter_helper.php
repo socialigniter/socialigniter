@@ -87,7 +87,7 @@ function check_app_installed($app_url)
 {	
     $ci =& get_instance();    
 	
-	if ((check_app_exists($app_url)) AND ($ci->config->item($app_url.'_enabled') == 'ENABLED'))
+	if ((check_app_exists($app_url)) AND ($ci->config->item($app_url.'_enabled') == 'TRUE'))
 	{
 		return TRUE;
 	}
