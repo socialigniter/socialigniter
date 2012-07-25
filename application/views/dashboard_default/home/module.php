@@ -1,63 +1,39 @@
 <div id="manage_content_container">
 
 	<div class="manage_content_search">	
-		<h3>Search</h3>
-		<input type="text" class="search input_medium" placeholder="Type Title of Content">
+		<h3>Search <input type="text" class="search input_medium" placeholder="Type Title of Content"></h3>
 	</div>
 
 	<div class="manage_content_filter">	
-		<h3>Filter By</h3>
-		<p>
-		<?= form_dropdown('filter_categories', $filter_categories, '', 'id="filter_category"') ?>	
+		<h3>Filter
+		<select name="filter_category" id="filter_category">
+			<option value="none">By Category</option>
+			<?php foreach ($all_categories as $category): if (in_array($category->category_id, $filter_categories)): ?>
+			<option value="<?= $category->category_id ?>"><?= $category->category ?></option>
+			<?php endif; endforeach; ?>
+		</select>
 		<?= form_dropdown('filter_users', $filter_users, '', 'id="filter_user"') ?>
 		<?= form_dropdown('filter_details', $filter_details, '', 'id="filter_details"') ?>
-		</p>
-	</div>
-
-	<div class="manage_content_order">	
-	    <h3>Order By </h3>
 	    <select name="sort_list" id="sort_list">
-	        <option value="">---select---</option>
+	        <option value="">Order By</option>
 	        <option value="name">Name</option>
 	        <option value="item_category">Category</option>
 	        <option value="item_user_id">Users</option>    
 	        <option value="item_details">Details</option>
-	    </select>	    
+	    </select>
+		</h3>	    
 	</div>
+	<div class="clear"></div>
 
-	<ol id="feed" class="list">
+	<div class="manage_separator"></div>
+
+	<ol id="manage_list" class="list">
 		<?= $timeline_view ?>
 	</ol>
 	<div class="clear"></div>
 
 </div>
 
-<style type="text/css">
-#manage_content_container h3 {
-	margin: 0px 0px 15px 0px;
-}
-
-span.item_category, span.item_user_id, span.item_details {
-	display: none;
-}
-div.manage_content_search {
-	width: 275px;
-	float: left;
-}
-div.manage_content_filter {
-	width: 445px; 
-	float: left;
-	margin-left: 25px;
-}
-div.manage_content_filter select {
-	margin: 0 15px 0 0;
-}
-div.manage_content_order {
-	width: 125px; 
-	float: left;
-}
-
-</style>
 <script src="<?= base_url() ?>js/list.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function()

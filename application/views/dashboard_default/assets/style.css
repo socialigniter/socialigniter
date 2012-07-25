@@ -250,7 +250,16 @@ span.item_meta 						{ height: 12px; display: block; margin: 5px 0 0 0; font-siz
 span.item_meta a					{ color: #999999; }
 
 /* Manage */
-#manage_list						{ width: 100%; }
+#manage_content_container			{ width: 100%; }
+#manage_content_container h3 		{ margin: 0px 0px 15px 0px; }
+
+span.item_category, span.item_user_id, span.item_details { display: none; }
+div.manage_content_search 			{ width: 355px; float: left; }
+div.manage_content_filter 			{ width: 535px; float: left; }
+div.manage_content_filter select 	{ margin: 0 0 0 15px; }
+
+div.manage_separator				{ width: 100%; height: 2px; background: url('images/item_separator.png') left top repeat-x; }
+#manage_list						{ width: 100%; background: url(images/item_separator.png) left top repeat-x; }
 #manage_list li						{ float: left; }
 
 li.item_manage						{ width: 100%; margin: 0; padding: 0; background: url(images/item_separator.png) left bottom repeat-x; }

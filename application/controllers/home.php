@@ -118,9 +118,10 @@ class Home extends Dashboard_Controller
 	
 		$content_module		= $this->social_igniter->get_content_view('module', $this->uri->segment(2), 'all', 150);
 		$manage_view 		= NULL;
-		$filter_categories	= array('' => '---select---');
-		$filter_users		= array('' => '--- User ---', 'none' => 'All');
-		$filter_details		= array('' => '--- Details ---', 'none' => 'All');
+		$filter_categories	= array('none' => 'By Category');
+		$filter_users		= array('none' => 'By User');
+		$filter_details		= array('none' => 'By Details');
+
 
 		// Title Stuff
 		$this->data['page_title']	= ucwords($this->uri->segment(2));
@@ -170,7 +171,8 @@ class Home extends Dashboard_Controller
 		// Final Output
 		$this->data['timeline_view'] 		= $manage_view;
 		$this->data['module']				= ucwords($this->uri->segment(2));
-		$this->data['filter_categories'] 	= $this->social_tools->make_categories_dropdown(array('categories.type' => 'classes-category'), $this->session->userdata('user_id'), $this->session->userdata('user_level_id'));
+		$this->data['all_categories']	 	= $this->social_tools->get_categories_view('module', $this->uri->segment(2));
+		$this->data['filter_categories'] 	= $filter_categories;
 		$this->data['filter_users']			= $filter_users;
 		$this->data['filter_details']		= $filter_details;
 
