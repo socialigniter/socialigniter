@@ -115,13 +115,21 @@ class Dashboard_Controller extends MY_Controller
 			// Content Path
     	    $content_path 			= '../modules/'.$this->module_name.'/views/'.$this->module_controller.'/'.$this->action_name.'.php';
 		}
+		// Module Manage like '/home/blog/manage'
+		elseif (($this->uri->segment(1) == 'home') && ($this->uri->segment(3) == 'manage') && (in_array($this->uri->segment(2), $this->modules_scan)))
+		{			
+			$this->data['modules_assets'] = base_url().'application/modules/'.$this->uri->segment(2).'/assets/';        
+        
+        	$navigation_path		= '../modules/'.$this->uri->segment(2).'/views/partials/navigation_home.php';
+    	    $content_path 			= config_item('dashboard_theme').'/home/module_manage.php';
+		}
 		// Module but uses 'home activity feed' like '/home/blog'
 		elseif (($this->uri->segment(1) == 'home') && (in_array($this->uri->segment(2), $this->modules_scan)))
 		{			
 			$this->data['modules_assets'] = base_url().'application/modules/'.$this->uri->segment(2).'/assets/';        
         
         	$navigation_path		= '../modules/'.$this->uri->segment(2).'/views/partials/navigation_home.php';
-    	    $content_path 			= config_item('dashboard_theme').'/home/module.php';
+    	    $content_path 			= config_item('dashboard_theme').'/home/module_activity.php';
 		}
 		// Settings (only needed for navigation; should perhaps be rethought in the future)
 		elseif ($this->uri->segment(1) == 'settings')

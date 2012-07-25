@@ -24,7 +24,6 @@
 		</h3>	    
 	</div>
 	<div class="clear"></div>
-
 	<div class="manage_separator"></div>
 
 	<ol id="manage_list" class="list">
