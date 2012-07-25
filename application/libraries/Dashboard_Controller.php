@@ -131,12 +131,6 @@ class Dashboard_Controller extends MY_Controller
 	        $navigation_path 		= config_item('dashboard_theme').'/partials/navigation_settings.php';
         	$content_path 			= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
 		}
-		// Comments *Kind of nasty solution but works. Should perhaps be rethought in the future
-		elseif ($this->uri->segment(2) == 'comments')
-		{
-	        $navigation_path 		= config_item('dashboard_theme').'/partials/navigation_comments.php';
-        	$content_path 			= config_item('dashboard_theme').'/'.$this->controller_name.'/'.$this->action_name.'.php';
-		}
 		// Dashboard Error Page - must be manual redirect(404) goes to public error page
 		elseif ($this->uri->segment(2) == 'error')
 		{

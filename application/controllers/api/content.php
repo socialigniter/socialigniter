@@ -159,7 +159,14 @@ class Content extends Oauth_Controller
 	    if ($update)
 	    {
 			// Process Tags    
-			if ($this->input->post('tags')) $this->social_tools->process_tags($this->input->post('tags'), $this->get('id'));
+			if ($this->input->post('tags')) 
+			{
+				if (check_app_installed('tags'))
+				{
+					$this->load->library('tags/tags_library');
+					$this->tags_library->process_tags($this->input->post('tags'), $this->get('id'));
+				}
+			}
 	    
         	$message = array('status' => 'success', 'message' => 'Awesome, we updated your '.$this->input->post('type'), 'data' => $update);
         }

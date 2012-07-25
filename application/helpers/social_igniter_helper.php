@@ -95,3 +95,7 @@ function check_app_installed($app_url)
 	return FALSE;
 }
 
+function module_assets_url($module)
+{
+	return base_url().'application/modules/'.$module.'/assets/';
+}
