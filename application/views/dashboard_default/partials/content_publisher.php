@@ -55,6 +55,10 @@ $(document).ready(function()
 						}
 				 	}
 				});
+			},
+			failed: function(result)
+			{
+				$('#content_message').notify({status:'error',message:'Opps, could not validate because: ' + result});
 			}
 		});
 	});			
