@@ -488,6 +488,7 @@ class Social_igniter
 		return FALSE;	
 	}
 	
+	// Checks to see if a widget matchs region and allowed multiple
 	function check_can_widget_be_used($layout, $region, $check_widget, $region_widgets)
 	{
 		if ($check_widget['multiple'] === 'TRUE')

@@ -70,12 +70,17 @@ class Settings extends Oauth_Controller
     		$this->load->config($module.'/widgets');
 
 			// Has Widgets
-			if ($modules_widgets = config_item($module.'_widgets'))
+			$modules_widgets = config_item($module.'_widgets');
+			
+			if (is_array($modules_widgets))
 			{
+				// Loop Through Widgets For App
 				foreach ($modules_widgets as $modules_widget)
 				{
+					// Is Widget Allowed in Region
 					if (in_array($region, $modules_widget['regions']))
 					{
+						// Checks If Individual Widget Meets Criteria
 						if ($this->social_igniter->check_can_widget_be_used($this->get('layout'), $this->get('region'), $modules_widget['widget'], $widgets_current))
 						{
 							$widgets[] = $modules_widget['widget'];

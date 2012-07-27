@@ -187,7 +187,6 @@ $config['time_meridian'] = array(
 /* Misc Form Options */
 $config['access'] = array(
 	'E' => 'Everyone',
-	'F' => 'Friends',
 	'O' => 'Only Me',
 	'M' => 'A Specific Module'
 );

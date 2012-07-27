@@ -61,9 +61,13 @@ $(document).ready(function()
 		var widget_region = $(this).attr('rel');
 		var widget_count  = $('#widget_' + widget_region + '_container').find('.widget_instance').length;
 		
+		console.log('asd');
+		
 		// Get Available Widgets 
 		$.get(base_url+'api/settings/widgets_available/region/' + widget_region + '/layout/' + widget_layout, function(result)
 		{
+			console.log(result);
+		
 			// Get Add Dialog
 			$.get(base_url + 'dialogs/widget_add',function(partial_html)
 			{
