@@ -398,16 +398,16 @@ span.item_right a:link				{ color: #666666; text-shadow:1px 1px 1px #FFF; font-w
 span.item_right a:visited			{ color: #666666; text-shadow:1px 1px 1px #FFF; font-weight: normal; text-decoration: none; }
 span.item_right a:hover				{ text-decoration: underline; }
 
-
 /* List Data */
 li.item_data							{ width: auto; min-height: 18px; border: 1px solid #c3c3c3; margin: 15px 15px 15px 0; padding: 13px; font-size: 14px; font-weight: normal; color: #999999; text-shadow:1px 1px 1px #ffffff; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; background-color: #f6f5f5; background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f5f5),to(#d7d6d6)); background-image: -webkit-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -moz-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -o-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -ms-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: linear-gradient(top, #f6f5f5, #d7d6d6); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f6f5f5', EndColorStr='#d7d6d6'); }
 li.item_data ul.item_data_actions		{ display: none; color: #999999; float: right; position: relative; top: 2px; right: 2px !important; margin: 0px !important; }
+li.item_data ul.item_data_actions li	{ float: left; margin-left: 20px; }
+li.item_data ul.item_data_actions li:first-child { margin-left: 0px; }
 li.item_data:hover ul.item_data_actions	{ display: block; }
 li.item_data:hover ul.item_data_actions a { color: #999999; }
 li.item_data:hover ul.item_data_actions span.actions { position: relative; top: -2px; left: 0; margin: 0 4px 0 0; }
 li.item_data_clickable:active			{ border: 1px solid #b3b3b3; color: #999999; cursor: move; background-color: #dadada; background-image: -webkit-gradient(linear, left top, left bottom, from(#dadada),to(#e9e9e9)); background-image: -webkit-linear-gradient(top, #dadada, #e9e9e9); background-image: -moz-linear-gradient(top, #dadada, #e9e9e9); background-image: -o-linear-gradient(top, #dadada, #e9e9e9); background-image: -ms-linear-gradient(top, #dadada, #e9e9e9); background-image: linear-gradient(top, #dadada, #e9e9e9); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#dadada', EndColorStr='#e9e9e9'); }
 li.item_data_clickable:hover			{ cursor: pointer; }
-
 
 /* Oscar's Temp Styles */
 /* After being finalized ill move into the categories above. */
@@ -442,13 +442,13 @@ div.selectable_chosen:hover 		{ color: #eeeeee; border: 1px solid #a3a3a3; text-
 .ui-autocomplete li a:hover,.ui-autocomplete .ui-state-hover { background:#F2F2F2; }
 
 /* jQuery UI Dialog */
-.ui-dialog 							{ padding: 20px; background:#ECECEC; border:1px solid #A09F9F; margin-left:auto; margin-right:auto; border-radius:5px; -moz-border-radius:5px; -webkit-box-shadow:rgba(0,0,0,0.2) 0 0 10px; -moz-box-shadow:rgba(0,0,0,0.2) 0 0 10px; box-shadow:rgba(0,0,0,0.2) 0 0 10px; }
+.ui-dialog 							{ padding: 20px; background:#ECECEC; border: 1px solid #A09F9F; border-radius:5px; -moz-border-radius:5px; -webkit-box-shadow:rgba(0,0,0,0.2) 0 0 10px; -moz-box-shadow:rgba(0,0,0,0.2) 0 0 10px; box-shadow:rgba(0,0,0,0.2) 0 0 10px; }
 .ui-dialog-titlebar 				{ margin: 0 0 20px 0; }
 .ui-dialog-title 					{ color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; text-transform: capitalize; }
 .ui-dialog-titlebar-close 			{ position:absolute; top: -15px; right: -15px; text-indent: -9999px; display: block; background: url(/images/fancybox/fancy_close.png) no-repeat; width: 30px; height:30px; }
 .ui-dialog-buttonset button			{ margin: 0 15px 15px 0; }
 .ui-dialog-buttonset button:hover 	{ height: 29px; background-color: #5d5c5c; background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(93, 92, 92)), to(rgb(152, 150, 150))); background-image: -webkit-linear-gradient(top, rgb(93, 92, 92), rgb(152, 150, 150)); background-image: -moz-linear-gradient(top, rgb(93, 92, 92), rgb(152, 150, 150)); background-image: -o-linear-gradient(top, rgb(93, 92, 92), rgb(152, 150, 150)); background-image: -ms-linear-gradient(top, rgb(93, 92, 92), rgb(152, 150, 150)); background-image: linear-gradient(top, rgb(93, 92, 92), rgb(152, 150, 150)); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#5d5c5c', EndColorStr='#989696'); border: 1px solid #666666; cursor: pointer; color: #efefef; text-shadow:1px 1px 1px #222222; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; font-size: 13px; padding: 0 12px; }
-.ui-widget-overlay 					{ background: #000 !important; filter:alpha(opacity=60); opacity:.6; position: absolute; top: 0px; left: -15px; width: 100%; height: 100%; margin: 0 !important; }
+.ui-widget-overlay 					{ background: #000 !important; filter:alpha(opacity=60); opacity:.6; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; margin: 0 !important; }
 
 /* jQuery UI Calendar */
 .ui-datepicker 						{ width: 17em; padding: .2em .2em 0; z-index: 9999 !important; }

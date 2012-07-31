@@ -188,7 +188,7 @@ $config['time_meridian'] = array(
 $config['access'] = array(
 	'E' => 'Everyone',
 	'O' => 'Only Me',
-	'M' => 'A Specific Module'
+	'M' => 'A Specific App'
 );
 
 $config['access_simple'] = array(
