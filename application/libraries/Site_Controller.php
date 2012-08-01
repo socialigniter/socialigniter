@@ -188,6 +188,10 @@ class Site_Controller extends MY_Controller
         $this->load->view(config_item('site_theme').'/layouts/'.$layout, $this->data);
     }
 
+    function render_custom_layout($layout)
+    {
+        $this->load->view($layout, $this->data);
+    }
    
     // Renders Widgets
     function render_widgets($region, $layout=NULL)
