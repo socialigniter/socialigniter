@@ -8,9 +8,9 @@
 	
 	<div class="clear"></div>
 	<span class="item_manage_meta">
-		<span class="item_manage_comments"><span class="actions action_comment"></span><?= $comments_count ?></span>
 		<span class="item_manage_publish"><?= $publish_date ?> by <?= $content->name ?></span>
 	</span>
+	
 	<ul class="item_actions" rel="manage">
 		<?php if ($item_approval == 'N'): ?>
 		<li><a class="item_approve" href="<?= $item_approve ?>" rel="content" id="item_action_approve_<?= $item_id ?>"><span class="actions action_approve"></span> Approve</a></li>
