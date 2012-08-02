@@ -51,11 +51,11 @@ class Image_model extends CI_Model
 		// Increase Memory If Image is Larger than 2MB file
 		if ($image_file_size >= 5120)
 		{
-			ini_set('memory_limit', '128M');
+			ini_set('memory_limit', '256M');
 		}
 		elseif ($image_file_size >= 2048)
 		{
-			ini_set('memory_limit', '64M');
+			ini_set('memory_limit', '128M');
 		}
 		
 		// If upload width / heights differ from config
