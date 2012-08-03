@@ -27,8 +27,6 @@ class Image_model extends CI_Model
 	    	// Original Image Exists
 	    	if (file_exists($original))
 			{
-				log_message('debug', 'IMG-SHIT original exists: '.$thumbnail);
-
 				// Make Thumbnail
 				$thumbnail = $this->make_thumbnail($create_path.'/', $image_name, $module, $thumb);
 
@@ -55,8 +53,6 @@ class Image_model extends CI_Model
 		$image_dimensions 	= getimagesize($create_path.$image_name);
 		$image_file_size	= filesize($create_path.$image_name);
 
-		log_message('debug', 'IMG-SHIT make_thumbnail from: '.$raw_path);
-
 		// Increase Memory If Image is Larger than 2MB file
 		if ($image_file_size >= 5120)
 		{
@@ -71,16 +67,12 @@ class Image_model extends CI_Model
 		// Generate Proper Crop
 		if (($image_dimensions[0] != config_item($module.'_images_'.$thumb.'_width')) || ($image_dimensions[1] != config_item($module.'_images_'.$thumb.'_height')))
 		{
-			log_message('debug', 'IMG-SHIT Generate Proper Crop');
-
 			// Make Crop
 			$thumbnail = $this->make_cropped($create_path, $image_name, $module, $thumb, $image_dimensions);
 		}
 		// Generate Non Cropped Image
 		else
 		{
-			log_message('debug', 'IMG-SHIT Generate Max Size Crop');
-
 			$thumbnail = $this->make_copy_existing($create_path, $image_name, $module, $thumb);
 		}
 
@@ -89,8 +81,6 @@ class Image_model extends CI_Model
 		{
 			unlink($raw_path);
 		}
-
-		log_message('debug', 'IMG-SHIT about to return nada...');
 
 	    return $thumbnail;
 	}
