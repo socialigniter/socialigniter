@@ -363,50 +363,6 @@ $config['database_content_meta_table'] = array(
 	)			
 );
 
-$config['database_places_table'] = array(
-	'place_id' => array(
-		'type' 				=> 'INT',
-		'constraint' 		=> 32,
-		'unsigned' 			=> TRUE,
-		'auto_increment'	=> TRUE
-	),
-	'content_id' => array(
-		'type'				=> 'INT',
-		'constraint'		=> 11,
-		'null'				=> TRUE
-	),
-	'address' => array(
-		'type'				=> 'VARCHAR',
-		'constraint'		=> 128,
-		'null'				=> TRUE
-	),
-	'district' => array(
-		'type'				=> 'VARCHAR',
-		'constraint'		=> 128,
-		'null'				=> TRUE
-	),
-	'locality' => array(
-		'type'				=> 'VARCHAR',
-		'constraint'		=> 128,
-		'null'				=> TRUE
-	),
-	'region' => array(
-		'type'				=> 'VARCHAR',
-		'constraint'		=> 128,
-		'null'				=> TRUE
-	),
-	'country' => array(
-		'type'				=> 'VARCHAR',
-		'constraint'		=> 64,
-		'null'				=> TRUE
-	),	
-	'postal' => array(
-		'type'				=> 'VARCHAR',
-		'constraint'		=> 63,
-		'null'				=> TRUE
-	)														
-);
-
 $config['database_relationships_table'] = array(
 	'relationship_id' => array(
 		'type' 					=> 'INT',
@@ -514,76 +470,6 @@ $config['database_sites_table'] = array(
 		'constraint'			=> 255,
 		'null'					=> TRUE
 	)									
-);
-
-$config['database_tags_table'] = array(
-	'tag_id' => array(
-		'type' 					=> 'INT',
-		'constraint' 			=> 32,
-		'unsigned' 				=> TRUE,
-		'auto_increment'		=> TRUE
-	),
-	'tag' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 128,
-		'null'					=> TRUE
-	),
-	'tag_url' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 128,
-		'null'					=> TRUE
-	),
-	'created_at' => array(
-		'type'					=> 'DATETIME',
-		'null'					=> TRUE
-	)
-);
-
-$config['database_tags_link_table'] = array(
-	'tag_link_id' => array(
-		'type' 					=> 'INT',
-		'constraint' 			=> 32,
-		'unsigned' 				=> TRUE,
-		'auto_increment'		=> TRUE
-	),
-	'tag_id' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 32,
-		'null'					=> TRUE
-	),
-	'content_id' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 32,
-		'null'					=> TRUE
-	),
-	'created_at' => array(
-		'type'					=> 'DATETIME',
-		'null'					=> FALSE
-	)					
-);
-
-$config['database_taxnomy_table'] = array(
-	'taxonomy_id' => array(
-		'type' 					=> 'INT',
-		'constraint' 			=> 32,
-		'unsigned' 				=> TRUE,
-		'auto_increment'		=> TRUE
-	),
-	'object_id' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 32,
-		'null'					=> TRUE
-	),
-	'taxonomy' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 32,
-		'null'					=> TRUE
-	),
-	'count' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 16,
-		'null'					=> TRUE
-	)
 );
 
 $config['database_uploads_table'] = array(
