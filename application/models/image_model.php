@@ -14,7 +14,7 @@ class Image_model extends CI_Model
 	{
 		$original	= $create_path.'/'.$image_name;
 		$thumbnail	= $create_path.'/'.$thumb.'_'.$image_name;
-		$no_image	= 'application/views/'.config_item('site_theme').'/assets/images/medium_'.config_item('no_photo');
+		$no_image	= 'application/views/'.config_item('site_theme').'/assets/images/'.$thumb.'_'.config_item('no_photo');
 
 		// If Thumbnail Exists
 	    if (file_exists($thumbnail))
