@@ -1,7 +1,7 @@
 <?php
 
-class Content_model extends CI_Model {
-    
+class Content_model extends CI_Model
+{    
     function __construct()
     {
         parent::__construct();
@@ -19,7 +19,7 @@ class Content_model extends CI_Model {
 	 		$this->db->where('user_id', $user_id);	
 		}
 
- 		$result = $this->db->count_all_results();	
+ 		$result = $this->db->get()->row();	
  		return $result; 
     }
     

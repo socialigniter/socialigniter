@@ -105,7 +105,7 @@ class Install extends Oauth_Controller
 	{
 		$this->load->library('migration');
 
-		// Update to current (as specified in config/migration.php)
+		// Update to current (as specified in /application/config/migration.php)
 		if (!$this->migration->current())
 		{
             $message = array('status' => 'error', 'message' => show_error($this->migration->error_string()));			
@@ -122,7 +122,7 @@ class Install extends Oauth_Controller
 	{
 		$this->load->library('migration');
 
-		// Update to current (as specified in config/migration.php)
+		// Update to latest file in /application/migrations/00X_migration.php
 		if (!$this->migration->latest())
 		{
             $message = array('status' => 'error', 'message' => show_error($this->migration->error_string()));			

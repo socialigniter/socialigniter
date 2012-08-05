@@ -279,7 +279,7 @@ span.item_manage_meta_generic		{ width: 450px; display: block; float: left; marg
 span.item_manage_meta span span 	{ position: relative; top: -2px; left: 0; }
 span.item_manage_categories_meta	{ width: 450px; display: block; float: left; margin: 0 0 0 15px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
 span.item_manage_content			{ display: block; width: 160px; float: left; }
-span.item_manage_publish			{ display: block; width: 200px; float: left; }
+span.item_manage_publish			{ display: block; width: 350px; float: left; }
 
 /* For Content Editors (pages, blog, classes, categories) */
 h2.content_editor_title				{ margin: 0px !important; padding: 0px; }
@@ -294,7 +294,6 @@ span.item_manage_name a				{ font-size: 16px; line-height: 18px; color: #666666;
 span.item_manage_name a:visited 	{ color: #666666; text-shadow:1px 1px 1px #FFF; }
 span.item_manage_user_meta			{ width: 450px; display: block; float: left; margin: -4px 0 0 65px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
 span.item_manage_last_login			{ width: 225px; display: block; float: left; }
-span.item_manage_publish			{ width: 200px; display: block; float: left; }
 
 /* Item Alerts */
 span.item_alerts					{ height: 30px; float: right; display: block; margin: 10px 0; }
