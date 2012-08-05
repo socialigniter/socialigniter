@@ -383,6 +383,8 @@ span.action_alarm					{ background-position: -600px 0; }
 span.action_person					{ background-position: -625px 0; }
 span.action_place					{ background-position: -650px 0; }
 span.action_paperclip				{ background-position: -675px 0; }
+span.action_clock					{ background-position: -700px 0; }
+span.action_date					{ background-position: -725px 0; }
 
 /* Feed Specific */
 span.item_comment_left				{ width: 24px; height: 32px; display: block; float: left; background: url(images/item_type_icons.png) 0 -455px; position: relative; left: 0; top: 4px; }
