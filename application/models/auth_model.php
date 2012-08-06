@@ -524,7 +524,7 @@ class Auth_model extends CI_Model
 	
 	function get_users($parameter, $value, $details)
 	{
-    	if (in_array($parameter, array('user_level_id','active')))
+    	if (in_array($parameter, array('user_level_id', 'active', 'user_level_less', 'user_level_greater')))
     	{
     		if ($details)
     		{
@@ -537,7 +537,20 @@ class Auth_model extends CI_Model
     	
 			$this->db->select($select);
 	 		$this->db->from('users');
-			$this->db->where($parameter, $value);
+	 		
+	 		if ($parameter == 'user_level_less')
+	 		{
+				$this->db->where('user_level_id <=', $value);		 		
+	 		}
+	 		elseif ($parameter == 'user_level_greater')
+	 		{
+				$this->db->where('user_level_id <=', $value);		 		
+	 		}
+	 		else
+	 		{
+				$this->db->where($parameter, $value);
+	 		}
+
 	 		$result = $this->db->get();	
 	 		return $result->result();
 		}
