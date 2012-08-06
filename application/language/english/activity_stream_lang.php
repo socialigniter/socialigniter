@@ -31,6 +31,7 @@ $lang['verbs']['rsvp-no'] 				= 'is not going to attend';
 $lang['verbs']['register']				= 'signed up';
 $lang['verbs']['comment']				= 'commented';
 $lang['verbs']['purchase']				= 'purchased';
+$lang['verbs']['order']					= 'ordered';
 $lang['verbs']['download']				= 'downloaded';
 $lang['verbs']['checkin']				= 'checked in at';
 $lang['verbs']['friend'] 				= 'added friend';
