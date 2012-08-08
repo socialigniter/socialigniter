@@ -718,6 +718,16 @@ class Social_igniter
 		return FALSE;
 	}
 
+	function check_content_multiple($value_array, $user_id=NULL)
+	{
+		if ($existing_content = $this->ci->content_model->check_content_multiple($value_array, $user_id))
+		{
+			return $existing_content;
+		}
+
+		return FALSE;
+	}
+
 	function get_content($content_id)
 	{
 		return $this->ci->content_model->get_content($content_id);
