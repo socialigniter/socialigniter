@@ -8,21 +8,19 @@ class Site extends Site_Controller
 
 	function index()
 	{
+		$this->data['content_id']		= 0;
+		$this->data['page_content']		= config_item('site_description');	
+	
 		// Is Pages Module Installed
 		if (file_exists(APPPATH.'modules/pages/') AND config_item('pages_enabled') == 'TRUE')
 		{
 			$this->load->model('pages/pages_model');
 
-			$page = $this->pages_model->get_index_page();
-
-			$this->data['content_id']			= $page->content_id;
-			$this->data['page_content']			= $page->content;
-		}
-		// If not show normal site tags
-		else
-		{
-			$this->data['content_id']			= 0;
-			$this->data['page_content']			= config_item('site_description');
+			if ($page = $this->pages_model->get_index_page())
+			{
+				$this->data['content_id']			= $page->content_id;
+				$this->data['page_content']			= $page->content;
+			}
 		}
 
 		$this->render();
