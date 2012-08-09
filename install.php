@@ -245,6 +245,7 @@ $(document).ready(function()
 				<p>The username used to connect to the database. <input type="text" id="db_username" placeholder="root" name="username"></p>
 				<p>The password used to connect to the database. <input type="password" id="db_password" placeholder="" name="password"></p> 
 				<p>The name of the database you want to connect to. <input type="text" id="db_database" placeholder="social-igniter" name="database"></p>
+				<p>(Currently you have to have to manually create your database)</p>
 				<p><input type="submit" value="Continue"></p>
 			</form>
 			</div>
