@@ -35,16 +35,6 @@ class Migration_Setup extends CI_Migration
 	    $this->db->query("CREATE TABLE `oauth_server_token` (`ost_id` int(11) NOT NULL AUTO_INCREMENT, `ost_osr_id_ref` int(11) NOT NULL, `ost_usa_id_ref` int(11) NOT NULL, `ost_token` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, `ost_token_secret` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, `ost_token_type` enum('request','access') DEFAULT NULL, `ost_authorized` tinyint(1) NOT NULL DEFAULT '0', `ost_referrer_host` varchar(128) NOT NULL DEFAULT '', `ost_token_ttl` datetime NOT NULL DEFAULT '9999-12-31 00:00:00', `ost_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, `ost_verifier` char(10) DEFAULT NULL, `ost_callback_url` varchar(512) DEFAULT NULL, PRIMARY KEY (`ost_id`), UNIQUE KEY `ost_token` (`ost_token`), KEY `ost_osr_id_ref` (`ost_osr_id_ref`), KEY `ost_token_ttl` (`ost_token_ttl`)) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
 	    $this->db->query("ALTER TABLE `oauth_server_token` ADD CONSTRAINT `oauth_server_token_ibfk_1` FOREIGN KEY (`ost_osr_id_ref`) REFERENCES `oauth_server_registry` (`osr_id`) ON DELETE CASCADE ON UPDATE CASCADE;");
 	
-		// Places
-		$this->dbforge->add_key('place_id', TRUE);
-		$this->dbforge->add_field(config_item('database_places_table'));
-		$this->dbforge->create_table('places'); 
-  		
-		// Ratings
-		$this->dbforge->add_key('rating_id', TRUE);
-		$this->dbforge->add_field(config_item('database_ratings_table'));
-		$this->dbforge->create_table('ratings');
-				
 		// Relationships
 		$this->dbforge->add_key('relationship_id', TRUE);
 		$this->dbforge->add_field(config_item('database_relationships_table'));
@@ -58,22 +48,7 @@ class Migration_Setup extends CI_Migration
 		// Sites
 		$this->dbforge->add_key('site_id', TRUE);
 		$this->dbforge->add_field(config_item('database_sites_table'));
-		$this->dbforge->create_table('sites');
-		
-		// Tags
-		$this->dbforge->add_key('tag_id', TRUE);
-		$this->dbforge->add_field(config_item('database_tags_table'));
-		$this->dbforge->create_table('tags');
-
-		// Tags Link
-		$this->dbforge->add_key('tag_link_id', TRUE);
-		$this->dbforge->add_field(config_item('database_tags_link_table'));
-		$this->dbforge->create_table('tags_link');		
-			
-		// Taxonomy
-		$this->dbforge->add_key('taxonomy_id', TRUE);
-		$this->dbforge->add_field(config_item('database_taxnomy_table'));
-		$this->dbforge->create_table('taxonomy');		
+		$this->dbforge->create_table('sites');	
 		
 		// Uploads
 		$this->dbforge->add_key('upload_id', TRUE);
@@ -106,21 +81,15 @@ class Migration_Setup extends CI_Migration
 	{
 		$this->dbforge->drop_table('activity');
 		$this->dbforge->drop_table('categories');
-		$this->dbforge->drop_table('comments');
 		$this->dbforge->drop_table('connections');
 		$this->dbforge->drop_table('content');
 		$this->dbforge->drop_table('content_meta');
-		$this->dbforge->drop_table('places');
 		$this->dbforge->drop_table('oauth_server_nonce');
 		$this->dbforge->drop_table('oauth_server_registry');
 		$this->dbforge->drop_table('oauth_server_token');
-		$this->dbforge->drop_table('ratings');
 		$this->dbforge->drop_table('relationships');
 		$this->dbforge->drop_table('settings');
 		$this->dbforge->drop_table('sites');
-		$this->dbforge->drop_table('tags');
-		$this->dbforge->drop_table('tags_link');
-		$this->dbforge->drop_table('taxonomy');
 		$this->dbforge->drop_table('uploads');
 		$this->dbforge->drop_table('users');
 		$this->dbforge->drop_table('users_level');

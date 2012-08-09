@@ -19,7 +19,7 @@ class Setup extends MX_Controller
 		    $this->load->library('migration');
    		
    			// Create Database Tables
-			$this->migration->latest();
+			$this->migration->current();
 
 			// Users Level Data
 			$this->db->query("INSERT INTO `users_level` VALUES(1, 'superadmin', 'Super Admin', 'Super Admins are the head honchos who have power to do anything they want on your install of Social Igniter')");
