@@ -22,6 +22,21 @@ class Content_model extends CI_Model
  		$result = $this->db->get()->row();	
  		return $result; 
     }
+
+    function check_content_multiple($value_array, $user_id)
+    {
+ 		$this->db->select('*');
+ 		$this->db->from('content');  
+ 		$this->db->where($value_array);
+
+		if ($user_id)
+		{
+	 		$this->db->where('user_id', $user_id);	
+		}
+
+ 		$result = $this->db->get()->row();	
+ 		return $result; 
+    }
     
     function get_content($content_id)
     {
