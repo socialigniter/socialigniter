@@ -4,19 +4,28 @@
  * @description Iteration or installer steps 1-4 via AJAX
  **/
 
+
 (function($) {
 
-  $(document).ready(function() {
+  /**
+   * @method determineBaseURL
+   * @return {String} Current Base URL with protocol and port (if irregular)
+   **/
 
-    // Show Fresh Setup or Existing
+  function determineBaseURL() {
     if ($.url.attr('port')) {
       var port = ':' + $.url.attr('port') + '/';
     } else {
       var port = '/';
     };
-    base_url = $.url.attr('protocol') + '://' + $.url.attr('host') + port;
+    return $.url.attr('protocol') + '://' + $.url.attr('host') + port;
+  };
+
+  $(document).ready(function() {
+
+    // SHOW FRESH SETUP
     $('#step_1').fadeIn();
-    $('#base_url').val(base_url); 
+    $('#base_url').val(determineBaseURL()); 
 
     // STEP 1
     $('#install_step_1').live('submit', function(e) { 
