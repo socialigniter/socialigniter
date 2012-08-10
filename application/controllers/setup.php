@@ -1,83 +1,82 @@
 <?php
-class Setup extends MX_Controller
-{ 
-    function __construct()
-    {
-        parent::__construct();    
+
+class Setup extends MX_Controller {
+
+    function __construct() {
+       parent::__construct();    
     }
 
-    function index()
-    {
-		$this->load->dbutil();	    
+    function index() {
+
+			$this->load->dbutil();	    
 	    
 	    // Check DB    
-	    if ($this->dbutil->database_exists($this->input->post('database')))
-	    {		   		
+	    if ($this->dbutil->database_exists($this->input->post('database'))) {		   		
 		    $this->load->config('install');
 		    $this->load->database();	
 		    $this->load->dbforge();
 		    $this->load->library('migration');
    		
    			// Create Database Tables
-			$this->migration->current();
+				$this->migration->current();
 
-			// Users Level Data
-			$this->db->query("INSERT INTO `users_level` VALUES(1, 'superadmin', 'Super Admin', 'Super Admins are the head honchos who have power to do anything they want on your install of Social Igniter')");
-			$this->db->query("INSERT INTO `users_level` VALUES(2, 'admin', 'Admin', 'Admins can do most things, not all, but most things needed on a site')");
-			$this->db->query("INSERT INTO `users_level` VALUES(3, 'superuser', 'Super User', 'Supers Users help keep the ship on course, they do some things, but not all')");		
-			$this->db->query("INSERT INTO `users_level` VALUES(4, 'user', 'User', 'Users are just regular Joes or Joesephines. They use your application as it is intended for the general public')");
+				// Users Level Data
+				$this->db->query("INSERT INTO `users_level` VALUES(1, 'superadmin', 'Super Admin', 'Super Admins are the head honchos who have power to do anything they want on your install of Social Igniter')");
+				$this->db->query("INSERT INTO `users_level` VALUES(2, 'admin', 'Admin', 'Admins can do most things, not all, but most things needed on a site')");
+				$this->db->query("INSERT INTO `users_level` VALUES(3, 'superuser', 'Super User', 'Supers Users help keep the ship on course, they do some things, but not all')");		
+				$this->db->query("INSERT INTO `users_level` VALUES(4, 'user', 'User', 'Users are just regular Joes or Joesephines. They use your application as it is intended for the general public')");
 
-			// Load Libraries (doing this before DB is created causes mean errors )
-			$this->load->library('session');
-			$this->load->library('social_igniter');
-			$this->load->library('social_auth');
-			$this->load->library('installer');
+				// Load Libraries (doing this before DB is created causes mean errors )
+				$this->load->library('session');
+				$this->load->library('social_igniter');
+				$this->load->library('social_auth');
+				$this->load->library('installer');
 
-			// Settings	Data
-			$this->installer->install_settings('site', config_item('site_settings'));
+				// Settings	Data
+				$this->installer->install_settings('site', config_item('site_settings'));
     		$this->installer->install_settings('site', array('url' => $this->input->post('base_url')));
-			$this->installer->install_settings('design', config_item('design_settings'));
-			$this->installer->install_settings('themes', config_item('themes_settings'));
-			$this->installer->install_settings('services', config_item('services_settings'));
-			$this->installer->install_settings('home', config_item('home_settings'));
-			$this->installer->install_settings('users', config_item('users_settings'));
+				$this->installer->install_settings('design', config_item('design_settings'));
+				$this->installer->install_settings('themes', config_item('themes_settings'));
+				$this->installer->install_settings('services', config_item('services_settings'));
+				$this->installer->install_settings('home', config_item('home_settings'));
+				$this->installer->install_settings('users', config_item('users_settings'));
 			
-			// Output
+				// Output
 		    $output = json_encode(array('status' => 'success', 'message' => 'Created database and settings installed'));			
-		}
-		else
-		{
+			
+			} else {
+		  
 		    $output = json_encode(array('status' => 'error', 'message' => 'Oops your database does not exist for some reason'));			
-		}
-
-		echo $output;
+			
+			}
+				
+			echo $output;
+    
     }
 
 
-    function admin()
-    {
+    function admin() {
     	// Check If Superadmin Exists
-		// Load Libraries (doing this before DB is created causes mean errors )
+			// Load Libraries (doing this before DB is created causes mean errors )
 	    $this->load->config('install');
 	    $this->load->database();
-		$this->load->library('session');
-		$this->load->library('social_igniter');
-		$this->load->library('social_auth');
-		$this->load->library('installer');   	
-	
+			$this->load->library('session');
+			$this->load->library('social_igniter');
+			$this->load->library('social_auth');
+			$this->load->library('installer');   	
 
-		// Validation
-		$username			= url_username($this->input->post('name'), 'none', true);
-		$email				= $this->input->post('email');
-		$password			= $this->input->post('password');
-		$additional_data 	= array(
-			'phone_number'	=> $this->input->post('phone_number'),
-			'name'			=> $this->input->post('name'),
-			'image'			=> '',
-			'language'		=> $this->input->post('language')	    		
-		);
+			// Validation
+			$username			= url_username($this->input->post('name'), 'none', true);
+			$email				= $this->input->post('email');
+			$password			= $this->input->post('password');
+			$additional_data 	= array(
+				'phone_number'	=> $this->input->post('phone_number'),
+				'name'			=> $this->input->post('name'),
+				'image'			=> '',
+				'language'		=> $this->input->post('language')	    		
+			);
 		
-		if ($user = $this->social_auth->register($username, $password, $email, $additional_data, config_item('super_admin_group')))
+			if ($user = $this->social_auth->register($username, $password, $email, $additional_data, config_item('super_admin_group')))
 		{
 		    // Add Admin To Settings
 		    $this->installer->install_settings('site', array('admin_email' => $email));
@@ -152,8 +151,7 @@ class Setup extends MX_Controller
 	}
 	
 
-    function site()
-    {
+    function site() {
 	    $this->load->config('install');
 	    $this->load->database();
 		$this->load->library('session');

@@ -1,19 +1,16 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
-* Name:			Social Igniter : Install : Config
-* Author: 		Brennan Novak
-* 		  		contact@social-igniter.com
-*         		@brennannovak
-*          
-* Created: 		Brennan Novak
-*
-* Project:		http://social-igniter.com/
-* Source: 		http://github.com/socialigniter/
-*
-* Description: 	various values that get installed to the database on installing Social Igniter 
-*/
+ * @name Social Igniter : Install : Config
+ * @author Brennan Novak
+ * @contact contact@social-igniter.com
+ * @projectURL http://social-igniter.com/
+ * @source http://github.com/socialigniter/
+ * @description various values that get installed to the database on installing Social Igniter 
+ **/
 
 /* Database Tables */
+
 $config['database_activity_table'] = array(
 	'activity_id' => array(
 		'type' 					=> 'INT',
@@ -727,90 +724,90 @@ $config['database_users_sessions_table'] = array(
 );
 
 /* Settings */
-$config['site_settings']['images_sizes_large']			= 'yes';
-$config['site_settings']['images_sizes_medium'] 		= 'yes';
-$config['site_settings']['images_sizes_small'] 			= 'yes';
-$config['site_settings']['images_large_width'] 			= '425';
-$config['site_settings']['images_large_height'] 		= '235';
-$config['site_settings']['images_medium_width'] 		= '375';
-$config['site_settings']['images_medium_height'] 		= '235';
-$config['site_settings']['images_small_width'] 			= '125';
-$config['site_settings']['images_small_height'] 		= '125';
-$config['site_settings']['images_sizes_original'] 		= 'yes';
-$config['site_settings']['languages_default'] 			= 'en';
-$config['design_settings']['site_logo'] 				= '';
-$config['design_settings']['font_size'] 				= '14px';
-$config['design_settings']['font_family'] 				= "'Trebuchet MS'";
-$config['design_settings']['font_color'] 				= '000000';
-$config['design_settings']['header_image'] 				= '';
-$config['design_settings']['header_position'] 			= 'left top';
-$config['design_settings']['header_repeat'] 			= 'repeat-x';
-$config['design_settings']['header_color'] 				= 'ffffff';
-$config['design_settings']['background_image'] 			= '';
-$config['design_settings']['background_position'] 		= 'left top';
-$config['design_settings']['background_repeat'] 		= 'repeat-x';
-$config['design_settings']['background_color'] 			= 'ffffff';
-$config['design_settings']['link_color_normal'] 		= '0066CC';
-$config['design_settings']['link_color_visited'] 		= '0066CC';
-$config['design_settings']['link_color_hover'] 			= 'ff3300';
-$config['design_settings']['header_link_color_normal'] 	= '0066CC';
+$config['site_settings']['images_sizes_large'] = 'yes';
+$config['site_settings']['images_sizes_medium'] = 'yes';
+$config['site_settings']['images_sizes_small'] = 'yes';
+$config['site_settings']['images_large_width'] = '425';
+$config['site_settings']['images_large_height'] = '235';
+$config['site_settings']['images_medium_width'] = '375';
+$config['site_settings']['images_medium_height'] = '235';
+$config['site_settings']['images_small_width'] = '125';
+$config['site_settings']['images_small_height'] = '125';
+$config['site_settings']['images_sizes_original'] = 'yes';
+$config['site_settings']['languages_default'] = 'en';
+$config['design_settings']['site_logo'] = '';
+$config['design_settings']['font_size'] = '14px';
+$config['design_settings']['font_family'] = "'Trebuchet MS'";
+$config['design_settings']['font_color'] = '000000';
+$config['design_settings']['header_image'] = '';
+$config['design_settings']['header_position'] = 'left top';
+$config['design_settings']['header_repeat'] = 'repeat-x';
+$config['design_settings']['header_color'] = 'ffffff';
+$config['design_settings']['background_image'] = '';
+$config['design_settings']['background_position'] = 'left top';
+$config['design_settings']['background_repeat'] = 'repeat-x';
+$config['design_settings']['background_color'] = 'ffffff';
+$config['design_settings']['link_color_normal'] = '0066CC';
+$config['design_settings']['link_color_visited'] = '0066CC';
+$config['design_settings']['link_color_hover'] = 'ff3300';
+$config['design_settings']['header_link_color_normal'] = '0066CC';
 $config['design_settings']['header_link_color_visited'] = '0066CC';
-$config['design_settings']['header_link_color_hover'] 	= 'ff3300';
-$config['themes_settings']['site_theme'] 				= 'site_default';
-$config['themes_settings']['dashboard_theme'] 			= 'dashboard_default';
-$config['themes_settings']['mobile_theme'] 				= 'mobile_default';
-$config['services_settings']['email_protocol'] 			= 'mail';
-$config['services_settings']['smtp_host'] 				= '';
-$config['services_settings']['smtp_user'] 				= '';
-$config['services_settings']['smtp_pass'] 				= '';
-$config['services_settings']['smtp_port'] 				= '';
-$config['services_settings']['mobile_enabled'] 			= 'FALSE';
-$config['services_settings']['mobile_module'] 			= '--select--';
-$config['services_settings']['google_webmaster'] 		= '';
-$config['services_settings']['google_analytics'] 		= '';
-$config['services_settings']['bing_webmaster'] 			= '';
-$config['services_settings']['gravatar_enabled'] 		= 'TRUE';
-$config['services_settings']['bitly_enabled'] 			= 'TRUE';
-$config['services_settings']['bitly_login'] 			= '';
-$config['services_settings']['bitly_api_key'] 			= '';
-$config['services_settings']['bitly_domain'] 			= 'bit.ly';
-$config['services_settings']['akismet_key'] 			= '';
-$config['services_settings']['recaptcha_public'] 		= '';
-$config['services_settings']['recaptcha_private'] 		= '';
-$config['services_settings']['recaptcha_theme'] 		= 'white';
-$config['home_settings']['view_permission'] 			= '4';
-$config['home_settings']['create_permission'] 			= '4';
-$config['home_settings']['view_redirect'] 				= '';
-$config['home_settings']['public_timeline'] 						= 'TRUE';
-$config['home_settings']['status_length'] 				= '140';
-$config['home_settings']['date_style'] 					= 'ELAPSED';
-$config['home_settings']['description_length'] 			= '110';
-$config['home_settings']['share'] 						= 'TRUE';
-$config['home_settings']['like'] 						= 'TRUE';
-$config['home_settings']['comments_allow'] 				= 'TRUE';
-$config['home_settings']['comments_per_page'] 			= '2';
-$config['users_settings']['images_sizes_large'] 		= 'yes';
-$config['users_settings']['images_sizes_medium'] 		= 'yes';
-$config['users_settings']['images_sizes_small'] 		= 'yes';
-$config['users_settings']['images_large_width'] 		= '275';
-$config['users_settings']['images_large_height'] 		= '175';
-$config['users_settings']['images_medium_width'] 		= '48';
-$config['users_settings']['images_medium_height'] 		= '48';
-$config['users_settings']['images_small_width'] 		= '45';
-$config['users_settings']['images_small_height'] 		= '25';
-$config['users_settings']['images_formats'] 			= 'gif|jpg|jpeg|png';
-$config['users_settings']['images_max_size'] 			= '5120';
-$config['users_settings']['images_full_width'] 			= '750';
-$config['users_settings']['images_full_height'] 		= '750';
-$config['users_settings']['images_sizes_full'] 			= 'yes';
-$config['users_settings']['images_folder'] 				= 'uploads/profiles/';
-$config['users_settings']['images_max_dimensions'] 		= '3000';
-$config['users_settings']['images_sizes_original'] 		= 'yes';
-$config['users_settings']['settings_level'] 			= '4';
-$config['users_settings']['settings_redirect'] 			= 'settings/profile';
-$config['users_settings']['signup'] 					= 'TRUE';
-$config['users_settings']['signup_recaptcha'] 			= 'TRUE';
-$config['users_settings']['login'] 						= 'TRUE';
-$config['users_settings']['login_recaptcha'] 			= 'TRUE';
+$config['design_settings']['header_link_color_hover'] = 'ff3300';
+$config['themes_settings']['site_theme'] = 'site_default';
+$config['themes_settings']['dashboard_theme']	= 'dashboard_default';
+$config['themes_settings']['mobile_theme'] = 'mobile_default';
+$config['services_settings']['email_protocol'] = 'mail';
+$config['services_settings']['smtp_host'] = '';
+$config['services_settings']['smtp_user'] = '';
+$config['services_settings']['smtp_pass'] = '';
+$config['services_settings']['smtp_port'] = '';
+$config['services_settings']['mobile_enabled'] = 'FALSE';
+$config['services_settings']['mobile_module'] = '--select--';
+$config['services_settings']['google_webmaster'] = '';
+$config['services_settings']['google_analytics'] = '';
+$config['services_settings']['bing_webmaster'] = '';
+$config['services_settings']['gravatar_enabled'] = 'TRUE';
+$config['services_settings']['bitly_enabled'] = 'TRUE';
+$config['services_settings']['bitly_login'] = '';
+$config['services_settings']['bitly_api_key'] = '';
+$config['services_settings']['bitly_domain'] = 'bit.ly';
+$config['services_settings']['akismet_key'] = '';
+$config['services_settings']['recaptcha_public'] = '';
+$config['services_settings']['recaptcha_private'] = '';
+$config['services_settings']['recaptcha_theme']	= 'white';
+$config['home_settings']['view_permission'] = '4';
+$config['home_settings']['create_permission'] = '4';
+$config['home_settings']['view_redirect'] = '';
+$config['home_settings']['public_timeline'] = 'TRUE';
+$config['home_settings']['status_length'] = '140';
+$config['home_settings']['date_style'] = 'ELAPSED';
+$config['home_settings']['description_length'] = '110';
+$config['home_settings']['share']	= 'TRUE';
+$config['home_settings']['like'] = 'TRUE';
+$config['home_settings']['comments_allow'] = 'TRUE';
+$config['home_settings']['comments_per_page'] = '2';
+$config['users_settings']['images_sizes_large'] = 'yes';
+$config['users_settings']['images_sizes_medium'] = 'yes';
+$config['users_settings']['images_sizes_small'] = 'yes';
+$config['users_settings']['images_large_width'] = '275';
+$config['users_settings']['images_large_height'] = '175';
+$config['users_settings']['images_medium_width'] = '48';
+$config['users_settings']['images_medium_height'] = '48';
+$config['users_settings']['images_small_width'] = '45';
+$config['users_settings']['images_small_height'] = '25';
+$config['users_settings']['images_formats'] = 'gif|jpg|jpeg|png';
+$config['users_settings']['images_max_size'] = '5120';
+$config['users_settings']['images_full_width'] = '750';
+$config['users_settings']['images_full_height'] = '750';
+$config['users_settings']['images_sizes_full'] = 'yes';
+$config['users_settings']['images_folder'] = 'uploads/profiles/';
+$config['users_settings']['images_max_dimensions'] = '3000';
+$config['users_settings']['images_sizes_original'] = 'yes';
+$config['users_settings']['settings_level'] = '4';
+$config['users_settings']['settings_redirect'] = 'settings/profile';
+$config['users_settings']['signup'] = 'TRUE';
+$config['users_settings']['signup_recaptcha'] = 'TRUE';
+$config['users_settings']['login'] = 'TRUE';
+$config['users_settings']['login_recaptcha'] = 'TRUE';
 
 /* End install.php */

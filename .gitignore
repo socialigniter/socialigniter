@@ -1,4 +1,5 @@
 *.DS_Store
+system/
 application/views/.DS_Store
 cron.log
 .ftpquota
