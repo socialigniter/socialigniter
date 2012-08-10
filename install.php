@@ -36,177 +36,26 @@ if (isset($_POST["hostname"])) {
 <!DOCTYPE html>  
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Install Social-Igniter</title>
-<link rel="stylesheet" type="text/css" href="/css/install.css" />
-<script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="/js/social.core.js"></script>
-<script type="text/javascript">
-//<![CDATA[
-$(document).ready(function()
-{
-	// Show Fresh Setup or Existing
-	if ($.url.attr('port')) var port = ':' + $.url.attr('port') + '/';
-	else var port = '/';
-	base_url = $.url.attr('protocol') + '://' + $.url.attr('host') + port;
-
-	<?php if (file_exists('./application/config/config.php')): ?>
-	$('#step_5').fadeIn();
-	$('#go_to_website').attr('href', base_url);
-	$('#go_to_dashboard').attr('href', base_url + 'home');
-	$('#go_to_apps').attr('href', base_url + 'settings/apps');
-	$('#go_to_design').attr('href', base_url + 'settings/design');
-	<?php else: ?>
-	$('#step_1').fadeIn();
-	$('#base_url').val(base_url);	
-	<?php endif; ?>
-
-	$('#install_step_1').bind('submit', function(e)
-	{	
-		e.preventDefault();
-		var step_1_data = $('#install_step_1').serialize();
-		
-		console.log(step_1_data);
-		
-		$.ajax(
-		{
-			url		: 'install.php',
-			type	: 'POST',
-			dataType: 'json',
-			data	: step_1_data,
-			success	: function(result)
-			{
-				console.log('Step 1');
-				console.log(result);
-				
-				$('#step_1').fadeOut();
-				$('#step_2').fadeIn();
-				
-				$.ajax(
-				{
-					url		: $('#base_url').val() + 'setup',
-					type	: 'POST',
-					dataType: 'json',
-					data	: step_1_data,
-					success	: function(result)
-					{
-						console.log('Step 2');
-						console.log(result);
-
-						$('#step_2').fadeOut();
-						$('#step_3').fadeIn();				
-					}
-				});	
-			}
-		});
-	});
-
-	$("#install_step_3").bind('submit', function(e)
-	{	
-		e.preventDefault();	
-		$.validator(
-		{
-			elements :		
-				[{
-					'selector' 	: '#signup_name', 
-					'rule'		: 'require', 
-					'field'		: 'Enter your name',
-					'action'	: 'label'					
-				},{
-					'selector' 	: '#signup_email', 
-					'rule'		: 'email', 
-					'field'		: 'Please enter a valid email',
-					'action'	: 'label'							
-				},{
-					'selector' 	: '#signup_password', 
-					'rule'		: 'require', 
-					'field'		: 'Please enter a password',
-					'action'	: 'label'					
-				},{
-					'selector' 	: '#signup_password_confirm', 
-					'rule'		: 'confirm', 
-					'field'		: 'Please confirm your password',
-					'action'	: 'label'					
-				}],
-			message : '',
-			success	: function()
-			{					
-				var signup_data = $('#install_step_3').serialize();
-				console.log(signup_data);
-				
-				$.ajax(
-				{
-					url			: $('#base_url').val() + 'setup/admin',
-					type		: 'POST',
-					dataType	: 'json',
-					data		: signup_data,
-			  		success		: function(result)
-			  		{
-			  			console.log('Step 3');
-			  			console.log(result);
-			  		
-						$('#step_3').fadeOut();
-						$('#step_4').fadeIn();
-													
-					
-				 	}
-				});
-			}
-		});
-	});
-					
-	$('#install_step_4').bind('submit', function(e)
-	{
-		e.preventDefault();
-		var step_4_data = $('#install_step_4').serialize();
-	
-		console.log(step_4_data);
-	
-		$.ajax(
-		{
-			url		: $('#base_url').val() + 'setup/site',
-			type	: 'POST',
-			dataType: 'json',
-			data	: step_4_data,
-			success	: function(result)
-			{
-				console.log('Step 4');
-				console.log(result);
-	
-				base_url = $('#base_url').val();
-	
-				$('#go_to_website').attr('href', base_url);
-				$('#go_to_dashboard').attr('href', base_url + 'home');
-				$('#go_to_apps').attr('href', base_url + 'settings/apps');
-				$('#go_to_design').attr('href', base_url + 'settings/design');
-
-				$('#step_4').fadeOut();
-				$('#step_5').fadeIn();					
-			}
-		});
-	});	
-
-});
-//]]>
-</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Install Social-Igniter</title>
+	<link rel="stylesheet" type="text/css" href="/css/install.css" />
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/social.core.js"></script>
+	<script type="text/javascript" src="/js/installer/setup.js"></script>
 </head>
 <body>
 <div id="container">
-
 	<div class="content norm_top"></div>	
 	<div class="content norm_mid">	
-
 		<div id="welcome" class="content_wrap">
 			<img id="logo" src="images/si_logo.png">
 			<h1>Install Social-Igniter</h1>
 			<p>Welcome and thanks for downloading Social-Igniter, you have taken the first step to setting up your own little corner on the internet. Great job Ace, but first we need you to tell us a few things before your site will work properly.</p>
 			<div class="clear"></div>
 		</div>
-	
 		<div class="norm_separator"></div>
-	
 		<div class="content_wrap">
-		
+			
 			<div id="step_1" class="hide">
 			<form name="install_step_1" id="install_step_1" method="POST">
 				<h2>Site URL</h2>
