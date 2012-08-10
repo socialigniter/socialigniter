@@ -4,7 +4,6 @@
  * @description Iteration or installer steps 1-4 via AJAX
  **/
 
-
 (function($) {
 
   /**
@@ -23,20 +22,24 @@
 
   $(document).ready(function() {
 
-    // SHOW FRESH SETUP
+    // Display fresh setup
     $('#step_1').fadeIn();
-    $('#base_url').val(determineBaseURL()); 
+
+    // Determine base URL and apply
+    var base_url = determineBaseURL()
+    $('#base_url').val(base_url); 
 
     // STEP 1
-    $('#install_step_1').live('submit', function(e) { 
+    $('#install_step_1').bind('submit', function(e) { 
       e.preventDefault();
-      var step_1_data = $('#install_step_1').serialize();
-      console.log(step_1_data);
+      var data = $('#install_step_1').serialize();
+      console.log('step 1 data:');
+      console.log(data);
       $.ajax({
         url      : 'install.php',
         type     : 'POST',
         dataType : 'json',
-        data     : step_1_data,
+        data     : data,
         success  : function(result) {
           console.log('Step 1');
           console.log(result);
@@ -46,7 +49,7 @@
             url      : $('#base_url').val() + 'setup',
             type     : 'POST',
             dataType : 'json',
-            data     : step_1_data,
+            data     : data,
             success  : function(result) {
               console.log('Step 2');
               console.log(result);
@@ -59,7 +62,7 @@
     });
 
     // STEP 3
-    $("#install_step_3").live('submit', function(e) { 
+    $("#install_step_3").bind('submit', function(e) { 
       e.preventDefault(); 
       $.validator({
         elements :    
@@ -105,7 +108,7 @@
     });
      
     // STEP 4
-    $('#install_step_4').live('submit', function(e){
+    $('#install_step_4').bind('submit', function(e){
       e.preventDefault();
       var step_4_data = $('#install_step_4').serialize();
       console.log(step_4_data);

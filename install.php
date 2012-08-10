@@ -1,8 +1,11 @@
 <?php
 
-if (isset($_POST["hostname"])) {
+// Proceed with DB Setup?
+$proceedWithSetup = isset($_POST["hostname"]);
+
+if ($proceedWithSetup) {
+
 	// Config
-	/*
 	$config_file	= "./application/config/config.php.TEMPLATE";
 	$encryption_key	= sha1(microtime(true).mt_rand(10000,90000));
 	$config_current	= file_get_contents($config_file, FILE_USE_INCLUDE_PATH);
@@ -26,12 +29,16 @@ if (isset($_POST["hostname"])) {
 	copy("./application/config/routes.php.TEMPLATE","./application/config/routes.php");
 	copy("./application/config/social_igniter.php.TEMPLATE","./application/config/social_igniter.php");
 	
-	echo json_encode(array('status' => 'success', 'message' => 'Created files & folders', 'data' => $_POST));
-	*/
-	json_encode($_POST);
+	echo json_encode(
+		array(
+			'status' => 'success',
+			'message' => 'Created files & folders',
+			'data' => $_POST
+		)
+	);
 
 } else {
-	//...
+	// Write HTML for setup Forms etc
 ?>
 <!DOCTYPE html>  
 <html>
@@ -55,7 +62,7 @@ if (isset($_POST["hostname"])) {
 		</div>
 		<div class="norm_separator"></div>
 		<div class="content_wrap">
-			
+			<!-- step 1 -->
 			<div id="step_1" class="hide">
 			<form name="install_step_1" id="install_step_1" method="POST">
 				<h2>Site URL</h2>
@@ -69,11 +76,11 @@ if (isset($_POST["hostname"])) {
 				<p><input type="submit" value="Continue"></p>
 			</form>
 			</div>
-		
+			<!-- step 2 -->
 			<div id="step_2" class="hide">
 				<h2 id="step_2_title">Creating Database...</h2>		
 			</div>
-		
+			<!-- step 3 -->
 			<div id="step_3" class="hide">
 			<form name="install_step_3" id="install_step_3" method="POST">
 				<h2>Your Information</h2>
@@ -115,7 +122,7 @@ if (isset($_POST["hostname"])) {
 				<input type="hidden" name="remember" value="1">
 			</form>
 			</div>
-			
+			<!-- step 4 -->
 			<div id="step_4" class="hide">
 			<form name="install_step_4" id="install_step_4" method="POST">
 				<h2>Website Information</h2>
@@ -127,7 +134,7 @@ if (isset($_POST["hostname"])) {
 				<p><input type="submit" value="Continue"></p>
 			</form>
 			</div>	
-		
+			<!-- step 5 -->
 			<div id="step_5" class="hide">
 				<h2>Your Site is Now Setup</h2>
 				<p>Good job old sport, you're awesome. Now go em get em tiger!</p>
@@ -137,9 +144,7 @@ if (isset($_POST["hostname"])) {
 				<p><a id="go_to_apps" href=""><img src="application/views/dashboard_default/assets/icons/installer_24.png"> Apps</a>
 				<p><a id="go_to_design" href=""><img src="application/views/dashboard_default/assets/icons/colors_24.png"> Design</a>
 			</div>
-	
 		</div>
-		
 	</div>
 	<div class="content norm_bot"></div>
 </div>
