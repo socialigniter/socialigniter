@@ -1,18 +1,15 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
-* Name:			Social Igniter : Config
-* Author: 		Brennan Novak
-* 		  		contact@social-igniter.com
-*         		@brennannovak
-*          
-* Created:		Brennan Novak
-*
-* Project:		http://social-igniter.com/
-* Source: 		http://github.com/socialigniter/
-*
-* Description: 	social_ingiter.php config file for site settings for Social Igniter
-*/
-// Site Settings
+ * @name Social Igniter - Config
+ * @author Brennan Novak
+ * @contact contact@social-igniter.com
+ * @projectURL http://social-igniter.com/
+ * @source http://github.com/socialigniter/
+ * @description social_ingiter.php config file for site settings for Social Igniter
+ **/
+
+/* Site Settings */
 $config['site_type']					= "default";
 $config['site_id']						= 1;
 $config['superadmin_user_id']			= 1;
