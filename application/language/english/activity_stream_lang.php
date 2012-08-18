@@ -30,6 +30,7 @@ $lang['verbs']['rsvp-no'] 				= 'is not going to attend';
 // Social Igniter Verbs
 $lang['verbs']['register']				= 'signed up';
 $lang['verbs']['comment']				= 'commented';
+$lang['verbs']['payment']				= 'made a payment of';
 $lang['verbs']['purchase']				= 'purchased';
 $lang['verbs']['order']					= 'ordered';
 $lang['verbs']['download']				= 'downloaded';
