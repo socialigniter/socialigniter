@@ -23,7 +23,7 @@
 	</span>
 	<?php if (config_item($module.'_categories') == 'TRUE'): ?>
 	<span class="item_right">
-		<a href="<?= $module ?>/categories">Categories</a>
+		<a href="settings/<?= $module ?>/categories">Categories</a>
 	</span>
 	<?php endif; if (config_item($module.'_widgets') == 'TRUE'): ?>
 	<span class="item_right">
