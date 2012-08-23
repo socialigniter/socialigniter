@@ -130,15 +130,18 @@ class Site_Controller extends MY_Controller
 					$this->data['this_module_assets'] 	= base_url().'application/modules/'.$module.'/assets/';
 				
 					// Include Heads
-				    if (file_exists(APPPATH.$module_head))
-				    {
-				    	$this->data['head'] .= $this->load->view('../'.$module_head, $this->data, true);
-				    }
-					
-					// Include Footers
-				    if (file_exists(APPPATH.$module_footer))
-				    {
-				    	$this->data['footer'] .= $this->load->view('../'.$module_footer, $this->data, true);
+					if ($this->site_theme->head_footer == 'yes')
+					{
+					    if (file_exists(APPPATH.$module_head))
+					    {
+					    	$this->data['head'] .= $this->load->view('../'.$module_head, $this->data, true);
+					    }
+						
+						// Include Footers
+					    if (file_exists(APPPATH.$module_footer))
+					    {
+					    	$this->data['footer'] .= $this->load->view('../'.$module_footer, $this->data, true);
+						}
 					}
 				}
 			}
