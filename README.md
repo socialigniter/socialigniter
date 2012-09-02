@@ -14,7 +14,7 @@ Installation Instructions
 
 * Download or Clone https://github.com/socialigniter/system (core CodeIgniter)
 	* Make sure /system directory lives at the same folder level as the your app (core Social-Igniter)
-	* If not you will need to edit $system_path = '../system'; in the index.php file
+	* If not you will need to edit $system_path = './system'; in the index.php file
 
 * Create a MySQL database & database user with your hosting database tool (cPanel, Plesk, etc...)
 * Navigate to the following URL at the domain you setup http://localhost.com/install.php
