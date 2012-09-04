@@ -57,6 +57,12 @@
               $('#step_3').fadeIn();        
             }
           }); 
+        },
+        error	: function(jqXHR, textStatus, errorThrown) {
+        	console.log('Got an error!');
+        	console.log(jqXHR);
+        	console.log(textStatus);
+        	console.log(errorThrown);
         }
       });
     });
