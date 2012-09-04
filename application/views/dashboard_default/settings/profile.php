@@ -34,7 +34,7 @@
 	</tr>
     <tr>
 		<td>Phone Number</td>
-		<td><input type="text" name="phone_number" size="40" value="<?= set_value('phone_number', $phone_number) ?>"></td>
+		<td><input type="text" name="phone_number" size="40" placeholder="503-111-0001" value="<?= set_value('phone_number', $phone_number) ?>"></td>
 	</tr>
 	<tr>
 		<td>Language</td>
