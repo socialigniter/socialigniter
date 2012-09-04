@@ -42,7 +42,7 @@
 	</tr>
 	<tr>
 		<td>Timezone</td>
-		<td><?= timezone_menu($time_zone); ?></td>
+		<td><?= timezone_menu($time_zone, 'time_zone', 'time_zone'); ?></td>
 	</tr>
 	<tr>
 		<td>Geo</td>

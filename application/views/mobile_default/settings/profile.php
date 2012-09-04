@@ -29,7 +29,7 @@
 	</tr>
 	<tr>
 		<td>Timezone</td>
-		<td colspan="2"><?= timezone_menu($time_zone); ?></td>
+		<td colspan="2"><?= timezone_menu($time_zone, 'time_zone', 'time_zone'); ?></td>
 	</tr>
 	<tr>
 		<td>Geo Enable:</td>
