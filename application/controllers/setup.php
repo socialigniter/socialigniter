@@ -73,9 +73,7 @@ class Setup extends MX_Controller {
 				'phone_number'	=> '',
 				'name'			=> $this->input->post('name'),
 				'image'			=> '',
-				'language'		=> $this->input->post('language'),
-				'geo_enabled'	=> 'yes',
-				'privacy'		=> 'no'  		
+				'language'		=> $this->input->post('language')		
 			);
 		
 			if ($user = $this->social_auth->register($username, $password, $email, $additional_data, config_item('super_admin_group')))
