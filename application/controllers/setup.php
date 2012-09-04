@@ -70,7 +70,7 @@ class Setup extends MX_Controller {
 			$email				= $this->input->post('email');
 			$password			= $this->input->post('password');
 			$additional_data 	= array(
-				'phone_number'	=> $this->input->post('phone_number'),
+				'phone_number'	=> '',
 				'name'			=> $this->input->post('name'),
 				'image'			=> '',
 				'language'		=> $this->input->post('language')	    		

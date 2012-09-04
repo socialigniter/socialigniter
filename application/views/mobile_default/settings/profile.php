@@ -33,11 +33,11 @@
 	</tr>
 	<tr>
 		<td>Geo Enable:</td>
-		<td colspan="2"><input type="checkbox" name="geo_enabled" value="<?= $geo_enabled ?>"> Add my location to content</td>
+		<td colspan="2"><input type="checkbox" class="nullify" name="geo_enabled" value="<?= $geo_enabled ?>"> Add my location to content</td>
 	</tr>		
   	<tr>
   		<td>Privacy:</td>
-  		<td colspan="2"><input type="checkbox" name="privacy" value="<?= $privacy ?>"> Keep my feeds private</td>
+  		<td colspan="2"><input type="checkbox" class="nullify" name="privacy" value="<?= $privacy ?>"> Keep my feeds private</td>
   	</tr>
     <tr>		
 		<td colspan="3"><input type="submit" value="Save" /></td>
