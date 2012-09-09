@@ -533,30 +533,35 @@ class Social_auth
 	{
 	    return $this->ci->auth_model->get_users_levels();
 	}
-		
+
 
 	/* Sets user_data */
 	function set_userdata($user)
 	{
-		$this->ci->session->set_userdata('email',  $user->email);
+		$user_data = array('email' => $user->email);	
 
 		foreach (config_item('user_data') as $item)
 		{
-		    $this->ci->session->set_userdata($item,  $user->{$item});
+			$user_data[$item] = $user->{$item};
 	    }
+
+		$this->ci->session->set_userdata($user_data);
 	}
 
 	function set_userdata_meta($user_id)
 	{
-		$user_meta = $this->get_user_meta($user_id);
+		$user_meta		= $this->get_user_meta($user_id);
+		$user_meta_data = array();
 	
 		foreach ($user_meta as $meta)
 		{
 			if (in_array($meta->meta, config_item('user_data_meta')))
 			{
-		    	$this->ci->session->set_userdata($meta->meta,  $meta->value);
+				$user_meta_data[$meta->meta] = $meta->value;
 	    	}
 	    }
+
+		$this->ci->session->set_userdata($user_meta_data);
 	}
 
 	function set_userdata_connections($user_id)

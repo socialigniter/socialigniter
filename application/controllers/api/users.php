@@ -353,13 +353,9 @@ class Users extends Oauth_Controller
        		if ($this->form_validation->run() == true)
         	{    	
 				// Update Data
-				$user_id = $this->oauth_user_id;
-				
-				if (!$this->input->post('username')) $username = $this->input->post('name');
-				else $username = $this->input->post('username');
+				$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);
 				    	  
 		    	$update_data = array(
-		    		'username'		=> url_username($username, 'none', true),
 		        	'email'			=> $this->input->post('email'),
 		        	'gravatar'		=> md5($this->input->post('email')),
 		        	'phone_number'	=> $this->input->post('phone_number'),
@@ -369,17 +365,22 @@ class Users extends Oauth_Controller
 		        	'language'		=> $this->input->post('language'),
 		        	'geo_enabled'	=> $this->input->post('geo_enabled'),
 		    	);
-		    	
-		    	if ($this->social_auth->update_user($user_id, $update_data))
-		    	{
-		    		$user = $this->social_auth->get_user('user_id', $user_id, TRUE);
 
+				// Maybe Username
+				if ($this->input->post('username') != $user->username)
+		    	{
+		    		$update_data['username'] = url_username($this->input->post('username'), 'none', true);
+		    	}
+
+		    	// Update
+		    	if ($this->social_auth->update_user($user->user_id, $update_data))
+		    	{
 		    		if ($this->input->post('session') == 1)
 		    		{
 		    			$this->social_auth->set_userdata($user);
 		    		}
 
-			        $message = array('status' => 'success', 'message' => 'User changes saved', 'user' => $user);
+			        $message = array('status' => 'success', 'message' => 'User changes saved');
 		   		}
 		   		else
 		   		{

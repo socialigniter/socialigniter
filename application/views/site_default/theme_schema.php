@@ -9,5 +9,6 @@
 		"wide":["navigation","wide"],
 		"profile":["navigation","content","sidebar"]
 	},
-	"default_layout":"sidebar"
+	"default_layout":"sidebar",
+	"head_footer":"yes"	
 }
