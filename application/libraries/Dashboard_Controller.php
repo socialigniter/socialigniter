@@ -28,6 +28,7 @@ class Dashboard_Controller extends MY_Controller
 		$this->data['oauth_token_secret'] 	= $this->session->userdata('token_secret');
 
 		// Logged Values
+		$this->data['logged_is']			= 'yes';
 		$this->data['logged_user_id']		= $this->session->userdata('user_id');
 		$this->data['logged_user_level_id']	= $this->session->userdata('user_level_id');
 		$this->data['logged_username']		= $this->session->userdata('username');

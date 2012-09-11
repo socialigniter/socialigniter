@@ -565,8 +565,8 @@ $config['database_users_table'] = array(
 		'null'					=> TRUE
 	),
 	'privacy' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 1,
+		'type'					=> 'CHAR',
+		'constraint'			=> 8,
 		'null'					=> TRUE
 	),
 	'language' => array(
@@ -575,8 +575,8 @@ $config['database_users_table'] = array(
 		'null'					=> TRUE
 	),
 	'geo_enabled' => array(
-		'type'					=> 'INT',
-		'constraint'			=> 1,
+		'type'					=> 'CHAR',
+		'constraint'			=> 8,
 		'null'					=> TRUE
 	),
 	'consumer_key' => array(

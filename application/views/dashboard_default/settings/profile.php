@@ -34,7 +34,7 @@
 	</tr>
     <tr>
 		<td>Phone Number</td>
-		<td><input type="text" name="phone_number" size="40" value="<?= set_value('phone_number', $phone_number) ?>"></td>
+		<td><input type="text" name="phone_number" size="40" placeholder="503-111-0001" value="<?= set_value('phone_number', $phone_number) ?>"></td>
 	</tr>
 	<tr>
 		<td>Language</td>
@@ -42,15 +42,15 @@
 	</tr>
 	<tr>
 		<td>Timezone</td>
-		<td><?= timezone_menu($time_zone); ?></td>
+		<td><?= timezone_menu($time_zone, 'time_zone', 'time_zone'); ?></td>
 	</tr>
 	<tr>
 		<td>Geo</td>
-		<td><input type="checkbox" name="geo_enabled" value="<?= $geo_enabled ?>"> Add my location to content & updates</td>
+		<td><input type="checkbox" class="nullify" name="geo_enabled" value="<?= $geo_enabled ?>"> Add my location to content & updates</td>
 	</tr>		
   	<tr>
   		<td>Privacy</td>
-  		<td><input type="checkbox" name="privacy" value="<?= $privacy ?>"> Keep my profile private</td>
+  		<td><input type="checkbox" class="nullify" name="privacy" value="<?= $privacy ?>"> Keep my profile private</td>
   	</tr>
 	</table>
 	<p><input type="submit" value="Save"></p>

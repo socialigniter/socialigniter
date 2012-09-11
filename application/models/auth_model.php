@@ -321,6 +321,8 @@ class Auth_model extends CI_Model
   			'language'			=> $language,
 			'user_level_id'   	=> $user_level_id,
 			'ip_address' 		=> $this->input->ip_address(),
+			'geo_enabled'		=> 'yes',
+			'privacy'			=> 'no', 
         	'created_on' 		=> now(),
 			'last_login' 		=> now(),
 			'active'     		=> 1
@@ -375,6 +377,8 @@ class Auth_model extends CI_Model
   			'image'				=> $image,  			 			
 			'user_level_id'   	=> $user_level_id,
 			'ip_address' 		=> $this->input->ip_address(),
+			'geo_enabled'		=> 'yes',
+			'privacy'			=> 'no',			
         	'created_on' 		=> now(),
 			'last_login' 		=> now(),
 			'active'     		=> 1
