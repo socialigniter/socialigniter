@@ -1,5 +1,11 @@
 <?php
 
+// Config File Constants
+define('CONFIG_PATH', './application/config/config.php');
+define('DATABASE_PATH', './application/config/database.php');
+define('ROUTES_PATH', "./application/config/routes.php");
+define('SOCIAL_IGNITER_PATH', './application/config/social_igniter.php');
+
 // Proceed with DB Setup?
 $proceedWithSetup = isset($_POST["hostname"]);
 
@@ -11,7 +17,7 @@ if ($proceedWithSetup) {
 	$config_current	= file_get_contents($config_file, FILE_USE_INCLUDE_PATH);
 	$config_current	= str_replace("{INSTALL_BASE_URL}", $_POST["base_url"], $config_current);
 	$config_current	= str_replace("{INSTALL_ENCRYPTION_KEY}", $encryption_key, $config_current);
-	file_put_contents("./application/config/config.php", $config_current);
+	file_put_contents(CONFIG_PATH, $config_current);
 
 	// Database
 	$hostname = $_POST["hostname"];
@@ -23,11 +29,11 @@ if ($proceedWithSetup) {
 	$database_file = str_replace("{INSTALL_DB_USERNAME}", $username, $database_file);
 	$database_file = str_replace("{INSTALL_DB_PASSWORD}", $password, $database_file);
 	$database_file = str_replace("{INSTALL_DB_DATABASE}", $database_name, $database_file);
-	file_put_contents("./application/config/database.php", $database_file);
+	file_put_contents(DATABASE_PATH, $database_file);
 	
 	// Make Files
-	copy("./application/config/routes.php.TEMPLATE","./application/config/routes.php");
-	copy("./application/config/social_igniter.php.TEMPLATE","./application/config/social_igniter.php");
+	copy("./application/config/routes.php.TEMPLATE", ROUTES_PATH);
+	copy("./application/config/social_igniter.php.TEMPLATE", SOCIAL_IGNITER_PATH);
 	
 	echo json_encode(
 		array(
@@ -61,6 +67,45 @@ if ($proceedWithSetup) {
 			<div class="clear"></div>
 		</div>
 		<div class="norm_separator"></div>
+		<?php
+				
+				// Check all the files we want to write are writable
+				$all_writable = true;
+				$errors = '<ul>';
+				if (is_writable(CONFIG_PATH))
+				{
+					$all_writable = false;
+					$errors .= '<li><code>' . CONFIG_PATH . '</code> is not writable by PHP</li>';
+				}
+				if (is_writable(DATABASE_PATH))
+				{
+					$all_writable = false;
+					$errors .= '<li><code>' . DATABASE_PATH . '</code> is not writable by PHP</li>';
+				}
+				if (is_writable(ROUTES_PATH))
+				{
+					$all_writable = false;
+					$errors .= '<li><code>' . ROUTES_PATH . '</code> is not writable by PHP</li>';
+				}
+				if (is_writable(SOCIAL_IGNITER_PATH))
+				{
+					$all_writable = false;
+					$errors .= '<li><code>' . SOCIAL_IGNITER_PATH . '</code> is not writable by PHP</li>';
+				}
+				$errors .= '</ul>';
+				
+				if (!$all_writable)
+				{
+					// Echo error messages
+					echo '<p class="warning">Oops! SocialIgniter can\'t install itself because it can\'t update some config files.</p><p>What you need to do to fix this is change the permissions on the following files:</p>';
+					
+					echo $errors;
+					
+					echo '<p>The <a href="http://codex.wordpress.org/Changing_File_Permissions">WordPress Codex has a good page on permissions</a>. If you need more help, ask your sysadmin or get in contact with the <a href="https://github.com/socialigniter/socialigniter/">SocialIgniter Developers</a></p>';
+				}
+				else
+				{				
+			?>
 		<div class="content_wrap">
 			<!-- step 1 -->
 			<div id="step_1" class="hide">
@@ -145,6 +190,9 @@ if ($proceedWithSetup) {
 				<p><a id="go_to_design" href=""><img src="application/views/dashboard_default/assets/icons/colors_24.png"> Design</a>
 			</div>
 		</div>
+		<?php
+			}
+		?>
 	</div>
 	<div class="content norm_bot"></div>
 </div>
