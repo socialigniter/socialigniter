@@ -63,7 +63,8 @@ if ($proceedWithSetup) {
 		<div id="welcome" class="content_wrap">
 			<img id="logo" src="images/si_logo.png">
 			<h1>Install Social-Igniter</h1>
-			<p>Welcome and thanks for downloading Social-Igniter, you have taken the first step to setting up your own little corner on the internet. Great job Ace, but first we need you to tell us a few things before your site will work properly.</p>
+			<p>Welcome and thanks for downloading Social-Igniter, you have taken the first step to setting up your own little corner on the web. Great job!</p>
+			<p>Next, we need you to tell us a few things before your site will work properly.</p>
 			<div class="clear"></div>
 		</div>
 		<div class="norm_separator"></div>
@@ -111,14 +112,19 @@ if ($proceedWithSetup) {
 			<div id="step_1" class="hide">
 			<form name="install_step_1" id="install_step_1" method="POST">
 				<h2>Site URL</h2>
-				<p>Of your website <input type="text" name="base_url" id="base_url" placeholder="http://example.com/"></p>
+				<p><label>Of your website: <input type="text" name="base_url" id="base_url" placeholder="http://example.com/"></label></p>
+				
 				<h2>Database Settings</h2>
-				<p>The hostname of your database server. <input type="text" id="db_hostname" placeholder="localhost" name="hostname"></p>
-				<p>The username used to connect to the database. <input type="text" id="db_username" placeholder="root" name="username"></p>
-				<p>The password used to connect to the database. <input type="password" id="db_password" placeholder="" name="password"></p> 
-				<p>The name of the database you want to connect to. <input type="text" id="db_database" placeholder="social-igniter" name="database"></p>
-				<p>(Currently you have to have to manually create your database)</p>
-				<p><input type="submit" value="Continue"></p>
+				
+				<p>If you're on shared hosting, your provider should have sent you MySQL database credentials -- if not, contact them and ask for hostname, username, password and database name required to connect.</p>
+				
+				<ol>
+					<li><label>The hostname of your database server: <input type="text" id="db_hostname" placeholder="localhost" name="hostname"></label></li>
+					<li><label>The username used to connect to the database: <input type="text" id="db_username" placeholder="root" name="username"></label></li>
+					<li><label>The password used to connect to the database: <input type="password" id="db_password" placeholder="" name="password"></label></li>
+					<li><label>The name of the database you want to connect to: <input type="text" id="db_database" placeholder="social-igniter" name="database"></label></li>
+					<li><button type="submit">Create Database tables and Continue</button></li>
+				</ol>
 			</form>
 			</div>
 			<!-- step 2 -->
