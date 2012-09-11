@@ -32,6 +32,10 @@
     // STEP 1
     $('#install_step_1').bind('submit', function(e) { 
       e.preventDefault();
+      $('#install_step_1_submit').html('Checking Database Credentials, please be patient...').attr('disabled', 'disabled');
+      setTimeout(function () {
+      	$('#install_step_1_submit').html('Looks like this is taking longer than expected. Please be patient...')
+      }, 5000);
       var data = $('#install_step_1').serialize();
       console.log('step 1 data:');
       console.log(data);
@@ -64,7 +68,8 @@
 			console.log('textStatus: ' + textStatus);
 			console.log('errorThrown: ' + errorThrown);
 			// Create warning div just before DB form
-			$('#warning-container').html('<div class="warning"><p>There\'s something wrong with your DB credentials; we got this error:</p><p><code>' + jqXHR.responseText + '</code></p></warning>');
+			$('#warning-container').hide().html('<div class="warning"><p>There\'s something wrong with your DB credentials; we got this error:</p><p><code>' + jqXHR.responseText + '</code></p></warning>').fadeIn();
+			$('#install_step_1_submit').html('Create Database Tables').removeAttr('disabled');
         }
       });
     });

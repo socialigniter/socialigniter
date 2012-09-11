@@ -22,7 +22,8 @@ if ($proceedWithSetup) {
 	try {
 		$db = new PDO('mysql:host=' . $hostname . ';dbname=' . $database_name, $username, $password, array(
 			PDO::ATTR_PERSISTENT => true,
-			PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+			PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
+			PDO::ATTR_TIMEOUT => 10));
 	}
 	catch (PDOException $e) {
 		// If it went wrong: complain
@@ -142,7 +143,7 @@ if ($proceedWithSetup) {
 					<li><label>The username used to connect to the database: <input type="text" id="db_username" placeholder="root" name="username"></label></li>
 					<li><label>The password used to connect to the database: <input type="password" id="db_password" placeholder="" name="password"></label></li>
 					<li><label>The name of the database you want to connect to: <input type="text" id="db_database" placeholder="social-igniter" name="database"></label></li>
-					<li><button type="submit">Create Database tables and Continue</button></li>
+					<li><button type="submit" id="install_step_1_submit">Create Database tables and Continue</button></li>
 				</ol>
 			</form>
 			</div>
