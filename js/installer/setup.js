@@ -58,11 +58,13 @@
             }
           }); 
         },
-        error	: function(jqXHR, textStatus, errorThrown) {
-        	console.log('Got an error!');
-        	console.log(jqXHR);
-        	console.log(textStatus);
-        	console.log(errorThrown);
+        error	:	function(jqXHR, textStatus, errorThrown) {
+			console.log('Got an error!');
+			console.log(jqXHR);
+			console.log('textStatus: ' + textStatus);
+			console.log('errorThrown: ' + errorThrown);
+			// Create warning div just before DB form
+			$('#warning-container').html('<div class="warning"><p>There\'s something wrong with your DB credentials; we got this error:</p><p><code>' + jqXHR.responseText + '</code></p></warning>');
         }
       });
     });
