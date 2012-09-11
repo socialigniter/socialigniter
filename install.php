@@ -11,6 +11,35 @@ $proceedWithSetup = isset($_POST["hostname"]);
 
 if ($proceedWithSetup) {
 
+	// Database
+	// We should probably clean these, as they could in theory come from anywhere on the web
+	$hostname = $_POST["hostname"];
+	$username	= $_POST["username"];
+	$password	= $_POST["password"];
+	$database_name = $_POST["database"];
+	
+	// Before we change any files, we should try connecting to the db using the given credentials
+	try {
+		$db = new PDO('mysql:host=' . $hostname . ';dbname=' . $database_name, $username, $password, array(
+			PDO::ATTR_PERSISTENT => true,
+			PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+	}
+	catch (PDOException $e) {
+		// If it went wrong: complain
+		header('HTTP/1.0 500 Server Error'); // TODO: Check if this works across most PHP platforms
+		//header('Content-type: application/json');
+		echo $e -> getMessage();
+		exit;
+	}
+		
+	// If all's good: woo! Edit the config files
+	$database_file = file_get_contents("./application/config/database.php.TEMPLATE", FILE_USE_INCLUDE_PATH);
+	$database_file = str_replace("{INSTALL_DB_HOSTNAME}", $hostname, $database_file);
+	$database_file = str_replace("{INSTALL_DB_USERNAME}", $username, $database_file);
+	$database_file = str_replace("{INSTALL_DB_PASSWORD}", $password, $database_file);
+	$database_file = str_replace("{INSTALL_DB_DATABASE}", $database_name, $database_file);
+	file_put_contents(DATABASE_PATH, $database_file);
+	
 	// Config
 	$config_file	= "./application/config/config.php.TEMPLATE";
 	$encryption_key	= sha1(microtime(true).mt_rand(10000,90000));
@@ -18,18 +47,6 @@ if ($proceedWithSetup) {
 	$config_current	= str_replace("{INSTALL_BASE_URL}", $_POST["base_url"], $config_current);
 	$config_current	= str_replace("{INSTALL_ENCRYPTION_KEY}", $encryption_key, $config_current);
 	file_put_contents(CONFIG_PATH, $config_current);
-
-	// Database
-	$hostname = $_POST["hostname"];
-	$username	= $_POST["username"];
-	$password	= $_POST["password"];
-	$database_name = $_POST["database"];
-	$database_file = file_get_contents("./application/config/database.php.TEMPLATE", FILE_USE_INCLUDE_PATH);
-	$database_file = str_replace("{INSTALL_DB_HOSTNAME}", $hostname, $database_file);
-	$database_file = str_replace("{INSTALL_DB_USERNAME}", $username, $database_file);
-	$database_file = str_replace("{INSTALL_DB_PASSWORD}", $password, $database_file);
-	$database_file = str_replace("{INSTALL_DB_DATABASE}", $database_name, $database_file);
-	file_put_contents(DATABASE_PATH, $database_file);
 	
 	// Make Files
 	copy("./application/config/routes.php.TEMPLATE", ROUTES_PATH);
@@ -68,6 +85,7 @@ if ($proceedWithSetup) {
 			<div class="clear"></div>
 		</div>
 		<div class="norm_separator"></div>
+		<div class="content_wrap">
 		<?php
 				
 				// Check all the files we want to write are writable
@@ -76,38 +94,37 @@ if ($proceedWithSetup) {
 				if (is_writable(CONFIG_PATH))
 				{
 					$all_writable = false;
-					$errors .= '<li><code>' . CONFIG_PATH . '</code> is not writable by PHP</li>';
+					$errors .= '<li><code>' . CONFIG_PATH . '</code></li>';
 				}
 				if (is_writable(DATABASE_PATH))
 				{
 					$all_writable = false;
-					$errors .= '<li><code>' . DATABASE_PATH . '</code> is not writable by PHP</li>';
+					$errors .= '<li><code>' . DATABASE_PATH . '</code></li>';
 				}
 				if (is_writable(ROUTES_PATH))
 				{
 					$all_writable = false;
-					$errors .= '<li><code>' . ROUTES_PATH . '</code> is not writable by PHP</li>';
+					$errors .= '<li><code>' . ROUTES_PATH . '</code></li>';
 				}
 				if (is_writable(SOCIAL_IGNITER_PATH))
 				{
 					$all_writable = false;
-					$errors .= '<li><code>' . SOCIAL_IGNITER_PATH . '</code> is not writable by PHP</li>';
+					$errors .= '<li><code>' . SOCIAL_IGNITER_PATH . '</code></li>';
 				}
 				$errors .= '</ul>';
 				
 				if (!$all_writable)
 				{
 					// Echo error messages
-					echo '<p class="warning">Oops! SocialIgniter can\'t install itself because it can\'t update some config files.</p><p>What you need to do to fix this is change the permissions on the following files:</p>';
+					echo '<div class="warning"><strong>Oops! SocialIgniter can\'t install itself because it can\'t update some config files.</strong><p>To fix this, the following files must be made writable by PHP or your web server:</p>';
 					
 					echo $errors;
 					
-					echo '<p>The <a href="http://codex.wordpress.org/Changing_File_Permissions">WordPress Codex has a good page on permissions</a>. If you need more help, ask your sysadmin or get in contact with the <a href="https://github.com/socialigniter/socialigniter/">SocialIgniter Developers</a></p>';
+					echo '<p>The <a href="http://codex.wordpress.org/Changing_File_Permissions">WordPress Codex has a good page on permissions</a>. If you need more help, ask your sysadmin or get in contact with the <a href="https://github.com/socialigniter/socialigniter/">SocialIgniter Developers</a></p><p>Once you\'ve fixed this, try refreshing this page.</p></div>';
 				}
 				else
 				{				
 			?>
-		<div class="content_wrap">
 			<!-- step 1 -->
 			<div id="step_1" class="hide">
 			<form name="install_step_1" id="install_step_1" method="POST">
@@ -117,6 +134,8 @@ if ($proceedWithSetup) {
 				<h2>Database Settings</h2>
 				
 				<p>If you're on shared hosting, your provider should have sent you MySQL database credentials -- if not, contact them and ask for hostname, username, password and database name required to connect.</p>
+				
+				<div id="warning-container"></div>
 				
 				<ol>
 					<li><label>The hostname of your database server: <input type="text" id="db_hostname" placeholder="localhost" name="hostname"></label></li>
@@ -195,10 +214,10 @@ if ($proceedWithSetup) {
 				<p><a id="go_to_apps" href=""><img src="application/views/dashboard_default/assets/icons/installer_24.png"> Apps</a>
 				<p><a id="go_to_design" href=""><img src="application/views/dashboard_default/assets/icons/colors_24.png"> Design</a>
 			</div>
-		</div>
 		<?php
 			}
 		?>
+		</div>
 	</div>
 	<div class="content norm_bot"></div>
 </div>
