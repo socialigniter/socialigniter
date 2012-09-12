@@ -289,7 +289,7 @@ class Settings extends Dashboard_Controller
 				$this->data['item_type']		= $category->type;
 	
 				$this->data['title']			= $category->category;
-				$this->data['title_link']		= base_url().$category->module.'/view/'.$category->category_id;
+				$this->data['title_link']		= base_url().$category->module.'/view/category/'.$category->category_id;
 				$this->data['contents_count']	= manage_contents_count($category->contents_count);
 				$this->data['publish_date']		= manage_published_date($category->created_at, $category->updated_at);
 	
