@@ -116,13 +116,12 @@ $config['database_categories_table'] = array(
 		'null'					=> TRUE
 	),
 	'description' => array(
-		'type'					=> 'VARCHAR',
-		'constraint'			=> 255,
+		'type'					=> 'TEXT',
 		'null'					=> TRUE
 	),
 	'details' => array(
 		'type'					=> 'VARCHAR',
-		'constraint'			=> 255,
+		'constraint'			=> 512,
 		'null'					=> TRUE
 	),
 	'contents_count' => array(
