@@ -9,13 +9,17 @@ h1, h2, h3    { font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; font-
 h1        { color: #444; font-size: 36px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h2        { color: #444; font-size: 30px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
 h3        { color: #444; font-size: 24px; font-weight: bold; text-shadow:1px 1px 1px #FFF; }
-p         { font-size: 14px; margin: 5px 0; line-height: 21px; }
+p         { font-size: 14px; margin: 5px 0; line-height: 21px; margin-bottom: 0.5em; }
 .hide       { display: none; }
 .clear      { clear: both; }
+.warning	{ border: red medium solid; padding: 1em; border-radius: 10px; background-color: #FA6; }
 #container    { width: 700px; min-height: 350px; margin: 45px auto; padding: 0 25px 25px 25px; text-align: left; }
 #logo     { height: 125px; float: right; margin: 0 15px 20px; }
 #welcome h1   { float: left; }
 #welcome p    { float: left; width: 500px; margin-top: 20px; }
+
+li { margin: 0.5em 0 0 1em; }
+code { font-family: monospace; }
 
 div.norm_top        { width: 700px; height: 12px; background: url('/application/views/dashboard_default/assets/images/content_norm_top.png') 0 0 no-repeat; margin: 0; }
 div.norm_mid        { width: 700px; background: url('/application/views/dashboard_default/assets/images/content_norm_mid.png') 0 0 repeat-y; margin: 0 0; padding: 10px 0; }

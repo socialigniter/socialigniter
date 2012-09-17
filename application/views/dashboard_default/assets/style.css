@@ -277,9 +277,11 @@ span.item_manage_title a:visited 	{ color: #666666; text-shadow:1px 1px 1px #FFF
 span.item_manage_meta				{ width: 450px; display: block; float: left; margin: 0 0 0 48px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
 span.item_manage_meta_generic		{ width: 450px; display: block; float: left; margin: 0 0 0 15px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
 span.item_manage_meta span span 	{ position: relative; top: -2px; left: 0; }
-span.item_manage_categories_meta	{ width: 450px; display: block; float: left; margin: 0 0 0 15px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
+span.item_manage_categories_meta	{ width: 550px; display: block; float: left; margin: 0 0 0 15px; padding: 0; font-size: 12px; line-height: 12px; color: #999999; }
 span.item_manage_content			{ display: block; width: 160px; float: left; }
+span.item_manage_categories			{ display: block; width: 160px; float: left; }
 span.item_manage_publish			{ display: block; width: 350px; float: left; }
+
 
 /* For Content Editors (pages, blog, classes, categories) */
 h2.content_editor_title				{ margin: 0px !important; padding: 0px; }
