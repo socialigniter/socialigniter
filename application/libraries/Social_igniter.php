@@ -29,7 +29,10 @@ class Social_igniter
 		$this->ci->load->model('sites_model');
 	}
 
-    // Profile Picture
+    /*
+     *	Used to get or set the profile photo URL for user with id $user_id
+     *	@return string a profile photo URL
+     */
 	function profile_image($user_id, $image, $email_hash=NULL, $size='medium', $theme='site_theme')
 	{
 		$this->ci->load->helper('gravatar');
