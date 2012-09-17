@@ -39,6 +39,7 @@ $config['min_password_length'] 			= 6;					// Minimum Required Length of Passwor
 $config['max_password_length'] 			= 20;					// Maximum Allowed Length of Password
 $config['password_strength'] 			= 2;					// Strength of Password
 $config['email_activation']    			= FALSE;				// Checks password strength for numbers. Current max score is 3 ADD MORE
+$config['email_activation_redirect']    = 'login';				// URL to redirect to after reseting password
 $config['remember_users']      			= TRUE;					// Allow users to be remembered and enable auto-login
 $config['user_expire']          		= 150000;				// How long to remember the user (seconds)
 $config['user_extend_on_login'] 		= TRUE;					// Extend the users cookies everytime they auto-login

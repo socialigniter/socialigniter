@@ -26,7 +26,7 @@ class Users extends Dashboard_Controller {
 		
 			$this->data['user_id'] 			= $user->user_id;
 			$this->data['name']				= $user->name;
-			$this->data['avatar']			= $this->social_igniter->profile_image($user->user_id, $user->image, $user->email);
+			$this->data['avatar']			= $this->social_igniter->profile_image($user->user_id, $user->image, $user->email, 'medium', 'dashboard_theme');
 			$this->data['profile']			= base_url().'profile/'.$user->username;
 			$this->data['created_on']		= format_datetime('SIMPLE_ABBR', $user->created_on);
 			$this->data['last_login']		= format_datetime('SIMPLE_TIME_ABBR', $user->last_login);
