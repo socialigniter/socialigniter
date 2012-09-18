@@ -377,7 +377,9 @@ class Users extends Oauth_Controller
 		    	{
 		    		if ($this->input->post('session') == 1)
 		    		{
-		    			$this->social_auth->set_userdata($user);
+		    			$updated_user = $this->social_auth->get_user('user_id', $this->oauth_user_id, TRUE);
+
+		    			$this->social_auth->set_userdata($updated_user);
 		    		}
 
 			        $message = array('status' => 'success', 'message' => 'User changes saved', 'user' => $update_data);
