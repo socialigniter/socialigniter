@@ -28,7 +28,6 @@ if ($proceedWithSetup) {
 	catch (PDOException $e) {
 		// If it went wrong: complain
 		header('HTTP/1.0 500 Server Error'); // TODO: Check if this works across most PHP platforms
-		//header('Content-type: application/json');
 		echo $e -> getMessage();
 		exit;
 	}
