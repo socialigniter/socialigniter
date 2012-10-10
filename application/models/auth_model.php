@@ -1,13 +1,13 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-/*
-* Name: 		Auth Model
-* 
-* Author:  		Brennan Novak severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
-* 		   		contact@social-igniter.com
-*				@socialigniter
-*
-* Location: http://github.com/socialigniter/core
-*/ 
+/**
+ * Auth Model
+ * 
+ * A severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
+ * 
+ * @author Brennan Novak <contact@social-igniter.com> @socialigniter
+ * @package Social Ingiter\Models
+ * @link http://github.com/socialigniter/core
+ */ 
 class Auth_model extends CI_Model
 {
 	public $tables = array();	
@@ -23,7 +23,15 @@ class Auth_model extends CI_Model
 	    $this->salt_length     	= $this->config->item('salt_length');
 	}
 
-	// Hashes the password to be stored in the database.
+	/**
+	 * Hash Password
+	 * 
+	 * Hashes the given password to be stored in the database.
+	 * 
+	 * @param string $password The password to hash
+	 * @param string $salt The salt to use (optional)
+	 * @return string A hashed version of $password
+	 */
 	public function hash_password($password, $salt=false)
 	{
 	    if (empty($password))
@@ -42,7 +50,16 @@ class Auth_model extends CI_Model
 		}		
 	}
 	
-	// This function takes a password and validates it against an entry in the users table.
+	/**
+	 * hash_password_db — Validate a password against a hash
+	 * 
+	 * This function takes a password and validates it against the hash of the password
+	 * stored in the db under $email
+	 * 
+	 * @param string $email The email address of the user to validate the password for
+	 * @param string $password The password to validate against the stored hash
+	 * @return string|bool A hashed version of $password to check against or false
+	 */
 	public function hash_password_db($email, $password)
 	{
 	   if (empty($email) || empty($password))
@@ -74,13 +91,22 @@ class Auth_model extends CI_Model
 		}
 	}
 	
-	// Generates a random salt value.
+	/**
+	 * Generates a random salt value.
+	 * @return string A salt of $this->salt_length
+	 */
 	function salt()
 	{
 		return substr(md5(uniqid(rand(), true)), 0, $this->salt_length);
 	}
 
-    // Activate validates and removes activation code
+    /**
+     * Activate User
+     * 
+     * If given a user id, activates the user account with that id
+     * 
+     * If given an activation code (from an activation email), activates the account with that activation code
+     */
 	function activate($id, $code = false)
 	{	    
 	    if ($code != false) 
@@ -121,7 +147,9 @@ class Auth_model extends CI_Model
 		return $this->db->affected_rows() == 1;
 	}
 	
-    // Deactivate updates a users row with an activation code		
+    /**
+     * Update a users row with an activation code
+     */	
 	function deactivate($id = 0)
 	{
 	    if (empty($id))
@@ -142,7 +170,17 @@ class Auth_model extends CI_Model
 		
 		return $this->db->affected_rows() == 1;
 	}
-
+	
+	/** 
+	 * Change User Password
+	 * 
+	 * Changes the password for a given user
+	 * 
+	 * @param int $user_id The id of the user to change the password for
+	 * @param string $old The old password (plaintext, not hashed)
+	 * @param string $new The plaintext new password for that user
+	 * @return bool Whether or not password changing succeeded
+	 */
 	function change_password($user_id, $old, $new)
 	{
 	    $this->db->select('email,password,salt');
@@ -168,7 +206,15 @@ class Auth_model extends CI_Model
  
 	    return FALSE;
 	}
-		
+	
+	/**
+	 * Username Check
+	 * 
+	 * Checks to see if a user already exists with a given username
+	 * 
+	 * @param string $username The username to check for
+	 * @return bool Whether or not a user exists with $username
+	 */
 	function username_check($username = '')
 	{
 	    if (empty($username))
@@ -179,6 +225,14 @@ class Auth_model extends CI_Model
 	    return $this->db->where('username', $username)->where($this->social_auth->_extra_where)->count_all_results('users') > 0;
 	}
 	
+	/**
+	 * Email Check
+	 * 
+	 * Checks to see if a user already exists with a given email address
+	 * 
+	 * @param string $email The address to check for
+	 * @return bool Whether or not a user exists with $email
+	 */
 	function email_check($email = '')
 	{
 	    if (empty($email))
@@ -188,7 +242,12 @@ class Auth_model extends CI_Model
 		   
 	    return $this->db->where('email', $email)->count_all_results('users') > 0;
 	}
-
+	
+	/**
+	 * Forgotten Password
+	 * 
+	 * @todo Document
+	 */
 	function forgotten_password($email = '')
 	{
 	    if (empty($email))
@@ -206,6 +265,11 @@ class Auth_model extends CI_Model
 		return $this->db->affected_rows() == 1;
 	}
 	
+	/**
+	 * Forgotten Password Complete
+	 * 
+	 * @todo Document
+	 */
 	function forgotten_password_complete($code, $salt=FALSE)
 	{
 	    if (empty($code))
@@ -232,7 +296,12 @@ class Auth_model extends CI_Model
         
         return FALSE;
 	}
-
+	
+	/**
+	 * Profile
+	 * 
+	 * @todo Document
+	 */
 	function profile($email = '')
 	{ 
 	    if (empty($email))
@@ -259,7 +328,12 @@ class Auth_model extends CI_Model
 		
 		return ($profile->num_rows > 0) ? $profile->row() : FALSE;
 	}
-
+	
+	/**
+	 * Register
+	 * 
+	 * @todo Document
+	 */
 	function register($username, $password, $email, $additional_data=false, $group_name=false)
 	{
 		// Are Basics met
@@ -335,7 +409,12 @@ class Auth_model extends CI_Model
         
 		return $this->db->affected_rows() > 0 ? $user_id : false;			
 	}
-
+	
+	/**
+	 * Social Register
+	 * 
+	 * @todo Document
+	 */
 	function social_register($username, $email, $additional_data=false)
 	{
 	    // If Username is taken append increment
@@ -395,6 +474,11 @@ class Auth_model extends CI_Model
 		return $this->db->affected_rows() > 0 ? $user_id : false;			
 	}
 	
+	/**
+	 * Login
+	 * 
+	 * @todo Document
+	 */
 	function login($email, $password, $remember=FALSE, $session=FALSE)
 	{
 	    if (empty($email) || empty($password) || !$this->email_check($email))
@@ -439,6 +523,11 @@ class Auth_model extends CI_Model
 		return FALSE;		
 	}
 
+	/**
+	 * Social Login
+	 * 
+	 * @todo Document
+	 */
 	function social_login($user_id, $connection)
 	{
 	    if (empty($user_id))
@@ -464,13 +553,23 @@ class Auth_model extends CI_Model
 		return FALSE;
 	}
 	
+	/**
+	 * Update last login
+	 * 
+	 * @todo Document
+	 */
 	function update_last_login($user_id)
 	{
 		$this->db->update('users', array('last_login' => now()), array('user_id' => $user_id));
 		
 		return $this->db->affected_rows() == 1;
 	}
-
+	
+	/**
+	 * Login Remembered User
+	 * 
+	 * @todo Document
+	 */
 	function login_remembered_user()
 	{
 		if (!get_cookie('email') || !get_cookie('remember_code') || !$this->email_check(get_cookie('email')))
@@ -503,7 +602,12 @@ class Auth_model extends CI_Model
 		
 		return FALSE;
 	}
-
+	
+	/**
+	 * Remembered User
+	 * 
+	 * @todo Document
+	 */
 	function remember_user($user)
 	{
 		if (!$user->user_id) return FALSE;
@@ -526,6 +630,11 @@ class Auth_model extends CI_Model
 		return FALSE;
 	}	
 	
+	/**
+	 * Get Users
+	 * 
+	 * @todo Document
+	 */
 	function get_users($parameter, $value, $details)
 	{
     	if (in_array($parameter, array('user_level_id', 'active', 'user_level_less', 'user_level_greater')))
@@ -564,6 +673,11 @@ class Auth_model extends CI_Model
 		}
 	}
 	
+	/**
+	 * Get User
+	 * 
+	 * @todo Document
+	 */
 	function get_user($parameter, $value, $details)
 	{
     	if (($value) && (in_array($parameter, array('user_id', 'username', 'email', 'phone_number', 'gravatar', 'consumer_key', 'token', 'forgotten_password_code'))))
@@ -598,6 +712,11 @@ class Auth_model extends CI_Model
 		}
 	}
 	
+	/**
+	 * Get Users Levels
+	 * 
+	 * @todo Document
+	 */
 	function get_users_levels()
 	{	
 	    $this->db->select('*');
@@ -605,7 +724,12 @@ class Auth_model extends CI_Model
  		$result = $this->db->get();	
  		return $result->result();
 	}
-
+	
+	/**
+	 * Update User
+	 * 
+	 * @todo Document
+	 */
 	function update_user($user_id, $data)
 	{		
         if (array_key_exists('password', $data))
@@ -618,6 +742,11 @@ class Auth_model extends CI_Model
 		return TRUE;
 	}
 	
+	/**
+	 * Delete User
+	 * 
+	 * @todo Document
+	 */
 	function delete_user($id)
 	{
 		$this->db->trans_begin();
@@ -638,6 +767,12 @@ class Auth_model extends CI_Model
 	}
 	
 	/* User Meta */
+	
+	/**
+	 * Get User Metadata
+	 * 
+	 * @todo Document
+	 */
 	function get_user_meta($user_id)
 	{
  		$this->db->select('*');
@@ -646,7 +781,12 @@ class Auth_model extends CI_Model
  		$result = $this->db->get();	
  		return $result->result();		
 	}
-
+	
+	/**
+	 * Get User Metadata for Module
+	 * 
+	 * @todo Document
+	 */
 	function get_user_meta_module($user_id, $module)
 	{
  		$this->db->select('*');
@@ -656,7 +796,12 @@ class Auth_model extends CI_Model
  		$result = $this->db->get();	
  		return $result->result();		
 	}
-
+	
+	/**
+	 * Get Users Metadata for Module
+	 * 
+	 * @todo Document
+	 */
 	function get_users_meta_module($module)
 	{
  		$this->db->select('*');
@@ -665,6 +810,7 @@ class Auth_model extends CI_Model
  		$result = $this->db->get();	
  		return $result->result();		
 	}
+	
 	function get_user_meta_meta($user_id, $meta)
 	{
  		$this->db->select('*');
