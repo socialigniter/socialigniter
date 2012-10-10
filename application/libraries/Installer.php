@@ -1,15 +1,13 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-Installer Library
-
-@package		Social Igniter
-@subpackage		Installer Library
-@author			Brennan Novak
-@link			http://social-igniter.com
-
-This class contains all the basic install functions for core and app installs
-*/
- 
+ * Installer Library
+ * 
+ * This class contains all the basic install functions for core and app installs
+ * 
+ * @package		Social Igniter\Libraries
+ * @author			Brennan Novak
+ * @link			http://social-igniter.com
+ */
 class Installer
 {
 	protected $ci;

@@ -1,16 +1,14 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Form Validation Library
-*
-* @package		Social Igniter
-* @subpackage	MY Form Validation Library
-* @author		Brennan Novak
-* @link			http://brennannovak.com
-*
-*
-* Adds various form validation functions
-*/
-
+ * Form Validation Library
+ *
+ * Adds various form validation functions
+ *
+ * @package		Social Igniter\Libraries
+ * @subpackage	MY Form Validation Library
+ * @author		Brennan Novak
+ * @link			http://brennannovak.com
+ */
 class MY_Form_validation extends CI_Form_validation {
 
 	// Validates phone number
