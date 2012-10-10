@@ -482,7 +482,6 @@ class Social_igniter
 	
 	
 	/* Site */
-	
 	function get_site()
 	{
 		return $this->ci->sites_model->get_site();

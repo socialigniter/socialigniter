@@ -811,6 +811,11 @@ class Auth_model extends CI_Model
  		return $result->result();		
 	}
 	
+	/**
+	 * Get User Meta Meta
+	 * 
+	 * @todo Document
+	 */
 	function get_user_meta_meta($user_id, $meta)
 	{
  		$this->db->select('*');
@@ -820,7 +825,12 @@ class Auth_model extends CI_Model
  		$result = $this->db->get();	
  		return $result->result();		
 	}
-
+	
+	/**
+	 * Get User Meta Row
+	 * 
+	 * @todo Document
+	 */
 	function get_user_meta_row($user_id, $meta)
 	{
  		$this->db->select('*');
@@ -830,7 +840,12 @@ class Auth_model extends CI_Model
  		$result = $this->db->get()->row();	
  		return $result;		
 	}
-
+	
+	/**
+	 * Get User Meta ID
+	 * 
+	 * @todo Document
+	 */
 	function get_user_meta_id($user_meta_id)
 	{
  		$this->db->select('*');
@@ -840,7 +855,12 @@ class Auth_model extends CI_Model
  		$result = $this->db->get()->row();	
  		return $result;	
 	}
-
+	
+	/**
+	 * Check User Meta Exists
+	 * 
+	 * @todo Document
+	 */
 	function check_user_meta_exists($user_meta_data)
 	{
  		$this->db->select('*');
@@ -857,6 +877,11 @@ class Auth_model extends CI_Model
 		return FALSE;	
 	}
 	
+	/**
+	 * Add User Metadata
+	 * 
+	 * @todo Document
+	 */
 	function add_user_meta($meta_data)
 	{
 		$meta_data['created_at'] = unix_to_mysql(now());
@@ -873,6 +898,11 @@ class Auth_model extends CI_Model
 		return FALSE;		
 	}
 	
+	/**
+	 * Update User Metadata
+	 * 
+	 * @todo Document
+	 */
 	function update_user_meta($user_meta_id, $meta_data)
 	{
 		$meta_data['updated_at'] = unix_to_mysql(now());
@@ -881,6 +911,11 @@ class Auth_model extends CI_Model
 		return TRUE;		
 	}
 	
+	/**
+	 * Delete User Metadata
+	 * 
+	 * @todo Document
+	 */
 	function delete_user_meta($user_meta_id)
 	{
     	$this->db->where('user_meta_id', $user_meta_id);
