@@ -1,0 +1,676 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \Auth_model</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/CodeIgniter.html"><i class="icon-folder-open"></i> CodeIgniter</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/Social%20Igniter.html"><i class="icon-folder-open"></i> Social Igniter</a></li>
+<li><a href="../packages/Social%20Ingiter.html"><i class="icon-folder-open"></i> Social Ingiter</a></li>
+<li><a href="../packages/socialigniter.html"><i class="icon-folder-open"></i> socialigniter</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">333</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">57</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: "><span class="description">__construct()
+        </span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_activate" title="activate :: Activate User"><span class="description">Activate User</span><pre>activate()</pre></a></li>
+<li class="method public "><a href="#method_add_user_meta" title="add_user_meta :: Add User Metadata"><span class="description">Add User Metadata</span><pre>add_user_meta()</pre></a></li>
+<li class="method public "><a href="#method_change_password" title="change_password :: Change User Password"><span class="description">Change User Password</span><pre>change_password()</pre></a></li>
+<li class="method public "><a href="#method_check_user_meta_exists" title="check_user_meta_exists :: Check User Meta Exists"><span class="description">Check User Meta Exists</span><pre>check_user_meta_exists()</pre></a></li>
+<li class="method public "><a href="#method_deactivate" title="deactivate :: Update a users row with an activation code"><span class="description">Update a users row with an activation code</span><pre>deactivate()</pre></a></li>
+<li class="method public "><a href="#method_delete_user" title="delete_user :: Delete User"><span class="description">Delete User</span><pre>delete_user()</pre></a></li>
+<li class="method public "><a href="#method_delete_user_meta" title="delete_user_meta :: Delete User Metadata"><span class="description">Delete User Metadata</span><pre>delete_user_meta()</pre></a></li>
+<li class="method public "><a href="#method_email_check" title="email_check :: Email Check"><span class="description">Email Check</span><pre>email_check()</pre></a></li>
+<li class="method public "><a href="#method_forgotten_password" title="forgotten_password :: Forgotten Password"><span class="description">Forgotten Password</span><pre>forgotten_password()</pre></a></li>
+<li class="method public "><a href="#method_forgotten_password_complete" title="forgotten_password_complete :: Forgotten Password Complete"><span class="description">Forgotten Password Complete</span><pre>forgotten_password_complete()</pre></a></li>
+<li class="method public "><a href="#method_get_user" title="get_user :: Get User"><span class="description">Get User</span><pre>get_user()</pre></a></li>
+<li class="method public "><a href="#method_get_user_meta" title="get_user_meta :: Get User Metadata"><span class="description">Get User Metadata</span><pre>get_user_meta()</pre></a></li>
+<li class="method public "><a href="#method_get_user_meta_id" title="get_user_meta_id :: Get User Meta ID"><span class="description">Get User Meta ID</span><pre>get_user_meta_id()</pre></a></li>
+<li class="method public "><a href="#method_get_user_meta_meta" title="get_user_meta_meta :: Get User Meta Meta"><span class="description">Get User Meta Meta</span><pre>get_user_meta_meta()</pre></a></li>
+<li class="method public "><a href="#method_get_user_meta_module" title="get_user_meta_module :: Get User Metadata for Module"><span class="description">Get User Metadata for Module</span><pre>get_user_meta_module()</pre></a></li>
+<li class="method public "><a href="#method_get_user_meta_row" title="get_user_meta_row :: Get User Meta Row"><span class="description">Get User Meta Row</span><pre>get_user_meta_row()</pre></a></li>
+<li class="method public "><a href="#method_get_users" title="get_users :: Get Users"><span class="description">Get Users</span><pre>get_users()</pre></a></li>
+<li class="method public "><a href="#method_get_users_levels" title="get_users_levels :: Get Users Levels"><span class="description">Get Users Levels</span><pre>get_users_levels()</pre></a></li>
+<li class="method public "><a href="#method_get_users_meta_module" title="get_users_meta_module :: Get Users Metadata for Module"><span class="description">Get Users Metadata for Module</span><pre>get_users_meta_module()</pre></a></li>
+<li class="method public "><a href="#method_hash_password" title="hash_password :: Hash Password"><span class="description">Hash Password</span><pre>hash_password()</pre></a></li>
+<li class="method public "><a href="#method_hash_password_db" title="hash_password_db :: hash_password_db — Validate a password against a hash"><span class="description">hash_password_db — Validate a password against a hash</span><pre>hash_password_db()</pre></a></li>
+<li class="method public "><a href="#method_login" title="login :: Login"><span class="description">Login</span><pre>login()</pre></a></li>
+<li class="method public "><a href="#method_login_remembered_user" title="login_remembered_user :: Login Remembered User"><span class="description">Login Remembered User</span><pre>login_remembered_user()</pre></a></li>
+<li class="method public "><a href="#method_profile" title="profile :: Profile"><span class="description">Profile</span><pre>profile()</pre></a></li>
+<li class="method public "><a href="#method_register" title="register :: Register"><span class="description">Register</span><pre>register()</pre></a></li>
+<li class="method public "><a href="#method_remember_user" title="remember_user :: Remembered User"><span class="description">Remembered User</span><pre>remember_user()</pre></a></li>
+<li class="method public "><a href="#method_salt" title="salt :: Generates a random salt value."><span class="description">Generates a random salt value.</span><pre>salt()</pre></a></li>
+<li class="method public "><a href="#method_social_login" title="social_login :: Social Login"><span class="description">Social Login</span><pre>social_login()</pre></a></li>
+<li class="method public "><a href="#method_social_register" title="social_register :: Social Register"><span class="description">Social Register</span><pre>social_register()</pre></a></li>
+<li class="method public "><a href="#method_update_last_login" title="update_last_login :: Update last login"><span class="description">Update last login</span><pre>update_last_login()</pre></a></li>
+<li class="method public "><a href="#method_update_user" title="update_user :: Update User"><span class="description">Update User</span><pre>update_user()</pre></a></li>
+<li class="method public "><a href="#method_update_user_meta" title="update_user_meta :: Update User Metadata"><span class="description">Update User Metadata</span><pre>update_user_meta()</pre></a></li>
+<li class="method public "><a href="#method_username_check" title="username_check :: Username Check"><span class="description">Username Check</span><pre>username_check()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul>
+<li class="property public "><a href="#property_activation_code" title="$activation_code :: "><span class="description">$activation_code</span><pre>$activation_code</pre></a></li>
+<li class="property public "><a href="#property_forgotten_password_code" title="$forgotten_password_code :: "><span class="description">$forgotten_password_code</span><pre>$forgotten_password_code</pre></a></li>
+<li class="property public "><a href="#property_new_password" title="$new_password :: "><span class="description">$new_password</span><pre>$new_password</pre></a></li>
+<li class="property public "><a href="#property_tables" title="$tables :: "><span class="description">$tables</span><pre>$tables</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\Auth_model"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Auth_model.html">Auth_model</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Auth Model</p>
+<div class="details">
+<div class="long_description"><p>A severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness</p></div>
+<table class="table table-bordered">
+<tr>
+<th>author</th>
+<td><a href="">Brennan Novak &lt;contact@social-igniter.com&gt; @socialigniter</a></td>
+</tr>
+<tr>
+<th>package</th>
+<td><a href="../packages/Social%20Ingiter.Models.html">Social Ingiter\Models</a></td>
+</tr>
+<tr>
+<th>link</th>
+<td><a href="http://github.com/socialigniter/core">http://github.com/socialigniter/core</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>__construct()
+        </h2>
+<pre>__construct() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_activate"></a><div class="element clickable method public method_activate" data-toggle="collapse" data-target=".method_activate .collapse">
+<h2>Activate User</h2>
+<pre>activate($id, $code) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>If given a user id, activates the user account with that id</p>
+
+<p>If given an activation code (from an activation email), activates the account with that activation code</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$id</h4></div>
+<div class="subelement argument"><h4>$code</h4></div>
+</div></div>
+</div>
+<a id="method_add_user_meta"></a><div class="element clickable method public method_add_user_meta" data-toggle="collapse" data-target=".method_add_user_meta .collapse">
+<h2>Add User Metadata</h2>
+<pre>add_user_meta($meta_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$meta_data</h4></div>
+</div></div>
+</div>
+<a id="method_change_password"></a><div class="element clickable method public method_change_password" data-toggle="collapse" data-target=".method_change_password .collapse">
+<h2>Change User Password</h2>
+<pre>change_password(int $user_id, string $old, string $new) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Changes the password for a given user</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$user_id</h4>
+<code>int</code><p>The id of the user to change the password for</p></div>
+<div class="subelement argument">
+<h4>$old</h4>
+<code>string</code><p>The old password (plaintext, not hashed)</p>
+</div>
+<div class="subelement argument">
+<h4>$new</h4>
+<code>string</code><p>The plaintext new password for that user</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Whether or not password changing succeeded</div>
+</div></div>
+</div>
+<a id="method_check_user_meta_exists"></a><div class="element clickable method public method_check_user_meta_exists" data-toggle="collapse" data-target=".method_check_user_meta_exists .collapse">
+<h2>Check User Meta Exists</h2>
+<pre>check_user_meta_exists($user_meta_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_meta_data</h4></div>
+</div></div>
+</div>
+<a id="method_deactivate"></a><div class="element clickable method public method_deactivate" data-toggle="collapse" data-target=".method_deactivate .collapse">
+<h2>Update a users row with an activation code</h2>
+<pre>deactivate($id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$id</h4></div>
+</div></div>
+</div>
+<a id="method_delete_user"></a><div class="element clickable method public method_delete_user" data-toggle="collapse" data-target=".method_delete_user .collapse">
+<h2>Delete User</h2>
+<pre>delete_user($id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$id</h4></div>
+</div></div>
+</div>
+<a id="method_delete_user_meta"></a><div class="element clickable method public method_delete_user_meta" data-toggle="collapse" data-target=".method_delete_user_meta .collapse">
+<h2>Delete User Metadata</h2>
+<pre>delete_user_meta($user_meta_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_meta_id</h4></div>
+</div></div>
+</div>
+<a id="method_email_check"></a><div class="element clickable method public method_email_check" data-toggle="collapse" data-target=".method_email_check .collapse">
+<h2>Email Check</h2>
+<pre>email_check(string $email) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Checks to see if a user already exists with a given email address</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$email</h4>
+<code>string</code><p>The address to check for</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Whether or not a user exists with $email</div>
+</div></div>
+</div>
+<a id="method_forgotten_password"></a><div class="element clickable method public method_forgotten_password" data-toggle="collapse" data-target=".method_forgotten_password .collapse">
+<h2>Forgotten Password</h2>
+<pre>forgotten_password($email) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$email</h4></div>
+</div></div>
+</div>
+<a id="method_forgotten_password_complete"></a><div class="element clickable method public method_forgotten_password_complete" data-toggle="collapse" data-target=".method_forgotten_password_complete .collapse">
+<h2>Forgotten Password Complete</h2>
+<pre>forgotten_password_complete($code, $salt) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$code</h4></div>
+<div class="subelement argument"><h4>$salt</h4></div>
+</div></div>
+</div>
+<a id="method_get_user"></a><div class="element clickable method public method_get_user" data-toggle="collapse" data-target=".method_get_user .collapse">
+<h2>Get User</h2>
+<pre>get_user($parameter, $value, $details) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+<div class="subelement argument"><h4>$details</h4></div>
+</div></div>
+</div>
+<a id="method_get_user_meta"></a><div class="element clickable method public method_get_user_meta" data-toggle="collapse" data-target=".method_get_user_meta .collapse">
+<h2>Get User Metadata</h2>
+<pre>get_user_meta($user_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+</div></div>
+</div>
+<a id="method_get_user_meta_id"></a><div class="element clickable method public method_get_user_meta_id" data-toggle="collapse" data-target=".method_get_user_meta_id .collapse">
+<h2>Get User Meta ID</h2>
+<pre>get_user_meta_id($user_meta_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_meta_id</h4></div>
+</div></div>
+</div>
+<a id="method_get_user_meta_meta"></a><div class="element clickable method public method_get_user_meta_meta" data-toggle="collapse" data-target=".method_get_user_meta_meta .collapse">
+<h2>Get User Meta Meta</h2>
+<pre>get_user_meta_meta($user_id, $meta) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$meta</h4></div>
+</div></div>
+</div>
+<a id="method_get_user_meta_module"></a><div class="element clickable method public method_get_user_meta_module" data-toggle="collapse" data-target=".method_get_user_meta_module .collapse">
+<h2>Get User Metadata for Module</h2>
+<pre>get_user_meta_module($user_id, $module) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$module</h4></div>
+</div></div>
+</div>
+<a id="method_get_user_meta_row"></a><div class="element clickable method public method_get_user_meta_row" data-toggle="collapse" data-target=".method_get_user_meta_row .collapse">
+<h2>Get User Meta Row</h2>
+<pre>get_user_meta_row($user_id, $meta) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$meta</h4></div>
+</div></div>
+</div>
+<a id="method_get_users"></a><div class="element clickable method public method_get_users" data-toggle="collapse" data-target=".method_get_users .collapse">
+<h2>Get Users</h2>
+<pre>get_users($parameter, $value, $details) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+<div class="subelement argument"><h4>$details</h4></div>
+</div></div>
+</div>
+<a id="method_get_users_levels"></a><div class="element clickable method public method_get_users_levels" data-toggle="collapse" data-target=".method_get_users_levels .collapse">
+<h2>Get Users Levels</h2>
+<pre>get_users_levels() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_get_users_meta_module"></a><div class="element clickable method public method_get_users_meta_module" data-toggle="collapse" data-target=".method_get_users_meta_module .collapse">
+<h2>Get Users Metadata for Module</h2>
+<pre>get_users_meta_module($module) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$module</h4></div>
+</div></div>
+</div>
+<a id="method_hash_password"></a><div class="element clickable method public method_hash_password" data-toggle="collapse" data-target=".method_hash_password .collapse">
+<h2>Hash Password</h2>
+<pre>hash_password(string $password, string $salt) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Hashes the given password to be stored in the database.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$password</h4>
+<code>string</code><p>The password to hash</p></div>
+<div class="subelement argument">
+<h4>$salt</h4>
+<code>string</code><p>The salt to use (optional)</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>A hashed version of $password</div>
+</div></div>
+</div>
+<a id="method_hash_password_db"></a><div class="element clickable method public method_hash_password_db" data-toggle="collapse" data-target=".method_hash_password_db .collapse">
+<h2>hash_password_db — Validate a password against a hash</h2>
+<pre>hash_password_db(string $email, string $password) : string | bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>This function takes a password and validates it against the hash of the password
+stored in the db under $email</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$email</h4>
+<code>string</code><p>The email address of the user to validate the password for</p></div>
+<div class="subelement argument">
+<h4>$password</h4>
+<code>string</code><p>The password to validate against the stored hash</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code><code>bool</code>A hashed version of $password to check against or false</div>
+</div></div>
+</div>
+<a id="method_login"></a><div class="element clickable method public method_login" data-toggle="collapse" data-target=".method_login .collapse">
+<h2>Login</h2>
+<pre>login($email, $password, $remember, $session) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$email</h4></div>
+<div class="subelement argument"><h4>$password</h4></div>
+<div class="subelement argument"><h4>$remember</h4></div>
+<div class="subelement argument"><h4>$session</h4></div>
+</div></div>
+</div>
+<a id="method_login_remembered_user"></a><div class="element clickable method public method_login_remembered_user" data-toggle="collapse" data-target=".method_login_remembered_user .collapse">
+<h2>Login Remembered User</h2>
+<pre>login_remembered_user() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_profile"></a><div class="element clickable method public method_profile" data-toggle="collapse" data-target=".method_profile .collapse">
+<h2>Profile</h2>
+<pre>profile($email) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$email</h4></div>
+</div></div>
+</div>
+<a id="method_register"></a><div class="element clickable method public method_register" data-toggle="collapse" data-target=".method_register .collapse">
+<h2>Register</h2>
+<pre>register($username, $password, $email, $additional_data, $group_name) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$username</h4></div>
+<div class="subelement argument"><h4>$password</h4></div>
+<div class="subelement argument"><h4>$email</h4></div>
+<div class="subelement argument"><h4>$additional_data</h4></div>
+<div class="subelement argument"><h4>$group_name</h4></div>
+</div></div>
+</div>
+<a id="method_remember_user"></a><div class="element clickable method public method_remember_user" data-toggle="collapse" data-target=".method_remember_user .collapse">
+<h2>Remembered User</h2>
+<pre>remember_user($user) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user</h4></div>
+</div></div>
+</div>
+<a id="method_salt"></a><div class="element clickable method public method_salt" data-toggle="collapse" data-target=".method_salt .collapse">
+<h2>Generates a random salt value.</h2>
+<pre>salt() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>A salt of $this->salt_length</div>
+</div></div>
+</div>
+<a id="method_social_login"></a><div class="element clickable method public method_social_login" data-toggle="collapse" data-target=".method_social_login .collapse">
+<h2>Social Login</h2>
+<pre>social_login($user_id, $connection) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$connection</h4></div>
+</div></div>
+</div>
+<a id="method_social_register"></a><div class="element clickable method public method_social_register" data-toggle="collapse" data-target=".method_social_register .collapse">
+<h2>Social Register</h2>
+<pre>social_register($username, $email, $additional_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$username</h4></div>
+<div class="subelement argument"><h4>$email</h4></div>
+<div class="subelement argument"><h4>$additional_data</h4></div>
+</div></div>
+</div>
+<a id="method_update_last_login"></a><div class="element clickable method public method_update_last_login" data-toggle="collapse" data-target=".method_update_last_login .collapse">
+<h2>Update last login</h2>
+<pre>update_last_login($user_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+</div></div>
+</div>
+<a id="method_update_user"></a><div class="element clickable method public method_update_user" data-toggle="collapse" data-target=".method_update_user .collapse">
+<h2>Update User</h2>
+<pre>update_user($user_id, $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_update_user_meta"></a><div class="element clickable method public method_update_user_meta" data-toggle="collapse" data-target=".method_update_user_meta .collapse">
+<h2>Update User Metadata</h2>
+<pre>update_user_meta($user_meta_id, $meta_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_meta_id</h4></div>
+<div class="subelement argument"><h4>$meta_data</h4></div>
+</div></div>
+</div>
+<a id="method_username_check"></a><div class="element clickable method public method_username_check" data-toggle="collapse" data-target=".method_username_check .collapse">
+<h2>Username Check</h2>
+<pre>username_check(string $username) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Checks to see if a user already exists with a given username</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$username</h4>
+<code>string</code><p>The username to check for</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Whether or not a user exists with $username</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_activation_code"> </a><div class="element clickable property public property_activation_code" data-toggle="collapse" data-target=".property_activation_code .collapse">
+<h2>$activation_code</h2>
+<pre>$activation_code </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_forgotten_password_code"> </a><div class="element clickable property public property_forgotten_password_code" data-toggle="collapse" data-target=".property_forgotten_password_code .collapse">
+<h2>$forgotten_password_code</h2>
+<pre>$forgotten_password_code </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_new_password"> </a><div class="element clickable property public property_new_password" data-toggle="collapse" data-target=".property_new_password .collapse">
+<h2>$new_password</h2>
+<pre>$new_password </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_tables"> </a><div class="element clickable property public property_tables" data-toggle="collapse" data-target=".property_tables .collapse">
+<h2>$tables</h2>
+<pre>$tables </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
+            generated on 2012-10-10T16:01:31+01:00.<br></footer></div>
+</div>
+</body>
+</html>
