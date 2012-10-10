@@ -353,7 +353,7 @@ class Users extends Oauth_Controller
        		if ($this->form_validation->run() == true)
         	{    	
 				// Update Data
-				$user = $this->social_auth->get_user('user_id', $this->oauth_user_id);
+				$user = $this->social_auth->get_user('user_id', $this->oauth_user_id, TRUE);
 				    	  
 		    	$update_data = array(
 		        	'email'			=> $this->input->post('email'),
@@ -367,7 +367,7 @@ class Users extends Oauth_Controller
 		    	);
 
 				// Maybe Username
-				if ($this->input->post('username') != $user->username)
+				if (($this->input->post('username') != $user->username) AND ($this->input->post('username')))
 		    	{
 		    		$update_data['username'] = url_username($this->input->post('username'), 'none', true);
 		    	}
@@ -377,10 +377,12 @@ class Users extends Oauth_Controller
 		    	{
 		    		if ($this->input->post('session') == 1)
 		    		{
-		    			$this->social_auth->set_userdata($user);
+		    			$updated_user = $this->social_auth->get_user('user_id', $this->oauth_user_id, TRUE);
+
+		    			$this->social_auth->set_userdata($updated_user);
 		    		}
 
-			        $message = array('status' => 'success', 'message' => 'User changes saved');
+			        $message = array('status' => 'success', 'message' => 'User changes saved', 'user' => $update_data);
 		   		}
 		   		else
 		   		{
