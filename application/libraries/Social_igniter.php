@@ -1,15 +1,13 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-Social Igniter Library
-
-@package		Social Igniter
-@subpackage		Social Igniter Library
-@author			Brennan Novak
-@link			http://social-igniter.com
-
-Handles a ton of parts of the the core install.
-*/
- 
+ * Social Igniter Library
+ *
+ * Handles a ton of parts of the the core install.
+ *
+ * @package	Social Igniter
+ * @author Brennan Novak @brennannovak
+ * @link http://social-igniter.com
+ */
 class Social_igniter
 {
 	protected $ci;
@@ -29,9 +27,16 @@ class Social_igniter
 		$this->ci->load->model('sites_model');
 	}
 
-    /*
-     *	Used to get or set the profile photo URL for user with id $user_id
-     *	@return string a profile photo URL
+    /**
+     * Used to get or set the profile photo URL for user with id $user_id
+     * 
+     * @param int $user_id
+     * @param string $image
+     * @param string $email_hash The hash of the user’s email to use with gravatar
+     * @param string $size The size of the image to get, defaults to 'medium'
+     * @param string $theme
+     * 
+     * @return string The URL of a photo for user with $user_id
      */
 	function profile_image($user_id, $image, $email_hash=NULL, $size='medium', $theme='site_theme')
 	{
@@ -75,7 +80,12 @@ class Social_igniter
 		return $picture;
 	}	
     
-    // Generate Item
+    /**
+     * Generate Item
+     *
+     * @param	object	$activity	The activity to render
+     * @return	string	The $activity, rendered as html
+     */
     function render_item($activity)
     {
     	$data 		= json_decode($activity->data);
@@ -89,7 +99,12 @@ class Social_igniter
     	return $item;
     }
     
-    // Generate Status
+    /**
+     * Generate Status
+     * 
+     * @param object $activity The activity to render
+     * @param object $data
+     */
     function render_item_status($activity, $data)
     {
     	$has_url	= property_exists($data, 'url');
@@ -130,7 +145,11 @@ class Social_igniter
     	}    	
     }
 
-    // Generate Content
+    /**
+     * Generate Content
+     * 
+     * 
+     */
     function render_item_content($type, $object)
     {
         $has_thumb	  = property_exists($object, 'thumb');
@@ -242,7 +261,15 @@ class Social_igniter
     	return $thumb.$title.$details;    
     }		
 		
-	/* Social Integration */	
+	/* Social Integration */
+	
+	/**
+	 * Get Social Logins
+	 * 
+	 * @param string $html_start HTML to prexif the output with
+	 * @param string $html_end HTML to append onto the end of the output
+	 * @return string The HTML representing a UI for the available social logins
+	 */	
 	function get_social_logins($html_start, $html_end)
 	{
 		$social_logins 		= NULL;
@@ -298,7 +325,11 @@ class Social_igniter
 		return NULL;
 	}
 
-	// THE FOLLOWING NEED TO BE CREATED
+	/**
+	 * Get Social Checkin
+	 * 
+	 * @todo Implement this!
+	 */
 	function get_social_checkin($user_id, $id='social_checkin')
 	{
 		$checkin 			= NULL;
@@ -324,44 +355,87 @@ class Social_igniter
 		return NULL;
 	}
 	
+	/**
+	 * Get Social Photos
+	 * 
+	 * @todo Implement this!
+	 */
 	function get_social_photos($user_id, $id='social_photos')
 	{
 		$social_photos = config_item('social_photos');
 		return NULL;
 	}
-
+	
+	/**
+	 * Get Social Videos
+	 * 
+	 * @todo Implement this!
+	 */
 	function get_social_videos($user_id, $id='social_videos')
 	{
 		$social_photos = config_item('social_videos');
 		return NULL;
 	}
-
+	
+	/**
+	 * Get Social Audio
+	 * 
+	 * @todo Implement this!
+	 */
 	function get_social_audio($user_id, $id='social_audio')
 	{
 		$social_photos = config_item('social_audio');
 		return NULL;
 	}
-
+	
+	/**
+	 * Get Social Files
+	 * 
+	 * @todo Implement this!
+	 */
 	function get_social_files($user_id, $id='social_files')
 	{
 		$social_photos = config_item('social_files');
 		return NULL;
 	}
 
-	
-	
 	/* File & Directory Scanning */
+	
+	/**
+	 * Scan Themes
+	 * 
+	 * Find all installed themes
+	 * 
+	 * @todo The assignment can probably be removed here
+	 * @todo What does this return? Where is directory_map defined?
+	 */
 	function scan_themes()
 	{
 		return $themes_scan = directory_map('./application/views/', TRUE);		
 	}
-
+	
+	/**
+	 * Scan Modules
+	 * 
+	 * Find all installed modules
+	 * 
+	 * @todo What does this return? Where is directory_map defined?
+	 */
 	function scan_modules()
 	{
 		$modules = directory_map('./application/modules/', TRUE);
 		return element_remove('index.html', $modules);
 	}
-
+	
+	/**
+	 * Scan Layouts
+	 * 
+	 * Find all installed layouts for a given theme
+	 * 
+	 * @param string $theme The theme to look for layouts within
+	 * 
+	 * @todo What does this return? Where is directory_map defined?
+	 */
 	function scan_layouts($theme)
 	{		
 		$layouts_scan	= directory_map('./application/views/'.$theme.'/layouts/', TRUE);
@@ -380,6 +454,14 @@ class Social_igniter
 		return $layouts;
 	}
 	
+	
+	/**
+	 * Scan Media Manager
+	 * 
+	 * Looks through all media managers in all installed modules
+	 * 
+	 * @todo What does this return?
+	 */
 	function scan_media_manager()
 	{
 		$modules 		= $this->scan_modules();
@@ -400,6 +482,7 @@ class Social_igniter
 	
 	
 	/* Site */
+	
 	function get_site()
 	{
 		return $this->ci->sites_model->get_site();

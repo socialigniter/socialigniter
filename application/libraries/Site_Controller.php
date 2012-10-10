@@ -1,22 +1,18 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
-* Name:		Site_Controller Library
-* 
-* Author:	Brennan Novak
-* 		  	contact@social-igniter.com
-*         	@brennannovak
-* 
-* Location: http://github.com/socialigniter
-* 
-* Description: Library that is extended by all Site or Public facing Controllers
-*/
+/**
+ * Site_Controller Library
+ * 
+ * Library that is extended by all Site or Public facing Controllers
+ *
+ * @author Brennan Novak <contact@social-igniter.com> @brennannovak
+ * @package socialigniter
+ */
 class Site_Controller extends MY_Controller
 {
     function __construct()
     {
         parent::__construct(); 
         
-
 		// Dashboard & Public values for logged
 		if ($this->social_auth->logged_in())
 		{
@@ -160,7 +156,12 @@ class Site_Controller extends MY_Controller
 		}
     }
 
-	// Renders Layout
+	/**
+	 * render() – Renders a view to the output
+	 * 
+	 * @param string $layout The layout to render
+	 * @param string $content
+	 */
     function render($layout=NULL, $content=NULL)
     {
     	// Default Layout
