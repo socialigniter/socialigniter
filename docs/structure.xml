@@ -6250,7 +6250,7 @@ marking it as deleted internally.</p>]]></long-description>
       <error line="68" code="50010">No DocBlock was found for method delete_upload()</error>
     </parse_markers>
   </file>
-  <file path="controllers/api/activity.php" hash="b197d0e6ccd547a8116bdcd9e1e2bc3e" package="Default">
+  <file path="controllers/api/activity.php" hash="9686cd133e8ccc3bfe471057b226a155" package="Default">
     <class final="false" abstract="false" namespace="global" line="7" package="Social Igniter\API">
       <extends>\Oauth_Controller</extends>
       <name>Activity</name>
@@ -6265,35 +6265,48 @@ marking it as deleted internally.</p>]]></long-description>
         <name>__construct</name>
         <full_name>__construct</full_name>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="14" package="Social Igniter\API">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="19" package="Social Igniter\API">
         <name>recent_get</name>
         <full_name>recent_get</full_name>
+        <docblock line="14">
+          <description><![CDATA[GET /api/activity/recent]]></description>
+          <long-description><![CDATA[<p>Displays the last 10 global public activities</p>]]></long-description>
+        </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="30" package="Social Igniter\API">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="41" package="Social Igniter\API">
         <name>view_get</name>
         <full_name>view_get</full_name>
+        <docblock line="35">
+          <description><![CDATA[GET /api/activity/view]]></description>
+          <long-description><![CDATA[<p>Find activities by <code>site_id</code>, <code>user_id</code>, <code>verb</code>, <code>module</code>, <code>type</code> or <code>content_id</code>, where all
+parameters are URI segments e.g. <code>GET /api/activity/view/user_id/1</code></p>]]></long-description>
+        </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="48" package="Social Igniter\API">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="64" package="Social Igniter\API">
         <name>create_authd_post</name>
         <full_name>create_authd_post</full_name>
+        <docblock line="59">
+          <description><![CDATA[POST /api/activity/create]]></description>
+          <long-description><![CDATA[<p>Creates a new activity from the POSTed data. Requires authentication.</p>]]></long-description>
+        </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="72" package="Social Igniter\API">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="88" package="Social Igniter\API">
         <name>update_authd_get</name>
         <full_name>update_authd_get</full_name>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="88" package="Social Igniter\API">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="109" package="Social Igniter\API">
         <name>destroy_authd_get</name>
         <full_name>destroy_authd_get</full_name>
+        <docblock line="104">
+          <description><![CDATA[DELETE /api/activity/destroy]]></description>
+          <long-description><![CDATA[<p>Deletes an activity, specified by <code>/id/{activity_id}</code>. Requires auth (dur)</p>]]></long-description>
+        </docblock>
       </method>
     </class>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/activity.php</error>
       <error line="9" code="50010">No DocBlock was found for method __construct()</error>
-      <error line="14" code="50010">No DocBlock was found for method recent_get()</error>
-      <error line="30" code="50010">No DocBlock was found for method view_get()</error>
-      <error line="48" code="50010">No DocBlock was found for method create_authd_post()</error>
-      <error line="72" code="50010">No DocBlock was found for method update_authd_get()</error>
-      <error line="88" code="50010">No DocBlock was found for method destroy_authd_get()</error>
+      <error line="88" code="50010">No DocBlock was found for method update_authd_get()</error>
     </parse_markers>
   </file>
   <file path="controllers/api/categories.php" hash="4efde55ef3f778178339bc1c03934cdc" package="Default">
