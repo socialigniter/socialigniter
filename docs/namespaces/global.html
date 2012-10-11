@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>phpDocumentor » global</title>
+<title>Social Igniter » global</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -15,16 +15,17 @@
 <body>
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Social Igniter</a><div class="nav-collapse"><ul class="nav">
 <li class="dropdown">
 <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
                                     API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a>Packages</a></li>
 <li><a href="../packages/CodeIgniter.html"><i class="icon-folder-open"></i> CodeIgniter</a></li>
 <li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/Jonathon%20Hill.html"><i class="icon-folder-open"></i> Jonathon Hill</a></li>
+<li><a href="../packages/Patrick%20Popowicz.html"><i class="icon-folder-open"></i> Patrick Popowicz</a></li>
+<li><a href="../packages/Pete%20Warden.html"><i class="icon-folder-open"></i> Pete Warden</a></li>
 <li><a href="../packages/Social%20Igniter.html"><i class="icon-folder-open"></i> Social Igniter</a></li>
-<li><a href="../packages/Social%20Ingiter.html"><i class="icon-folder-open"></i> Social Ingiter</a></li>
-<li><a href="../packages/socialigniter.html"><i class="icon-folder-open"></i> socialigniter</a></li>
 </ul>
 </li>
 <li class="dropdown" id="charts-menu">
@@ -35,10 +36,10 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">333</span></a></li>
+                <span class="label label-info">365</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
-                <span class="label label-info">57</span>
+                <span class="label label-info">79</span>
 </li></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
                 <span class="label label-info">0</span></a></li>
@@ -77,12 +78,12 @@
 <h3>
 <i class="icon-custom icon-function"></i> Functions</h3>
 <a id="function_convert_xml_element_to_array"></a><div class="element clickable function  function_convert_xml_element_to_array" data-toggle="collapse" data-target=".function_convert_xml_element_to_array .collapse">
-<h2>This is a utility function that takes a simpleXMLElement object and returns the contents
-as a nested associative PHP array, to make it easier to work with.</h2>
+<h2>Convert XML Element To Array</h2>
 <pre>convert_xml_element_to_array(string $xml_element, int $recursion_depth) : array</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>It's called recursively
+<div class="long_description"><p>This is a utility function that takes a simpleXMLElement object and returns the contents
+as a nested associative PHP array, to make it easier to work with. It's called recursively
 to deal with an entire document. Adapted from
 http://www.ibm.com/developerworks/xml/library/x-xml2jsonphp/</p></div>
 <h3>Parameters</h3>
@@ -98,12 +99,13 @@ http://www.ibm.com/developerworks/xml/library/x-xml2jsonphp/</p></div>
 </div></div>
 </div>
 <a id="function_convert_xml_string_to_array"></a><div class="element clickable function  function_convert_xml_string_to_array" data-toggle="collapse" data-target=".function_convert_xml_string_to_array .collapse">
-<h2>This is a utility function that takes an XML string and returns the contents
-as a native PHP array, to make it easier to work with.</h2>
+<h2>Convert XML String To Array</h2>
 <pre>convert_xml_string_to_array(string $xml_string) : array</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>The main work is done by the recursive function convert_xml_element_to_array()</p></div>
+<div class="long_description"><p>This is a utility function that takes an XML string and returns the contents
+as a native PHP array, to make it easier to work with.
+The main work is done by the recursive function convert_xml_element_to_array()</p></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$xml_string</h4>
@@ -114,7 +116,7 @@ as a native PHP array, to make it easier to work with.</h2>
 </div></div>
 </div>
 <a id="function_did_http_succeed"></a><div class="element clickable function  function_did_http_succeed" data-toggle="collapse" data-target=".function_did_http_succeed .collapse">
-<h2>A utility function to make sure that the API call succeeded</h2>
+<h2>Make sure that a HTTP API call succeeded</h2>
 <pre>did_http_succeed(object $http_result) : boolean</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
@@ -133,7 +135,7 @@ as a native PHP array, to make it easier to work with.</h2>
 </div></div>
 </div>
 <a id="function_does_url_exist"></a><div class="element clickable function  function_does_url_exist" data-toggle="collapse" data-target=".function_does_url_exist .collapse">
-<h2>This is a utility function to check whether a URL is reachable</h2>
+<h2>Check whether a URL is reachable</h2>
 <pre>does_url_exist(string $url) : boolean</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
@@ -153,16 +155,20 @@ as a native PHP array, to make it easier to work with.</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Pete%20Warden.Webfinger.html">Pete Warden\Webfinger</a></td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument"><h4>$email</h4></div>
 </div></div>
 </div>
 <a id="function_get_first_xml_attribute"></a><div class="element clickable function  function_get_first_xml_attribute" data-toggle="collapse" data-target=".function_get_first_xml_attribute .collapse">
-<h2>A utility function for a common case of XML parsing.</h2>
+<h2>Get First XML Attribute</h2>
 <pre>get_first_xml_attribute(string $tagname, string $attribute_name, array $index, array $vals, string $default) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>It returns the value for
+<div class="long_description"><p>A utility function for a common case of XML parsing. It returns the value for
 the given attribute of the first occurrence of the given tag name. It requires
 the parsing arrays returned from xml_parse_into_struct()</p></div>
 <table class="table table-bordered"><tr>
@@ -192,11 +198,11 @@ the parsing arrays returned from xml_parse_into_struct()</p></div>
 </div></div>
 </div>
 <a id="function_get_first_xml_value"></a><div class="element clickable function  function_get_first_xml_value" data-toggle="collapse" data-target=".function_get_first_xml_value .collapse">
-<h2>A utility function for a common case of XML parsing.</h2>
+<h2>Get First XML Value</h2>
 <pre>get_first_xml_value(string $tagname, array $index, array $vals, string $default) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>It returns the value for
+<div class="long_description"><p>A utility function for a common case of XML parsing. It returns the value for
 the first occurrence of the given tag name. It requires the parsing arrays
 returned from xml_parse_into_struct()</p></div>
 <table class="table table-bordered"><tr>
@@ -223,16 +229,21 @@ returned from xml_parse_into_struct()</p></div>
 </div></div>
 </div>
 <a id="function_get_signed_amazon_api_url"></a><div class="element clickable function  function_get_signed_amazon_api_url" data-toggle="collapse" data-target=".function_get_signed_amazon_api_url .collapse">
-<h2>A utility function to sign an Amazon REST API call
-See http://www.a2sdeveloper.com/page-rest-authentication-for-php4.html</h2>
+<h2>Sign an Amazon REST API call</h2>
 <pre>get_signed_amazon_api_url(string $input_url) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
-<table class="table table-bordered"><tr>
+<table class="table table-bordered">
+<tr>
+<th>see</th>
+<td><a href="">\global\http://www.a2sdeveloper.com/page-rest-authentication-for-php4.html</a></td>
+</tr>
+<tr>
 <th>since</th>
 <td>Unknown</td>
-</tr></table>
+</tr>
+</table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$input_url</h4>
@@ -249,6 +260,10 @@ if it does returns the right URL to call to get information on the address</h2>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Pete%20Warden.Webfinger.html">Pete Warden\Webfinger</a></td>
+</tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$email</h4>
@@ -267,12 +282,26 @@ if it does returns the right URL to call to get information on the address</h2>
 <div class="details collapse"></div>
 <a href="../classes/Activity_model.html" class="more">« More »</a>
 </div>
+<div id="App_tools" class="element ajax clickable class">
+<h1>App_tools<a href="../classes/App_tools.html">¶</a>
+</h1>
+<p class="short_description">App Tools Library</p>
+<div class="details collapse"></div>
+<a href="../classes/App_tools.html" class="more">« More »</a>
+</div>
 <div id="Auth_model" class="element ajax clickable class">
 <h1>Auth_model<a href="../classes/Auth_model.html">¶</a>
 </h1>
 <p class="short_description">Auth Model</p>
 <div class="details collapse"></div>
 <a href="../classes/Auth_model.html" class="more">« More »</a>
+</div>
+<div id="Bitly" class="element ajax clickable class">
+<h1>Bitly<a href="../classes/Bitly.html">¶</a>
+</h1>
+<p class="short_description">bit.ly REST API v3 library for CodeIgniter</p>
+<div class="details collapse"></div>
+<a href="../classes/Bitly.html" class="more">« More »</a>
 </div>
 <div id="Categories_model" class="element ajax clickable class">
 <h1>Categories_model<a href="../classes/Categories_model.html">¶</a>
@@ -340,14 +369,14 @@ if it does returns the right URL to call to get information on the address</h2>
 <div id="Relationships_model" class="element ajax clickable class">
 <h1>Relationships_model<a href="../classes/Relationships_model.html">¶</a>
 </h1>
-<p class="short_description"></p>
+<p class="short_description">Relationships Model</p>
 <div class="details collapse"></div>
 <a href="../classes/Relationships_model.html" class="more">« More »</a>
 </div>
 <div id="Settings_model" class="element ajax clickable class">
 <h1>Settings_model<a href="../classes/Settings_model.html">¶</a>
 </h1>
-<p class="short_description"></p>
+<p class="short_description">Settings Model</p>
 <div class="details collapse"></div>
 <a href="../classes/Settings_model.html" class="more">« More »</a>
 </div>
@@ -368,7 +397,7 @@ if it does returns the right URL to call to get information on the address</h2>
 <div id="Social_auth" class="element ajax clickable class">
 <h1>Social_auth<a href="../classes/Social_auth.html">¶</a>
 </h1>
-<p class="short_description"></p>
+<p class="short_description">Social Auth Library</p>
 <div class="details collapse"></div>
 <a href="../classes/Social_auth.html" class="more">« More »</a>
 </div>
@@ -389,19 +418,61 @@ if it does returns the right URL to call to get information on the address</h2>
 <div id="Upload_model" class="element ajax clickable class">
 <h1>Upload_model<a href="../classes/Upload_model.html">¶</a>
 </h1>
-<p class="short_description"></p>
+<p class="short_description">Upload Model</p>
 <div class="details collapse"></div>
 <a href="../classes/Upload_model.html" class="more">« More »</a>
 </div>
 <div id="Webfinger" class="element ajax clickable class">
 <h1>Webfinger<a href="../classes/Webfinger.html">¶</a>
 </h1>
-<p class="short_description">Searches for user information using webfinger, given an email address.</p>
+<p class="short_description">An implementation of the WebFinger protocol in PHP.</p>
 <div class="details collapse"></div>
 <a href="../classes/Webfinger.html" class="more">« More »</a>
 </div>
 <h3>
 <i class="icon-custom icon-constant"></i> Constants</h3>
+<a id="constant_CRON"> </a><div class="element clickable constant  constant_CRON" data-toggle="collapse" data-target=".constant_CRON .collapse">
+<h2>CRON</h2>
+<pre>CRON </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_CRON_CI_INDEX"> </a><div class="element clickable constant  constant_CRON_CI_INDEX" data-toggle="collapse" data-target=".constant_CRON_CI_INDEX .collapse">
+<h2>CRON_CI_INDEX</h2>
+<pre>CRON_CI_INDEX </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_CRON_FLUSH_BUFFERS"> </a><div class="element clickable constant  constant_CRON_FLUSH_BUFFERS" data-toggle="collapse" data-target=".constant_CRON_FLUSH_BUFFERS .collapse">
+<h2>CRON_FLUSH_BUFFERS</h2>
+<pre>CRON_FLUSH_BUFFERS </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_CRON_LOG"> </a><div class="element clickable constant  constant_CRON_LOG" data-toggle="collapse" data-target=".constant_CRON_LOG .collapse">
+<h2>CRON_LOG</h2>
+<pre>CRON_LOG </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_CRON_LOG"> </a><div class="element clickable constant  constant_CRON_LOG" data-toggle="collapse" data-target=".constant_CRON_LOG .collapse">
+<h2>CRON_LOG</h2>
+<pre>CRON_LOG </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_CRON_TIME_LIMIT"> </a><div class="element clickable constant  constant_CRON_TIME_LIMIT" data-toggle="collapse" data-target=".constant_CRON_TIME_LIMIT .collapse">
+<h2>CRON_TIME_LIMIT</h2>
+<pre>CRON_TIME_LIMIT </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_CRON_TIME_LIMIT"> </a><div class="element clickable constant  constant_CRON_TIME_LIMIT" data-toggle="collapse" data-target=".constant_CRON_TIME_LIMIT .collapse">
+<h2>CRON_TIME_LIMIT</h2>
+<pre>CRON_TIME_LIMIT </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
 <a id="constant_HCARD_REL_URL"> </a><div class="element clickable constant  constant_HCARD_REL_URL" data-toggle="collapse" data-target=".constant_HCARD_REL_URL .collapse">
 <h2>HCARD_REL_URL</h2>
 <pre>HCARD_REL_URL </pre>
@@ -432,7 +503,7 @@ if it does returns the right URL to call to get information on the address</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
-            generated on 2012-10-10T16:01:31+01:00.<br></footer></div>
+            generated on 2012-10-11T09:41:39+01:00.<br></footer></div>
 </div>
 </body>
 </html>

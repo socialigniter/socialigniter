@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
+  <title>Social Igniter</title>
   <parser>
     <target>docs</target>
   </parser>
@@ -20,5 +21,8 @@
     <file>application/libraries/MY_Calendar.php</file>
     <file>application/libraries/Installer.php</file>
     <file>application/libraries/Dashboard_Controller.php</file>
+    <file>application/libraries/Cron.php</file>
+    <file>application/libraries/Bitly.php</file>
+    <file>application/libraries/App_tools.php</file>
   </files>
 </phpdoc>

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Settings Model
+ * 
+ * A model for managing settings
+ * 
+ * @author Brennan Novak @brennannovak
+ * @package Social Igniter\Models
+ */
 class Settings_model extends CI_Model {
     
     function __construct()

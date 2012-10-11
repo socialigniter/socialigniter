@@ -1,39 +1,4 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * This is an implementation of the WebFinger protocol in PHP.
- *
- * The initial version is heavily based on DeWitt Clinton's Python library:
- * http://code.google.com/p/webfingerclient-dclinton
- * and Brad Fitzpatrick's walkthrough of the Gmail implementation of the protocol:
- * https://groups.google.com/group/webfinger/browse_thread/thread/fb56537a0ed36964?pli=1
- *
- * Licensed under the 2-clause (eg no advertising requirement) BSD license,
- * making it easy to reuse for commercial or GPL projects:
- 
- (c) Pete Warden <pete@petewarden.com> http://petewarden.typepad.com/ Feb 14th 2010
- 
- Redistribution and use in source and binary forms, with or without modification, are
- permitted provided that the following conditions are met:
-
-   1. Redistributions of source code must retain the above copyright notice, this 
-      list of conditions and the following disclaimer.
-   2. Redistributions in binary form must reproduce the above copyright notice, this 
-      list of conditions and the following disclaimer in the documentation and/or 
-      other materials provided with the distribution.
-   3. The name of the author may not be used to endorse or promote products derived 
-      from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
-INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
-BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
-OF SUCH DAMAGE.
-
- */
 
 require_once (dirname(__FILE__) . '/http.php');
 require_once (dirname(__FILE__) . '/utility.php');
@@ -51,6 +16,43 @@ define ('WEBFINGER_SERVICE_REL_TYPE', 'lrdd');
 define ('HCARD_REL_URL', 'http://microformats.org/profile/hcard');
 
 /**
+ * An implementation of the WebFinger protocol in PHP.
+ *
+ * The initial version is heavily based on DeWitt Clinton's Python library:
+ * http://code.google.com/p/webfingerclient-dclinton
+ * and Brad Fitzpatrick's walkthrough of the Gmail implementation of the protocol:
+ * https://groups.google.com/group/webfinger/browse_thread/thread/fb56537a0ed36964?pli=1
+ *
+ * Licensed under the 2-clause (eg no advertising requirement) BSD license,
+ * making it easy to reuse for commercial or GPL projects:
+ *   
+ *  Redistribution and use in source and binary forms, with or without modification, are
+ *  permitted provided that the following conditions are met:
+ * 
+ *    1. Redistributions of source code must retain the above copyright notice, this 
+ *       list of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this 
+ *       list of conditions and the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *    3. The name of the author may not be used to endorse or promote products derived 
+ *       from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+ * OF SUCH DAMAGE.
+ * 
+ * @package Pete Warden\Webfinger 
+ * @copyright Pete Warden <pete@petewarden.com> http://petewarden.typepad.com/ Feb 14th 2010
+ */
+class Webfinger {
+
+/**
  * Searches for user information using webfinger, given an email address.
  *
  * @param string $email The email address of the user
@@ -59,7 +61,6 @@ define ('HCARD_REL_URL', 'http://microformats.org/profile/hcard');
  * were found, the result will be an empty array, and any entry may also be an
  * empty string
  */
-class Webfinger {
 function webfinger_find_by_email($email) {
 
     // Obtain the URL to gather user information from
@@ -158,12 +159,14 @@ function webfinger_find_by_email($email) {
     return $result;
 }
 }
+
 /**
  * Queries the domain for this email address to see if it supports WebFinger, and
  * if it does returns the right URL to call to get information on the address
  *
  * @param string $email The email address of the user
  * @return string The URL to call to get information, or null if none found
+ * @package Pete Warden\Webfinger
  */
 function webfinger_query_url_for_email($email) {
 
@@ -236,6 +239,7 @@ function webfinger_query_url_for_email($email) {
 
 /**
  * A utility function to extract a domain name from an email address
+ * @package Pete Warden\Webfinger
  */
 function get_domain_from_email($email) {
 

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Relationships Model
+ * 
+ * A model for managing relationships (hah, if only it was that easy ;)
+ * 
+ * @author Brennan Novak @brennannovak
+ * @package Social Igniter\Models
+ */
 class Relationships_model extends CI_Model
 {    
     function __construct()

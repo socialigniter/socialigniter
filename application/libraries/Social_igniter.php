@@ -1,12 +1,14 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
  * Social Igniter Library
  *
  * Handles a ton of parts of the the core install.
  *
- * @package	Social Igniter
+ * @package	Social Igniter\Libraries
  * @author Brennan Novak @brennannovak
  * @link http://social-igniter.com
+ * @todo Document further
  */
 class Social_igniter
 {
@@ -28,7 +30,7 @@ class Social_igniter
 	}
 
     /**
-     * Used to get or set the profile photo URL for user with id $user_id
+     * Get or set the profile photo URL for user with id $user_id
      * 
      * @param int $user_id
      * @param string $image

@@ -4,35 +4,37 @@
  *
  * Licensed under the 2-clause (eg no advertising requirement) BSD license,
  * making it easy to reuse for commercial or GPL projects:
- 
- (c) Pete Warden <pete@petewarden.com> http://petewarden.typepad.com/ Feb 14th 2010
- 
- Redistribution and use in source and binary forms, with or without modification, are
- permitted provided that the following conditions are met:
-
-   1. Redistributions of source code must retain the above copyright notice, this 
-      list of conditions and the following disclaimer.
-   2. Redistributions in binary form must reproduce the above copyright notice, this 
-      list of conditions and the following disclaimer in the documentation and/or 
-      other materials provided with the distribution.
-   3. The name of the author may not be used to endorse or promote products derived 
-      from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
-INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
-BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
-OF SUCH DAMAGE.
-
+ *  
+ *  Redistribution and use in source and binary forms, with or without modification, are
+ *  permitted provided that the following conditions are met:
+ * 
+ *    1. Redistributions of source code must retain the above copyright notice, this 
+ *       list of conditions and the following disclaimer.
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this 
+ *       list of conditions and the following disclaimer in the documentation and/or 
+ *       other materials provided with the distribution.
+ *    3. The name of the author may not be used to endorse or promote products derived 
+ *       from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+ * OF SUCH DAMAGE.
+ * 
+ * @package Pete Warden\Utility Functions
+ * @copyright Pete Warden <pete@petewarden.com> http://petewarden.typepad.com/ Feb 14th 2010
+ * @author Pete Warden <pete@petewarden.com> http://petewarden.typepad.com/
  */
-
 require_once (dirname(__FILE__) . '/http.php');
 
 /**
+ * Get First XML Value
+ * 
  * A utility function for a common case of XML parsing. It returns the value for
  * the first occurrence of the given tag name. It requires the parsing arrays
  * returned from xml_parse_into_struct()
@@ -62,6 +64,8 @@ function get_first_xml_value($tagname, $index, $vals, $default = '')
 }
 
 /**
+ * Get First XML Attribute
+ * 
  * A utility function for a common case of XML parsing. It returns the value for
  * the given attribute of the first occurrence of the given tag name. It requires 
  * the parsing arrays returned from xml_parse_into_struct()
@@ -97,7 +101,7 @@ function get_first_xml_attribute($tagname, $attribute_name, $index, $vals, $defa
 }
 
 /**
- * A utility function to make sure that the API call succeeded
+ * Make sure that a HTTP API call succeeded
  *
  * @since Unknown
  *
@@ -121,8 +125,9 @@ function did_http_succeed($http_result)
 }
 
 /**
- * A utility function to sign an Amazon REST API call
- * See http://www.a2sdeveloper.com/page-rest-authentication-for-php4.html
+ * Sign an Amazon REST API call
+ * 
+ * @see http://www.a2sdeveloper.com/page-rest-authentication-for-php4.html
  *
  * @since Unknown
  *
@@ -162,6 +167,8 @@ function get_signed_amazon_api_url($input_url)
 }
 
 /**
+ * Convert XML String To Array
+ * 
  * This is a utility function that takes an XML string and returns the contents
  * as a native PHP array, to make it easier to work with.
  * The main work is done by the recursive function convert_xml_element_to_array()
@@ -179,6 +186,8 @@ function convert_xml_string_to_array($xml_string) {
 }
 
 /**
+ * Convert XML Element To Array
+ * 
  * This is a utility function that takes a simpleXMLElement object and returns the contents
  * as a nested associative PHP array, to make it easier to work with. It's called recursively
  * to deal with an entire document. Adapted from
@@ -232,7 +241,7 @@ function convert_xml_element_to_array($xml_element, &$recursion_depth=0) {
 }
 
 /**
- * This is a utility function to check whether a URL is reachable
+ * Check whether a URL is reachable
  *
  * @param string $url The address to check
  * @return boolean Whether the URL could be reached

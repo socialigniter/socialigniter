@@ -1,14 +1,15 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-/*
- * Social Auth Library
- * 
- * A severely hacked version of Ben Edmunds 'Ion Auth' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
- * 
- * @author Brennan Novak <contact@social-igniter.com> @socialigniter
- * @package socialigniter
- */
+
 require_once(APPPATH.'libraries/Oauth/OauthRequestVerifier.php');
 
+/**
+ * Social Auth Library
+ * 
+ * A severely hacked version of Ben Edmunds 'Ion Auth' which was based on Redux Auth 2. Phil Sturgeon also added some awesomeness
+ * 
+ * @author Brennan Novak <contact@social-igniter.com>
+ * @package Social Igniter\Libraries
+ */
 class Social_auth
 {
 	protected $ci;

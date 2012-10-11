@@ -1,4 +1,5 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
  * Dashboard_Controller Library
  * 
@@ -8,6 +9,7 @@
  * @author Brennan Novak <contact@social-igniter.com> @brennannovak
  * @link http://github.com/socialigniter
  * @created 2012-01-06
+ * @package Social Igniter\Libraries
  */
 class Dashboard_Controller extends MY_Controller
 {

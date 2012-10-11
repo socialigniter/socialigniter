@@ -1,13 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
-* bit.ly REST API v3 library for CodeIgniter
-*
-* @license Creative Commons Attribution 3.0 <http://creativecommons.org/licenses/by/3.0/>
-* @version 1.0
-* @author Patrick Popowicz <http://patrickpopowicz.com>
-* @copyright Copyright (c) 2010, Patrick Popowicz <http://patrickpopowicz.com>
-*/
+ * bit.ly REST API v3 library for CodeIgniter
+ *
+ * @license Creative Commons Attribution 3.0 <http://creativecommons.org/licenses/by/3.0/>
+ * @version 1.0
+ * @author Patrick Popowicz <http://patrickpopowicz.com>
+ * @copyright Copyright (c) 2010, Patrick Popowicz <http://patrickpopowicz.com>
+ * @package Patrick Popowicz\Bitly
+ */
 class Bitly {
 	
 	private $CI;									// CodeIgniter instance
@@ -33,7 +34,9 @@ class Bitly {
 		$this->initialize($params);
 	}
 	
-	// Initializes the library parameters
+	/** 
+	 * Initializes the library parameters
+	 */
 	public function initialize($params = array())
 	{
 		$this->response	= '';
@@ -46,14 +49,13 @@ class Bitly {
 	}
 	
 	/**
-	* Shortens a URL
-	*
-	* @param string $longUrl Target url to be shortened
-	* @param bool $verbose Output flag
-	* @return mixed (!verbose) string | (verbose) array
-	* @author Patrick Popowicz
-	*/
-	public function shorten($longUrl, $verbose = FALSE)
+	 * Shortens a URL
+	 *
+	 * @param string $longUrl Target url to be shortened
+	 * @param bool $verbose Output flag
+	 * @return mixed (!verbose) string | (verbose) array
+	 */
+	 public function shorten($longUrl, $verbose = FALSE)
 	{
 		// Make sure all of the required parameters are set and longUrl is a URL
 		if (isset($longUrl) AND filter_var($longUrl, FILTER_VALIDATE_URL))
@@ -80,14 +82,13 @@ class Bitly {
 	}
 	
 	/**
-	* Expands a bit.ly shortUrl or hash
-	*
-	* @param array $targets Target shortUrls or hashes to expand in numerically indexed array
-	* @param bool $verbose Output flag
-	* @return mixed (format != json) string | (format == json) array
-	* @author Patrick Popowicz
-	*/
-	public function expand($targets = array(), $verbose = FALSE)
+	 * Expands a bit.ly shortUrl or hash
+	 *
+	 * @param array $targets Target shortUrls or hashes to expand in numerically indexed array
+	 * @param bool $verbose Output flag
+	 * @return mixed (format != json) string | (format == json) array
+	 */
+	 public function expand($targets = array(), $verbose = FALSE)
 	{
 		// Check the targets and build the params array
 		if (count($targets))
@@ -120,12 +121,11 @@ class Bitly {
 	}
 	
 	/**
-	* Validates a 3rd party login and apiKey pair
-	*
-	* @param array $params 3rd party login and apiKey
-	* @return mixed (format != json || txt) string | (format == json || txt) bool
-	* @author Patrick Popowicz
-	*/
+	 * Validates a 3rd party login and apiKey pair
+	 *
+	 * @param array $params 3rd party login and apiKey
+	 * @return mixed (format != json || txt) string | (format == json || txt) bool
+	 */
 	public function validate($params = array(), $verbose = FALSE)
 	{
 		// Check the targets and build the params array
@@ -144,14 +144,13 @@ class Bitly {
 	}
 	
 	/**
-	* Returns click information for one or more shortUrls or hashes
-	*
-	* @param array $targets Target shortUrls or hashes to expand in numerically indexed array
-	* @param string $type type of click returned, either user (passed url or hash) or global
-	* @param bool $verbose Output flag
-	* @return mixed (format != json) string | (format == json) array
-	* @author Patrick Popowicz
-	*/
+	 * Returns click information for one or more shortUrls or hashes
+	 *
+	 * @param array $targets Target shortUrls or hashes to expand in numerically indexed array
+	 * @param string $type type of click returned, either user (passed url or hash) or global
+	 * @param bool $verbose Output flag
+	 * @return mixed (format != json) string | (format == json) array
+	 */
 	public function clicks($targets = array(), $type = 'user', $verbose = FALSE)
 	{
 		// Check the targets and build the params array
@@ -185,12 +184,11 @@ class Bitly {
 	}
 
 	/**
-	* Validates a Pro Domain
-	*
-	* @param string bit.ly pro domain
-	* @return mixed (format != json) string | (format == json) bool
-	* @author Patrick Popowicz
-	*/
+	 * Validates a Pro Domain
+	 *
+	 * @param string bit.ly pro domain
+	 * @return mixed (format != json) string | (format == json) bool
+	 */
 	public function pro_domain($domain = '', $verbose = FALSE)
 	{
 		// Check the targets and build the params array
@@ -206,13 +204,12 @@ class Bitly {
 	}
 
 	/**
-	* Executes the API request using cURL
-	*
-	* @param string $method API method being used
-	* @param bool $verbose Output flag
-	* @return bool
-	* @author Patrick Popowicz
-	*/
+	 * Executes the API request using cURL
+	 *
+	 * @param string $method API method being used
+	 * @param bool $verbose Output flag
+	 * @return bool
+	 */
 	private function _execute($method, $params)
 	{
 		// Add in the primary login and apiKey
@@ -251,11 +248,10 @@ class Bitly {
 	}
 	
 	/**
-	* Returns the response value
-	*
-	* @return mixed
-	* @author Patrick Popowicz
-	*/
+	 * Returns the response value
+	 *
+	 * @return mixed
+	 */
 	public function response()
 	{
 		return $this->response;

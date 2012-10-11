@@ -5,7 +5,7 @@
  * Library that is extended by all Site or Public facing Controllers
  *
  * @author Brennan Novak <contact@social-igniter.com> @brennannovak
- * @package socialigniter
+ * @package Social Igniter\Libraries
  */
 class Site_Controller extends MY_Controller
 {

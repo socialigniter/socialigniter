@@ -5,7 +5,7 @@
  * A severely hacked Ben Edmunds 'Ion Auth Model' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
  * 
  * @author Brennan Novak <contact@social-igniter.com> @socialigniter
- * @package Social Ingiter\Models
+ * @package Social Igniter\Models
  * @link http://github.com/socialigniter/core
  */ 
 class Auth_model extends CI_Model

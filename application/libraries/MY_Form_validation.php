@@ -4,14 +4,18 @@
  *
  * Adds various form validation functions
  *
- * @package		Social Igniter\Libraries
- * @subpackage	MY Form Validation Library
- * @author		Brennan Novak
- * @link			http://brennannovak.com
+ * @package	Social Igniter\Libraries
+ * @author	Brennan Novak
+ * @link	http://brennannovak.com
  */
 class MY_Form_validation extends CI_Form_validation {
 
-	// Validates phone number
+	/**
+	 * Validates phone number
+	 *
+	 * @param string $value The number to validate
+	 * @return bool Whether or not $valus is considered a valid phone number
+	 */
 	function valid_phone_number($value)
 	{
 		$this->CI->form_validation->set_message('valid_phone_number', 'That is not valid phone number');
@@ -34,7 +38,12 @@ class MY_Form_validation extends CI_Form_validation {
 	    }    
 	}
 	
-	// Checks for strong password
+	/**
+	 * Checks for strong password
+	 * 
+	 * @param string $value The password to test
+	 * @param int params The ‘score‘ to test against
+	 */
 	function strong_pass($value, $params)
 	{
 		$this->CI->form_validation->set_message('strong_pass', 'The %s is not strong enough');
