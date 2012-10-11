@@ -9,6 +9,7 @@
   </transformer>
   <files>
     <directory>application/models</directory>
+    <directory>application/controllers</directory>
     <file>application/libraries/Site_Controller.php</file>
     <file>application/libraries/Social_auth.php</file>
     <file>application/libraries/Social_igniter.php</file>

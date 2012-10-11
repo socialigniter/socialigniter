@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Dialogs
+ * 
+ * A controller for presenting dialogs
+ * 
+ * @package Social Igniter\Controllers
+ * @see MY_Controller
+ */
 class Dialogs extends MY_Controller
 {
     function __construct()

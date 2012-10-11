@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Feed
+ * 
+ * A controller for presenting feeds
+ * 
+ * @package Social Igniter\Controllers
+ * @see MY_Controller
+ */
 class Feed extends MY_Controller 
 { 
     function __construct() 

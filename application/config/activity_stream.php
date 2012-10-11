@@ -1,17 +1,12 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:			Social Igniter : Activity Stream
-* Author: 		Brennan Novak
-* 		  		contact@social-igniter.com
-*         		@brennannovak
-*          
-* Created:		Brennan Novak
-*
-* Project:		http://social-igniter.com/
-* Source: 		http://github.com/socialigniter/core
-*
-* Description: 	activity_stream.php config file is for settings displaying activity stream
-*/
+ * Social Igniter Activity Stream
+ * 
+ * config/activity_stream.php sets up some config arrays mapping short verbs to full activitystrea.ms schema URIs
+ * 
+ * @author Brennan Novak <contact@social-igniter.com> @brennannovak
+ * @package Social Igniter\Config
+ */
 
 // Verbs
 $config['verbs']['favorite'] 			= 'http://activitystrea.ms/schema/1.0/favorite';

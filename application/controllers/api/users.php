@@ -1,13 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/* 
-* Social-Igniter : Core : Users : API Controller
-*
-* @package		Social Igniter
-* @subpackage	Social Igniter Library
-* @author		Brennan Novak
-* @link			http://social-igniter.com
-* 
-*/
+
+/**
+ * Social-Igniter
+ *
+ * @package	Social Igniter\API
+ * @author	Brennan Novak
+ * @link	http://social-igniter.com
+ * 
+ */
 class Users extends Oauth_Controller
 {
     function __construct()

@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Settings
+ * 
+ * A Dashboard_controller for managing settings
+ * 
+ * @package Social Igniter\Controllers
+ * @see Dashboard_Controller
+ */
 class Settings extends Dashboard_Controller
 { 
     function __construct() 

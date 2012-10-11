@@ -6250,6 +6250,1081 @@ marking it as deleted internally.</p>]]></long-description>
       <error line="68" code="50010">No DocBlock was found for method delete_upload()</error>
     </parse_markers>
   </file>
+  <file path="controllers/api/activity.php" hash="b197d0e6ccd547a8116bdcd9e1e2bc3e" package="Default">
+    <class final="false" abstract="false" namespace="global" line="7" package="Social Igniter\API">
+      <extends>\Oauth_Controller</extends>
+      <name>Activity</name>
+      <full_name>\Activity</full_name>
+      <docblock line="2">
+        <description><![CDATA[Activity API]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="2" name="package" description="Social Igniter\API"/>
+        <tag line="2" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="9" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="14" package="Social Igniter\API">
+        <name>recent_get</name>
+        <full_name>recent_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="30" package="Social Igniter\API">
+        <name>view_get</name>
+        <full_name>view_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="48" package="Social Igniter\API">
+        <name>create_authd_post</name>
+        <full_name>create_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="72" package="Social Igniter\API">
+        <name>update_authd_get</name>
+        <full_name>update_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="88" package="Social Igniter\API">
+        <name>destroy_authd_get</name>
+        <full_name>destroy_authd_get</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/activity.php</error>
+      <error line="9" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="14" code="50010">No DocBlock was found for method recent_get()</error>
+      <error line="30" code="50010">No DocBlock was found for method view_get()</error>
+      <error line="48" code="50010">No DocBlock was found for method create_authd_post()</error>
+      <error line="72" code="50010">No DocBlock was found for method update_authd_get()</error>
+      <error line="88" code="50010">No DocBlock was found for method destroy_authd_get()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/categories.php" hash="4efde55ef3f778178339bc1c03934cdc" package="Default">
+    <class final="false" abstract="false" namespace="global" line="7" package="Social Igniter\API">
+      <extends>\Oauth_Controller</extends>
+      <name>Categories</name>
+      <full_name>\Categories</full_name>
+      <docblock line="2">
+        <description><![CDATA[Categories API]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="2" name="package" description="Social Igniter\API"/>
+        <tag line="2" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="9" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="16" package="Social Igniter\API">
+        <name>all_get</name>
+        <full_name>all_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="32" package="Social Igniter\API">
+        <name>view_get</name>
+        <full_name>view_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="50" package="Social Igniter\API">
+        <name>create_authd_post</name>
+        <full_name>create_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="108" package="Social Igniter\API">
+        <name>modify_authd_post</name>
+        <full_name>modify_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="145" package="Social Igniter\API">
+        <name>picture_upload_post</name>
+        <full_name>picture_upload_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="215" package="Social Igniter\API">
+        <name>destroy_authd_get</name>
+        <full_name>destroy_authd_get</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/categories.php</error>
+      <error line="9" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="16" code="50010">No DocBlock was found for method all_get()</error>
+      <error line="32" code="50010">No DocBlock was found for method view_get()</error>
+      <error line="50" code="50010">No DocBlock was found for method create_authd_post()</error>
+      <error line="108" code="50010">No DocBlock was found for method modify_authd_post()</error>
+      <error line="145" code="50010">No DocBlock was found for method picture_upload_post()</error>
+      <error line="215" code="50010">No DocBlock was found for method destroy_authd_get()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/connections.php" hash="5391f71d327f0cbfbb76e5b07b509777" package="Default">
+    <class final="false" abstract="false" namespace="global" line="7" package="Social Igniter\API">
+      <extends>\Oauth_Controller</extends>
+      <name>Connections</name>
+      <full_name>\Connections</full_name>
+      <docblock line="2">
+        <description><![CDATA[Connections API]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="2" name="package" description="Social Igniter\API"/>
+        <tag line="2" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="9" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="14" package="Social Igniter\API">
+        <name>user_get</name>
+        <full_name>user_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="28" package="Social Igniter\API">
+        <name>destroy_authd_get</name>
+        <full_name>destroy_authd_get</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/connections.php</error>
+      <error line="9" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="14" code="50010">No DocBlock was found for method user_get()</error>
+      <error line="28" code="50010">No DocBlock was found for method destroy_authd_get()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/content.php" hash="4f9fbd47b3c662f23f62f24ac17ac564" package="Default">
+    <class final="false" abstract="false" namespace="global" line="7" package="Social Igniter\API">
+      <extends>\Oauth_Controller</extends>
+      <name>Content</name>
+      <full_name>\Content</full_name>
+      <docblock line="2">
+        <description><![CDATA[Content API]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="2" name="package" description="Social Igniter\API"/>
+        <tag line="2" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="9" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="17" package="Social Igniter\API">
+        <name>recent_get</name>
+        <full_name>recent_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="34" package="Social Igniter\API">
+        <name>view_get</name>
+        <full_name>view_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="54" package="Social Igniter\API">
+        <name>create_authd_post</name>
+        <full_name>create_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="131" package="Social Igniter\API">
+        <name>modify_authd_post</name>
+        <full_name>modify_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="184" package="Social Igniter\API">
+        <name>viewed_authd_get</name>
+        <full_name>viewed_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="198" package="Social Igniter\API">
+        <name>approve_authd_get</name>
+        <full_name>approve_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="221" package="Social Igniter\API">
+        <name>save_authd_get</name>
+        <full_name>save_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="235" package="Social Igniter\API">
+        <name>publish_authd_get</name>
+        <full_name>publish_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="249" package="Social Igniter\API">
+        <name>destroy_authd_get</name>
+        <full_name>destroy_authd_get</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/content.php</error>
+      <error line="9" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="17" code="50010">No DocBlock was found for method recent_get()</error>
+      <error line="34" code="50010">No DocBlock was found for method view_get()</error>
+      <error line="54" code="50010">No DocBlock was found for method create_authd_post()</error>
+      <error line="131" code="50010">No DocBlock was found for method modify_authd_post()</error>
+      <error line="184" code="50010">No DocBlock was found for method viewed_authd_get()</error>
+      <error line="198" code="50010">No DocBlock was found for method approve_authd_get()</error>
+      <error line="221" code="50010">No DocBlock was found for method save_authd_get()</error>
+      <error line="235" code="50010">No DocBlock was found for method publish_authd_get()</error>
+      <error line="249" code="50010">No DocBlock was found for method destroy_authd_get()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/content_meta.php" hash="ef7ecc244d560eeb0f96bd3bffce9d72" package="Default">
+    <class final="false" abstract="false" namespace="global" line="7" package="Social Igniter\API">
+      <extends>\Oauth_Controller</extends>
+      <name>Content_meta</name>
+      <full_name>\Content_meta</full_name>
+      <docblock line="2">
+        <description><![CDATA[Content Meta API]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="2" name="package" description="Social Igniter\API"/>
+        <tag line="2" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="9" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="16" package="Social Igniter\API">
+        <name>view_get</name>
+        <full_name>view_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="35" package="Social Igniter\API">
+        <name>create_authd_post</name>
+        <full_name>create_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="78" package="Social Igniter\API">
+        <name>modify_authd_post</name>
+        <full_name>modify_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="111" package="Social Igniter\API">
+        <name>modify_multiple_authd_post</name>
+        <full_name>modify_multiple_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="145" package="Social Igniter\API">
+        <name>destroy_authd_get</name>
+        <full_name>destroy_authd_get</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/content_meta.php</error>
+      <error line="9" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="16" code="50010">No DocBlock was found for method view_get()</error>
+      <error line="35" code="50010">No DocBlock was found for method create_authd_post()</error>
+      <error line="78" code="50010">No DocBlock was found for method modify_authd_post()</error>
+      <error line="111" code="50010">No DocBlock was found for method modify_multiple_authd_post()</error>
+      <error line="145" code="50010">No DocBlock was found for method destroy_authd_get()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/index.php" hash="ffaa50f0382da226b751bd8cbbf54deb" package="Default">
+    <class final="false" abstract="false" namespace="global" line="9" package="Social Igniter\API">
+      <extends>\MY_Controller</extends>
+      <name>Index</name>
+      <full_name>\Index</full_name>
+      <docblock line="2">
+        <description><![CDATA[API Sandbox]]></description>
+        <long-description><![CDATA[<p>Displays API calls for core and includes documentation from modules</p>]]></long-description>
+        <tag line="2" name="package" description="Social Igniter\API"/>
+        <tag line="2" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="11" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="18" package="Social Igniter\API">
+        <name>index</name>
+        <full_name>index</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/index.php</error>
+      <error line="11" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="18" code="50010">No DocBlock was found for method index()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/install.php" hash="09420b816b9e0f6ebf24fc8dc0b9e01b" package="Default">
+    <class final="false" abstract="false" namespace="global" line="7" package="Social Igniter\API">
+      <extends>\Oauth_Controller</extends>
+      <name>Install</name>
+      <full_name>\Install</full_name>
+      <docblock line="3">
+        <description><![CDATA[]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="3" name="package" description="Social Igniter\API"/>
+        <tag line="3" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="9" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="16" package="Social Igniter\API">
+        <name>install_authd_get</name>
+        <full_name>install_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="25" package="Social Igniter\API">
+        <name>custom_authd_get</name>
+        <full_name>custom_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="34" package="Social Igniter\API">
+        <name>uncompress_authd_get</name>
+        <full_name>uncompress_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="43" package="Social Igniter\API">
+        <name>uninstall_authd_get</name>
+        <full_name>uninstall_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="60" package="Social Igniter\API">
+        <name>create_app_authd_post</name>
+        <full_name>create_app_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="109" package="Social Igniter\API">
+        <name>migrate_current_authd_get</name>
+        <full_name>migrate_current_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="126" package="Social Igniter\API">
+        <name>migrate_latest_authd_get</name>
+        <full_name>migrate_latest_authd_get</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/install.php</error>
+      <critical line="3" code="50005">No short description for class \Install</critical>
+      <error line="9" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="16" code="50010">No DocBlock was found for method install_authd_get()</error>
+      <error line="25" code="50010">No DocBlock was found for method custom_authd_get()</error>
+      <error line="34" code="50010">No DocBlock was found for method uncompress_authd_get()</error>
+      <error line="43" code="50010">No DocBlock was found for method uninstall_authd_get()</error>
+      <error line="60" code="50010">No DocBlock was found for method create_app_authd_post()</error>
+      <error line="109" code="50010">No DocBlock was found for method migrate_current_authd_get()</error>
+      <error line="126" code="50010">No DocBlock was found for method migrate_latest_authd_get()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/relationships.php" hash="2f2cad196b1dee894e8de4c5678f31e6" package="Default">
+    <class final="false" abstract="false" namespace="global" line="7" package="Social Igniter\API">
+      <extends>\Oauth_Controller</extends>
+      <name>Relationships</name>
+      <full_name>\Relationships</full_name>
+      <docblock line="2">
+        <description><![CDATA[Relationships]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="2" name="package" description="Social Igniter\API"/>
+        <tag line="2" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="9" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="14" package="Social Igniter\API">
+        <name>followers_get</name>
+        <full_name>followers_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="30" package="Social Igniter\API">
+        <name>follow_authd_post</name>
+        <full_name>follow_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="38" package="Social Igniter\API">
+        <name>follow_remote_authd_post</name>
+        <full_name>follow_remote_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="180" package="Social Igniter\API">
+        <name>unfollow_authd_post</name>
+        <full_name>unfollow_authd_post</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/relationships.php</error>
+      <error line="9" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="14" code="50010">No DocBlock was found for method followers_get()</error>
+      <error line="30" code="50010">No DocBlock was found for method follow_authd_post()</error>
+      <error line="38" code="50010">No DocBlock was found for method follow_remote_authd_post()</error>
+      <error line="180" code="50010">No DocBlock was found for method unfollow_authd_post()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/sandbox.php" hash="90fa4f0ac82c72d1f7619d17cdc15771" package="Default">
+    <class final="false" abstract="false" namespace="global" line="9" package="Social Igniter\API">
+      <extends>\MY_Controller</extends>
+      <name>Sandbox</name>
+      <full_name>\Sandbox</full_name>
+      <docblock line="2">
+        <description><![CDATA[API Sandbox]]></description>
+        <long-description><![CDATA[<p>Displays API calls for core and includes documentation from modules</p>]]></long-description>
+        <tag line="2" name="package" description="Social Igniter\API"/>
+        <tag line="2" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="11" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="18" package="Social Igniter\API">
+        <name>index</name>
+        <full_name>index</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/sandbox.php</error>
+      <error line="11" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="18" code="50010">No DocBlock was found for method index()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/settings.php" hash="ec9a49f142d5f4f5a584066c39caf2d6" package="Default">
+    <class final="false" abstract="false" namespace="global" line="7" package="Social Igniter\API">
+      <extends>\Oauth_Controller</extends>
+      <name>Settings</name>
+      <full_name>\Settings</full_name>
+      <docblock line="2">
+        <description><![CDATA[Settings API]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="2" name="package" description="Social Igniter\API"/>
+        <tag line="2" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="9" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="16" package="Social Igniter\API">
+        <name>module_get</name>
+        <full_name>module_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="30" package="Social Igniter\API">
+        <name>setting_get</name>
+        <full_name>setting_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="44" package="Social Igniter\API">
+        <name>widgets_available_get</name>
+        <full_name>widgets_available_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="98" package="Social Igniter\API">
+        <name>view_get</name>
+        <full_name>view_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="116" package="Social Igniter\API">
+        <name>create_authd_post</name>
+        <full_name>create_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="156" package="Social Igniter\API">
+        <name>modify_authd_post</name>
+        <full_name>modify_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="184" package="Social Igniter\API">
+        <name>modify_widget_authd_post</name>
+        <full_name>modify_widget_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="210" package="Social Igniter\API">
+        <name>destroy_get</name>
+        <full_name>destroy_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="228" package="Social Igniter\API">
+        <name>upload_site_picture_post</name>
+        <full_name>upload_site_picture_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="290" package="Social Igniter\API">
+        <name>delete_site_picture_authd_get</name>
+        <full_name>delete_site_picture_authd_get</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/settings.php</error>
+      <error line="9" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="16" code="50010">No DocBlock was found for method module_get()</error>
+      <error line="30" code="50010">No DocBlock was found for method setting_get()</error>
+      <error line="44" code="50010">No DocBlock was found for method widgets_available_get()</error>
+      <error line="98" code="50010">No DocBlock was found for method view_get()</error>
+      <error line="116" code="50010">No DocBlock was found for method create_authd_post()</error>
+      <error line="156" code="50010">No DocBlock was found for method modify_authd_post()</error>
+      <error line="184" code="50010">No DocBlock was found for method modify_widget_authd_post()</error>
+      <error line="210" code="50010">No DocBlock was found for method destroy_get()</error>
+      <error line="228" code="50010">No DocBlock was found for method upload_site_picture_post()</error>
+      <error line="290" code="50010">No DocBlock was found for method delete_site_picture_authd_get()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/upload.php" hash="3ca9d1a51f0334def7cb08c3398d3e81" package="Default">
+    <class final="false" abstract="false" namespace="global" line="7" package="Social Igniter\API">
+      <extends>\Oauth_Controller</extends>
+      <name>Upload</name>
+      <full_name>\Upload</full_name>
+      <docblock line="2">
+        <description><![CDATA[Upload API]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="2" name="package" description="Social Igniter\API"/>
+        <tag line="2" name="see" description="\global\https://social-igniter.com/api" refers="\global\https://social-igniter.com/api"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="9" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="16" package="Social Igniter\API">
+        <name>create_expectation_authd_post</name>
+        <full_name>create_expectation_authd_post</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/upload.php</error>
+      <error line="9" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="16" code="50010">No DocBlock was found for method create_expectation_authd_post()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/api/users.php" hash="c51731681dd7c21101607a90f4f9282d" package="Default">
+    <class final="false" abstract="false" namespace="global" line="11" package="Social Igniter\API">
+      <extends>\Oauth_Controller</extends>
+      <name>Users</name>
+      <full_name>\Users</full_name>
+      <docblock line="3">
+        <description><![CDATA[Social-Igniter]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="3" name="package" description="Social Igniter\API"/>
+        <tag line="3" name="author" description="Brennan Novak"/>
+        <tag line="3" name="link" description="http://social-igniter.com" link="http://social-igniter.com"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="13" package="Social Igniter\API">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="42" package="Social Igniter\API">
+        <name>recent_authd_get</name>
+        <full_name>recent_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="58" package="Social Igniter\API">
+        <name>find_authd_get</name>
+        <full_name>find_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="76" package="Social Igniter\API">
+        <name>create_post</name>
+        <full_name>create_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="161" package="Social Igniter\API">
+        <name>login_post</name>
+        <full_name>login_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="199" package="Social Igniter\API">
+        <name>signup_post</name>
+        <full_name>signup_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="291" package="Social Igniter\API">
+        <name>logout_authd_get</name>
+        <full_name>logout_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="317" package="Social Igniter\API">
+        <name>set_userdata_signup_email_post</name>
+        <full_name>set_userdata_signup_email_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="346" package="Social Igniter\API">
+        <name>modify_authd_post</name>
+        <full_name>modify_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="405" package="Social Igniter\API">
+        <name>upload_profile_picture_post</name>
+        <full_name>upload_profile_picture_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="468" package="Social Igniter\API">
+        <name>delete_profile_picture_authd_get</name>
+        <full_name>delete_profile_picture_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="486" package="Social Igniter\API">
+        <name>details_authd_post</name>
+        <full_name>details_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="527" package="Social Igniter\API">
+        <name>password_authd_post</name>
+        <full_name>password_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="552" package="Social Igniter\API">
+        <name>password_forgot_post</name>
+        <full_name>password_forgot_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="599" package="Social Igniter\API">
+        <name>mobile_add_authd_post</name>
+        <full_name>mobile_add_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="637" package="Social Igniter\API">
+        <name>mobile_modify_authd_post</name>
+        <full_name>mobile_modify_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="653" package="Social Igniter\API">
+        <name>mobile_destroy_authd_get</name>
+        <full_name>mobile_destroy_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="670" package="Social Igniter\API">
+        <name>device_create_authd_post</name>
+        <full_name>device_create_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="701" package="Social Igniter\API">
+        <name>advanced_authd_post</name>
+        <full_name>advanced_authd_post</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="710" package="Social Igniter\API">
+        <name>activate_authd_get</name>
+        <full_name>activate_authd_get</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="725" package="Social Igniter\API">
+        <name>deactivate_authd_get</name>
+        <full_name>deactivate_authd_get</full_name>
+        <argument line="725">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/api/users.php</error>
+      <error line="13" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="42" code="50010">No DocBlock was found for method recent_authd_get()</error>
+      <error line="58" code="50010">No DocBlock was found for method find_authd_get()</error>
+      <error line="76" code="50010">No DocBlock was found for method create_post()</error>
+      <error line="161" code="50010">No DocBlock was found for method login_post()</error>
+      <error line="199" code="50010">No DocBlock was found for method signup_post()</error>
+      <error line="291" code="50010">No DocBlock was found for method logout_authd_get()</error>
+      <error line="317" code="50010">No DocBlock was found for method set_userdata_signup_email_post()</error>
+      <error line="346" code="50010">No DocBlock was found for method modify_authd_post()</error>
+      <error line="405" code="50010">No DocBlock was found for method upload_profile_picture_post()</error>
+      <error line="468" code="50010">No DocBlock was found for method delete_profile_picture_authd_get()</error>
+      <error line="486" code="50010">No DocBlock was found for method details_authd_post()</error>
+      <error line="527" code="50010">No DocBlock was found for method password_authd_post()</error>
+      <error line="552" code="50010">No DocBlock was found for method password_forgot_post()</error>
+      <error line="599" code="50010">No DocBlock was found for method mobile_add_authd_post()</error>
+      <error line="637" code="50010">No DocBlock was found for method mobile_modify_authd_post()</error>
+      <error line="653" code="50010">No DocBlock was found for method mobile_destroy_authd_get()</error>
+      <error line="670" code="50010">No DocBlock was found for method device_create_authd_post()</error>
+      <error line="701" code="50010">No DocBlock was found for method advanced_authd_post()</error>
+      <error line="710" code="50010">No DocBlock was found for method activate_authd_get()</error>
+      <error line="725" code="50010">No DocBlock was found for method deactivate_authd_get()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/apps.php" hash="cc99145586af55e0bae99dc6d568fabe" package="Default">
+    <class final="false" abstract="false" namespace="global" line="11" package="Social Igniter\Controllers">
+      <extends>\Dashboard_Controller</extends>
+      <name>Apps</name>
+      <full_name>\Apps</full_name>
+      <docblock line="3">
+        <description><![CDATA[Apps]]></description>
+        <long-description><![CDATA[<p>A Dashboard_controller for managing apps</p>]]></long-description>
+        <tag line="3" name="package" description="Social Igniter\Controllers"/>
+        <tag line="3" name="see" description="\global\Dashboard_Controller" refers="\global\Dashboard_Controller"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="13" package="Social Igniter\Controllers">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="24" package="Social Igniter\Controllers">
+        <name>index</name>
+        <full_name>index</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="34" package="Social Igniter\Controllers">
+        <name>inactive</name>
+        <full_name>inactive</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="43" package="Social Igniter\Controllers">
+        <name>find</name>
+        <full_name>find</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="49" package="Social Igniter\Controllers">
+        <name>create</name>
+        <full_name>create</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/apps.php</error>
+      <error line="13" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="24" code="50010">No DocBlock was found for method index()</error>
+      <error line="34" code="50010">No DocBlock was found for method inactive()</error>
+      <error line="43" code="50010">No DocBlock was found for method find()</error>
+      <error line="49" code="50010">No DocBlock was found for method create()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/connections.php" hash="1bbb00f5fbc67a7bb58f4e33e771cebb" package="Default">
+    <class final="false" abstract="false" namespace="global" line="11" package="Social Igniter\Controllers">
+      <extends>\MY_Controller</extends>
+      <name>Connections</name>
+      <full_name>\Connections</full_name>
+      <docblock line="3">
+        <description><![CDATA[Connections]]></description>
+        <long-description><![CDATA[<p>A Dashboard_controller for managing connections</p>]]></long-description>
+        <tag line="3" name="package" description="Social Igniter\Controllers"/>
+        <tag line="3" name="see" description="\global\Dashboard_Controller" refers="\global\Dashboard_Controller"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="13" package="Social Igniter\Controllers">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="18" package="Social Igniter\Controllers">
+        <name>index</name>
+        <full_name>index</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="23" package="Social Igniter\Controllers">
+        <name>delete</name>
+        <full_name>delete</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/connections.php</error>
+      <error line="13" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="18" code="50010">No DocBlock was found for method index()</error>
+      <error line="23" code="50010">No DocBlock was found for method delete()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/dialogs.php" hash="ba8693f6ab1813294dec4e4ce0b7be4f" package="Default">
+    <class final="false" abstract="false" namespace="global" line="11" package="Social Igniter\Controllers">
+      <extends>\MY_Controller</extends>
+      <name>Dialogs</name>
+      <full_name>\Dialogs</full_name>
+      <docblock line="3">
+        <description><![CDATA[Dialogs]]></description>
+        <long-description><![CDATA[<p>A controller for presenting dialogs</p>]]></long-description>
+        <tag line="3" name="package" description="Social Igniter\Controllers"/>
+        <tag line="3" name="see" description="\global\MY_Controller" refers="\global\MY_Controller"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="13" package="Social Igniter\Controllers">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="19" package="Social Igniter\Controllers">
+        <name>add_connections</name>
+        <full_name>add_connections</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="29" package="Social Igniter\Controllers">
+        <name>mobile_phone_editor</name>
+        <full_name>mobile_phone_editor</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="34" package="Social Igniter\Controllers">
+        <name>mobile_phone_verify</name>
+        <full_name>mobile_phone_verify</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="41" package="Social Igniter\Controllers">
+        <name>widget_editor</name>
+        <full_name>widget_editor</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="46" package="Social Igniter\Controllers">
+        <name>widget_add</name>
+        <full_name>widget_add</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/dialogs.php</error>
+      <error line="13" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="19" code="50010">No DocBlock was found for method add_connections()</error>
+      <error line="29" code="50010">No DocBlock was found for method mobile_phone_editor()</error>
+      <error line="34" code="50010">No DocBlock was found for method mobile_phone_verify()</error>
+      <error line="41" code="50010">No DocBlock was found for method widget_editor()</error>
+      <error line="46" code="50010">No DocBlock was found for method widget_add()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/feed.php" hash="1441479c8d4d52807d9a4e759480991d" package="Default">
+    <class final="false" abstract="false" namespace="global" line="11" package="Social Igniter\Controllers">
+      <extends>\MY_Controller</extends>
+      <name>Feed</name>
+      <full_name>\Feed</full_name>
+      <docblock line="3">
+        <description><![CDATA[Feed]]></description>
+        <long-description><![CDATA[<p>A controller for presenting feeds</p>]]></long-description>
+        <tag line="3" name="package" description="Social Igniter\Controllers"/>
+        <tag line="3" name="see" description="\global\MY_Controller" refers="\global\MY_Controller"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="13" package="Social Igniter\Controllers">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="20" package="Social Igniter\Controllers">
+        <name>index</name>
+        <full_name>index</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="34" package="Social Igniter\Controllers">
+        <name>comments</name>
+        <full_name>comments</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/feed.php</error>
+      <error line="13" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="20" code="50010">No DocBlock was found for method index()</error>
+      <error line="34" code="50010">No DocBlock was found for method comments()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/home.php" hash="e49cb560f48909251f336e10f068aa77" package="Default">
+    <class final="false" abstract="false" namespace="global" line="12" package="Social Igniter\Controllers">
+      <extends>\Dashboard_Controller</extends>
+      <name>Home</name>
+      <full_name>\Home</full_name>
+      <docblock line="4">
+        <description><![CDATA[Home]]></description>
+        <long-description><![CDATA[<p>A Dashboard_controller for posting status updates</p>]]></long-description>
+        <tag line="4" name="package" description="Social Igniter\Controllers"/>
+        <tag line="4" name="see" description="\global\Dashboard_Controller" refers="\global\Dashboard_Controller"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="14" package="Social Igniter\Controllers">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="20" package="Social Igniter\Controllers">
+        <name>index</name>
+        <full_name>index</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="125" package="Social Igniter\Controllers">
+        <name>manage</name>
+        <full_name>manage</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="193" package="Social Igniter\Controllers">
+        <name>error</name>
+        <full_name>error</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="200" package="Social Igniter\Controllers">
+        <name>item_timeline</name>
+        <full_name>item_timeline</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="227" package="Social Igniter\Controllers">
+        <name>item_manage</name>
+        <full_name>item_manage</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="247" package="Social Igniter\Controllers">
+        <name>category_manager</name>
+        <full_name>category_manager</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/home.php</error>
+      <error line="14" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="20" code="50010">No DocBlock was found for method index()</error>
+      <error line="125" code="50010">No DocBlock was found for method manage()</error>
+      <error line="193" code="50010">No DocBlock was found for method error()</error>
+      <error line="200" code="50010">No DocBlock was found for method item_timeline()</error>
+      <error line="227" code="50010">No DocBlock was found for method item_manage()</error>
+      <error line="247" code="50010">No DocBlock was found for method category_manager()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/settings.php" hash="c43a2e5f8a2bd81fba905538d70aa8ae" package="Default">
+    <class final="false" abstract="false" namespace="global" line="11" package="Social Igniter\Controllers">
+      <extends>\Dashboard_Controller</extends>
+      <name>Settings</name>
+      <full_name>\Settings</full_name>
+      <docblock line="3">
+        <description><![CDATA[Settings]]></description>
+        <long-description><![CDATA[<p>A Dashboard_controller for managing settings</p>]]></long-description>
+        <tag line="3" name="package" description="Social Igniter\Controllers"/>
+        <tag line="3" name="see" description="\global\Dashboard_Controller" refers="\global\Dashboard_Controller"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="13" package="Social Igniter\Controllers">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="22" package="Social Igniter\Controllers">
+        <name>index</name>
+        <full_name>index</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="28" package="Social Igniter\Controllers">
+        <name>profile</name>
+        <full_name>profile</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="54" package="Social Igniter\Controllers">
+        <name>details</name>
+        <full_name>details</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="69" package="Social Igniter\Controllers">
+        <name>password</name>
+        <full_name>password</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="79" package="Social Igniter\Controllers">
+        <name>contact</name>
+        <full_name>contact</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="92" package="Social Igniter\Controllers">
+        <name>connections</name>
+        <full_name>connections</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="101" package="Social Igniter\Controllers">
+        <name>advanced</name>
+        <full_name>advanced</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="109" package="Social Igniter\Controllers">
+        <name>site</name>
+        <full_name>site</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="119" package="Social Igniter\Controllers">
+        <name>themes</name>
+        <full_name>themes</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="133" package="Social Igniter\Controllers">
+        <name>design</name>
+        <full_name>design</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="177" package="Social Igniter\Controllers">
+        <name>widgets</name>
+        <full_name>widgets</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="230" package="Social Igniter\Controllers">
+        <name>services</name>
+        <full_name>services</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="249" package="Social Igniter\Controllers">
+        <name>home</name>
+        <full_name>home</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="259" package="Social Igniter\Controllers">
+        <name>users</name>
+        <full_name>users</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="269" package="Social Igniter\Controllers">
+        <name>api</name>
+        <full_name>api</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="279" package="Social Igniter\Controllers">
+        <name>updates</name>
+        <full_name>updates</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="286" package="Social Igniter\Controllers">
+        <name>categories</name>
+        <full_name>categories</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="327" package="Social Igniter\Controllers">
+        <name>categories_manager</name>
+        <full_name>categories_manager</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/settings.php</error>
+      <error line="13" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="22" code="50010">No DocBlock was found for method index()</error>
+      <error line="28" code="50010">No DocBlock was found for method profile()</error>
+      <error line="54" code="50010">No DocBlock was found for method details()</error>
+      <error line="69" code="50010">No DocBlock was found for method password()</error>
+      <error line="79" code="50010">No DocBlock was found for method contact()</error>
+      <error line="92" code="50010">No DocBlock was found for method connections()</error>
+      <error line="101" code="50010">No DocBlock was found for method advanced()</error>
+      <error line="109" code="50010">No DocBlock was found for method site()</error>
+      <error line="119" code="50010">No DocBlock was found for method themes()</error>
+      <error line="133" code="50010">No DocBlock was found for method design()</error>
+      <error line="177" code="50010">No DocBlock was found for method widgets()</error>
+      <error line="230" code="50010">No DocBlock was found for method services()</error>
+      <error line="249" code="50010">No DocBlock was found for method home()</error>
+      <error line="259" code="50010">No DocBlock was found for method users()</error>
+      <error line="269" code="50010">No DocBlock was found for method api()</error>
+      <error line="279" code="50010">No DocBlock was found for method updates()</error>
+      <error line="286" code="50010">No DocBlock was found for method categories()</error>
+      <error line="327" code="50010">No DocBlock was found for method categories_manager()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/setup.php" hash="6f66021bf91a789e3d73ef3fbadd2efd" package="Default">
+    <class final="false" abstract="false" namespace="global" line="12" package="Social Igniter\Controllers">
+      <extends>\MX_Controller</extends>
+      <name>Setup</name>
+      <full_name>\Setup</full_name>
+      <docblock line="3">
+        <description><![CDATA[Setup]]></description>
+        <long-description><![CDATA[<p>A controller for installing Social Igniter</p>]]></long-description>
+        <tag line="3" name="package" description="Social Igniter\Controllers"/>
+        <tag line="3" name="see" description="\global\MX_Controller" refers="\global\MX_Controller"/>
+        <tag line="3" name="see" description="\global\Install" refers="\global\Install"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="14" package="Social Igniter\Controllers">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="18" package="Social Igniter\Controllers">
+        <name>index</name>
+        <full_name>index</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="67" package="Social Igniter\Controllers">
+        <name>admin</name>
+        <full_name>admin</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="163" package="Social Igniter\Controllers">
+        <name>site</name>
+        <full_name>site</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/setup.php</error>
+      <error line="14" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="18" code="50010">No DocBlock was found for method index()</error>
+      <error line="67" code="50010">No DocBlock was found for method admin()</error>
+      <error line="163" code="50010">No DocBlock was found for method site()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/site.php" hash="9c3f9068ebf24bbe3e3d18cc8f6dd8fc" package="Default">
+    <class final="false" abstract="false" namespace="global" line="11" package="Social Igniter\Controllers">
+      <extends>\Site_Controller</extends>
+      <name>Site</name>
+      <full_name>\Site</full_name>
+      <docblock line="3">
+        <description><![CDATA[Site]]></description>
+        <long-description><![CDATA[<p>A Site_Controller for things like authentication pages</p>]]></long-description>
+        <tag line="3" name="package" description="Social Igniter\Controllers"/>
+        <tag line="3" name="see" description="\global\Site_Controller" refers="\global\Site_Controller"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="13" package="Social Igniter\Controllers">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="18" package="Social Igniter\Controllers">
+        <name>index</name>
+        <full_name>index</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="39" package="Social Igniter\Controllers">
+        <name>login</name>
+        <full_name>login</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="53" package="Social Igniter\Controllers">
+        <name>logout</name>
+        <full_name>logout</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="62" package="Social Igniter\Controllers">
+        <name>signup</name>
+        <full_name>signup</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="78" package="Social Igniter\Controllers">
+        <name>signup_social</name>
+        <full_name>signup_social</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="91" package="Social Igniter\Controllers">
+        <name>forgot_password</name>
+        <full_name>forgot_password</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="115" package="Social Igniter\Controllers">
+        <name>reset_password</name>
+        <full_name>reset_password</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="191" package="Social Igniter\Controllers">
+        <name>activate</name>
+        <full_name>activate</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="209" package="Social Igniter\Controllers">
+        <name>activation</name>
+        <full_name>activation</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="217" package="Social Igniter\Controllers">
+        <name>error_404</name>
+        <full_name>error_404</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/site.php</error>
+      <error line="13" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="18" code="50010">No DocBlock was found for method index()</error>
+      <error line="39" code="50010">No DocBlock was found for method login()</error>
+      <error line="53" code="50010">No DocBlock was found for method logout()</error>
+      <error line="62" code="50010">No DocBlock was found for method signup()</error>
+      <error line="78" code="50010">No DocBlock was found for method signup_social()</error>
+      <error line="91" code="50010">No DocBlock was found for method forgot_password()</error>
+      <error line="115" code="50010">No DocBlock was found for method reset_password()</error>
+      <error line="191" code="50010">No DocBlock was found for method activate()</error>
+      <error line="209" code="50010">No DocBlock was found for method activation()</error>
+      <error line="217" code="50010">No DocBlock was found for method error_404()</error>
+    </parse_markers>
+  </file>
+  <file path="controllers/users.php" hash="6821063d3e1992b0d31d95cab6533cce" package="Default">
+    <class final="false" abstract="false" namespace="global" line="11" package="Social Igniter\Controllers">
+      <extends>\Dashboard_Controller</extends>
+      <name>Users</name>
+      <full_name>\Users</full_name>
+      <docblock line="3">
+        <description><![CDATA[Users]]></description>
+        <long-description><![CDATA[<p>A Dashboard_controller for managing users</p>]]></long-description>
+        <tag line="3" name="package" description="Social Igniter\Controllers"/>
+        <tag line="3" name="see" description="\global\Dashboard_Controller" refers="\global\Dashboard_Controller"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="13" package="Social Igniter\Controllers">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="28" package="Social Igniter\Controllers">
+        <name>index</name>
+        <full_name>index</full_name>
+        <docblock line="23">
+          <description><![CDATA[Index]]></description>
+          <long-description><![CDATA[<p>Presents an interface for managing users</p>]]></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="73" package="Social Igniter\Controllers">
+        <name>editor</name>
+        <full_name>editor</full_name>
+        <docblock line="68">
+          <description><![CDATA[Create/Edit User]]></description>
+          <long-description><![CDATA[<p>Presents an interface for creating or editing users</p>]]></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="113" package="Social Igniter\Controllers">
+        <name>levels</name>
+        <full_name>levels</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file controllers/users.php</error>
+      <error line="13" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="113" code="50010">No DocBlock was found for method levels()</error>
+    </parse_markers>
+  </file>
   <package name="CodeIgniter" full_name="CodeIgniter">
     <package name="Libraries" full_name="CodeIgniter\Libraries"/>
   </package>
@@ -6265,6 +7340,8 @@ marking it as deleted internally.</p>]]></long-description>
     <package name="Webfinger" full_name="Pete Warden\Webfinger"/>
   </package>
   <package name="Social Igniter" full_name="Social Igniter">
+    <package name="API" full_name="Social Igniter\API"/>
+    <package name="Controllers" full_name="Social Igniter\Controllers"/>
     <package name="Libraries" full_name="Social Igniter\Libraries"/>
     <package name="Models" full_name="Social Igniter\Models"/>
   </package>

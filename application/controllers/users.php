@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Users
+ * 
+ * A Dashboard_controller for managing users
+ * 
+ * @package Social Igniter\Controllers
+ * @see Dashboard_Controller
+ */
 class Users extends Dashboard_Controller {
  
     function __construct() 
@@ -10,7 +19,12 @@ class Users extends Dashboard_Controller {
          
  	    $this->data['page_title'] = "Users";
     }
- 
+ 	
+ 	/**
+ 	 * Index
+ 	 * 
+ 	 * Presents an interface for managing users
+ 	 */
  	function index()
  	{   		
 		// Get Users
@@ -51,7 +65,11 @@ class Users extends Dashboard_Controller {
 	    $this->render('dashboard_wide');
  	}
  	
-  	// Create / Edit
+  	/**
+ 	 * Create/Edit User
+ 	 * 
+ 	 * Presents an interface for creating or editing users
+ 	 */
 	function editor() 
 	{
 		if (($this->uri->segment(2) == 'manage') && ($this->uri->segment(3)))

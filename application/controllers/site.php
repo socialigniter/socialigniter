@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Site
+ * 
+ * A Site_Controller for things like authentication pages
+ * 
+ * @package Social Igniter\Controllers
+ * @see Site_Controller
+ */
 class Site extends Site_Controller
 { 
     function __construct()

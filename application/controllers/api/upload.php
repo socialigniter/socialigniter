@@ -1,7 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/* 
- * Upload API : Core : Social-Igniter
- *
+/**
+ * Upload API
+ * @package Social Igniter\API
+ * @see https://social-igniter.com/api
  */
 class Upload extends Oauth_Controller
 {

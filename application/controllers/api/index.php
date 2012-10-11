@@ -1,8 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/*
- * API Sandbox : Social-Igniter
+/**
+ * API Sandbox
  *
  * Displays API calls for core and includes documentation from modules
+ * @package Social Igniter\API
+ * @see https://social-igniter.com/api
  */
 class Index extends MY_Controller 
 { 
