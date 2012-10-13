@@ -57,6 +57,8 @@ function item_title($title, $type)
 
 function item_linkify($text)
 {
+	$text = htmlentities($text);
+
 	// Links
 	$text = preg_replace('/(https?:\/\/\S+)/', '<a href="\1" target="_blank">\1</a>', $text);
 	
