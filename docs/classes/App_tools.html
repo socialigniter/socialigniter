@@ -1,0 +1,434 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Social Igniter » \App_tools</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Social Igniter</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/CodeIgniter.html"><i class="icon-folder-open"></i> CodeIgniter</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/Jonathon%20Hill.html"><i class="icon-folder-open"></i> Jonathon Hill</a></li>
+<li><a href="../packages/Patrick%20Popowicz.html"><i class="icon-folder-open"></i> Patrick Popowicz</a></li>
+<li><a href="../packages/Pete%20Warden.html"><i class="icon-folder-open"></i> Pete Warden</a></li>
+<li><a href="../packages/Social%20Igniter.html"><i class="icon-folder-open"></i> Social Igniter</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">526</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">79</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: "><span class="description">__construct()
+        </span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_create_app_configs" title="create_app_configs :: Create App Configs"><span class="description">Create App Configs</span><pre>create_app_configs()</pre></a></li>
+<li class="method public "><a href="#method_create_app_controllers" title="create_app_controllers :: Create App Controllers"><span class="description">Create App Controllers</span><pre>create_app_controllers()</pre></a></li>
+<li class="method public "><a href="#method_create_app_install" title="create_app_install :: Create App Install"><span class="description">Create App Install</span><pre>create_app_install()</pre></a></li>
+<li class="method public "><a href="#method_create_app_template" title="create_app_template :: Makes 'app-template' into a custom named App"><span class="description">Makes 'app-template' into a custom named App</span><pre>create_app_template()</pre></a></li>
+<li class="method public "><a href="#method_create_app_views" title="create_app_views :: Create App Views"><span class="description">Create App Views</span><pre>create_app_views()</pre></a></li>
+<li class="method public "><a href="#method_create_helper" title="create_helper :: Create Helper"><span class="description">Create Helper</span><pre>create_helper()</pre></a></li>
+<li class="method public "><a href="#method_create_libraries" title="create_libraries :: Create Libraries"><span class="description">Create Libraries</span><pre>create_libraries()</pre></a></li>
+<li class="method public "><a href="#method_create_model" title="create_model :: Create Model"><span class="description">Create Model</span><pre>create_model()</pre></a></li>
+<li class="method public "><a href="#method_create_widgets" title="create_widgets :: Create Widgets"><span class="description">Create Widgets</span><pre>create_widgets()</pre></a></li>
+<li class="method public "><a href="#method_replace_tags" title="replace_tags :: Replace Tags"><span class="description">Replace Tags</span><pre>replace_tags()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected "><a href="#property_app_class" title="$app_class :: "><span class="description">$app_class</span><pre>$app_class</pre></a></li>
+<li class="property protected "><a href="#property_app_name" title="$app_name :: "><span class="description">$app_name</span><pre>$app_name</pre></a></li>
+<li class="property protected "><a href="#property_app_url" title="$app_url :: "><span class="description">$app_url</span><pre>$app_url</pre></a></li>
+<li class="property protected "><a href="#property_ci" title="$ci :: "><span class="description">$ci</span><pre>$ci</pre></a></li>
+<li class="property protected "><a href="#property_install_path" title="$install_path :: "><span class="description">$install_path</span><pre>$install_path</pre></a></li>
+<li class="property protected "><a href="#property_template_path" title="$template_path :: "><span class="description">$template_path</span><pre>$template_path</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\App_tools"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/App_tools.html">App_tools</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">App Tools Library</p>
+<div class="details">
+<div class="long_description"><p>This class contains all the basic install functions for core and app installs</p></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/Social%20Igniter.Libraries.html">Social Igniter\Libraries</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="">Brennan Novak</a></td>
+</tr>
+<tr>
+<th>link</th>
+<td><a href="http://social-igniter.com">http://social-igniter.com</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>__construct()
+        </h2>
+<pre>__construct($config) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$config</h4></div>
+</div></div>
+</div>
+<a id="method_create_app_configs"></a><div class="element clickable method public method_create_app_configs" data-toggle="collapse" data-target=".method_create_app_configs .collapse">
+<h2>Create App Configs</h2>
+<pre>create_app_configs() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr>
+<tr>
+<th>todo</th>
+<td>document properly</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+<a id="method_create_app_controllers"></a><div class="element clickable method public method_create_app_controllers" data-toggle="collapse" data-target=".method_create_app_controllers .collapse">
+<h2>Create App Controllers</h2>
+<pre>create_app_controllers($api_database, $api_methods, $connections) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr>
+<tr>
+<th>todo</th>
+<td>document properly</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$api_database</h4></div>
+<div class="subelement argument"><h4>$api_methods</h4></div>
+<div class="subelement argument"><h4>$connections</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+<a id="method_create_app_install"></a><div class="element clickable method public method_create_app_install" data-toggle="collapse" data-target=".method_create_app_install .collapse">
+<h2>Create App Install</h2>
+<pre>create_app_install($connections, $database, $widgets) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr>
+<tr>
+<th>todo</th>
+<td>document properly</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$connections</h4></div>
+<div class="subelement argument"><h4>$database</h4></div>
+<div class="subelement argument"><h4>$widgets</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+<a id="method_create_app_template"></a><div class="element clickable method public method_create_app_template" data-toggle="collapse" data-target=".method_create_app_template .collapse">
+<h2>Makes 'app-template' into a custom named App</h2>
+<pre>create_app_template() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr>
+<tr>
+<th>todo</th>
+<td>document properly</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+<a id="method_create_app_views"></a><div class="element clickable method public method_create_app_views" data-toggle="collapse" data-target=".method_create_app_views .collapse">
+<h2>Create App Views</h2>
+<pre>create_app_views() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr>
+<tr>
+<th>todo</th>
+<td>document properly</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+<a id="method_create_helper"></a><div class="element clickable method public method_create_helper" data-toggle="collapse" data-target=".method_create_helper .collapse">
+<h2>Create Helper</h2>
+<pre>create_helper($helper) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr>
+<tr>
+<th>todo</th>
+<td>document properly</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$helper</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+<a id="method_create_libraries"></a><div class="element clickable method public method_create_libraries" data-toggle="collapse" data-target=".method_create_libraries .collapse">
+<h2>Create Libraries</h2>
+<pre>create_libraries($library, $oauth) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr>
+<tr>
+<th>todo</th>
+<td>document properly</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$library</h4></div>
+<div class="subelement argument"><h4>$oauth</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+<a id="method_create_model"></a><div class="element clickable method public method_create_model" data-toggle="collapse" data-target=".method_create_model .collapse">
+<h2>Create Model</h2>
+<pre>create_model($model) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr>
+<tr>
+<th>todo</th>
+<td>document properly</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$model</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+<a id="method_create_widgets"></a><div class="element clickable method public method_create_widgets" data-toggle="collapse" data-target=".method_create_widgets .collapse">
+<h2>Create Widgets</h2>
+<pre>create_widgets($widgets) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr>
+<tr>
+<th>todo</th>
+<td>document properly</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$widgets</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+<a id="method_replace_tags"></a><div class="element clickable method public method_replace_tags" data-toggle="collapse" data-target=".method_replace_tags .collapse">
+<h2>Replace Tags</h2>
+<pre>replace_tags(string $template, string $replace_tag, string $replace_value, bool $load_template) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Given a template, replaces tags of the form {TAG_NAME} with ivars and config items.</p>
+
+<h2>Stuff which gets replaced</h2>
+
+<ul>
+<li><code>{APP_NAME}</code> with $this -> app_name</li>
+<li><code>{APP_URL}</code> with $this -> app_url</li>
+<li><code>{APP_CLASS}</code> with $this -> app_class</li>
+<li><code>{SITE_NAME}</code> with config_item('site_title')</li>
+<li><code>{SITE_ADMIN}</code> with config_item('site_admin_email')</li>
+</ul>
+
+<p>A single custom tag and value can be specified in $replace_tag and _value.</p></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Allow more custom tag flexibility by using an assoc. array of custom tags</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$template</h4>
+<code>string</code><p>The path to the template to process OR the string of the template</p></div>
+<div class="subelement argument">
+<h4>$replace_tag</h4>
+<code>string</code><p>A single custom tagname (defaults to null)</p>
+</div>
+<div class="subelement argument">
+<h4>$replace_value</h4>
+<code>string</code><p>The value to replace instances of $replace_tag with</p>
+</div>
+<div class="subelement argument">
+<h4>$load_template</h4>
+<code>bool</code><p>Whether or not $template is a path to be loaded</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The data in $template with all tags substituted</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_app_class"> </a><div class="element clickable property protected property_app_class" data-toggle="collapse" data-target=".property_app_class .collapse">
+<h2>$app_class</h2>
+<pre>$app_class </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_app_name"> </a><div class="element clickable property protected property_app_name" data-toggle="collapse" data-target=".property_app_name .collapse">
+<h2>$app_name</h2>
+<pre>$app_name </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_app_url"> </a><div class="element clickable property protected property_app_url" data-toggle="collapse" data-target=".property_app_url .collapse">
+<h2>$app_url</h2>
+<pre>$app_url </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_ci"> </a><div class="element clickable property protected property_ci" data-toggle="collapse" data-target=".property_ci .collapse">
+<h2>$ci</h2>
+<pre>$ci </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_install_path"> </a><div class="element clickable property protected property_install_path" data-toggle="collapse" data-target=".property_install_path .collapse">
+<h2>$install_path</h2>
+<pre>$install_path </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_template_path"> </a><div class="element clickable property protected property_template_path" data-toggle="collapse" data-target=".property_template_path .collapse">
+<h2>$template_path</h2>
+<pre>$template_path </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
+            generated on 2012-10-13T22:54:05+01:00.<br></footer></div>
+</div>
+</body>
+</html>

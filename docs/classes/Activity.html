@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <meta charset="utf-8">
-<title>Social Igniter » \Relationships_model</title>
+<title>Social Igniter » \Activity</title>
 <meta name="author" content="Mike van Riel">
 <meta name="description" content="">
 <link href="../css/template.css" rel="stylesheet" media="all">
@@ -64,43 +64,37 @@
                     <ul>
 <li class="method public "><a href="#method___construct" title="__construct :: "><span class="description">__construct()
         </span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_add_relationship" title="add_relationship :: "><span class="description">add_relationship()
-        </span><pre>add_relationship()</pre></a></li>
-<li class="method public "><a href="#method_check_relationship_exists" title="check_relationship_exists :: "><span class="description">check_relationship_exists()
-        </span><pre>check_relationship_exists()</pre></a></li>
-<li class="method public "><a href="#method_delete_relationship" title="delete_relationship :: "><span class="description">delete_relationship()
-        </span><pre>delete_relationship()</pre></a></li>
-<li class="method public "><a href="#method_get_relationships_owner" title="get_relationships_owner :: "><span class="description">get_relationships_owner()
-        </span><pre>get_relationships_owner()</pre></a></li>
-<li class="method public "><a href="#method_get_relationships_user" title="get_relationships_user :: "><span class="description">get_relationships_user()
-        </span><pre>get_relationships_user()</pre></a></li>
-<li class="method public "><a href="#method_update_relationship" title="update_relationship :: "><span class="description">update_relationship()
-        </span><pre>update_relationship()</pre></a></li>
+<li class="method public "><a href="#method_create_authd_post" title="create_authd_post :: POST /api/activity/create"><span class="description">POST /api/activity/create</span><pre>create_authd_post()</pre></a></li>
+<li class="method public "><a href="#method_destroy_authd_get" title="destroy_authd_get :: DELETE /api/activity/destroy"><span class="description">DELETE /api/activity/destroy</span><pre>destroy_authd_get()</pre></a></li>
+<li class="method public "><a href="#method_recent_get" title="recent_get :: GET /api/activity/recent"><span class="description">GET /api/activity/recent</span><pre>recent_get()</pre></a></li>
+<li class="method public "><a href="#method_update_authd_get" title="update_authd_get :: "><span class="description">update_authd_get()
+        </span><pre>update_authd_get()</pre></a></li>
+<li class="method public "><a href="#method_view_get" title="view_get :: GET /api/activity/view"><span class="description">GET /api/activity/view</span><pre>view_get()</pre></a></li>
 </ul>
 </li></ul>
 </div>
 <div class="span8">
-<a id="\Relationships_model"></a><ul class="breadcrumb">
+<a id="\Activity"></a><ul class="breadcrumb">
 <li>
 <a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
 </li>
 <li><a href="../namespaces/global.html">global</a></li>
 <li class="active">
-<span class="divider">\</span><a href="../classes/Relationships_model.html">Relationships_model</a>
+<span class="divider">\</span><a href="../classes/Activity.html">Activity</a>
 </li>
 </ul>
 <div class="element class">
-<p class="short_description">Relationships Model</p>
+<p class="short_description">Activity API</p>
 <div class="details">
-<div class="long_description"><p>A model for managing relationships (hah, if only it was that easy ;)</p></div>
+<div class="long_description"></div>
 <table class="table table-bordered">
 <tr>
-<th>author</th>
-<td><a href="">Brennan Novak @brennannovak</a></td>
+<th>package</th>
+<td><a href="../packages/Social%20Igniter.API.html">Social Igniter\API</a></td>
 </tr>
 <tr>
-<th>package</th>
-<td><a href="../packages/Social%20Igniter.Models.html">Social Igniter\Models</a></td>
+<th>see</th>
+<td><a href="">\global\https://social-igniter.com/api</a></td>
 </tr>
 </table>
 <h3>
@@ -112,76 +106,37 @@
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="method_add_relationship"></a><div class="element clickable method public method_add_relationship" data-toggle="collapse" data-target=".method_add_relationship .collapse">
-<h2>add_relationship()
-        </h2>
-<pre>add_relationship($relationship_data) </pre>
+<a id="method_create_authd_post"></a><div class="element clickable method public method_create_authd_post" data-toggle="collapse" data-target=".method_create_authd_post .collapse">
+<h2>POST /api/activity/create</h2>
+<pre>create_authd_post() </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$relationship_data</h4></div>
-</div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"><p>Creates a new activity from the POSTed data. Requires authentication.</p></div></div></div>
 </div>
-<a id="method_check_relationship_exists"></a><div class="element clickable method public method_check_relationship_exists" data-toggle="collapse" data-target=".method_check_relationship_exists .collapse">
-<h2>check_relationship_exists()
-        </h2>
-<pre>check_relationship_exists($relationship_data) </pre>
+<a id="method_destroy_authd_get"></a><div class="element clickable method public method_destroy_authd_get" data-toggle="collapse" data-target=".method_destroy_authd_get .collapse">
+<h2>DELETE /api/activity/destroy</h2>
+<pre>destroy_authd_get() </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$relationship_data</h4></div>
-</div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"><p>Deletes an activity, specified by <code>/id/{activity_id}</code>. Requires auth (dur)</p></div></div></div>
 </div>
-<a id="method_delete_relationship"></a><div class="element clickable method public method_delete_relationship" data-toggle="collapse" data-target=".method_delete_relationship .collapse">
-<h2>delete_relationship()
-        </h2>
-<pre>delete_relationship($relationship_id) </pre>
+<a id="method_recent_get"></a><div class="element clickable method public method_recent_get" data-toggle="collapse" data-target=".method_recent_get .collapse">
+<h2>GET /api/activity/recent</h2>
+<pre>recent_get() </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$relationship_id</h4></div>
-</div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"><p>Displays the last 10 global public activities</p></div></div></div>
 </div>
-<a id="method_get_relationships_owner"></a><div class="element clickable method public method_get_relationships_owner" data-toggle="collapse" data-target=".method_get_relationships_owner .collapse">
-<h2>get_relationships_owner()
+<a id="method_update_authd_get"></a><div class="element clickable method public method_update_authd_get" data-toggle="collapse" data-target=".method_update_authd_get .collapse">
+<h2>update_authd_get()
         </h2>
-<pre>get_relationships_owner($owner_id, $module, $type) </pre>
+<pre>update_authd_get() </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$owner_id</h4></div>
-<div class="subelement argument"><h4>$module</h4></div>
-<div class="subelement argument"><h4>$type</h4></div>
-</div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
 </div>
-<a id="method_get_relationships_user"></a><div class="element clickable method public method_get_relationships_user" data-toggle="collapse" data-target=".method_get_relationships_user .collapse">
-<h2>get_relationships_user()
-        </h2>
-<pre>get_relationships_user($user_id, $module, $type) </pre>
+<a id="method_view_get"></a><div class="element clickable method public method_view_get" data-toggle="collapse" data-target=".method_view_get .collapse">
+<h2>GET /api/activity/view</h2>
+<pre>view_get() </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$user_id</h4></div>
-<div class="subelement argument"><h4>$module</h4></div>
-<div class="subelement argument"><h4>$type</h4></div>
-</div></div>
-</div>
-<a id="method_update_relationship"></a><div class="element clickable method public method_update_relationship" data-toggle="collapse" data-target=".method_update_relationship .collapse">
-<h2>update_relationship()
-        </h2>
-<pre>update_relationship($relationship_id, $relationship_data) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$relationship_id</h4></div>
-<div class="subelement argument"><h4>$relationship_data</h4></div>
-</div></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"><p>Find activities by <code>site_id</code>, <code>user_id</code>, <code>verb</code>, <code>module</code>, <code>type</code> or <code>content_id</code>, where all
+parameters are URI segments e.g. <code>GET /api/activity/view/user_id/1</code></p></div></div></div>
 </div>
 </div>
 </div>
