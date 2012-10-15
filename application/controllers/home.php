@@ -1,14 +1,4 @@
 <?php
-
-
-/**
- * Home
- * 
- * A Dashboard_controller for posting status updates
- * 
- * @package Social Igniter\Controllers
- * @see Dashboard_Controller
- */
 class Home extends Dashboard_Controller 
 {
     function __construct() 
