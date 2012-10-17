@@ -1,0 +1,530 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Social Igniter » \Content_model</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Social Igniter</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/CodeIgniter.html"><i class="icon-folder-open"></i> CodeIgniter</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/Jonathon%20Hill.html"><i class="icon-folder-open"></i> Jonathon Hill</a></li>
+<li><a href="../packages/Patrick%20Popowicz.html"><i class="icon-folder-open"></i> Patrick Popowicz</a></li>
+<li><a href="../packages/Pete%20Warden.html"><i class="icon-folder-open"></i> Pete Warden</a></li>
+<li><a href="../packages/Social%20Igniter.html"><i class="icon-folder-open"></i> Social Igniter</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">526</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">79</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list"><li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: "><span class="description">__construct()
+        </span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_add_content" title="add_content :: Add Content"><span class="description">Add Content</span><pre>add_content()</pre></a></li>
+<li class="method public "><a href="#method_add_meta" title="add_meta :: Add Metadata"><span class="description">Add Metadata</span><pre>add_meta()</pre></a></li>
+<li class="method public "><a href="#method_check_content_duplicate" title="check_content_duplicate :: Check Content Duplicate"><span class="description">Check Content Duplicate</span><pre>check_content_duplicate()</pre></a></li>
+<li class="method public "><a href="#method_check_content_multiple" title="check_content_multiple :: Check Content Multiple"><span class="description">Check Content Multiple</span><pre>check_content_multiple()</pre></a></li>
+<li class="method public "><a href="#method_delete_content" title="delete_content :: Delete Content"><span class="description">Delete Content</span><pre>delete_content()</pre></a></li>
+<li class="method public "><a href="#method_delete_meta" title="delete_meta :: Delete Metadata"><span class="description">Delete Metadata</span><pre>delete_meta()</pre></a></li>
+<li class="method public "><a href="#method_get_content" title="get_content :: Get Content"><span class="description">Get Content</span><pre>get_content()</pre></a></li>
+<li class="method public "><a href="#method_get_content_category_count" title="get_content_category_count :: Get Content Category Count"><span class="description">Get Content Category Count</span><pre>get_content_category_count()</pre></a></li>
+<li class="method public "><a href="#method_get_content_multiple" title="get_content_multiple :: Get Content Multiple"><span class="description">Get Content Multiple</span><pre>get_content_multiple()</pre></a></li>
+<li class="method public "><a href="#method_get_content_multiple_count" title="get_content_multiple_count :: Get Content Multiple Count"><span class="description">Get Content Multiple Count</span><pre>get_content_multiple_count()</pre></a></li>
+<li class="method public "><a href="#method_get_content_new_count" title="get_content_new_count :: Get Content New Count"><span class="description">Get Content New Count</span><pre>get_content_new_count()</pre></a></li>
+<li class="method public "><a href="#method_get_content_recent" title="get_content_recent :: Get Content Recent"><span class="description">Get Content Recent</span><pre>get_content_recent()</pre></a></li>
+<li class="method public "><a href="#method_get_content_title_url" title="get_content_title_url :: Get Content Title URL"><span class="description">Get Content Title URL</span><pre>get_content_title_url()</pre></a></li>
+<li class="method public "><a href="#method_get_content_user" title="get_content_user :: Get Content User"><span class="description">Get Content User</span><pre>get_content_user()</pre></a></li>
+<li class="method public "><a href="#method_get_content_view" title="get_content_view :: Get Content View"><span class="description">Get Content View</span><pre>get_content_view()</pre></a></li>
+<li class="method public "><a href="#method_get_content_view_multiple" title="get_content_view_multiple :: Get Content View Multiple"><span class="description">Get Content View Multiple</span><pre>get_content_view_multiple()</pre></a></li>
+<li class="method public "><a href="#method_get_meta" title="get_meta :: Get Metadata"><span class="description">Get Metadata</span><pre>get_meta()</pre></a></li>
+<li class="method public "><a href="#method_get_meta_content" title="get_meta_content :: Get Meta Content"><span class="description">Get Meta Content</span><pre>get_meta_content()</pre></a></li>
+<li class="method public "><a href="#method_get_meta_content_meta" title="get_meta_content_meta :: Get Meta Content Meta"><span class="description">Get Meta Content Meta</span><pre>get_meta_content_meta()</pre></a></li>
+<li class="method public "><a href="#method_get_meta_multiples" title="get_meta_multiples :: Get Meta Multiples"><span class="description">Get Meta Multiples</span><pre>get_meta_multiples()</pre></a></li>
+<li class="method public "><a href="#method_update_content" title="update_content :: Update Content"><span class="description">Update Content</span><pre>update_content()</pre></a></li>
+<li class="method public "><a href="#method_update_meta" title="update_meta :: Update Metadata"><span class="description">Update Metadata</span><pre>update_meta()</pre></a></li>
+</ul>
+</li></ul>
+</div>
+<div class="span8">
+<a id="\Content_model"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Content_model.html">Content_model</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Content Model</p>
+<div class="details">
+<div class="long_description"><p>A model for managing social-igniter Content</p></div>
+<table class="table table-bordered">
+<tr>
+<th>author</th>
+<td><a href="">Brennan Novak @brennannovak</a></td>
+</tr>
+<tr>
+<th>package</th>
+<td><a href="../packages/Social%20Igniter.Models.html">Social Igniter\Models</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>__construct()
+        </h2>
+<pre>__construct() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_add_content"></a><div class="element clickable method public method_add_content" data-toggle="collapse" data-target=".method_add_content .collapse">
+<h2>Add Content</h2>
+<pre>add_content(array $content_data) : int | false</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Refactor this to remove unnecessary duplication</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$content_data</h4>
+<code>array</code><p>An assoc. array of data to be inserted</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code><code>false</code>The ID of the inserted content or false</div>
+</div></div>
+</div>
+<a id="method_add_meta"></a><div class="element clickable method public method_add_meta" data-toggle="collapse" data-target=".method_add_meta .collapse">
+<h2>Add Metadata</h2>
+<pre>add_meta(array $meta_data) : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$meta_data</h4>
+<code>array</code><p>The data to be inserted</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The id of the inserted data</div>
+</div></div>
+</div>
+<a id="method_check_content_duplicate"></a><div class="element clickable method public method_check_content_duplicate" data-toggle="collapse" data-target=".method_check_content_duplicate .collapse">
+<h2>Check Content Duplicate</h2>
+<pre>check_content_duplicate(string $parameter, string $value, int $user_id) : array | null</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Performs a WHERE lookup on the content table for WHERE $parameter=$value</p>
+
+<p>If $user_id is supplied, also performs WHERE user_id=$user_id</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$parameter</h4>
+<code>string</code><p>The column name to check for</p></div>
+<div class="subelement argument">
+<h4>$value</h4>
+<code>string</code><p>The value to check for</p></div>
+<div class="subelement argument">
+<h4>$user_id</h4>
+<code>int</code><p>The user id to check for (optional)</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code><code>null</code>Content matching the parameters</div>
+</div></div>
+</div>
+<a id="method_check_content_multiple"></a><div class="element clickable method public method_check_content_multiple" data-toggle="collapse" data-target=".method_check_content_multiple .collapse">
+<h2>Check Content Multiple</h2>
+<pre>check_content_multiple(array $value_array, int $user_id) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$value_array</h4>
+<code>array</code><p>An assoc. array of column name => value to match</p>
+</div>
+<div class="subelement argument">
+<h4>$user_id</h4>
+<code>int</code><p>The id of a user to filter by (optional)</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>An array of matching rows</div>
+</div></div>
+</div>
+<a id="method_delete_content"></a><div class="element clickable method public method_delete_content" data-toggle="collapse" data-target=".method_delete_content .collapse">
+<h2>Delete Content</h2>
+<pre>delete_content(int $content_id) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$content_id</h4>
+<code>int</code><p>The id of the content to delete</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns True</div>
+</div></div>
+</div>
+<a id="method_delete_meta"></a><div class="element clickable method public method_delete_meta" data-toggle="collapse" data-target=".method_delete_meta .collapse">
+<h2>Delete Metadata</h2>
+<pre>delete_meta(int $content_meta_id) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$content_meta_id</h4>
+<code>int</code><p>The id of the metadata to delete</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+<a id="method_get_content"></a><div class="element clickable method public method_get_content" data-toggle="collapse" data-target=".method_get_content .collapse">
+<h2>Get Content</h2>
+<pre>get_content(int $content_id) : object</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$content_id</h4>
+<code>int</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>object</code>The content fetched</div>
+</div></div>
+</div>
+<a id="method_get_content_category_count"></a><div class="element clickable method public method_get_content_category_count" data-toggle="collapse" data-target=".method_get_content_category_count .collapse">
+<h2>Get Content Category Count</h2>
+<pre>get_content_category_count(int $category_id) : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$category_id</h4>
+<code>int</code><p>The category id to count content within</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The number of pieces of content within the given category</div>
+</div></div>
+</div>
+<a id="method_get_content_multiple"></a><div class="element clickable method public method_get_content_multiple" data-toggle="collapse" data-target=".method_get_content_multiple .collapse">
+<h2>Get Content Multiple</h2>
+<pre>get_content_multiple($parameter, $value_array) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document properly</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value_array</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>An array of content objects</div>
+</div></div>
+</div>
+<a id="method_get_content_multiple_count"></a><div class="element clickable method public method_get_content_multiple_count" data-toggle="collapse" data-target=".method_get_content_multiple_count .collapse">
+<h2>Get Content Multiple Count</h2>
+<pre>get_content_multiple_count(array $where) : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$where</h4>
+<code>array</code><p>An assoc CI where array to filter content by</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The number of pieces of content matching $where</div>
+</div></div>
+</div>
+<a id="method_get_content_new_count"></a><div class="element clickable method public method_get_content_new_count" data-toggle="collapse" data-target=".method_get_content_new_count .collapse">
+<h2>Get Content New Count</h2>
+<pre>get_content_new_count(string $module) : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Given a module name, returns the number of new pieces of content within that module</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$module</h4>
+<code>string</code><p>The module to get a count from</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>The number of new pieces of content for that module</div>
+</div></div>
+</div>
+<a id="method_get_content_recent"></a><div class="element clickable method public method_get_content_recent" data-toggle="collapse" data-target=".method_get_content_recent .collapse">
+<h2>Get Content Recent</h2>
+<pre>get_content_recent(int $site_id, string $type, int $limit) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$site_id</h4>
+<code>int</code><p>The id of a site to filter by</p></div>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code><p>The name of a content type or 'all'</p>
+</div>
+<div class="subelement argument">
+<h4>$limit</h4>
+<code>int</code><p>The maximum number of rows to fetch</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>An array of content objects</div>
+</div></div>
+</div>
+<a id="method_get_content_title_url"></a><div class="element clickable method public method_get_content_title_url" data-toggle="collapse" data-target=".method_get_content_title_url .collapse">
+<h2>Get Content Title URL</h2>
+<pre>get_content_title_url(string $type, string $title_url) : object | null</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Fetch a piece of content based on it’s title_url</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>string</code><p>The type of content to get</p></div>
+<div class="subelement argument">
+<h4>$title_url</h4>
+<code>string</code><p>The URL of the content to fetch</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>object</code><code>null</code>The fetched piece of content</div>
+</div></div>
+</div>
+<a id="method_get_content_user"></a><div class="element clickable method public method_get_content_user" data-toggle="collapse" data-target=".method_get_content_user .collapse">
+<h2>Get Content User</h2>
+<pre>get_content_user(int $content_id) : object</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Get content and user information about a piece of content</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$content_id</h4>
+<code>int</code><p>The content to get info about</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>object</code>A content+user object</div>
+</div></div>
+</div>
+<a id="method_get_content_view"></a><div class="element clickable method public method_get_content_view" data-toggle="collapse" data-target=".method_get_content_view .collapse">
+<h2>Get Content View</h2>
+<pre>get_content_view(string $parameter, string $value, string $status, int $limit) : array | false</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$parameter</h4>
+<code>string</code><p>A column name to match with $value</p>
+</div>
+<div class="subelement argument">
+<h4>$value</h4>
+<code>string</code><p>The valute to match</p></div>
+<div class="subelement argument">
+<h4>$status</h4>
+<code>string</code><p>Fetch content with this status</p></div>
+<div class="subelement argument">
+<h4>$limit</h4>
+<code>int</code><p>The maximim number of records to fetch</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code><code>false</code>An array of content objects or false</div>
+</div></div>
+</div>
+<a id="method_get_content_view_multiple"></a><div class="element clickable method public method_get_content_view_multiple" data-toggle="collapse" data-target=".method_get_content_view_multiple .collapse">
+<h2>Get Content View Multiple</h2>
+<pre>get_content_view_multiple(array $where, string $status, int $limit) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$where</h4>
+<code>array</code><p>An assoc. array of columnname => value to match</p>
+</div>
+<div class="subelement argument">
+<h4>$status</h4>
+<code>string</code><p>Limit returned content to this status</p></div>
+<div class="subelement argument">
+<h4>$limit</h4>
+<code>int</code><p>The maximim number of records to return</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>An array of content objects matching the criteria</div>
+</div></div>
+</div>
+<a id="method_get_meta"></a><div class="element clickable method public method_get_meta" data-toggle="collapse" data-target=".method_get_meta .collapse">
+<h2>Get Metadata</h2>
+<pre>get_meta(int $content_meta_id) : object</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$content_meta_id</h4>
+<code>int</code><p>The content meta ID to fetch</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>object</code>The fetched metadata</div>
+</div></div>
+</div>
+<a id="method_get_meta_content"></a><div class="element clickable method public method_get_meta_content" data-toggle="collapse" data-target=".method_get_meta_content .collapse">
+<h2>Get Meta Content</h2>
+<pre>get_meta_content(\id $content_id) : object</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$content_id</h4>
+<code>\id</code><p>The content_id to get metadata for</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>object</code>The fetched content metadata</div>
+</div></div>
+</div>
+<a id="method_get_meta_content_meta"></a><div class="element clickable method public method_get_meta_content_meta" data-toggle="collapse" data-target=".method_get_meta_content_meta .collapse">
+<h2>Get Meta Content Meta</h2>
+<pre>get_meta_content_meta($content_id, $meta) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document. These names are confusing</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_id</h4></div>
+<div class="subelement argument"><h4>$meta</h4></div>
+</div></div>
+</div>
+<a id="method_get_meta_multiples"></a><div class="element clickable method public method_get_meta_multiples" data-toggle="collapse" data-target=".method_get_meta_multiples .collapse">
+<h2>Get Meta Multiples</h2>
+<pre>get_meta_multiples($content_id_array) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Document properly. Confusing name.</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_id_array</h4></div>
+</div></div>
+</div>
+<a id="method_update_content"></a><div class="element clickable method public method_update_content" data-toggle="collapse" data-target=".method_update_content .collapse">
+<h2>Update Content</h2>
+<pre>update_content(array $content_data) : object</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$content_data</h4>
+<code>array</code><p>A column=>valuye assoc. array of data to update</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>object</code>The updated content</div>
+</div></div>
+</div>
+<a id="method_update_meta"></a><div class="element clickable method public method_update_meta" data-toggle="collapse" data-target=".method_update_meta .collapse">
+<h2>Update Metadata</h2>
+<pre>update_meta(int $content_meta_id, array $update_data) : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Make this return more meaningful data</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$content_meta_id</h4>
+<code>int</code><p>The id of the metadata to update</p></div>
+<div class="subelement argument">
+<h4>$update_data</h4>
+<code>array</code><p>An assoc. array of data to update (column => newval)</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>Always returns true</div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
+            generated on 2012-10-13T22:54:05+01:00.<br></footer></div>
+</div>
+</body>
+</html>

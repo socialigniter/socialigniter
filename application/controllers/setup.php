@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Setup
+ * 
+ * A controller for installing Social Igniter
+ * 
+ * @package Social Igniter\Controllers
+ * @see MX_Controller
+ * @see Install
+ */
 class Setup extends MX_Controller {
 
     function __construct() {

@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @package Social Igniter\API
+ * @see https://social-igniter.com/api
+ */
 class Install extends Oauth_Controller
 {
     function __construct() 

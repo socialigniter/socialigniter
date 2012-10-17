@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Social Igniter » \Unzip</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Social Igniter</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/CodeIgniter.html"><i class="icon-folder-open"></i> CodeIgniter</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/Jonathon%20Hill.html"><i class="icon-folder-open"></i> Jonathon Hill</a></li>
+<li><a href="../packages/Patrick%20Popowicz.html"><i class="icon-folder-open"></i> Patrick Popowicz</a></li>
+<li><a href="../packages/Pete%20Warden.html"><i class="icon-folder-open"></i> Pete Warden</a></li>
+<li><a href="../packages/Social%20Igniter.html"><i class="icon-folder-open"></i> Social Igniter</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">526</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">79</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method_debug_string" title="debug_string :: Show debug messages"><span class="description">Show debug messages</span><pre>debug_string()</pre></a></li>
+<li class="method public "><a href="#method_error_string" title="error_string :: Show error messages"><span class="description">Show error messages</span><pre>error_string()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="method private "><a href="#method__get_file_header" title="_get_file_header :: "><span class="description">_get_file_header()
+        </span><pre>_get_file_header()</pre></a></li>
+<li class="method private "><a href="#method__load_file_list_by_eof" title="_load_file_list_by_eof :: "><span class="description">_load_file_list_by_eof()
+        </span><pre>_load_file_list_by_eof()</pre></a></li>
+<li class="method private "><a href="#method__load_files_by_signatures" title="_load_files_by_signatures :: "><span class="description">_load_files_by_signatures()
+        </span><pre>_load_files_by_signatures()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="property private "><a href="#property__allow_extensions" title="$_allow_extensions :: "><span class="description">$_allow_extensions</span><pre>$_allow_extensions</pre></a></li>
+<li class="property private "><a href="#property__skip_dirs" title="$_skip_dirs :: "><span class="description">$_skip_dirs</span><pre>$_skip_dirs</pre></a></li>
+<li class="property private "><a href="#property__target_dir" title="$_target_dir :: "><span class="description">$_target_dir</span><pre>$_target_dir</pre></a></li>
+<li class="property private "><a href="#property__zip_file" title="$_zip_file :: "><span class="description">$_zip_file</span><pre>$_zip_file</pre></a></li>
+<li class="property private "><a href="#property_apply_chmod" title="$apply_chmod :: "><span class="description">$apply_chmod</span><pre>$apply_chmod</pre></a></li>
+<li class="property private "><a href="#property_central_dir_list" title="$central_dir_list :: "><span class="description">$central_dir_list</span><pre>$central_dir_list</pre></a></li>
+<li class="property private "><a href="#property_central_signature_end" title="$central_signature_end :: "><span class="description">$central_signature_end</span><pre>$central_signature_end</pre></a></li>
+<li class="property private "><a href="#property_compressed_list" title="$compressed_list :: "><span class="description">$compressed_list</span><pre>$compressed_list</pre></a></li>
+<li class="property private "><a href="#property_dir_signature" title="$dir_signature :: "><span class="description">$dir_signature</span><pre>$dir_signature</pre></a></li>
+<li class="property private "><a href="#property_end_of_central" title="$end_of_central :: "><span class="description">$end_of_central</span><pre>$end_of_central</pre></a></li>
+<li class="property private "><a href="#property_error" title="$error :: "><span class="description">$error</span><pre>$error</pre></a></li>
+<li class="property private "><a href="#property_fh" title="$fh :: "><span class="description">$fh</span><pre>$fh</pre></a></li>
+<li class="property private "><a href="#property_info" title="$info :: "><span class="description">$info</span><pre>$info</pre></a></li>
+<li class="property private "><a href="#property_zip_signature" title="$zip_signature :: "><span class="description">$zip_signature</span><pre>$zip_signature</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\Unzip"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Unzip.html">Unzip</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">UnZip Class</p>
+<div class="details">
+<div class="long_description"><p>This class is based on a library I found at PHPClasses:
+http://phpclasses.org/package/2495-PHP-Pack-and-unpack-files-packed-in-ZIP-archives.html</p>
+
+<p>The original library is a little rough around the edges so I
+refactored it and added several additional methods -- Phil Sturgeon</p>
+
+<p>This class requires extension ZLib Enabled.</p></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/CodeIgniter.Libraries.html">CodeIgniter</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Libraries</td>
+</tr>
+<tr>
+<th>category</th>
+<td>Encryption</td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="">Alexandre Tedeschi</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="">Phil Sturgeon</a></td>
+</tr>
+<tr>
+<th>link</th>
+<td><a href="http://bitbucket.org/philsturgeon/codeigniter-unzip">http://bitbucket.org/philsturgeon/codeigniter-unzip</a></td>
+</tr>
+<tr>
+<th>license</th>
+<td><a href=""></a></td>
+</tr>
+<tr>
+<th>version</th>
+<td>1.0.0</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_debug_string"></a><div class="element clickable method public method_debug_string" data-toggle="collapse" data-target=".method_debug_string .collapse">
+<h2>Show debug messages</h2>
+<pre>debug_string($open, $close) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$open</h4><p>string</p></div>
+<div class="subelement argument"><h4>$close</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_error_string"></a><div class="element clickable method public method_error_string" data-toggle="collapse" data-target=".method_error_string .collapse">
+<h2>Show error messages</h2>
+<pre>error_string($open, $close) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$open</h4><p>string</p></div>
+<div class="subelement argument"><h4>$close</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method__get_file_header"></a><div class="element clickable method private method__get_file_header" data-toggle="collapse" data-target=".method__get_file_header .collapse">
+<h2>_get_file_header()
+        </h2>
+<pre>_get_file_header($fh, $start_offset) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$fh</h4></div>
+<div class="subelement argument"><h4>$start_offset</h4></div>
+</div></div>
+</div>
+<a id="method__load_file_list_by_eof"></a><div class="element clickable method private method__load_file_list_by_eof" data-toggle="collapse" data-target=".method__load_file_list_by_eof .collapse">
+<h2>_load_file_list_by_eof()
+        </h2>
+<pre>_load_file_list_by_eof($fh, $stop_on_file) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$fh</h4></div>
+<div class="subelement argument"><h4>$stop_on_file</h4></div>
+</div></div>
+</div>
+<a id="method__load_files_by_signatures"></a><div class="element clickable method private method__load_files_by_signatures" data-toggle="collapse" data-target=".method__load_files_by_signatures .collapse">
+<h2>_load_files_by_signatures()
+        </h2>
+<pre>_load_files_by_signatures($fh, $stop_on_file) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$fh</h4></div>
+<div class="subelement argument"><h4>$stop_on_file</h4></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property__allow_extensions"> </a><div class="element clickable property private property__allow_extensions" data-toggle="collapse" data-target=".property__allow_extensions .collapse">
+<h2>$_allow_extensions</h2>
+<pre>$_allow_extensions </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__skip_dirs"> </a><div class="element clickable property private property__skip_dirs" data-toggle="collapse" data-target=".property__skip_dirs .collapse">
+<h2>$_skip_dirs</h2>
+<pre>$_skip_dirs </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__target_dir"> </a><div class="element clickable property private property__target_dir" data-toggle="collapse" data-target=".property__target_dir .collapse">
+<h2>$_target_dir</h2>
+<pre>$_target_dir </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__zip_file"> </a><div class="element clickable property private property__zip_file" data-toggle="collapse" data-target=".property__zip_file .collapse">
+<h2>$_zip_file</h2>
+<pre>$_zip_file </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_apply_chmod"> </a><div class="element clickable property private property_apply_chmod" data-toggle="collapse" data-target=".property_apply_chmod .collapse">
+<h2>$apply_chmod</h2>
+<pre>$apply_chmod </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_central_dir_list"> </a><div class="element clickable property private property_central_dir_list" data-toggle="collapse" data-target=".property_central_dir_list .collapse">
+<h2>$central_dir_list</h2>
+<pre>$central_dir_list </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_central_signature_end"> </a><div class="element clickable property private property_central_signature_end" data-toggle="collapse" data-target=".property_central_signature_end .collapse">
+<h2>$central_signature_end</h2>
+<pre>$central_signature_end </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_compressed_list"> </a><div class="element clickable property private property_compressed_list" data-toggle="collapse" data-target=".property_compressed_list .collapse">
+<h2>$compressed_list</h2>
+<pre>$compressed_list </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_dir_signature"> </a><div class="element clickable property private property_dir_signature" data-toggle="collapse" data-target=".property_dir_signature .collapse">
+<h2>$dir_signature</h2>
+<pre>$dir_signature </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_end_of_central"> </a><div class="element clickable property private property_end_of_central" data-toggle="collapse" data-target=".property_end_of_central .collapse">
+<h2>$end_of_central</h2>
+<pre>$end_of_central </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_error"> </a><div class="element clickable property private property_error" data-toggle="collapse" data-target=".property_error .collapse">
+<h2>$error</h2>
+<pre>$error </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_fh"> </a><div class="element clickable property private property_fh" data-toggle="collapse" data-target=".property_fh .collapse">
+<h2>$fh</h2>
+<pre>$fh </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_info"> </a><div class="element clickable property private property_info" data-toggle="collapse" data-target=".property_info .collapse">
+<h2>$info</h2>
+<pre>$info </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_zip_signature"> </a><div class="element clickable property private property_zip_signature" data-toggle="collapse" data-target=".property_zip_signature .collapse">
+<h2>$zip_signature</h2>
+<pre>$zip_signature </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
+            generated on 2012-10-13T22:54:05+01:00.<br></footer></div>
+</div>
+</body>
+</html>

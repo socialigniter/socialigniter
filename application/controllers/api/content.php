@@ -1,7 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/* 
- * Content API : Core : Social-Igniter
- *
+/**
+ * Content API
+ * @package Social Igniter\API
+ * @see https://social-igniter.com/api
  */
 class Content extends Oauth_Controller
 {

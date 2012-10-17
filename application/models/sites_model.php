@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Sites_model — model representing sites
+ * 
+ * @author Brennan Novak @brennannovak
+ * @package Social Igniter\Models
+ */
 class Sites_model extends CI_Model
 {    
 	function __construct()
@@ -37,7 +43,16 @@ class Sites_model extends CI_Model
 			return FALSE;
 		}		
  	}
-
+	
+	/**
+ 	 * Get Site View Row
+ 	 * 
+ 	 * Gets a record from the sites DB
+ 	 * 
+ 	 * @param string $parameter The column to search by
+ 	 * @param string $value The value column with name $parameter should be
+ 	 * @return array|bool An array representing the fetched row or false
+ 	 */
  	function get_site_view_row($parameter, $value)
  	{
      	if (in_array($parameter, array('site_id','url','module','type')))
@@ -56,6 +71,14 @@ class Sites_model extends CI_Model
 		}		
  	}
  	
+ 	/**
+ 	 * Add Site
+ 	 * 
+ 	 * Creates a new record in the sites DB table
+ 	 * 
+ 	 * @param array $site_data The data about the site to store
+ 	 * @return int|string The id of the inserted site
+ 	 */
  	function add_site($site_data)
  	{		
 		$insert = $this->db->insert('sites', $site_data);

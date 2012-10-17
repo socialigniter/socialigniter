@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Users
+ * 
+ * A Dashboard_controller for managing users
+ * 
+ * @package Social Igniter\Controllers
+ * @see Dashboard_Controller
+ */
 class Users extends Dashboard_Controller {
  
     function __construct() 
@@ -10,7 +19,12 @@ class Users extends Dashboard_Controller {
          
  	    $this->data['page_title'] = "Users";
     }
- 
+ 	
+ 	/**
+ 	 * Index
+ 	 * 
+ 	 * Presents an interface for managing users
+ 	 */
  	function index()
  	{   		
 		// Get Users
@@ -26,7 +40,7 @@ class Users extends Dashboard_Controller {
 		
 			$this->data['user_id'] 			= $user->user_id;
 			$this->data['name']				= $user->name;
-			$this->data['avatar']			= $this->social_igniter->profile_image($user->user_id, $user->image, $user->email);
+			$this->data['avatar']			= $this->social_igniter->profile_image($user->user_id, $user->image, $user->email, 'medium', 'dashboard_theme');
 			$this->data['profile']			= base_url().'profile/'.$user->username;
 			$this->data['created_on']		= format_datetime('SIMPLE_ABBR', $user->created_on);
 			$this->data['last_login']		= format_datetime('SIMPLE_TIME_ABBR', $user->last_login);
@@ -51,7 +65,11 @@ class Users extends Dashboard_Controller {
 	    $this->render('dashboard_wide');
  	}
  	
-  	// Create / Edit
+  	/**
+ 	 * Create/Edit User
+ 	 * 
+ 	 * Presents an interface for creating or editing users
+ 	 */
 	function editor() 
 	{
 		if (($this->uri->segment(2) == 'manage') && ($this->uri->segment(3)))

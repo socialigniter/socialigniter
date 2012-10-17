@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Apps
+ * 
+ * A Dashboard_controller for managing apps
+ * 
+ * @package Social Igniter\Controllers
+ * @see Dashboard_Controller
+ */
 class Apps extends Dashboard_Controller
 { 
     function __construct() 

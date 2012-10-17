@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Social Igniter » \Site</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Social Igniter</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/CodeIgniter.html"><i class="icon-folder-open"></i> CodeIgniter</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/Jonathon%20Hill.html"><i class="icon-folder-open"></i> Jonathon Hill</a></li>
+<li><a href="../packages/Patrick%20Popowicz.html"><i class="icon-folder-open"></i> Patrick Popowicz</a></li>
+<li><a href="../packages/Pete%20Warden.html"><i class="icon-folder-open"></i> Pete Warden</a></li>
+<li><a href="../packages/Social%20Igniter.html"><i class="icon-folder-open"></i> Social Igniter</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">526</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">79</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list"><li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: "><span class="description">__construct()
+        </span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_activate" title="activate :: "><span class="description">activate()
+        </span><pre>activate()</pre></a></li>
+<li class="method public "><a href="#method_activation" title="activation :: "><span class="description">activation()
+        </span><pre>activation()</pre></a></li>
+<li class="method public "><a href="#method_error_404" title="error_404 :: "><span class="description">error_404()
+        </span><pre>error_404()</pre></a></li>
+<li class="method public "><a href="#method_forgot_password" title="forgot_password :: "><span class="description">forgot_password()
+        </span><pre>forgot_password()</pre></a></li>
+<li class="method public "><a href="#method_index" title="index :: "><span class="description">index()
+        </span><pre>index()</pre></a></li>
+<li class="method public "><a href="#method_login" title="login :: "><span class="description">login()
+        </span><pre>login()</pre></a></li>
+<li class="method public "><a href="#method_logout" title="logout :: "><span class="description">logout()
+        </span><pre>logout()</pre></a></li>
+<li class="method public inherited"><a href="#method_render" title="render :: render() – Renders a view to the output"><span class="description">render() – Renders a view to the output</span><pre>render()</pre></a></li>
+<li class="method public inherited"><a href="#method_render_custom_layout" title="render_custom_layout :: "><span class="description">render_custom_layout()
+        </span><pre>render_custom_layout()</pre></a></li>
+<li class="method public inherited"><a href="#method_render_widgets" title="render_widgets :: "><span class="description">render_widgets()
+        </span><pre>render_widgets()</pre></a></li>
+<li class="method public "><a href="#method_reset_password" title="reset_password :: "><span class="description">reset_password()
+        </span><pre>reset_password()</pre></a></li>
+<li class="method public "><a href="#method_signup" title="signup :: "><span class="description">signup()
+        </span><pre>signup()</pre></a></li>
+<li class="method public "><a href="#method_signup_social" title="signup_social :: "><span class="description">signup_social()
+        </span><pre>signup_social()</pre></a></li>
+</ul>
+</li></ul>
+</div>
+<div class="span8">
+<a id="\Site"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Site.html">Site</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Site</p>
+<div class="details">
+<div class="long_description"><p>A Site_Controller for things like authentication pages</p></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/Social%20Igniter.Controllers.html">Social Igniter\Controllers</a></td>
+</tr>
+<tr>
+<th>see</th>
+<td><a href="">\global\Site_Controller</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="">Brennan Novak &lt;contact@social-igniter.com&gt; @brennannovak</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>__construct()
+        </h2>
+<pre>__construct() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_activate"></a><div class="element clickable method public method_activate" data-toggle="collapse" data-target=".method_activate .collapse">
+<h2>activate()
+        </h2>
+<pre>activate() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_activation"></a><div class="element clickable method public method_activation" data-toggle="collapse" data-target=".method_activation .collapse">
+<h2>activation()
+        </h2>
+<pre>activation() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_error_404"></a><div class="element clickable method public method_error_404" data-toggle="collapse" data-target=".method_error_404 .collapse">
+<h2>error_404()
+        </h2>
+<pre>error_404() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_forgot_password"></a><div class="element clickable method public method_forgot_password" data-toggle="collapse" data-target=".method_forgot_password .collapse">
+<h2>forgot_password()
+        </h2>
+<pre>forgot_password() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_index"></a><div class="element clickable method public method_index" data-toggle="collapse" data-target=".method_index .collapse">
+<h2>index()
+        </h2>
+<pre>index() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_login"></a><div class="element clickable method public method_login" data-toggle="collapse" data-target=".method_login .collapse">
+<h2>login()
+        </h2>
+<pre>login() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_logout"></a><div class="element clickable method public method_logout" data-toggle="collapse" data-target=".method_logout .collapse">
+<h2>logout()
+        </h2>
+<pre>logout() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_render"></a><div class="element clickable method public method_render" data-toggle="collapse" data-target=".method_render .collapse">
+<h2>render() – Renders a view to the output</h2>
+<pre>render(string $layout, string $content) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Site_Controller::render()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$layout</h4>
+<code>string</code><p>The layout to render</p></div>
+<div class="subelement argument">
+<h4>$content</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a id="method_render_custom_layout"></a><div class="element clickable method public method_render_custom_layout" data-toggle="collapse" data-target=".method_render_custom_layout .collapse">
+<h2>render_custom_layout()
+        </h2>
+<pre>render_custom_layout($layout) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Site_Controller::render_custom_layout()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$layout</h4></div>
+</div></div>
+</div>
+<a id="method_render_widgets"></a><div class="element clickable method public method_render_widgets" data-toggle="collapse" data-target=".method_render_widgets .collapse">
+<h2>render_widgets()
+        </h2>
+<pre>render_widgets($region, $layout) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Site_Controller::render_widgets()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$region</h4></div>
+<div class="subelement argument"><h4>$layout</h4></div>
+</div></div>
+</div>
+<a id="method_reset_password"></a><div class="element clickable method public method_reset_password" data-toggle="collapse" data-target=".method_reset_password .collapse">
+<h2>reset_password()
+        </h2>
+<pre>reset_password() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_signup"></a><div class="element clickable method public method_signup" data-toggle="collapse" data-target=".method_signup .collapse">
+<h2>signup()
+        </h2>
+<pre>signup() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_signup_social"></a><div class="element clickable method public method_signup_social" data-toggle="collapse" data-target=".method_signup_social .collapse">
+<h2>signup_social()
+        </h2>
+<pre>signup_social() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
+            generated on 2012-10-13T22:54:06+01:00.<br></footer></div>
+</div>
+</body>
+</html>

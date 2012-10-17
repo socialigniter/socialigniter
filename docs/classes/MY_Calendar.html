@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Social Igniter » \MY_Calendar</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Social Igniter</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/CodeIgniter.html"><i class="icon-folder-open"></i> CodeIgniter</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/Jonathon%20Hill.html"><i class="icon-folder-open"></i> Jonathon Hill</a></li>
+<li><a href="../packages/Patrick%20Popowicz.html"><i class="icon-folder-open"></i> Patrick Popowicz</a></li>
+<li><a href="../packages/Pete%20Warden.html"><i class="icon-folder-open"></i> Pete Warden</a></li>
+<li><a href="../packages/Social%20Igniter.html"><i class="icon-folder-open"></i> Social Igniter</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">526</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">79</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul><li class="method public "><a href="#method_generate_events" title="generate_events :: Generate the calendar"><span class="description">Generate the calendar</span><pre>generate_events()</pre></a></li></ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul>
+<li class="property public "><a href="#property_CI" title="$CI :: "><span class="description">$CI</span><pre>$CI</pre></a></li>
+<li class="property public "><a href="#property_day_type" title="$day_type :: "><span class="description">$day_type</span><pre>$day_type</pre></a></li>
+<li class="property public "><a href="#property_lang" title="$lang :: "><span class="description">$lang</span><pre>$lang</pre></a></li>
+<li class="property public "><a href="#property_local_time" title="$local_time :: "><span class="description">$local_time</span><pre>$local_time</pre></a></li>
+<li class="property public "><a href="#property_month_type" title="$month_type :: "><span class="description">$month_type</span><pre>$month_type</pre></a></li>
+<li class="property public "><a href="#property_next_prev_url" title="$next_prev_url :: "><span class="description">$next_prev_url</span><pre>$next_prev_url</pre></a></li>
+<li class="property public "><a href="#property_show_next_prev" title="$show_next_prev :: "><span class="description">$show_next_prev</span><pre>$show_next_prev</pre></a></li>
+<li class="property public "><a href="#property_start_day" title="$start_day :: "><span class="description">$start_day</span><pre>$start_day</pre></a></li>
+<li class="property public "><a href="#property_template" title="$template :: "><span class="description">$template</span><pre>$template</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\MY_Calendar"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/MY_Calendar.html">MY_Calendar</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">CodeIgniter Calendar Class</p>
+<div class="details">
+<div class="long_description"><p>This class enables the creation of calendars</p></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/CodeIgniter.Libraries.html">CodeIgniter\Libraries</a></td>
+</tr>
+<tr>
+<th>category</th>
+<td>Libraries</td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="">ExpressionEngine Dev Team</a></td>
+</tr>
+<tr>
+<th>link</th>
+<td><a href="http://codeigniter.com/user_guide/libraries/calendar.html">http://codeigniter.com/user_guide/libraries/calendar.html</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_generate_events"></a><div class="element clickable method public method_generate_events" data-toggle="collapse" data-target=".method_generate_events .collapse">
+<h2>Generate the calendar</h2>
+<pre>generate_events(integer $year, integer $month, array $data) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$year</h4>
+<code>integer</code><p>the year</p></div>
+<div class="subelement argument">
+<h4>$month</h4>
+<code>integer</code><p>the month</p></div>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>array</code><p>the data to be shown in the calendar cells</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_CI"> </a><div class="element clickable property public property_CI" data-toggle="collapse" data-target=".property_CI .collapse">
+<h2>$CI</h2>
+<pre>$CI </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_day_type"> </a><div class="element clickable property public property_day_type" data-toggle="collapse" data-target=".property_day_type .collapse">
+<h2>$day_type</h2>
+<pre>$day_type </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_lang"> </a><div class="element clickable property public property_lang" data-toggle="collapse" data-target=".property_lang .collapse">
+<h2>$lang</h2>
+<pre>$lang </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_local_time"> </a><div class="element clickable property public property_local_time" data-toggle="collapse" data-target=".property_local_time .collapse">
+<h2>$local_time</h2>
+<pre>$local_time </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_month_type"> </a><div class="element clickable property public property_month_type" data-toggle="collapse" data-target=".property_month_type .collapse">
+<h2>$month_type</h2>
+<pre>$month_type </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_next_prev_url"> </a><div class="element clickable property public property_next_prev_url" data-toggle="collapse" data-target=".property_next_prev_url .collapse">
+<h2>$next_prev_url</h2>
+<pre>$next_prev_url </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_show_next_prev"> </a><div class="element clickable property public property_show_next_prev" data-toggle="collapse" data-target=".property_show_next_prev .collapse">
+<h2>$show_next_prev</h2>
+<pre>$show_next_prev </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_start_day"> </a><div class="element clickable property public property_start_day" data-toggle="collapse" data-target=".property_start_day .collapse">
+<h2>$start_day</h2>
+<pre>$start_day </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_template"> </a><div class="element clickable property public property_template" data-toggle="collapse" data-target=".property_template .collapse">
+<h2>$template</h2>
+<pre>$template </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
+            generated on 2012-10-13T22:54:05+01:00.<br></footer></div>
+</div>
+</body>
+</html>

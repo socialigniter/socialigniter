@@ -1,5 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * @todo Document
+ */
 class MY_Cart extends CI_Cart {
     
     function update_options($items = array())

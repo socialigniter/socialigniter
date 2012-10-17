@@ -1,22 +1,18 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
-* Name:		Site_Controller Library
-* 
-* Author:	Brennan Novak
-* 		  	contact@social-igniter.com
-*         	@brennannovak
-* 
-* Location: http://github.com/socialigniter
-* 
-* Description: Library that is extended by all Site or Public facing Controllers
-*/
+/**
+ * Site_Controller Library
+ * 
+ * Library that is extended by all Site or Public facing Controllers
+ *
+ * @author Brennan Novak <contact@social-igniter.com> @brennannovak
+ * @package Social Igniter\Libraries
+ */
 class Site_Controller extends MY_Controller
 {
     function __construct()
     {
         parent::__construct(); 
         
-
 		// Dashboard & Public values for logged
 		if ($this->social_auth->logged_in())
 		{
@@ -32,6 +28,8 @@ class Site_Controller extends MY_Controller
 			$this->data['logged_user_level_id']	= $this->session->userdata('user_level_id');
 			$this->data['logged_username']		= $this->session->userdata('username');
 			$this->data['logged_name']			= $this->session->userdata('name');
+			$this->data['logged_email']			= $this->session->userdata('email');
+			$this->data['logged_phone_number']	= $this->session->userdata('phone_number');			
 			$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('gravatar'), 'medium');
 			$this->data['logged_profile']		= base_url().'people/'.$this->session->userdata('username');
 			$this->data['logged_location']		= $this->session->userdata('location');
@@ -60,6 +58,8 @@ class Site_Controller extends MY_Controller
 			$this->data['logged_image'] 		= base_url().'application/views/'.config_item('site_theme').'/assets/images/medium_'.config_item('no_profile');
 			$this->data['logged_profile']		= base_url().'people';
 			$this->data['logged_name']			= 'Your Name';
+			$this->data['logged_email']			= '';
+			$this->data['logged_phone_number']	= '';			
 			$this->data['logged_location']		= '';
 			$this->data['logged_geo_enabled']	= '';
 			$this->data['logged_privacy']		= '';
@@ -156,7 +156,12 @@ class Site_Controller extends MY_Controller
 		}
     }
 
-	// Renders Layout
+	/**
+	 * render() – Renders a view to the output
+	 * 
+	 * @param string $layout The layout to render
+	 * @param string $content
+	 */
     function render($layout=NULL, $content=NULL)
     {
     	// Default Layout

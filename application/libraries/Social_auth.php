@@ -1,15 +1,15 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-/*
-* Name:  	Social Auth Library
-* 
-* Author:  	Brennan Novak severely hacked Ben Edmunds 'Ion Auth' which was based on Redux Auth 2 Phil Sturgeon also added some awesomeness
-* 		   	contact@social-igniter.com
-*			@socialigniter
-*
-* Location: http://github.com/socialigniter/socialigniter
-*/
+
 require_once(APPPATH.'libraries/Oauth/OauthRequestVerifier.php');
 
+/**
+ * Social Auth Library
+ * 
+ * A severely hacked version of Ben Edmunds 'Ion Auth' which was based on Redux Auth 2. Phil Sturgeon also added some awesomeness
+ * 
+ * @author Brennan Novak <contact@social-igniter.com>
+ * @package Social Igniter\Libraries
+ */
 class Social_auth
 {
 	protected $ci;
@@ -72,11 +72,18 @@ class Social_auth
         }
     }
     
-    // creates a consumer for the user. if creating, returns the consumer
-    // with additional keys: consumer_key, consumer_secret.
-    // possible keys for consumer are: requester_name, requester_email,
-    // callback_uri, application_uri, application_title, application_descr
-    // application_notes, application_commercial 
+    /**
+     * Create a consumer key for the user
+     * 
+     * creates a consumer for the user. if creating, returns the consumer
+     * with additional keys: consumer_key, consumer_secret.
+     * possible keys for consumer are: requester_name, requester_email,
+     * callback_uri, application_uri, application_title, application_descr
+     * application_notes, application_commercial
+     * 
+     * @param $consumer
+     * @param $user_id
+     */
     function create_or_update_consumer($consumer, $user_id)
     {
         $store = OAuthStore::instance();
@@ -85,8 +92,14 @@ class Social_auth
         return $consumer;
     }
     
-    // returns an array with keys 'token' and 'token_secret' which can be used
-    // to sign requests.
+    /**
+     * Grant access token to consumer
+     *
+     * @param $consumer_key
+     * @parma $user_id
+     * 
+     * @return array An array with keys 'token' and 'token_secret' which can be used to sign requests.
+     */
     function grant_access_token_to_consumer($consumer_key, $user_id)
     {
     	$store = OAuthStore::instance();
@@ -96,7 +109,9 @@ class Social_auth
         return $token_and_secret;
     }
 
-	/* Create / Modify Permissions */
+	/**
+	 * Create/Modify Permissions
+	 */
 	function has_access_to_create($permission, $user_id, $user_level_id=NULL)
 	{
 		// Get User
@@ -115,11 +130,18 @@ class Social_auth
 		return 'N';
 	}
 
-	// Checks if user has access to do task
-	// $type 			required string
-	// $object			required object of content, activity, or anything
-	// $user_id 		required integer
-	// $user_level_id	not required
+	/**
+	 * User Has Access to Modify
+	 * 
+	 * Checks if user has access to do task
+	 * 
+	 * @param string $type			The type of the object, e.g. 'comment'
+	 * @param object $object 		Object of content, activity, or anything
+	 * @param int $user_id 			The id of the user to test
+	 * @param int $user_level_id	The id of the level of the user
+	 * 
+	 * @return bool Whether or not user with $user_id can modify $object
+	 */
 	function has_access_to_modify($type, $object, $user_id, $user_level_id=NULL)
 	{
 		// Types of objects
@@ -180,7 +202,9 @@ class Social_auth
 	}	 
 	
 	
-	/* Normal Authentication */	
+	/**
+	 * Normal Authentication
+	 */	
 	function activate($id, $code=false)
 	{
 		if ($this->ci->auth_model->activate($id, $code))
@@ -569,9 +593,11 @@ class Social_auth
 		$this->ci->session->set_userdata('user_connections', $this->get_connections_user($user_id));
 	}
 
-	/* Crazy function that allows extra where field to be used for user fetching/unique checking etc.
+	/**
+	 * Crazy function that allows extra where field to be used for user fetching/unique checking etc.
 	 * Basically this allows users to be unique based on one other thing than the identifier which is helpful
 	 * for sites using multiple domains on a single database.
+	 *
 	 * @return void
 	 * @author Phil Sturgeon
 	 */

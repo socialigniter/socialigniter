@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Site
+ * 
+ * A Site_Controller for things like authentication pages
+ * 
+ * @package Social Igniter\Controllers
+ * @see Site_Controller
+ */
 class Site extends Site_Controller
 { 
     function __construct()
@@ -150,7 +159,15 @@ class Site extends Site_Controller
 				if ($this->email->send())
 				{
 					$this->session->set_flashdata('message', 'An email has been sent with your new password, check your inbox.');
-		            redirect("login");
+		            
+		            if (config_item('email_activation_redirect'))
+		            {
+			            redirect(config_item('email_activation_redirect'));
+			        }
+			        else
+			        {
+				    	redirect('login');    
+			        }
 				}
 				else
 				{

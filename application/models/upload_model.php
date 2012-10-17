@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Upload Model
+ * 
+ * A model for managing uploaded files
+ * 
+ * @author Brennan Novak @brennannovak
+ * @package Social Igniter\Models
+ */
 class Upload_model extends CI_Model {
     
     function __construct()

@@ -1,15 +1,14 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
-App Tools Library
-
-@package		Social Igniter
-@subpackage		App Tools Library
-@author			Brennan Novak
-@link			http://social-igniter.com
-
-This class contains all the basic install functions for core and app installs
-*/
- 
+ * App Tools Library
+ * 
+ * This class contains all the basic install functions for core and app installs
+ * 
+ * @package	Social Igniter\Libraries
+ * @author	Brennan Novak
+ * @link	http://social-igniter.com
+ */
 class App_tools
 {
 	protected $ci;
@@ -35,6 +34,28 @@ class App_tools
 		$this->app_class  		= $config['app_class'];
 	}
 	
+	/**
+	 * Replace Tags
+	 * 
+	 * Given a template, replaces tags of the form {TAG_NAME} with ivars and config items.
+	 * 
+	 * ## Stuff which gets replaced
+	 * 
+	 * * `{APP_NAME}` with $this -> app_name
+	 * * `{APP_URL}` with $this -> app_url
+	 * * `{APP_CLASS}` with $this -> app_class
+	 * * `{SITE_NAME}` with config_item('site_title')
+	 * * `{SITE_ADMIN}` with config_item('site_admin_email')
+	 * 
+	 * A single custom tag and value can be specified in $replace_tag and _value.
+	 * 
+	 * @param string $template The path to the template to process OR the string of the template
+	 * @param string $replace_tag A single custom tagname (defaults to null)
+	 * @param string $replace_value The value to replace instances of $replace_tag with
+	 * @param bool $load_template Whether or not $template is a path to be loaded
+	 * @return string The data in $template with all tags substituted
+	 * @todo Allow more custom tag flexibility by using an assoc. array of custom tags
+	 */
 	function replace_tags($template, $replace_tag=NULL, $replace_value=NULL, $load_template=TRUE)
 	{
 		if ($load_template)
@@ -55,7 +76,12 @@ class App_tools
 		return $template_data;
 	}
 
-	// Makes 'app-template' into a custom named App
+	/**
+	 * Makes 'app-template' into a custom named App
+	 * @return bool Always returns true
+	 * @todo Make this return more meaningful data
+	 * @todo document properly
+	 */
 	function create_app_template()
 	{
 		// Install Path
@@ -79,6 +105,12 @@ class App_tools
 		return TRUE;
 	}
 	
+	/**
+	 * Create App Configs
+	 * @return bool Always returns true
+	 * @todo Make this return more meaningful data
+	 * @todo document properly
+	 */
 	function create_app_configs()
 	{
 		// Install Path
@@ -100,7 +132,13 @@ class App_tools
 
 		return TRUE;
 	}
-
+	
+	/**
+	 * Create App Install
+	 * @return bool Always returns true
+	 * @todo Make this return more meaningful data
+	 * @todo document properly
+	 */
 	function create_app_install($connections, $database, $widgets)
 	{
 		$install_template	= $this->template_path.'config/install.php';
@@ -140,7 +178,13 @@ class App_tools
 
 		return TRUE;		
 	}
-
+	
+	/**
+	 * Create App Controllers
+	 * @return bool Always returns true
+	 * @todo Make this return more meaningful data
+	 * @todo document properly
+	 */
 	function create_app_controllers($api_database, $api_methods, $connections)
 	{
 		// Main Controller
@@ -184,7 +228,13 @@ class App_tools
 
 		return TRUE;
 	}
-
+	
+	/**
+	 * Create App Views
+	 * @return bool Always returns true
+	 * @todo Make this return more meaningful data
+	 * @todo document properly
+	 */
 	function create_app_views()
 	{
 		// Install Path
@@ -213,6 +263,12 @@ class App_tools
 		return TRUE;
 	}
 	
+	/**
+	 * Create Helper
+	 * @return bool Always returns true
+	 * @todo Make this return more meaningful data
+	 * @todo document properly
+	 */
 	function create_helper($helper)
 	{
 		make_folder($this->install_path.'helpers/');
@@ -224,7 +280,13 @@ class App_tools
 
 		return TRUE;
 	}
-
+	
+	/**
+	 * Create Libraries
+	 * @return bool Always returns true
+	 * @todo Make this return more meaningful data
+	 * @todo document properly
+	 */
 	function create_libraries($library, $oauth)
 	{
 		make_folder($this->install_path.'libraries/');
@@ -247,7 +309,13 @@ class App_tools
 
 		return TRUE;
 	}
-
+	
+	/**
+	 * Create Model
+	 * @return bool Always returns true
+	 * @todo Make this return more meaningful data
+	 * @todo document properly
+	 */
 	function create_model($model)
 	{
 		if ($model == 'TRUE')
@@ -261,7 +329,13 @@ class App_tools
 
 		return TRUE;
 	}
-
+	
+	/**
+	 * Create Widgets
+	 * @return bool Always returns true
+	 * @todo Make this return more meaningful data
+	 * @todo document properly
+	 */
 	function create_widgets($widgets)
 	{
 		if ($widgets == 'TRUE')
@@ -282,3 +356,5 @@ class App_tools
 	}
 
 }
+
+// EOF App_tools.php

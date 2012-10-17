@@ -1,4 +1,4 @@
-<pre><?php print_r($this->session->get_userdata('email')); ?></pre>
+<pre><?php print_r($this->session->userdata('email')); ?></pre>
 
 <h2>Login</h2>
 <form method="post" name="user_login" id="user_login">

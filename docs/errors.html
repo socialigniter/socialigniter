@@ -1,0 +1,3355 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Social Igniter</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="css/template.css" rel="stylesheet" media="all">
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="js/bootstrap.js" type="text/javascript"></script><script src="js/template.js" type="text/javascript"></script><script src="js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="img/favicon.ico">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="index.html">Social Igniter</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="packages/CodeIgniter.html"><i class="icon-folder-open"></i> CodeIgniter</a></li>
+<li><a href="packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="packages/Jonathon%20Hill.html"><i class="icon-folder-open"></i> Jonathon Hill</a></li>
+<li><a href="packages/Patrick%20Popowicz.html"><i class="icon-folder-open"></i> Patrick Popowicz</a></li>
+<li><a href="packages/Pete%20Warden.html"><i class="icon-folder-open"></i> Pete Warden</a></li>
+<li><a href="packages/Social%20Igniter.html"><i class="icon-folder-open"></i> Social Igniter</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">526</span></a></li>
+<li><a href="markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">79</span>
+</li></ul></a></li>
+<li><a href="deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4"><ul class="side-nav nav nav-list">
+<li class="nav-header">Filter type</li>
+<li><div class="btn-group type-filter" data-toggle="buttons-checkbox">
+<button class="btn critical">Critical</button><button class="btn error">Error</button><button class="btn notice">Notice</button>
+</div></li>
+<li class="nav-header">Navigation</li>
+<li><a href="#libraries/Site_Controller.php"><i class="icon-file"></i>libraries/Site_Controller.php</a></li>
+<li><a href="#libraries/Social_auth.php"><i class="icon-file"></i>libraries/Social_auth.php</a></li>
+<li><a href="#libraries/Social_igniter.php"><i class="icon-file"></i>libraries/Social_igniter.php</a></li>
+<li><a href="#libraries/Webfinger.php"><i class="icon-file"></i>libraries/Webfinger.php</a></li>
+<li><a href="#libraries/Unzip.php"><i class="icon-file"></i>libraries/Unzip.php</a></li>
+<li><a href="#libraries/MY_Form_validation.php"><i class="icon-file"></i>libraries/MY_Form_validation.php</a></li>
+<li><a href="#libraries/MY_Cart.php"><i class="icon-file"></i>libraries/MY_Cart.php</a></li>
+<li><a href="#libraries/MY_Calendar.php"><i class="icon-file"></i>libraries/MY_Calendar.php</a></li>
+<li><a href="#libraries/Installer.php"><i class="icon-file"></i>libraries/Installer.php</a></li>
+<li><a href="#libraries/Dashboard_Controller.php"><i class="icon-file"></i>libraries/Dashboard_Controller.php</a></li>
+<li><a href="#libraries/Bitly.php"><i class="icon-file"></i>libraries/Bitly.php</a></li>
+<li><a href="#libraries/App_tools.php"><i class="icon-file"></i>libraries/App_tools.php</a></li>
+<li><a href="#models/activity_model.php"><i class="icon-file"></i>models/activity_model.php</a></li>
+<li><a href="#models/auth_model.php"><i class="icon-file"></i>models/auth_model.php</a></li>
+<li><a href="#models/categories_model.php"><i class="icon-file"></i>models/categories_model.php</a></li>
+<li><a href="#models/connections_model.php"><i class="icon-file"></i>models/connections_model.php</a></li>
+<li><a href="#models/content_model.php"><i class="icon-file"></i>models/content_model.php</a></li>
+<li><a href="#models/image_model.php"><i class="icon-file"></i>models/image_model.php</a></li>
+<li><a href="#models/relationships_model.php"><i class="icon-file"></i>models/relationships_model.php</a></li>
+<li><a href="#models/settings_model.php"><i class="icon-file"></i>models/settings_model.php</a></li>
+<li><a href="#models/sites_model.php"><i class="icon-file"></i>models/sites_model.php</a></li>
+<li><a href="#models/upload_model.php"><i class="icon-file"></i>models/upload_model.php</a></li>
+<li><a href="#controllers/api/activity.php"><i class="icon-file"></i>controllers/api/activity.php</a></li>
+<li><a href="#controllers/api/categories.php"><i class="icon-file"></i>controllers/api/categories.php</a></li>
+<li><a href="#controllers/api/connections.php"><i class="icon-file"></i>controllers/api/connections.php</a></li>
+<li><a href="#controllers/api/content.php"><i class="icon-file"></i>controllers/api/content.php</a></li>
+<li><a href="#controllers/api/content_meta.php"><i class="icon-file"></i>controllers/api/content_meta.php</a></li>
+<li><a href="#controllers/api/index.php"><i class="icon-file"></i>controllers/api/index.php</a></li>
+<li><a href="#controllers/api/install.php"><i class="icon-file"></i>controllers/api/install.php</a></li>
+<li><a href="#controllers/api/relationships.php"><i class="icon-file"></i>controllers/api/relationships.php</a></li>
+<li><a href="#controllers/api/sandbox.php"><i class="icon-file"></i>controllers/api/sandbox.php</a></li>
+<li><a href="#controllers/api/settings.php"><i class="icon-file"></i>controllers/api/settings.php</a></li>
+<li><a href="#controllers/api/upload.php"><i class="icon-file"></i>controllers/api/upload.php</a></li>
+<li><a href="#controllers/api/users.php"><i class="icon-file"></i>controllers/api/users.php</a></li>
+<li><a href="#controllers/apps.php"><i class="icon-file"></i>controllers/apps.php</a></li>
+<li><a href="#controllers/connections.php"><i class="icon-file"></i>controllers/connections.php</a></li>
+<li><a href="#controllers/dialogs.php"><i class="icon-file"></i>controllers/dialogs.php</a></li>
+<li><a href="#controllers/feed.php"><i class="icon-file"></i>controllers/feed.php</a></li>
+<li><a href="#controllers/home.php"><i class="icon-file"></i>controllers/home.php</a></li>
+<li><a href="#controllers/settings.php"><i class="icon-file"></i>controllers/settings.php</a></li>
+<li><a href="#controllers/setup.php"><i class="icon-file"></i>controllers/setup.php</a></li>
+<li><a href="#controllers/site.php"><i class="icon-file"></i>controllers/site.php</a></li>
+<li><a href="#controllers/users.php"><i class="icon-file"></i>controllers/users.php</a></li>
+</ul></div>
+<div class="span8">
+<ul class="breadcrumb">
+<li>
+<a href=""><i class="icon-remove-sign"></i></a><span class="divider">\</span>
+</li>
+<li>Compilation Errors</li>
+</ul>
+<div class="package-contents">
+<a name="libraries/Site_Controller.php" id="libraries/Site_Controller.php"></a><h3>
+<i class="icon-file"></i>libraries/Site_Controller.php<small style="float: right;padding-right: 10px;">4</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/Site_Controller.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>12</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>201</td>
+<td>No DocBlock was found for method render_custom_layout()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>207</td>
+<td>No DocBlock was found for method render_widgets()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="libraries/Social_auth.php" id="libraries/Social_auth.php"></a><h3>
+<i class="icon-file"></i>libraries/Social_auth.php<small style="float: right;padding-right: 10px;">55</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/Social_auth.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>15</td>
+<td>No DocBlock was found for property $ci</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for property $status</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for property $config_email</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for property $_extra_where</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>19</td>
+<td>No DocBlock was found for property $_extra_set</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>21</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>50</td>
+<td>No DocBlock was found for method request_is_signed()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>62</td>
+<td>No DocBlock was found for method get_oauth_user_id()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>95</td>
+<td>Argument $user_id is missing from the Docblock of grant_access_token_to_consumer()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>112</td>
+<td>Argument $permission is missing from the Docblock of has_access_to_create()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>112</td>
+<td>Argument $user_id is missing from the Docblock of has_access_to_create()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>112</td>
+<td>Argument $user_level_id is missing from the Docblock of has_access_to_create()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>205</td>
+<td>Argument $id is missing from the Docblock of activate()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>205</td>
+<td>Argument $code is missing from the Docblock of activate()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>220</td>
+<td>No DocBlock was found for method deactivate()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>232</td>
+<td>No DocBlock was found for method change_password()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>244</td>
+<td>No DocBlock was found for method forgotten_password()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>256</td>
+<td>No DocBlock was found for method forgotten_password_complete()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>273</td>
+<td>No DocBlock was found for method register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>311</td>
+<td>No DocBlock was found for method social_register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>348</td>
+<td>No DocBlock was found for method oauth_register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>372</td>
+<td>No DocBlock was found for method login()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>384</td>
+<td>No DocBlock was found for method social_login()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>396</td>
+<td>No DocBlock was found for method logout()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>415</td>
+<td>No DocBlock was found for method logged_in()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>420</td>
+<td>No DocBlock was found for method profile()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>426</td>
+<td>No DocBlock was found for method get_users()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>431</td>
+<td>No DocBlock was found for method get_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>436</td>
+<td>No DocBlock was found for method update_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>448</td>
+<td>No DocBlock was found for method delete_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>461</td>
+<td>No DocBlock was found for method get_user_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>466</td>
+<td>No DocBlock was found for method get_user_meta_module()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>471</td>
+<td>No DocBlock was found for method get_users_meta_module()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>476</td>
+<td>No DocBlock was found for method get_user_meta_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>481</td>
+<td>No DocBlock was found for method get_user_meta_row()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>486</td>
+<td>No DocBlock was found for method find_user_meta_value()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>499</td>
+<td>No DocBlock was found for method check_user_meta_exists()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>504</td>
+<td>No DocBlock was found for method add_user_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>509</td>
+<td>No DocBlock was found for method update_user_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>549</td>
+<td>No DocBlock was found for method delete_user_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>556</td>
+<td>No DocBlock was found for method get_users_levels()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>563</td>
+<td>No DocBlock was found for method set_userdata()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>575</td>
+<td>No DocBlock was found for method set_userdata_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>591</td>
+<td>No DocBlock was found for method set_userdata_connections()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>611</td>
+<td>No DocBlock was found for method extra_set()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>620</td>
+<td>No DocBlock was found for method check_connection_auth()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>625</td>
+<td>No DocBlock was found for method check_connection_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>630</td>
+<td>No DocBlock was found for method check_connection_user_id()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>635</td>
+<td>No DocBlock was found for method check_connection_username()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>640</td>
+<td>No DocBlock was found for method get_connection()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>645</td>
+<td>No DocBlock was found for method get_connections_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>650</td>
+<td>No DocBlock was found for method add_connection()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>655</td>
+<td>No DocBlock was found for method update_connection()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>660</td>
+<td>No DocBlock was found for method delete_connection()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="libraries/Social_igniter.php" id="libraries/Social_igniter.php"></a><h3>
+<i class="icon-file"></i>libraries/Social_igniter.php<small style="float: right;padding-right: 10px;">78</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/Social_igniter.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>15</td>
+<td>No DocBlock was found for property $ci</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for property $widgets</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>150</td>
+<td>Argument $type is missing from the Docblock of render_item_content()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>150</td>
+<td>Argument $object is missing from the Docblock of render_item_content()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>176</td>
+<td>No DocBlock was found for method render_item_default()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>199</td>
+<td>No DocBlock was found for method render_item_page()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>204</td>
+<td>No DocBlock was found for method render_item_place()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>226</td>
+<td>No DocBlock was found for method render_item_image()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>231</td>
+<td>No DocBlock was found for method render_item_event()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>296</td>
+<td>No DocBlock was found for method get_social_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>330</td>
+<td>Argument $user_id is missing from the Docblock of get_social_checkin()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>330</td>
+<td>Argument $id is missing from the Docblock of get_social_checkin()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>360</td>
+<td>Argument $user_id is missing from the Docblock of get_social_photos()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>360</td>
+<td>Argument $id is missing from the Docblock of get_social_photos()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>371</td>
+<td>Argument $user_id is missing from the Docblock of get_social_videos()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>371</td>
+<td>Argument $id is missing from the Docblock of get_social_videos()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>382</td>
+<td>Argument $user_id is missing from the Docblock of get_social_audio()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>382</td>
+<td>Argument $id is missing from the Docblock of get_social_audio()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>393</td>
+<td>Argument $user_id is missing from the Docblock of get_social_files()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>393</td>
+<td>Argument $id is missing from the Docblock of get_social_files()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>487</td>
+<td>No DocBlock was found for method get_site()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>492</td>
+<td>No DocBlock was found for method get_site_view()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>497</td>
+<td>No DocBlock was found for method get_site_view_row()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>502</td>
+<td>No DocBlock was found for method add_site()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>507</td>
+<td>No DocBlock was found for method get_themes()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>525</td>
+<td>No DocBlock was found for method get_settings()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>530</td>
+<td>No DocBlock was found for method get_setting()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>535</td>
+<td>No DocBlock was found for method get_settings_setting()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>540</td>
+<td>No DocBlock was found for method get_settings_setting_value()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>545</td>
+<td>No DocBlock was found for method get_settings_module()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>550</td>
+<td>No DocBlock was found for method make_widgets_order()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>568</td>
+<td>No DocBlock was found for method check_setting_exists()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>579</td>
+<td>No DocBlock was found for method check_can_widget_be_used()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>603</td>
+<td>No DocBlock was found for method add_setting()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>608</td>
+<td>No DocBlock was found for method update_settings()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>638</td>
+<td>No DocBlock was found for method update_setting()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>643</td>
+<td>No DocBlock was found for method delete_setting()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>649</td>
+<td>No DocBlock was found for method get_timeline()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>656</td>
+<td>No DocBlock was found for method get_timeline_friends()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>673</td>
+<td>No DocBlock was found for method get_timeline_likes()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>697</td>
+<td>No DocBlock was found for method get_timeline_group()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>712</td>
+<td>No DocBlock was found for method get_timeline_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>719</td>
+<td>No DocBlock was found for method get_timeline_user_view()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>726</td>
+<td>No DocBlock was found for method get_activity()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>731</td>
+<td>No DocBlock was found for method get_activity_view()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>736</td>
+<td>No DocBlock was found for method add_activity()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>760</td>
+<td>No DocBlock was found for method delete_activity()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>782</td>
+<td>No DocBlock was found for method check_content_comments()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>798</td>
+<td>No DocBlock was found for method check_content_duplicate()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>808</td>
+<td>No DocBlock was found for method check_content_multiple()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>818</td>
+<td>No DocBlock was found for method get_content()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>823</td>
+<td>No DocBlock was found for method get_content_multiple()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>828</td>
+<td>No DocBlock was found for method get_content_recent()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>834</td>
+<td>No DocBlock was found for method get_content_module()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>840</td>
+<td>No DocBlock was found for method get_content_view()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>845</td>
+<td>No DocBlock was found for method get_content_view_multiple()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>850</td>
+<td>No DocBlock was found for method get_content_title_url()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>855</td>
+<td>No DocBlock was found for method get_content_new_count()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>860</td>
+<td>No DocBlock was found for method get_content_category_count()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>865</td>
+<td>No DocBlock was found for method get_content_multiple_count()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>870</td>
+<td>No DocBlock was found for method make_content_dropdown()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>889</td>
+<td>No DocBlock was found for method make_content_publisher()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>898</td>
+<td>No DocBlock was found for method add_content()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>936</td>
+<td>No DocBlock was found for method update_content()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>973</td>
+<td>No DocBlock was found for method update_content_value()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>983</td>
+<td>No DocBlock was found for method update_content_category_ids()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>995</td>
+<td>No DocBlock was found for method delete_content()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>1009</td>
+<td>No DocBlock was found for method find_meta_content_value()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>1022</td>
+<td>No DocBlock was found for method find_meta_specific_content_value()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>1035</td>
+<td>No DocBlock was found for method get_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>1040</td>
+<td>No DocBlock was found for method get_meta_content()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>1045</td>
+<td>No DocBlock was found for method get_meta_content_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>1050</td>
+<td>No DocBlock was found for method get_meta_multiples()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>1055</td>
+<td>No DocBlock was found for method add_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>1060</td>
+<td>No DocBlock was found for method update_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>1065</td>
+<td>No DocBlock was found for method update_meta_multiple()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents"></div>
+<div class="package-contents">
+<a name="libraries/Webfinger.php" id="libraries/Webfinger.php"></a><h3>
+<i class="icon-file"></i>libraries/Webfinger.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/Webfinger.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>240</td>
+<td>Argument $email is missing from the Docblock of \get_domain_from_email()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="libraries/Unzip.php" id="libraries/Unzip.php"></a><h3>
+<i class="icon-file"></i>libraries/Unzip.php<small style="float: right;padding-right: 10px;">29</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/Unzip.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>25</td>
+<td>No DocBlock was found for property $compressed_list</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for property $central_dir_list</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for property $end_of_central</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for property $info</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>35</td>
+<td>No DocBlock was found for property $error</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for property $_zip_file</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>37</td>
+<td>No DocBlock was found for property $_target_dir</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>38</td>
+<td>No DocBlock was found for property $apply_chmod</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>39</td>
+<td>No DocBlock was found for property $fh</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>40</td>
+<td>No DocBlock was found for property $zip_signature</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>43</td>
+<td>No DocBlock was found for property $dir_signature</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>46</td>
+<td>No DocBlock was found for property $central_signature_end</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>49</td>
+<td>No DocBlock was found for property $_skip_dirs</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>51</td>
+<td>No DocBlock was found for property $_allow_extensions</td>
+</tr>
+<tr class="notice">
+<td>notice</td>
+<td>55</td>
+<td>Parameter  could not be found in __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>69</td>
+<td>Argument $target_dir is missing from the Docblock of extract()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>69</td>
+<td>Argument $preserve_filepath is missing from the Docblock of extract()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>156</td>
+<td>Argument $close is missing from the Docblock of error_string()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>170</td>
+<td>Argument $close is missing from the Docblock of debug_string()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>257</td>
+<td>Argument $target_file_name is missing from the Docblock of _extract_file()</td>
+</tr>
+<tr class="notice">
+<td>notice</td>
+<td>311</td>
+<td>Parameter  could not be found in close()</td>
+</tr>
+<tr class="notice">
+<td>notice</td>
+<td>329</td>
+<td>Parameter  could not be found in __destroy()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>343</td>
+<td>Argument $mode is missing from the Docblock of _uncompress()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>343</td>
+<td>Argument $uncompressed_size is missing from the Docblock of _uncompress()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>343</td>
+<td>Argument $target_file_name is missing from the Docblock of _uncompress()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>396</td>
+<td>No DocBlock was found for method _load_file_list_by_eof()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>523</td>
+<td>No DocBlock was found for method _load_files_by_signatures()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>558</td>
+<td>No DocBlock was found for method _get_file_header()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="libraries/MY_Form_validation.php" id="libraries/MY_Form_validation.php"></a><h3>
+<i class="icon-file"></i>libraries/MY_Form_validation.php<small style="float: right;padding-right: 10px;">1</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/MY_Form_validation.php</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="libraries/MY_Cart.php" id="libraries/MY_Cart.php"></a><h3>
+<i class="icon-file"></i>libraries/MY_Cart.php<small style="float: right;padding-right: 10px;">4</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/MY_Cart.php</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>3</td>
+<td>No short description for class \MY_Cart</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>8</td>
+<td>No DocBlock was found for method update_options()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>54</td>
+<td>No DocBlock was found for method _update_options()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="libraries/MY_Calendar.php" id="libraries/MY_Calendar.php"></a><h3>
+<i class="icon-file"></i>libraries/MY_Calendar.php<small style="float: right;padding-right: 10px;">10</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/MY_Calendar.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $CI</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for property $lang</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for property $local_time</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $template</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for property $start_day</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>35</td>
+<td>No DocBlock was found for property $month_type</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for property $day_type</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>37</td>
+<td>No DocBlock was found for property $show_next_prev</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>38</td>
+<td>No DocBlock was found for property $next_prev_url</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="libraries/Installer.php" id="libraries/Installer.php"></a><h3>
+<i class="icon-file"></i>libraries/Installer.php<small style="float: right;padding-right: 10px;">17</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/Installer.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>15</td>
+<td>No DocBlock was found for property $ci</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>27</td>
+<td>Argument $app_owner is missing from the Docblock of download_github()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>27</td>
+<td>Argument $app_name is missing from the Docblock of download_github()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>65</td>
+<td>Argument $app_name is missing from the Docblock of download_custom()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>65</td>
+<td>Argument $app_url is missing from the Docblock of download_custom()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>111</td>
+<td>Argument $app is missing from the Docblock of uncompress_app()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>129</td>
+<td>Argument $app is missing from the Docblock of delete_app()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>141</td>
+<td>Argument $app_folders is missing from the Docblock of create_folders()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>155</td>
+<td>Argument $app_content is missing from the Docblock of install_content()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>155</td>
+<td>Argument $user_id is missing from the Docblock of install_content()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>184</td>
+<td>Argument $app is missing from the Docblock of install_settings()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>184</td>
+<td>Argument $app_settings is missing from the Docblock of install_settings()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>184</td>
+<td>Argument $reinstall is missing from the Docblock of install_settings()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>236</td>
+<td>Argument $app is missing from the Docblock of uninstall_settings()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>259</td>
+<td>Argument $app_sites is missing from the Docblock of install_sites()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="libraries/Dashboard_Controller.php" id="libraries/Dashboard_Controller.php"></a><h3>
+<i class="icon-file"></i>libraries/Dashboard_Controller.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/Dashboard_Controller.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>98</td>
+<td>No DocBlock was found for method render()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents"></div>
+<div class="package-contents">
+<a name="libraries/Bitly.php" id="libraries/Bitly.php"></a><h3>
+<i class="icon-file"></i>libraries/Bitly.php<small style="float: right;padding-right: 10px;">16</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/Bitly.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for property $CI</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for property $bitly_login</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for property $bitly_apiKey</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>19</td>
+<td>No DocBlock was found for property $bitly_x_login</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>20</td>
+<td>No DocBlock was found for property $bitly_x_apiKey</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>21</td>
+<td>No DocBlock was found for property $bitly_format</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>22</td>
+<td>No DocBlock was found for property $bitly_domain</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>25</td>
+<td>No DocBlock was found for property $api</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>26</td>
+<td>No DocBlock was found for property $response</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>37</td>
+<td>Argument $params is missing from the Docblock of initialize()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>123</td>
+<td>Argument $verbose is missing from the Docblock of validate()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>186</td>
+<td>Argument $verbose is missing from the Docblock of pro_domain()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>206</td>
+<td>Name of argument $params does not match with the DocBlock's name $verbose in _execute()</td>
+</tr>
+<tr class="notice">
+<td>notice</td>
+<td>206</td>
+<td>Parameter $verbose could not be found in _execute()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="libraries/App_tools.php" id="libraries/App_tools.php"></a><h3>
+<i class="icon-file"></i>libraries/App_tools.php<small style="float: right;padding-right: 10px;">19</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file libraries/App_tools.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for property $ci</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>15</td>
+<td>No DocBlock was found for property $template_path</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for property $install_path</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for property $app_name</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for property $app_url</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>19</td>
+<td>No DocBlock was found for property $app_class</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>21</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>136</td>
+<td>Argument $connections is missing from the Docblock of create_app_install()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>136</td>
+<td>Argument $database is missing from the Docblock of create_app_install()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>136</td>
+<td>Argument $widgets is missing from the Docblock of create_app_install()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>182</td>
+<td>Argument $api_database is missing from the Docblock of create_app_controllers()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>182</td>
+<td>Argument $api_methods is missing from the Docblock of create_app_controllers()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>182</td>
+<td>Argument $connections is missing from the Docblock of create_app_controllers()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>266</td>
+<td>Argument $helper is missing from the Docblock of create_helper()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>284</td>
+<td>Argument $library is missing from the Docblock of create_libraries()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>284</td>
+<td>Argument $oauth is missing from the Docblock of create_libraries()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>313</td>
+<td>Argument $model is missing from the Docblock of create_model()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>333</td>
+<td>Argument $widgets is missing from the Docblock of create_widgets()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="models/activity_model.php" id="models/activity_model.php"></a><h3>
+<i class="icon-file"></i>models/activity_model.php<small style="float: right;padding-right: 10px;">5</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file models/activity_model.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>65</td>
+<td>Argument $parameter is missing from the Docblock of get_activity_view()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>65</td>
+<td>Argument $value is missing from the Docblock of get_activity_view()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>65</td>
+<td>Argument $limit is missing from the Docblock of get_activity_view()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="models/auth_model.php" id="models/auth_model.php"></a><h3>
+<i class="icon-file"></i>models/auth_model.php<small style="float: right;padding-right: 10px;">52</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file models/auth_model.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for property $tables</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for property $activation_code</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>15</td>
+<td>No DocBlock was found for property $forgotten_password_code</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for property $new_password</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>103</td>
+<td>Argument $id is missing from the Docblock of activate()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>103</td>
+<td>Argument $code is missing from the Docblock of activate()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>150</td>
+<td>Argument $id is missing from the Docblock of deactivate()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>246</td>
+<td>Argument $email is missing from the Docblock of forgotten_password()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>268</td>
+<td>Argument $code is missing from the Docblock of forgotten_password_complete()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>268</td>
+<td>Argument $salt is missing from the Docblock of forgotten_password_complete()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>300</td>
+<td>Argument $email is missing from the Docblock of profile()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>332</td>
+<td>Argument $username is missing from the Docblock of register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>332</td>
+<td>Argument $password is missing from the Docblock of register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>332</td>
+<td>Argument $email is missing from the Docblock of register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>332</td>
+<td>Argument $additional_data is missing from the Docblock of register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>332</td>
+<td>Argument $group_name is missing from the Docblock of register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>413</td>
+<td>Argument $username is missing from the Docblock of social_register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>413</td>
+<td>Argument $email is missing from the Docblock of social_register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>413</td>
+<td>Argument $additional_data is missing from the Docblock of social_register()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>477</td>
+<td>Argument $email is missing from the Docblock of login()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>477</td>
+<td>Argument $password is missing from the Docblock of login()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>477</td>
+<td>Argument $remember is missing from the Docblock of login()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>477</td>
+<td>Argument $session is missing from the Docblock of login()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>526</td>
+<td>Argument $user_id is missing from the Docblock of social_login()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>526</td>
+<td>Argument $connection is missing from the Docblock of social_login()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>556</td>
+<td>Argument $user_id is missing from the Docblock of update_last_login()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>606</td>
+<td>Argument $user is missing from the Docblock of remember_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>633</td>
+<td>Argument $parameter is missing from the Docblock of get_users()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>633</td>
+<td>Argument $value is missing from the Docblock of get_users()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>633</td>
+<td>Argument $details is missing from the Docblock of get_users()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>676</td>
+<td>Argument $parameter is missing from the Docblock of get_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>676</td>
+<td>Argument $value is missing from the Docblock of get_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>676</td>
+<td>Argument $details is missing from the Docblock of get_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>728</td>
+<td>Argument $user_id is missing from the Docblock of update_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>728</td>
+<td>Argument $data is missing from the Docblock of update_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>745</td>
+<td>Argument $id is missing from the Docblock of delete_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>771</td>
+<td>Argument $user_id is missing from the Docblock of get_user_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>785</td>
+<td>Argument $user_id is missing from the Docblock of get_user_meta_module()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>785</td>
+<td>Argument $module is missing from the Docblock of get_user_meta_module()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>800</td>
+<td>Argument $module is missing from the Docblock of get_users_meta_module()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>814</td>
+<td>Argument $user_id is missing from the Docblock of get_user_meta_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>814</td>
+<td>Argument $meta is missing from the Docblock of get_user_meta_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>829</td>
+<td>Argument $user_id is missing from the Docblock of get_user_meta_row()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>829</td>
+<td>Argument $meta is missing from the Docblock of get_user_meta_row()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>844</td>
+<td>Argument $user_meta_id is missing from the Docblock of get_user_meta_id()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>859</td>
+<td>Argument $user_meta_data is missing from the Docblock of check_user_meta_exists()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>880</td>
+<td>Argument $meta_data is missing from the Docblock of add_user_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>901</td>
+<td>Argument $user_meta_id is missing from the Docblock of update_user_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>901</td>
+<td>Argument $meta_data is missing from the Docblock of update_user_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>914</td>
+<td>Argument $user_meta_id is missing from the Docblock of delete_user_meta()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="models/categories_model.php" id="models/categories_model.php"></a><h3>
+<i class="icon-file"></i>models/categories_model.php<small style="float: right;padding-right: 10px;">8</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file models/categories_model.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>51</td>
+<td>Argument $parent_id is missing from the Docblock of get_category_parent()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>135</td>
+<td>Argument $parameter is missing from the Docblock of get_category_default_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>135</td>
+<td>Argument $value is missing from the Docblock of get_category_default_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>135</td>
+<td>Argument $user_id is missing from the Docblock of get_category_default_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>241</td>
+<td>Name of argument $details does not match with the DocBlock's name $contents_details in update_category_details()</td>
+</tr>
+<tr class="notice">
+<td>notice</td>
+<td>241</td>
+<td>Parameter $contents_details could not be found in update_category_details()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="models/connections_model.php" id="models/connections_model.php"></a><h3>
+<i class="icon-file"></i>models/connections_model.php<small style="float: right;padding-right: 10px;">21</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file models/connections_model.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for property $type</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>15</td>
+<td>No DocBlock was found for property $user_id</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for property $token_one</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for property $token_two</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for property $connection_user_id</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>19</td>
+<td>No DocBlock was found for property $connection_username</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>20</td>
+<td>No DocBlock was found for property $connection_password</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>22</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>27</td>
+<td>Argument $auth_one is missing from the Docblock of check_connection_auth()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>27</td>
+<td>Argument $auth_two is missing from the Docblock of check_connection_auth()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>43</td>
+<td>Name of argument $connection_id does not match with the DocBlock's name $conenction_id in check_connection_id()</td>
+</tr>
+<tr class="notice">
+<td>notice</td>
+<td>43</td>
+<td>Parameter $conenction_id could not be found in check_connection_id()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>55</td>
+<td>Argument $module is missing from the Docblock of check_connection_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>55</td>
+<td>Argument $type is missing from the Docblock of check_connection_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>68</td>
+<td>Name of argument $connection_user_id does not match with the DocBlock's name $user_id in check_connection_user_id()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>68</td>
+<td>Argument $module is missing from the Docblock of check_connection_user_id()</td>
+</tr>
+<tr class="notice">
+<td>notice</td>
+<td>68</td>
+<td>Parameter $user_id could not be found in check_connection_user_id()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>80</td>
+<td>Name of argument $connection_username does not match with the DocBlock's name $user_id in check_connection_username()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>80</td>
+<td>Argument $site_id is missing from the Docblock of check_connection_username()</td>
+</tr>
+<tr class="notice">
+<td>notice</td>
+<td>80</td>
+<td>Parameter $user_id could not be found in check_connection_username()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="models/content_model.php" id="models/content_model.php"></a><h3>
+<i class="icon-file"></i>models/content_model.php<small style="float: right;padding-right: 10px;">7</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file models/content_model.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>87</td>
+<td>Argument $parameter is missing from the Docblock of get_content_multiple()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>87</td>
+<td>Argument $value_array is missing from the Docblock of get_content_multiple()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>444</td>
+<td>Argument $content_id is missing from the Docblock of get_meta_content_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>444</td>
+<td>Argument $meta is missing from the Docblock of get_meta_content_meta()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>459</td>
+<td>Argument $content_id_array is missing from the Docblock of get_meta_multiples()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="models/image_model.php" id="models/image_model.php"></a><h3>
+<i class="icon-file"></i>models/image_model.php<small style="float: right;padding-right: 10px;">5</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file models/image_model.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>116</td>
+<td>No DocBlock was found for method make_cropped()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>319</td>
+<td>No DocBlock was found for method make_copy_existing()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>339</td>
+<td>No DocBlock was found for method get_external_image()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="models/relationships_model.php" id="models/relationships_model.php"></a><h3>
+<i class="icon-file"></i>models/relationships_model.php<small style="float: right;padding-right: 10px;">8</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file models/relationships_model.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for method check_relationship_exists()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for method get_relationships_user()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>41</td>
+<td>No DocBlock was found for method get_relationships_owner()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>54</td>
+<td>No DocBlock was found for method add_relationship()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>63</td>
+<td>No DocBlock was found for method update_relationship()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>71</td>
+<td>No DocBlock was found for method delete_relationship()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="models/settings_model.php" id="models/settings_model.php"></a><h3>
+<i class="icon-file"></i>models/settings_model.php<small style="float: right;padding-right: 10px;">11</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file models/settings_model.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for method get_settings()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for method get_setting()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>46</td>
+<td>No DocBlock was found for method get_settings_setting()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>55</td>
+<td>No DocBlock was found for method get_settings_setting_value()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>65</td>
+<td>No DocBlock was found for method get_settings_module()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>74</td>
+<td>No DocBlock was found for method check_setting_exists()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>84</td>
+<td>No DocBlock was found for method add_setting()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>90</td>
+<td>No DocBlock was found for method update_setting()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>96</td>
+<td>No DocBlock was found for method delete_setting()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="models/sites_model.php" id="models/sites_model.php"></a><h3>
+<i class="icon-file"></i>models/sites_model.php<small style="float: right;padding-right: 10px;">4</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file models/sites_model.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>11</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for method get_site()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for method get_site_view()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="models/upload_model.php" id="models/upload_model.php"></a><h3>
+<i class="icon-file"></i>models/upload_model.php<small style="float: right;padding-right: 10px;">6</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file models/upload_model.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for method get_upload()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for method check_upload_hash()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>52</td>
+<td>No DocBlock was found for method add_upload()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>68</td>
+<td>No DocBlock was found for method delete_upload()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/activity.php" id="controllers/api/activity.php"></a><h3>
+<i class="icon-file"></i>controllers/api/activity.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/activity.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>9</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>88</td>
+<td>No DocBlock was found for method update_authd_get()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/categories.php" id="controllers/api/categories.php"></a><h3>
+<i class="icon-file"></i>controllers/api/categories.php<small style="float: right;padding-right: 10px;">8</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/categories.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>9</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for method all_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for method view_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>50</td>
+<td>No DocBlock was found for method create_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>108</td>
+<td>No DocBlock was found for method modify_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>145</td>
+<td>No DocBlock was found for method picture_upload_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>215</td>
+<td>No DocBlock was found for method destroy_authd_get()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/connections.php" id="controllers/api/connections.php"></a><h3>
+<i class="icon-file"></i>controllers/api/connections.php<small style="float: right;padding-right: 10px;">4</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/connections.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>9</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for method user_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for method destroy_authd_get()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/content.php" id="controllers/api/content.php"></a><h3>
+<i class="icon-file"></i>controllers/api/content.php<small style="float: right;padding-right: 10px;">11</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/content.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>9</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>17</td>
+<td>No DocBlock was found for method recent_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for method view_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>54</td>
+<td>No DocBlock was found for method create_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>131</td>
+<td>No DocBlock was found for method modify_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>184</td>
+<td>No DocBlock was found for method viewed_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>198</td>
+<td>No DocBlock was found for method approve_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>221</td>
+<td>No DocBlock was found for method save_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>235</td>
+<td>No DocBlock was found for method publish_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>249</td>
+<td>No DocBlock was found for method destroy_authd_get()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/content_meta.php" id="controllers/api/content_meta.php"></a><h3>
+<i class="icon-file"></i>controllers/api/content_meta.php<small style="float: right;padding-right: 10px;">7</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/content_meta.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>9</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for method view_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>35</td>
+<td>No DocBlock was found for method create_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>78</td>
+<td>No DocBlock was found for method modify_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>111</td>
+<td>No DocBlock was found for method modify_multiple_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>145</td>
+<td>No DocBlock was found for method destroy_authd_get()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/index.php" id="controllers/api/index.php"></a><h3>
+<i class="icon-file"></i>controllers/api/index.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/index.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>11</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for method index()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/install.php" id="controllers/api/install.php"></a><h3>
+<i class="icon-file"></i>controllers/api/install.php<small style="float: right;padding-right: 10px;">10</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/install.php</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>3</td>
+<td>No short description for class \Install</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>9</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for method install_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>25</td>
+<td>No DocBlock was found for method custom_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for method uncompress_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>43</td>
+<td>No DocBlock was found for method uninstall_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>60</td>
+<td>No DocBlock was found for method create_app_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>109</td>
+<td>No DocBlock was found for method migrate_current_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>126</td>
+<td>No DocBlock was found for method migrate_latest_authd_get()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/relationships.php" id="controllers/api/relationships.php"></a><h3>
+<i class="icon-file"></i>controllers/api/relationships.php<small style="float: right;padding-right: 10px;">6</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/relationships.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>9</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for method followers_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for method follow_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>38</td>
+<td>No DocBlock was found for method follow_remote_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>180</td>
+<td>No DocBlock was found for method unfollow_authd_post()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/sandbox.php" id="controllers/api/sandbox.php"></a><h3>
+<i class="icon-file"></i>controllers/api/sandbox.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/sandbox.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>11</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for method index()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/settings.php" id="controllers/api/settings.php"></a><h3>
+<i class="icon-file"></i>controllers/api/settings.php<small style="float: right;padding-right: 10px;">12</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/settings.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>9</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for method module_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for method setting_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>44</td>
+<td>No DocBlock was found for method widgets_available_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>98</td>
+<td>No DocBlock was found for method view_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>116</td>
+<td>No DocBlock was found for method create_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>156</td>
+<td>No DocBlock was found for method modify_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>184</td>
+<td>No DocBlock was found for method modify_widget_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>210</td>
+<td>No DocBlock was found for method destroy_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>228</td>
+<td>No DocBlock was found for method upload_site_picture_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>290</td>
+<td>No DocBlock was found for method delete_site_picture_authd_get()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/upload.php" id="controllers/api/upload.php"></a><h3>
+<i class="icon-file"></i>controllers/api/upload.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/upload.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>9</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>16</td>
+<td>No DocBlock was found for method create_expectation_authd_post()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/api/users.php" id="controllers/api/users.php"></a><h3>
+<i class="icon-file"></i>controllers/api/users.php<small style="float: right;padding-right: 10px;">22</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/api/users.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>42</td>
+<td>No DocBlock was found for method recent_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>58</td>
+<td>No DocBlock was found for method find_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>76</td>
+<td>No DocBlock was found for method create_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>161</td>
+<td>No DocBlock was found for method login_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>199</td>
+<td>No DocBlock was found for method signup_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>291</td>
+<td>No DocBlock was found for method logout_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>317</td>
+<td>No DocBlock was found for method set_userdata_signup_email_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>346</td>
+<td>No DocBlock was found for method modify_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>405</td>
+<td>No DocBlock was found for method upload_profile_picture_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>468</td>
+<td>No DocBlock was found for method delete_profile_picture_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>486</td>
+<td>No DocBlock was found for method details_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>527</td>
+<td>No DocBlock was found for method password_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>552</td>
+<td>No DocBlock was found for method password_forgot_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>599</td>
+<td>No DocBlock was found for method mobile_add_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>637</td>
+<td>No DocBlock was found for method mobile_modify_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>653</td>
+<td>No DocBlock was found for method mobile_destroy_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>670</td>
+<td>No DocBlock was found for method device_create_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>701</td>
+<td>No DocBlock was found for method advanced_authd_post()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>710</td>
+<td>No DocBlock was found for method activate_authd_get()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>725</td>
+<td>No DocBlock was found for method deactivate_authd_get()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/apps.php" id="controllers/apps.php"></a><h3>
+<i class="icon-file"></i>controllers/apps.php<small style="float: right;padding-right: 10px;">6</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/apps.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>24</td>
+<td>No DocBlock was found for method index()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for method inactive()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>43</td>
+<td>No DocBlock was found for method find()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>49</td>
+<td>No DocBlock was found for method create()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/connections.php" id="controllers/connections.php"></a><h3>
+<i class="icon-file"></i>controllers/connections.php<small style="float: right;padding-right: 10px;">4</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/connections.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for method index()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>23</td>
+<td>No DocBlock was found for method delete()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/dialogs.php" id="controllers/dialogs.php"></a><h3>
+<i class="icon-file"></i>controllers/dialogs.php<small style="float: right;padding-right: 10px;">7</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/dialogs.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>19</td>
+<td>No DocBlock was found for method add_connections()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for method mobile_phone_editor()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for method mobile_phone_verify()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>41</td>
+<td>No DocBlock was found for method widget_editor()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>46</td>
+<td>No DocBlock was found for method widget_add()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/feed.php" id="controllers/feed.php"></a><h3>
+<i class="icon-file"></i>controllers/feed.php<small style="float: right;padding-right: 10px;">4</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/feed.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>20</td>
+<td>No DocBlock was found for method index()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for method comments()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/home.php" id="controllers/home.php"></a><h3>
+<i class="icon-file"></i>controllers/home.php<small style="float: right;padding-right: 10px;">8</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/home.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>20</td>
+<td>No DocBlock was found for method index()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>125</td>
+<td>No DocBlock was found for method manage()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>193</td>
+<td>No DocBlock was found for method error()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>200</td>
+<td>No DocBlock was found for method item_timeline()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>227</td>
+<td>No DocBlock was found for method item_manage()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>247</td>
+<td>No DocBlock was found for method category_manager()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/settings.php" id="controllers/settings.php"></a><h3>
+<i class="icon-file"></i>controllers/settings.php<small style="float: right;padding-right: 10px;">20</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/settings.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>22</td>
+<td>No DocBlock was found for method index()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for method profile()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>54</td>
+<td>No DocBlock was found for method details()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>69</td>
+<td>No DocBlock was found for method password()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>79</td>
+<td>No DocBlock was found for method contact()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>92</td>
+<td>No DocBlock was found for method connections()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>101</td>
+<td>No DocBlock was found for method advanced()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>109</td>
+<td>No DocBlock was found for method site()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>119</td>
+<td>No DocBlock was found for method themes()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>133</td>
+<td>No DocBlock was found for method design()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>177</td>
+<td>No DocBlock was found for method widgets()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>230</td>
+<td>No DocBlock was found for method services()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>249</td>
+<td>No DocBlock was found for method home()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>259</td>
+<td>No DocBlock was found for method users()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>269</td>
+<td>No DocBlock was found for method api()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>279</td>
+<td>No DocBlock was found for method updates()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>286</td>
+<td>No DocBlock was found for method categories()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>327</td>
+<td>No DocBlock was found for method categories_manager()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/setup.php" id="controllers/setup.php"></a><h3>
+<i class="icon-file"></i>controllers/setup.php<small style="float: right;padding-right: 10px;">5</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/setup.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>14</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for method index()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>67</td>
+<td>No DocBlock was found for method admin()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>163</td>
+<td>No DocBlock was found for method site()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/site.php" id="controllers/site.php"></a><h3>
+<i class="icon-file"></i>controllers/site.php<small style="float: right;padding-right: 10px;">12</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/site.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>18</td>
+<td>No DocBlock was found for method index()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>39</td>
+<td>No DocBlock was found for method login()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>53</td>
+<td>No DocBlock was found for method logout()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>62</td>
+<td>No DocBlock was found for method signup()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>78</td>
+<td>No DocBlock was found for method signup_social()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>91</td>
+<td>No DocBlock was found for method forgot_password()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>115</td>
+<td>No DocBlock was found for method reset_password()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>191</td>
+<td>No DocBlock was found for method activate()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>209</td>
+<td>No DocBlock was found for method activation()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>217</td>
+<td>No DocBlock was found for method error_404()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="controllers/users.php" id="controllers/users.php"></a><h3>
+<i class="icon-file"></i>controllers/users.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>0</td>
+<td>No page-level DocBlock was found in file controllers/users.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>13</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>113</td>
+<td>No DocBlock was found for method levels()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
+            generated on 2012-10-13T22:54:06+01:00.<br></footer></div>
+</div>
+</body>
+</html>

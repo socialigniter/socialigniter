@@ -1,7 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/* 
- * Activity API : Core : Social-Igniter
- *
+/**
+ * Activity API
+ * @package Social Igniter\API
+ * @see https://social-igniter.com/api
  */
 class Activity extends Oauth_Controller
 {
@@ -10,6 +11,11 @@ class Activity extends Oauth_Controller
         parent::__construct();      
 	}
 	
+	/**
+	 * GET /api/activity/recent
+	 * 
+	 * Displays the last 10 global public activities
+	 */
     function recent_get()
     {
     	$activity = $this->social_igniter->get_timeline(NULL, 10);
@@ -25,7 +31,13 @@ class Activity extends Oauth_Controller
         
         $this->response($message, 200); 
     }
-
+	
+	/**
+	 * GET /api/activity/view
+	 * 
+	 * Find activities by `site_id`, `user_id`, `verb`, `module`, `type` or `content_id`, where all
+	 * parameters are URI segments e.g. `GET /api/activity/view/user_id/1`
+	 */
 	function view_get()
     {
     	$search_by	= $this->uri->segment(4);
@@ -43,7 +55,12 @@ class Activity extends Oauth_Controller
 
         $this->response($message, 200);
     }
-
+	
+	/**
+	 * POST /api/activity/create
+	 * 
+	 * Creates a new activity from the POSTed data. Requires authentication.
+	 */
     function create_authd_post()
     {    
 		$activity_info = array(
@@ -68,7 +85,7 @@ class Activity extends Oauth_Controller
         $this->response($message, 200);
     }
     
-    function update_authd_get()
+   	function update_authd_get()
     {
 		$viewed = $this->social_tools->update_activity_viewed($this->get('id'));			
     	
@@ -83,7 +100,12 @@ class Activity extends Oauth_Controller
 
         $this->response($message, 200);           
     }  
-
+	
+	/**
+	 * DELETE /api/activity/destroy
+	 * 
+	 * Deletes an activity, specified by `/id/{activity_id}`. Requires auth (dur)
+	 */
     function destroy_authd_get()
     {		
 		$activity = $this->social_igniter->get_activity($this->get('id'));

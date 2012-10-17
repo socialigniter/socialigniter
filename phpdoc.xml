@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+  <title>Social Igniter</title>
+  <parser>
+    <target>docs</target>
+  </parser>
+  <transformer>
+    <target>docs</target>
+  </transformer>
+  <files>
+    <directory>application/models</directory>
+    <directory>application/controllers</directory>
+    <file>application/libraries/Site_Controller.php</file>
+    <file>application/libraries/Social_auth.php</file>
+    <file>application/libraries/Social_igniter.php</file>
+    <file>application/libraries/Social_tool.php</file>
+    <file>application/libraries/utility.php</file>
+    <file>application/libraries/Webfinger.php</file>
+    <file>application/libraries/Unzip.php</file>
+    <file>application/libraries/MY_Form_validation.php</file>
+    <file>application/libraries/MY_Cart.php</file>
+    <file>application/libraries/MY_Calendar.php</file>
+    <file>application/libraries/Installer.php</file>
+    <file>application/libraries/Dashboard_Controller.php</file>
+    <file>application/libraries/Cron.php</file>
+    <file>application/libraries/Bitly.php</file>
+    <file>application/libraries/App_tools.php</file>
+  </files>
+</phpdoc>

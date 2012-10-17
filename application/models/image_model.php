@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Image Model
+ * 
+ * A model for managing uploaded images
+ * 
+ * @author Brennan Novak @brennannovak
+ * @package Social Igniter\Models
+ */
 class Image_model extends CI_Model 
 {
     function __construct()
@@ -9,7 +18,17 @@ class Image_model extends CI_Model
 	    $this->load->library('image_lib');
     }
 
-	/*	Checks if Thumbnail exists, if not generates it */
+	/**
+	 * Get Thumbnail
+	 * 
+	 * Checks if Thumbnail exists, if not generates it, falling back to the default "no image" placeholder
+	 * 
+	 * @param string $create_path The path to look for/create the thumbnail at
+	 * @param string $image_name The name of the image
+	 * @param string $module 
+	 * @param string $thumb The thumbnail size
+	 * @return string Either the path to the thumbnail or to a placeholder
+	 */
 	function get_thumbnail($create_path, $image_name, $module, $thumb)
 	{
 		$original	= $create_path.'/'.$image_name;
@@ -45,7 +64,16 @@ class Image_model extends CI_Model
 
 	   	return $no_image;
 	}
-
+	
+	/**
+	 * Make Thumbnail
+	 * 
+	 * @param string $create_path The path to create the thumbnail at
+	 * @param string $image_name The name of the image (under $create_path) to nailify
+	 * @param string module
+	 * @param string $thumb The size to create
+	 * @return string The path to the newly generated thumbnail
+	 */
 	function make_thumbnail($create_path, $image_name, $module, $thumb)
 	{
 	    $raw_path			= $create_path.$image_name;

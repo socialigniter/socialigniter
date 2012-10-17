@@ -1,7 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/* 
- * Relationships API : Core : Social-Igniter
- *
+/**
+ * Relationships
+ * @package Social Igniter\API
+ * @see https://social-igniter.com/api
  */
 class Relationships extends Oauth_Controller
 {

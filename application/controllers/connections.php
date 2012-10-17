@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Connections
+ * 
+ * A Dashboard_controller for managing connections
+ * 
+ * @package Social Igniter\Controllers
+ * @see Dashboard_Controller
+ */
 class Connections extends MY_Controller
 {
     function __construct()

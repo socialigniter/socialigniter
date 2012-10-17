@@ -54,6 +54,15 @@ class Curl {
 	 * ================================================================================= */
 
 	// Return a get request results
+	/**
+	 * Simple Call
+	 * 
+	 * @param string $method One of 'get', 'post', 'put', 'delete'
+	 * @param string $url The URL to carry out the verb on
+	 * @param arrary $params An array of parameters to send
+	 * @param array $options An array of of options
+	 * @return 
+	 */
 	public function _simple_call($method, $url, $params = array(), $options = array())
 	{
 		// If a URL is provided, create new session

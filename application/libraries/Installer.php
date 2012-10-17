@@ -1,15 +1,15 @@
 <?php  if  ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
-Installer Library
-
-@package		Social Igniter
-@subpackage		Installer Library
-@author			Brennan Novak
-@link			http://social-igniter.com
-
-This class contains all the basic install functions for core and app installs
-*/
- 
+ * Installer Library
+ * 
+ * This class contains all the basic install functions for core and app installs
+ * 
+ * @package	Social Igniter\Libraries
+ * @author	Brennan Novak
+ * @link	http://social-igniter.com
+ * @todo Flesh out documentation
+ */
 class Installer
 {
 	protected $ci;
@@ -24,7 +24,9 @@ class Installer
 		$this->ci->load->model('sites_model');
 	}	
 	
-	// Downloads app from Github repo
+	/**
+	 * Downloads app from Github repo
+	 */
 	function download_github($app_owner, $app_name)
 	{
 		$repo_url	= 'https://github.com/'.$app_owner.'/'.$app_name.'/zipball/master';
@@ -60,7 +62,9 @@ class Installer
 		return $message;	
 	}
 	
-	// Downloads app from custom URL
+	/**
+	 * Downloads app from custom URL
+	 */
 	function download_custom($app_name, $app_url)
 	{
 	    $path	= config_item('uploads_folder').'apps/'.$app_name.'.zip';
@@ -104,6 +108,9 @@ class Installer
 	    return $message;
 	}
 	
+	/**
+	 * Unzips an app
+	 */
 	function uncompress_app($app)
 	{
 		$this->ci->load->library('unzip');
@@ -119,7 +126,11 @@ class Installer
 	}
 	
 	
-	// Deletes App Files from /application/modules
+	/**
+	 * Delete App
+	 * 
+	 * Delete App Files from /application/modules
+	 */
 	function delete_app($app)
 	{
 		delete_files(APPPATH.'modules/'.$app);
@@ -127,7 +138,9 @@ class Installer
 		return TRUE;
 	}
 		
-	
+	/**
+	 * Create Folders
+	 */
 	function create_folders($app_folders)
 	{	
 		foreach ($app_folders as $folder)
@@ -139,7 +152,9 @@ class Installer
 	}	
 	
 
-	// Installs data into 'content' table
+	/** 
+	 * Installs data into 'content' table
+	 */
 	function install_content($app_content, $user_id)
 	{
 		$result = FALSE;
@@ -166,7 +181,9 @@ class Installer
 	}
 	
 	
-	// Installs app data into the 'settings' table
+	/**
+	 * Installs app data into the 'settings' table
+	 */
 	function install_settings($app, $app_settings, $reinstall=FALSE)
 	{
 		$current_settings 	= $this->ci->social_igniter->get_settings_module($app);
@@ -216,6 +233,9 @@ class Installer
 		return $result;
 	}
 	
+	/**
+	 * Uninstall Settings
+	 */
 	function uninstall_settings($app)
 	{
 		$current_settings	= $this->ci->social_igniter->get_settings_module($app);
@@ -236,7 +256,9 @@ class Installer
 		}
 	}
 	
-	// Installs app data into the 'sites' table
+	/**
+	 * Installs app data into the 'sites' table
+	 */
 	function install_sites($app_sites)
 	{
 		foreach ($app_sites as $site)

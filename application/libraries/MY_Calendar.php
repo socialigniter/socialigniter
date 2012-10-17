@@ -20,8 +20,7 @@
  *
  * This class enables the creation of calendars
  *
- * @package		CodeIgniter
- * @subpackage	Libraries
+ * @package		CodeIgniter\Libraries
  * @category	Libraries
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/calendar.html

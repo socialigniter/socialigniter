@@ -1,7 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-/* 
- * Categories API : Core : Social-Igniter
- *
+/**
+ * Categories API
+ * @package Social Igniter\API
+ * @see https://social-igniter.com/api
  */
 class Categories extends Oauth_Controller
 {

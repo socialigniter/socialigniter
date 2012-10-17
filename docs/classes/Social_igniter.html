@@ -1,0 +1,1243 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Social Igniter » \Social_igniter</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Social Igniter</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/CodeIgniter.html"><i class="icon-folder-open"></i> CodeIgniter</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/Jonathon%20Hill.html"><i class="icon-folder-open"></i> Jonathon Hill</a></li>
+<li><a href="../packages/Patrick%20Popowicz.html"><i class="icon-folder-open"></i> Patrick Popowicz</a></li>
+<li><a href="../packages/Pete%20Warden.html"><i class="icon-folder-open"></i> Pete Warden</a></li>
+<li><a href="../packages/Social%20Igniter.html"><i class="icon-folder-open"></i> Social Igniter</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">526</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">79</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: "><span class="description">__construct()
+        </span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_add_activity" title="add_activity :: "><span class="description">add_activity()
+        </span><pre>add_activity()</pre></a></li>
+<li class="method public "><a href="#method_add_content" title="add_content :: "><span class="description">add_content()
+        </span><pre>add_content()</pre></a></li>
+<li class="method public "><a href="#method_add_meta" title="add_meta :: "><span class="description">add_meta()
+        </span><pre>add_meta()</pre></a></li>
+<li class="method public "><a href="#method_add_setting" title="add_setting :: "><span class="description">add_setting()
+        </span><pre>add_setting()</pre></a></li>
+<li class="method public "><a href="#method_add_site" title="add_site :: "><span class="description">add_site()
+        </span><pre>add_site()</pre></a></li>
+<li class="method public "><a href="#method_check_can_widget_be_used" title="check_can_widget_be_used :: "><span class="description">check_can_widget_be_used()
+        </span><pre>check_can_widget_be_used()</pre></a></li>
+<li class="method public "><a href="#method_check_content_comments" title="check_content_comments :: "><span class="description">check_content_comments()
+        </span><pre>check_content_comments()</pre></a></li>
+<li class="method public "><a href="#method_check_content_duplicate" title="check_content_duplicate :: "><span class="description">check_content_duplicate()
+        </span><pre>check_content_duplicate()</pre></a></li>
+<li class="method public "><a href="#method_check_content_multiple" title="check_content_multiple :: "><span class="description">check_content_multiple()
+        </span><pre>check_content_multiple()</pre></a></li>
+<li class="method public "><a href="#method_check_setting_exists" title="check_setting_exists :: "><span class="description">check_setting_exists()
+        </span><pre>check_setting_exists()</pre></a></li>
+<li class="method public "><a href="#method_delete_activity" title="delete_activity :: "><span class="description">delete_activity()
+        </span><pre>delete_activity()</pre></a></li>
+<li class="method public "><a href="#method_delete_content" title="delete_content :: "><span class="description">delete_content()
+        </span><pre>delete_content()</pre></a></li>
+<li class="method public "><a href="#method_delete_setting" title="delete_setting :: "><span class="description">delete_setting()
+        </span><pre>delete_setting()</pre></a></li>
+<li class="method public "><a href="#method_find_meta_content_value" title="find_meta_content_value :: "><span class="description">find_meta_content_value()
+        </span><pre>find_meta_content_value()</pre></a></li>
+<li class="method public "><a href="#method_find_meta_specific_content_value" title="find_meta_specific_content_value :: "><span class="description">find_meta_specific_content_value()
+        </span><pre>find_meta_specific_content_value()</pre></a></li>
+<li class="method public "><a href="#method_get_activity" title="get_activity :: "><span class="description">get_activity()
+        </span><pre>get_activity()</pre></a></li>
+<li class="method public "><a href="#method_get_activity_view" title="get_activity_view :: "><span class="description">get_activity_view()
+        </span><pre>get_activity_view()</pre></a></li>
+<li class="method public "><a href="#method_get_content" title="get_content :: "><span class="description">get_content()
+        </span><pre>get_content()</pre></a></li>
+<li class="method public "><a href="#method_get_content_category_count" title="get_content_category_count :: "><span class="description">get_content_category_count()
+        </span><pre>get_content_category_count()</pre></a></li>
+<li class="method public "><a href="#method_get_content_module" title="get_content_module :: "><span class="description">get_content_module()
+        </span><pre>get_content_module()</pre></a></li>
+<li class="method public "><a href="#method_get_content_multiple" title="get_content_multiple :: "><span class="description">get_content_multiple()
+        </span><pre>get_content_multiple()</pre></a></li>
+<li class="method public "><a href="#method_get_content_multiple_count" title="get_content_multiple_count :: "><span class="description">get_content_multiple_count()
+        </span><pre>get_content_multiple_count()</pre></a></li>
+<li class="method public "><a href="#method_get_content_new_count" title="get_content_new_count :: "><span class="description">get_content_new_count()
+        </span><pre>get_content_new_count()</pre></a></li>
+<li class="method public "><a href="#method_get_content_recent" title="get_content_recent :: "><span class="description">get_content_recent()
+        </span><pre>get_content_recent()</pre></a></li>
+<li class="method public "><a href="#method_get_content_title_url" title="get_content_title_url :: "><span class="description">get_content_title_url()
+        </span><pre>get_content_title_url()</pre></a></li>
+<li class="method public "><a href="#method_get_content_view" title="get_content_view :: "><span class="description">get_content_view()
+        </span><pre>get_content_view()</pre></a></li>
+<li class="method public "><a href="#method_get_content_view_multiple" title="get_content_view_multiple :: "><span class="description">get_content_view_multiple()
+        </span><pre>get_content_view_multiple()</pre></a></li>
+<li class="method public "><a href="#method_get_meta" title="get_meta :: "><span class="description">get_meta()
+        </span><pre>get_meta()</pre></a></li>
+<li class="method public "><a href="#method_get_meta_content" title="get_meta_content :: "><span class="description">get_meta_content()
+        </span><pre>get_meta_content()</pre></a></li>
+<li class="method public "><a href="#method_get_meta_content_meta" title="get_meta_content_meta :: "><span class="description">get_meta_content_meta()
+        </span><pre>get_meta_content_meta()</pre></a></li>
+<li class="method public "><a href="#method_get_meta_multiples" title="get_meta_multiples :: "><span class="description">get_meta_multiples()
+        </span><pre>get_meta_multiples()</pre></a></li>
+<li class="method public "><a href="#method_get_setting" title="get_setting :: "><span class="description">get_setting()
+        </span><pre>get_setting()</pre></a></li>
+<li class="method public "><a href="#method_get_settings" title="get_settings :: "><span class="description">get_settings()
+        </span><pre>get_settings()</pre></a></li>
+<li class="method public "><a href="#method_get_settings_module" title="get_settings_module :: "><span class="description">get_settings_module()
+        </span><pre>get_settings_module()</pre></a></li>
+<li class="method public "><a href="#method_get_settings_setting" title="get_settings_setting :: "><span class="description">get_settings_setting()
+        </span><pre>get_settings_setting()</pre></a></li>
+<li class="method public "><a href="#method_get_settings_setting_value" title="get_settings_setting_value :: "><span class="description">get_settings_setting_value()
+        </span><pre>get_settings_setting_value()</pre></a></li>
+<li class="method public "><a href="#method_get_site" title="get_site :: "><span class="description">get_site()
+        </span><pre>get_site()</pre></a></li>
+<li class="method public "><a href="#method_get_site_view" title="get_site_view :: "><span class="description">get_site_view()
+        </span><pre>get_site_view()</pre></a></li>
+<li class="method public "><a href="#method_get_site_view_row" title="get_site_view_row :: "><span class="description">get_site_view_row()
+        </span><pre>get_site_view_row()</pre></a></li>
+<li class="method public "><a href="#method_get_social_audio" title="get_social_audio :: Get Social Audio"><span class="description">Get Social Audio</span><pre>get_social_audio()</pre></a></li>
+<li class="method public "><a href="#method_get_social_checkin" title="get_social_checkin :: Get Social Checkin"><span class="description">Get Social Checkin</span><pre>get_social_checkin()</pre></a></li>
+<li class="method public "><a href="#method_get_social_files" title="get_social_files :: Get Social Files"><span class="description">Get Social Files</span><pre>get_social_files()</pre></a></li>
+<li class="method public "><a href="#method_get_social_logins" title="get_social_logins :: Get Social Logins"><span class="description">Get Social Logins</span><pre>get_social_logins()</pre></a></li>
+<li class="method public "><a href="#method_get_social_photos" title="get_social_photos :: Get Social Photos"><span class="description">Get Social Photos</span><pre>get_social_photos()</pre></a></li>
+<li class="method public "><a href="#method_get_social_post" title="get_social_post :: "><span class="description">get_social_post()
+        </span><pre>get_social_post()</pre></a></li>
+<li class="method public "><a href="#method_get_social_videos" title="get_social_videos :: Get Social Videos"><span class="description">Get Social Videos</span><pre>get_social_videos()</pre></a></li>
+<li class="method public "><a href="#method_get_themes" title="get_themes :: "><span class="description">get_themes()
+        </span><pre>get_themes()</pre></a></li>
+<li class="method public "><a href="#method_get_timeline" title="get_timeline :: "><span class="description">get_timeline()
+        </span><pre>get_timeline()</pre></a></li>
+<li class="method public "><a href="#method_get_timeline_friends" title="get_timeline_friends :: "><span class="description">get_timeline_friends()
+        </span><pre>get_timeline_friends()</pre></a></li>
+<li class="method public "><a href="#method_get_timeline_group" title="get_timeline_group :: "><span class="description">get_timeline_group()
+        </span><pre>get_timeline_group()</pre></a></li>
+<li class="method public "><a href="#method_get_timeline_likes" title="get_timeline_likes :: "><span class="description">get_timeline_likes()
+        </span><pre>get_timeline_likes()</pre></a></li>
+<li class="method public "><a href="#method_get_timeline_user" title="get_timeline_user :: "><span class="description">get_timeline_user()
+        </span><pre>get_timeline_user()</pre></a></li>
+<li class="method public "><a href="#method_get_timeline_user_view" title="get_timeline_user_view :: "><span class="description">get_timeline_user_view()
+        </span><pre>get_timeline_user_view()</pre></a></li>
+<li class="method public "><a href="#method_make_content_dropdown" title="make_content_dropdown :: "><span class="description">make_content_dropdown()
+        </span><pre>make_content_dropdown()</pre></a></li>
+<li class="method public "><a href="#method_make_content_publisher" title="make_content_publisher :: "><span class="description">make_content_publisher()
+        </span><pre>make_content_publisher()</pre></a></li>
+<li class="method public "><a href="#method_make_widgets_order" title="make_widgets_order :: "><span class="description">make_widgets_order()
+        </span><pre>make_widgets_order()</pre></a></li>
+<li class="method public "><a href="#method_profile_image" title="profile_image :: Get or set the profile photo URL for user with id $user_id"><span class="description">Get or set the profile photo URL for user with id $user_id</span><pre>profile_image()</pre></a></li>
+<li class="method public "><a href="#method_render_item" title="render_item :: Generate Item"><span class="description">Generate Item</span><pre>render_item()</pre></a></li>
+<li class="method public "><a href="#method_render_item_content" title="render_item_content :: Generate Content"><span class="description">Generate Content</span><pre>render_item_content()</pre></a></li>
+<li class="method public "><a href="#method_render_item_default" title="render_item_default :: "><span class="description">render_item_default()
+        </span><pre>render_item_default()</pre></a></li>
+<li class="method public "><a href="#method_render_item_event" title="render_item_event :: "><span class="description">render_item_event()
+        </span><pre>render_item_event()</pre></a></li>
+<li class="method public "><a href="#method_render_item_image" title="render_item_image :: "><span class="description">render_item_image()
+        </span><pre>render_item_image()</pre></a></li>
+<li class="method public "><a href="#method_render_item_page" title="render_item_page :: "><span class="description">render_item_page()
+        </span><pre>render_item_page()</pre></a></li>
+<li class="method public "><a href="#method_render_item_place" title="render_item_place :: "><span class="description">render_item_place()
+        </span><pre>render_item_place()</pre></a></li>
+<li class="method public "><a href="#method_render_item_status" title="render_item_status :: Generate Status"><span class="description">Generate Status</span><pre>render_item_status()</pre></a></li>
+<li class="method public "><a href="#method_scan_layouts" title="scan_layouts :: Scan Layouts"><span class="description">Scan Layouts</span><pre>scan_layouts()</pre></a></li>
+<li class="method public "><a href="#method_scan_media_manager" title="scan_media_manager :: Scan Media Manager"><span class="description">Scan Media Manager</span><pre>scan_media_manager()</pre></a></li>
+<li class="method public "><a href="#method_scan_modules" title="scan_modules :: Scan Modules"><span class="description">Scan Modules</span><pre>scan_modules()</pre></a></li>
+<li class="method public "><a href="#method_scan_themes" title="scan_themes :: Scan Themes"><span class="description">Scan Themes</span><pre>scan_themes()</pre></a></li>
+<li class="method public "><a href="#method_update_content" title="update_content :: "><span class="description">update_content()
+        </span><pre>update_content()</pre></a></li>
+<li class="method public "><a href="#method_update_content_category_ids" title="update_content_category_ids :: "><span class="description">update_content_category_ids()
+        </span><pre>update_content_category_ids()</pre></a></li>
+<li class="method public "><a href="#method_update_content_value" title="update_content_value :: "><span class="description">update_content_value()
+        </span><pre>update_content_value()</pre></a></li>
+<li class="method public "><a href="#method_update_meta" title="update_meta :: "><span class="description">update_meta()
+        </span><pre>update_meta()</pre></a></li>
+<li class="method public "><a href="#method_update_meta_multiple" title="update_meta_multiple :: "><span class="description">update_meta_multiple()
+        </span><pre>update_meta_multiple()</pre></a></li>
+<li class="method public "><a href="#method_update_setting" title="update_setting :: "><span class="description">update_setting()
+        </span><pre>update_setting()</pre></a></li>
+<li class="method public "><a href="#method_update_settings" title="update_settings :: "><span class="description">update_settings()
+        </span><pre>update_settings()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected "><a href="#property_ci" title="$ci :: "><span class="description">$ci</span><pre>$ci</pre></a></li>
+<li class="property protected "><a href="#property_widgets" title="$widgets :: "><span class="description">$widgets</span><pre>$widgets</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\Social_igniter"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Social_igniter.html">Social_igniter</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Social Igniter Library</p>
+<div class="details">
+<div class="long_description"><p>Handles a ton of parts of the the core install.</p></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/Social%20Igniter.Libraries.html">Social Igniter\Libraries</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="">Brennan Novak @brennannovak</a></td>
+</tr>
+<tr>
+<th>link</th>
+<td><a href="http://social-igniter.com">http://social-igniter.com</a></td>
+</tr>
+<tr>
+<th>todo</th>
+<td>Document further</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>__construct()
+        </h2>
+<pre>__construct() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_add_activity"></a><div class="element clickable method public method_add_activity" data-toggle="collapse" data-target=".method_add_activity .collapse">
+<h2>add_activity()
+        </h2>
+<pre>add_activity($activity_info, $activity_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$activity_info</h4></div>
+<div class="subelement argument"><h4>$activity_data</h4></div>
+</div></div>
+</div>
+<a id="method_add_content"></a><div class="element clickable method public method_add_content" data-toggle="collapse" data-target=".method_add_content .collapse">
+<h2>add_content()
+        </h2>
+<pre>add_content($content_data, $activity_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_data</h4></div>
+<div class="subelement argument"><h4>$activity_data</h4></div>
+</div></div>
+</div>
+<a id="method_add_meta"></a><div class="element clickable method public method_add_meta" data-toggle="collapse" data-target=".method_add_meta .collapse">
+<h2>add_meta()
+        </h2>
+<pre>add_meta($meta_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$meta_data</h4></div>
+</div></div>
+</div>
+<a id="method_add_setting"></a><div class="element clickable method public method_add_setting" data-toggle="collapse" data-target=".method_add_setting .collapse">
+<h2>add_setting()
+        </h2>
+<pre>add_setting($setting_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$setting_data</h4></div>
+</div></div>
+</div>
+<a id="method_add_site"></a><div class="element clickable method public method_add_site" data-toggle="collapse" data-target=".method_add_site .collapse">
+<h2>add_site()
+        </h2>
+<pre>add_site($site_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$site_data</h4></div>
+</div></div>
+</div>
+<a id="method_check_can_widget_be_used"></a><div class="element clickable method public method_check_can_widget_be_used" data-toggle="collapse" data-target=".method_check_can_widget_be_used .collapse">
+<h2>check_can_widget_be_used()
+        </h2>
+<pre>check_can_widget_be_used($layout, $region, $check_widget, $region_widgets) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$layout</h4></div>
+<div class="subelement argument"><h4>$region</h4></div>
+<div class="subelement argument"><h4>$check_widget</h4></div>
+<div class="subelement argument"><h4>$region_widgets</h4></div>
+</div></div>
+</div>
+<a id="method_check_content_comments"></a><div class="element clickable method public method_check_content_comments" data-toggle="collapse" data-target=".method_check_content_comments .collapse">
+<h2>check_content_comments()
+        </h2>
+<pre>check_content_comments($content_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_id</h4></div>
+</div></div>
+</div>
+<a id="method_check_content_duplicate"></a><div class="element clickable method public method_check_content_duplicate" data-toggle="collapse" data-target=".method_check_content_duplicate .collapse">
+<h2>check_content_duplicate()
+        </h2>
+<pre>check_content_duplicate($parameter, $value, $user_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+<div class="subelement argument"><h4>$user_id</h4></div>
+</div></div>
+</div>
+<a id="method_check_content_multiple"></a><div class="element clickable method public method_check_content_multiple" data-toggle="collapse" data-target=".method_check_content_multiple .collapse">
+<h2>check_content_multiple()
+        </h2>
+<pre>check_content_multiple($value_array, $user_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$value_array</h4></div>
+<div class="subelement argument"><h4>$user_id</h4></div>
+</div></div>
+</div>
+<a id="method_check_setting_exists"></a><div class="element clickable method public method_check_setting_exists" data-toggle="collapse" data-target=".method_check_setting_exists .collapse">
+<h2>check_setting_exists()
+        </h2>
+<pre>check_setting_exists($setting_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$setting_data</h4></div>
+</div></div>
+</div>
+<a id="method_delete_activity"></a><div class="element clickable method public method_delete_activity" data-toggle="collapse" data-target=".method_delete_activity .collapse">
+<h2>delete_activity()
+        </h2>
+<pre>delete_activity($activity_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$activity_id</h4></div>
+</div></div>
+</div>
+<a id="method_delete_content"></a><div class="element clickable method public method_delete_content" data-toggle="collapse" data-target=".method_delete_content .collapse">
+<h2>delete_content()
+        </h2>
+<pre>delete_content($content_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_id</h4></div>
+</div></div>
+</div>
+<a id="method_delete_setting"></a><div class="element clickable method public method_delete_setting" data-toggle="collapse" data-target=".method_delete_setting .collapse">
+<h2>delete_setting()
+        </h2>
+<pre>delete_setting($settings_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$settings_id</h4></div>
+</div></div>
+</div>
+<a id="method_find_meta_content_value"></a><div class="element clickable method public method_find_meta_content_value" data-toggle="collapse" data-target=".method_find_meta_content_value .collapse">
+<h2>find_meta_content_value()
+        </h2>
+<pre>find_meta_content_value($key, $meta_query) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$key</h4></div>
+<div class="subelement argument"><h4>$meta_query</h4></div>
+</div></div>
+</div>
+<a id="method_find_meta_specific_content_value"></a><div class="element clickable method public method_find_meta_specific_content_value" data-toggle="collapse" data-target=".method_find_meta_specific_content_value .collapse">
+<h2>find_meta_specific_content_value()
+        </h2>
+<pre>find_meta_specific_content_value($content_id, $key, $meta_query) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_id</h4></div>
+<div class="subelement argument"><h4>$key</h4></div>
+<div class="subelement argument"><h4>$meta_query</h4></div>
+</div></div>
+</div>
+<a id="method_get_activity"></a><div class="element clickable method public method_get_activity" data-toggle="collapse" data-target=".method_get_activity .collapse">
+<h2>get_activity()
+        </h2>
+<pre>get_activity($activity_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$activity_id</h4></div>
+</div></div>
+</div>
+<a id="method_get_activity_view"></a><div class="element clickable method public method_get_activity_view" data-toggle="collapse" data-target=".method_get_activity_view .collapse">
+<h2>get_activity_view()
+        </h2>
+<pre>get_activity_view($parameter, $value, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_get_content"></a><div class="element clickable method public method_get_content" data-toggle="collapse" data-target=".method_get_content .collapse">
+<h2>get_content()
+        </h2>
+<pre>get_content($content_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_id</h4></div>
+</div></div>
+</div>
+<a id="method_get_content_category_count"></a><div class="element clickable method public method_get_content_category_count" data-toggle="collapse" data-target=".method_get_content_category_count .collapse">
+<h2>get_content_category_count()
+        </h2>
+<pre>get_content_category_count($category_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$category_id</h4></div>
+</div></div>
+</div>
+<a id="method_get_content_module"></a><div class="element clickable method public method_get_content_module" data-toggle="collapse" data-target=".method_get_content_module .collapse">
+<h2>get_content_module()
+        </h2>
+<pre>get_content_module($module, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$module</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_get_content_multiple"></a><div class="element clickable method public method_get_content_multiple" data-toggle="collapse" data-target=".method_get_content_multiple .collapse">
+<h2>get_content_multiple()
+        </h2>
+<pre>get_content_multiple($parameter, $value_array) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value_array</h4></div>
+</div></div>
+</div>
+<a id="method_get_content_multiple_count"></a><div class="element clickable method public method_get_content_multiple_count" data-toggle="collapse" data-target=".method_get_content_multiple_count .collapse">
+<h2>get_content_multiple_count()
+        </h2>
+<pre>get_content_multiple_count($where) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$where</h4></div>
+</div></div>
+</div>
+<a id="method_get_content_new_count"></a><div class="element clickable method public method_get_content_new_count" data-toggle="collapse" data-target=".method_get_content_new_count .collapse">
+<h2>get_content_new_count()
+        </h2>
+<pre>get_content_new_count($module) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$module</h4></div>
+</div></div>
+</div>
+<a id="method_get_content_recent"></a><div class="element clickable method public method_get_content_recent" data-toggle="collapse" data-target=".method_get_content_recent .collapse">
+<h2>get_content_recent()
+        </h2>
+<pre>get_content_recent($type, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$type</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_get_content_title_url"></a><div class="element clickable method public method_get_content_title_url" data-toggle="collapse" data-target=".method_get_content_title_url .collapse">
+<h2>get_content_title_url()
+        </h2>
+<pre>get_content_title_url($type, $title_url) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$type</h4></div>
+<div class="subelement argument"><h4>$title_url</h4></div>
+</div></div>
+</div>
+<a id="method_get_content_view"></a><div class="element clickable method public method_get_content_view" data-toggle="collapse" data-target=".method_get_content_view .collapse">
+<h2>get_content_view()
+        </h2>
+<pre>get_content_view($parameter, $value, $status, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+<div class="subelement argument"><h4>$status</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_get_content_view_multiple"></a><div class="element clickable method public method_get_content_view_multiple" data-toggle="collapse" data-target=".method_get_content_view_multiple .collapse">
+<h2>get_content_view_multiple()
+        </h2>
+<pre>get_content_view_multiple($where, $status, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$where</h4></div>
+<div class="subelement argument"><h4>$status</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_get_meta"></a><div class="element clickable method public method_get_meta" data-toggle="collapse" data-target=".method_get_meta .collapse">
+<h2>get_meta()
+        </h2>
+<pre>get_meta($content_meta_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_meta_id</h4></div>
+</div></div>
+</div>
+<a id="method_get_meta_content"></a><div class="element clickable method public method_get_meta_content" data-toggle="collapse" data-target=".method_get_meta_content .collapse">
+<h2>get_meta_content()
+        </h2>
+<pre>get_meta_content($content_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_id</h4></div>
+</div></div>
+</div>
+<a id="method_get_meta_content_meta"></a><div class="element clickable method public method_get_meta_content_meta" data-toggle="collapse" data-target=".method_get_meta_content_meta .collapse">
+<h2>get_meta_content_meta()
+        </h2>
+<pre>get_meta_content_meta($content_id, $meta) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_id</h4></div>
+<div class="subelement argument"><h4>$meta</h4></div>
+</div></div>
+</div>
+<a id="method_get_meta_multiples"></a><div class="element clickable method public method_get_meta_multiples" data-toggle="collapse" data-target=".method_get_meta_multiples .collapse">
+<h2>get_meta_multiples()
+        </h2>
+<pre>get_meta_multiples($content_id_array) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_id_array</h4></div>
+</div></div>
+</div>
+<a id="method_get_setting"></a><div class="element clickable method public method_get_setting" data-toggle="collapse" data-target=".method_get_setting .collapse">
+<h2>get_setting()
+        </h2>
+<pre>get_setting($settings_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$settings_id</h4></div>
+</div></div>
+</div>
+<a id="method_get_settings"></a><div class="element clickable method public method_get_settings" data-toggle="collapse" data-target=".method_get_settings .collapse">
+<h2>get_settings()
+        </h2>
+<pre>get_settings($module) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$module</h4></div>
+</div></div>
+</div>
+<a id="method_get_settings_module"></a><div class="element clickable method public method_get_settings_module" data-toggle="collapse" data-target=".method_get_settings_module .collapse">
+<h2>get_settings_module()
+        </h2>
+<pre>get_settings_module($module) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$module</h4></div>
+</div></div>
+</div>
+<a id="method_get_settings_setting"></a><div class="element clickable method public method_get_settings_setting" data-toggle="collapse" data-target=".method_get_settings_setting .collapse">
+<h2>get_settings_setting()
+        </h2>
+<pre>get_settings_setting($setting) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$setting</h4></div>
+</div></div>
+</div>
+<a id="method_get_settings_setting_value"></a><div class="element clickable method public method_get_settings_setting_value" data-toggle="collapse" data-target=".method_get_settings_setting_value .collapse">
+<h2>get_settings_setting_value()
+        </h2>
+<pre>get_settings_setting_value($setting, $value) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$setting</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+</div></div>
+</div>
+<a id="method_get_site"></a><div class="element clickable method public method_get_site" data-toggle="collapse" data-target=".method_get_site .collapse">
+<h2>get_site()
+        </h2>
+<pre>get_site() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_get_site_view"></a><div class="element clickable method public method_get_site_view" data-toggle="collapse" data-target=".method_get_site_view .collapse">
+<h2>get_site_view()
+        </h2>
+<pre>get_site_view($parameter, $value) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+</div></div>
+</div>
+<a id="method_get_site_view_row"></a><div class="element clickable method public method_get_site_view_row" data-toggle="collapse" data-target=".method_get_site_view_row .collapse">
+<h2>get_site_view_row()
+        </h2>
+<pre>get_site_view_row($parameter, $value) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+</div></div>
+</div>
+<a id="method_get_social_audio"></a><div class="element clickable method public method_get_social_audio" data-toggle="collapse" data-target=".method_get_social_audio .collapse">
+<h2>Get Social Audio</h2>
+<pre>get_social_audio($user_id, $id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Implement this!</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$id</h4></div>
+</div></div>
+</div>
+<a id="method_get_social_checkin"></a><div class="element clickable method public method_get_social_checkin" data-toggle="collapse" data-target=".method_get_social_checkin .collapse">
+<h2>Get Social Checkin</h2>
+<pre>get_social_checkin($user_id, $id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Implement this!</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$id</h4></div>
+</div></div>
+</div>
+<a id="method_get_social_files"></a><div class="element clickable method public method_get_social_files" data-toggle="collapse" data-target=".method_get_social_files .collapse">
+<h2>Get Social Files</h2>
+<pre>get_social_files($user_id, $id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Implement this!</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$id</h4></div>
+</div></div>
+</div>
+<a id="method_get_social_logins"></a><div class="element clickable method public method_get_social_logins" data-toggle="collapse" data-target=".method_get_social_logins .collapse">
+<h2>Get Social Logins</h2>
+<pre>get_social_logins(string $html_start, string $html_end) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$html_start</h4>
+<code>string</code><p>HTML to prexif the output with</p></div>
+<div class="subelement argument">
+<h4>$html_end</h4>
+<code>string</code><p>HTML to append onto the end of the output</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The HTML representing a UI for the available social logins</div>
+</div></div>
+</div>
+<a id="method_get_social_photos"></a><div class="element clickable method public method_get_social_photos" data-toggle="collapse" data-target=".method_get_social_photos .collapse">
+<h2>Get Social Photos</h2>
+<pre>get_social_photos($user_id, $id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Implement this!</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$id</h4></div>
+</div></div>
+</div>
+<a id="method_get_social_post"></a><div class="element clickable method public method_get_social_post" data-toggle="collapse" data-target=".method_get_social_post .collapse">
+<h2>get_social_post()
+        </h2>
+<pre>get_social_post($user_id, $id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$id</h4></div>
+</div></div>
+</div>
+<a id="method_get_social_videos"></a><div class="element clickable method public method_get_social_videos" data-toggle="collapse" data-target=".method_get_social_videos .collapse">
+<h2>Get Social Videos</h2>
+<pre>get_social_videos($user_id, $id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Implement this!</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$id</h4></div>
+</div></div>
+</div>
+<a id="method_get_themes"></a><div class="element clickable method public method_get_themes" data-toggle="collapse" data-target=".method_get_themes .collapse">
+<h2>get_themes()
+        </h2>
+<pre>get_themes($theme_type) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$theme_type</h4></div>
+</div></div>
+</div>
+<a id="method_get_timeline"></a><div class="element clickable method public method_get_timeline" data-toggle="collapse" data-target=".method_get_timeline .collapse">
+<h2>get_timeline()
+        </h2>
+<pre>get_timeline($module, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$module</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_get_timeline_friends"></a><div class="element clickable method public method_get_timeline_friends" data-toggle="collapse" data-target=".method_get_timeline_friends .collapse">
+<h2>get_timeline_friends()
+        </h2>
+<pre>get_timeline_friends($friends, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$friends</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_get_timeline_group"></a><div class="element clickable method public method_get_timeline_group" data-toggle="collapse" data-target=".method_get_timeline_group .collapse">
+<h2>get_timeline_group()
+        </h2>
+<pre>get_timeline_group($group, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$group</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_get_timeline_likes"></a><div class="element clickable method public method_get_timeline_likes" data-toggle="collapse" data-target=".method_get_timeline_likes .collapse">
+<h2>get_timeline_likes()
+        </h2>
+<pre>get_timeline_likes($likes, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$likes</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_get_timeline_user"></a><div class="element clickable method public method_get_timeline_user" data-toggle="collapse" data-target=".method_get_timeline_user .collapse">
+<h2>get_timeline_user()
+        </h2>
+<pre>get_timeline_user($user_id, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_get_timeline_user_view"></a><div class="element clickable method public method_get_timeline_user_view" data-toggle="collapse" data-target=".method_get_timeline_user_view .collapse">
+<h2>get_timeline_user_view()
+        </h2>
+<pre>get_timeline_user_view($user_id, $parameter, $value, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_make_content_dropdown"></a><div class="element clickable method public method_make_content_dropdown" data-toggle="collapse" data-target=".method_make_content_dropdown .collapse">
+<h2>make_content_dropdown()
+        </h2>
+<pre>make_content_dropdown($parameter, $value, $content_permissions, $user_level_id, $add_label, $limit) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parameter</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+<div class="subelement argument"><h4>$content_permissions</h4></div>
+<div class="subelement argument"><h4>$user_level_id</h4></div>
+<div class="subelement argument"><h4>$add_label</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_make_content_publisher"></a><div class="element clickable method public method_make_content_publisher" data-toggle="collapse" data-target=".method_make_content_publisher .collapse">
+<h2>make_content_publisher()
+        </h2>
+<pre>make_content_publisher($data, $state, $content_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$data</h4></div>
+<div class="subelement argument"><h4>$state</h4></div>
+<div class="subelement argument"><h4>$content_id</h4></div>
+</div></div>
+</div>
+<a id="method_make_widgets_order"></a><div class="element clickable method public method_make_widgets_order" data-toggle="collapse" data-target=".method_make_widgets_order .collapse">
+<h2>make_widgets_order()
+        </h2>
+<pre>make_widgets_order($widgets, $layout) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$widgets</h4></div>
+<div class="subelement argument"><h4>$layout</h4></div>
+</div></div>
+</div>
+<a id="method_profile_image"></a><div class="element clickable method public method_profile_image" data-toggle="collapse" data-target=".method_profile_image .collapse">
+<h2>Get or set the profile photo URL for user with id $user_id</h2>
+<pre>profile_image(int $user_id, string $image, string $email_hash, string $size, string $theme) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$user_id</h4>
+<code>int</code>
+</div>
+<div class="subelement argument">
+<h4>$image</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$email_hash</h4>
+<code>string</code><p>The hash of the user’s email to use with gravatar</p>
+</div>
+<div class="subelement argument">
+<h4>$size</h4>
+<code>string</code><p>The size of the image to get, defaults to 'medium'</p>
+</div>
+<div class="subelement argument">
+<h4>$theme</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The URL of a photo for user with $user_id</div>
+</div></div>
+</div>
+<a id="method_render_item"></a><div class="element clickable method public method_render_item" data-toggle="collapse" data-target=".method_render_item .collapse">
+<h2>Generate Item</h2>
+<pre>render_item(object $activity) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$activity</h4>
+<code>object</code><p>The activity to render</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The $activity, rendered as html</div>
+</div></div>
+</div>
+<a id="method_render_item_content"></a><div class="element clickable method public method_render_item_content" data-toggle="collapse" data-target=".method_render_item_content .collapse">
+<h2>Generate Content</h2>
+<pre>render_item_content($type, $object) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$type</h4></div>
+<div class="subelement argument"><h4>$object</h4></div>
+</div></div>
+</div>
+<a id="method_render_item_default"></a><div class="element clickable method public method_render_item_default" data-toggle="collapse" data-target=".method_render_item_default .collapse">
+<h2>render_item_default()
+        </h2>
+<pre>render_item_default($object, $has_thumb) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$object</h4></div>
+<div class="subelement argument"><h4>$has_thumb</h4></div>
+</div></div>
+</div>
+<a id="method_render_item_event"></a><div class="element clickable method public method_render_item_event" data-toggle="collapse" data-target=".method_render_item_event .collapse">
+<h2>render_item_event()
+        </h2>
+<pre>render_item_event($object, $has_thumb) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$object</h4></div>
+<div class="subelement argument"><h4>$has_thumb</h4></div>
+</div></div>
+</div>
+<a id="method_render_item_image"></a><div class="element clickable method public method_render_item_image" data-toggle="collapse" data-target=".method_render_item_image .collapse">
+<h2>render_item_image()
+        </h2>
+<pre>render_item_image($object, $has_thumb) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$object</h4></div>
+<div class="subelement argument"><h4>$has_thumb</h4></div>
+</div></div>
+</div>
+<a id="method_render_item_page"></a><div class="element clickable method public method_render_item_page" data-toggle="collapse" data-target=".method_render_item_page .collapse">
+<h2>render_item_page()
+        </h2>
+<pre>render_item_page($object, $has_thumb) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$object</h4></div>
+<div class="subelement argument"><h4>$has_thumb</h4></div>
+</div></div>
+</div>
+<a id="method_render_item_place"></a><div class="element clickable method public method_render_item_place" data-toggle="collapse" data-target=".method_render_item_place .collapse">
+<h2>render_item_place()
+        </h2>
+<pre>render_item_place($object, $has_thumb) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$object</h4></div>
+<div class="subelement argument"><h4>$has_thumb</h4></div>
+</div></div>
+</div>
+<a id="method_render_item_status"></a><div class="element clickable method public method_render_item_status" data-toggle="collapse" data-target=".method_render_item_status .collapse">
+<h2>Generate Status</h2>
+<pre>render_item_status(object $activity, object $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$activity</h4>
+<code>object</code><p>The activity to render</p></div>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>object</code>
+</div>
+</div></div>
+</div>
+<a id="method_scan_layouts"></a><div class="element clickable method public method_scan_layouts" data-toggle="collapse" data-target=".method_scan_layouts .collapse">
+<h2>Scan Layouts</h2>
+<pre>scan_layouts(string $theme) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Find all installed layouts for a given theme</p></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>What does this return? Where is directory_map defined?</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theme</h4>
+<code>string</code><p>The theme to look for layouts within</p></div>
+</div></div>
+</div>
+<a id="method_scan_media_manager"></a><div class="element clickable method public method_scan_media_manager" data-toggle="collapse" data-target=".method_scan_media_manager .collapse">
+<h2>Scan Media Manager</h2>
+<pre>scan_media_manager() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Looks through all media managers in all installed modules</p></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>What does this return?</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_scan_modules"></a><div class="element clickable method public method_scan_modules" data-toggle="collapse" data-target=".method_scan_modules .collapse">
+<h2>Scan Modules</h2>
+<pre>scan_modules() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Find all installed modules</p></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>What does this return? Where is directory_map defined?</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_scan_themes"></a><div class="element clickable method public method_scan_themes" data-toggle="collapse" data-target=".method_scan_themes .collapse">
+<h2>Scan Themes</h2>
+<pre>scan_themes() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Find all installed themes</p></div>
+<table class="table table-bordered">
+<tr>
+<th>todo</th>
+<td>The assignment can probably be removed here</td>
+</tr>
+<tr>
+<th>todo</th>
+<td>What does this return? Where is directory_map defined?</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_update_content"></a><div class="element clickable method public method_update_content" data-toggle="collapse" data-target=".method_update_content .collapse">
+<h2>update_content()
+        </h2>
+<pre>update_content($content_data, $user_id, $activity_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_data</h4></div>
+<div class="subelement argument"><h4>$user_id</h4></div>
+<div class="subelement argument"><h4>$activity_data</h4></div>
+</div></div>
+</div>
+<a id="method_update_content_category_ids"></a><div class="element clickable method public method_update_content_category_ids" data-toggle="collapse" data-target=".method_update_content_category_ids .collapse">
+<h2>update_content_category_ids()
+        </h2>
+<pre>update_content_category_ids($category_id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$category_id</h4></div>
+</div></div>
+</div>
+<a id="method_update_content_value"></a><div class="element clickable method public method_update_content_value" data-toggle="collapse" data-target=".method_update_content_value .collapse">
+<h2>update_content_value()
+        </h2>
+<pre>update_content_value($content_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_data</h4></div>
+</div></div>
+</div>
+<a id="method_update_meta"></a><div class="element clickable method public method_update_meta" data-toggle="collapse" data-target=".method_update_meta .collapse">
+<h2>update_meta()
+        </h2>
+<pre>update_meta($content_meta_id, $value) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$content_meta_id</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+</div></div>
+</div>
+<a id="method_update_meta_multiple"></a><div class="element clickable method public method_update_meta_multiple" data-toggle="collapse" data-target=".method_update_meta_multiple .collapse">
+<h2>update_meta_multiple()
+        </h2>
+<pre>update_meta_multiple($site_id, $content_id, $meta_data_array) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$site_id</h4></div>
+<div class="subelement argument"><h4>$content_id</h4></div>
+<div class="subelement argument"><h4>$meta_data_array</h4></div>
+</div></div>
+</div>
+<a id="method_update_setting"></a><div class="element clickable method public method_update_setting" data-toggle="collapse" data-target=".method_update_setting .collapse">
+<h2>update_setting()
+        </h2>
+<pre>update_setting($setting_id, $update_data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$setting_id</h4></div>
+<div class="subelement argument"><h4>$update_data</h4></div>
+</div></div>
+</div>
+<a id="method_update_settings"></a><div class="element clickable method public method_update_settings" data-toggle="collapse" data-target=".method_update_settings .collapse">
+<h2>update_settings()
+        </h2>
+<pre>update_settings($module, $settings_update_array) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$module</h4></div>
+<div class="subelement argument"><h4>$settings_update_array</h4></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_ci"> </a><div class="element clickable property protected property_ci" data-toggle="collapse" data-target=".property_ci .collapse">
+<h2>$ci</h2>
+<pre>$ci </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_widgets"> </a><div class="element clickable property protected property_widgets" data-toggle="collapse" data-target=".property_widgets .collapse">
+<h2>$widgets</h2>
+<pre>$widgets </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a10</a> and<br>
+            generated on 2012-10-13T22:54:05+01:00.<br></footer></div>
+</div>
+</body>
+</html>
