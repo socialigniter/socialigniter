@@ -104,28 +104,6 @@ class Social_tools
 		return $this->view_categories;	
 	}
 
-	function make_group_dropdown($user_id, $user_level_id, $add_label=FALSE)
-	{
-		$categories_query 		= $this->get_categories_view_multiple(array('categories.module' => 'home'));
-		$this->view_categories 	= array('all' => 'All', 'friends' => 'Friends');
-		$categories 			= $this->render_categories_children($categories_query, 0);
-				
-		// Add Category if Admin
-		if (($user_level_id <= 2) AND ($add_label))
-		{
-			if (!$add_label)
-			{
-				$this->view_categories['add_category'] = '+ Add Category';	
-			}
-			else
-			{
-				$this->view_categories['add_category'] = $add_label;
-			}	
-		}
-		
-		return $this->view_categories;	
-	}
-
 	function render_categories_children($categories_query, $parent_id)
 	{		
 		foreach ($categories_query as $child)

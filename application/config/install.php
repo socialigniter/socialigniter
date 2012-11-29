@@ -777,14 +777,7 @@ $config['services_settings']['recaptcha_theme']	= 'white';
 $config['home_settings']['view_permission'] = '4';
 $config['home_settings']['create_permission'] = '4';
 $config['home_settings']['view_redirect'] = '';
-$config['home_settings']['public_timeline'] = 'TRUE';
-$config['home_settings']['status_length'] = '140';
-$config['home_settings']['date_style'] = 'ELAPSED';
-$config['home_settings']['description_length'] = '110';
-$config['home_settings']['share']	= 'TRUE';
-$config['home_settings']['like'] = 'TRUE';
-$config['home_settings']['comments_allow'] = 'TRUE';
-$config['home_settings']['comments_per_page'] = '2';
+
 $config['users_settings']['images_sizes_large'] = 'yes';
 $config['users_settings']['images_sizes_medium'] = 'yes';
 $config['users_settings']['images_sizes_small'] = 'yes';

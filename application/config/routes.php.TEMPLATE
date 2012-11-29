@@ -102,13 +102,9 @@ $route['connections/(:any)/(:any)'] = '$1/connections/$2';
 $route['connections/(:any)'] = '$1/connections/index';
 
 /* Home */
-$route['home/group/(:any)'] = 'home/index/$1';
-$route['home/friends'] = 'home/index';
-$route['home/likes'] = 'home/index';
 $route['home/error'] = 'home/error';
 
 /* Home Partials */
-$route['home/item_timeline'] = 'home/item_timeline';
 $route['home/item_manage'] = 'home/item_manage';
 $route['home/category_manager/(:any)'] = 'home/category_manager/$1';
 $route['home/category_manager'] = 'home/category_manager';
@@ -123,7 +119,7 @@ $route['home/(:any)/(:any)/(:any)/(:any)'] = '$1/home/$2/$3/$4';
 $route['home/(:any)/(:any)/(:any)']	= '$1/home/$2/$3';
 $route['home/(:any)/manage'] = 'home/manage/$1';
 $route['home/(:any)/(:any)'] = '$1/home/$2';
-$route['home/(:any)'] = 'home';
+$route['home/(:any)'] = '$1/home';
 
 /* Settings */
 $route['settings/(:any)/install']	= '$1/settings/install';
