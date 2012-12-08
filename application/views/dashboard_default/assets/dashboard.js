@@ -119,6 +119,37 @@ function sortByCommentId(a, b){
 }
 
 
+function setLocalSocialOptions()
+{
+	if (typeof(Storage)!== "undefined")
+	{
+		// Set Empty Objects
+		if (localStorage.social_post === undefined)
+		{
+			var social_post = [];
+			localStorage.social_post = JSON.stringify(social_post);
+		}
+		else
+		{
+			// Check Existing
+			var social_post = JSON.parse(localStorage.social_post);
+			var social_post_elements = $('.social_post');
+
+			// Elements
+			$.each(social_post_elements, function()
+			{
+				var social_this = $(this).attr('name');
+	
+				if ($.inArray(social_this, social_post) > -1)
+				{
+					$(this).attr('checked', 'checked');
+				}
+			})
+		}
+	}
+}
+
+
 /*	mediaUploader - jQuery Plugin 
 	- Based on Pluploader http://plupload.com
 	- Options are implied
@@ -792,5 +823,29 @@ $(document).ready(function()
 		$(this).hide('normal');				
 		$('#'+show_pannel).show('fast');
 	});
-	
+
+
+	// Social Post Change
+	$('.social_post').bind('click', function()
+	{
+		var social_this = $(this).attr('name');
+		var social_post = JSON.parse(localStorage.social_post);
+		var social_post_this = $.inArray(social_this, social_post);
+		
+		if (social_post_this > -1)
+		{			
+			social_post.splice(social_post_this, 1);		
+			localStorage.social_post = JSON.stringify(social_post);	
+		}
+		else
+		{
+			social_post.push(social_this);
+			localStorage.social_post = JSON.stringify(social_post);
+		}		
+	});
+
+
+	// Social Options
+	setLocalSocialOptions();
+
 });
