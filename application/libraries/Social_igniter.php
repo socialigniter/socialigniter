@@ -80,7 +80,29 @@ class Social_igniter
 		}
 				
 		return $picture;
-	}	
+	}
+
+
+    /**
+     * Get users profile URL for $username if an App with profile is installed
+     * 
+     * @param int $username
+     * 
+     * @return string The URL of a user's profile
+     */	
+	function profile_link($username=FALSE)
+	{
+		if (check_app_installed('people'))
+		{
+			$profile_url = base_url().'people/'.$username;
+		}
+		else
+		{
+			$profile_url = base_url().'settings/profile';
+		}
+
+		return $profile_url;
+	}
   
 		
 	/* Social Integration */

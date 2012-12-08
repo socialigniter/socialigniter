@@ -32,14 +32,14 @@ class Dashboard_Controller extends MY_Controller
 		$this->data['logged_username']		= $this->session->userdata('username');
 		$this->data['logged_name']			= $this->session->userdata('name');
 		$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('gravatar'), 'medium', 'dashboard_theme');
-		$this->data['logged_profile']		= base_url().'people/'.$this->session->userdata('username');
+		$this->data['logged_profile']		= $this->social_igniter->profile_link($this->session->userdata('username'));
 		$this->data['logged_location']		= $this->session->userdata('location');
 		$this->data['logged_geo_enabled']	= $this->session->userdata('geo_enabled');
 		$this->data['logged_privacy']		= $this->session->userdata('privacy');
 
 		// Various Links
 		$this->data['link_home']			= base_url()."home";
-		$this->data['link_profile']			= base_url()."people/".$this->session->userdata('username');
+		$this->data['link_profile']			= $this->social_igniter->profile_link($this->session->userdata('username'));
 		$this->data['link_settings']		= base_url()."settings/profile";
 		$this->data['link_logout']			= base_url().'logout';		    
 
