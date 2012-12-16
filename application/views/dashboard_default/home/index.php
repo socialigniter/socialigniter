@@ -1,189 +1,49 @@
-<form method="post" id="status_update" action="<?= base_url() ?>api/content/create">
-	<textarea id="status_update_text" placeholder="<?= $home_greeting ?>" name="content"></textarea>	
-	<div id="status_update_options">
-		<?php if ($logged_geo_enabled): ?>
-		<div id="status_update_geo">
-			<a href="#" class="find_location" id="status_find_location"><span>Get Location</span></a>
-		</div>
-		<?php endif; ?>
-		<?= $social_post ?>
-		<div class="clear"></div>
+<div id="home_apps">
+	<h2>Apps</h2>
+	<ul>
+		<?php foreach($apps as $app): if (isset($app->launcher) AND $app->launcher == 'yes'): ?>
+		<li><a href="<?= base_url().$app->links->default ?>" class="app_button button_data"><img src="<?= base_url().'application/modules/'.$app->app.'/assets/'.$app->app.'_32.png' ?>"><?= $app->name ?></a></li>
+		<?php endif; endforeach; ?>
+	</ul>
+	<div class="clear"></div>
+
+	<?php if ($logged_user_level_id == 1): ?>	
+	<h2>Admin</h2>
+	<ul>
+		<li><a href="<?= base_url() ?>users" class="app_button button_data"><img src="<?= $dashboard_assets ?>icons/users_32.png"><span>Users</span></a></li>
+		<li><a href="<?= base_url() ?>apps" class="app_button button_data"><img src="<?= $dashboard_assets ?>icons/installer_32.png"><span>Apps</span></a></li>
+		<li><a href="<?= base_url() ?>settings/site" class="app_button button_data"><img src="<?= $dashboard_assets ?>icons/site_32.png"><span>Site</span></a></li>
+		<li><a href="<?= base_url() ?>settings/api" class="app_button button_data"><img src="<?= $dashboard_assets ?>icons/api_32.png"><span>API</span></a></li>
+	</ul>
+	<?php endif; ?>	
+</div>
+
+<div id="home_activity">
+	<h2>Activity</h2>
+	<div id="home_activity_feed">
+		<ul>
+			<?php foreach($activity as $item): ?>
+			<li><img class="activity_image" src="<?= $this->social_igniter->profile_image($item->user_id, $item->image, $item->gravatar, 'medium', 'dashboard_theme') ?>"> <?= $this->activity_igniter->render_item($item) ?></li>
+			<?php endforeach; ?>
+		</ul>
 	</div>
-	<div id="status_update_post">
-		<input type="submit" name="post" id="status_post" value="Share" />
-		<span id="character_count"></span>
-	</div>
-	<input type="hidden" name="access" id="access" value="E" />
-	<input type="hidden" name="geo_lat" id="geo_lat" value="" />
-	<input type="hidden" name="geo_long" id="geo_long" value="" />
-</form>
-
-<script type="text/javascript">
-$(document).ready(function()
-{
-	// Geo
-	geo_get();
-
-	// Character Counter
-	$('#status_update_text').NobleCount('#character_count',
-	{
-		on_negative: 'color_red'
-	});	
-
-	// Update Status
-	$('#status_update').bind('submit', function(e)
-	{
-		e.preventDefault();
-		$.validator(
-		{
-			elements : 
-				[{
-					'selector' 	: '#status_update_text',
-					'rule'		: 'require', 
-					'field'		: 'Please write something...',
-					'action'	: 'element'
-				}],
-			message	 : '',
-			success	 : function()
-			{
-				if (is_int($('#select_group').val()))
-				{
-	    			var group_id = $('#select_group').val();
-	    		}
-	    		else
-	    		{
-	    			var group_id = 0;    		
-	    		}
-
-				var status_data	= $('#status_update').serializeArray();
-				status_data.push({'name':'category_id','value':group_id},{'name':'module','value':'home'},{'name':'type','value':'status'},{'name':'source','value':'website'},{'name':'comments_allow','value':'Y'});
-		
-				$.oauthAjax(
-				{
-					oauth 		: user_data,
-					url			: base_url + 'api/content/create',
-					type		: 'POST',
-					dataType	: 'json',
-					data		: status_data,
-				  	success		: function(result)
-				  	{		  		  	
-						if (result.status == 'success')
-						{
-							// Social Post
-							var social_post = $('input.social_post');
-							if (social_post.length > 0)
-							{
-								$.each(social_post, function()
-								{
-									var social_api = $(this).attr('name');
-									if ($('#social_post_' + social_api).is(':checked'))
-									{							
-										$.oauthAjax(
-										{
-											oauth 		: user_data,
-											url			: base_url + 'api/' + social_api + '/social_post',
-											type		: 'POST',
-											dataType	: 'json',
-											data		: status_data,
-										  	success		: function(social_result)
-										  	{
-										  		// Need to do some notification
-												// console.log(social_result);							
-											}
-										});
-									}
-								});
-							}				
-															
-							$.get(base_url + 'home/item_timeline', function(html)
-							{
-								var newHTML = $.template(html,
-								{
-									'ITEM_ID'			 :result.activity.activity_id,
-									'ITEM_AVATAR'		 :getUserImageSrc(result.data),
-									'ITEM_COMMENT_AVATAR':getUserImageSrc(result.data),
-									'ITEM_PROFILE'		 :result.data.username,
-									'ITEM_CONTRIBUTOR'	 :result.data.name,
-									'ITEM_CONTENT'		 :result.data.content,
-									'ACTIVITY_TYPE'		 :result.activity.type,
-									'ITEM_DATE'			 :'just now',
-									'ACTIVITY_MODULE'	 :result.activity.module,
-									'ITEM_CONTENT_ID'	 :result.data.content_id
-								});
-								
-								$('#feed').prepend(newHTML);
-							});
-
-							$('#status_update_text').val('');
-					 	}
-					 	else
-					 	{
-							$('#content_message').notify({message:result.message});				
-					 	}	
-				 	}
-				});
-			}
-		});
-	});
-
-	// Browse Group
-	$('#select_group').change(function()
-	{
-		var group_id = $(this).val();	
-		if (is_int(group_id))
-		{
-	    	window.location = base_url + 'home/group/' + group_id;
-    	}
-    	else if (group_id == 'add_category')
-    	{
-			// This is just here so the add category will work	
-    	}
-    	else if (group_id == 'all') 
-    	{
-			window.location = base_url + 'home';
-		}
-		else if (!is_int(group_id))
-		{
-			window.location = base_url + 'home/' + group_id;
-		}    	
-    });
-
-	// Add Category
-	$('#select_group').categoryManager(
-	{
-		action		: 'create',		
-		module		: 'home',
-		type		: 'group',
-		title		: 'Add Group'
-	}); 
-	
-	// Add Connections
-	$('#social_connections_add').bind('click', function(e)
-	{
-		e.preventDefault();
-		$.get(base_url + 'dialogs/add_connections',function(partial_html)
-		{
-			$('<div />').html(partial_html).dialog(
-			{
-				width	: 325,
-				modal	: true,
-				close	: function(){$(this).remove()},
-				title	: 'Add Connections',
-				create	: function()
-				{
-					$parent_dialog = $(this);
-					// Do Custom Things
-				}
-	    	});
-		});		
-	});
-
-});
-</script>
+</div>
 <div class="clear"></div>
 
-<ol id="feed">
-	<?= $timeline_view ?>
-</ol>
+<style type="text/css">
+.button_data				{ border: 1px solid #c3c3c3; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; background-color: #f6f5f5; background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f5f5),to(#d7d6d6)); background-image: -webkit-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -moz-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -o-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: -ms-linear-gradient(top, #f6f5f5, #d7d6d6); background-image: linear-gradient(top, #f6f5f5, #d7d6d6); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f6f5f5', EndColorStr='#d7d6d6'); }
+.button_data:hover			{ border: 1px solid #b3b3b3; color: #999999; background-color: #dadada; background-image: -webkit-gradient(linear, left top, left bottom, from(#dadada),to(#e9e9e9)); background-image: -webkit-linear-gradient(top, #dadada, #e9e9e9); background-image: -moz-linear-gradient(top, #dadada, #e9e9e9); background-image: -o-linear-gradient(top, #dadada, #e9e9e9); background-image: -ms-linear-gradient(top, #dadada, #e9e9e9); background-image: linear-gradient(top, #dadada, #e9e9e9); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#dadada', EndColorStr='#e9e9e9'); }
 
-<div class="clear"></div>
+#home_apps 					{ width: 510px; float: left; margin-right: 0px; }
+#home_apps ul li			{ float: left; margin: 0px 25px 25px 0px; }
+#home_apps a.app_button		{ width: 75px; height: 85px; display: block; text-align: center; color: #999999; font-size: 12px; }
+#home_apps a.app_button:hover { text-decoration: none; color: #2078ce; }
+#home_apps a.app_button img	{  display: block; margin: 15px auto 10px auto; }
+
+#home_activity				{ width: 380px; float: left; }
+#home_activity_feed			{ height: 600px; overflow-x: hidden; overflow-y: scroll; background: #dedede; border-radius: 10px;  border: 1px solid #cccccc; }
+#home_activity_feed ul		{ margin: 10px 10px 10px 15px; }
+#home_activity_feed ul li 	{ margin: 5px 0px 0px 0px; padding-bottom: 15px; background: url(/application/views/dashboard_default/assets/images/item_separator.png) left bottom repeat-x; }
+#home_activity_feed img.activity_image { width: 24px; height: 24px; position: relative; top: 6px; left: 0px; margin-right: 6px; }
+
+</style>

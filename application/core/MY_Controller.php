@@ -102,7 +102,7 @@ class MY_Controller extends MX_Controller
         {
         	// Parse JSON Mobile Theme
             $this->config->set_item('site_theme', $this->data['settings']['themes']['mobile_theme']);        	
-        	$this->site_theme = json_decode($this->load->view(config_item('site_theme').'/theme_schema', $this->data, true));
+        	$this->site_theme = json_decode(file_get_contents(APPPATH.'views/'.config_item('site_theme').'/theme_schema.json'));
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['mobile_theme']);
         
         	// Set Source
@@ -112,9 +112,9 @@ class MY_Controller extends MX_Controller
         {   
         	// Parse JSON Site Theme
             $this->config->set_item('site_theme', $this->data['settings']['themes']['site_theme']);
-        	$this->site_theme = json_decode($this->load->view(config_item('site_theme').'/theme_schema', $this->data, true));
+        	$this->site_theme = json_decode(file_get_contents(APPPATH.'views/'.config_item('site_theme').'/theme_schema.json'));
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['dashboard_theme']);
-        
+      
         	// Set Source
         	$this->data['user_source'] = 'web';
         }

@@ -31,7 +31,7 @@ class Site_Controller extends MY_Controller
 			$this->data['logged_email']			= $this->session->userdata('email');
 			$this->data['logged_phone_number']	= $this->session->userdata('phone_number');			
 			$this->data['logged_image'] 		= $this->social_igniter->profile_image($this->session->userdata('user_id'), $this->session->userdata('image'), $this->session->userdata('gravatar'), 'medium');
-			$this->data['logged_profile']		= base_url().'people/'.$this->session->userdata('username');
+			$this->data['logged_profile']		= $this->social_igniter->profile_link($this->session->userdata('username'));
 			$this->data['logged_location']		= $this->session->userdata('location');
 			$this->data['logged_geo_enabled']	= $this->session->userdata('geo_enabled');
 			$this->data['logged_privacy']		= $this->session->userdata('privacy');
@@ -56,7 +56,7 @@ class Site_Controller extends MY_Controller
 			$this->data['logged_user_level_id']	= '';
 			$this->data['logged_username']		= '';
 			$this->data['logged_image'] 		= base_url().'application/views/'.config_item('site_theme').'/assets/images/medium_'.config_item('no_profile');
-			$this->data['logged_profile']		= base_url().'people';
+			$this->data['logged_profile']		= $this->social_igniter->profile_link();
 			$this->data['logged_name']			= 'Your Name';
 			$this->data['logged_email']			= '';
 			$this->data['logged_phone_number']	= '';			
