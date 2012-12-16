@@ -84,7 +84,7 @@ class Social_igniter
 
 
     /**
-     * Get users profile URL for $username if an App with profile is installed
+     * Get Users Profile URL for $username if an App with profile is installed
      * 
      * @param int $username
      * 
@@ -102,6 +102,20 @@ class Social_igniter
 		}
 
 		return $profile_url;
+	}
+
+    /**
+     * Get Home Link
+     * 
+     * @param int $username
+     * 
+     * @return string The URL of a user's profile
+     */	
+	function home_link()
+	{
+		$home_url = base_url().'home';
+
+		return $home_url;
 	}
   
 		

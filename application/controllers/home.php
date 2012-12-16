@@ -11,11 +11,26 @@ class Home extends Dashboard_Controller
  	{
  		if ($this->session->userdata('user_level_id') > config_item('home_view_permission')) redirect(login_redirect());
 
-	 	$this->data['page_title'] = 'Home';
+ 		$this->load->library('activity_igniter');
+
+	 	$this->data['page_title']	= 'Home';
+	 	$this->data['apps']			= '';
+	 	
+	 	foreach ($this->modules_scan as $app)
+	 	{
+	 		$app_path = APPPATH.'modules/'.$app.'/app.json';
+
+	 		if (file_exists($app_path))
+	 		{
+				$this->data['apps'][] = json_decode(file_get_contents($app_path));			
+			}
+	 	}
+	 	
+	 	$this->data['activity'] = $this->social_igniter->get_activity_view('site_id', 1, 100);
 
 		$this->render('dashboard_wide');
  	}
-	
+
  	/* Manage - All modules base manage page when URL is 'home/blog/manage' this method shows all 'content' from specified module */
 	function manage()
 	{

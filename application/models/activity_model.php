@@ -35,7 +35,6 @@ class Activity_model extends CI_Model
  		$this->db->join('users', 'users.user_id = activity.user_id'); 				
  		$this->db->join('content', 'content.content_id = activity.content_id', 'left'); 				
     	$this->db->where($where);
-	 	$this->db->where('activity.status !=', 'D');    	
  		$this->db->order_by('created_at', 'desc'); 
 		$this->db->limit($limit);    
  		$result = $this->db->get();	
@@ -56,7 +55,6 @@ class Activity_model extends CI_Model
  		$this->db->join('users', 'users.user_id = activity.user_id');
  		$this->db->join('content', 'content.content_id = activity.content_id', 'left'); 				 
  		$this->db->where('activity_id', $activity_id);
-	 	$this->db->where('activity.status !=', 'D');
 		$this->db->limit(1);    
  		$result = $this->db->get()->row();	
  		return $result; 
@@ -71,13 +69,12 @@ class Activity_model extends CI_Model
     {
     	if (in_array($parameter, array('site_id','user_id','verb', 'module','type','content_id')))
     	{    
-	 		$this->db->select('activity.*, content.canonical, sites.title, sites.favicon, users.username, users.gravatar, users.name, users.image');
+	 		$this->db->select('activity.*, content.title, content.content, content.canonical, sites.title AS site_title, sites.favicon, users.username, users.gravatar, users.name, users.image');
 	 		$this->db->from('activity');
 	 		$this->db->join('sites', 'sites.site_id = activity.site_id');
 	 		$this->db->join('users', 'users.user_id = activity.user_id');
 	 		$this->db->join('content', 'content.content_id = activity.content_id', 'left');
 	 		$this->db->where('activity.'.$parameter, $value);
-	 		$this->db->where('activity.status !=', 'D');
 	 		$this->db->order_by('activity.created_at', 'desc'); 
 			$this->db->limit($limit);    
 	 		$result = $this->db->get();	
