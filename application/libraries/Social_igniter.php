@@ -40,7 +40,7 @@ class Social_igniter
      * 
      * @return string The URL of a photo for user with $user_id
      */
-	function profile_image($user_id, $image, $email_hash=NULL, $size='medium', $theme='site_theme')
+	function profile_image($user_id, $image, $email_hash=NULL, $size='medium', $theme='themes_site_theme')
 	{
 		$this->ci->load->helper('gravatar');
 		$picture = base_url().'application/views/'.config_item($theme).'/assets/images/'.$size.'_'.config_item('no_profile');

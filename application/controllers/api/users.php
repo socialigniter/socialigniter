@@ -179,7 +179,7 @@ class Users extends Oauth_Controller
         	{
         		// Get User Data
 				$meta 		 = $this->social_auth->get_user_meta($user->user_id);				
-				$user->image = $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar);
+				$user->image = $this->social_igniter->profile_image($user->user_id, $user->image, $user->gravatar, 'medium');
 
 		        $message = array('status' => 'success', 'message' => 'Success you will now be logged in', 'user' => $user, 'meta' => $meta);
 	        }
