@@ -165,14 +165,15 @@ class Site_Controller extends MY_Controller
     function render($layout=NULL, $content=NULL)
     {
     	// Default Layout
-    	if (!$layout)	$layout	 = $this->site_theme->default_layout;
-    	if (!$content)	$content = $this->action_name;
+ 		if (!property_exists($this->site_theme->layouts, $layout)) $layout = $this->site_theme->default_layout;
+    	if (!$content)	$content = $this->action_name;	
 
  		// Do Widgets
 		foreach ($this->site_theme->layouts->$layout as $region)
 		{
 			$this->data[$region] = $this->render_widgets($region, $layout);	
 		}
+		
 
       	// Is Module
        	if ($this->module_name)
