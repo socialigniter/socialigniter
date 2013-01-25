@@ -5,6 +5,7 @@ include_once(APPPATH.'libraries/Oauth/Oauth_Response.php');
 include_once(APPPATH.'libraries/Oauth/Oauth_Signature.php');
 include_once(APPPATH.'libraries/Oauth/Oauth_Token.php');
 include_once(APPPATH.'libraries/Oauth/Oauth_Token_Request.php');
+include_once(APPPATH.'libraries/Oauth/Oauth_Format.php');
 
 class OAuth {
 
