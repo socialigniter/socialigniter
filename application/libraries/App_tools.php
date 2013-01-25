@@ -200,11 +200,19 @@ class App_tools
 			$api_database	= file_get_contents($this->template_path.'views/code/api_database.code', FILE_USE_INCLUDE_PATH);
 			$api_template	= str_replace('{APP_API_DATABASE}', $api_database, $api_template);
 		}
+		else
+		{
+			$api_template	= str_replace('{APP_API_DATABASE}', '', $api_template);			
+		}
 
 		if ($api_methods == 'TRUE')
 		{
 			$api_methods	= file_get_contents($this->template_path.'views/code/api_methods.code', FILE_USE_INCLUDE_PATH);
 			$api_template	= str_replace('{APP_API_METHODS}', $api_methods, $api_template);
+		}
+		else
+		{
+			$api_template	= str_replace('{APP_API_METHODS}', '', $api_template);			
 		}
 
 		$api_data = $this->replace_tags($api_template, '', '', FALSE);
