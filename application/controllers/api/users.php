@@ -39,7 +39,7 @@ class Users extends Oauth_Controller
 		$this->email->initialize($config_email);    	
 	}
     
-    function recent_authd_get()
+    function recent_authd_get()	
     {    
         $users = $this->social_auth->get_users('active', 1);
         
