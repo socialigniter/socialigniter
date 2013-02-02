@@ -19,6 +19,7 @@ class Rest_Controller extends MX_Controller
 		'xml' 		=> 'application/xml',
 		'rawxml' 	=> 'application/xml',
 		'json' 		=> 'application/json',
+		'jsonp' 	=> 'application/javascript',
 		'serialize' => 'application/vnd.php.serialized',
 		'php' 		=> 'text/plain',
 		'html'		=> 'text/html'
@@ -769,6 +770,12 @@ class Rest_Controller extends MX_Controller
     {
     	return json_encode($data);
     }
+    
+    // Encode as JSONP
+    private function _format_jsonp($data = array())
+	{
+		return $this->get('callback').'('.json_encode($data).')';
+	}
 
     // Encode as Serialized array
     private function _format_serialize($data = array())
