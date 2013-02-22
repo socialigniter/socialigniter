@@ -104,7 +104,7 @@ function truncator($string, $length=140, $uri=null, $urilen=null, $parens=true, 
 		// If no trucation required, just append the URL
 		// TODO: if adding the space and brackets will push over the edge, remove enough words to compensate
 		// TODO: write edge-case test to cover that scenario
-		$trunc = $string . ' (' . $uri . ')';
+		$trunc = $string . ' ' . $uri;
 	}
 
 	// if $urilen set, expand dummies into full URIs
