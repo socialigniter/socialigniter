@@ -89,9 +89,10 @@ class Site_Controller extends MY_Controller
         	$this->data['logged']	= '';
         }
         
-        $this->data['site_image']	= base_url().config_item('uploads_folder').'sites/'.config_item('site_id').'/large_logo.png';
+        // Set Empty Values
+        $this->data['site_image']	= '';
         $this->data['content']		= '';
-        
+
  		// Widget Regions	 		
  		foreach ($this->site_theme->layouts as $key => $site_layout)
  		{ 		

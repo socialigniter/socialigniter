@@ -26,6 +26,18 @@ function site_title($sub_title, $page_title=FALSE, $site_title=FALSE)
 	return $title.$site_title;
 }
 
+function site_image($new_image=FALSE)
+{
+	$ci =& get_instance();
+	$site_image = base_url().$ci->config->item('uploads_folder').'sites/'.$ci->config->item('site_id').'/large_logo.png';
+
+	if ($new_image):
+		$site_image = $new_image;
+	endif;
+
+	return $site_image;
+}
+
 // Determines if module is core or extended
 function is_core_module($module)
 {
