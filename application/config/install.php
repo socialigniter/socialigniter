@@ -775,7 +775,6 @@ $config['services_settings']['recaptcha_public'] = '';
 $config['services_settings']['recaptcha_private'] = '';
 $config['services_settings']['recaptcha_theme']	= 'white';
 $config['home_settings']['view_permission'] = '4';
-$config['home_settings']['create_permission'] = '4';
 $config['home_settings']['view_redirect'] = '';
 
 $config['users_settings']['images_sizes_large'] = 'yes';
