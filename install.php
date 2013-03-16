@@ -87,26 +87,25 @@ if ($proceedWithSetup) {
 		<div class="norm_separator"></div>
 		<div class="content_wrap">
 		<?php
-				
 				// Check all the files we want to write are writable
 				$all_writable = true;
 				$errors = '<ul>';
-				if (is_writable(CONFIG_PATH))
+				if (!is_writable(CONFIG_PATH))
 				{
 					$all_writable = false;
 					$errors .= '<li><code>' . CONFIG_PATH . '</code></li>';
 				}
-				if (is_writable(DATABASE_PATH))
+				if (!is_writable(DATABASE_PATH))
 				{
 					$all_writable = false;
 					$errors .= '<li><code>' . DATABASE_PATH . '</code></li>';
 				}
-				if (is_writable(ROUTES_PATH))
+				if (!is_writable(ROUTES_PATH))
 				{
 					$all_writable = false;
 					$errors .= '<li><code>' . ROUTES_PATH . '</code></li>';
 				}
-				if (is_writable(SOCIAL_IGNITER_PATH))
+				if (!is_writable(SOCIAL_IGNITER_PATH))
 				{
 					$all_writable = false;
 					$errors .= '<li><code>' . SOCIAL_IGNITER_PATH . '</code></li>';

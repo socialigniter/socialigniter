@@ -1,9 +1,11 @@
 <div id="home_apps">
 	<h2>Apps</h2>
 	<ul>
-		<?php foreach($apps as $app): if (isset($app->launcher) AND ($app->launcher == 'yes')): ?>
-		<li><a href="<?= base_url().$app->links->default ?>" class="app_button button_data"><img src="<?= base_url().'application/modules/'.$app->app.'/assets/'.$app->app.'_32.png' ?>"><?= $app->name ?></a></li>
-		<?php endif; endforeach; ?>
+		<?php if(is_array($apps)): foreach($apps as $app): if (isset($app->launcher) AND ($app->launcher == 'yes')): ?>
+			<li><a href="<?= base_url().$app->links->default ?>" class="app_button button_data"><img src="<?= base_url().'application/modules/'.$app->app.'/assets/'.$app->app.'_32.png' ?>"><?= $app->name ?></a></li>
+		<?php endif; endforeach; else: ?>
+			<li>Perhaps you should <a href="https://social-igniter.com/pages/apps">download some apps!</a></li>
+		<?php endif; ?>
 	</ul>
 	<div class="clear"></div>
 
