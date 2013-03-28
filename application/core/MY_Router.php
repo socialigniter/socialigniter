@@ -34,5 +34,4 @@ class MY_Router extends MX_Router
 	    $this->routes[$custom_route['match']] = $custom_route['controller'].'/'.$custom_route['action'];
 	}
 */
-
 }
