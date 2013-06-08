@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Users
  * 
@@ -14,16 +13,18 @@ class Users extends Dashboard_Controller {
     {
         parent::__construct();
         
-		// If not Super redirect
-		if ($this->data['logged_user_level_id'] > 2) redirect('home');	        
+		if ($this->data['logged_user_level_id'] > 2):
+			redirect('home');	        
+        endif;
          
  	    $this->data['page_title'] = "Users";
     }
- 	
+
  	/**
- 	 * Index
+ 	 * index function.
  	 * 
- 	 * Presents an interface for managing users
+ 	 * @access public
+ 	 * @return void
  	 */
  	function index()
  	{   		
@@ -40,8 +41,11 @@ class Users extends Dashboard_Controller {
 		
 			$this->data['user_id'] 			= $user->user_id;
 			$this->data['name']				= $user->name;
+			$this->data['email']			= $user->email;
+			$this->data['user_level_id']	= $user->user_level_id;
+			$this->data['active']			= $user->active;
 			$this->data['avatar']			= $this->social_igniter->profile_image($user->user_id, $user->image, $user->email, 'medium', 'dashboard_theme');
-			$this->data['profile']			= base_url().'profile/'.$user->username;
+			$this->data['profile']			= base_url().'people/'.$user->username;
 			$this->data['created_on']		= format_datetime('SIMPLE_ABBR', $user->created_on);
 			$this->data['last_login']		= format_datetime('SIMPLE_TIME_ABBR', $user->last_login);
 
@@ -65,22 +69,23 @@ class Users extends Dashboard_Controller {
 	    $this->render('dashboard_wide');
  	}
  	
-  	/**
- 	 * Create/Edit User
- 	 * 
- 	 * Presents an interface for creating or editing users
- 	 */
+	/**
+	 * editor function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
 	function editor() 
 	{
-		if (($this->uri->segment(2) == 'manage') && ($this->uri->segment(3)))
-		{	
-			$user 		= $this->social_auth->get_user('user_id', $this->uri->segment(3));
-			if (!$user) redirect(base_url().'users');
-	 		$user_meta	= $this->social_auth->get_user_meta($user->user_id);		
+		if (($this->uri->segment(2) == 'manage') && ($this->uri->segment(3))):
+			$user = $this->social_auth->get_user('user_id', $this->uri->segment(3));
+			if (!$user):
+				redirect(base_url().'users');
+			endif;
 
+	 		$user_meta	= $this->social_auth->get_user_meta($user->user_id);		
 		
         	$this->data['sub_title'] 	= "Edit";
- 
  			$this->data['user_level_id']= $user->user_level_id;      
        		$this->data['name']			= $user->name;
        		$this->data['username']		= $user->username;
@@ -89,12 +94,8 @@ class Users extends Dashboard_Controller {
        		$this->data['location']		= $this->social_auth->find_user_meta_value('location', $user_meta);
        		$this->data['url']			= $this->social_auth->find_user_meta_value('url', $user_meta);
        		$this->data['bio']			= $this->social_auth->find_user_meta_value('bio', $user_meta);
-
-        }
-        else
-        {        
+        else:
         	$this->data['sub_title'] 	= 'Create';
-
 			$this->data['user_level_id']= 4;
        		$this->data['name']			= '';
        		$this->data['username']		= '';
@@ -104,17 +105,14 @@ class Users extends Dashboard_Controller {
        		$this->data['location']		= '';
        		$this->data['url']			= '';
        		$this->data['bio']			= '';
-        }
+        endif;
 				
 		$this->render('dashboard_wide');
     }
-
     
     function levels()
     {
-    
     	$this->render('dashboard_wide');
     }    
  	
-  
 }
