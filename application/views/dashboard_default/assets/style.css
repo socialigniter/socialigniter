@@ -209,13 +209,6 @@ div.stage_marker_on 		{ background-color: #abaaaa; background-image: -webkit-gra
 
 
 /* Publisher */
-#status_update_text 		{ width: 615px; height: 45px; font-size: 14px; line-height: 18px; padding: 12px; }
-#status_update_options		{ width: 400px; height: 50px; float: left; margin: 15px 0 0 0; }
-#status_update_geo			{ width: 130px; float: left; }
-
-#status_find_place			{ width: 24px; height: 24px; display: block; margin: 0; background: url(icons/places_gray_24.png) 0 0 no-repeat; position: relative; top: -6px; left: 0; } 
-#status_find_place span		{ width: 110px; display: block; position: relative; top: 4px; left: 30px; }
-
 #social_post				{ margin: 0; position: relative; top: -2px; left: 5px; }
 #social_post li				{ margin: 0 0 15px 0; }
 #social_post_horizontal		{ margin: 0; position: relative; top: -2px; left: 5px; }
