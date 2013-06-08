@@ -84,7 +84,7 @@ class Users extends Oauth_Controller
      * @access public
      * @return void
      */
-    function create_post()
+    function create_authd_post()
     {
     	$this->form_validation->set_rules('name', 'Name', 'required');
     	$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
@@ -100,50 +100,38 @@ class Users extends Oauth_Controller
 	    		'name'			=> $this->input->post('name'),
 	    		'image'			=> '',
 	    		'language'		=> $this->input->post('language')
+/*	    		'url'			=> $this->input->post('url'),
+	    		'bio'			=> $this->input->post('bio'),
+	    		'location'		=> $this->input->post('location'),
+	    		'company'		=> $this->input->post('company') */
 	    	);
-	    	        	
+
 	    	if ($user = $this->social_auth->register($username, $password, $email, $additional_data, config_item('default_group'))):
-	    
+
 				$data = array(
 					'name'	   => $user->name,
 					'username' => $user->username,
-	        		'email'    => $user->email
+	        		'email'    => $user->email,
+	        		'password' => $this->input->post('password')
 				);
-	
+
 				// If Activation Email
-				if (config_item('email_activation') == FALSE):
-					$message = $this->load->view(config_item('email_templates').config_item('email_signup'), $data, true);
+				if ($this->input->post('welcome_email') == 'yes'):
+
+					$message = $this->load->view(config_item('email_templates').'welcome', $data, true);
 		
 					$this->email->from(config_item('site_admin_email'), config_item('site_title'));
 					$this->email->to($user->email);
 					$this->email->subject(config_item('site_title').' thanks you for signing up');
 					$this->email->message($message);
 					
-					if ($this->email->send() == TRUE): 
-						$message = array('status' => 'success', 'message' => 'User successfully created', 'data' => $user);
+					if ($this->email->send()): 
+						$message = array('status' => 'success', 'message' => 'User successfully created and email sent', 'data' => $user);
 					else:
-						$message = array('status' => 'error', 'message' => 'User successfully created, email could not be sent', 'data' => $user);
+						$message = array('status' => 'success', 'message' => 'User successfully created, email could not be sent', 'data' => $user);
 					endif;
 				else:
-					$data = array(
-						'email'   	 => $user->email,
-						'user_id'    => $user->user_id,
-						'email'      => $user->email,
-						'activation' => $user->activation_code,
-					);
-		            
-					$message = $this->load->view(config_item('email_templates').config_item('email_activate'), $data, true);
-		
-					$this->email->from(config_item('site_admin_email'), config_item('site_title'));
-					$this->email->to($user->email);
-					$this->email->subject(config_item('site_title') . ' - Account Activation');
-					$this->email->message($message);
-					
-					if ($this->ci->email->send() == TRUE): 
-						$message = array('status' => 'success', 'message' => 'User successfully created', 'data' => $user);
-					else:
-						$message = array('status' => 'error', 'message' => 'User successfully created, activation email could not be sent', 'data' => $user);
-					endif;
+					$message = array('status' => 'success', 'message' => 'User successfully created', 'data' => $user);
 				endif;
 	   		else:
 		        $message = array('status' => 'error', 'message' => 'Oops could not create user');
