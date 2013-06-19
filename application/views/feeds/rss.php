@@ -4,7 +4,7 @@
 	<title><?php echo $site_title ?></title>
 	<link><?php echo $site_url ?></link>
 	<description><?php echo $site_description ?></description>
-	<managingEditor><?php echo $site_admin ?></managingEditor>
+	<managingEditor><?php echo $site_url ?></managingEditor>
 	<generator><?= config_item('site_generator') ?> RSS Generator</generator>		        
 	<dc:language><?php echo $language ?></dc:language>  
 	<dc:creator></dc:creator>  

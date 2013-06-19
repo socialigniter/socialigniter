@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Feed
+ * Feeds
  * 
  * A controller for presenting feeds
  * 
  * @package Social Igniter\Controllers
  * @see MY_Controller
  */
-class Feed extends MY_Controller 
+class Feeds extends MY_Controller 
 { 
     function __construct() 
     {
@@ -24,13 +24,13 @@ class Feed extends MY_Controller
 		$this->data['encoding']		= 'utf-8'; 
 		$this->data['language'] 	= 'en-en';
 		$this->data['site_admin']	= config_item('site_admin_email').' ('.config_item('site_title').')';
-		$this->data['contents'] 	= $this->social_igniter->get_content_recent('all', 10);  
+		$this->data['contents'] 	= $this->social_igniter->get_content_recent('all', 20);  
 
 	    $this->output->set_header('Content-type:application/rss+xml');
-        echo $this->load->view('feed/rss', $this->data, true);
+        echo $this->load->view('feeds/rss', $this->data, true);
   	}
-  	
-   	
+
+
   	function comments()
   	{
  	 	$this->data['site_url']		= base_url();
