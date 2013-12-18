@@ -32,41 +32,41 @@ class MY_Controller extends MX_Controller
 
 	function __construct()
 	{
-        parent::__construct();
+    parent::__construct();
 
-        // Site Status or Error
-        if (config_item('site_status') === FALSE)
-        {
-            show_error('Sorry the site is shut for now.');
-        }
+    // Site Status or Error
+    if (config_item('site_status') === FALSE)
+    {
+        show_error('Sorry the site is shut for now.');
+    }
 
-        // Database
-        $this->load->database();
+    // Database
+    $this->load->database();
 
 		// Load Language
  		$this->lang->load('social_igniter', 'english');
  		$this->lang->load('activity_stream', 'english'); 	
 
-        // Load Libraries
-        $this->load->library('session');
-        $this->load->library('user_agent');
-        $this->load->library('social_auth');
-        $this->load->library('social_igniter');
-        $this->load->library('social_tools');
+    // Load Libraries
+    $this->load->library('session');
+    $this->load->library('user_agent');
+    $this->load->library('social_auth');
+    $this->load->library('social_igniter');
+    $this->load->library('social_tools');
 
-        // Disable IE7's constant caching
-        $this->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
-        $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
-        $this->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
-        $this->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
-        $this->output->set_header('Pragma: no-cache');
+    // Disable IE7's constant caching
+    $this->output->set_header('Expires: Sat, 01 Jan 2000 00:00:01 GMT');
+    $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
+    $this->output->set_header('Cache-Control: post-check=0, pre-check=0, max-age=0');
+    $this->output->set_header('Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
+    $this->output->set_header('Pragma: no-cache');
 
 		// Create Settings
 		foreach ($this->social_igniter->get_settings() as $setting)
 		{
 			$this->data['settings'][$setting->module][$setting->setting] = $setting->value;
 
-            $this->config->set_item($setting->module.'_'.$setting->setting, $setting->value);
+      $this->config->set_item($setting->module.'_'.$setting->setting, $setting->value);
 
 			// Make Widgets Array
 			if ($setting->module  == 'widgets') $this->site_widgets[] = $setting;
@@ -98,26 +98,26 @@ class MY_Controller extends MX_Controller
 
 		// Set Themes
 		// Is Mobile Browser
-        if ($this->agent->is_mobile())
-        {
-        	// Parse JSON Mobile Theme
-            $this->config->set_item('site_theme', $this->data['settings']['themes']['mobile_theme']);        	
-        	$this->site_theme = json_decode(file_get_contents(APPPATH.'views/'.config_item('site_theme').'/theme_schema.json'));
+    if ($this->agent->is_mobile())
+    {
+      // Parse JSON Mobile Theme
+      $this->config->set_item('site_theme', $this->data['settings']['themes']['mobile_theme']);        	
+      $this->site_theme = json_decode(file_get_contents(APPPATH.'views/'.config_item('site_theme').'/theme_schema.json'));
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['mobile_theme']);
         
-        	// Set Source
-        	$this->data['user_source'] = 'mobile';
-        }
-        else
-        {   
-        	// Parse JSON Site Theme
-            $this->config->set_item('site_theme', $this->data['settings']['themes']['site_theme']);
-        	$this->site_theme = json_decode(file_get_contents(APPPATH.'views/'.config_item('site_theme').'/theme_schema.json'));
+      // Set Source
+      $this->data['user_source'] = 'mobile';
+    }
+    else
+    {   
+    	// Parse JSON Site Theme
+      $this->config->set_item('site_theme', $this->data['settings']['themes']['site_theme']);
+    	$this->site_theme = json_decode(file_get_contents(APPPATH.'views/'.config_item('site_theme').'/theme_schema.json'));
 			$this->config->set_item('dashboard_theme', $this->data['settings']['themes']['dashboard_theme']);
-      
-        	// Set Source
-        	$this->data['user_source'] = 'web';
-        }
+  
+    	// Set Source
+    	$this->data['user_source'] = 'web';
+    }
 
 		$this->config->set_item('mobile_theme', $this->data['settings']['themes']['mobile_theme']);	
 		
@@ -162,18 +162,18 @@ class MY_Controller extends MX_Controller
 		$this->data['mobile_assets']		= base_url().'application/views/'.config_item('mobile_theme').'/assets/';
 		$this->data['profiles']				= base_url().'people/';
 
-        // Set the current controller and action name
-        $this->controller_name 				= $this->router->fetch_directory().$this->router->fetch_class();
-        $this->action_name     				= $this->router->fetch_method();
+    // Set the current controller and action name
+    $this->controller_name 				= $this->router->fetch_directory().$this->router->fetch_class();
+    $this->action_name     				= $this->router->fetch_method();
 
 		// For rendering pages in a modeule
-      	$this->module_name     				= $this->router->fetch_module();
-        $this->module_controller 			= $this->router->fetch_class();
-        
+  	$this->module_name     				= $this->router->fetch_module();
+    $this->module_controller 			= $this->router->fetch_class();
+    
 		// Scan Modules
 		$this->modules_scan = $this->social_igniter->scan_modules();        
 
-        // For Debugging
-        $this->output->enable_profiler(config_item('enable_profiler'));
+    // For Debugging
+    $this->output->enable_profiler(config_item('enable_profiler'));
 	}
 }
