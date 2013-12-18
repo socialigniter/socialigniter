@@ -124,10 +124,11 @@ class Content_model extends CI_Model
 		{
 			$this->db->where('type', $type);
 		}
-	 	
-	 	$this->db->where('content.status !=', 'D');
+
+	 	$this->db->where('content.access', 'E');	 	
+	 	$this->db->where('content.status', 'P');
 		$this->db->limit($limit);
-		$this->db->order_by('content.created_at', 'desc');
+		$this->db->order_by('content.created_at', 'asc');
  		$result = $this->db->get();	
  		return $result->result();
     }
