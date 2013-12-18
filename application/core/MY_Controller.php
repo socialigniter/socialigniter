@@ -14,21 +14,21 @@
 /* The MX_Controller class is autoloaded as required */
 class MY_Controller extends MX_Controller
 {
-    protected $data = array();
-    protected $site_widgets			= array();
-    protected $social_logins		= array();
-    protected $social_connections	= array();
+  protected $data = array();
+  protected $site_widgets			= array();
+  protected $social_logins		= array();
+  protected $social_connections	= array();
 	protected $social_post			= array();
 	protected $social_checkin		= array();	
-    protected $controller_name;
-    protected $action_name; 
-    protected $page_title;
-    protected $module_name;
-    protected $module_controller;
-    protected $module;
-    protected $modules_navigation;
-    protected $site_theme;
-    public $modules_scan 			= array();
+  protected $controller_name;
+  protected $action_name; 
+  protected $page_title;
+  protected $module_name;
+  protected $module_controller;
+  protected $module;
+  protected $modules_navigation;
+  protected $site_theme;
+  public $modules_scan 			= array();
 
 	function __construct()
 	{
@@ -82,13 +82,16 @@ class MY_Controller extends MX_Controller
 		$this->config->set_item('base_url', config_item('site_url'));
 		
 		// Site Values
-		$this->data['site_url']				= config_item('site_url');
+		$this->data['site_url']				  = config_item('site_url');
 		$this->data['site_title'] 			= config_item('site_title');
 		$this->data['page_title'] 			= NULL;
-		$this->data['sub_title']			= NULL;
-		$this->data['site_description'] 	= config_item('site_description');
+		$this->data['sub_title']			  = NULL;
+		$this->data['encoding']		      = 'utf-8'; 
+		$this->data['language'] 	      = 'en-en';		
+		$this->data['site_description'] = config_item('site_description');
 		$this->data['site_keywords'] 		= config_item('site_keywords');
 		$this->data['site_tagline'] 		= config_item('site_tagline');
+		$this->data['site_admin']	      = config_item('site_admin_email').' ('.config_item('site_title').')';
 
 		// Set Social Arrays
 		$this->config->set_item('social_logins', $this->social_logins);
