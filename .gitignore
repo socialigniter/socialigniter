@@ -5,6 +5,7 @@ cron.log
 crossdomain.xml
 favicon.ico
 error_log
+composer.lock
 application/config/config.php
 application/config/database.php
 application/config/custom.php
@@ -18,3 +19,4 @@ documentation/
 system/
 system/logs/
 uploads/
+vendor/
