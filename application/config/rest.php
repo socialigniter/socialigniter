@@ -47,7 +47,7 @@ $config['enable_emulate_request'] = TRUE;
 |	E.g: My Secret REST API
 |
 */
-$config['rest_realm'] = 'REST API';
+$config['rest_realm'] = 'Social Igniter REST API';
 
 /*
 |--------------------------------------------------------------------------
