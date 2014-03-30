@@ -55,16 +55,26 @@ function item_title($title, $type)
 	}
 }
 
-function item_linkify($text)
+function item_linkify($text, $site=NULL)
 {
+	$text = htmlentities($text);
+	if (!$site) { 
+		$site = config_item('site_url').'/profile/';
+		$search = config_item('site_url').'/search/';
+	}
+	elseif ($site == 'twitter') {
+		$site = 'https://twitter.com/';
+		$search = 'https://twitter.com/search?q=%23';
+	}
+
 	// Links
 	$text = preg_replace('/(https?:\/\/\S+)/', '<a href="\1" target="_blank">\1</a>', $text);
 	
 	// Users
-	$text = preg_replace('/(^|\s)@(\w+)/', '\1@<a href="'.config_item('site_url').'/profile/\2" target="_blank">\2</a>', $text);
+	$text = preg_replace('/(^|\s)@(\w+)/', '\1<a href="'.$site.'\2" target="_blank">@\2</a>', $text);
 	
 	// Hashtags
-	$text = preg_replace('/(^|\s)#(\w+)/', '\1#<a href="'.config_item('site_url').'/search/\2" target="_blank">\2</a>', $text);
+	$text = preg_replace('/(^|\s)#(\w+)/', '\1<a href="'.$search.'\2" target="_blank">#\2</a>', $text);
 
 	return $text;
 }

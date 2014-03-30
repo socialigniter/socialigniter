@@ -1,8 +1,3 @@
-#RewriteEngine On
-#
-#RewriteCond $1 !^(index\.php|favicon\.ico|css|docs|js|images|uploads|temp|crossdomain\.xml|robots\.txt|application/views/*|application/modules/*|install.php|phpinfo.php|)
-#RewriteRule ^(.*)$ index.php/$1 [L]
-
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
@@ -27,5 +22,7 @@
     # can be sent to index.php, and everything works as normal.
     # Submitted by: ElliotHaughin
 
-   ErrorDocument 404 /index.php
+    ErrorDocument 404 /index.php
 </IfModule>
+
+Options -Indexes

@@ -45,21 +45,17 @@ $(document).ready(function()
     var featureList = new List('manage_content_container', options);
 
 	// Sort By Category
-	$('#filter_category').change(function()
-	{			
+	$('#filter_category').change(function() {			
 		var category_id = $(this).val().toString();        
-		if (category_id == 'none')
-		{
+		if (category_id == 'none') {
 	        featureList.filter();
 	    }
-	    else
-	    {
-	        featureList.filter(function(item)
-	        {        
-	            if (item.values().item_category == category_id)
-	            {
+	    else {
+	        featureList.filter(function(item) {        
+	            if (item.values().item_category == category_id) {
 	                return true;
-	            } else {
+	            }
+	            else {
 	                return false;
 	            }
 	        });
@@ -68,21 +64,17 @@ $(document).ready(function()
   	});
 
   	// Sort By User
-	$('#filter_user').change(function()
-	{	
+	$('#filter_user').change(function() {	
 		var user_id = $(this).val();
-		if (user_id == 'none')
-		{
+		if (user_id == 'none') {
 	        featureList.filter();
 	    }
-	    else
-	    {
-	        featureList.filter(function(item)
-	        {
-	            if (item.values().item_user_id == user_id.toString())
-	            {
+	    else {
+	        featureList.filter(function(item) {
+	            if (item.values().item_user_id == user_id.toString()) {
 	                return true;
-	            } else {
+	            }
+	            else {
 	                return false;
 	            }
 	        });
@@ -94,18 +86,15 @@ $(document).ready(function()
 	$('#filter_details').change(function()
 	{	
 		var details = $(this).val();
- 		if (details == 'none')
-		{
+ 		if (details == 'none') {
 	        featureList.filter();
 	    }
-	    else
-	    {
-	        featureList.filter(function(item)
-	        {
-	            if (item.values().item_details == details)
-	            {
+	    else {
+	        featureList.filter(function(item) {
+	            if (item.values().item_details == details) {
 	                return true;
-	            } else {
+	            }
+	            else {
 	                return false;
 	            }
 	        });
@@ -113,15 +102,11 @@ $(document).ready(function()
         return false;		
   	});
 
-  	$('#sort_list').change(function()
-  	{
+  	$('#sort_list').change(function() {
 	  	var sort_by = $(this).val();
 	  		  	
 	  	featureList.sort(sort_by, { asc: true });	
-	  	
   	});
-  	
-
 
 });
 </script>
