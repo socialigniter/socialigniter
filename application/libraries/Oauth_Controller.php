@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-class Oauth_Controller extends REST_Controller
+class Oauth_Controller extends Rest_Controller
 {
 	  public $oauth_user_id;
   
