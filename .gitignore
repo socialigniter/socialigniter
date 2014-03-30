@@ -1,6 +1,4 @@
 *.DS_Store
-system/
-application/views/.DS_Store
 index.php
 cron.log
 .ftpquota
@@ -15,8 +13,8 @@ application/config/social_igniter.php
 application/helpers/custom_helper.php
 application/logs/
 application/modules/
-images/site/
-uploads/
-system/logs/
 application/views/
 documentation/
+system/
+system/logs/
+uploads/
