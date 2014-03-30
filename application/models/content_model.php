@@ -111,25 +111,23 @@ class Content_model extends CI_Model
 	 */
     function get_content_recent($site_id, $type, $limit)
     {    		
- 		$this->db->select('content.*, users.username, users.gravatar, users.name, users.image');
- 		$this->db->from('content');  
+ 		  $this->db->select('content.*, users.username, users.gravatar, users.name, users.image');
+ 		  $this->db->from('content');  
   		$this->db->join('users', 'users.user_id = content.user_id');		  
- 		$this->db->where('site_id', $site_id);
+ 		  $this->db->where('site_id', $site_id);
 
-    	if ($type == 'all')  
-		{
- 			$this->db->where('type !=', 'status');
-		}
-		else
-		{
-			$this->db->where('type', $type);
-		}
-	 	
-	 	$this->db->where('content.status !=', 'D');
-		$this->db->limit($limit);
-		$this->db->order_by('content.created_at', 'desc');
- 		$result = $this->db->get();	
- 		return $result->result();
+    	if ($type == 'all'):
+ 			  $this->db->where('type !=', 'status');
+		  else:
+			  $this->db->where('type', $type);
+		  endif;
+
+	 	  $this->db->where('content.access', 'E');	 	
+	 	  $this->db->where('content.status', 'P');
+		  $this->db->limit($limit);
+		  $this->db->order_by('content.created_at', 'desc');
+ 		  $result = $this->db->get();	
+ 		  return $result->result();
     }
     
     /**

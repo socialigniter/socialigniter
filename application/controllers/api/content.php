@@ -102,18 +102,42 @@ class Content extends Oauth_Controller
 
 	    	if ($result)
 		    {
-		    	// Process Tags if App Exists
-				if ($this->input->post('tags')) 
+				// Basic API Response
+	        	$message = array('status' => 'success', 'message' => 'Awesome we posted your content', 'data' => $result['content'], 'activity' => $result['activity']);
+
+
+		    	// Process Tags if Tags app is installed
+				if (($this->input->post('tags')) AND (check_app_installed('tags')))
 				{
-					if (check_app_installed('tags'))
-					{
-						$this->load->library('tags/tags_library');
-						$this->tags_library->process_tags($this->input->post('tags'), $result['content']->content_id);
-					}
+					$this->load->library('tags/tags_library');
+					$this->tags_library->process_tags($this->input->post('tags'), $result['content']->content_id);
+				
+					$message['tags'] = $this->input->post('tags');
 				}
 
-				// API Response
-	        	$message = array('status' => 'success', 'message' => 'Awesome we posted your content', 'data' => $result['content'], 'activity' => $result['activity'], 'raw_data' => $content_data);
+		    	// Create Short URL if Links app is installed
+				if (($this->input->post('short_url') == '1') AND (check_app_installed('links')))
+				{
+					// Create Short URL
+					$this->load->model('links/links_model');
+					$long_url	= base_url().$this->input->post('module').'/view/'.$result['content']->content_id;
+					$short_url	= $this->links_model->add_link($long_url, $this->oauth_user_id);
+
+					// Add Short URL to Content Meta
+					if ($short_url)
+					{	
+				    	$meta_data = array(
+				    		'site_id'		=> config_item('site_id'),
+							'content_id'	=> $result['content']->content_id,
+							'meta'			=> 'short_url',
+							'value'			=> config_item('links_short_url').$short_url
+				    	);
+
+						$this->social_igniter->add_meta($meta_data);							
+					
+						$message['short_url'] = config_item('links_short_url').$short_url;
+					}
+				}
 	        }
 	        else
 	        {

@@ -18,14 +18,18 @@ class Installer
 	{
 		$this->ci =& get_instance();
 		
-		// Load Things
   		$this->ci->load->helper('file');		
 		$this->ci->load->model('settings_model');
 		$this->ci->load->model('sites_model');
 	}	
-	
+
 	/**
-	 * Downloads app from Github repo
+	 * download_github function.
+	 * 
+	 * @access public
+	 * @param mixed $app_owner
+	 * @param mixed $app_name
+	 * @return void
 	 */
 	function download_github($app_owner, $app_name)
 	{
@@ -61,9 +65,14 @@ class Installer
 		
 		return $message;	
 	}
-	
+
 	/**
-	 * Downloads app from custom URL
+	 * download_custom function.
+	 * 
+	 * @access public
+	 * @param mixed $app_name
+	 * @param mixed $app_url
+	 * @return void
 	 */
 	function download_custom($app_name, $app_url)
 	{
@@ -109,7 +118,11 @@ class Installer
 	}
 	
 	/**
-	 * Unzips an app
+	 * uncompress_app function.
+	 * 
+	 * @access public
+	 * @param mixed $app
+	 * @return void
 	 */
 	function uncompress_app($app)
 	{
@@ -124,12 +137,13 @@ class Installer
 
 		return $extract;
 	}
-	
-	
+
 	/**
-	 * Delete App
+	 * delete_app function.
 	 * 
-	 * Delete App Files from /application/modules
+	 * @access public
+	 * @param mixed $app
+	 * @return void
 	 */
 	function delete_app($app)
 	{
@@ -137,9 +151,13 @@ class Installer
 	
 		return TRUE;
 	}
-		
+
 	/**
-	 * Create Folders
+	 * create_folders function.
+	 * 
+	 * @access public
+	 * @param mixed $app_folders
+	 * @return void
 	 */
 	function create_folders($app_folders)
 	{	
@@ -150,10 +168,14 @@ class Installer
 		
 		return TRUE;
 	}	
-	
 
-	/** 
-	 * Installs data into 'content' table
+	/**
+	 * install_content function.
+	 * 
+	 * @access public
+	 * @param mixed $app_content
+	 * @param mixed $user_id
+	 * @return void
 	 */
 	function install_content($app_content, $user_id)
 	{
@@ -179,10 +201,15 @@ class Installer
 		
 		return $result;
 	}
-	
-	
+
 	/**
-	 * Installs app data into the 'settings' table
+	 * install_settings function.
+	 * 
+	 * @access public
+	 * @param mixed $app
+	 * @param mixed $app_settings
+	 * @param mixed $reinstall (default: FALSE)
+	 * @return void
 	 */
 	function install_settings($app, $app_settings, $reinstall=FALSE)
 	{
@@ -232,9 +259,13 @@ class Installer
 
 		return $result;
 	}
-	
+
 	/**
-	 * Uninstall Settings
+	 * uninstall_settings function.
+	 * 
+	 * @access public
+	 * @param mixed $app
+	 * @return void
 	 */
 	function uninstall_settings($app)
 	{
@@ -255,9 +286,13 @@ class Installer
 			return array($current_settings, $delete_count);
 		}
 	}
-	
+
 	/**
-	 * Installs app data into the 'sites' table
+	 * install_sites function.
+	 * 
+	 * @access public
+	 * @param mixed $app_sites
+	 * @return void
 	 */
 	function install_sites($app_sites)
 	{

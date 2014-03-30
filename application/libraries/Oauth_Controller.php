@@ -2,7 +2,7 @@
 
 class Oauth_Controller extends Rest_Controller
 {
-	public $oauth_user_id;
+	  public $oauth_user_id;
   
     function __construct($config = array())
     {
@@ -41,6 +41,6 @@ class Oauth_Controller extends Rest_Controller
             $method = $authd_method;
         }
 
-        parent::_remap($method);
+        parent::_remap($method, array());
     }
 }

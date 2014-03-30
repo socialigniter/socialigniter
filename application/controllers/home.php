@@ -11,6 +11,7 @@ class Home extends Dashboard_Controller
  	{
  		if ($this->session->userdata('user_level_id') > config_item('home_view_permission')) redirect(login_redirect());
 
+ 		// Load Things
  		$this->load->library('activity_igniter');
 
 	 	$this->data['page_title']	= 'Home';

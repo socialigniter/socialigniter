@@ -149,6 +149,65 @@ function setLocalSocialOptions()
 	}
 }
 
+function setLocalSettingsOptions()
+{
+	if (typeof(Storage)!== "undefined")
+	{
+		// Set Empty Objects
+		if (localStorage.settings_post === undefined)
+		{
+			var settings_post = [];
+			localStorage.settings_post = JSON.stringify(settings_post);
+		}
+		else
+		{
+			// Check Existing
+			var settings_post = JSON.parse(localStorage.settings_post);
+			var settings_post_elements = $('.settings_post');
+
+			// Elements
+			$.each(settings_post_elements, function()
+			{
+				var setting_this = $(this).attr('name');
+	
+				if ($.inArray(setting_this, settings_post) > -1)
+				{
+					$(this).attr('checked', 'checked');
+				}
+			})
+		}
+	}
+}
+
+// Note, this only works on Adding to objects that exist once in a scope
+// Meaning, don't be expecting to add & remove from JS array objects
+// This is a HALF BAKED function for adding random settings to post_data array objects
+function addLocalSettingsPost(post_data)
+{
+	if (typeof(Storage)!== "undefined")
+	{
+		// Set Empty Objects
+		if (localStorage.settings_post === undefined)
+		{
+			var settings_post = [];
+			localStorage.settings_post = JSON.stringify(settings_post);
+		}
+		else
+		{
+			// Current Settings
+			var settings_post = JSON.parse(localStorage.settings_post);
+
+			// Loop Emm
+			$.each(settings_post, function(key, value)
+			{
+				// Add to Post Data
+				post_data.push({'name':value,'value':'1'});				
+			});
+		}
+	}
+}
+
+
 
 /*	mediaUploader - jQuery Plugin 
 	- Based on Pluploader http://plupload.com
@@ -845,7 +904,28 @@ $(document).ready(function()
 	});
 
 
+	// Social Post Change
+	$('.settings_post').bind('click', function()
+	{
+		var setting_this = $(this).attr('name');
+		var settings_post = JSON.parse(localStorage.settings_post);
+		var settings_post_this = $.inArray(setting_this, settings_post);
+		
+		if (settings_post_this > -1)
+		{			
+			settings_post.splice(settings_post_this, 1);		
+			localStorage.settings_post = JSON.stringify(settings_post);	
+		}
+		else
+		{
+			settings_post.push(setting_this);
+			localStorage.settings_post = JSON.stringify(settings_post);
+		}		
+	});
+
+
 	// Social Options
 	setLocalSocialOptions();
+	setLocalSettingsOptions();
 
 });

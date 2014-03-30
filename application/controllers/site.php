@@ -55,7 +55,7 @@ class Site extends Site_Controller
         $this->data['page_title'] = "Logout";
         
         $this->social_auth->logout();
-		
+
         redirect();
     }
     

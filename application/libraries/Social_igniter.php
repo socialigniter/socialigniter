@@ -42,8 +42,8 @@ class Social_igniter
      */
 	function profile_image($user_id, $image, $email_hash=NULL, $size='medium', $theme='themes_site_theme')
 	{
-		$this->ci->load->helper('gravatar');
-		$picture = base_url().'application/views/'.config_item($theme).'/assets/images/'.$size.'_'.config_item('no_profile');
+		$picture	= base_url().'application/views/'.config_item($theme).'/assets/images/'.$size.'_'.config_item('no_profile');
+		$gravatar	= 'https://gravatar.com/avatar.php?gravatar_id='.$email_hash.'&amp;rating=X&amp;size='.config_item('users_images_'.$size.'_width').'&amp;default='.$picture;
 
 		// Does User Have Image
 		if ($image)
@@ -67,7 +67,7 @@ class Social_igniter
 		    {
 				if (config_item('services_gravatar_enabled') == 'TRUE')
 				{		
-					return gravatar($email_hash, "X", config_item('users_images_'.$size.'_width'), $picture);
+					return $gravatar;
 				}
 		    }
 		    
@@ -76,7 +76,7 @@ class Social_igniter
 		
 		if (config_item('services_gravatar_enabled') == 'TRUE')
 		{		
-			$picture = gravatar($email_hash, "X", config_item('users_images_'.$size.'_width'), $picture);
+			return $gravatar;
 		}
 				
 		return $picture;

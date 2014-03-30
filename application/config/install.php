@@ -129,6 +129,11 @@ $config['database_categories_table'] = array(
 		'constraint'			=> 6,
 		'null'					=> TRUE
 	),
+	'status' => array(
+		'type'					=> 'CHAR',
+		'constraint'			=> 1,
+		'null'					=> TRUE
+	),
 	'created_at' => array(
 		'type'					=> 'DATETIME',
 		'default'				=> '9999-12-31 00:00:00' 
@@ -700,7 +705,7 @@ $config['database_users_sessions_table'] = array(
 	),
 	'ip_address' => array(
 		'type'					=> 'VARCHAR',
-		'constraint'			=> 16,
+		'constraint'			=> 45,
 		'null'					=> FALSE,
 		'default'				=> 0
 	),
@@ -775,7 +780,6 @@ $config['services_settings']['recaptcha_public'] = '';
 $config['services_settings']['recaptcha_private'] = '';
 $config['services_settings']['recaptcha_theme']	= 'white';
 $config['home_settings']['view_permission'] = '4';
-$config['home_settings']['create_permission'] = '4';
 $config['home_settings']['view_redirect'] = '';
 
 $config['users_settings']['images_sizes_large'] = 'yes';

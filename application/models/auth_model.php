@@ -356,9 +356,9 @@ class Auth_model extends CI_Model
         {
         	$group_name = config_item('default_group');
         }
-       
+
 	    $user_level_id = $this->db->select('user_level_id')->where('level', $group_name)->get('users_level')->row()->user_level_id;
-        
+
         if ($this->store_salt) 
         {
         	$salt = $this->salt();
