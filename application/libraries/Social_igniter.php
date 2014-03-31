@@ -324,25 +324,29 @@ class Social_igniter
 	{
 		$modules 		= $this->scan_modules();
 		$media_manager	= NULL;
-		
+
 		foreach ($modules as $module)
 		{
 			$manager_path = '/modules/'.$module.'/views/partials/media_manager.php';
-		
+
 		    if (file_exists(APPPATH.$manager_path))
 		    {
 		    	$media_manager .= $this->ci->load->view('..'.$manager_path, '', true);
 		    }
 		}
-	
+
 		return $media_manager;
 	}
 	
 	
 	/* Site */
-	function get_site()
+	function get_site($site_id=FALSE)
 	{
-		return $this->ci->sites_model->get_site();
+	    if (!$site_id):
+    	    $site_id = config_item('site_id');
+        endif;
+
+		return $this->ci->sites_model->get_site($site_id);
 	}
 
 	function get_site_view($parameter, $value)

@@ -13,16 +13,15 @@ class Sites_model extends CI_Model
         
     }
     
- 	function get_site()
+ 	function get_site($site_id)
  	{
-		if (config_item('site_type') == 'default')
-		{
+ 	   /* Commented out because has always been a premature (non-used) feature
+		if (config_item('site_type') == 'default'):
 	 		$where = array('type' => 'default');
-		}
-		else
-		{
-			$where = array('type' => 'additional', 'site_id' => config_item('site_id'));
-		}
+		endif;
+       */
+
+        $where = array('site_id' => $site_id);
  		
 		return $this->db->select('*')->where($where)->limit(1)->get('sites')->row();	
  	}

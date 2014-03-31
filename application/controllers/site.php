@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Site
  * 
@@ -190,33 +189,32 @@ class Site extends Site_Controller
 	// Activate the User
 	function activate()
 	{
-		if ((!$this->uri->segment(2)) OR (!$this->uri->segment(3))) redirect(base_url().'forgot_password');	
+		  if ((!$this->uri->segment(2)) OR (!$this->uri->segment(3))) redirect(base_url().'forgot_password');	
 	      
-		$activation = $this->social_auth->activate($this->uri->segment(2), $this->uri->segment(3));
+		  $activation = $this->social_auth->activate($this->uri->segment(2), $this->uri->segment(3));
 		
-        if ($activation)
-        {
-	        $this->session->set_flashdata('message', "Account Activated");
-	        redirect("login");
-        }
-        else
-        {
-	        $this->session->set_flashdata('message', "Unable to Activate");
-	        redirect("forgot_password");
-        }
+      if ($activation)
+      {
+        $this->session->set_flashdata('message', "Account Activated");
+        redirect("login");
+      }
+      else
+      {
+        $this->session->set_flashdata('message', "Unable to Activate");
+        redirect("forgot_password");
+      }
     }
     
     function activation()
     {    
-	    $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-    	$this->render('wide');
+      $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+      $this->render('wide');
     }
-
 
     // Page Not Found
     function error_404()
     {
-		$this->data['page_title'] = 'Oops, Page Not Found';
+		  $this->data['page_title'] = 'Oops, Page Not Found';
     	$this->render('wide');
     }
 
