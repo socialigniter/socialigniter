@@ -1,5 +1,21 @@
 <?php
 /**
+ * Composer
+ * https://getcomposer.org
+ *
+ * This first section will load packages from the Composer PHP package manager
+ * if it is installed on the local system, 
+ */
+
+$composer_path = './vendor'; 
+
+if (file_exists($composer_path.'/autoload.php'))
+{
+    include_once $composer_path.'/autoload.php';
+}
+
+
+/**
  * CodeIgniter
  *
  * An open source application development framework for PHP 5.1.6 or newer
