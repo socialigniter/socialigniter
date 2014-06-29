@@ -1,9 +1,11 @@
 {
-  "name": "socialigniter/core",
+  "name": "social-igniter",
   "description": "The Social-Igniter core application",
   "require": {
     "php": ">5.3.0",
-    "indieweb/mention-client": "*"
+		"guzzle/guzzle": "~4.0", 
+    "indieweb/mention-client": "*",
+    "barnabywalters/mf-cleaner": "dev-master"
   },
   "license": "Apache 2.0",
   "authors": [

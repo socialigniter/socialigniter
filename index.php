@@ -6,13 +6,20 @@
  * This first section will load packages from the Composer PHP package manager
  * if it is installed on the local system, 
  */
+ 
+namespace SocialIgniter;
 
 $composer_path = './vendor'; 
-
-if (file_exists($composer_path.'/autoload.php'))
-{
+if (file_exists($composer_path.'/autoload.php')):
+ob_start();
     include_once $composer_path.'/autoload.php';
-}
+ob_end_clean();
+endif;
+
+use Guzzle\Http as GuzzleHttp;
+use IndieWeb;
+use IndieWeb\MentionClient;
+use Mf2\Parser as MfParser;
 
 
 /**
