@@ -1,5 +1,6 @@
 {
     "name": "Social-Igniter",
+    "short_name": "",
     "icons": [
         {
             "src": "https://social-igniter.com/images/si_logo.png",
@@ -11,7 +12,8 @@
     "start_url": "/",
     "display": "fullscreen",
     "orientation": "landscape",
-    "description": "A ",
+    "short_description": "A super simple way to publish social content on the free & open web that empowers users to own their own data!",
+    "description": "Based on multiple IndieWeb protocols such as Webmention, POSSE, and PESOS, Social-Igniter is a super simple way to publish social content on the free and open web that empowers users to own their own data.",
     "license": "Apache 2.0",
     "license_url": "https://raw.github.com/socialigniter/socialigniter/master/LICENSE.txt",
     "source_url": "https://github.com/socialigniter/socialigniter",
@@ -33,7 +35,7 @@
                 "Social Networking",
                 "Blogging",
                 "Micro Blogging",
-                "CMS"
+                "Content Management"
             ]
         },
         {
@@ -42,7 +44,7 @@
                 "Social Networking",
                 "Blogging",
                 "Micro Blogging",
-                "CMS"
+                "Content Management"
             ]
         },
         {
@@ -51,7 +53,7 @@
                 "Social Networking",
                 "Blogging",
                 "Micro Blogging",
-                "CMS"
+                "Content Management"
             ]
         },
         {
@@ -60,7 +62,7 @@
                 "Social Networking",
                 "Blogging",
                 "Micro Blogging",
-                "CMS"
+                "Content Management"
             ]
         }
     ]
