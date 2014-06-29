@@ -1,0 +1,67 @@
+{
+    "name": "Social-Igniter",
+    "icons": [
+        {
+            "src": "https://social-igniter.com/images/si_logo.png",
+            "sizes": "122x150",
+            "type": "image/png",
+            "density": "1"
+        }
+    ],
+    "start_url": "/",
+    "display": "fullscreen",
+    "orientation": "landscape",
+    "description": "A ",
+    "license": "Apache 2.0",
+    "license_url": "https://raw.github.com/socialigniter/socialigniter/master/LICENSE.txt",
+    "source_url": "https://github.com/socialigniter/socialigniter",
+    "version": "0.1.0",
+    "developer": {
+        "name": "Reverse Productions",
+        "url": "http://reverseproductions.com"
+    },
+    "default_locale": "en",
+    "protocols": [
+        "POSSE",
+        "Webmention",
+        "HTTP"
+    ],
+    "categories": [
+        {
+            "name": "BSD",
+            "subcategories": [
+                "Social Networking",
+                "Blogging",
+                "Micro Blogging",
+                "CMS"
+            ]
+        },
+        {
+            "name": "GNU/Linux",
+            "subcategories": [
+                "Social Networking",
+                "Blogging",
+                "Micro Blogging",
+                "CMS"
+            ]
+        },
+        {
+            "name": "OS X",
+            "subcategories": [
+                "Social Networking",
+                "Blogging",
+                "Micro Blogging",
+                "CMS"
+            ]
+        },
+        {
+            "name": "Windows",
+            "subcategories": [
+                "Social Networking",
+                "Blogging",
+                "Micro Blogging",
+                "CMS"
+            ]
+        }
+    ]
+}
